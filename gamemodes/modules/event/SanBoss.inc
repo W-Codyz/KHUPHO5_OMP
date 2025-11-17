@@ -77,7 +77,7 @@ CMD:taoboss(playerid, params[]) {
 	    
 	    BossRangeTimer = SetTimer("CheckBossRange", 1000, true);
 
-		DiscordLog(ccChannel, "⚔️ THÔNG BÁO: SĂN BOSS HẢI TẶC! 🏴‍☠️", "**⏰ Ngay bây giờ! Hãy chuẩn vào sự kiện săn Boss hải tặc chính thức bắt đầu!\nHạ gục Boss để nhận ngay phần thưởng ngẫu nhiên cực khủng!! (/bosshtb) 💰\nTham gia ngay, chiến đấu và rinh quà về thôi nào! 🔥**");
+		DiscordLog(ccChannel, "⚔️ THÔNG BÁO: SĂN BOSS HẢI TẶC! 🏴‍☠️", "**⏰ Ngay bây giờ! Sự kiện săn Boss hải tặc chính thức bắt đầu!\nHạ gục Boss để nhận ngay phần thưởng ngẫu nhiên cực khủng!! (/bosshtb) 💰\nTham gia ngay, chiến đấu và rinh quà về thôi nào! 🔥**");
         DCC_SendChannelMessage(ccChannel, "@everyone");
     } else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban Khong Duoc Su Dung Lenh Nay");
 

@@ -78,9 +78,13 @@
 #include "./modules/player/rentcar/header"
 #include "./modules/player/inventory/header"
 #include "./modules/player/mission/header"
+#include "./modules/player/suckhoe"
 
 //==============SYSTEM============//
 #include "./modules/system/ruatho"
+#include "./modules/system/food"
+#include "./modules/system/safezone"
+#include "./modules/system/faction/leader_cmd"
 
 #include "./modules/timers"
 #include "./modules/mysql"
@@ -122,7 +126,7 @@
 #include "./modules/player/enter_exit"
 #include "./modules/player/mail"
 #include "./modules/player/speedo"
-#include "./modules/player/send_location"
+//#include "./modules/player/send_location"
 
 #include "./modules/dialog/main"
 

@@ -602,6 +602,8 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "Bait", szResult, MainPipeline); PlayerInfo[extraid][pBait] = strval(szResult);
 					cache_get_field_content(row,  "InvType", szResult, MainPipeline); PlayerInfo[extraid][pInvType] = strval(szResult);
 					cache_get_field_content(row,  "pBinhXit", szResult, MainPipeline); PlayerInfo[extraid][pBinhXit] = strval(szResult);
+					cache_get_field_content(row,  "pThucAn", szResult, MainPipeline); PlayerInfo[extraid][pThucAn] = strval(szResult);
+					cache_get_field_content(row,  "pNuoc", szResult, MainPipeline); PlayerInfo[extraid][pNuoc] = strval(szResult);
 					
 					//gg
 					cache_get_field_content(row,  "DiscordCode", szResult, MainPipeline); PlayerInfo[extraid][pDiscordCode] = strval(szResult);
@@ -3067,6 +3069,8 @@ stock g_mysql_SaveAccount(playerid)
 	
 	//gg
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pBinhXit", PlayerInfo[playerid][pBinhXit]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pThucAn", PlayerInfo[playerid][pThucAn]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pNuoc", PlayerInfo[playerid][pNuoc]);
 
 	new string[128];
 	for(new i;i<5;i++) {

@@ -944,7 +944,9 @@ enum pInfo
 	pFishRod,
 	pBait,
 	pInvType,
-	pBinhXit
+	pBinhXit,
+	pThucAn,
+	pNuoc
 
 
 	//enum pinfo

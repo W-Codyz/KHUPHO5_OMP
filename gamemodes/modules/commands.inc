@@ -3441,7 +3441,7 @@ CMD:auctions(playerid, params[]) {
 	return 1;
 }
 
-CMD:online(playerid, params[]) {
+/* CMD:online(playerid, params[]) {
     if(PlayerInfo[playerid][pLeader] >= 0)
 	{
 
@@ -3471,7 +3471,7 @@ CMD:online(playerid, params[]) {
 
     }  else SendClientMessageEx(playerid, COLOR_GREY, "Chi co leader Group moi co the su dung duoc lenh nay.");
     return 1;
-}
+} */
 
 CMD:bonline(playerid, params[]) {
 	new iBusinessID = PlayerInfo[playerid][pBusiness];
@@ -43455,7 +43455,7 @@ CMD:groupaddjurisdiction(playerid, params[]) {
 	return 1;
 }
 
-CMD:uninvite(playerid, params[]) {
+/* CMD:uninvite(playerid, params[]) {
 	if(0 <= PlayerInfo[playerid][pLeader] < MAX_GROUPS) {
 
 		new
@@ -43811,7 +43811,7 @@ CMD:setdiv(playerid, params[]) {
 	else
 	    return SendUnAuth(playerid);
 	return 1;
-}
+} */
 
 CMD:invite(playerid, params[]) {
 	if(0 <= PlayerInfo[playerid][pLeader] < MAX_GROUPS) {

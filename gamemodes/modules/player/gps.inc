@@ -160,9 +160,10 @@ DialogPages:DIALOG_FINDBUSINESSES(playerid, response, listitem, inputtext[])
 	return 1;
 }
 
+alias:gps("timduuong")
 CMD:gps(playerid, params[])
 {
-	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_TABLIST, "Navigation GPS", "\
+	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_TABLIST, "Tim duong", "\
             {FFFFFF}Dia diem San Andreas\t{BFC26E}Tim kiem cac dia diem co san tren San Andreas\n\
             {FFFFFF}Cong viec\t{BFC26E}Tim kiem cac viec lam tren San Andreas\n\
             {FFFFFF}Cua hang 24/7\t{BFC26E}Tim kiem cac cua hang 24/7 tren San Andreas\n\
