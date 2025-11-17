@@ -4611,6 +4611,14 @@ public OnPlayerEnterCheckpoint(playerid)
 		}
 	}
 
+	if(CP[playerid] == 252000)
+	{
+		PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+		CP[playerid] = 0;
+		DisablePlayerCheckpoint(playerid);
+		return 1;
+	}
+
 	return 1;
 }
 

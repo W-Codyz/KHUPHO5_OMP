@@ -54,26 +54,33 @@
 //#include "./modules/actor/header"
 
 //==============ANTI CHECK============//
-#include "./modules/anti/Teleport.inc"
+#include "./modules/anti/Teleport"
 #include "./modules/anti/Main.pwn"
+#include "./modules/anti/anti-f4t"
 
 //==============EVENT============//
-#include "./modules/Event/SanBoss.inc"
+#include "./modules/Event/SanBoss"
 
-#include "./modules/administrator/cmd.inc"
+#include "./modules/administrator/cmd"
 
 #include "./modules/misc/msg"
 
+//==============JOB============//
 #include "./modules/job/header"
 #include "./modules/job/trucker/header"
 #include "./modules/job/porter/header"
 #include "./modules/job/pizzaboy/header"
 #include "./modules/job/construction/header"
 #include "./modules/job/side_job/fisher/header"
+#include "./modules/job/painter/main"
 
+//==============PLAYER============//
 #include "./modules/player/rentcar/header"
 #include "./modules/player/inventory/header"
 #include "./modules/player/mission/header"
+
+//==============SYSTEM============//
+#include "./modules/system/ruatho"
 
 #include "./modules/timers"
 #include "./modules/mysql"

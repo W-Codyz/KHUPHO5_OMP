@@ -22032,3 +22032,13 @@ stock GetWeaponSlotEx(weaponid)
 	}
 	return -1;
 }
+
+forward Float: vehicle_get_speed(vehicleid);
+public Float: vehicle_get_speed(vehicleid)
+{
+	new
+		Float: fVelocity[3];
+
+	GetVehicleVelocity(vehicleid, fVelocity[0], fVelocity[1], fVelocity[2]);
+	return floatsqroot((fVelocity[0] * fVelocity[0]) + (fVelocity[1] * fVelocity[1]) + (fVelocity[2] * fVelocity[2])) * 100;
+}

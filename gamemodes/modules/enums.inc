@@ -943,7 +943,11 @@ enum pInfo
 	pNbCurrent,
 	pFishRod,
 	pBait,
-	pInvType
+	pInvType,
+	pBinhXit
+
+
+	//enum pinfo
 };
 
 enum pvInfo
