@@ -3225,7 +3225,7 @@ public OnPlayerDisconnect(playerid, reason)
 				
 		}
 
-		SavePlayerRentalCar(playerid);
+		//SavePlayerRentalCar(playerid);
 		UnloadPlayerVehicles(playerid);
 		g_mysql_AccountOnline(playerid, 0);
 

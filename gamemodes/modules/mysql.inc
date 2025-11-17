@@ -628,7 +628,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 
 					g_mysql_LoadPVehicles(extraid);
 					g_mysql_LoadPlayerToys(extraid);
-					LoadPlayerRentalCar(extraid);
+					//LoadPlayerRentalCar(extraid);
 
 					//g_mysql_LoadPVehiclePositions(extraid);
 					OnPlayerLoad(extraid);

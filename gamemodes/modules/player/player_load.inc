@@ -658,7 +658,7 @@ public OnPlayerLoad(playerid)
 	    LoadTickets(playerid);
 	}
 
-	LoadPlayerRentalCar(playerid);
+	//LoadPlayerRentalCar(playerid);
 
 	if(PlayerInfo[playerid][pNbCurrent] != -1) {
 		new missionid = PlayerInfo[playerid][pNbCurrent];

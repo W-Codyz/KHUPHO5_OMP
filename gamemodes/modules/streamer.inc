@@ -667,7 +667,7 @@ public LoadStreamerDynamicObjects()
 forward RemoveBuildings(playerid);
 public RemoveBuildings(playerid)
 {
-	// Bank San Fierro
+	/* // Bank San Fierro
 	RemoveBuildingForPlayer(playerid, 10949, -2076.270, 359.320, 44.591, 0.250);
 	RemoveBuildingForPlayer(playerid, 11024, -2076.270, 359.320, 44.591, 0.250);
 	RemoveBuildingForPlayer(playerid, 3867, -2022.088, 364.578, 49.154, 999.000);
@@ -1126,7 +1126,7 @@ public RemoveBuildings(playerid)
 	RemoveBuildingForPlayer(playerid, 10706, -2398.300, 268.178, 44.179, 0.250);
 	RemoveBuildingForPlayer(playerid, 1412, -2308.159, 83.984, 35.585, 0.250);
 	RemoveBuildingForPlayer(playerid, 1412, -2313.469, 83.984, 35.585, 0.250);
-	RemoveBuildingForPlayer(playerid, 1412, -2318.790, 83.984, 35.585, 0.250);
+	RemoveBuildingForPlayer(playerid, 1412, -2318.790, 83.984, 35.585, 0.250); */
 	return 1;
 }
 
