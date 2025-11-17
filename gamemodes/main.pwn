@@ -74,6 +74,7 @@
 #include "./modules/job/painter/main"
 #include "./modules/job/cansa/main"
 #include "./modules/job/fishing/main"
+#include "./modules/job/lumber/main"
 
 //==============PLAYER============//
 #include "./modules/player/rentcar/header"

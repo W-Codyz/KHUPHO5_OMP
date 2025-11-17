@@ -970,6 +970,11 @@ enum pInfo
     pFishSturgeon,
     pFishKoi,
     pFishGolden,
+	pAxe,
+	pGoTho,
+	pGoThuong,
+	pGoXin,
+	pGoHiem
 
 
 	//enum pinfo

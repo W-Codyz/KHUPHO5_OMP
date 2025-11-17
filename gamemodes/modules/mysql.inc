@@ -662,6 +662,17 @@ public OnQueryFinish(resultid, extraid, handleid)
 
 					cache_get_field_content(row, "FishGolden", szResult, MainPipeline); 
 					PlayerInfo[extraid][pFishGolden] = strval(szResult);
+
+					cache_get_field_content(row, "Axe", szResult, MainPipeline);
+					PlayerInfo[extraid][pAxe] = strval(szResult);
+					cache_get_field_content(row, "GoTho", szResult, MainPipeline);
+					PlayerInfo[extraid][pGoTho] = strval(szResult);
+					cache_get_field_content(row, "GoThuong", szResult, MainPipeline);
+					PlayerInfo[extraid][pGoThuong] = strval(szResult);
+					cache_get_field_content(row, "GoHiem", szResult, MainPipeline);
+					PlayerInfo[extraid][pGoHiem] = strval(szResult);
+					cache_get_field_content(row, "GoXin", szResult, MainPipeline);
+					PlayerInfo[extraid][pGoXin] = strval(szResult);
 					
 					cache_get_field_content(row,  "NbMissionCur", szResult, MainPipeline); PlayerInfo[extraid][pNbCurrent] = strval(szResult);
 					cache_get_field_content(row,  "NbMission", szResult, MainPipeline);
@@ -3151,8 +3162,13 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishSturgeon", PlayerInfo[playerid][pFishSturgeon]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishKoi", PlayerInfo[playerid][pFishKoi]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishGolden", PlayerInfo[playerid][pFishGolden]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "Axe", PlayerInfo[playerid][pAxe]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoTho", PlayerInfo[playerid][pGoTho]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoThuong", PlayerInfo[playerid][pGoThuong]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoHiem", PlayerInfo[playerid][pGoHiem]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoXin", PlayerInfo[playerid][pGoXin]);
 
-
+	
 	new string[128];
 	for(new i;i<5;i++) {
 		if(i < 4) format(string, _, "%s%d,", string, PlayerInfo[playerid][pNbMission][i]);
