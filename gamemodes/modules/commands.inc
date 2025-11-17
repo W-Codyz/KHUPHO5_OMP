@@ -39962,13 +39962,13 @@ CMD:speedo(playerid, params[])
 	{
 		SendClientMessageEx(playerid, COLOR_WHITE, "Ban da bat dong ho toc do.");
 		PlayerInfo[playerid][pSpeedo] = 1;
-		ShowVehicleHUDForPlayer(playerid);
+		//ShowVehicleHUDForPlayer(playerid);
 	}
 	else
 	{
 		SendClientMessageEx(playerid, COLOR_WHITE, "Ban da vo hieu hoa dong ho toc do.");
 		PlayerInfo[playerid][pSpeedo] = 0;
-		HideVehicleHUDForPlayer(playerid);
+		//HideVehicleHUDForPlayer(playerid);
 	}
 
 	return 1;

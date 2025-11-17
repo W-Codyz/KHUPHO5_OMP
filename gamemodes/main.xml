@@ -7325,7 +7325,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="sDeployedBy"/>
+			<referrer name="arrestType"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -9875,7 +9875,6 @@
 		</member>
 		<member name="F:FindTimePoints">
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="ServerMicrobeat"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:FindingPlayer">
@@ -14898,7 +14897,6 @@
 		</member>
 		<member name="F:VehicleFuel">
 			<tagname value="Float"/>
-			<referrer name="ServerMicrobeat"/>
 			<referrer name="VehicleUpdate"/>
 			<referrer name="Vehicle_ResetData"/>
 			<referrer name="GasPumpSaleTimer"/>
@@ -17302,10 +17300,6 @@
 			<referrer name="CreatePlayerTextDraws"/>
 		</member>
 		<member name="F:_vhudVisible">
-			<referrer name="ServerMicrobeat"/>
-			<referrer name="OPBA_OnPlayerDeath"/>
-			<referrer name="OPBA_OnPlayerStateChange"/>
-			<referrer name="OPBA_OnPlayerExitVehicle"/>
 			<referrer name="CreatePlayerTextDraws"/>
 		</member>
 		<member name="F:_zzzzzzzzzzzzzzzzzzzzzzzzzzzzzy">
@@ -40563,7 +40557,6 @@
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerHeartbeatTwo"/>
-			<referrer name="ServerMicrobeat"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnChangeUserPassword"/>
 			<referrer name="Group_QueryFinish"/>
@@ -45620,14 +45613,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:HideVehicleHUDForPlayer" syntax="HideVehicleHUDForPlayer()">
-			<stacksize value="1"/>
-			<referrer name="ServerMicrobeat"/>
-			<referrer name="pc_cmd_speedo"/>
-			<referrer name="OPBA_OnPlayerDeath"/>
-			<referrer name="OPBA_OnPlayerStateChange"/>
-			<referrer name="OPBA_OnPlayerExitVehicle"/>
-		</member>
 		<member name="M:HienTextdraw" syntax="HienTextdraw(playerid, string[])">
 			<stacksize value="7"/>
 			<referrer name="pc_cmd_time"/>
@@ -49563,7 +49548,6 @@
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerHeartbeatTwo"/>
-			<referrer name="ServerMicrobeat"/>
 			<referrer name="StationSelectHTTP"/>
 			<referrer name="OtherTimerEx"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
@@ -56126,7 +56110,6 @@
 			<dependency name="GivePlayerCash"/>
 			<dependency name="GoChase"/>
 			<dependency name="GotHit"/>
-			<dependency name="HideVehicleHUDForPlayer"/>
 			<dependency name="HungerPlayerInfo"/>
 			<dependency name="InsidePlane"/>
 			<dependency name="IsAHelicopter"/>
@@ -56171,7 +56154,6 @@
 			<dependency name="_crTextSpeed"/>
 			<dependency name="_crTextTarget"/>
 			<dependency name="_crTickets"/>
-			<dependency name="_vhudVisible"/>
 			<dependency name="cellmax"/>
 			<dependency name="floatround"/>
 			<dependency name="format"/>
@@ -56546,7 +56528,6 @@
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
-			<dependency name="HideVehicleHUDForPlayer"/>
 			<dependency name="IsABike"/>
 			<dependency name="Iter_DestroyVehicle"/>
 			<dependency name="KillTimer"/>
@@ -56558,7 +56539,6 @@
 			<dependency name="_crTextSpeed"/>
 			<dependency name="_crTextTarget"/>
 			<dependency name="_crTickets"/>
-			<dependency name="_vhudVisible"/>
 			<dependency name="format"/>
 			<param name="playerid">
 			</param>
@@ -56674,7 +56654,6 @@
 			<dependency name="GetWeaponSlot"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="GivePlayerValidWeapon"/>
-			<dependency name="HideVehicleHUDForPlayer"/>
 			<dependency name="I@"/>
 			<dependency name="InBusiness"/>
 			<dependency name="IsAHelicopter"/>
@@ -56718,7 +56697,6 @@
 			<dependency name="SetPlayerWeaponsEx"/>
 			<dependency name="SetTimerEx"/>
 			<dependency name="SetVehicleParamsEx"/>
-			<dependency name="ShowVehicleHUDForPlayer"/>
 			<dependency name="Spectate"/>
 			<dependency name="Spectating"/>
 			<dependency name="StopAudioStreamForPlayerEx"/>
@@ -56740,7 +56718,6 @@
 			<dependency name="_crTextSpeed"/>
 			<dependency name="_crTextTarget"/>
 			<dependency name="_crTickets"/>
-			<dependency name="_vhudVisible"/>
 			<dependency name="_yT@NOPCheck"/>
 			<dependency name="arrGroupData"/>
 			<dependency name="arrGroupData"/>
@@ -56776,7 +56753,6 @@
 			<dependency name="pJob2"/>
 			<dependency name="pMember"/>
 			<dependency name="pRank"/>
-			<dependency name="pSpeedo"/>
 			<dependency name="pTaxiLicense"/>
 			<dependency name="pTazer"/>
 			<dependency name="pTazerReplace"/>
@@ -74329,16 +74305,12 @@
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="AttachTrailerToVehicle"/>
 			<dependency name="FIXES_GameTextForPlayer"/>
-			<dependency name="FindTimePoints"/>
-			<dependency name="GetPVarType"/>
 			<dependency name="GetPlayerHealth"/>
 			<dependency name="GetPlayerState"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleHealth"/>
 			<dependency name="GetVehicleModel"/>
 			<dependency name="GetVehicleParamsEx"/>
-			<dependency name="HideVehicleHUDForPlayer"/>
-			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="IsVehicleStreamedIn"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="PlayerInfo"/>
@@ -74346,20 +74318,15 @@
 			<dependency name="SetPlayerHealth"/>
 			<dependency name="SetVehicleHealth"/>
 			<dependency name="SetVehicleParamsEx"/>
-			<dependency name="UpdateVehicleHUDForPlayer"/>
 			<dependency name="VEHICLE_PARAMS_OFF"/>
 			<dependency name="VEHICLE_PARAMS_ON"/>
-			<dependency name="VehicleFuel"/>
 			<dependency name="Vehicle_Speed"/>
-			<dependency name="_vhudVisible"/>
 			<dependency name="arr_Engine"/>
 			<dependency name="arr_Towing"/>
 			<dependency name="cellmax"/>
 			<dependency name="fVehHealth"/>
 			<dependency name="fVehSpeed"/>
-			<dependency name="floatround"/>
 			<dependency name="pAdmin"/>
-			<dependency name="pSpeedo"/>
 		</member>
 		<member name="M:Server_Abort" syntax="Server_Abort(reason)">
 			<stacksize value="1"/>
@@ -78615,11 +78582,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:ShowVehicleHUDForPlayer" syntax="ShowVehicleHUDForPlayer()">
-			<stacksize value="1"/>
-			<referrer name="pc_cmd_speedo"/>
-			<referrer name="OPBA_OnPlayerStateChange"/>
-		</member>
 		<member name="M:ShowVouchers" syntax="ShowVouchers(playerid, targetid)">
 			<stacksize value="1089"/>
 			<referrer name="pc_cmd_myvouchers"/>
@@ -81726,10 +81688,6 @@
 			</param>
 			<param name="tires">
 			</param>
-		</member>
-		<member name="M:UpdateVehicleHUDForPlayer" syntax="UpdateVehicleHUDForPlayer()">
-			<stacksize value="1"/>
-			<referrer name="ServerMicrobeat"/>
 		</member>
 		<member name="M:UpdateWaze" syntax="UpdateWaze(playerid, X, Y, Z)">
 			<attribute name="public"/>
@@ -87522,7 +87480,6 @@
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
 			<referrer name="pc_cmd_suckhoe"/>
-			<referrer name="ServerMicrobeat"/>
 			<referrer name="SQL_Log"/>
 			<referrer name="TimeConvert"/>
 			<referrer name="GasPumpSaleTimer"/>
@@ -114499,11 +114456,9 @@
 			<attribute name="public"/>
 			<stacksize value="6"/>
 			<dependency name="GetPlayerState"/>
-			<dependency name="HideVehicleHUDForPlayer"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
-			<dependency name="ShowVehicleHUDForPlayer"/>
 			<dependency name="pSpeedo"/>
 			<param name="playerid">
 			</param>

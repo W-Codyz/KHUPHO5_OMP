@@ -1686,10 +1686,10 @@ task ServerMicrobeat[500]() {
 
 	foreach(new i: Player)
 	{
-		if (_vhudVisible[i] == 1 && !IsPlayerInAnyVehicle(i))
+		/* if (_vhudVisible[i] == 1 && !IsPlayerInAnyVehicle(i))
 		{
 			HideVehicleHUDForPlayer(i);
-		}
+		} */
 
 		switch(GetPlayerState(i)) {
 		    case PLAYER_STATE_DRIVER: {
@@ -1729,18 +1729,18 @@ task ServerMicrobeat[500]() {
 					GameTextForPlayer(i, "~r~XE HONG!", 2500, 3);
 					arr_Engine{iVehicle} = 0;
 				}
-				else if(PlayerInfo[i][pSpeedo] != 0 && FindTimePoints[i] == 0 && arr_Engine{iVehicle} == 1 && !GetPVarType(i, "LoadTruckTime")) {
+				/* else if(PlayerInfo[i][pSpeedo] != 0 && FindTimePoints[i] == 0 && arr_Engine{iVehicle} == 1 && !GetPVarType(i, "LoadTruckTime")) {
 					UpdateVehicleHUDForPlayer(i, floatround(VehicleFuel[iVehicle]), floatround(fCurrentSpeed));
-				}
+				} */
 			}
 			case PLAYER_STATE_PASSENGER: {
 
 			    iVehicle = GetPlayerVehicleID(i);
 	            GetVehicleHealth(iVehicle,fExpHealth);
 				fCurrentSpeed = Vehicle_Speed(iVehicle);
-				if(PlayerInfo[i][pSpeedo] != 0) {
+				/* if(PlayerInfo[i][pSpeedo] != 0) {
 					UpdateVehicleHUDForPlayer(i, floatround(VehicleFuel[iVehicle]), floatround(fCurrentSpeed));
-				}
+				} */
 				if(fCurrentSpeed >= 40 && 60 <= fCurrentSpeed)
 				{
 					if(PlayerInfo[i][pAdmin] <= 1) switch(Seatbelt[i]) {

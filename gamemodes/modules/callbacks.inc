@@ -3511,10 +3511,10 @@ public OnPlayerDeath(playerid, killerid, reason)
 			SetPVarInt(playerid, "_BoxingFightOver", time + 8);
 			SetPVarInt(winner, "_BoxingFightOver", time + 1);
 		}
-	    if (_vhudVisible[playerid] == 1)
+	    /* if (_vhudVisible[playerid] == 1)
 		{
 			HideVehicleHUDForPlayer(playerid); // incase vehicle despawns
-		}
+		} */
 		if (CarRadars[playerid] > 0)
 		{
 			CarRadars[playerid] = 0;
@@ -5208,13 +5208,13 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 	}
 	IsPlayerEntering{playerid} = false;
-	if(newstate == PLAYER_STATE_PASSENGER)
+	/* if(newstate == PLAYER_STATE_PASSENGER)
 	{
 		if (PlayerInfo[playerid][pSpeedo] != 0)
 		{
 			ShowVehicleHUDForPlayer(playerid);
 		}
-	}
+	} */
 	if(newstate == PLAYER_STATE_DRIVER)
 	{
 		if (IsAtGym(playerid))
@@ -5235,10 +5235,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			}
 		}
 
-		if (PlayerInfo[playerid][pSpeedo] != 0)
+		/* if (PlayerInfo[playerid][pSpeedo] != 0)
 		{
 			ShowVehicleHUDForPlayer(playerid);
-		}
+		} */
 
 	    new vehicleid = GetPlayerVehicleID(playerid);
 		if(GetVehicleModel(vehicleid) == 530)
@@ -5299,10 +5299,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 	    if(oldstate == PLAYER_STATE_DRIVER)
 		{
-			if (_vhudVisible[playerid] == 1)
+			/* if (_vhudVisible[playerid] == 1)
 			{
 				HideVehicleHUDForPlayer(playerid); // incase vehicle despawns
-			}
+			} */
 			if (CarRadars[playerid] > 0)
 			{
 				PlayerTextDrawHide(playerid, _crTextTarget[playerid]);
@@ -5723,10 +5723,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	if (_vhudVisible[playerid] == 1)
+	/* if (_vhudVisible[playerid] == 1)
 	{
 		HideVehicleHUDForPlayer(playerid);
-	}
+	} */
 	if (CarRadars[playerid] > 0)
 	{
 		PlayerTextDrawHide(playerid, _crTextTarget[playerid]);
