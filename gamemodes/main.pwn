@@ -86,6 +86,7 @@
 #include "./modules/system/safezone"
 #include "./modules/system/faction/leader_cmd"
 #include "./modules/system/logo"
+#include "./modules/system/support_notif"
 
 #include "./modules/timers"
 #include "./modules/mysql"
@@ -112,8 +113,8 @@
 #include "./modules/job/side_job/sweeper/sweeper"
 
 //#include "./modules/player/rentcar/rentcar"
-#include "./modules/player/inventory/inventory"
-#include "./modules/player/inventory/drop"
+//#include "./modules/player/inventory/inventory"
+//#include "./modules/player/inventory/drop"
 #include "./modules/player/mission/newbie"
 
 #include "./modules/player/loading"

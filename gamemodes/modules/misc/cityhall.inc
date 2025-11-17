@@ -19,6 +19,6 @@ CreateIDCard(playerid)
 
 ShowCityHallDialog(playerid)
 {
-    ShowPlayerDialog(playerid, DIALOG_CITYHALL, DIALOG_STYLE_LIST, "{FFFFFF}Charlotte Evans", "Phat hanh Can cuoc cong dan", "Chon", "Dong");
+    ShowPlayerDialog(playerid, DIALOG_CITYHALL, DIALOG_STYLE_LIST, "{FFFFFF}W_Cody", "Lam the can cuoc cong dan", "Chon", "Dong");
     return 1;
 }

@@ -4365,7 +4365,7 @@ CMD:time(playerid, params[])
 	{
 		ApplyAnimation(playerid,"COP_AMBIENT","Coplook_watch", 4.0, false, false, false, false, 0, 1);
 	}
-    GameTextForPlayer(playerid, string, 5000, 1);
+    HienTextdraw(playerid, string);
     return 1;
 }
 
@@ -44900,7 +44900,7 @@ CMD:offermenu(playerid, params[])
     return 1;
 }
 
-alias:buyfood("muathucan")
+/* alias:buyfood("muathucan")
 CMD:buyfood(playerid, params[])
 {
 	if (!IsAtRestaurant(playerid))
@@ -44947,7 +44947,7 @@ CMD:buyfood(playerid, params[])
     }
 
 	return 1;
-}
+} */
 
 CMD:bpanic(playerid, params[])
 {

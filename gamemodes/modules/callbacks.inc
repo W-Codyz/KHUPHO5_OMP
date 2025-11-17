@@ -5785,12 +5785,13 @@ public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
 {
     if(result == -1)
     {
-        if(!IsTextDrawVisibleForPlayer(playerid, noticeCommand[0]))
+        /* if(!IsTextDrawVisibleForPlayer(playerid, noticeCommand[0]))
 		{
 			for(new i;i<3;i++) TextDrawShowForPlayer(playerid, noticeCommand[i]);
 			SetTimerEx("HideNoticeCommand", 5000, false, "i", playerid);
 		}
-		return 0;
+		return 0; */
+		HienTextdraw(playerid, "~r~[!]~w~ Lenh khong hop le. Vui long nhap /help de xem danh sach lenh.");
     }
     return 1;
 }
