@@ -3,8 +3,6 @@
 #define MAX_GPS_POINTS 5
 #define			TIMVIECLAM					(5210)
 #define         TIMDUONG                    (5211)
-#define 		CANSA_LIST   				(5212)
-#define 		TIMDUONGCANSA				(5213)
 
 stock SetPlayerRaceCP(playerid, CP_TYPE:type, Float:centreX, Float:centreY, Float:centreZ, Float:nextX, Float:nextY, Float:nextZ, Float:size)
 {

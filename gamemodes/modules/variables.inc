@@ -2226,3 +2226,8 @@ new RapidAmount_Shotgun[MAX_PLAYERS];
 new LastPosF4T[MAX_PLAYERS][3];
 
 new check_weapon_null[MAX_PLAYERS];
+
+new Float:PlayerGiaoCanSa[MAX_PLAYERS];
+new gdCanSa[MAX_PLAYERS];
+new slCanSa[MAX_PLAYERS];
+new tienCanSa[MAX_PLAYERS];

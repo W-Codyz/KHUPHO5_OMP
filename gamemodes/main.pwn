@@ -73,6 +73,7 @@
 #include "./modules/job/construction/header"
 #include "./modules/job/side_job/fisher/header"
 #include "./modules/job/painter/main"
+#include "./modules/job/cansa/main"
 
 //==============PLAYER============//
 #include "./modules/player/rentcar/header"

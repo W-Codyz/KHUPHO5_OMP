@@ -638,3 +638,18 @@
 #define         DIALOG_VATPHAM_LIST         (5110) 
 #define         DIALOG_CRAFT_INFO           (5111) 
 #define         DIALOG_CRAFT_CONFIRM        (5112)
+
+#define 		CANSA_LIST   				(5212)
+#define 		TIMDUONGCANSA				(5213)
+#define         CANSA_LIST                  (5214)
+#define         TIMDUONGCANSA 	            (5215)
+#define         DIALOG_BANCANSA             (5216)
+#define         BANCANLIST 		            (5217)
+#define         DIALOG_POT 		            (5218)
+#define         DIALOG_CRACK 	            (5219)// DIALOG_MSG
+#define         DIALOG_MSG	                (5220)
+#define			AUDIO_URLNEW			    (5221)
+#define         DIALOG_UPGRADECANSA         (5222)
+#define         DIALOG_NHANDIEMGIAOHANG     (5223)
+#define         DIALOG_NHANDIEMGIAOHANG     (5224)
+#define         DIALOG_MAP_TPHAT            (5225)
