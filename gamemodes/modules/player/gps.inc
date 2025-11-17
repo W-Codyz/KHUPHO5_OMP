@@ -1,15 +1,10 @@
 #include <YSI\YSI_Coding\y_hooks>
 
 #define MAX_GPS_POINTS 5
-
-new GPSInfo[MAX_GPS_POINTS][E_GPS_INFO] = 
-{
-	{"Newbie Spawn", -1754.3822, 949.6694, 24.7422},
-	{"City Hall", -2020.1469, -858.9731, 32.1878},
-	{"San Fierro VIP", -2434.6670, 497.8742, 29.9372},
-	{"Trung tam giay phep", -1941.5658, 577.1724, 35.1719},
-	{"Benh vien San Fierro", -2665.1887, 633.8109, 14.4531}
-};
+#define			TIMVIECLAM					(5210)
+#define         TIMDUONG                    (5211)
+#define 		CANSA_LIST   				(5212)
+#define 		TIMDUONGCANSA				(5213)
 
 stock SetPlayerRaceCP(playerid, CP_TYPE:type, Float:centreX, Float:centreY, Float:centreZ, Float:nextX, Float:nextY, Float:nextZ, Float:size)
 {
@@ -41,246 +36,363 @@ stock DisablePlayerCP(playerid)
 	return DisablePlayerCheckpoint(playerid);
 }
 
-stock GPS_ShowLocation(playerid)
+CMD:timduong(playerid, params[])
 {
-	new dialogInfo[1028];
-	strcat(dialogInfo, "Ten dia diem\tKhoang cach\n");
-	for(new i;i < MAX_GPS_POINTS;i++)
-	{
-		format(dialogInfo, _, "%s{FFFFFF}%s\t{619EFF}%0.1f km\n", dialogInfo, GPSInfo[i][gpsName], GetPlayerDistanceFromPoint(playerid, GPSInfo[i][gpsX], GPSInfo[i][gpsY], GPSInfo[i][gpsZ]) / 1000.0);
-	}
-
-	ShowPlayerDialog(playerid, DIALOG_FINDLOCATION, DIALOG_STYLE_TABLIST_HEADERS, "GPS Navigation > Dia diem San Andreas", dialogInfo, "Chon", "Quay lai");
-	return 1;
+   ShowPlayerDialog(playerid, TIMDUONG, DIALOG_STYLE_LIST, "Tim Duong", \
+   "Ngan Hang San Fierro\n\
+   Ngan Hang Los Santos\n\
+   Benh Vien San Fierro\n\
+   Benh Vien Los Santos\n\
+   Thi Bang Lai Xe\n\
+   Cua Hang Xe The Thao\n\
+   Cua Hang Xe Moto\n\
+   Cua Hang Sieu Xe VIP\n\
+   Cua Hang Quan Ao\n\
+   Khu Vuc Cau Ca\n\
+   Khu Vuc Ban Ca\n\
+   Nha Hang An Uong\n\
+   Khu VIP\n\
+   Cua Hang Tien Loi\n\
+   Cua Hang Sua Xe\n\
+   Dau Truong PvP\n\
+   Khu Giai Tri Casino\n\
+   Phong Tap Vo", "Chon", "Dong");
+   return 1;
 }
 
-stock GPS_ShowJob(playerid)
+CMD:timvieclam(playerid, params[]) 
 {
-	new dialogInfo[1028];
-	strcat(dialogInfo, "Ten cong viec\tLoai cong viec\tKhoang cach\n");
-	for(new i=1;i<MAX_JOB_TYPE;i++)
-	{
-		new Float:distance = GetPlayerDistanceFromPoint(playerid, JobInfo[i][jobPosX], JobInfo[i][jobPosY], JobInfo[i][jobPosZ]);
-		format(dialogInfo, _, "%s{FFFFFF}%s\t{86C757}Can xin viec\t{619EFF}%0.1f km\n", dialogInfo, JobInfo[i][jobName], distance / 1000.0);
-	}
-
-	for(new i=0; i < sizeof(SideJobInfo); i++) 
-	{
-		new Float:distance = GetPlayerDistanceFromPoint(playerid, SideJobInfo[i][sideJobPosX], SideJobInfo[i][sideJobPosY], SideJobInfo[i][sideJobPosZ]);
-		format(dialogInfo, _, "%s{FFFFFF}%s\t{C7C757}Khong can xin viec\t{619EFF}%0.1f km\n", dialogInfo, SideJobInfo[i][sideJobName], distance / 1000.0);
-	}
-
-	ShowPlayerDialog(playerid, DIALOG_FINDJOB, DIALOG_STYLE_TABLIST_HEADERS, "GPS Navigation > Cong viec", dialogInfo, "Chon", "Quay lai");
-	return 1;
-}
-
-stock GPS_Show247Store(playerid)
-{
-	new dialogInfo[1028], count;
-	strcat(dialogInfo, "Ten cua hang\tKhoang cach\n");
-	for(new i;i<MAX_BUSINESSES;i++)
-	{
-		if(Businesses[i][bType] == BUSINESS_TYPE_STORE && Businesses[i][bExtPos][0] != 0.0)
-		{
-			new Float:distance = GetPlayerDistanceFromPoint(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
-			format(dialogInfo, _, "%s{FFFFFF}%s\t{619EFF}%0.1f km\n", dialogInfo, Businesses[i][bName], distance / 1000.0);
-			count++;
-		}
-	}
-
-	if(count == 0) strcat(dialogInfo, "Khong co cua hang 24/7 nao tren ban do.");
-
-	ShowPlayerDialog(playerid, DIALOG_FINDSTORE, DIALOG_STYLE_TABLIST_HEADERS, "GPS Navigation > Cua hang 24/7", dialogInfo, "Chon", "Quay lai");
-	return 1;
-}
-
-stock GPS_ShowRestaurant(playerid)
-{
-	new dialogInfo[1028], count;
-	strcat(dialogInfo, "Ten cua hang\tKhoang cach\n");
-	for(new i;i<MAX_BUSINESSES;i++)
-	{
-		if(Businesses[i][bType] == BUSINESS_TYPE_RESTAURANT && Businesses[i][bExtPos][0] != 0.0)
-		{
-			new Float:distance = GetPlayerDistanceFromPoint(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
-			format(dialogInfo, _, "%s{FFFFFF}%s\t{619EFF}%0.1f km\n", dialogInfo, Businesses[i][bName], distance / 1000.0);
-			count++;
-		}
-	}
-
-	if(count == 0) strcat(dialogInfo, "Khong co nha hang nao tren ban do.");
-
-	ShowPlayerDialog(playerid, DIALOG_FINDRESTAURANT, DIALOG_STYLE_TABLIST_HEADERS, "GPS Navigation > Nha hang", dialogInfo, "Chon", "Quay lai");
-	return 1;
-}
-
-stock GPS_ShowBusinesses(playerid)
-{
-	new count;
-	AddDialogListitem(playerid, "Ten doanh nghiep\tKhoang cach");
-	for(new i;i<MAX_BUSINESSES;i++)
-	{
-		if(Businesses[i][bType] != BUSINESS_TYPE_RESTAURANT && Businesses[i][bType] != BUSINESS_TYPE_STORE && Businesses[i][bExtPos][0] != 0.0)
-		{
-			new Float:distance = GetPlayerDistanceFromPoint(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
-			AddDialogListitem(playerid, "{FFFFFF}%s\t{619EFF}%0.1f km", Businesses[i][bName], distance / 1000.0);
-			count++;
-		}
-	}
-
-	if(count == 0) AddDialogListitem(playerid, "Khong co doanh nghiep nao tren ban do.");
-
-	Dialog_ShowPages(playerid, DIALOG_FINDBUSINESSES, DIALOG_STYLE_TABLIST_HEADERS, "GPS Navigation > Nha hang", "Chon", "Quay lai", 15, "{54B530}Trang tiep theo >", "{D5D358}< Trang truoc");
-	return 1;
-}
-
-DialogPages:DIALOG_FINDBUSINESSES(playerid, response, listitem, inputtext[])
-{
-	if(!response) return PC_EmulateCommand(playerid, "/gps");
-
-	if(gPlayerCheckpointStatus[playerid] != CHECKPOINT_NONE)
-		return SendClientMessage(playerid, COLOR_GREY, "Ban can xoa diem danh dau tren mini-map truoc.");
-	
-	new count = -1;
-	for(new i;i<MAX_BUSINESSES;i++)
-	{
-		if(Businesses[i][bType] != BUSINESS_TYPE_RESTAURANT && Businesses[i][bType] != BUSINESS_TYPE_STORE && Businesses[i][bExtPos][0] != 0.0)
-		{
-			if(++count != listitem) continue;
-
-			SetPlayerCP(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], 5.0);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "____________ GPS Nagavition ____________");
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "Dia diem:{FFFFFF} %s", Businesses[i][bName]);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "Khoang cach:{FFFFFF} %0.1f km", GetPlayerDistanceFromPoint(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]) / 1000.0);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "______________________________________");
-			gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-			break;
-		}
-	}
-	return 1;
-}
-
-alias:gps("timduuong")
-CMD:gps(playerid, params[])
-{
-	ShowPlayerDialog(playerid, DIALOG_GPS, DIALOG_STYLE_TABLIST, "Tim duong", "\
-            {FFFFFF}Dia diem San Andreas\t{BFC26E}Tim kiem cac dia diem co san tren San Andreas\n\
-            {FFFFFF}Cong viec\t{BFC26E}Tim kiem cac viec lam tren San Andreas\n\
-            {FFFFFF}Cua hang 24/7\t{BFC26E}Tim kiem cac cua hang 24/7 tren San Andreas\n\
-            {FFFFFF}Nha hang\t{BFC26E}Tim kiem cac nha hang tren San Andreas\n\
-            {FFFFFF}Doanh nghiep\t{BFC26E}Tim kiem cac doanh nghiep khac tren San Andreas\n\
-            {FFFFFF}Xoa diem danh dau\t{BFC26E}Xoa diem danh dau ton tai tren mini-map", "Chon", "Dong");
-	return 1;
+   return ShowPlayerDialog(playerid, TIMVIECLAM, DIALOG_STYLE_LIST, "Tim Viec Lam", \
+   "Tham Tu\n\
+   Luat Su\n\
+   Gai Diem\n\
+   Ve Si Los Santos\n\
+   Tho Sua Xe\n\
+   Ban Vu Khi\n\
+   Ve Si San Fierro\n\
+   Tai Xe Taxi\n\
+   Van Chuyen Thuoc\n\
+   Tho Thu Cong\n\
+   Nguoi Pha Ruou\n\
+   Giao Banh Pizza\n\
+   Tai Xe Trucker\n\
+   Lai Thuyen Trucker\n\
+   Nong Trai Can Sa\n\
+   Ngu Dan Cau Ca\n\
+   Tho Chat Go\n\
+   Tho Son Tuong", "Chon", "Dong");
 }
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	if(dialogid == DIALOG_GPS)
+	if(dialogid == TIMDUONG) //toadotimduong
 	{
-		if(!response) return 1;
-
-		switch(listitem) 
-		{
-			case 0: GPS_ShowLocation(playerid);
-			case 1: GPS_ShowJob(playerid);
-			case 2: GPS_Show247Store(playerid);
-			case 3: GPS_ShowRestaurant(playerid);
-			case 4: GPS_ShowBusinesses(playerid);
-			case 5: PC_EmulateCommand(playerid, "/killcheckpoint");
-		}
-	}
-
-	if(dialogid == DIALOG_FINDJOB)
-	{
-		if(!response) 
-			return PC_EmulateCommand(playerid, "/gps");
-
-		if(gPlayerCheckpointStatus[playerid] != CHECKPOINT_NONE)
-			return SendClientMessage(playerid, COLOR_GREY, "Ban can xoa diem danh dau tren mini-map truoc.");
-
-		new jobId = listitem+1;
-		if(jobId < MAX_JOB_TYPE) {
-			SetPlayerCP(playerid, JobInfo[jobId][jobPosX], JobInfo[jobId][jobPosY], JobInfo[jobId][jobPosZ], 5.0);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "____________ GPS Nagavition ____________");
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "Dia diem:{FFFFFF} Cong viec %s", JobInfo[jobId][jobName]);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "Khoang cach:{FFFFFF} %0.1f km", GetPlayerDistanceFromPoint(playerid, JobInfo[jobId][jobPosX], JobInfo[jobId][jobPosY], JobInfo[jobId][jobPosZ]) / 1000.0);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "______________________________________");
-			gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-		}
-		else {
-			new sideJobId = jobId - MAX_JOB_TYPE;
-			SetPlayerCP(playerid, SideJobInfo[sideJobId][sideJobPosX], SideJobInfo[sideJobId][sideJobPosY], SideJobInfo[sideJobId][sideJobPosZ], 5.0);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "____________ GPS Nagavition ____________");
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "Dia diem:{FFFFFF} Cong viec %s", SideJobInfo[sideJobId][sideJobName]);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "Khoang cach:{FFFFFF} %0.1f km", GetPlayerDistanceFromPoint(playerid, SideJobInfo[sideJobId][sideJobPosX], SideJobInfo[sideJobId][sideJobPosY], SideJobInfo[sideJobId][sideJobPosZ]) / 1000.0);
-			SendClientMessage(playerid, COLOR_LIGHTBLUE, "______________________________________");
-			gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-		}
-	}
-
-	if(dialogid == DIALOG_FINDLOCATION)
-	{
-		if(!response) 
-			return PC_EmulateCommand(playerid, "/gps");
-		
-		if(gPlayerCheckpointStatus[playerid] != CHECKPOINT_NONE)
-			return SendClientMessage(playerid, COLOR_GREY, "Ban can xoa diem danh dau tren mini-map truoc.");
-	
-		SetPlayerCP(playerid, GPSInfo[listitem][gpsX], GPSInfo[listitem][gpsY], GPSInfo[listitem][gpsZ], 5.0);
-		SendClientMessage(playerid, COLOR_LIGHTBLUE, "____________ GPS Nagavition ____________");
-		SendClientMessage(playerid, COLOR_LIGHTBLUE, "Dia diem:{FFFFFF} %s", GPSInfo[listitem][gpsName]);
-		SendClientMessage(playerid, COLOR_LIGHTBLUE, "Khoang cach:{FFFFFF} %0.1f km", GetPlayerDistanceFromPoint(playerid, GPSInfo[listitem][gpsX], GPSInfo[listitem][gpsY], GPSInfo[listitem][gpsZ]) / 1000.0);
-		SendClientMessage(playerid, COLOR_LIGHTBLUE, "______________________________________");
-		gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-	}
-
-	if(dialogid == DIALOG_FINDSTORE)
-	{
-		if(!response) 
-			return PC_EmulateCommand(playerid, "/gps");
-		
-		if(gPlayerCheckpointStatus[playerid] != CHECKPOINT_NONE)
-			return SendClientMessage(playerid, COLOR_GREY, "Ban can xoa diem danh dau tren mini-map truoc.");
-		
-		new count = -1;
-		for(new i;i<MAX_BUSINESSES;i++)
-		{
-			if(Businesses[i][bType] == BUSINESS_TYPE_STORE && Businesses[i][bExtPos][0] != 0.0)
-			{
-				if(++count != listitem) continue;
-
-				SetPlayerCP(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], 5.0);
-				SendClientMessage(playerid, COLOR_LIGHTBLUE, "____________ GPS Nagavition ____________");
-				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Dia diem:{FFFFFF} %s (Cua hang 24/7)", Businesses[i][bName]);
-				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Khoang cach:{FFFFFF} %0.1f km", GetPlayerDistanceFromPoint(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]) / 1000.0);
-				SendClientMessage(playerid, COLOR_LIGHTBLUE, "______________________________________");
-				gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+	    if(response)
+	    {
+	       	if(listitem == 0) // Bank SF
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1581.2155,902.8041,7.6953, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
 				return 1;
+			}
+			if(listitem == 1) // Bank Rodeo
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, 587.0106,-1238.3374,17.8049, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;
+			}
+			if(listitem == 2) // Benh vien Idlewood
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2655.8972,634.8754,14.4531, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;
+			}
+		    if(listitem == 3) // Benh vien All Saints
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, 1172.0809,-1323.4167,15.4031, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 4) // City hall
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2765.2007,375.8469,6.3435, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+            }
+            if(listitem == 5) // ShopXe
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1647.9294,1205.3108,7.2500, 3.0);
+				SendClientMessage(playerid, COLOR_YELLOW, "Shop Xe SF1 !");
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+            }
+            if(listitem == 6) // moto
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1969.7197,293.8402,35.1719, 3.0);
+				SendClientMessage(playerid, COLOR_YELLOW, "Shop Xe SF2 !");
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+             }
+            if(listitem == 7) // moto
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2411.9282,3.4309,35.3203, 3.0);
+				SendClientMessage(playerid, COLOR_YELLOW, "Shop Xe VIP (SIEU XE) !");
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+             }
+            if(listitem == 8) // moto
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1695.2990,950.6997,24.8906, 3.0);
+				SendClientMessage(playerid, COLOR_YELLOW, "Shop quan ao");
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 9) // cau ca
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2975.9360, 506.9248, 2.4297, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 10) // ban ca
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2927.2327,507.2165,4.9141, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 11)
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1722.6263,1359.8776,7.1875, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 12)
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2435.4814,500.9243,29.9394, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 13)
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2442.5369,753.4180,35.1719, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 14)
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1904.2194,274.2740,41.0469, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 15)// -1492.1313,920.1057,7.1875
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1492.1313,920.1057,7.1875, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 16)// -1492.1313,920.1057,7.1875
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2079.0525,1413.5898,7.2210, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+ 			if(listitem == 17)// -1492.1313,920.1057,7.1875
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1552.6379,1061.9465,7.1875, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+    	}
+    }
+	if(dialogid == TIMVIECLAM)
+	{
+	    if(response)
+	    {
+	       	if(listitem == 0) // Tham Tu
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1589.5458,717.1549,9.1181, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;
+			}
+			if(listitem == 1) //Luat Su
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1619.3232,716.7933,14.4121, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;
+			}
+		    if(listitem == 2) //Gai Diem
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1549.5161,1171.8917,7.1875, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 3) //Ve si
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, 1099.73,-1504.67,15.800, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 4) //Tho Sua Xe
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2032.601928, 143.866592, 28.835937, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 5) //Buon Vu khi
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2623.333984, 209.235931, 4.684767, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 6) //Vo si
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2269.256103, -158.054321, 35.320312, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 7) // Tai Xe Taxi
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1981.144775, 133.063293, 27.687500, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 8) // Van chuyen thuoc phien
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -382.0426,-1426.1294,26.0843, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 9) // Tho Thu Cong
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1356.7195,2065.3450,52.4677, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 10) // Nguoi pha ruou
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -864.3550,1536.9703,22.5870, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 11) //Pizza Boy
+		    {
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1720.962646, 1364.456176, 7.187500, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 12) //Trucker 2139.3455,-81.7619,2.9146
+			{
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1560.963867, 127.491157, 3.554687, 3.0);
+				gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 13) //Trucker 2139.3455,-81.7619,2.9146
+			{
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, 2139.3455,-81.7619,2.9146, 3.0);
+				gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                return 1;
+			}
+			if(listitem == 14) //Trucker 	ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
+			{
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
+                return 1;
+			}
+			if(listitem == 15) //Trucker 	ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
+			{
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+                SetPlayerCP(playerid, -2975.5642,480.8670,4.8925, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;
+			}
+			if(listitem == 16) //
+			{
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+          		SetPlayerCP(playerid, -543.9225,-79.9980,62.9417, 3.0);
+       		    gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;	
+			}
+			if(listitem == 17) // son tuong
+			{
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+          		SetPlayerCP(playerid, -2456.8425,786.6091,35.1719, 3.0);
+       		    gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;	
+			}
+		}
+	}
+	if(dialogid == CANSA_LIST)
+	{
+		if(response)
+		{
+			if(listitem == 0)
+			{
+				ShowPlayerDialog(playerid, TIMDUONGCANSA, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Vi tri can sa moc\nChe bien can sa\nBan can sa", "Chon", "Thoat");
+				return 1;
+			}
+			if(listitem == 1)
+			{
+				new stringbx[128];
+				format(stringbx, sizeof stringbx, "Cay can sa:\t %d\nTep can sa:\t %d\nPot:\t\t %d\nCrack:\t\t %d", PlayerInfo[playerid][pCanSa], PlayerInfo[playerid][pTepCanSa], PlayerInfo[playerid][pPot], PlayerInfo[playerid][pCrack]);
+				ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "{ffff00}GTAHTB{ffffff} - Xem can sa", stringbx, "Dong y", "");
 			}
 		}
 	}
 
-	if(dialogid == DIALOG_FINDRESTAURANT)
+	if(dialogid == TIMDUONGCANSA)
 	{
-		if(!response) 
-			return PC_EmulateCommand(playerid, "/gps");
-		
-		if(gPlayerCheckpointStatus[playerid] != CHECKPOINT_NONE)
-			return SendClientMessage(playerid, COLOR_GREY, "Ban can xoa diem danh dau tren mini-map truoc.");
-		
-		new count = -1;
-		for(new i;i<MAX_BUSINESSES;i++)
+		if(response)
 		{
-			if(Businesses[i][bType] == BUSINESS_TYPE_RESTAURANT && Businesses[i][bExtPos][0] != 0.0)
+			if(listitem == 0)
 			{
-				if(++count != listitem) continue;
-
-				SetPlayerCP(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], 5.0);
-				SendClientMessage(playerid, COLOR_LIGHTBLUE, "____________ GPS Nagavition ____________");
-				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Dia diem:{FFFFFF} %s (Nha hang)", Businesses[i][bName]);
-				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Khoang cach:{FFFFFF} %0.1f km", GetPlayerDistanceFromPoint(playerid, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]) / 1000.0);
-				SendClientMessage(playerid, COLOR_LIGHTBLUE, "______________________________________");
-				gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCheckpoint(playerid, -1682.8035,-938.0014,66.8403, 3.0);
+				CP[playerid] = 252000;
+				return 1;
+			}
+			if(listitem == 1)
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCheckpoint(playerid, -1431.5900,-1460.4982,101.6989, 3.0);
+				CP[playerid] = 252000;
+				return 1;
+			}
+			if(listitem == 2)
+			{
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCheckpoint(playerid, -382.8928,-1426.2904,26.2979, 3.0);
+				CP[playerid] = 252000;
 				return 1;
 			}
 		}

@@ -9749,7 +9749,9 @@ stock SetPlayerSpawn(playerid)
 			PlayerInfo[playerid][pDuty] = 0;
 			PlayerInfo[playerid][pVW] = 0;
 			PlayerInfo[playerid][pInt] = 0;
-			PlayerInfo[playerid][pHunger] = 50;
+			//PlayerInfo[playerid][pHunger] = 50;
+			PlayerInfo[playerid][pThucAn] = 50;
+			PlayerInfo[playerid][pNuoc] = 50;
 
 			//Tazer & Cuff reset
 			PlayerInfo[playerid][pHasCuff] = 0;

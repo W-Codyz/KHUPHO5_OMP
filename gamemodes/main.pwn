@@ -127,7 +127,7 @@
 #include "./modules/player/player_load"
 #include "./modules/player/enter_exit"
 #include "./modules/player/mail"
-#include "./modules/player/speedo"
+//#include "./modules/player/speedo"
 //#include "./modules/player/send_location"
 
 #include "./modules/dialog/main"

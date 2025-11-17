@@ -946,7 +946,9 @@ enum pInfo
 	pInvType,
 	pBinhXit,
 	pThucAn,
-	pNuoc
+	pNuoc,
+	pCanSa,
+	pTepCanSa
 
 
 	//enum pinfo

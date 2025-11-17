@@ -4523,7 +4523,7 @@ public OnPlayerEnterCheckpoint(playerid)
 				PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
 				DisablePlayerCP(playerid);
 				gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
-				SendClientMessage(playerid, 0x618552FF, "Ban da den diem danh dau tren GPS.");
+				SendClientMessage(playerid, 0x618552FF, "Ban da den diem danh dau tren ban do.");
 			}
 			case CHECKPOINT_HOME:
 			{

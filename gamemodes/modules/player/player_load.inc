@@ -282,6 +282,8 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pReceivedPrize] = 0;
 		PlayerInfo[playerid][pReg] = 1;
 		PlayerInfo[playerid][pNbCurrent] = -1;
+		PlayerInfo[playerid][pThucAn] = 50;
+		PlayerInfo[playerid][pNuoc] = 50;
 
 		for(new i; i < 5; i++) {
 			PlayerInfo[playerid][pNbMission][i] = 0;
