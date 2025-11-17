@@ -431,17 +431,6 @@ public OnQueryFinish(resultid, extraid, handleid)
 						PlayerInfo[extraid][pGuns][i] = strval(szResult);
 					}
 
-					for(new i;i < MAX_FISH_BAG; i++)
-					{
-						format(szField, sizeof(szField), "Fish%d", i);
-						cache_get_field_content(row,  szField, szResult, MainPipeline);
-						Fishes[extraid][pFid][i] = strval(szResult);
-						
-						format(szField, sizeof(szField), "FishWeight%d", i);
-						cache_get_field_content(row,  szField, szResult, MainPipeline);
-						Fishes[extraid][pWeight][i] = strval(szResult);
-					}
-
 					cache_get_field_content(row,  "PayDay", szResult, MainPipeline); PlayerInfo[extraid][pConnectSeconds] = strval(szResult);
 					cache_get_field_content(row,  "PayDayHad", szResult, MainPipeline); PlayerInfo[extraid][pPayDayHad] = strval(szResult);
 					cache_get_field_content(row,  "PayDayCode", szResult, MainPipeline); PlayerInfo[extraid][pPayDayCode] = strval(szResult);
@@ -610,7 +599,70 @@ public OnQueryFinish(resultid, extraid, handleid)
 					//gg
 					cache_get_field_content(row,  "DiscordCode", szResult, MainPipeline); PlayerInfo[extraid][pDiscordCode] = strval(szResult);
 					cache_get_field_content(row,  "DiscordID", PlayerInfo[extraid][pDiscordID], MainPipeline);
+					
+					cache_get_field_content(row, "SoLanCauCa", szResult, MainPipeline); 
+					PlayerInfo[extraid][pSoLanCauCa] = strval(szResult);
 
+					cache_get_field_content(row, "LastFishingReset", szResult, MainPipeline); 
+					PlayerInfo[extraid][pLastFishingReset] = strval(szResult);
+
+					cache_get_field_content(row, "MoiCau", szResult, MainPipeline); 
+					PlayerInfo[extraid][pMoiCau] = strval(szResult);
+
+					cache_get_field_content(row, "BiggestFishSize", szResult, MainPipeline); 
+					PlayerInfo[extraid][pBiggestFishSize] = strval(szResult);
+
+					cache_get_field_content(row, "BiggestFishType", szResult, MainPipeline); 
+					PlayerInfo[extraid][pBiggestFishType] = strval(szResult);
+
+					cache_get_field_content(row, "CanCau0", szResult, MainPipeline); 
+					PlayerInfo[extraid][pCanCau][0] = strval(szResult);
+
+					cache_get_field_content(row, "CanCau1", szResult, MainPipeline); 
+					PlayerInfo[extraid][pCanCau][1] = strval(szResult);
+
+					cache_get_field_content(row, "CanCau2", szResult, MainPipeline); 
+					PlayerInfo[extraid][pCanCau][2] = strval(szResult);
+
+					cache_get_field_content(row, "DoBenCan0", szResult, MainPipeline); 
+					PlayerInfo[extraid][pDoBenCan][0] = strval(szResult);
+
+					cache_get_field_content(row, "DoBenCan1", szResult, MainPipeline); 
+					PlayerInfo[extraid][pDoBenCan][1] = strval(szResult);
+
+					cache_get_field_content(row, "DoBenCan2", szResult, MainPipeline); 
+					PlayerInfo[extraid][pDoBenCan][2] = strval(szResult);
+
+					cache_get_field_content(row, "FishCarp", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishCarp] = strval(szResult);
+
+					cache_get_field_content(row, "FishTilapia", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishTilapia] = strval(szResult);
+
+					cache_get_field_content(row, "FishBass", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishBass] = strval(szResult);
+
+					cache_get_field_content(row, "FishCatfish", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishCatfish] = strval(szResult);
+
+					cache_get_field_content(row, "FishSalmon", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishSalmon] = strval(szResult);
+
+					cache_get_field_content(row, "FishTuna", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishTuna] = strval(szResult);
+
+					cache_get_field_content(row, "FishSnakehead", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishSnakehead] = strval(szResult);
+
+					cache_get_field_content(row, "FishSturgeon", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishSturgeon] = strval(szResult);
+
+					cache_get_field_content(row, "FishKoi", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishKoi] = strval(szResult);
+
+					cache_get_field_content(row, "FishGolden", szResult, MainPipeline); 
+					PlayerInfo[extraid][pFishGolden] = strval(szResult);
+					
 					cache_get_field_content(row,  "NbMissionCur", szResult, MainPipeline); PlayerInfo[extraid][pNbCurrent] = strval(szResult);
 					cache_get_field_content(row,  "NbMission", szResult, MainPipeline);
 					sscanf(szResult, "p<,>a<i>[5]", PlayerInfo[extraid][pNbMission]);
@@ -3075,6 +3127,31 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pNuoc", PlayerInfo[playerid][pNuoc]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pCanSa", PlayerInfo[playerid][pCanSa]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pTepCanSa", PlayerInfo[playerid][pTepCanSa]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLanCauCa", PlayerInfo[playerid][pSoLanCauCa]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "LastFishingReset", PlayerInfo[playerid][pLastFishingReset]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "MoiCau", PlayerInfo[playerid][pMoiCau]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "BiggestFishSize", PlayerInfo[playerid][pBiggestFishSize]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "BiggestFishType", PlayerInfo[playerid][pBiggestFishType]);
+	// Fishing rod array (3 elements)
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "CanCau0", PlayerInfo[playerid][pCanCau][0]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "CanCau1", PlayerInfo[playerid][pCanCau][1]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "CanCau2", PlayerInfo[playerid][pCanCau][2]);
+	// Fishing rod durability array (3 elements)
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "DoBenCan0", PlayerInfo[playerid][pDoBenCan][0]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "DoBenCan1", PlayerInfo[playerid][pDoBenCan][1]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "DoBenCan2", PlayerInfo[playerid][pDoBenCan][2]);
+
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishCarp", PlayerInfo[playerid][pFishCarp]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishTilapia", PlayerInfo[playerid][pFishTilapia]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishBass", PlayerInfo[playerid][pFishBass]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishCatfish", PlayerInfo[playerid][pFishCatfish]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishSalmon", PlayerInfo[playerid][pFishSalmon]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishTuna", PlayerInfo[playerid][pFishTuna]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishSnakehead", PlayerInfo[playerid][pFishSnakehead]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishSturgeon", PlayerInfo[playerid][pFishSturgeon]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishKoi", PlayerInfo[playerid][pFishKoi]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishGolden", PlayerInfo[playerid][pFishGolden]);
+
 
 	new string[128];
 	for(new i;i<5;i++) {
@@ -3094,7 +3171,6 @@ stock g_mysql_SaveAccount(playerid)
 
 	MySQLUpdateFinish(query, GetPlayerSQLId(playerid));
 
-	SavePlayerFish(playerid);
 	return 1;
 }
 

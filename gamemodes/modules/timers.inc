@@ -235,10 +235,6 @@ task ProductionUpdate[300000]()
 			SendClientMessageEx(i, COLOR_LIGHTRED, "Ban la nguoi moi tham gia GTA-HTB Roleplay, vi the bi gioi han vu khi trong 2 gio.");
 		}
 
-		if(PlayerInfo[i][pFishes] >= 10) {
-			if(FishCount[i] >= 3) PlayerInfo[i][pFishes] = 0;
-			else ++FishCount[i];
-		}
 		if(PlayerDrunk[i] > 0) { PlayerDrunk[i] = 0; PlayerDrunkTime[i] = 0; GameTextForPlayer(i, "~p~Hien Dang~n~~w~Say Ruou", 3500, 1); }
 	}
 	if(AdvisorMessage == 3) {

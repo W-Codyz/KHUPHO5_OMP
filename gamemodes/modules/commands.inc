@@ -13321,12 +13321,12 @@ CMD:skill(playerid, params[])
 		Boc vac\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
 		Pizza Boy\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
 		Tho xay dung\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
-		Cau ca\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap", "Dong", "",
+		Cau ca\t{D9EB4C}%d\t{FFFFFF}hay cau nhieu hon de len cap", "Dong", "",
 		GetJobLevel(playerid, JOB_TRUCKER), GetSkillNextLevel(playerid, JOB_TRUCKER),
 		GetJobLevel(playerid, JOB_PORTER), GetSkillNextLevel(playerid, JOB_PORTER),
 		GetJobLevel(playerid, JOB_PIZZABOY), GetSkillNextLevel(playerid, JOB_PIZZABOY),
 		GetJobLevel(playerid, JOB_CONSTRUCTION), GetSkillNextLevel(playerid, JOB_CONSTRUCTION),
-		GetFisherLevel(playerid), GetFisherLevelUp(playerid));
+		GetFishingLevel(playerid));
 	return 1;
 }
 

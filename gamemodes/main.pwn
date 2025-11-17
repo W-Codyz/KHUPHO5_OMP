@@ -71,9 +71,9 @@
 #include "./modules/job/porter/header"
 #include "./modules/job/pizzaboy/header"
 #include "./modules/job/construction/header"
-#include "./modules/job/side_job/fisher/header"
 #include "./modules/job/painter/main"
 #include "./modules/job/cansa/main"
+#include "./modules/job/fishing/main"
 
 //==============PLAYER============//
 #include "./modules/player/rentcar/header"
@@ -110,7 +110,7 @@
 #include "./modules/job/porter/porter"
 #include "./modules/job/pizzaboy/pizzaboy"
 #include "./modules/job/construction/construction"
-#include "./modules/job/side_job/fisher/fisher"
+//#include "./modules/job/side_job/fisher/fisher"
 #include "./modules/job/side_job/sweeper/sweeper"
 
 //#include "./modules/player/rentcar/rentcar"

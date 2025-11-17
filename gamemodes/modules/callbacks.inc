@@ -2483,9 +2483,6 @@ public OnPlayerConnect(playerid) {
 	PlayerDrunk[playerid]=0;
 	PlayerDrunkTime[playerid]=0;
 	format(PlayerInfo[playerid][pPrisonReason],128,"None");
-	FishCount[playerid]=0;
-	IsFishing[playerid]=0;
-	FishingTime[playerid]=0;
 	HelpingNewbie[playerid]= INVALID_PLAYER_ID;
 	turfWarsRadar[playerid]=0;
 	courtjail[playerid]=0;
@@ -2529,8 +2526,6 @@ public OnPlayerConnect(playerid) {
 	TransportDriver[playerid] = INVALID_PLAYER_ID;
 	Locator[playerid] = 0;
 	ReleasingMenu[playerid] = INVALID_PLAYER_ID;
-	Fishes[playerid][pLastFish] = 0;
-	Fishes[playerid][pFishID] = 0;
 	ProposeOffer[playerid] = INVALID_PLAYER_ID;
 	MarryWitness[playerid] = INVALID_PLAYER_ID;
 	MarryWitnessOffer[playerid] = INVALID_PLAYER_ID;
@@ -2595,7 +2590,6 @@ public OnPlayerConnect(playerid) {
 	CancelReport[playerid] = -1;
 	GiveKeysTo[playerid] = INVALID_PLAYER_ID;
 	RocketExplosions[playerid] = -1;
-	ClearFishes(playerid);
 	ClearMarriage(playerid);
 
 	// Crash Fix - GhoulSlayeR

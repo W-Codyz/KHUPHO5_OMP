@@ -948,7 +948,28 @@ enum pInfo
 	pThucAn,
 	pNuoc,
 	pCanSa,
-	pTepCanSa
+	pTepCanSa,
+
+	//system cau ca
+	pSoLanCauCa,
+	pLastFishingReset,
+	pMoiCau,
+	pBiggestFishSize,
+	pBiggestFishType,
+	pCanCau[3],
+	pDoBenCan[3],
+
+	//Name fish
+	pFishCarp,
+    pFishTilapia,
+    pFishBass,
+    pFishCatfish,
+    pFishSalmon,
+    pFishTuna,
+    pFishSnakehead,
+    pFishSturgeon,
+    pFishKoi,
+    pFishGolden,
 
 
 	//enum pinfo
