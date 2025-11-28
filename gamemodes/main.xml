@@ -7417,7 +7417,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="ANIMATOR_BOX_COLOR"/>
+			<referrer name="bMinSupplyRank"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -7485,7 +7485,7 @@
 			<referrer name="CGen_OnCodeInit"/>
 			<referrer name="YHNPS_Find"/>
 			<referrer name="Hooks_RegisterNPSHook"/>
-			<referrer name="hTaken19"/>
+			<referrer name="hContact1"/>
 			<referrer name="FIXES_valstr"/>
 			<referrer name="Indirect_SetOwner_"/>
 			<referrer name="operator*(@Ik:,_:)"/>
@@ -8243,7 +8243,7 @@
 			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnPlayerEnterCheckpoint@0F"/>
 			<referrer name="@yH_OnPlayerDeath@0F"/>
-			<referrer name="LoadTDLogo"/>
+			<referrer name="fcreate"/>
 			<referrer name="StartFishing"/>
 			<referrer name="@yH_OnDialogResponse@0G"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0G"/>
@@ -8277,7 +8277,7 @@
 			<referrer name="@yH_OnDialogResponse@0M"/>
 			<referrer name="OnSelectMember"/>
 			<referrer name="OnLoadMemberList"/>
-			<referrer name="fcreate"/>
+			<referrer name="LoadTDLogo"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="_yT@SkinDelay"/>
@@ -15508,7 +15508,7 @@
 			<referrer name="Inline_GeneratePostamble"/>
 		</member>
 		<member name="F:YSI_g_sCodSize">
-			<referrer name="hTaken19"/>
+			<referrer name="hContact1"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="operator*(@Ik:,_:)"/>
 		</member>
@@ -15595,7 +15595,7 @@
 			<referrer name="Inline_DoRetnGen"/>
 		</member>
 		<member name="F:YSI_g_sInlineLinkedList">
-			<referrer name="hTaken18"/>
+			<referrer name="hAdd21"/>
 			<referrer name="Inline_FoundDestructor"/>
 			<referrer name="Hooks_OnRuntimeError"/>
 			<referrer name="Hooks_OnCodeInit"/>
@@ -15617,7 +15617,7 @@
 			<referrer name="Iter_YieldReturn"/>
 		</member>
 		<member name="F:YSI_g_sJumpOffset">
-			<referrer name="hTaken18"/>
+			<referrer name="hAdd21"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="Inline_DoRetnGen"/>
 			<referrer name="operator~(I@T:)"/>
@@ -48101,6 +48101,7 @@
 			<dependency name="LoadStreamerDynamicObjects"/>
 			<dependency name="LoadStreamerDynamicPickups"/>
 			<dependency name="LoadStreamerStaticVehicles"/>
+			<dependency name="LoadTDLogo"/>
 			<dependency name="LoadTextDraws"/>
 			<dependency name="LoadTurfWars"/>
 			<dependency name="LoadTxtLabels"/>
@@ -54256,6 +54257,7 @@
 		</member>
 		<member name="M:LoadTDLogo" syntax="LoadTDLogo()">
 			<stacksize value="5"/>
+			<referrer name="InitiateGamemode"/>
 			<dependency name="LogoTD"/>
 			<dependency name="SetTimer"/>
 			<dependency name="TextDrawAlignment"/>
@@ -62189,7 +62191,7 @@
 		</member>
 		<member name="M:OnPlayerLoad" syntax="OnPlayerLoad(playerid)">
 			<attribute name="public"/>
-			<stacksize value="417"/>
+			<stacksize value="809"/>
 			<referrer name="OnQueryFinish"/>
 			<dependency name="ABroadCast"/>
 			<dependency name="AdminMOTD"/>
@@ -62296,6 +62298,9 @@
 			<dependency name="bMonths"/>
 			<dependency name="bOwner"/>
 			<dependency name="bValue"/>
+			<dependency name="cache_delete"/>
+			<dependency name="cache_get_field_content"/>
+			<dependency name="cache_num_rows"/>
 			<dependency name="cellmax"/>
 			<dependency name="dcRole_Medic"/>
 			<dependency name="dcRole_Police"/>
@@ -62321,6 +62326,7 @@
 			<dependency name="hOwnerID"/>
 			<dependency name="iRewardPlay"/>
 			<dependency name="mainGuild"/>
+			<dependency name="mysql_query"/>
 			<dependency name="mysql_tquery"/>
 			<dependency name="nbm_Name"/>
 			<dependency name="pADMute"/>
@@ -87618,6 +87624,7 @@
 			<referrer name="_@yHOnDialogResponse@0M"/>
 			<referrer name="IsDiscordCodeUsed"/>
 			<referrer name="CreateIDCard"/>
+			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="cache_id">
 				<paraminfo>Cache </paraminfo>
@@ -87795,6 +87802,7 @@
 			<referrer name="ExecuteShopQueue"/>
 			<referrer name="OnGangTagQueryFinish"/>
 			<referrer name="DynVeh_CreateDVQuery"/>
+			<referrer name="OnPlayerLoad"/>
 			<dependency name="cache_get_value_name"/>
 			<param name="row">
 			</param>
@@ -87996,6 +88004,7 @@
 			<referrer name="pc_cmd_dsadmin"/>
 			<referrer name="pc_cmd_dsadvisor"/>
 			<referrer name="_@yHOnDialogResponse@0M"/>
+			<referrer name="OnPlayerLoad"/>
 			<dependency name="cache_get_row_count"/>
 		</member>
 		<member name="M:calloc" syntax="calloc(size)">
@@ -92616,6 +92625,7 @@
 			<referrer name="_@yHOnDialogResponse@0M"/>
 			<referrer name="IsDiscordCodeUsed"/>
 			<referrer name="CreateIDCard"/>
+			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>

@@ -554,7 +554,7 @@ public OnPlayerLoad(playerid)
 	CreatePlayerTextDraws(playerid);
 
 	printf("%s has logged in.", GetPlayerNameEx(playerid));
-	SendClientMessageEx(playerid, 0xFFFFFFFF, "SERVER: Xin chao %s.", GetPlayerNameEx(playerid));
+	//SendClientMessageEx(playerid, 0xFFFFFFFF, "SERVER: Xin chao %s.", GetPlayerNameEx(playerid));
 	defer SkinDelay(playerid);
 
 	gPlayerLogged{playerid} = 1;
@@ -627,6 +627,38 @@ public OnPlayerLoad(playerid)
 	/* format(string, sizeof(string), "~w~Xin chao,~n~~y~%s!", GetPlayerNameEx(playerid));
 	GameTextForPlayer(playerid, string, 5000, 1); */
 	SendClientMessageEx(playerid, COLOR_YELLOW, GlobalMOTD);
+	//dang nhap
+	new lastlogin_display[256];
+	new query[256];
+	format(query, sizeof(query), "SELECT `LastLogin` FROM `accounts` WHERE `id` = %d", GetPlayerSQLId(playerid));
+	new Cache:LastLoginQuery = mysql_query(MainPipeline, query);
+	
+	if(cache_num_rows() > 0)
+	{
+		new LastLogin[128];
+		cache_get_field_content(0, "LastLogin", LastLogin);
+		
+		// In truc tiep du lieu get duoc
+		format(lastlogin_display, sizeof(lastlogin_display), 
+			"{33FF33}> {FFFFFF}Lan dang nhap truoc: {87CEEB}%s", LastLogin);
+	}
+	else
+	{
+		format(lastlogin_display, sizeof(lastlogin_display), 
+			"{33FF33}> {FFFFFF}Day la lan dau tien ban dang nhap vao may chu");
+	}
+	cache_delete(LastLoginQuery);
+	
+	// Welcome messages
+	SendClientMessageEx(playerid, COLOR_WHITE, " ");
+	SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}------------------------------");
+	format(string, sizeof(string), "{33FF33}> {FFFFFF}Chao mung {FFD700}%s {FFFFFF}quay tro lai may chu!", GetPlayerNameEx(playerid));
+	SendClientMessageEx(playerid, COLOR_WHITE, string);
+	SendClientMessageEx(playerid, COLOR_WHITE, lastlogin_display);
+	SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}> {7DAFFF}/newb {FFFFFF}[noidung] {AAAAAA}- Hoi dap cho nguoi moi");
+	SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}> {FF6347}/yeucautrogiup {AAAAAA}- Goi ho tro vien truc tuyen");
+	SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}------------------------------");
+	SendClientMessageEx(playerid, COLOR_WHITE, " ");
 
 	if(PlayerInfo[playerid][pAdmin] > 0) {
 		if(PlayerInfo[playerid][pAdmin] >= 2) SendClientMessageEx(playerid, COLOR_YELLOW, AdminMOTD);

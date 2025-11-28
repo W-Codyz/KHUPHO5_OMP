@@ -11,7 +11,7 @@
 task timeCheckWeapon[5000]() {
 	foreach(new playerid : Player) 
 	{		
-		if(GetPVarInt(playerid, "IsInArena") == -1 && GetPVarInt( playerid, "EventToken") == 0 && GetPVarInt( playerid, "KhongHackWeaponInv") != 1) {
+		if(GetPVarInt(playerid, "IsInArena") == -1 && GetPVarInt( playerid, "EventToken") == 0 && GetPVarInt( playerid, "KhongHackWeaponInv") != 1 && GetPVarInt(playerid, "Injured") != 1) {
 			hackWeapon(playerid);
 		}
 	}

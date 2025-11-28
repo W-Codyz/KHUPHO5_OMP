@@ -2945,6 +2945,7 @@ public InitiateGamemode()
     // Textdraws
     print("[Textdraws] Loading Textdraws...");
     LoadTextDraws();
+	LoadTDLogo();
     
     // Dynamic Groups
     print("[Dynamic Groups] Loading Dynamic Groups...");

@@ -520,10 +520,10 @@ public CheBien(playerid)
 }
 
 hook OnPlayerDeath(playerid, killerid, reason) {
-	if(gPlayerLogged{playerid} == 1 && gPlayerLogged{killerid} == 1) {
+	if(gPlayerLogged{playerid} == 1) {
         if (PlayerGiaoCanSa[playerid] != 0)
         {
-            if (IsACop(killerid) && PlayerInfo[killerid][pDuty] == 1)
+            if (killerid != INVALID_PLAYER_ID && gPlayerLogged{killerid} == 1 && IsACop(killerid) && PlayerInfo[killerid][pDuty] == 1)
             {
                 new string[128], reasons[56];
                 PlayerInfo[playerid][pTepCanSa] -= inputcansa[playerid];
