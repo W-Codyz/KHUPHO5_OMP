@@ -40,6 +40,9 @@ public AntiCrasherWeapon(playerid) {
 forward hackWeapon(playerid);
 public hackWeapon(playerid) 
 {
+	// Double check - neu nguoi choi dang injured thi khong check weapon
+	if(GetPVarInt(playerid, "Injured") == 1) return 1;
+	
 	new string[1280], weapons[13][2], weaponname[50];
 	for (new i = 0; i < 13; i++)
 	{
