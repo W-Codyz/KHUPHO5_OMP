@@ -628,7 +628,7 @@ public OnPlayerLoad(playerid)
 	GameTextForPlayer(playerid, string, 5000, 1); */
 	SendClientMessageEx(playerid, COLOR_YELLOW, GlobalMOTD);
 	//dang nhap
-	new lastlogin_display[256];
+	/* new lastlogin_display[256];
 	new query[256];
 	format(query, sizeof(query), "SELECT `LastLogin` FROM `accounts` WHERE `id` = %d", GetPlayerSQLId(playerid));
 	new Cache:LastLoginQuery = mysql_query(MainPipeline, query);
@@ -657,7 +657,9 @@ public OnPlayerLoad(playerid)
 	SendClientMessageEx(playerid, COLOR_WHITE, lastlogin_display);
 	SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}> {7DAFFF}/newb {FFFFFF}[noidung] {AAAAAA}- Hoi dap cho nguoi moi");
 	SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}> {FF6347}/yeucautrogiup {AAAAAA}- Goi ho tro vien truc tuyen");
-	SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}------------------------------");
+	SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}------------------------------"); */
+
+	SetTimerEx("CheckLastLogin", 1000, false, "i", playerid);
 	SendClientMessageEx(playerid, COLOR_WHITE, " ");
 
 	if(PlayerInfo[playerid][pAdmin] > 0) {

@@ -2867,6 +2867,9 @@ public InitiateGamemode()
 	LoadArrestPoints();
 	LoadImpoundPoints();
 	LoadRelayForLifeTeams();
+
+	Load_Fishing();
+	InitFishingSystem();
 	
 		/*---[Shop Automation]---*/
 	
@@ -22044,4 +22047,73 @@ public Float: vehicle_get_speed(vehicleid)
 
 	GetVehicleVelocity(vehicleid, fVelocity[0], fVelocity[1], fVelocity[2]);
 	return floatsqroot((fVelocity[0] * fVelocity[0]) + (fVelocity[1] * fVelocity[1]) + (fVelocity[2] * fVelocity[2])) * 100;
+}
+
+// Forward function
+forward CheckLastLogin(playerid);
+forward OnLastLoginLoaded(playerid);
+
+// Hàm gọi để kiểm tra LastLogin
+public CheckLastLogin(playerid)
+{
+    new query[256];
+    format(query, sizeof(query), "SELECT `LastLogin` FROM `accounts` WHERE `id` = %d", GetPlayerSQLId(playerid));
+    mysql_function_query(MainPipeline, query, true, "OnLastLoginLoaded", "i", playerid);
+    return 1;
+}
+
+// Callback xử lý kết quả
+public OnLastLoginLoaded(playerid)
+{
+    new lastlogin_display[256];
+    
+    if(cache_num_rows() > 0)
+    {
+        new LastLogin[128];
+        cache_get_field_content(0, "LastLogin", LastLogin);
+        
+        // Format lại từ "2025-11-17 23:41:56" thành "23:41:56 17-11-2025"
+        new formatted_time[64];
+        FormatLastLoginTime(LastLogin, formatted_time, sizeof(formatted_time));
+        
+        format(lastlogin_display, sizeof(lastlogin_display), 
+            "{33FF33}> {FFFFFF}Lan dang nhap truoc: {87CEEB}%s", formatted_time);
+    }
+    else
+    {
+        format(lastlogin_display, sizeof(lastlogin_display), 
+            "{33FF33}> {FFFFFF}Day la lan dau tien ban dang nhap vao may chu");
+    }
+    
+    // Welcome messages
+    new string[256];
+    SendClientMessageEx(playerid, COLOR_WHITE, " ");
+    SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}------------------------------");
+    format(string, sizeof(string), "{33FF33}> {FFFFFF}Chao mung {FFD700}%s {FFFFFF}quay tro lai may chu!", GetPlayerNameEx(playerid));
+    SendClientMessageEx(playerid, COLOR_WHITE, string);
+    SendClientMessageEx(playerid, COLOR_WHITE, lastlogin_display);
+    SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}> {7DAFFF}/newb {FFFFFF}[noidung] {AAAAAA}- Hoi dap cho nguoi moi");
+    SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}> {FF6347}/yeucautrogiup {AAAAAA}- Goi ho tro vien truc tuyen");
+    SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}------------------------------");
+    SendClientMessageEx(playerid, COLOR_WHITE, " ");
+    
+    return 1;
+}
+
+// Hàm format thời gian từ "2025-11-17 23:41:56" thành "23:41:56 17-11-2025"
+stock FormatLastLoginTime(const input[], output[], maxlength = sizeof(output))
+{
+    new year[5], month[3], day[3], hour[3], minute[3], second[3];
+    
+    // Tách chuỗi: "2025-11-17 23:41:56"
+    strmid(year, input, 0, 4);      // "2025"
+    strmid(month, input, 5, 7);     // "11"
+    strmid(day, input, 8, 10);      // "17"
+    strmid(hour, input, 11, 13);    // "23"
+    strmid(minute, input, 14, 16);  // "41"
+    strmid(second, input, 17, 19);  // "56"
+    
+    // Format thành "23:41:56 17/11/2025"
+    format(output, maxlength, "%s:%s:%s %s/%s/%s", hour, minute, second, day, month, year);
+    return 1;
 }

@@ -7417,7 +7417,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="bMinSupplyRank"/>
+			<referrer name="MEM_delete"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -7485,7 +7485,7 @@
 			<referrer name="CGen_OnCodeInit"/>
 			<referrer name="YHNPS_Find"/>
 			<referrer name="Hooks_RegisterNPSHook"/>
-			<referrer name="hContact1"/>
+			<referrer name="pCarLic"/>
 			<referrer name="FIXES_valstr"/>
 			<referrer name="Indirect_SetOwner_"/>
 			<referrer name="operator*(@Ik:,_:)"/>
@@ -8204,7 +8204,7 @@
 			<referrer name="@yH_OnPlayerClickMap@06"/>
 			<referrer name="SvNonrpText"/>
 			<referrer name="check_spamServer"/>
-			<referrer name="InitFishingSystem"/>
+			<referrer name="fcreate"/>
 			<referrer name="@yH_OnPlayerText@08"/>
 			<referrer name="@yH_OnPlayerCommandText@08"/>
 			<referrer name="_@yHOnPlayerCommandText@08"/>
@@ -8243,7 +8243,7 @@
 			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnPlayerEnterCheckpoint@0F"/>
 			<referrer name="@yH_OnPlayerDeath@0F"/>
-			<referrer name="fcreate"/>
+			<referrer name="InitFishingSystem"/>
 			<referrer name="StartFishing"/>
 			<referrer name="@yH_OnDialogResponse@0G"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0G"/>
@@ -11710,6 +11710,7 @@
 			<referrer name="CompleteToyTrade"/>
 			<referrer name="ClaimShopItems"/>
 			<referrer name="GivePlayerXP"/>
+			<referrer name="CheckLastLogin"/>
 			<referrer name="pc_cmd_clearbugs"/>
 			<referrer name="pc_cmd_listbugs"/>
 			<referrer name="pc_cmd_zombieevent"/>
@@ -15508,7 +15509,7 @@
 			<referrer name="Inline_GeneratePostamble"/>
 		</member>
 		<member name="F:YSI_g_sCodSize">
-			<referrer name="hContact1"/>
+			<referrer name="pCarLic"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="operator*(@Ik:,_:)"/>
 		</member>
@@ -15595,7 +15596,7 @@
 			<referrer name="Inline_DoRetnGen"/>
 		</member>
 		<member name="F:YSI_g_sInlineLinkedList">
-			<referrer name="hAdd21"/>
+			<referrer name="pPos_r"/>
 			<referrer name="Inline_FoundDestructor"/>
 			<referrer name="Hooks_OnRuntimeError"/>
 			<referrer name="Hooks_OnCodeInit"/>
@@ -15617,7 +15618,7 @@
 			<referrer name="Iter_YieldReturn"/>
 		</member>
 		<member name="F:YSI_g_sJumpOffset">
-			<referrer name="hAdd21"/>
+			<referrer name="pPos_r"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="Inline_DoRetnGen"/>
 			<referrer name="operator~(I@T:)"/>
@@ -32193,6 +32194,16 @@
 			<dependency name="gPlayerLogged"/>
 			<dependency name="true"/>
 		</member>
+		<member name="M:CheckLastLogin" syntax="CheckLastLogin(playerid)">
+			<attribute name="public"/>
+			<stacksize value="263"/>
+			<dependency name="GetPlayerSQLId"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="format"/>
+			<dependency name="mysql_tquery"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:CheckNationQueue" syntax="CheckNationQueue(playerid, nation)">
 			<stacksize value="310"/>
 			<referrer name="pc_cmd_apply"/>
@@ -38914,6 +38925,20 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
+		<member name="M:FormatLastLoginTime" syntax="FormatLastLoginTime(input[], output[], maxlength)">
+			<stacksize value="31"/>
+			<referrer name="OnLastLoginLoaded"/>
+			<dependency name="format"/>
+			<dependency name="strmid"/>
+			<param name="input">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="output">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="maxlength">
+			</param>
+		</member>
 		<member name="M:FormatMoney" syntax="FormatMoney(amount)">
 			<stacksize value="22"/>
 			<referrer name="ShowBuyFood"/>
@@ -42378,6 +42403,7 @@
 			<referrer name="GiftPlayer"/>
 			<referrer name="LoginCheckEx"/>
 			<referrer name="GivePlayerXP"/>
+			<referrer name="OnLastLoginLoaded"/>
 			<referrer name="pc_cmd_listbugs"/>
 			<referrer name="pc_cmd_placetable"/>
 			<referrer name="pc_cmd_loadkit"/>
@@ -43311,6 +43337,7 @@
 			<referrer name="CreatePlayerVehicle"/>
 			<referrer name="MakeZombie"/>
 			<referrer name="CompleteToyTrade"/>
+			<referrer name="CheckLastLogin"/>
 			<referrer name="pc_cmd_buycure"/>
 			<referrer name="pc_cmd_curevirus"/>
 			<referrer name="pc_cmd_buyhouse"/>
@@ -46448,6 +46475,7 @@
 		</member>
 		<member name="M:HienTextdraw" syntax="HienTextdraw(playerid, string[])">
 			<stacksize value="7"/>
+			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_time"/>
 			<referrer name="OnPlayerCommandPerformed"/>
 			<dependency name="HienThi"/>
@@ -47932,6 +47960,7 @@
 		</member>
 		<member name="M:InitFishingSystem" syntax="InitFishingSystem()">
 			<stacksize value="6"/>
+			<referrer name="InitiateGamemode"/>
 			<dependency name="CheckAndResetIfNeeded"/>
 			<dependency name="LastResetDay"/>
 			<dependency name="LastResetMonth"/>
@@ -48070,6 +48099,7 @@
 			<dependency name="FixServerTime"/>
 			<dependency name="GiftAllowed"/>
 			<dependency name="InitEventPoints"/>
+			<dependency name="InitFishingSystem"/>
 			<dependency name="InitPaintballArenas"/>
 			<dependency name="InitPokerTables"/>
 			<dependency name="InitTurfWars"/>
@@ -48105,6 +48135,7 @@
 			<dependency name="LoadTextDraws"/>
 			<dependency name="LoadTurfWars"/>
 			<dependency name="LoadTxtLabels"/>
+			<dependency name="Load_Fishing"/>
 			<dependency name="MAXCRATES"/>
 			<dependency name="Misc_Load"/>
 			<dependency name="NGGShop"/>
@@ -54459,6 +54490,7 @@
 		</member>
 		<member name="M:Load_Fishing" syntax="Load_Fishing()">
 			<stacksize value="18"/>
+			<referrer name="InitiateGamemode"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="CreateDynamicPickup"/>
 			<dependency name="FishingSpots"/>
@@ -54967,6 +54999,7 @@
 			<referrer name="VECTOR_find_arr"/>
 			<referrer name="Prev_DeletePointers"/>
 			<referrer name="Prev_ShowPlayerDialog"/>
+			<dependency name="cellmin"/>
 			<param name="pointer">
 				<paraminfo>Pointer </paraminfo>
 			</param>
@@ -60129,6 +60162,19 @@
 			<param name="index">
 			</param>
 		</member>
+		<member name="M:OnLastLoginLoaded" syntax="OnLastLoginLoaded(playerid)">
+			<attribute name="public"/>
+			<stacksize value="544"/>
+			<dependency name="FormatLastLoginTime"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="cache_get_field_content"/>
+			<dependency name="cache_num_rows"/>
+			<dependency name="format"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:OnLoadArrestPoint" syntax="OnLoadArrestPoint(index)">
 			<attribute name="public"/>
 			<stacksize value="276"/>
@@ -62191,7 +62237,7 @@
 		</member>
 		<member name="M:OnPlayerLoad" syntax="OnPlayerLoad(playerid)">
 			<attribute name="public"/>
-			<stacksize value="809"/>
+			<stacksize value="417"/>
 			<referrer name="OnQueryFinish"/>
 			<dependency name="ABroadCast"/>
 			<dependency name="AdminMOTD"/>
@@ -62298,9 +62344,6 @@
 			<dependency name="bMonths"/>
 			<dependency name="bOwner"/>
 			<dependency name="bValue"/>
-			<dependency name="cache_delete"/>
-			<dependency name="cache_get_field_content"/>
-			<dependency name="cache_num_rows"/>
 			<dependency name="cellmax"/>
 			<dependency name="dcRole_Medic"/>
 			<dependency name="dcRole_Police"/>
@@ -62326,7 +62369,6 @@
 			<dependency name="hOwnerID"/>
 			<dependency name="iRewardPlay"/>
 			<dependency name="mainGuild"/>
-			<dependency name="mysql_query"/>
 			<dependency name="mysql_tquery"/>
 			<dependency name="nbm_Name"/>
 			<dependency name="pADMute"/>
@@ -73668,6 +73710,7 @@
 			<referrer name="TeleportToShop"/>
 			<referrer name="ClaimShopItems"/>
 			<referrer name="GivePlayerXP"/>
+			<referrer name="OnLastLoginLoaded"/>
 			<referrer name="pc_cmd_togchancegambler"/>
 			<referrer name="pc_cmd_gamblechances"/>
 			<referrer name="pc_cmd_tod"/>
@@ -75285,6 +75328,7 @@
 			<dependency name="HelpingNewbie"/>
 			<dependency name="HidePlayerBeaconForCops"/>
 			<dependency name="HidePlayerBeaconForMedics"/>
+			<dependency name="HienTextdraw"/>
 			<dependency name="InBusiness"/>
 			<dependency name="IsACop"/>
 			<dependency name="IsPlayerConnected"/>
@@ -87624,7 +87668,6 @@
 			<referrer name="_@yHOnDialogResponse@0M"/>
 			<referrer name="IsDiscordCodeUsed"/>
 			<referrer name="CreateIDCard"/>
-			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="cache_id">
 				<paraminfo>Cache </paraminfo>
@@ -87802,7 +87845,7 @@
 			<referrer name="ExecuteShopQueue"/>
 			<referrer name="OnGangTagQueryFinish"/>
 			<referrer name="DynVeh_CreateDVQuery"/>
-			<referrer name="OnPlayerLoad"/>
+			<referrer name="OnLastLoginLoaded"/>
 			<dependency name="cache_get_value_name"/>
 			<param name="row">
 			</param>
@@ -88004,7 +88047,7 @@
 			<referrer name="pc_cmd_dsadmin"/>
 			<referrer name="pc_cmd_dsadvisor"/>
 			<referrer name="_@yHOnDialogResponse@0M"/>
-			<referrer name="OnPlayerLoad"/>
+			<referrer name="OnLastLoginLoaded"/>
 			<dependency name="cache_get_row_count"/>
 		</member>
 		<member name="M:calloc" syntax="calloc(size)">
@@ -89911,6 +89954,9 @@
 			<referrer name="ClaimShopItems"/>
 			<referrer name="GivePlayerXP"/>
 			<referrer name="FormatMoney"/>
+			<referrer name="CheckLastLogin"/>
+			<referrer name="OnLastLoginLoaded"/>
+			<referrer name="FormatLastLoginTime"/>
 			<referrer name="pc_cmd_tod"/>
 			<referrer name="pc_cmd_chances"/>
 			<referrer name="pc_cmd_clearbugs"/>
@@ -92625,7 +92671,6 @@
 			<referrer name="_@yHOnDialogResponse@0M"/>
 			<referrer name="IsDiscordCodeUsed"/>
 			<referrer name="CreateIDCard"/>
-			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>
@@ -92867,6 +92912,7 @@
 			<referrer name="CompleteToyTrade"/>
 			<referrer name="ClaimShopItems"/>
 			<referrer name="GivePlayerXP"/>
+			<referrer name="CheckLastLogin"/>
 			<referrer name="pc_cmd_clearbugs"/>
 			<referrer name="pc_cmd_listbugs"/>
 			<referrer name="pc_cmd_zombieevent"/>
@@ -122134,6 +122180,7 @@
 			<referrer name="ClearReports"/>
 			<referrer name="SendCallToQueue"/>
 			<referrer name="ClearCalls"/>
+			<referrer name="FormatLastLoginTime"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_acceptcall"/>
 			<referrer name="pc_cmd_ignorecall"/>

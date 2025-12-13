@@ -936,7 +936,7 @@ task ServerHeartbeat[1000]() {
 					SendClientMessage(i, 0xFFFF36FF, "PAYDAY! Ban da co the nhan luong cua minh.");
 					SendClientMessage(i, -1, "Ban co 5 phut de lanh luong, go /payday de lanh luong.");
 					//GameTextForPlayer(i, "~y~PAYDAY~n~~w~Ban co the nhan luong cua minh.", 5000, 1);
-					HienTextdraw(i, "~y~PAYDAY~w~Ban co the nhan luong cua minh.")
+					HienTextdraw(i, "~y~PAYDAY~w~Ban co the nhan luong cua minh.");
 				}
 
 				if(PlayerInfo[i][pConnectSeconds] % 3 == 0) {
