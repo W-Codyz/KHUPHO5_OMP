@@ -815,7 +815,7 @@ task EMSUpdate[5000]()
 				SetPlayerHealth(i, health-1);
 				if(GetPVarInt(i, "EMSAttempt") == -1)
 				{
-					if(GetPlayerAnimationIndex(i) != 746) ClearAnimations(i), ApplyAnimation(i, "KNIFE", "KILL_Knife_Ped_Die", 4.0, false, true, true, true, 0, 1);
+					if(GetPlayerAnimationIndex(i) != 1537) ClearAnimations(i), ApplyAnimation(i, "SWEET", "Sweet_injuredloop", 4.0, false, true, true, true, 0, 1);
 
 					if(!GetPVarInt(i, "StreamPrep") && !IsPlayerInRangeOfPoint(i, 3.0, GetPVarFloat(i,"MedicX"), GetPVarFloat(i,"MedicY"), GetPVarFloat(i,"MedicZ")) && !GetPVarInt(i, "OnStretcher"))
 	    			{
@@ -824,10 +824,13 @@ task EMSUpdate[5000]()
 						SpawnPlayer(i);
 	    			}
 					SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~/chapnhan chet hoac /dichvu capcuu");
+					new string[128];
+					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong ))");
+                    SetPlayerChatBubble(i, string, TEAM_CYAN_COLOR, 50.0, 10000);
 				}
 				if(GetPVarInt(i, "EMSAttempt") == 1)
 				{
-					if(GetPlayerAnimationIndex(i) != 746) ClearAnimations(i), ApplyAnimation(i, "KNIFE", "KILL_Knife_Ped_Die", 4.0, false, true, true, true, 0, 1);
+					if(GetPlayerAnimationIndex(i) != 1537) ClearAnimations(i), ApplyAnimation(i, "SWEET", "Sweet_injuredloop", 4.0, false, true, true, true, 0, 1);
 	    			if(!GetPVarInt(i, "StreamPrep") && !IsPlayerInRangeOfPoint(i, 3.0, GetPVarFloat(i,"MedicX"), GetPVarFloat(i,"MedicY"), GetPVarFloat(i,"MedicZ")) && !GetPVarInt(i, "OnStretcher"))
 	    			{
 	        			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh, ban duoc dua den benh vien da dieu tri.");
@@ -835,6 +838,9 @@ task EMSUpdate[5000]()
 						SpawnPlayer(i);
 	    			}
 					SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~Dang doi EMS den...");
+					new string[128];
+					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong ))");
+                    SetPlayerChatBubble(i, string, TEAM_CYAN_COLOR, 50.0, 10000);
 				}
 				if(GetPVarInt(i, "EMSAttempt") == 2)
 				{
@@ -850,6 +856,9 @@ task EMSUpdate[5000]()
 						}
 	    			}
 					SendMessageTD(i, 5200, "~g~Dich vu~n~~w~Dang cho dieu tri...");
+					new string[128];
+					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong ))");
+                    SetPlayerChatBubble(i, string, TEAM_CYAN_COLOR, 50.0, 10000);
 				}
 				if(GetPVarInt(i, "EMSAttempt") == 3)
 				{
@@ -934,9 +943,9 @@ task ServerHeartbeat[1000]() {
 					PlayerInfo[i][pPayDayCode] = Random(100000, 999999);
 					PlayerInfo[i][pPayDayTime] = 300; // 5mins
 					SendClientMessage(i, 0xFFFF36FF, "PAYDAY! Ban da co the nhan luong cua minh.");
-					SendClientMessage(i, -1, "Ban co 5 phut de lanh luong, go /payday de lanh luong.");
+					SendClientMessage(i, -1, "Ban co 5 phut de lanh luong, go /lanhluong de lanh luong.");
 					//GameTextForPlayer(i, "~y~PAYDAY~n~~w~Ban co the nhan luong cua minh.", 5000, 1);
-					HienTextdraw(i, "~y~PAYDAY~w~Ban co the nhan luong cua minh.");
+					HienTextdraw(i, "~y~PAYDAY~w~ Ban co the nhan luong cua minh.");
 				}
 
 				if(PlayerInfo[i][pConnectSeconds] % 3 == 0) {
