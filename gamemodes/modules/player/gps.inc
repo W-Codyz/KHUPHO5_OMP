@@ -229,12 +229,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			if(listitem == 2) //Boc vac
 			{
-			    HienTextdraw(playerid, "~y~Boc Vac~w~Cong viec hien tai dang bao tri.");
+			    HienTextdraw(playerid, "~y~Boc Vac~w~ Cong viec hien tai dang bao tri.");
                 return 1;
 			}
 			if(listitem == 3) //Xay dung
 			{
-			    HienTextdraw(playerid, "~y~Xay Dung~w~Cong viec hien tai dang bao tri.");
+			    HienTextdraw(playerid, "~y~Xay Dung~w~ Cong viec hien tai dang bao tri.");
                 return 1;
 			}
 			if(listitem == 4) // son tuong

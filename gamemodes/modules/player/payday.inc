@@ -218,7 +218,7 @@ PayDay(i) {
 				}
 			}
 			
-			HienTextdraw(i, "~y~PayDay~w~Ban da nhan luong");
+			HienTextdraw(i, "~y~PayDay~w~ Ban da nhan luong");
 			//SendAudioToPlayer(i, 63, 100);
 			PlayerInfo[i][pConnectSeconds] = 0;
 			PlayerInfo[i][pPayCheck] = 0;
@@ -331,6 +331,8 @@ PayDay(i) {
 	}
 }
 
+
+alias:payday("lanhluong")
 CMD:payday(playerid, params)
 {
 	if(!IsPlayerDiscordVerified(playerid)) 

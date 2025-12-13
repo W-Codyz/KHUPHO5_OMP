@@ -5785,7 +5785,7 @@ public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
 			SetTimerEx("HideNoticeCommand", 5000, false, "i", playerid);
 		}
 		return 0; */
-		HienTextdraw(playerid, "~r~[!]~w~ Lenh khong hop le. Vui long nhap /help de xem danh sach lenh.");
+		HienTextdraw(playerid, "~r~[!]~w~Lenh khong hop le. Vui long nhap /help de xem danh sach lenh.");
     }
     return 1;
 }
