@@ -218,7 +218,7 @@ PayDay(i) {
 				}
 			}
 			
-			GameTextForPlayer(i, "~y~PayDay~n~~w~Ban da nhan luong", 5000, 1);
+			HienTextdraw(i, "~y~PayDay~w~Ban da nhan luong");
 			//SendAudioToPlayer(i, 63, 100);
 			PlayerInfo[i][pConnectSeconds] = 0;
 			PlayerInfo[i][pPayCheck] = 0;

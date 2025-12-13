@@ -61,24 +61,14 @@ CMD:timduong(playerid, params[])
 CMD:timvieclam(playerid, params[]) 
 {
    return ShowPlayerDialog(playerid, TIMVIECLAM, DIALOG_STYLE_LIST, "Tim Viec Lam", \
-   "Tham Tu\n\
-   Luat Su\n\
-   Gai Diem\n\
-   Ve Si Los Santos\n\
-   Tho Sua Xe\n\
-   Ban Vu Khi\n\
-   Ve Si San Fierro\n\
-   Tai Xe Taxi\n\
-   Van Chuyen Thuoc\n\
-   Tho Thu Cong\n\
-   Nguoi Pha Ruou\n\
-   Giao Banh Pizza\n\
-   Tai Xe Trucker\n\
-   Lai Thuyen Trucker\n\
-   Nong Trai Can Sa\n\
-   Ngu Dan Cau Ca\n\
-   Tho Chat Go\n\
-   Tho Son Tuong", "Chon", "Dong");
+   "Pizza Boy Delivery\n\
+   Trucker Delivery\n\
+   Boc Vac\n\
+   Xay Dung\n\
+   Tho Son Tuong\n\
+   Cau Ca\n\
+   Lumberjack\n\
+   Can Sa", "Chon", "Dong");
 }
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
@@ -223,130 +213,56 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 	    if(response)
 	    {
-	       	if(listitem == 0) // Tham Tu
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -1589.5458,717.1549,9.1181, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-				return 1;
-			}
-			if(listitem == 1) //Luat Su
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -1619.3232,716.7933,14.4121, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-				return 1;
-			}
-		    if(listitem == 2) //Gai Diem
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -1549.5161,1171.8917,7.1875, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 3) //Ve si
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, 1099.73,-1504.67,15.800, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 4) //Tho Sua Xe
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -2032.601928, 143.866592, 28.835937, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 5) //Buon Vu khi
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -2623.333984, 209.235931, 4.684767, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 6) //Vo si
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -2269.256103, -158.054321, 35.320312, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 7) // Tai Xe Taxi
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -1981.144775, 133.063293, 27.687500, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 8) // Van chuyen thuoc phien
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -382.0426,-1426.1294,26.0843, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 9) // Tho Thu Cong
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -1356.7195,2065.3450,52.4677, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 10) // Nguoi pha ruou
-		    {
-				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -864.3550,1536.9703,22.5870, 3.0);
-                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-                return 1;
-			}
-			if(listitem == 11) //Pizza Boy
+			if(listitem == 0) //Pizza Boy
 		    {
 				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
 				SetPlayerCP(playerid, -1720.962646, 1364.456176, 7.187500, 3.0);
                 gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
                 return 1;
 			}
-			if(listitem == 12) //Trucker 2139.3455,-81.7619,2.9146
+			if(listitem == 1) //Trucker
 			{
 			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
 				SetPlayerCP(playerid, -1560.963867, 127.491157, 3.554687, 3.0);
 				gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
                 return 1;
 			}
-			if(listitem == 13) //Trucker 2139.3455,-81.7619,2.9146
+			if(listitem == 2) //Boc vac
 			{
-			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, 2139.3455,-81.7619,2.9146, 3.0);
-				gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+			    HienTextdraw(playerid, "~y~Boc Vac~w~Cong viec hien tai dang bao tri.");
                 return 1;
 			}
-			if(listitem == 14) //Trucker 	ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
+			if(listitem == 3) //Xay dung
 			{
-			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
+			    HienTextdraw(playerid, "~y~Xay Dung~w~Cong viec hien tai dang bao tri.");
                 return 1;
 			}
-			if(listitem == 15) //Trucker 	ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
+			if(listitem == 4) // son tuong
+			{
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+          		SetPlayerCP(playerid, -2456.8425,786.6091,35.1719, 3.0);
+       		    gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;	
+			}
+			if(listitem == 5) //fishing
 			{
 			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
                 SetPlayerCP(playerid, -2975.5642,480.8670,4.8925, 3.0);
                 gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
 				return 1;
 			}
-			if(listitem == 16) //
+			if(listitem == 6) //lumber
 			{
 			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
           		SetPlayerCP(playerid, -543.9225,-79.9980,62.9417, 3.0);
        		    gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-				return 1;	
+				return 1;
 			}
-			if(listitem == 17) // son tuong
+			if(listitem == 7) // Can sa
 			{
 			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-          		SetPlayerCP(playerid, -2456.8425,786.6091,35.1719, 3.0);
-       		    gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
-				return 1;	
+				ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
+                return 1;
 			}
 		}
 	}
@@ -361,8 +277,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			if(listitem == 1)
 			{
-				new stringbx[128];
-				format(stringbx, sizeof stringbx, "Cay can sa:\t %d\nTep can sa:\t %d\nPot:\t\t %d\nCrack:\t\t %d", PlayerInfo[playerid][pCanSa], PlayerInfo[playerid][pTepCanSa], PlayerInfo[playerid][pPot], PlayerInfo[playerid][pCrack]);
+				new stringbx[256];
+				format(stringbx, sizeof stringbx, "{ffffff}Cay can sa:\t %d\nTep can sa:\t %d\nPot:\t\t %d\nCrack:\t\t %d", PlayerInfo[playerid][pCanSa], PlayerInfo[playerid][pTepCanSa], PlayerInfo[playerid][pPot], PlayerInfo[playerid][pCrack]);
 				ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "{ffff00}GTAHTB{ffffff} - Xem can sa", stringbx, "Dong y", "");
 			}
 		}
