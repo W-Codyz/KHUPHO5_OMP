@@ -2801,13 +2801,20 @@ stock MySQLUpdateBuild(query[], sqlplayerid)
 
 stock MySQLUpdateFinish(query[], sqlplayerid)
 {
-	if (strcmp(query, "WHERE id=", false) == 0) mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+	if (strcmp(query, "WHERE id=", false) == 0) 
+	{
+		mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+	}
 	else
 	{
-		new whereclause[32];
-		format(whereclause, sizeof(whereclause), " WHERE id=%d", sqlplayerid);
-		strcat(query, whereclause, 2048);
-		mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+		// Kiem tra xem query co chua du lieu khong (phai co dau "=" de la query hop le)
+		if (strfind(query, "=", true) != -1)
+		{
+			new whereclause[32];
+			format(whereclause, sizeof(whereclause), " WHERE id=%d", sqlplayerid);
+			strcat(query, whereclause, 2048);
+			mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+		}
 		format(query, 2048, "UPDATE `accounts` SET ");
 	}
 	return 1;

@@ -1,4 +1,19 @@
 	#if defined event_chancegambler
+CMD:debugsave(playerid, params[])
+{
+	if (PlayerInfo[playerid][pAdmin] >= 1)
+	{
+		SendClientMessageEx(playerid, COLOR_YELLOW, "[DEBUG] Dang luu du lieu...");
+		OnPlayerStatsUpdate(playerid);
+		SendClientMessageEx(playerid, COLOR_GREEN, "[DEBUG] Da luu xong! Kiem tra server_log.txt de xem query.");
+	}
+	else
+	{
+		SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong duoc phep su dung lenh nay.");
+	}
+	return 1;
+}
+
 CMD:togchancegambler(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 1338 || PlayerInfo[playerid][pPR] >= 2)
@@ -49269,4 +49284,10 @@ task CountTheGioiChat[1000]()
             PlayerCountTheGioi[i]--;
         }
     }
+}
+
+CMD:map(playerid, params[])
+{
+	ShowPlayerDialog(playerid, DIALOG_MAP_TPHAT, DIALOG_STYLE_LIST, "MAP", "{ffffff}Tim duong\nTim viec lam", "Chon", "Huy");
+	return 1;
 }
