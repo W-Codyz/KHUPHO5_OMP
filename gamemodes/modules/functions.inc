@@ -9559,7 +9559,7 @@ stock SetPlayerSpawn(playerid)
 
 		//TextDrawShowForPlayer(playerid, ServerTime_TD);
 		
-		/* if(!IsPlayerDiscordVerified(playerid)){
+		if(!IsPlayerDiscordVerified(playerid)){
 			if(PlayerInfo[playerid][pDiscordCode] == 0) {
 				new discordCode = 0;
 				do {
@@ -9574,7 +9574,7 @@ stock SetPlayerSpawn(playerid)
 			ShowPlayerDialog(playerid, DIALOG_DISCORD_VERIFY, DIALOG_STYLE_MSGBOX, "{FFFFFF}Lien ket tai khoan Discord", 
             "{FFFFFF}Tai khoan in-game cua ban chua duoc lien ket voi Discord vui long\ntruy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} tai Discord cua {FF6666}GTA-HTB Roleplay{FFFFFF} de tien hanh lien ket.\nSau khi truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} go lenh [/xacminh {E7D727}%i{FFFFFF}] de bat dau viec lien ket.\nDiscord: dsc.gg/gtahtb", "Xac nhan", "", PlayerInfo[playerid][pDiscordCode]);
 			SetTimerEx("KickEx", 1000, 0, "i", playerid);
-		} */
+		}
 
 		if(PlayerInfo[playerid][pTut] == 1){
 			SetPlayerFirstSpawn(playerid);

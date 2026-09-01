@@ -55,22 +55,31 @@ client.on('interactionCreate', async interaction => {
     try {
         await command.run(interaction);
     } catch (error) {
-        console.error(error);
-        if (interaction.deferred || interaction.replied) {
-            await interaction.editReply({ 
-                content: 'Đã xảy ra lỗi khi thực hiện lệnh!',
-                embeds: [],
-                components: []
-            }).catch(console.error);
-        } else {
-            await interaction.reply({ 
-                content: 'Đã xảy ra lỗi khi thực hiện lệnh!',
-                ephemeral: true 
-            }).catch(console.error);
+        console.error(`Error executing command ${interaction.commandName}:`, error);
+
+        // Kiểm tra trạng thái interaction để gửi phản hồi phù hợp
+        try {
+            if (interaction.replied || interaction.deferred) {
+                // Nếu đã có phản hồi (reply/defer), dùng followUp
+                await interaction.followUp({
+                    content: '❌ Đã xảy ra lỗi khi thực hiện lệnh! Vui lòng thử lại sau.',
+                    ephemeral: true
+                });
+            } else {
+                // Nếu chưa có phản hồi, gửi reply mới
+                await interaction.reply({
+                    content: '❌ Đã xảy ra lỗi khi thực hiện lệnh!',
+                    ephemeral: true
+                });
+            }
+        } catch (followUpError) {
+            // Nếu không thể gửi phản hồi (ví dụ interaction đã hết hạn), chỉ log lỗi
+            console.error('Không thể gửi phản hồi lỗi:', followUpError);
         }
     }
 });
 
+// API endpoint (giữ nguyên, nhưng có thể cần sửa sau)
 app.get('/api/discord/addrole', async (req, res) => {
     const { userId, guildId } = req.query;
 

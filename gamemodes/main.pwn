@@ -128,7 +128,7 @@
 #include "./modules/player/help"
 #include "./modules/player/player_load"
 #include "./modules/player/enter_exit"
-#include "./modules/player/mail"
+//#include "./modules/player/mail"
 //#include "./modules/player/speedo"
 //#include "./modules/player/send_location"
 
@@ -139,7 +139,7 @@ main() {}
 public OnGameModeInit()
 {
 	print("Dang cau hinh plugin, xin vui long cho doi...");
-	SetCrashDetectLongCallTime(1000000);
+	//SetCrashDetectLongCallTime(1000000);
 	CA_Init();
 	print("Hoan tat cau hinh plugin, chuan bi tai gamemode...");
 	g_mysql_Init();

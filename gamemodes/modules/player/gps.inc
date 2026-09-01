@@ -37,24 +37,24 @@ stock DisablePlayerCP(playerid)
 CMD:timduong(playerid, params[])
 {
    ShowPlayerDialog(playerid, TIMDUONG, DIALOG_STYLE_LIST, "Tim Duong", \
-   "Ngan Hang San Fierro\n\
-   Ngan Hang Los Santos\n\
-   Benh Vien San Fierro\n\
-   Benh Vien Los Santos\n\
-   Thi Bang Lai Xe\n\
-   Cua Hang Xe The Thao\n\
-   Cua Hang Xe Moto\n\
-   Cua Hang Sieu Xe VIP\n\
-   Cua Hang Quan Ao\n\
-   Khu Vuc Cau Ca\n\
-   Khu Vuc Ban Ca\n\
-   Nha Hang An Uong\n\
+   "Ngan hang San Fierro\n\
+   Ngan hang Los Santos\n\
+   Benh vien San Fierro\n\
+   Benh vien Los Santos\n\
+   Thi bang lai xe\n\
+   Cua xe the thao\n\
+   Cua hang xe moto\n\
+   Cua hang sieu xe VIP\n\
+   Cua hang quan ao\n\
+   Khu vuc cau ca\n\
+   Khu vuc ban ca\n\
+   Nha hang an uong\n\
    Khu VIP\n\
-   Cua Hang Tien Loi\n\
-   Cua Hang Sua Xe\n\
-   Dau Truong PvP\n\
-   Khu Giai Tri Casino\n\
-   Phong Tap Vo", "Chon", "Dong");
+   Cua hang tien loi\n\
+   Cua hang sua xe\n\
+   Dau truong PvP\n\
+   Khu giai tri casino\n\
+   Phong tap vo", "Chon", "Dong");
    return 1;
 }
 

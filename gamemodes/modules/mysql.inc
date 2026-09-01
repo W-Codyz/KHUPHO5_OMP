@@ -1081,7 +1081,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 			else
 			{
 				SendClientMessage(extraid, 0xA9C4E4FF, "Complete game testing and configuration.");
-				SetTimerEx("SendDiscordConnect", 5000, false, "i", extraid);
+				//SetTimerEx("SendDiscordConnect", 5000, false, "i", extraid);
 			    g_mysql_AccountAuthCheck(extraid);
 			}
 		}
@@ -1098,7 +1098,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 				if(strcmp(ip, "0.0.0.0", true) == 0 || strcmp(ip, GetPlayerIpEx(extraid), true) == 0) {
 					SendClientMessage(extraid, 0xA9C4E4FF, "Complete game testing and configuration.");
 					SendClientMessage(extraid, 0xA9C4E4FF, "Your account is the preferred connection account..");
-					SetTimerEx("SendDiscordConnect", 5000, false, "i", extraid);
+					//SetTimerEx("SendDiscordConnect", 5000, false, "i", extraid);
 					g_mysql_AccountAuthCheck(extraid);
 				}
 				else {

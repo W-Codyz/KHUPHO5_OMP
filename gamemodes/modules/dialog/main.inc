@@ -2398,7 +2398,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		if(response)
 		{
-			new query[356], email[256], pos;
+			/* new query[356], email[256], pos;
 			mysql_real_escape_string(inputtext, email);
 
 			if(isnull(email)) {
@@ -2430,11 +2430,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SetPVarInt(playerid, "pTmpCode", code);
 			SetPVarInt(playerid, "pTmpCodeTime", gettime() + 600);
 			SendMailVerify(playerid, email, code);
-			SendClientMessageEx(playerid, COLOR_GREY, "Dang xu li tac vu Email...");
+			SendClientMessageEx(playerid, COLOR_GREY, "Dang xu li tac vu Email..."); */
 			//format(query, sizeof(query), "UPDATE `accounts` SET `Email`='%s' WHERE `id`=%d", email, GetPlayerSQLId(playerid));
 			//mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			SendClientMessageEx(playerid, COLOR_YELLOW, "(!) Chuc nang dang bao tri, vui long thu lai sau.");
+			ShowPlayerSettings(playerid);
 		}
 		else {
+			SendClientMessageEx(playerid, COLOR_YELLOW, "(!) Chuc nang dang bao tri, vui long thu lai sau.");
 			ShowPlayerSettings(playerid);
 		}
 	}

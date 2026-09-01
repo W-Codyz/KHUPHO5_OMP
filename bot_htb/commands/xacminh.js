@@ -22,8 +22,8 @@ module.exports = {
     ],
     run: async (interaction) => {
         // Chỉ cho phép sử dụng lệnh trong kênh xác thực
-        const VERIFY_CHANNEL_ID = process.env.VERIFICATION_CHANNEL_ID || '1399386568468463663';
-        const VERIFIED_ROLE_ID = process.env.VERIFIED_ROLE_ID || '1430358438701174804';
+        const VERIFY_CHANNEL_ID = process.env.VERIFICATION_CHANNEL_ID || '1544221791369560155';
+        const VERIFIED_ROLE_ID = process.env.VERIFIED_ROLE_ID || '1544225805565952030';
         
         if (interaction.channelId !== VERIFY_CHANNEL_ID) {
             const embed = new EmbedBuilder()
@@ -98,7 +98,6 @@ module.exports = {
                     'UPDATE `accounts` SET `DiscordID` = ? WHERE `id` = ?',
                     [discordId, accountId]
                 );
-
                 connection.release();
 
                 // Thêm role verified
@@ -106,18 +105,39 @@ module.exports = {
                     await member.roles.add(VERIFIED_ROLE_ID);
                 } catch (roleError) {
                     console.error('Lỗi khi thêm role:', roleError);
+                    // Vẫn tiếp tục, không làm gián đoạn
                 }
 
+                // 1. Tin nhắn riêng tư (ephemeral) cho người dùng
                 const embed = new EmbedBuilder()
                     .setColor('#00FF00')
                     .setTitle('✅ Liên kết thành công')
                     .setDescription(`Tài khoản Discord của bạn đã được liên kết thành công đến tài khoản trò chơi ***${accountName}***\n\nBây giờ bạn có thể thực hiện các thao tác riêng tư/bảo mật với tài khoản của mình.\n\n***Chúc bạn có một trải nghiệm thật tuyệt tại GTA-HTB Roleplay! 🎮***`)
                     .setFooter({ text: 'GTA-HTB Roleplay' })
                     .setTimestamp();
-                
+
                 await interaction.editReply({ embeds: [embed] });
 
-                // Gửi DM cho member được xác minh
+                // 2. Tin nhắn công khai cho mọi người trong kênh (kèm hướng dẫn)
+                const publicEmbed = new EmbedBuilder()
+                    .setColor('#00FF00')
+                    .setTitle('✅ Xác minh thành công!')
+                    .setDescription(`**${interaction.user.tag}** vừa xác minh tài khoản game **${accountName}**.`)
+                    .addFields(
+                        {
+                            name: '📌 Hướng dẫn xác minh dành cho bạn',
+                            value: `Nếu bạn chưa xác minh, hãy làm theo các bước sau:\n` +
+                                `1️⃣ Trong game, lấy mã xác minh 6 chữ số (lệnh /code hoặc xem trong thông tin tài khoản).\n` +
+                                `2️⃣ Vào kênh <#${process.env.VERIFICATION_CHANNEL_ID}> và dùng lệnh \`/xacminh <mã số>\` (ví dụ: \`/xacminh 123456\`).\n` +
+                                `3️⃣ Sau khi xác minh, bạn sẽ được cấp role và có thể sử dụng đầy đủ các tính năng của server.`
+                        }
+                    )
+                    .setFooter({ text: 'GTA-HTB Roleplay' })
+                    .setTimestamp();
+
+                await interaction.channel.send({ embeds: [publicEmbed] });
+
+                // 3. DM riêng (tùy chọn, vẫn giữ như cũ)
                 try {
                     const dmEmbed = new EmbedBuilder()
                         .setColor('#00FF00')
@@ -131,7 +151,7 @@ module.exports = {
                         ].join('\n'))
                         .setFooter({ text: 'GTA-HTB Roleplay' })
                         .setTimestamp();
-                    
+
                     await interaction.user.send({ embeds: [dmEmbed] });
                 } catch (dmError) {
                     console.error('Không thể gửi DM:', dmError);

@@ -2,7 +2,10 @@
 
 stock IsPlayerDiscordVerified(playerid)
 {
-    return (!isnull(PlayerInfo[playerid][pDiscordID]));
+    new id[32];
+    strcat(id, PlayerInfo[playerid][pDiscordID], sizeof(id));
+    if (strlen(id) == 0 || strcmp(id, "0") == 0) return 0;
+    return 1;
 }
 
 stock IsDiscordCodeUsed(discordCode)
@@ -81,18 +84,31 @@ public SendDiscordConnect(playerid)
 forward SendDiscordDisconnect(playerid, reason);
 public SendDiscordDisconnect(playerid, reason)
 {
-    new szMsg[428], datetime[64];
+    new szMsg[428], datetime[64], szReason[32];
     new DCC_Embed:embed_log;
 
+    // Lấy thời gian
     gettime(datetime[0], datetime[1], datetime[2]);
     getdate(datetime[3], datetime[4], datetime[5]);
-    format(datetime, _, "%02d:%02d:%02d - %02d/%02d/%d", datetime[0], datetime[1], datetime[2], datetime[5], datetime[4], datetime[3]);
-    format(szMsg, _, "Người chơi ***%s (%d)*** đã rời khỏi máy chủ.\n\n**Lý do: %s**", 
-        GetPlayerNameExt(playerid), playerid, reason);
+    format(datetime, sizeof(datetime), "%02d:%02d:%02d - %02d/%02d/%d",
+        datetime[0], datetime[1], datetime[2], datetime[5], datetime[4], datetime[3]);
+
+    // Xác định chuỗi lý do dựa vào số reason
+    switch (reason)
+    {
+        case 0: szReason = "Timeout (mất kết nối)";
+        case 1: szReason = "Leaving (thoát chủ động)";
+        case 2: szReason = "Kicked / Banned";
+        default: szReason = "Không xác định";
+    }
+
+    format(szMsg, sizeof(szMsg),
+        "Người chơi ***%s (%d)*** đã rời khỏi máy chủ.\n\n**Lý do: %s**",
+        GetPlayerNameExt(playerid), playerid, szReason);
 
     embed_log = DCC_CreateEmbed("PLAYER DISCONNECT", szMsg);
     DCC_SetEmbedFooter(embed_log, datetime);
-    DCC_SetEmbedColor(embed_log, 0xFF3D3DFF);
+    DCC_SetEmbedColor(embed_log, 0xFF3D3D);
     
     return DCC_SendChannelEmbedMessage(dclog_Join, embed_log);
 }
@@ -138,7 +154,7 @@ Discord_Init()
     
 }
 
-hook OnPlayerConnect(playerid)
+hook OnPlayerSpawn(playerid)
 {
     SendDiscordConnect(playerid);
     return 1;
