@@ -73,7 +73,26 @@ public SendDiscordConnect(playerid)
 
     embed_log = DCC_CreateEmbed("PLAYER CONNECT", szMsg);
     DCC_SetEmbedFooter(embed_log, datetime);
-    DCC_SetEmbedColor(embed_log, 0xAA85FF);
+    DCC_SetEmbedColor(embed_log, 0x02FF52FF);
+    
+    return DCC_SendChannelEmbedMessage(dclog_Join, embed_log);
+}
+
+forward SendDiscordDisconnect(playerid, reason);
+public SendDiscordDisconnect(playerid, reason)
+{
+    new szMsg[428], datetime[64];
+    new DCC_Embed:embed_log;
+
+    gettime(datetime[0], datetime[1], datetime[2]);
+    getdate(datetime[3], datetime[4], datetime[5]);
+    format(datetime, _, "%02d:%02d:%02d - %02d/%02d/%d", datetime[0], datetime[1], datetime[2], datetime[5], datetime[4], datetime[3]);
+    format(szMsg, _, "Người chơi ***%s (%d)*** đã rời khỏi máy chủ.\n\n**Lý do: %s**", 
+        GetPlayerNameExt(playerid), playerid, reason);
+
+    embed_log = DCC_CreateEmbed("PLAYER DISCONNECT", szMsg);
+    DCC_SetEmbedFooter(embed_log, datetime);
+    DCC_SetEmbedColor(embed_log, 0xFF3D3DFF);
     
     return DCC_SendChannelEmbedMessage(dclog_Join, embed_log);
 }
@@ -81,21 +100,22 @@ public SendDiscordConnect(playerid)
 Discord_Init()
 {
     DCC_SetBotActivity("GTA-HTB Roleplay");
+    //Discord_SlashCommand();
 
-    mainGuild = DCC_FindGuildById("1399386558968238242");
+    mainGuild = DCC_FindGuildById("1544209806024515614");
 
-    dcRole_Verified = DCC_FindRoleById("1430358438701174804");
-    dcRole_Admin = DCC_FindRoleById("1403988721266856059");
-    dcRole_Police = DCC_FindRoleById("1399386559031021716");
-    dcRole_Medic = DCC_FindRoleById("1399386559031021714");
-    dc_Verify = DCC_FindChannelById("1399386568468463663");
+    dcRole_Verified = DCC_FindRoleById("1544225805565952030");
+    dcRole_Admin = DCC_FindRoleById("");
+    dcRole_Police = DCC_FindRoleById("");
+    dcRole_Medic = DCC_FindRoleById("");
+    dc_Verify = DCC_FindChannelById("1544221791369560155");
 
-    ccChannel = DCC_FindChannelById("1399386568107495464");
-    dclog_Money = DCC_FindChannelById("1337348377003687958");
-    dclog_Setvip = DCC_FindChannelById("1337354392407511171");
+    ccChannel = DCC_FindChannelById("");
+    dclog_Money = DCC_FindChannelById("");
+    dclog_Setvip = DCC_FindChannelById("");
 
-    dclog_Join = DCC_FindChannelById("1439904079202615389");
-    dclog_Pay = DCC_FindChannelById("1404061322043461663");
+    dclog_Join = DCC_FindChannelById("1544235359196684319");
+    dclog_Pay = DCC_FindChannelById("");
 
     dclog_Pizza = DCC_FindChannelById("");
     dclog_Sweeper = DCC_FindChannelById("");
@@ -104,16 +124,28 @@ Discord_Init()
     dclog_Construction = DCC_FindChannelById("");
 
     //old server
-    renameChannel = DCC_FindChannelById("1421517124035416135");
-	banChannel = DCC_FindChannelById("1421517179572195378");
-    ruathoChannel = DCC_FindChannelById("1437273293403984056");
-	creditChannel = DCC_FindChannelById("1421517503418601633");
-	logChannel = DCC_FindChannelById("1403894879209259170");
-	logDCChannel = DCC_FindChannelById("1402483870913527838");
-	givegunChannel = DCC_FindChannelById("1403901608559120404");
-	moneyChannel = DCC_FindChannelById("1403902144435847309");
-	weaponChannel = DCC_FindChannelById("1404059243014787092");
-	giveChannel = DCC_FindChannelById("1404062766322679910");
-	antiChannel = DCC_FindChannelById("1425846474352230492");
+    renameChannel = DCC_FindChannelById("");
+	banChannel = DCC_FindChannelById("");
+    ruathoChannel = DCC_FindChannelById("");
+	creditChannel = DCC_FindChannelById("");
+	logChannel = DCC_FindChannelById("");
+	logDCChannel = DCC_FindChannelById("");
+	givegunChannel = DCC_FindChannelById("");
+	moneyChannel = DCC_FindChannelById("");
+	weaponChannel = DCC_FindChannelById("");
+	giveChannel = DCC_FindChannelById("");
+	antiChannel = DCC_FindChannelById("");
     
+}
+
+hook OnPlayerConnect(playerid)
+{
+    SendDiscordConnect(playerid);
+    return 1;
+}
+
+hook OnPlayerDisconnect(playerid, reason)
+{
+    SendDiscordDisconnect(playerid, reason);
+    return 1;
 }

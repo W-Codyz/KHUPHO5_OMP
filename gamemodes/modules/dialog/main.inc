@@ -17616,7 +17616,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(PlayerInfo[playerid][pIDCard] != 0)
 					return SendClientMessage(playerid, COLOR_GREY, "Ban da phat hanh Can cuoc cong dan roi.");
 			
-				ShowPlayerDialog(playerid, DIALOG_REGIDCARD, DIALOG_STYLE_MSGBOX, "{FFFFFF}Charlotte Evans > Can cuoc cong dan", "{FFFFFF}Xin chao ban, toi la {5BC5F3}Charlotte Evans{FFFFFF} nhan vien cua Toa thi chinh San Fierro.\n\
+				ShowPlayerDialog(playerid, DIALOG_REGIDCARD, DIALOG_STYLE_MSGBOX, "{FFFFFF}William Cody > Can cuoc cong dan", "{FFFFFF}Xin chao ban, toi la {5BC5F3}Charlotte Evans{FFFFFF} nhan vien cua Toa thi chinh San Fierro.\n\
 						Can cuoc cong dan la mot loai giay to chung minh danh tinh ban than cua ban,\nday la mot loai giay to vo cung quan trong khong the thieu neu sinh song tai\nthanh pho nay. De phat hanh Can cuoc cong dan ban can mat khoan phi la {FF3131}$500{FFFFFF}.\n\n\
 							Ban co chac chan muon phat hanh khong?", "Co", "Khong");
 			}
