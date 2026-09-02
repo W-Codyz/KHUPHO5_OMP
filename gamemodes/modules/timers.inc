@@ -1732,7 +1732,8 @@ task ServerMicrobeat[500]() {
 	 				SetVehicleHealth(iVehicle, 251.0);
 	    			GetVehicleParamsEx(iVehicle, arrVehParams[0], arrVehParams[1], arrVehParams[2], arrVehParams[3], arrVehParams[4], arrVehParams[5], arrVehParams[6]);
 					if(arrVehParams[0] == VEHICLE_PARAMS_ON) SetVehicleParamsEx(iVehicle,VEHICLE_PARAMS_OFF, arrVehParams[1], arrVehParams[2], arrVehParams[3], arrVehParams[4], arrVehParams[5], arrVehParams[6]);
-					GameTextForPlayer(i, "~r~XE HONG!", 2500, 3);
+					//GameTextForPlayer(i, "~r~XE HONG!", 2500, 3);
+					HienTextdraw(i, "~r~ XE HONG!");
 					arr_Engine{iVehicle} = 0;
 				}
 				/* else if(PlayerInfo[i][pSpeedo] != 0 && FindTimePoints[i] == 0 && arr_Engine{iVehicle} == 1 && !GetPVarType(i, "LoadTruckTime")) {

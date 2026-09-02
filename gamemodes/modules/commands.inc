@@ -39967,7 +39967,7 @@ CMD:givemehit(playerid, params[])
 	return 1;
 } // old speedometer */
 
-CMD:speedo(playerid, params[])
+/* CMD:speedo(playerid, params[])
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER && GetPlayerState(playerid) != PLAYER_STATE_PASSENGER )
 	{
@@ -39987,7 +39987,7 @@ CMD:speedo(playerid, params[])
 	}
 
 	return 1;
-} // new speedometer
+} // new speedometer */
 
 CMD:pc(playerid, params[])
 {
