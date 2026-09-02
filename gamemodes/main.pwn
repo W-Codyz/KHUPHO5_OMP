@@ -1,7 +1,7 @@
 #define SERVER_VERSION "v2.0" 
 
 #define MAIL_URL 		"http://localhost/htb/m_mail.php"
-#define MAIL_ADDRESS 	"sanandreasevolution2025@gmail.com"
+#define MAIL_ADDRESS 	""
 #define M_MAIL_NAME		"HTB No-Reply"
 
 #pragma warning disable 238
@@ -88,6 +88,7 @@
 #include "./modules/system/safezone"
 #include "./modules/system/faction/leader_cmd"
 #include "./modules/system/logo"
+#include "./modules/system/logo_anim"
 #include "./modules/system/support_notif"
 
 #include "./modules/timers"
