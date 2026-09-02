@@ -76,7 +76,7 @@ public SendDiscordConnect(playerid)
 
     embed_log = DCC_CreateEmbed("PLAYER CONNECT", szMsg);
     DCC_SetEmbedFooter(embed_log, datetime);
-    DCC_SetEmbedColor(embed_log, 0x02FF52FF);
+    DCC_SetEmbedColor(embed_log, 0x02FF52);
     
     return DCC_SendChannelEmbedMessage(dclog_Join, embed_log);
 }
@@ -154,7 +154,7 @@ Discord_Init()
     
 }
 
-hook OnPlayerSpawn(playerid)
+hook OnPlayerConnect(playerid)
 {
     SendDiscordConnect(playerid);
     return 1;
