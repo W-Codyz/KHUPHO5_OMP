@@ -3,6 +3,7 @@
 #define MAX_GPS_POINTS 5
 #define			TIMVIECLAM					(5210)
 #define         TIMDUONG                    (5211)
+#define 	   	MAP_MAIN                  	(5212)
 
 stock SetPlayerRaceCP(playerid, CP_TYPE:type, Float:centreX, Float:centreY, Float:centreZ, Float:nextX, Float:nextY, Float:nextZ, Float:size)
 {
@@ -73,6 +74,21 @@ CMD:timvieclam(playerid, params[])
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+	if(dialogid == DIALOG_MAP_TPHAT)
+	{
+		if(response)
+		{
+			if(listitem == 0) 
+			{
+				PC_EmulateCommand(playerid, "/timduong");
+			}
+			if(listitem == 1) // Tim viec lam
+			{
+			    PC_EmulateCommand(playerid, "/timvieclam");
+			}
+		}
+	}
+
 	if(dialogid == TIMDUONG) //toadotimduong
 	{
 	    if(response)

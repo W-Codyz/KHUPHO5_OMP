@@ -49286,8 +49286,9 @@ task CountTheGioiChat[1000]()
     }
 }
 
+alias:map("gps")
 CMD:map(playerid, params[])
 {
-	ShowPlayerDialog(playerid, DIALOG_MAP_TPHAT, DIALOG_STYLE_LIST, "MAP", "{ffffff}Tim duong\nTim viec lam", "Chon", "Huy");
+	ShowPlayerDialog(playerid, DIALOG_MAP_TPHAT, DIALOG_STYLE_LIST, "MAP | Ban dang muon di dau ?", "{ffffff}Tim duong\nTim viec lam", "Chon", "Huy");
 	return 1;
 }
