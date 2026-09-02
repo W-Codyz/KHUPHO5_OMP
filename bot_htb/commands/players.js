@@ -25,7 +25,7 @@ module.exports = {
             embed.setColor('#33ff00')
                 .setTitle('Lệnh `/players` đang bảo trì nên sẽ hiển thị thông tin\nmáy chủ thay vì danh sách người chơi\n\nMáy chủ đang hoạt động !')
                 .setDescription([
-                    `**IP:** \`gtahtb.top\``,
+                    `**IP:** \`gtahtb.online\``,
                     `**Số người chơi:** ${info.players}/${info.maxplayers}`,
                     `**Gamemode:** ${info.gamemode}`,
                     `**Language:** ${info.language}`,
@@ -36,7 +36,7 @@ module.exports = {
             console.error('Server query error:', error);
             embed.setColor('#ff0000')
                 .setTitle('Máy chủ đang bảo trì !')
-                .setDescription(`**IP:** \`gtahtb.top\``);
+                .setDescription(`**IP:** \`gtahtb.online\``);
         }
 
         return interaction.editReply({ embeds: [embed] });
