@@ -51,13 +51,14 @@ module.exports = {
             } else {
                 const account = rows[0];
 
-                // Nếu có DiscordID, lấy thông tin user Discord
+                // Lấy Discord tag nếu có
                 let discordTag = 'Chưa liên kết';
                 if (account.DiscordID && account.DiscordID !== '0') {
                     discordTag = `<@${account.DiscordID}>`;
                 }
 
-                if (account.DiscordID && account.DiscordID !== '0' && (!account.DiscordCode || account.DiscordCode === 0)) {
+                if (account.DiscordID && account.DiscordID !== '0') {
+                    // Đã xác thực
                     embed.setColor('#00FF00')
                         .setTitle('✅ Đã xác thực')
                         .setDescription([
@@ -67,12 +68,13 @@ module.exports = {
                         ].join('\n'))
                         .setFooter({ text: 'GTA-HTB Roleplay' });
                 } else if (account.DiscordCode && account.DiscordCode !== 0) {
+                    // Chưa xác thực nhưng đã có mã
                     embed.setColor('#FFFF00')
                         .setTitle('⚠️ Chưa xác thực')
                         .setDescription([
                             `🎮 **Tài khoản game:** ${playerName}`,
                             `🔑 **Mã xác minh:** ${account.DiscordCode}`,
-                            '❌ Tài khoản đã có mã xác minh nhưng chưa hoàn tất!',
+                            '❌ Tài khoản đã có mã xác minh nhưng chưa liên kết với Discord!',
                             '',
                             '**Để hoàn tất xác thực:**',
                             `1. Sử dụng lệnh \`/xacminh\` tại kênh <#${process.env.VERIFICATION_CHANNEL_ID}>`,
@@ -80,6 +82,7 @@ module.exports = {
                         ].join('\n'))
                         .setFooter({ text: 'GTA-HTB Roleplay' });
                 } else {
+                    // Chưa có mã xác minh
                     embed.setColor('#FF0000')
                         .setTitle('❌ Chưa có mã xác minh')
                         .setDescription([
@@ -87,10 +90,9 @@ module.exports = {
                             '❌ Tài khoản chưa tạo mã xác minh!',
                             '',
                             '**Hướng dẫn lấy mã xác minh:**',
-                            '1. Vào game GTA-HTB',
-                            '2. Sử dụng lệnh \`/discord\`',
-                            '3. Hệ thống sẽ tạo mã 6 chữ số',
-                            `4. Dùng \`/xacminh\` tại <#${process.env.VERIFICATION_CHANNEL_ID}> với mã đó`
+                            '1. Vào máy chủ GTA-HTB và đăng nhập',
+                            '2. Mã xác minh và hướng dẫn sẽ hiển thị trên màn hình khi vừa vào',
+                            `3. Dùng \`/xacminh\` tại <#${process.env.VERIFICATION_CHANNEL_ID}> với mã đó`
                         ].join('\n'))
                         .setFooter({ text: 'GTA-HTB Roleplay' });
                 }
