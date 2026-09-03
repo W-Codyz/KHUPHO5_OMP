@@ -21,7 +21,7 @@ module.exports = {
     ],
     run: async (interaction) => {
         // === Kiểm tra quyền Admin ===
-        const ADMIN_ROLE_ID = process.env.ADMIN_ROLE_ID || '1403988721266856059';
+        const ADMIN_ROLE_ID = process.env.ADMIN_ROLE_ID || '1544259847841644554';
         if (!interaction.member.roles.cache.has(ADMIN_ROLE_ID)) {
             const embed = new EmbedBuilder()
                 .setColor('#FF0000')
