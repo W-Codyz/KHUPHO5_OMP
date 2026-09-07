@@ -20,7 +20,6 @@ module.exports = {
         }
     ],
     run: async (interaction) => {
-        // === Kiểm tra quyền Admin ===
         const ADMIN_ROLE_ID = process.env.ADMIN_ROLE_ID || '1544259847841644554';
         if (!interaction.member.roles.cache.has(ADMIN_ROLE_ID)) {
             const embed = new EmbedBuilder()
@@ -31,28 +30,30 @@ module.exports = {
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
-        await interaction.deferReply({ ephemeral: false });
+        await interaction.deferReply();
 
+        let connection;
         try {
             const targetUser = interaction.options.getUser('member');
             const targetMember = await interaction.guild.members.fetch(targetUser.id);
 
-            const connection = await pool.getConnection();
+            connection = await pool.getConnection();
 
-            // 1. Tìm tài khoản game theo DiscordID (lấy thêm cột Online)
+            // ---- Kiểm tra liên kết ----
             const [accounts] = await connection.execute(
                 'SELECT `id`, `Username`, `DiscordID`, `IDCard`, `Online` FROM `accounts` WHERE `DiscordID` = ? AND `DiscordID` != ?',
                 [targetUser.id, '0']
             );
 
             if (accounts.length === 0) {
-                connection.release();
                 const embed = new EmbedBuilder()
                     .setColor('#FF0000')
                     .setTitle('❌ Chưa liên kết Discord')
                     .setDescription(`Discord <@${targetUser.id}> chưa được liên kết với bất kỳ tài khoản game nào.\nVui lòng yêu cầu người chơi liên kết trước.`)
                     .setFooter({ text: 'GTA-HTB Roleplay' });
-                return interaction.editReply({ embeds: [embed] });
+                await interaction.editReply({ embeds: [embed], components: [] });
+                connection.release();
+                return;
             }
 
             const account = accounts[0];
@@ -60,9 +61,8 @@ module.exports = {
             const playerName = account.Username;
             const currentIDCard = account.IDCard;
 
-            // 2. KIỂM TRA ONLINE - Nếu đang online thì không cho tạo CCCD
+            // ---- Kiểm tra online ----
             if (account.Online === 1) {
-                connection.release();
                 const embed = new EmbedBuilder()
                     .setColor('#FF0000')
                     .setTitle('❌ Tài khoản đang online')
@@ -72,12 +72,13 @@ module.exports = {
                         'Sau khi thoát, hãy thử lại lệnh này.'
                     ].join('\n'))
                     .setFooter({ text: 'GTA-HTB Roleplay' });
-                return interaction.editReply({ embeds: [embed] });
+                await interaction.editReply({ embeds: [embed], components: [] });
+                connection.release();
+                return;
             }
 
-            // 3. Kiểm tra đã có CCCD chưa
+            // ---- Kiểm tra CCCD đã tồn tại ----
             if (currentIDCard !== 0 && currentIDCard !== null) {
-                // Hỏi Admin có muốn tạo mới không
                 const row = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
@@ -114,42 +115,41 @@ module.exports = {
                         time: 30000
                     });
 
+                    // Vô hiệu hóa nút
+                    await confirmation.update({
+                        embeds: [warningEmbed],
+                        components: []
+                    });
+
                     if (confirmation.customId === `cancel_${interaction.id}`) {
-                        await confirmation.update({
-                            embeds: [new EmbedBuilder()
-                                .setColor('#FF0000')
-                                .setTitle('❌ Đã hủy')
-                                .setDescription('Thao tác tạo CCCD đã bị hủy.')
-                                .setFooter({ text: 'GTA-HTB Roleplay' })
-                            ],
-                            components: []
-                        });
+                        const cancelEmbed = new EmbedBuilder()
+                            .setColor('#FF0000')
+                            .setTitle('❌ Đã hủy')
+                            .setDescription('Thao tác tạo CCCD đã bị hủy.')
+                            .setFooter({ text: 'GTA-HTB Roleplay' });
+                        await interaction.editReply({ embeds: [cancelEmbed], components: [] });
                         connection.release();
                         return;
                     }
 
-                    await confirmation.deferUpdate();
                 } catch (error) {
-                    await interaction.editReply({
-                        embeds: [new EmbedBuilder()
-                            .setColor('#FF0000')
-                            .setTitle('⏰ Hết thời gian')
-                            .setDescription('Thao tác tạo CCCD đã hết thời gian chờ.')
-                            .setFooter({ text: 'GTA-HTB Roleplay' })
-                        ],
-                        components: []
-                    });
+                    const timeoutEmbed = new EmbedBuilder()
+                        .setColor('#FF0000')
+                        .setTitle('⏰ Hết thời gian hoặc lỗi')
+                        .setDescription('Thao tác tạo CCCD đã hết thời gian chờ hoặc bị lỗi.')
+                        .setFooter({ text: 'GTA-HTB Roleplay' });
+                    await interaction.editReply({ embeds: [timeoutEmbed], components: [] });
                     connection.release();
                     return;
                 }
             }
 
-            // 4. Sinh số CCCD duy nhất (8 chữ số)
+            // ---- Sinh số CCCD duy nhất ----
             let finalID = 0;
             let generated = false;
             let attempts = 0;
             while (!generated && attempts < 100) {
-                const rand = Math.floor(Math.random() * 90000000) + 10000000; // từ 10.000.000 đến 99.999.999
+                const rand = Math.floor(Math.random() * 90000000) + 10000000;
                 const [check] = await connection.execute(
                     'SELECT COUNT(*) as cnt FROM `accounts` WHERE `IDCard` = ? AND `id` != ?',
                     [rand, accountId]
@@ -162,23 +162,24 @@ module.exports = {
             }
 
             if (!generated) {
-                connection.release();
                 const embed = new EmbedBuilder()
                     .setColor('#FF0000')
                     .setTitle('❌ Lỗi tạo CCCD')
                     .setDescription('Không thể tìm được số CCCD duy nhất sau nhiều lần thử. Vui lòng thử lại sau.')
                     .setFooter({ text: 'GTA-HTB Roleplay' });
-                return interaction.editReply({ embeds: [embed] });
+                await interaction.editReply({ embeds: [embed], components: [] });
+                connection.release();
+                return;
             }
 
-            // 5. Cập nhật IDCard vào database
+            // ---- Cập nhật IDCard ----
             await connection.execute(
                 'UPDATE `accounts` SET `IDCard` = ? WHERE `id` = ?',
                 [finalID, accountId]
             );
             connection.release();
 
-            // 6. Thông báo thành công (công khai) – KHÔNG DM
+            // ---- Thông báo thành công ----
             const successEmbed = new EmbedBuilder()
                 .setColor('#00FF00')
                 .setTitle('✅ Tạo CCCD thành công')
@@ -203,9 +204,9 @@ module.exports = {
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi khi tạo CCCD. Vui lòng thử lại sau.')
                 .setFooter({ text: 'GTA-HTB Roleplay' });
-
+            if (connection) connection.release();
             if (interaction.deferred) {
-                return interaction.editReply({ embeds: [errorEmbed] });
+                return interaction.editReply({ embeds: [errorEmbed], components: [] });
             } else {
                 return interaction.reply({ embeds: [errorEmbed], ephemeral: true });
             }

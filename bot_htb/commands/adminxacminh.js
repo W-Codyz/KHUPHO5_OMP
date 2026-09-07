@@ -36,20 +36,20 @@ module.exports = {
                 .setTitle('❌ Lỗi quyền hạn')
                 .setDescription('Bạn không có quyền sử dụng lệnh này.')
                 .setFooter({ text: 'GTA-HTB Roleplay' });
-            
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         await interaction.deferReply();
 
+        let connection;
         try {
             const playerName = interaction.options.getString('ingame');
             const targetUser = interaction.options.getUser('member');
             const targetMember = await interaction.guild.members.fetch(targetUser.id);
             
-            const connection = await pool.getConnection();
+            connection = await pool.getConnection();
 
-            // 1. Kiểm tra DiscordID đã được liên kết với tài khoản nào chưa
+            // ---- Kiểm tra DiscordID đã liên kết chưa ----
             const [existingAccounts] = await connection.execute(
                 'SELECT `id`, `Username` FROM `accounts` WHERE `DiscordID` = ? AND `DiscordID` != ?',
                 [targetUser.id, '0']
@@ -97,16 +97,19 @@ module.exports = {
                         time: 30000 
                     });
 
+                    // Vô hiệu hóa nút ngay lập tức
+                    await confirmation.update({
+                        embeds: [warningEmbed],
+                        components: []
+                    });
+
                     if (confirmation.customId === `cancel_${interaction.id}`) {
-                        await confirmation.update({
-                            embeds: [new EmbedBuilder()
-                                .setColor('#FF0000')
-                                .setTitle('❌ Đã hủy')
-                                .setDescription('Thao tác xác minh đã bị hủy bỏ.')
-                                .setFooter({ text: 'GTA-HTB Roleplay' })
-                            ],
-                            components: []
-                        });
+                        const cancelEmbed = new EmbedBuilder()
+                            .setColor('#FF0000')
+                            .setTitle('❌ Đã hủy')
+                            .setDescription('Thao tác xác minh đã bị hủy bỏ.')
+                            .setFooter({ text: 'GTA-HTB Roleplay' });
+                        await interaction.editReply({ embeds: [cancelEmbed], components: [] });
                         connection.release();
                         return;
                     }
@@ -117,45 +120,41 @@ module.exports = {
                         ['0', existingAccount.id]
                     );
 
-                    await confirmation.deferUpdate();
                 } catch (error) {
-                    await interaction.editReply({
-                        embeds: [new EmbedBuilder()
-                            .setColor('#FF0000')
-                            .setTitle('⏰ Hết thời gian')
-                            .setDescription('Thao tác xác minh đã hết thời gian chờ.')
-                            .setFooter({ text: 'GTA-HTB Roleplay' })
-                        ],
-                        components: []
-                    });
+                    // Timeout hoặc lỗi khác
+                    const timeoutEmbed = new EmbedBuilder()
+                        .setColor('#FF0000')
+                        .setTitle('⏰ Hết thời gian hoặc lỗi')
+                        .setDescription('Thao tác xác minh đã hết thời gian chờ hoặc bị lỗi.')
+                        .setFooter({ text: 'GTA-HTB Roleplay' });
+                    await interaction.editReply({ embeds: [timeoutEmbed], components: [] });
                     connection.release();
                     return;
                 }
             }
 
-            // 2. Kiểm tra tài khoản game có tồn tại không và lấy thêm cột Online
+            // ---- Lấy thông tin tài khoản mới (bao gồm Online) ----
             const [accounts] = await connection.execute(
                 'SELECT `id`, `Username`, `DiscordID`, `DiscordCode`, `Online` FROM `accounts` WHERE `Username` = ?',
                 [playerName]
             );
 
             if (accounts.length === 0) {
-                connection.release();
                 const embed = new EmbedBuilder()
                     .setColor('#FF0000')
                     .setTitle('❌ Không tìm thấy tài khoản')
                     .setDescription(`Không tìm thấy tài khoản game với tên: **${playerName}**`)
                     .setFooter({ text: 'GTA-HTB Roleplay' });
-                
-                return interaction.editReply({ embeds: [embed] });
+                await interaction.editReply({ embeds: [embed], components: [] });
+                connection.release();
+                return;
             }
 
             const account = accounts[0];
             const accountId = account.id;
 
-            // 3. Kiểm tra trạng thái online
+            // ---- Kiểm tra online ----
             if (account.Online === 1) {
-                connection.release();
                 const embed = new EmbedBuilder()
                     .setColor('#FF0000')
                     .setTitle('❌ Tài khoản đang online')
@@ -165,10 +164,12 @@ module.exports = {
                         'Sau khi thoát, hãy thử lại lệnh này.'
                     ].join('\n'))
                     .setFooter({ text: 'GTA-HTB Roleplay' });
-                return interaction.editReply({ embeds: [embed] });
+                await interaction.editReply({ embeds: [embed], components: [] });
+                connection.release();
+                return;
             }
 
-            // 4. Cập nhật DiscordID
+            // ---- Cập nhật DiscordID ----
             await connection.execute(
                 'UPDATE `accounts` SET `DiscordID` = ? WHERE `id` = ?',
                 [targetUser.id, accountId]
@@ -176,15 +177,15 @@ module.exports = {
 
             connection.release();
 
-            // Thêm role verified
+            // ---- Thêm role verified ----
             try {
                 await targetMember.roles.add(VERIFIED_ROLE_ID);
             } catch (roleError) {
                 console.error('Lỗi khi thêm role:', roleError);
             }
 
-            // Gửi thông báo thành công
-            const embed = new EmbedBuilder()
+            // ---- Thông báo thành công ----
+            const successEmbed = new EmbedBuilder()
                 .setColor('#00FF00')
                 .setTitle('✅ Xác minh thành công')
                 .setDescription([
@@ -197,9 +198,9 @@ module.exports = {
                 .setFooter({ text: 'GTA-HTB Roleplay' })
                 .setTimestamp();
             
-            await interaction.editReply({ embeds: [embed], components: [] });
+            await interaction.editReply({ embeds: [successEmbed], components: [] });
 
-            // Gửi DM cho member
+            // ---- DM cho member ----
             try {
                 const dmEmbed = new EmbedBuilder()
                     .setColor('#00FF00')
@@ -213,7 +214,6 @@ module.exports = {
                     ].join('\n'))
                     .setFooter({ text: 'GTA-HTB Roleplay' })
                     .setTimestamp();
-                
                 await targetUser.send({ embeds: [dmEmbed] });
             } catch (dmError) {
                 console.error('Không thể gửi DM:', dmError);
@@ -226,8 +226,8 @@ module.exports = {
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi trong quá trình xác minh. Vui lòng thử lại sau.')
                 .setFooter({ text: 'GTA-HTB Roleplay' });
-            
-            return interaction.editReply({ embeds: [errorEmbed] });
+            if (connection) connection.release();
+            return interaction.editReply({ embeds: [errorEmbed], components: [] });
         }
     }
 };
