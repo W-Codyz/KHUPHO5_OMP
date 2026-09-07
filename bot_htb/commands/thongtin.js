@@ -39,7 +39,9 @@ module.exports = {
                     Level,
                     pHealth,
                     pArmor,
-                    DiscordID
+                    DiscordID,
+                    Online,
+                    Model 
                 FROM accounts 
                 WHERE Username = ?
             `;
@@ -84,7 +86,7 @@ module.exports = {
                 verifyStatus = '✅ Đã xác thực';
             }
 
-            // Xử lý trạng thái online
+            // Xử lý trạng thái online (sửa lỗi thiếu cột Online)
             const onlineStatus = player.Online === 1 ? '🟢 Đang online' : '🔴 Đang offline';
 
             // Format thời gian chơi (ConnectedTime tính bằng giây)
@@ -108,6 +110,7 @@ module.exports = {
                 .setColor('#4169E1')
                 .setTitle(`🎮 Thông tin người chơi: ${player.Username}`)
                 .setDescription('' + '═'.repeat(40) + '')
+                .setThumbnail(`https://assets.open.mp/assets/images/skins/${player.Model || 0}.png`) // Thêm thumbnail skin
                 .addFields(
                     { 
                         name: '👤 Thông tin cơ bản',
