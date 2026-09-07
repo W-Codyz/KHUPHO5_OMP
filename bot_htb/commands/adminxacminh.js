@@ -1,7 +1,6 @@
 const { EmbedBuilder, ApplicationCommandOptionType, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const mysql = require('mysql2/promise');
 
-// Tạo pool connection
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -30,7 +29,6 @@ module.exports = {
         const ADMIN_ROLE_ID = process.env.ADMIN_ROLE_ID || '1403988721266856059';
         const VERIFIED_ROLE_ID = process.env.VERIFIED_ROLE_ID || '1430358438701174804';
         
-        // Kiểm tra quyền admin
         const member = interaction.member;
         if (!member.roles.cache.has(ADMIN_ROLE_ID)) {
             const embed = new EmbedBuilder()
@@ -51,7 +49,7 @@ module.exports = {
             
             const connection = await pool.getConnection();
 
-            // Kiểm tra xem DiscordID này đã được liên kết với tài khoản nào chưa
+            // 1. Kiểm tra DiscordID đã được liên kết với tài khoản nào chưa
             const [existingAccounts] = await connection.execute(
                 'SELECT `id`, `Username` FROM `accounts` WHERE `DiscordID` = ? AND `DiscordID` != ?',
                 [targetUser.id, '0']
@@ -60,7 +58,6 @@ module.exports = {
             if (existingAccounts.length > 0) {
                 const existingAccount = existingAccounts[0];
                 
-                // Tạo buttons xác nhận
                 const row = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
@@ -94,7 +91,6 @@ module.exports = {
                     components: [row]
                 });
 
-                // Đợi phản hồi từ button
                 try {
                     const confirmation = await response.awaitMessageComponent({ 
                         filter: i => i.user.id === interaction.user.id,
@@ -115,7 +111,7 @@ module.exports = {
                         return;
                     }
 
-                    // Xác nhận chuyển đổi - Xóa DiscordID khỏi tài khoản cũ
+                    // Xóa DiscordID khỏi tài khoản cũ
                     await connection.execute(
                         'UPDATE `accounts` SET `DiscordID` = ? WHERE `id` = ?',
                         ['0', existingAccount.id]
@@ -123,7 +119,6 @@ module.exports = {
 
                     await confirmation.deferUpdate();
                 } catch (error) {
-                    // Timeout - Hủy thao tác
                     await interaction.editReply({
                         embeds: [new EmbedBuilder()
                             .setColor('#FF0000')
@@ -138,9 +133,9 @@ module.exports = {
                 }
             }
 
-            // Kiểm tra tài khoản game có tồn tại không
+            // 2. Kiểm tra tài khoản game có tồn tại không và lấy thêm cột Online
             const [accounts] = await connection.execute(
-                'SELECT `id`, `Username`, `DiscordID`, `DiscordCode` FROM `accounts` WHERE `Username` = ?',
+                'SELECT `id`, `Username`, `DiscordID`, `DiscordCode`, `Online` FROM `accounts` WHERE `Username` = ?',
                 [playerName]
             );
 
@@ -158,7 +153,22 @@ module.exports = {
             const account = accounts[0];
             const accountId = account.id;
 
-            // Update database: chỉ set DiscordID, không động đến DiscordCode
+            // 3. Kiểm tra trạng thái online
+            if (account.Online === 1) {
+                connection.release();
+                const embed = new EmbedBuilder()
+                    .setColor('#FF0000')
+                    .setTitle('❌ Tài khoản đang online')
+                    .setDescription([
+                        `Tài khoản **${playerName}** hiện đang **online** trong game.`,
+                        'Vui lòng yêu cầu người chơi **thoát game** trước khi thực hiện xác minh.',
+                        'Sau khi thoát, hãy thử lại lệnh này.'
+                    ].join('\n'))
+                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                return interaction.editReply({ embeds: [embed] });
+            }
+
+            // 4. Cập nhật DiscordID
             await connection.execute(
                 'UPDATE `accounts` SET `DiscordID` = ? WHERE `id` = ?',
                 [targetUser.id, accountId]
@@ -166,13 +176,12 @@ module.exports = {
 
             connection.release();
 
-            // Thêm role verified cho member
+            // Thêm role verified
             try {
                 await targetMember.roles.add(VERIFIED_ROLE_ID);
             } catch (roleError) {
                 console.error('Lỗi khi thêm role:', roleError);
             }
-
 
             // Gửi thông báo thành công
             const embed = new EmbedBuilder()
@@ -190,7 +199,7 @@ module.exports = {
             
             await interaction.editReply({ embeds: [embed], components: [] });
 
-            // Gửi DM cho member được xác minh
+            // Gửi DM cho member
             try {
                 const dmEmbed = new EmbedBuilder()
                     .setColor('#00FF00')

@@ -39,9 +39,9 @@ module.exports = {
 
             const connection = await pool.getConnection();
 
-            // 1. Tìm tài khoản game theo DiscordID
+            // 1. Tìm tài khoản game theo DiscordID (lấy thêm cột Online)
             const [accounts] = await connection.execute(
-                'SELECT `id`, `Username`, `DiscordID`, `IDCard` FROM `accounts` WHERE `DiscordID` = ? AND `DiscordID` != ?',
+                'SELECT `id`, `Username`, `DiscordID`, `IDCard`, `Online` FROM `accounts` WHERE `DiscordID` = ? AND `DiscordID` != ?',
                 [targetUser.id, '0']
             );
 
@@ -60,7 +60,22 @@ module.exports = {
             const playerName = account.Username;
             const currentIDCard = account.IDCard;
 
-            // 2. Kiểm tra đã có CCCD chưa
+            // 2. KIỂM TRA ONLINE - Nếu đang online thì không cho tạo CCCD
+            if (account.Online === 1) {
+                connection.release();
+                const embed = new EmbedBuilder()
+                    .setColor('#FF0000')
+                    .setTitle('❌ Tài khoản đang online')
+                    .setDescription([
+                        `Tài khoản **${playerName}** hiện đang **online** trong game.`,
+                        'Vui lòng yêu cầu người chơi **thoát game** trước khi tạo CCCD.',
+                        'Sau khi thoát, hãy thử lại lệnh này.'
+                    ].join('\n'))
+                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                return interaction.editReply({ embeds: [embed] });
+            }
+
+            // 3. Kiểm tra đã có CCCD chưa
             if (currentIDCard !== 0 && currentIDCard !== null) {
                 // Hỏi Admin có muốn tạo mới không
                 const row = new ActionRowBuilder()
@@ -129,7 +144,7 @@ module.exports = {
                 }
             }
 
-            // 3. Sinh số CCCD duy nhất (8 chữ số)
+            // 4. Sinh số CCCD duy nhất (8 chữ số)
             let finalID = 0;
             let generated = false;
             let attempts = 0;
@@ -156,14 +171,14 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed] });
             }
 
-            // 4. Cập nhật IDCard vào database
+            // 5. Cập nhật IDCard vào database
             await connection.execute(
                 'UPDATE `accounts` SET `IDCard` = ? WHERE `id` = ?',
                 [finalID, accountId]
             );
             connection.release();
 
-            // 5. Thông báo thành công (công khai) – KHÔNG DM
+            // 6. Thông báo thành công (công khai) – KHÔNG DM
             const successEmbed = new EmbedBuilder()
                 .setColor('#00FF00')
                 .setTitle('✅ Tạo CCCD thành công')
