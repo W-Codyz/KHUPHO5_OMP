@@ -2,7 +2,7 @@
 
 stock ShowPlayerSettings(playerid)
 {
-    new dialogInfo[4096], dccUsername[DCC_USERNAME_SIZE], email[128];
+    new dialogInfo[4096], dccUsername[DCC_USERNAME_SIZE];
     if(!IsPlayerDiscordVerified(playerid)) {
         strcat(dccUsername, "{FFD700}Chua lien ket");
     }
@@ -12,16 +12,8 @@ stock ShowPlayerSettings(playerid)
         format(dccUsername, sizeof(dccUsername), "{00FF00}#%s", dccUsername);
     }
     
-    if(GetPVarInt(playerid, "NullEmail")) {
-        strcat(email, "{FFD700}Chua co email");
-    }
-    else {
-        format(email, _, "{00FF00}%s", PlayerInfo[playerid][pEmail]);
-    }
-
     format(dialogInfo, _, "\
     {FFFFFF}Discord lien ket\t\t\t%s\n\
-    {FFFFFF}Email\t\t\t%s\n\
     {FFFFFF}Tro chuyen Family\t\t%s\n\
     {FFFFFF}Tro chuyen OOC\t\t%s\n\
     {FFFFFF}Kenh quang cao\t\t%s\n\
@@ -29,7 +21,7 @@ stock ShowPlayerSettings(playerid)
     {FFFFFF}Tin nhan rieng tu\t\t%s\n\
     {FFFFFF}Dien thoai\t\t\t%s\n\
     {FFFFFF}Kenh radio\t\t\t%s\n",
-    dccUsername, email,
+    dccUsername,
     !gFam[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !gOoc[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !gNews[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
@@ -67,37 +59,25 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 ShowPlayerSettings(playerid);
                 return 1;
             }
-            case 1: { // email
-                /* #if !defined BETA_TEST
-                    if(GetPVarInt(playerid, "NullEmail")) {
-                        ShowPlayerDialog(playerid, NULLEMAIL, DIALOG_STYLE_INPUT, "{FFFFFF}Cai dat > Email", "{FFFFFF}Tai khoan cua ban hien tai chua lien ket Email, viec lien ket\nEmail se giup tai khoan tro choi cua ban tro nen bao mat hon,\nhay nhap Email cua ban vao o ben duoi va lay ma xac thuc\n\n{F3E351}Luu y: Email la duy nhat va phai la mot Email hop le.", "Xac nhan", "Quay lai");
-                        return 1;
-                    }
-                #else
-                    SendClientMessageEx(playerid, COLOR_GREY, "Khong the su dung trong Beta Test.");
-                #endif */
-                ShowPlayerSettings(playerid);
-                return 1;
-            }
-            case 2: { // tog family
+            case 1: { // tog family
                 gFam[playerid] = !gFam[playerid];
             }
-            case 3: { // tog ooc
+            case 2: { // tog ooc
                 gOoc[playerid] = !gOoc[playerid];
             }
-            case 4: { // tog news
+            case 3: { // tog news
                 gNews[playerid] = !gNews[playerid];
             }
-            case 5: { // tog newbie
+            case 4: { // tog newbie
                 gNewbie[playerid] = !gNewbie[playerid];
             }
-            case 6: { // tog hide pm
+            case 5: { // tog hide pm
                 HidePM[playerid] = !HidePM[playerid];
             }
-            case 7: { // tog phone
+            case 6: { // tog phone
                 PhoneOnline[playerid] = !PhoneOnline[playerid];
             }
-            case 8: { // tog radio
+            case 7: { // tog radio
                 SetPVarInt(playerid, "togRadio", !GetPVarInt(playerid, "togRadio"));
             }
         }
