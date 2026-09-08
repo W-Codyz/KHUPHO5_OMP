@@ -22,16 +22,16 @@ public PorterAnimation(playerid, step)
         if(modelid == 2060) RemovePlayerAttachedObject(playerid, 9);
 
         new payment;
-        switch(GetJobLevel(playerid, JOB_CONSTRUCTION))
+        switch(GetJobLevel(playerid, JOB_PORTER))
         {
-            case 1: payment = 20;
-            case 2: payment = 28;
-            case 3: payment = 40;
-            case 4: payment = 52;
-            case 5: payment = 65;
+            case 1: payment = 600;
+            case 2: payment = 700;
+            case 3: payment = 800;
+            case 4: payment = 900;
+            case 5: payment = 1000;
         }
 
-        payment = Random(payment*2, payment*3);
+        payment = Random(payment * 90 / 100, payment * 110 / 100);
         GivePlayerCash(playerid, payment);
         UpdateNewbieMission(playerid, 3);
 

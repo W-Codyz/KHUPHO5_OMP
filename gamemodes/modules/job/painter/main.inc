@@ -226,7 +226,7 @@ public startpainter(playerid)
         }
         else
         {
-            new cashjob = Random(10000, 20000);
+            new cashjob = Random(13000, 17000);
             format(str, sizeof(str), "Ban da hoan thanh cong viec va nhan duoc %d$.", cashjob);
             SendClientMessage(playerid, COLOR_GREY, str);
             GivePlayerCash(playerid, cashjob);

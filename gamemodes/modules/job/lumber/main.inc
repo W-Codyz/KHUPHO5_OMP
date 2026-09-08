@@ -6,9 +6,9 @@
 #define DIALOG_MENU_WOODSELL3 (9009)
 #define DIALOG_MENU_LUMBERMEM (9015)
 
-const WoodSell1 = 7000;
-const WoodSell2 = 10000;
-const WoodSell3 = 13000;
+const WoodSell1 = 5000;
+const WoodSell2 = 7500;
+const WoodSell3 = 10000;
 #define GOTHO 30
 new ChatCayTime[MAX_PLAYERS];
 new XuLyTime[MAX_PLAYERS];

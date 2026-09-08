@@ -5983,15 +5983,15 @@
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="pc_cmd_kiemtrahang"/>
 		</member>
-		<member name="C:WoodSell1" value="7000">
+		<member name="C:WoodSell1" value="5000">
 			<referrer name="_@yHOnPlayerKeyStateChange@0H"/>
 			<referrer name="_@yHOnDialogResponse@0H"/>
 		</member>
-		<member name="C:WoodSell2" value="10000">
+		<member name="C:WoodSell2" value="7500">
 			<referrer name="_@yHOnPlayerKeyStateChange@0H"/>
 			<referrer name="_@yHOnDialogResponse@0H"/>
 		</member>
-		<member name="C:WoodSell3" value="13000">
+		<member name="C:WoodSell3" value="10000">
 			<referrer name="_@yHOnPlayerKeyStateChange@0H"/>
 			<referrer name="_@yHOnDialogResponse@0H"/>
 		</member>
@@ -7604,7 +7604,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="rcAngle"/>
+			<referrer name="RacIntTimer"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -70129,7 +70129,7 @@
 			<dependency name="GetRequiredXP"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="GivePlayerXP"/>
-			<dependency name="JOB_CONSTRUCTION"/>
+			<dependency name="JOB_PORTER"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PorterLoad"/>
@@ -82774,7 +82774,7 @@
 			</param>
 		</member>
 		<member name="M:ShowPlayerSettings" syntax="ShowPlayerSettings(playerid)">
-			<stacksize value="4271"/>
+			<stacksize value="4142"/>
 			<referrer name="pc_cmd_caidat"/>
 			<referrer name="_@yHOnDialogResponse@0Z"/>
 			<referrer name="OnDialogResponse"/>
@@ -82793,7 +82793,6 @@
 			<dependency name="gNews"/>
 			<dependency name="gOoc"/>
 			<dependency name="pDiscordID"/>
-			<dependency name="pEmail"/>
 			<dependency name="strcat"/>
 			<param name="playerid">
 			</param>
@@ -89370,7 +89369,7 @@
 		</member>
 		<member name="M:_@yHOnPlayerEnterCheckpoint@0U" syntax="_@yHOnPlayerEnterCheckpoint@0U(playerid)">
 			<attribute name="public"/>
-			<stacksize value="226"/>
+			<stacksize value="227"/>
 			<referrer name="@yH_OnPlayerEnterCheckpoint@0U"/>
 			<dependency name="ABroadCast"/>
 			<dependency name="DeletePVar"/>

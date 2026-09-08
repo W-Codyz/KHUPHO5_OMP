@@ -682,11 +682,11 @@ hook OnPlayerEnterCheckpoint(playerid)
 
 			switch(GetJobLevel(playerid, JOB_TRUCKER))
 			{
-				case 1: payment = 200;
-				case 2: payment = 600;
-				case 3: payment = 950;
-				case 4: payment = 1400;
-				case 5: payment = 2700;
+				case 1: payment = 15000;
+				case 2: payment = 17000;
+				case 3: payment = 19000;
+				case 4: payment = 21500;
+				case 5: payment = 24000;
 			}
 
 			new reward[128];
@@ -697,7 +697,7 @@ hook OnPlayerEnterCheckpoint(playerid)
 				new Float: iDist = GetPlayerDistanceFromPoint(playerid, Businesses[iBusiness][bSupplyPos][0], Businesses[iBusiness][bSupplyPos][1], Businesses[iBusiness][bSupplyPos][2]);
 
 				payment = floatround(iDist / 2000 * payment);
-				if (payment > 12000) payment = 12000;
+				if (payment > 32000) payment = 32000;
 
 				GivePlayerCash(playerid, payment);
 				format(string, sizeof(string), "* Ban duoc tra {5BFF89}$%s{FFFFFF} cho viec van chuyen hang hoa va tra lai xe.", number_format(payment));
