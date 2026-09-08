@@ -7652,7 +7652,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="pkrObjectID"/>
+			<referrer name="pkrRotations"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -50781,6 +50781,7 @@
 			<dependency name="LoadPoints"/>
 			<dependency name="LoadRelayForLifeTeams"/>
 			<dependency name="LoadSpeedCameras"/>
+			<dependency name="LoadStreamerActors"/>
 			<dependency name="LoadStreamerDynamic3DTextLabels"/>
 			<dependency name="LoadStreamerDynamicButtons"/>
 			<dependency name="LoadStreamerDynamicObjects"/>
@@ -56909,6 +56910,7 @@
 		<member name="M:LoadStreamerActors" syntax="LoadStreamerActors()">
 			<attribute name="public"/>
 			<stacksize value="146"/>
+			<referrer name="InitiateGamemode"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="ActorInfo"/>
 			<dependency name="ActorInfo"/>

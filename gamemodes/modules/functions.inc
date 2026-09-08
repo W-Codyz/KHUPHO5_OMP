@@ -2937,8 +2937,8 @@ public InitiateGamemode()
     LoadStreamerDynamicButtons();
     print("[Streamer] Loading Dynamic Objects...");
     LoadStreamerDynamicObjects();
-	/* print("[Streamer] Loading Dynamic Actors...");
-	LoadStreamerActors(); */
+	print("[Streamer] Loading Dynamic Actors...");
+	LoadStreamerActors();
 	
     BikeParkourObjectStage[0] = 0; //BikeParkourObjectStage[1] = 0;
     
