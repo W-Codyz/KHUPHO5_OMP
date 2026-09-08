@@ -28,7 +28,7 @@ module.exports = {
                     `**Số người chơi:** ${info.players}/${info.maxplayers}`,
                     `**Gamemode:** ${info.gamemode}`,
                     `**Language:** ${info.language}`,
-                    `**Website:** [Click để truy cập](https://web.gtahtb.top/)`,
+                    `**Website:** [Click để truy cập](https://web.gtahtb.online/)`,
                     '\n*Copy IP và dán vào phần "Favorite" trong SA-MP để vào server*'
                 ].join('\n'));
 

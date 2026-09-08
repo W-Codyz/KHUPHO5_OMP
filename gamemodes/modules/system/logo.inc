@@ -34,7 +34,7 @@ stock LoadTDLogo()
     TextDrawFont(LogoTD[2], 1);
     TextDrawSetProportional(LogoTD[2], 1);
 
-    LogoTD[3] = TextDrawCreate(576.000, 434.000, "WEB.GTAHTB.TOP");
+    LogoTD[3] = TextDrawCreate(576.000, 434.000, "WEB.GTAHTB.ONLINE");
     TextDrawLetterSize(LogoTD[3], 0.220, 0.999);
     TextDrawTextSize(LogoTD[3], -1.000, 0.000);
     TextDrawAlignment(LogoTD[3], 1);
