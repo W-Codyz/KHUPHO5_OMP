@@ -654,7 +654,7 @@ hook OnPlayerUpdate(playerid)
 		new vehid = GetPlayerVehicleID(playerid);
 		if(IsValidVehicle(vehid))
 		{
-			if(IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+            if(IsPlayerInAnyVehicle(playerid) && (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER))
 			{
 				new Float:fFuel, Float:fDamage;
 				GetVehicleHealth(vehid, fDamage);
