@@ -68,7 +68,7 @@ SetPlayerFirstSpawn(playerid)
 	SendClientMessage(playerid, 0xFFFFFFFF, "{FFDB58}> {FFFFFF}Can ho tro? Su dung lenh {00FF00}/newb {FFFFFF}de duoc giup do");
 	SendClientMessage(playerid, 0xF0FF1BFF, "Chuc ban co trai nghiem tuyet voi tai may chu!");
 	SendClientMessage(playerid, -1, "                 ");
-	//SendHintMessage(playerid, "Neu ban can thue mot chiec xe, hay gap Zoe Reed o Newbie Spawn.");
+	//SendHintMessage(playerid, "Neu ban can thue mot chiec xe, hay gap Hao Nam o Newbie Spawn.");
 
 	PlayerInfo[playerid][pNation] = 0;
 }
@@ -22053,7 +22053,7 @@ public Float: vehicle_get_speed(vehicleid)
 forward CheckLastLogin(playerid);
 forward OnLastLoginLoaded(playerid);
 
-// H� m gọi để kiểm tra LastLogin
+// H� m gọi để kiểm tra LastLogin
 public CheckLastLogin(playerid)
 {
     new query[256];
@@ -22072,7 +22072,7 @@ public OnLastLoginLoaded(playerid)
         new LastLogin[128];
         cache_get_field_content(0, "LastLogin", LastLogin);
         
-        // Format lại từ "2025-11-17 23:41:56" th� nh "23:41:56 17-11-2025"
+        // Format lại từ "2025-11-17 23:41:56" th� nh "23:41:56 17-11-2025"
         new formatted_time[64];
         FormatLastLoginTime(LastLogin, formatted_time, sizeof(formatted_time));
         
@@ -22100,7 +22100,7 @@ public OnLastLoginLoaded(playerid)
     return 1;
 }
 
-// H� m format thời gian từ "2025-11-17 23:41:56" th� nh "23:41:56 17-11-2025"
+// H� m format thời gian từ "2025-11-17 23:41:56" th� nh "23:41:56 17-11-2025"
 stock FormatLastLoginTime(const input[], output[], maxlength = sizeof(output))
 {
     new year[5], month[3], day[3], hour[3], minute[3], second[3];
@@ -22113,7 +22113,7 @@ stock FormatLastLoginTime(const input[], output[], maxlength = sizeof(output))
     strmid(minute, input, 14, 16);  // "41"
     strmid(second, input, 17, 19);  // "56"
     
-    // Format th� nh "23:41:56 17/11/2025"
+    // Format th� nh "23:41:56 17/11/2025"
     format(output, maxlength, "%s:%s:%s %s/%s/%s", hour, minute, second, day, month, year);
     return 1;
 }

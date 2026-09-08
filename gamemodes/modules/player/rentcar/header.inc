@@ -14,12 +14,12 @@ enum E_RENTCAR_INFO
 
 new CarRentalInfo[MAX_PLAYERS][MAX_RENTALCAR_SLOT][E_RENTCAR_INFO];
 
-new Float:RentCarSpawn[4] = { -1753.3867, 949.2808, 24.7237, 89.9368 };
+new Float:RentCarSpawn[4] = { -1976.1603,103.1138,27.3929,90.0232 };
 new RentCarList[5][3] = {
     //modelid   price       time (seconds)
-    {509,       170,        7200},
-    {510,       250,        7200},
-    {481,       300,        7200},
-    {462,       800,        7200},
-    {496,       1400,        7200}
+    {509,       670,        7200},
+    {510,       750,        7200},
+    {481,       800,        7200},
+    {462,       1300,        7200},
+    {496,       1900,        7200}
 };

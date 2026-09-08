@@ -39,7 +39,7 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
                     case ACTOR_CARLICENSE: ShowLicenseDialog(playerid, 0);
                     case ACTOR_TAXILICENSE: ShowLicenseDialog(playerid, 1);
                     case ACTOR_NEWBIEMISSION: ShowNewbieMission(playerid);
-                    case ACTOR_FISHERMAN: ShowFishermanDialog(playerid);
+                    case ACTOR_FISHERMAN: /* ShowFishermanDialog(playerid); */ return 1;
                     case ACTOR_RENTCAR: ShowDialogRentCar(playerid);
                 }
                 return 1;

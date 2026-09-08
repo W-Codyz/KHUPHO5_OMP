@@ -197,7 +197,7 @@ stock ShowDialogRentCar(playerid)
         format(dialogInfo, _, "%s%d(0.0, 0.0, -50.0, 1.0)\t%s~n~~g~$%d\n", dialogInfo, RentCarList[i][0], Model_Name(RentCarList[i][0]), RentCarList[i][1]);
     }
 
-    ShowPlayerDialog(playerid, DIALOG_RENTCAR, DIALOG_STYLE_PREVMODEL, "Zoe Reed - Thue phuong tien", dialogInfo, "Thue", "Dong");
+    ShowPlayerDialog(playerid, DIALOG_RENTCAR, DIALOG_STYLE_PREVMODEL, "Hao Nam - Thue phuong tien", dialogInfo, "Thue", "Dong");
     return 1;
 }
 

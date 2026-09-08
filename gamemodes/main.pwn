@@ -52,7 +52,7 @@
 #include "./modules/discord/header"
 #include "./modules/variables"
 #include "./modules/dialog/header"
-//#include "./modules/actor/header"
+#include "./modules/actor/header"
 
 //==============ANTI CHECK============//
 #include "./modules/anti/Teleport"
@@ -103,7 +103,7 @@
 #include "./modules/discord/main"
 #include "./modules/discord/command"
 
-//#include "./modules/actor/main"
+#include "./modules/actor/main"
 #include "./modules/misc/cityhall"
 #include "./modules/misc/license"
 
@@ -116,7 +116,7 @@
 //#include "./modules/job/side_job/fisher/fisher"
 #include "./modules/job/side_job/sweeper/sweeper"
 
-//#include "./modules/player/rentcar/rentcar"
+#include "./modules/player/rentcar/rentcar"
 //#include "./modules/player/inventory/inventory"
 //#include "./modules/player/inventory/drop"
 #include "./modules/player/mission/newbie"
