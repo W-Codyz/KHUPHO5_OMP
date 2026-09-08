@@ -128,7 +128,7 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pServiceTime] = 0;
 		PlayerInfo[playerid][pFirework] = 0;
 		PlayerInfo[playerid][pBoombox] = 0;
-		PlayerInfo[playerid][pCash] = 1000;
+		PlayerInfo[playerid][pCash] = 10000;
 		PlayerInfo[playerid][pHunger] = 100;
 		PlayerInfo[playerid][pLevel] = 1;
 		PlayerInfo[playerid][pAdmin] = 0;
@@ -233,7 +233,7 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pPnumber] = 0;
 		PlayerInfo[playerid][pPhousekey] = INVALID_HOUSE_ID;
 		PlayerInfo[playerid][pPhousekey2] = INVALID_HOUSE_ID;
-		PlayerInfo[playerid][pAccount] = 20000;
+		PlayerInfo[playerid][pAccount] = 0;
 		PlayerInfo[playerid][pGangWarn] = 0;
 		PlayerInfo[playerid][pPaintTokens] = 0;
 		PlayerInfo[playerid][pTogReports] = 0;
