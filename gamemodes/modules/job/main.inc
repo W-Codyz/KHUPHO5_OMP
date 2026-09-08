@@ -353,8 +353,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(!IsPlayerDiscordVerified(playerid)) 
             return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai lien ket tai khoan Discord de co the lam dieu nay.");
 			
-		if(PlayerInfo[playerid][pIDCard] == 0)
-			return SendClientMessageEx(playerid, COLOR_GREY, "Ban can phai co Can cuoc cong dan de xin viec.");
+		/* if(PlayerInfo[playerid][pIDCard] == 0)
+			return SendClientMessageEx(playerid, COLOR_GREY, "Ban can phai co Can cuoc cong dan de xin viec."); */
 
 		new jobId = GetPVarInt(playerid, "GetJobID");
 

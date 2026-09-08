@@ -7604,7 +7604,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="RacIntTimer"/>
+			<referrer name="cXP"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -88440,7 +88440,6 @@
 			<dependency name="SendClientMessage"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="pDonateRank"/>
-			<dependency name="pIDCard"/>
 			<dependency name="pJob"/>
 			<dependency name="pJob2"/>
 			<dependency name="pLevel"/>
