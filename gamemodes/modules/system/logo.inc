@@ -34,7 +34,7 @@ stock LoadTDLogo()
     TextDrawFont(LogoTD[2], 1);
     TextDrawSetProportional(LogoTD[2], 1);
 
-    LogoTD[3] = TextDrawCreate(576.000, 434.000, "WEB.GTAHTB.ONLINE");
+    LogoTD[3] = TextDrawCreate(576.000, 434.000, "GTAHTB.ONLINE");
     TextDrawLetterSize(LogoTD[3], 0.220, 0.999);
     TextDrawTextSize(LogoTD[3], -1.000, 0.000);
     TextDrawAlignment(LogoTD[3], 1);
@@ -61,11 +61,17 @@ stock LoadTDLogo()
 
 hook OnPlayerSpawn(playerid)
 {
-    TextDrawShowForPlayer(playerid, LogoTD[0]);
-    TextDrawShowForPlayer(playerid, LogoTD[1]);
-    TextDrawShowForPlayer(playerid, LogoTD[2]);
-    TextDrawShowForPlayer(playerid, LogoTD[3]);
-    TextDrawShowForPlayer(playerid, LogoTD[4]);
+    if(gPlayerLogged{playerid} == 1)
+    {
+		if (IsPlayerSpawned(playerid))
+		{
+            TextDrawShowForPlayer(playerid, LogoTD[0]);
+            TextDrawShowForPlayer(playerid, LogoTD[1]);
+            TextDrawShowForPlayer(playerid, LogoTD[2]);
+            TextDrawShowForPlayer(playerid, LogoTD[3]);
+            TextDrawShowForPlayer(playerid, LogoTD[4]);
+        }
+    }
 	return 1;
 }
 

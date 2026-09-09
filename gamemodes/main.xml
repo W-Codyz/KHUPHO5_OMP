@@ -7652,7 +7652,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="pkrRotations"/>
+			<referrer name="bVehicleLabel"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -7720,7 +7720,7 @@
 			<referrer name="CGen_OnCodeInit"/>
 			<referrer name="YHNPS_Find"/>
 			<referrer name="Hooks_RegisterNPSHook"/>
-			<referrer name="operator*(@Ik:,_:)"/>
+			<referrer name="listitem"/>
 			<referrer name="FIXES_valstr"/>
 			<referrer name="Indirect_SetOwner_"/>
 			<referrer name="operator*(@Ik:,_:)"/>
@@ -15987,7 +15987,7 @@
 			<referrer name="Inline_GeneratePostamble"/>
 		</member>
 		<member name="F:YSI_g_sCodSize">
-			<referrer name="operator*(@Ik:,_:)"/>
+			<referrer name="listitem"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="operator*(@Ik:,_:)"/>
 		</member>
@@ -16074,7 +16074,7 @@
 			<referrer name="Inline_DoRetnGen"/>
 		</member>
 		<member name="F:YSI_g_sInlineLinkedList">
-			<referrer name="operator~(I@T:)"/>
+			<referrer name="MAX_CAR_EXAM"/>
 			<referrer name="Inline_FoundDestructor"/>
 			<referrer name="Hooks_OnRuntimeError"/>
 			<referrer name="Hooks_OnCodeInit"/>
@@ -16096,7 +16096,7 @@
 			<referrer name="Iter_YieldReturn"/>
 		</member>
 		<member name="F:YSI_g_sJumpOffset">
-			<referrer name="operator~(I@T:)"/>
+			<referrer name="MAX_CAR_EXAM"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="Inline_DoRetnGen"/>
 			<referrer name="operator~(I@T:)"/>
@@ -19327,6 +19327,7 @@
 			<referrer name="UpdateBossBar"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="UpdateBar"/>
+			<referrer name="_@yHOnPlayerSpawn@0N"/>
 			<referrer name="SaveAccountsUpdate"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="OnQueryFinish"/>
@@ -53628,6 +53629,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="AntiCheat"/>
+			<referrer name="_@yHOnPlayerSpawn@0N"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -90376,8 +90378,10 @@
 			<attribute name="public"/>
 			<stacksize value="4"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
+			<dependency name="IsPlayerSpawned"/>
 			<dependency name="LogoTD"/>
 			<dependency name="TextDrawShowForPlayer"/>
+			<dependency name="gPlayerLogged"/>
 			<param name="playerid">
 			</param>
 		</member>
