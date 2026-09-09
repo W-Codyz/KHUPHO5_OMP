@@ -89,7 +89,7 @@
 #include "./modules/system/safezone"
 #include "./modules/system/faction/leader_cmd"
 #include "./modules/system/logo"
-#include "./modules/system/logo_anim"
+//#include "./modules/system/logo_anim"
 #include "./modules/system/support_notif"
 
 #include "./modules/timers"

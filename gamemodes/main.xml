@@ -808,25 +808,6 @@
 			</member>
 			<referrer name="_@E_AMX_TABLE"/>
 		</member>
-		<member name="T:E_ANIM_DATA" value="548">
-			<tagname value="E_ANIM_DATA"/>
-			<member name="C:data_string" value="0">
-				<size value="512"/>
-			</member>
-			<member name="C:data_frame" value="512">
-			</member>
-			<member name="C:data_chars" value="513">
-			</member>
-			<member name="C:data_color" value="514">
-				<size value="4"/>
-			</member>
-			<member name="C:data_color_1" value="518">
-				<size value="15"/>
-			</member>
-			<member name="C:data_color_2" value="533">
-				<size value="15"/>
-			</member>
-		</member>
 		<member name="T:E_BAR_DATA" value="8">
 			<tagname value="E_BAR_DATA"/>
 			<member name="C:pbar_x" value="0">
@@ -7652,7 +7633,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="bVehicleLabel"/>
+			<referrer name="bPurchaseZ"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -7720,7 +7701,7 @@
 			<referrer name="CGen_OnCodeInit"/>
 			<referrer name="YHNPS_Find"/>
 			<referrer name="Hooks_RegisterNPSHook"/>
-			<referrer name="listitem"/>
+			<referrer name="operator*(@Ik:,_:)"/>
 			<referrer name="FIXES_valstr"/>
 			<referrer name="Indirect_SetOwner_"/>
 			<referrer name="operator*(@Ik:,_:)"/>
@@ -8077,9 +8058,6 @@
 			<referrer name="OnSelectMember"/>
 			<referrer name="OnLoadMemberList"/>
 			<referrer name="pc_cmd_ouninvite"/>
-			<referrer name="CreateTextdrawAnimation"/>
-			<referrer name="UpdateTextdrawAnimation"/>
-			<referrer name="OnTextdrawAnimationFinish"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="PaintballArenaUpdate"/>
@@ -8541,7 +8519,6 @@
 			<referrer name="OnLoadMemberList"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
-			<referrer name="@yH_OnPlayerConnect@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="_yT@SkinDelay"/>
 			<referrer name="_yT@NOPCheck"/>
@@ -9116,11 +9093,6 @@
 			<referrer name="OnQueryFinish"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="OnDialogResponse"/>
-		</member>
-		<member name="F:AnimData">
-			<referrer name="FindFreeAnimDataID"/>
-			<referrer name="CreateTextdrawAnimation"/>
-			<referrer name="UpdateTextdrawAnimation"/>
 		</member>
 		<member name="F:AntiServer">
 			<referrer name="SvSAMP"/>
@@ -12368,12 +12340,6 @@
 		<member name="F:NULL">
 			<library>y_shortvar</library>  <remarks>  The null string with <c>\1</c> as the first character.  This isn't a true  null string, that is the string of length 0, but this string is often used  instead due to a bug with passing empty strings to and from the VM.  Every  <c>IsNull</c> check ever has been designed to detect this version.  </remarks> 
 		</member>
-		<member name="F:NamaServer">
-			<tagname value="PlayerText"/>
-			<referrer name="TDWEBACCOUNT"/>
-			<referrer name="TDNAMASERVER"/>
-			<referrer name="CreateTextDrawNamaServer"/>
-		</member>
 		<member name="F:NbMissionInfo">
 			<referrer name="ShowNewbieMission"/>
 			<referrer name="UpdateNewbieMission"/>
@@ -12501,7 +12467,6 @@
 			<referrer name="@yH_OnDialogResponse@0L"/>
 			<referrer name="@yH_OnDialogResponse@0M"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
-			<referrer name="@yH_OnPlayerConnect@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="@yH_OnPlayerConnect@0P"/>
 			<referrer name="@yH_OnPlayerDisconnect@0P"/>
@@ -14876,12 +14841,6 @@
 			<referrer name="pc_cmd_sellcredits"/>
 			<referrer name="pc_cmd_closesellcredits"/>
 		</member>
-		<member name="F:ServerName">
-			<referrer name="TDWEBACCOUNT"/>
-			<referrer name="TDNAMASERVER"/>
-			<referrer name="OnTextdrawAnimationFinish"/>
-			<referrer name="CreateTextDrawNamaServer"/>
-		</member>
 		<member name="F:ServerTime_TD">
 			<tagname value="Text"/>
 			<referrer name="LoadTextDraws"/>
@@ -15987,7 +15946,7 @@
 			<referrer name="Inline_GeneratePostamble"/>
 		</member>
 		<member name="F:YSI_g_sCodSize">
-			<referrer name="listitem"/>
+			<referrer name="operator*(@Ik:,_:)"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="operator*(@Ik:,_:)"/>
 		</member>
@@ -16074,7 +16033,7 @@
 			<referrer name="Inline_DoRetnGen"/>
 		</member>
 		<member name="F:YSI_g_sInlineLinkedList">
-			<referrer name="MAX_CAR_EXAM"/>
+			<referrer name="operator~(I@T:)"/>
 			<referrer name="Inline_FoundDestructor"/>
 			<referrer name="Hooks_OnRuntimeError"/>
 			<referrer name="Hooks_OnCodeInit"/>
@@ -16096,7 +16055,7 @@
 			<referrer name="Iter_YieldReturn"/>
 		</member>
 		<member name="F:YSI_g_sJumpOffset">
-			<referrer name="MAX_CAR_EXAM"/>
+			<referrer name="operator~(I@T:)"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="Inline_DoRetnGen"/>
 			<referrer name="operator~(I@T:)"/>
@@ -17256,8 +17215,6 @@
 		<member name="F:__file">
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnDMWatchListLookup"/>
-		</member>
-		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -23689,18 +23646,6 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerConnect@0J"/>
-			<dependency name="true"/>
-			<param name="playerid">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-		</member>
-		<member name="M:@yH_OnPlayerConnect@0N" syntax="@yH_OnPlayerConnect@0N(&amp;playerid)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="O@A_"/>
-			<dependency name="O@V_"/>
-			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerConnect@0N"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -31904,7 +31849,6 @@
 			<referrer name="OnVehicleMod"/>
 			<referrer name="VehPlayerUpdate"/>
 			<referrer name="Iter_OnPlayerStateChange"/>
-			<referrer name="UpdateTextdrawAnimation"/>
 			<param name="functionName">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -35717,7 +35661,6 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -35949,59 +35892,6 @@
 			<dependency name="SpeedoDrpTD"/>
 			<dependency name="SpeedoDrpTD"/>
 			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:CreateTextDrawNamaServer" syntax="CreateTextDrawNamaServer(playerid)">
-			<stacksize value="8"/>
-			<referrer name="_@yHOnPlayerConnect@0N"/>
-			<dependency name="CreatePlayerTextDraw"/>
-			<dependency name="CreateTextdrawAnimation"/>
-			<dependency name="NamaServer"/>
-			<dependency name="NamaServer"/>
-			<dependency name="PlayerTextDrawAlignment"/>
-			<dependency name="PlayerTextDrawBackgroundColor"/>
-			<dependency name="PlayerTextDrawColor"/>
-			<dependency name="PlayerTextDrawFont"/>
-			<dependency name="PlayerTextDrawLetterSize"/>
-			<dependency name="PlayerTextDrawSetOutline"/>
-			<dependency name="PlayerTextDrawSetProportional"/>
-			<dependency name="PlayerTextDrawSetShadow"/>
-			<dependency name="PlayerTextDrawShow"/>
-			<dependency name="ServerName"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:CreateTextdrawAnimation" syntax="CreateTextdrawAnimation(playerid, textdraw, frame, color[], string[])">
-			<stacksize value="10"/>
-			<referrer name="TDWEBACCOUNT"/>
-			<referrer name="TDNAMASERVER"/>
-			<referrer name="CreateTextDrawNamaServer"/>
-			<dependency name="AnimData"/>
-			<dependency name="AnimData"/>
-			<dependency name="FindFreeAnimDataID"/>
-			<dependency name="PlayerTextDrawSetString"/>
-			<dependency name="SetTimerEx"/>
-			<dependency name="data_chars"/>
-			<dependency name="data_color"/>
-			<dependency name="data_color_1"/>
-			<dependency name="data_color_2"/>
-			<dependency name="data_frame"/>
-			<dependency name="data_string"/>
-			<dependency name="false"/>
-			<dependency name="format"/>
-			<dependency name="strlen"/>
-			<param name="playerid">
-			</param>
-			<param name="textdraw">
-				<paraminfo>PlayerText </paraminfo>
-			</param>
-			<param name="frame">
-			</param>
-			<param name="color">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="string">
-				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
 		<member name="M:CreateTurfWarsZone" syntax="CreateTurfWarsZone(forcesync, zone)">
@@ -40884,14 +40774,6 @@
 				The name of the output file.
 			</param>
 			<library>y_utils - files</library>      <remarks>  Moves a file from <c>src</c> to <c>dst</c>.  </remarks> 
-		</member>
-		<member name="M:FindFreeAnimDataID" syntax="FindFreeAnimDataID()">
-			<stacksize value="4"/>
-			<referrer name="CreateTextdrawAnimation"/>
-			<dependency name="AnimData"/>
-			<dependency name="AnimData"/>
-			<dependency name="data_string"/>
-			<dependency name="strlen"/>
 		</member>
 		<member name="M:FindFreeAttachedObjectSlot" syntax="FindFreeAttachedObjectSlot(playerid)">
 			<stacksize value="5"/>
@@ -59352,7 +59234,6 @@
 			<referrer name="@yH_OnDialogResponse@0L"/>
 			<referrer name="@yH_OnDialogResponse@0M"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
-			<referrer name="@yH_OnPlayerConnect@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="@yH_OnPlayerConnect@0P"/>
 			<referrer name="@yH_OnPlayerDisconnect@0P"/>
@@ -67431,18 +67312,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:OnTextdrawAnimationFinish" syntax="OnTextdrawAnimationFinish(playerid, textdraw)">
-			<attribute name="public"/>
-			<stacksize value="7"/>
-			<dependency name="ServerName"/>
-			<dependency name="SetTimerEx"/>
-			<dependency name="false"/>
-			<param name="playerid">
-			</param>
-			<param name="textdraw">
-				<paraminfo>PlayerText </paraminfo>
-			</param>
-		</member>
 		<member name="M:OnTrailerHooked" syntax="OnTrailerHooked(playerid, vehicleid, trailerid)">
 			<stacksize value="1"/>
 			<param name="playerid">
@@ -69281,7 +69150,6 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
 			<referrer name="CreatePokerGUI"/>
@@ -69301,7 +69169,6 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
@@ -69381,7 +69248,6 @@
 			<attribute name="native"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
@@ -69449,7 +69315,6 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -69574,8 +69439,6 @@
 			<referrer name="HideBossHPBarFromPlayer"/>
 			<referrer name="DestroyMessageTD"/>
 			<referrer name="HideHungerDisplay"/>
-			<referrer name="TDWEBACCOUNT"/>
-			<referrer name="TDNAMASERVER"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="XoaTextDraw"/>
 			<referrer name="hungerGames"/>
@@ -69608,7 +69471,6 @@
 			<referrer name="Animator_Process"/>
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -69642,7 +69504,6 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -69741,7 +69602,6 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreatePokerGUI"/>
 			<referrer name="PrepTradeToysGUI"/>
@@ -69787,7 +69647,6 @@
 			<referrer name="Prev_UpdateScrollBar"/>
 			<referrer name="GameTextEx"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -69816,8 +69675,6 @@
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
 			<referrer name="SendMessageTD"/>
-			<referrer name="CreateTextdrawAnimation"/>
-			<referrer name="UpdateTextdrawAnimation"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="XoaTextDraw"/>
 			<referrer name="hungerGames"/>
@@ -69865,9 +69722,6 @@
 			<referrer name="SendMessageTD"/>
 			<referrer name="ShowHungerDisplay"/>
 			<referrer name="UpdatePlayerHealthBar"/>
-			<referrer name="TDWEBACCOUNT"/>
-			<referrer name="TDNAMASERVER"/>
-			<referrer name="CreateTextDrawNamaServer"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="PokerOptions"/>
 			<referrer name="ShowPokerGUI"/>
@@ -81745,9 +81599,6 @@
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="TaoHenGioRoulette"/>
 			<referrer name="HenGioQuayRoulette"/>
-			<referrer name="CreateTextdrawAnimation"/>
-			<referrer name="UpdateTextdrawAnimation"/>
-			<referrer name="OnTextdrawAnimationFinish"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="OnQueryFinish"/>
@@ -84817,30 +84668,6 @@
 			</param>
 			<library>y_shortfunc</library>  <remarks>  Used in remote function wrappers to put reference parameter retusn in to the  specially named properties (<c>"V" + idx</c> in group 8) for their return.  Also put the true return string in to a property, because remote call order  can't be relied on, and can't return strings even if it could.  </remarks> 
 		</member>
-		<member name="M:TDNAMASERVER" syntax="TDNAMASERVER(playerid)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="CreateTextdrawAnimation"/>
-			<dependency name="NamaServer"/>
-			<dependency name="NamaServer"/>
-			<dependency name="PlayerTextDrawHide"/>
-			<dependency name="PlayerTextDrawShow"/>
-			<dependency name="ServerName"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:TDWEBACCOUNT" syntax="TDWEBACCOUNT(playerid)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="CreateTextdrawAnimation"/>
-			<dependency name="NamaServer"/>
-			<dependency name="NamaServer"/>
-			<dependency name="PlayerTextDrawHide"/>
-			<dependency name="PlayerTextDrawShow"/>
-			<dependency name="ServerName"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:TPInfo_RangeCheck" syntax="TPInfo_RangeCheck(x1, y1, z1, radius, x2, y2, z2)">
 			<stacksize value="1"/>
 			<referrer name="_@yHOnPlayerUpdate@06"/>
@@ -86762,33 +86589,6 @@
 			</param>
 			<library>amx_assembly dynamic_call</library>
 		</member>
-		<member name="M:UpdateTextdrawAnimation" syntax="UpdateTextdrawAnimation(playerid, textdraw, id)">
-			<attribute name="public"/>
-			<stacksize value="523"/>
-			<dependency name="AnimData"/>
-			<dependency name="AnimData"/>
-			<dependency name="CallRemoteFunction"/>
-			<dependency name="PlayerTextDrawSetString"/>
-			<dependency name="SetTimerEx"/>
-			<dependency name="data_chars"/>
-			<dependency name="data_color"/>
-			<dependency name="data_color_1"/>
-			<dependency name="data_color_2"/>
-			<dependency name="data_frame"/>
-			<dependency name="data_string"/>
-			<dependency name="false"/>
-			<dependency name="format"/>
-			<dependency name="strins"/>
-			<dependency name="strlen"/>
-			<dependency name="strmid"/>
-			<param name="playerid">
-			</param>
-			<param name="textdraw">
-				<paraminfo>PlayerText </paraminfo>
-			</param>
-			<param name="id">
-			</param>
-		</member>
 		<member name="M:UpdateVehicleDamageStatus" syntax="UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
@@ -88298,7 +88098,6 @@
 			<referrer name="@yH_OnDialogResponse@0L"/>
 			<referrer name="@yH_OnDialogResponse@0M"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
-			<referrer name="@yH_OnPlayerConnect@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="@yH_OnPlayerConnect@0P"/>
 			<referrer name="@yH_OnPlayerDisconnect@0P"/>
@@ -89365,14 +89164,6 @@
 			<dependency name="DuLieuCuocCuaNguoiChoi"/>
 			<dependency name="NguoiChoiTrongRoulette"/>
 			<dependency name="false"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:_@yHOnPlayerConnect@0N" syntax="_@yHOnPlayerConnect@0N(playerid)">
-			<attribute name="public"/>
-			<stacksize value="4"/>
-			<referrer name="@yH_OnPlayerConnect@0N"/>
-			<dependency name="CreateTextDrawNamaServer"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -93565,8 +93356,6 @@
 			<referrer name="pc_cmd_giverank"/>
 			<referrer name="pc_cmd_setdiv"/>
 			<referrer name="UpdateRealTime"/>
-			<referrer name="CreateTextdrawAnimation"/>
-			<referrer name="UpdateTextdrawAnimation"/>
 			<referrer name="SyncUp"/>
 			<referrer name="ProductionUpdate"/>
 			<referrer name="MoneyUpdate"/>
@@ -126040,7 +125829,6 @@
 			<referrer name="ret_strins"/>
 			<referrer name="Hooks_MakeLongName"/>
 			<referrer name="Hooks_MakeShortName"/>
-			<referrer name="UpdateTextdrawAnimation"/>
 			<referrer name="MailDetailsQueryFinish"/>
 			<referrer name="Group_NumToDialogHex"/>
 			<referrer name="number_format"/>
@@ -126109,9 +125897,6 @@
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="_@yHOnPlayerDisconnect@0J"/>
 			<referrer name="pc_cmd_setdiv"/>
-			<referrer name="FindFreeAnimDataID"/>
-			<referrer name="CreateTextdrawAnimation"/>
-			<referrer name="UpdateTextdrawAnimation"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="SQL_Log"/>
 			<referrer name="MySQLUpdateBuild"/>
@@ -126191,7 +125976,6 @@
 			<referrer name="Prev_FetchListitemData"/>
 			<referrer name="Prev_ShowPlayerDialog"/>
 			<referrer name="GetPlayerPacketLoss"/>
-			<referrer name="UpdateTextdrawAnimation"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="SQL_Log"/>
 			<referrer name="MailsQueryFinish"/>
