@@ -33681,12 +33681,12 @@ CMD:newb(playerid, params[])
 	if(PlayerInfo[playerid][pHelper] < 1 && PlayerInfo[playerid][pAdmin] < 1)
 	{
 		NewbieTimer[playerid] = gettime()+60;
-		format(string, sizeof(string), "** Newbie %s: %s", GetPlayerNameEx(playerid), params);
+		format(string, sizeof(string), "** Newbie %s[%d]: %s", GetPlayerNameEx(playerid), playerid, params);
 	}
 	if(PlayerInfo[playerid][pHelper] == 1 && PlayerInfo[playerid][pAdmin] < 2)
 	{
 		NewbieTimer[playerid] = gettime()+30;
-		format(string, sizeof(string), "** Helper %s: %s", GetPlayerNameEx(playerid), params);
+		format(string, sizeof(string), "** Helper %s[%d]: %s", GetPlayerNameEx(playerid), playerid, params);
 		ReportCount[playerid]++;
 		ReportHourCount[playerid]++;
 		AddCAReportToken(playerid); // Advisor Tokens
@@ -33694,25 +33694,25 @@ CMD:newb(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] == 1)
 	{
 		NewbieTimer[playerid] = gettime()+30;
-		if(PlayerInfo[playerid][pSMod] == 1) format(string, sizeof(string), "** Senior Moderator %s: %s", GetPlayerNameEx(playerid), params);
-		else format(string, sizeof(string), "** Moderator %s: %s", GetPlayerNameEx(playerid), params);
+		if(PlayerInfo[playerid][pSMod] == 1) format(string, sizeof(string), "** Senior Moderator %s[%d]: %s", GetPlayerNameEx(playerid), playerid, params);
+		else format(string, sizeof(string), "** Moderator %s[%d]: %s", GetPlayerNameEx(playerid), playerid, params);
 	}
 	if(PlayerInfo[playerid][pHelper] == 2 && PlayerInfo[playerid][pAdmin] < 2)
 	{
 		NewbieTimer[playerid] = gettime()+10;
-		format(string, sizeof(string), "** Community Advisor %s: %s", GetPlayerNameEx(playerid), params);
+		format(string, sizeof(string), "** Community Advisor %s[%d]: %s", GetPlayerNameEx(playerid), playerid, params);
 	}
 	if(PlayerInfo[playerid][pHelper] == 3 && PlayerInfo[playerid][pAdmin] < 2)
 	{
 		NewbieTimer[playerid] = gettime()+10;
-		format(string, sizeof(string), "** Senior Advisor %s: %s", GetPlayerNameEx(playerid), params);
+		format(string, sizeof(string), "** Senior Advisor %s[%d]: %s", GetPlayerNameEx(playerid), playerid, params);
 	}
 	if(PlayerInfo[playerid][pHelper] >= 4 && PlayerInfo[playerid][pAdmin] < 2)
 	{
 		NewbieTimer[playerid] = gettime()+10;
-		format(string, sizeof(string), "** Chief Advisor %s: %s", GetPlayerNameEx(playerid), params);
+		format(string, sizeof(string), "** Chief Advisor %s[%d]: %s", GetPlayerNameEx(playerid), playerid, params);
 	}
-	if(PlayerInfo[playerid][pAdmin] >= 2) format(string, sizeof(string), "** Admin %s: %s", GetPlayerNameEx(playerid), params);
+	if(PlayerInfo[playerid][pAdmin] >= 2) format(string, sizeof(string), "** Admin %s[%d]: %s", GetPlayerNameEx(playerid), playerid, params);
 	foreach(new n: Player)
 	{
 		if (gNewbie[n]==0)
