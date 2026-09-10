@@ -7025,6 +7025,7 @@ CMD:goto(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GRAD2, "Locations 2: stadium2,stadium3,stadium4,int1,mark,mark2,sfairport,dillimore,cave,doc,bank,mall,allsaints");
 			SendClientMessageEx(playerid, COLOR_GRAD3, "Locations 3: countygen,cracklab,gym,rodeo,flint,idlewood,fbi,island,demorgan,doc,icprison,oocprison");
 			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 4: garagesm,garagemed,garagelg,garagexlg");
+			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 5: int1, int2, int3, bm, taxi, int247, intbank, intcansa, intsanews, intcityhall, intcityhalltang2");
 			return 1;
 		}
 		if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING)
@@ -7032,7 +7033,217 @@ CMD:goto(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the thuc hien dieu nay khi dang theo doi nguoi choi.");
 			return 1;
 		}
-		if(strcmp(params,"ls",true) == 0)
+		if(strcmp(params,"int247",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar, -24.0187, -55.2830, 1003.5468);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, -24.0187, -55.2830, 1003.5468);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"intbank",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar, 1451.1943, 1394.4246, 14.2062);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 1451.1943, 1394.4246, 14.2062);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"intcansa",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar, 1491.1673, 1371.3046, -10.7237);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 1491.1673, 1371.3046, -10.7237);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"intsanews",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar, 797.6696, -1328.8587, 710.3306);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 797.6696, -1328.8587, 710.3306);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"intcityhall",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar, 920.5236, -1474.0677, 2754.3317);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 920.5236, -1474.0677, 2754.3317);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"intcityhalltang2",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar, 926.2879, -1461.1905, 2761.0063);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 926.2879, -1461.1905, 2761.0063);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"int3",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar,1315.0325,747.5623,1058.7932);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 1315.0325,747.5623,1058.7932);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"int2",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar,1024.7095,-1506.1433,-12.1704);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 1024.7095,-1506.1433,-12.1704);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"int1",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar,-15.3716,-468.5600,-31.8943);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, -15.3716,-468.5600,-31.8943);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"bm",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar,2795.8694,-1619.4038,10.9219);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 2795.8694,-1619.4038,10.9219);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"ls",true) == 0)
 		{
 			if (GetPlayerState(playerid) == 2)
 			{
@@ -26580,7 +26791,7 @@ CMD:gnext(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_RED, "* Listing next available gate...");
 		for(new x;x<MAX_GATES;x++)
 		{
-		    if(GateInfo[x][gModel] == 0)
+		    if(GateInfo[x][gModel] == 0 || GateInfo[x][gModel] == 18631)
 		    {
 		        new string[128];
 		        format(string, sizeof(string), "%d is available to use.", x);
