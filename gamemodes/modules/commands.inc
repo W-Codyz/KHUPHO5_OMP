@@ -458,7 +458,7 @@ CMD:gotospeedcam(playerid, params[]) {
 			{
 				SetPlayerPos(playerid, SpeedCameras[i][_scPosX], SpeedCameras[i][_scPosY], SpeedCameras[i][_scPosZ]);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -494,7 +494,7 @@ CMD:gotocrate(playerid, params[]) {
 			{
 				SetPlayerPos(playerid, CrateInfo[i][crX],CrateInfo[i][crY],CrateInfo[i][crZ]);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,CrateInfo[i][crInt]);
 			PlayerInfo[playerid][pInt] = CrateInfo[i][crInt];
 			SetPlayerVirtualWorld(playerid, CrateInfo[i][crVW]);
@@ -7048,7 +7048,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, -24.0187, -55.2830, 1003.5468);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7069,7 +7069,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 1451.1943, 1394.4246, 14.2062);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7090,7 +7090,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 1491.1673, 1371.3046, -10.7237);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7111,7 +7111,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 797.6696, -1328.8587, 710.3306);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7132,7 +7132,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 920.5236, -1474.0677, 2754.3317);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7153,7 +7153,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 926.2879, -1461.1905, 2761.0063);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7174,7 +7174,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 1315.0325,747.5623,1058.7932);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7195,7 +7195,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 1024.7095,-1506.1433,-12.1704);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7216,7 +7216,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, -15.3716,-468.5600,-31.8943);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7237,7 +7237,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 2795.8694,-1619.4038,10.9219);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			HienTextdraw(playerid, "Dich chuyen thanh cong!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7257,7 +7257,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1529.6,-1691.2,13.3);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7277,7 +7277,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1111.0139,1546.9510,5290.2793);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7297,7 +7297,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1192.8501,1540.0295,5290.2871);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7317,7 +7317,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1069.1473,1582.1029,5290.2529);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7337,7 +7337,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1198.1407,1589.2153,5290.2871);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7357,7 +7357,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1993.01, -1580.44, 86.39);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7377,7 +7377,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1412.5375,-301.8998,14.1411);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7397,7 +7397,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1605.0,720.0,12.0);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7417,7 +7417,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1699.2,1435.1, 10.7);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7438,7 +7438,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1081.0,4297.9,4.4);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7459,7 +7459,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 2348.2871, -1146.8298, 27.3183);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7480,7 +7480,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1487.91, -1030.60, 23.66);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7501,7 +7501,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1192.78, -1292.68, 13.38);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7522,7 +7522,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 2000.05, -1409.36, 16.99);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7543,7 +7543,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 2227.60, -1674.89, 14.62);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7562,7 +7562,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 344.77,-1526.08,33.28);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7583,7 +7583,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1253.70, 343.73, 19.41);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7604,7 +7604,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1810.39, -1601.15, 13.54);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7624,7 +7624,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -2433.63, 511.45, 30.38);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7644,7 +7644,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1875.7731, 1366.0796, 16.8998);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7664,7 +7664,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 112.67, 1917.55, 18.72);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7678,7 +7678,7 @@ CMD:goto(playerid, params[])
 			PlayerInfo[playerid][pInt] = 10;
 			SetPlayerVirtualWorld(playerid, 0);
 			PlayerInfo[playerid][pVW] = 0;
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 		}
 		else if(strcmp(params, "doc", true) == 0)
 		{
@@ -7687,7 +7687,7 @@ CMD:goto(playerid, params[])
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
 			PlayerInfo[playerid][pVW] = 0;
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 		}
 		else if(strcmp(params,"oocprison",true) == 0)
 		{
@@ -7696,7 +7696,7 @@ CMD:goto(playerid, params[])
 			PlayerInfo[playerid][pInt] = 1;
 			SetPlayerVirtualWorld(playerid, 0);
 			PlayerInfo[playerid][pVW] = 0;
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 
 		}
 		else if(strcmp(params,"stadium1",true) == 0)
@@ -7713,7 +7713,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1424.93, -664.59, 1059.86);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,4);
 			PlayerInfo[playerid][pInt] = 4;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7734,7 +7734,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1395.96, -208.20, 1051.28);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,7);
 			PlayerInfo[playerid][pInt] = 7;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7755,7 +7755,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1410.72, 1591.16, 1052.53);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,14);
 			PlayerInfo[playerid][pInt] = 14;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7776,7 +7776,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1394.20, 987.62, 1023.96);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,15);
 			PlayerInfo[playerid][pInt] = 15;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7797,7 +7797,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1416.107000,0.268620,1000.926000);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,1);
 			PlayerInfo[playerid][pInt] = 1;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7817,7 +7817,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, GetPVarFloat(playerid, "tpPosX1"), GetPVarFloat(playerid, "tpPosY1"), GetPVarFloat(playerid, "tpPosZ1"));
 			}
 			SetPlayerInterior(playerid, GetPVarInt(playerid, "tpInt1"));
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 		}
 		else if(strcmp(params,"mark2",true) == 0)
 		{
@@ -7832,7 +7832,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, GetPVarFloat(playerid, "tpPosX2"), GetPVarFloat(playerid, "tpPosY2"), GetPVarFloat(playerid, "tpPosZ2"));
 			}
 			SetPlayerInterior(playerid, GetPVarInt(playerid, "tpInt2"));
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 		}
 		else if(strcmp(params,"mall",true) == 0)
 		{
@@ -7848,7 +7848,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1133.71,-1464.52,15.77);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7869,7 +7869,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -1446.5997,2608.4478,55.8359);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7890,7 +7890,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -2465.1348,2333.6572,4.8359);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7911,7 +7911,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 634.9734, -594.6402, 16.3359);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7931,7 +7931,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1020.29, -1129.06, 23.87);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7951,7 +7951,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 587.0106,-1238.3374,17.8049);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7971,7 +7971,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, -108.1058,-1172.5293,2.8906);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7991,7 +7991,7 @@ CMD:goto(playerid, params[])
 			{
 				SetPlayerPos(playerid, 1955.1357,-1796.8896,13.5469);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -8012,7 +8012,7 @@ CMD:goto(playerid, params[])
 			{
 				Player_StreamPrep(playerid, 1649.7531, 1463.1614, 1151.9687, FREEZE_TIME);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -11057,7 +11057,7 @@ CMD:gotojet(playerid, params[])
             SetPlayerPos(playerid, 1.71875, 30.4062, 1200.34);
         }
         SetPlayerInterior(playerid,1);
-        SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+        ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
     }
     else {
         SendUnAuth(playerid);
@@ -15275,7 +15275,7 @@ CMD:gotodv(playerid, params[])
 				SetPlayerVirtualWorld(playerid,GetVehicleVirtualWorld(DynVehicleInfo[moneys][gv_iSpawnedID]));
 				SetPlayerInterior(playerid, DynVehicleInfo[moneys][gv_iInt]);
 			}
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid, 0);
 			return 1;
 		}
@@ -30750,7 +30750,7 @@ CMD:entercar(playerid, params[])
 
 		if(!(1 <= iVehID <= MAX_VEHICLES)) return SendClientMessageEx(playerid, COLOR_GREY, "Valid vehicle IDs run from 1 to 2000.");
 		if(seatid < 0 || seatid > 3) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid Seat ID!");
-		else if(IsSeatAvailable(iVehID, seatid)) IsPlayerEntering{playerid} = true, PutPlayerInVehicle(playerid, iVehID, seatid), SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+		else if(IsSeatAvailable(iVehID, seatid)) IsPlayerEntering{playerid} = true, PutPlayerInVehicle(playerid, iVehID, seatid), ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 		else SendClientMessageEx(playerid, COLOR_GREY, "That seat is occupied.");
 	}
 	else
@@ -30779,7 +30779,7 @@ CMD:gotocar(playerid, params[])
 		{
 			SetPlayerPos(playerid, cwx2, cwy2, cwz2);
 		}
-		SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+		ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 		SetPlayerInterior(playerid,0);
 	}
 	else
@@ -31685,7 +31685,7 @@ CMD:gotoid(playerid, params[])
 				SetPlayerVirtualWorld(playerid, GetPlayerVirtualWorld(giveplayerid));
 			}
 
-			SendClientMessageEx(playerid, COLOR_GRAD1, "   Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 		}
 		else
 		{
