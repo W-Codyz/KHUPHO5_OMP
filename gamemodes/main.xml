@@ -4761,7 +4761,7 @@
 				<size value="3"/>
 			</member>
 		</member>
-		<member name="T:pInfo" value="1072">
+		<member name="T:pInfo" value="1073">
 			<tagname value="pInfo"/>
 			<member name="C:pId" value="0">
 			</member>
@@ -5393,6 +5393,8 @@
 			<member name="C:pGoXin" value="1070">
 			</member>
 			<member name="C:pGoHiem" value="1071">
+			</member>
+			<member name="C:pHUDInfo" value="1072">
 			</member>
 		</member>
 		<member name="T:pkrInfo" value="135">
@@ -7466,6 +7468,7 @@
 			<referrer name="OnSelectMember"/>
 			<referrer name="OnLoadMemberList"/>
 			<referrer name="pc_cmd_online"/>
+			<referrer name="GetAllPlayer"/>
 			<referrer name="AFKUpdate"/>
 			<referrer name="SyncUp"/>
 			<referrer name="SaveAccountsUpdate"/>
@@ -7682,7 +7685,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="gv_iUpkeep"/>
+			<referrer name="bVW"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -8571,6 +8574,9 @@
 			<referrer name="OnLoadMemberList"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
+			<referrer name="@yH_OnPlayerConnect@0N"/>
+			<referrer name="@yH_OnGameModeInit@0N"/>
+			<referrer name="_@yHOnGameModeInit@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="SplitTextDrawString"/>
 			<referrer name="_yT@TimerHideTDN"/>
@@ -11386,6 +11392,7 @@
 			<referrer name="OnSelectMember"/>
 			<referrer name="OnLoadMemberList"/>
 			<referrer name="pc_cmd_online"/>
+			<referrer name="GetAllPlayer"/>
 			<referrer name="AFKUpdate"/>
 			<referrer name="SyncUp"/>
 			<referrer name="SaveAccountsUpdate"/>
@@ -11857,7 +11864,6 @@
 			<tagname value="Text"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="_@yHOnPlayerSpawn@0N"/>
-			<referrer name="UpdateRealTime"/>
 		</member>
 		<member name="F:LottoNumbers">
 			<referrer name="LoadTicket"/>
@@ -12537,6 +12543,8 @@
 			<referrer name="@yH_OnDialogResponse@0L"/>
 			<referrer name="@yH_OnDialogResponse@0M"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
+			<referrer name="@yH_OnPlayerConnect@0N"/>
+			<referrer name="@yH_OnGameModeInit@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="@yH_OnPlayerConnect@0Q"/>
 			<referrer name="@yH_OnPlayerDisconnect@0Q"/>
@@ -13125,6 +13133,11 @@
 			<referrer name="pc_cmd_ouninvite"/>
 			<referrer name="pc_cmd_giverank"/>
 			<referrer name="pc_cmd_setdiv"/>
+			<referrer name="ShowUiPlayerInfo"/>
+			<referrer name="HideUiPlayerInfo"/>
+			<referrer name="UpdateHudUI"/>
+			<referrer name="_@yHOnPlayerSpawn@0N"/>
+			<referrer name="UpdateUiPlayerInfo"/>
 			<referrer name="pc_cmd_testnotif"/>
 			<referrer name="SkinDelay"/>
 			<referrer name="NOPCheck"/>
@@ -14131,6 +14144,7 @@
 			<referrer name="pc_cmd_nhiemvu"/>
 			<referrer name="UpdateNameTag"/>
 			<referrer name="ShowPlayerSettings"/>
+			<referrer name="_@yHOnDialogResponse@0b"/>
 			<referrer name="PayDay"/>
 			<referrer name="pc_cmd_payday"/>
 			<referrer name="pc_cmd_nextpaycheck"/>
@@ -15632,6 +15646,13 @@
 		<member name="F:UNIQUE_SYMBOL_LESS_THAN_0063">
 		</member>
 		<member name="F:UNIQUE_SYMBOL_LESS_THAN_0063">
+		</member>
+		<member name="F:UiPlayerInfoTD">
+			<tagname value="PlayerText"/>
+			<referrer name="CreateUiPlayerInfo"/>
+			<referrer name="ShowUiPlayerInfo"/>
+			<referrer name="HideUiPlayerInfo"/>
+			<referrer name="UpdateHudUI"/>
 		</member>
 		<member name="F:UsedCrack">
 			<referrer name="ClearDrugs"/>
@@ -23667,6 +23688,15 @@
 			<dependency name="_@yHOnGameModeInit@0L"/>
 			<dependency name="true"/>
 		</member>
+		<member name="M:@yH_OnGameModeInit@0N" syntax="@yH_OnGameModeInit@0N()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@0N"/>
+			<dependency name="true"/>
+		</member>
 		<member name="M:@yH_OnPlayerClickMap@06" syntax="@yH_OnPlayerClickMap@06(&amp;playerid, &amp;fX, &amp;fY, &amp;fZ)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -23806,6 +23836,18 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerConnect@0J"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerConnect@0N" syntax="@yH_OnPlayerConnect@0N(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerConnect@0N"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -35855,6 +35897,7 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -36183,6 +36226,27 @@
 			<dependency name="tlTextID"/>
 			<dependency name="tlVW"/>
 			<param name="labelid">
+			</param>
+		</member>
+		<member name="M:CreateUiPlayerInfo" syntax="CreateUiPlayerInfo(playerid)">
+			<stacksize value="8"/>
+			<referrer name="_@yHOnPlayerConnect@0N"/>
+			<dependency name="CreatePlayerTextDraw"/>
+			<dependency name="PlayerTextDrawAlignment"/>
+			<dependency name="PlayerTextDrawBackgroundColor"/>
+			<dependency name="PlayerTextDrawColor"/>
+			<dependency name="PlayerTextDrawFont"/>
+			<dependency name="PlayerTextDrawLetterSize"/>
+			<dependency name="PlayerTextDrawSetOutline"/>
+			<dependency name="PlayerTextDrawSetPreviewModel"/>
+			<dependency name="PlayerTextDrawSetPreviewRot"/>
+			<dependency name="PlayerTextDrawSetPreviewVehCol"/>
+			<dependency name="PlayerTextDrawSetProportional"/>
+			<dependency name="PlayerTextDrawSetShadow"/>
+			<dependency name="PlayerTextDrawTextSize"/>
+			<dependency name="UiPlayerInfoTD"/>
+			<dependency name="UiPlayerInfoTD"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:CreateVehicle" syntax="CreateVehicle(modelid, spawnX, spawnY, spawnZ, angle, colour1, colour2, respawnDelay, addSiren)">
@@ -41572,6 +41636,12 @@
 			<stacksize value="1"/>
 			<library>omp_core</library>  <summary>Gets the highest actorid created on the server.</summary>  <seealso name="CreateActor" />  <seealso name="IsValidActor" />  <seealso name="SetActorHealth" />  <returns>The highest actorid created on the server or <b><c>0</c></b> if there are no created actors.</returns> 
 		</member>
+		<member name="M:GetAllPlayer" syntax="GetAllPlayer()">
+			<stacksize value="3"/>
+			<referrer name="UpdateHudUI"/>
+			<dependency name="Iterator@Player"/>
+			<dependency name="cellmax"/>
+		</member>
 		<member name="M:GetAmxAddress" syntax="GetAmxAddress()">
 			<stacksize value="5"/>
 			<referrer name="ReadAmxCell"/>
@@ -42727,6 +42797,7 @@
 		</member>
 		<member name="M:GetJobName" syntax="GetJobName(jobId)">
 			<stacksize value="37"/>
+			<referrer name="UpdateHudUI"/>
 			<referrer name="pc_cmd_quitjob"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="ShowJobHelp"/>
@@ -44588,6 +44659,7 @@
 		</member>
 		<member name="M:GetPlayerMoney" syntax="GetPlayerMoney(playerid)">
 			<attribute name="native"/>
+			<referrer name="UpdateHudUI"/>
 			<referrer name="MoneyUpdate"/>
 			<param name="playerid">
 			</param>
@@ -44606,6 +44678,7 @@
 			<referrer name="fakeOnline_name"/>
 			<referrer name="_@yHOnPlayerUpdate@06"/>
 			<referrer name="_@yHOnPlayerUpdate@0@"/>
+			<referrer name="UpdateHudUI"/>
 			<referrer name="AddReportToken"/>
 			<referrer name="AddCAReportToken"/>
 			<referrer name="AddCallToken"/>
@@ -49317,6 +49390,19 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:HideUiPlayerInfo" syntax="HideUiPlayerInfo(playerid)">
+			<stacksize value="5"/>
+			<referrer name="_@yHOnPlayerSpawn@0N"/>
+			<referrer name="_@yHOnDialogResponse@0b"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="UiPlayerInfoTD"/>
+			<dependency name="UiPlayerInfoTD"/>
+			<dependency name="pHUDInfo"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:HienTextdraw" syntax="HienTextdraw(playerid, string[])">
 			<stacksize value="7"/>
 			<referrer name="ServerHeartbeat"/>
@@ -52953,6 +53039,7 @@
 			<referrer name="pc_cmd_ouninvite"/>
 			<referrer name="pc_cmd_giverank"/>
 			<referrer name="pc_cmd_setdiv"/>
+			<referrer name="UpdateUiPlayerInfo"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerHeartbeatTwo"/>
@@ -59609,6 +59696,8 @@
 			<referrer name="@yH_OnDialogResponse@0L"/>
 			<referrer name="@yH_OnDialogResponse@0M"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
+			<referrer name="@yH_OnPlayerConnect@0N"/>
+			<referrer name="@yH_OnGameModeInit@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="@yH_OnPlayerConnect@0Q"/>
 			<referrer name="@yH_OnPlayerDisconnect@0Q"/>
@@ -67113,6 +67202,7 @@
 			<dependency name="pGunLic"/>
 			<dependency name="pGuns"/>
 			<dependency name="pHR"/>
+			<dependency name="pHUDInfo"/>
 			<dependency name="pHasCuff"/>
 			<dependency name="pHasTazer"/>
 			<dependency name="pHeadValue"/>
@@ -69527,6 +69617,7 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -69548,6 +69639,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -69630,6 +69722,7 @@
 			<attribute name="native"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -69714,6 +69807,7 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -69840,6 +69934,7 @@
 			<referrer name="HideBossHPBarFromPlayer"/>
 			<referrer name="DestroyMessageTD"/>
 			<referrer name="HideHungerDisplay"/>
+			<referrer name="HideUiPlayerInfo"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="XoaTextDraw"/>
 			<referrer name="hungerGames"/>
@@ -69872,6 +69967,7 @@
 			<referrer name="Animator_Process"/>
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -69907,6 +70003,7 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -69950,6 +70047,7 @@
 		<member name="M:PlayerTextDrawSetPreviewModel" syntax="PlayerTextDrawSetPreviewModel(playerid, textid, model)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="mS_CreateMPTextDraw"/>
 			<referrer name="PrepTradeToysGUI"/>
 			<referrer name="CreateInventoryTextDraws"/>
@@ -69964,6 +70062,7 @@
 		<member name="M:PlayerTextDrawSetPreviewRot" syntax="PlayerTextDrawSetPreviewRot(playerid, textid, rotX, rotY, rotZ, zoom)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="mS_CreateMPTextDraw"/>
 			<referrer name="PrepTradeToysGUI"/>
 			<referrer name="CreateInventoryTextDraws"/>
@@ -69983,6 +70082,20 @@
 			</param>
 			<param name="zoom">
 				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:PlayerTextDrawSetPreviewVehCol" syntax="PlayerTextDrawSetPreviewVehCol(playerid, textid, colour1, colour2)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="CreateUiPlayerInfo"/>
+			<param name="playerid">
+			</param>
+			<param name="textid">
+				<paraminfo>PlayerText </paraminfo>
+			</param>
+			<param name="colour1">
+			</param>
+			<param name="colour2">
 			</param>
 		</member>
 		<member name="M:PlayerTextDrawSetPreviewVehicleColours" syntax="PlayerTextDrawSetPreviewVehicleColours(playerid, textid, colour1, colour2)">
@@ -70007,6 +70120,7 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -70055,6 +70169,7 @@
 			<referrer name="Prev_UpdateScrollBar"/>
 			<referrer name="GameTextEx"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -70085,6 +70200,7 @@
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
 			<referrer name="SendMessageTD"/>
+			<referrer name="UpdateHudUI"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="XoaTextDraw"/>
 			<referrer name="hungerGames"/>
@@ -70132,6 +70248,7 @@
 			<referrer name="SendMessageTD"/>
 			<referrer name="ShowHungerDisplay"/>
 			<referrer name="UpdatePlayerHealthBar"/>
+			<referrer name="ShowUiPlayerInfo"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -70172,6 +70289,7 @@
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0I"/>
 			<referrer name="UpdatePlayerHealthBar"/>
+			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreatePlayerTextDrawz"/>
 			<referrer name="CreateTDN"/>
 			<referrer name="CreateNotify"/>
@@ -81911,6 +82029,7 @@
 			<referrer name="pc_cmd_taoboss"/>
 			<referrer name="InitFishingSystem"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="_@yHOnGameModeInit@0N"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="SetServerWeather"/>
 			<referrer name="InitiateGamemode"/>
@@ -83542,7 +83661,7 @@
 			</param>
 		</member>
 		<member name="M:ShowPlayerSettings" syntax="ShowPlayerSettings(playerid)">
-			<stacksize value="4142"/>
+			<stacksize value="4143"/>
 			<referrer name="pc_cmd_caidat"/>
 			<referrer name="_@yHOnDialogResponse@0b"/>
 			<referrer name="OnDialogResponse"/>
@@ -83561,6 +83680,7 @@
 			<dependency name="gNews"/>
 			<dependency name="gOoc"/>
 			<dependency name="pDiscordID"/>
+			<dependency name="pHUDInfo"/>
 			<dependency name="strcat"/>
 			<param name="playerid">
 			</param>
@@ -83724,6 +83844,19 @@
 			<referrer name="pc_cmd_claim"/>
 			<dependency name="SyncTurfWarsRadar"/>
 			<dependency name="turfWarsRadar"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowUiPlayerInfo" syntax="ShowUiPlayerInfo(playerid)">
+			<stacksize value="5"/>
+			<referrer name="_@yHOnPlayerSpawn@0N"/>
+			<referrer name="_@yHOnDialogResponse@0b"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="UiPlayerInfoTD"/>
+			<dependency name="UiPlayerInfoTD"/>
+			<dependency name="pHUDInfo"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -85718,7 +85851,6 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="FIXES_GameTextForAll"/>
-			<referrer name="UpdateRealTime"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ShowNoticeGUIFrame"/>
 			<referrer name="SendReportToQue"/>
@@ -86768,6 +86900,27 @@
 			<param name="groupvehicleid">
 			</param>
 		</member>
+		<member name="M:UpdateHudUI" syntax="UpdateHudUI(playerid)">
+			<stacksize value="298"/>
+			<referrer name="UpdateUiPlayerInfo"/>
+			<dependency name="GetAllPlayer"/>
+			<dependency name="GetJobName"/>
+			<dependency name="GetJobName"/>
+			<dependency name="GetPlayerMoney"/>
+			<dependency name="GetPlayerName"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerTextDrawSetString"/>
+			<dependency name="UiPlayerInfoTD"/>
+			<dependency name="UiPlayerInfoTD"/>
+			<dependency name="format"/>
+			<dependency name="getdate"/>
+			<dependency name="gettime"/>
+			<dependency name="pAccount"/>
+			<dependency name="pHUDInfo"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:UpdateKhatNuoc" syntax="UpdateKhatNuoc()">
 			<attribute name="public"/>
 			<stacksize value="14"/>
@@ -87021,15 +87174,6 @@
 			<referrer name="pc_cmd_pointfix"/>
 			<dependency name="SavePoint"/>
 		</member>
-		<member name="M:UpdateRealTime" syntax="UpdateRealTime()">
-			<attribute name="public"/>
-			<stacksize value="57"/>
-			<dependency name="LogoTD"/>
-			<dependency name="TextDrawSetString"/>
-			<dependency name="format"/>
-			<dependency name="getdate"/>
-			<dependency name="gettime"/>
-		</member>
 		<member name="M:UpdateSANewsBroadcast" syntax="UpdateSANewsBroadcast()">
 			<stacksize value="48"/>
 			<referrer name="InitiateGamemode"/>
@@ -87147,6 +87291,14 @@
 			<dependency name="textdraw_notification"/>
 			<param name="playerid">
 			</param>
+		</member>
+		<member name="M:UpdateUiPlayerInfo" syntax="UpdateUiPlayerInfo()">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="UpdateHudUI"/>
+			<dependency name="pHUDInfo"/>
 		</member>
 		<member name="M:UpdateVehicleDamageStatus" syntax="UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires)">
 			<tagname value="bool"/>
@@ -88657,6 +88809,8 @@
 			<referrer name="@yH_OnDialogResponse@0L"/>
 			<referrer name="@yH_OnDialogResponse@0M"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
+			<referrer name="@yH_OnPlayerConnect@0N"/>
+			<referrer name="@yH_OnGameModeInit@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0O"/>
 			<referrer name="@yH_OnPlayerConnect@0Q"/>
 			<referrer name="@yH_OnPlayerDisconnect@0Q"/>
@@ -89442,13 +89596,18 @@
 			<referrer name="@yH_OnDialogResponse@0b"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="HidePM"/>
+			<dependency name="HideUiPlayerInfo"/>
 			<dependency name="PhoneOnline"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="SetPVarInt"/>
 			<dependency name="ShowPlayerSettings"/>
+			<dependency name="ShowUiPlayerInfo"/>
 			<dependency name="gFam"/>
 			<dependency name="gNewbie"/>
 			<dependency name="gNews"/>
 			<dependency name="gOoc"/>
+			<dependency name="pHUDInfo"/>
 			<param name="playerid">
 			</param>
 			<param name="dialogid">
@@ -89575,6 +89734,13 @@
 			<referrer name="@yH_OnGameModeInit@0L"/>
 			<dependency name="LoadSafeZones"/>
 			<dependency name="__print"/>
+		</member>
+		<member name="M:_@yHOnGameModeInit@0N" syntax="_@yHOnGameModeInit@0N()">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<referrer name="@yH_OnGameModeInit@0N"/>
+			<dependency name="SetTimer"/>
+			<dependency name="true"/>
 		</member>
 		<member name="M:_@yHOnPlayerClickMap@06" syntax="_@yHOnPlayerClickMap@06(playerid, fX, fY, fZ)">
 			<attribute name="public"/>
@@ -89723,6 +89889,14 @@
 			<dependency name="DuLieuCuocCuaNguoiChoi"/>
 			<dependency name="NguoiChoiTrongRoulette"/>
 			<dependency name="false"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerConnect@0N" syntax="_@yHOnPlayerConnect@0N(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerConnect@0N"/>
+			<dependency name="CreateUiPlayerInfo"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -90728,10 +90902,14 @@
 			<attribute name="public"/>
 			<stacksize value="4"/>
 			<referrer name="@yH_OnPlayerSpawn@0N"/>
+			<dependency name="HideUiPlayerInfo"/>
 			<dependency name="IsPlayerSpawned"/>
 			<dependency name="LogoTD"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ShowUiPlayerInfo"/>
 			<dependency name="TextDrawShowForPlayer"/>
 			<dependency name="gPlayerLogged"/>
+			<dependency name="pHUDInfo"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -93966,7 +94144,7 @@
 			<referrer name="pc_cmd_ouninvite"/>
 			<referrer name="pc_cmd_giverank"/>
 			<referrer name="pc_cmd_setdiv"/>
-			<referrer name="UpdateRealTime"/>
+			<referrer name="UpdateHudUI"/>
 			<referrer name="ShowNotify"/>
 			<referrer name="SyncUp"/>
 			<referrer name="ProductionUpdate"/>
@@ -95612,6 +95790,7 @@
 			<dependency name="pGunLic"/>
 			<dependency name="pGuns"/>
 			<dependency name="pHR"/>
+			<dependency name="pHUDInfo"/>
 			<dependency name="pHasCuff"/>
 			<dependency name="pHasTazer"/>
 			<dependency name="pHeadValue"/>
@@ -95959,7 +96138,7 @@
 			<referrer name="pc_cmd_uninvite"/>
 			<referrer name="pc_cmd_giverank"/>
 			<referrer name="pc_cmd_setdiv"/>
-			<referrer name="UpdateRealTime"/>
+			<referrer name="UpdateHudUI"/>
 			<referrer name="SQL_Log"/>
 			<referrer name="AddReportToken"/>
 			<referrer name="AddCAReportToken"/>
@@ -96076,7 +96255,7 @@
 			<referrer name="SendRuaThoLogDC"/>
 			<referrer name="FormatThoiGianTruoc"/>
 			<referrer name="KetThucQuay"/>
-			<referrer name="UpdateRealTime"/>
+			<referrer name="UpdateHudUI"/>
 			<referrer name="SyncUp"/>
 			<referrer name="playerTabbedLoop"/>
 			<referrer name="MoneyUpdate"/>

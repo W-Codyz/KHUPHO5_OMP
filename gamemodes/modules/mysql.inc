@@ -600,6 +600,9 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "DiscordCode", szResult, MainPipeline); PlayerInfo[extraid][pDiscordCode] = strval(szResult);
 					cache_get_field_content(row,  "DiscordID", PlayerInfo[extraid][pDiscordID], MainPipeline);
 					
+					cache_get_field_content(row, "HUDInfo", szResult, MainPipeline); 
+					PlayerInfo[extraid][pHUDInfo] = strval(szResult);
+					
 					cache_get_field_content(row, "SoLanCauCa", szResult, MainPipeline); 
 					PlayerInfo[extraid][pSoLanCauCa] = strval(szResult);
 
@@ -3140,6 +3143,7 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerString(query, GetPlayerSQLId(playerid), "DiscordID", PlayerInfo[playerid][pDiscordID]);
 	
 	//gg
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "HUDInfo", PlayerInfo[playerid][pHUDInfo]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pBinhXit", PlayerInfo[playerid][pBinhXit]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pThucAn", PlayerInfo[playerid][pThucAn]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pNuoc", PlayerInfo[playerid][pNuoc]);

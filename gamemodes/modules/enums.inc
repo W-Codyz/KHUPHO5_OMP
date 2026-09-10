@@ -974,7 +974,8 @@ enum pInfo
 	pGoTho,
 	pGoThuong,
 	pGoXin,
-	pGoHiem
+	pGoHiem,
+	pHUDInfo
 
 
 	//enum pinfo

@@ -20,7 +20,8 @@ stock ShowPlayerSettings(playerid)
     {FFFFFF}Kenh Newbie\t\t\t%s\n\
     {FFFFFF}Tin nhan rieng tu\t\t%s\n\
     {FFFFFF}Dien thoai\t\t\t%s\n\
-    {FFFFFF}Kenh radio\t\t\t%s\n",
+    {FFFFFF}Kenh radio\t\t\t%s\n\
+    {FFFFFF}HUD nhan vat\t\t\t%s\n",
     dccUsername,
     !gFam[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !gOoc[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
@@ -28,7 +29,8 @@ stock ShowPlayerSettings(playerid)
     !gNewbie[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !HidePM[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !PhoneOnline[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
-    !GetPVarInt(playerid, "togRadio") ? ("{00FF00}Bat") : ("{FF0000}Tat"));
+    !GetPVarInt(playerid, "togRadio") ? ("{00FF00}Bat") : ("{FF0000}Tat"),
+    PlayerInfo[playerid][pHUDInfo] ? ("{00FF00}Bat") : ("{FF0000}Tat"));
 
     ShowPlayerDialog(playerid, DIALOG_SETTING, DIALOG_STYLE_TABLIST, "{FFFFFF}Cai dat tai khoan", dialogInfo, "Chon", "Dong");
     return 1;
@@ -79,6 +81,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
             case 7: { // tog radio
                 SetPVarInt(playerid, "togRadio", !GetPVarInt(playerid, "togRadio"));
+            }
+            case 8: { // tog hud
+                if(!PlayerInfo[playerid][pHUDInfo]) {
+                    PlayerInfo[playerid][pHUDInfo] = 1;
+                    ShowUiPlayerInfo(playerid);
+                }
+                else {
+                    PlayerInfo[playerid][pHUDInfo] = 0;
+                    HideUiPlayerInfo(playerid);
+                }
             }
         }
 
