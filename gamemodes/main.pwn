@@ -91,6 +91,7 @@
 #include "./modules/system/logo"
 //#include "./modules/system/logo_anim"
 #include "./modules/system/support_notif"
+#include "./modules/system/notification"
 
 #include "./modules/timers"
 #include "./modules/mysql"

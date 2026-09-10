@@ -480,3 +480,10 @@ forward ControlCam(playerid);
 
 forward OnPlayerModelSelection(playerid, response, listid, modelid);
 forward OnPlayerModelSelectionEx(playerid, response, extraid, modelid);
+
+// Function
+#define JavaTR:%0(%1) forward %0(%1); public %0(%1)
+#define FUNC::%0(%1) forward %0(%1); public %0(%1)
+#define VRRP::%0(%1) forward %0(%1); public %0(%1)
+#define function%0(%1) forward %0(%1); public %0(%1)
+#define forex(%0,%1) for(new %0 = 0; %0 != %1; %0++)
