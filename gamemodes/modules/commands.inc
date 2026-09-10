@@ -7048,7 +7048,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, -24.0187, -55.2830, 1003.5468);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7069,7 +7069,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 1451.1943, 1394.4246, 14.2062);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7090,7 +7090,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 1491.1673, 1371.3046, -10.7237);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7111,7 +7111,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 797.6696, -1328.8587, 710.3306);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7132,7 +7132,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 920.5236, -1474.0677, 2754.3317);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7153,7 +7153,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 926.2879, -1461.1905, 2761.0063);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7174,7 +7174,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 1315.0325,747.5623,1058.7932);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7195,7 +7195,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 1024.7095,-1506.1433,-12.1704);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7216,7 +7216,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, -15.3716,-468.5600,-31.8943);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -7237,7 +7237,7 @@ CMD:goto(playerid, params[])
 				SetPlayerPos(playerid, 2795.8694,-1619.4038,10.9219);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
-			SuccesMsg(playerid, "Dich chuyen thanh cong!");
+			HienTextdraw(playerid, "Dich chuyen thanh cong!");
 			SetPlayerInterior(playerid,0);
 			PlayerInfo[playerid][pInt] = 0;
 			SetPlayerVirtualWorld(playerid, 0);
@@ -40548,6 +40548,7 @@ CMD:tackle(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GRAD2, "You're not Law Enforcement.");
 }*/
 
+alias:tazer("tz")
 CMD:tazer(playerid, params[])
 {
 	if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong the lam dieu nay khi dang tham gia su kien Hunger Games!");

@@ -7633,7 +7633,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="pkrRX"/>
+			<referrer name="pkrActive"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -49012,6 +49012,7 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="pc_cmd_time"/>
+			<referrer name="pc_cmd_goto"/>
 			<referrer name="OnPlayerCommandPerformed"/>
 			<referrer name="PayDay"/>
 			<referrer name="_@yHOnDialogResponse@0b"/>
@@ -67912,6 +67913,7 @@
 			<referrer name="pc_alias_lockhouse"/>
 			<referrer name="pc_alias_wristwatch"/>
 			<referrer name="pc_alias_receiver"/>
+			<referrer name="pc_alias_tazer"/>
 			<referrer name="pc_alias_radargun"/>
 			<referrer name="pc_alias_detain"/>
 			<referrer name="pc_alias_drag"/>
@@ -97562,6 +97564,11 @@
 			<stacksize value="4"/>
 			<dependency name="PC_RegAlias"/>
 		</member>
+		<member name="M:pc_alias_tazer" syntax="pc_alias_tazer()">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="PC_RegAlias"/>
+		</member>
 		<member name="M:pc_alias_tie" syntax="pc_alias_tie()">
 			<attribute name="public"/>
 			<stacksize value="4"/>
@@ -108521,6 +108528,7 @@
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerState"/>
 			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="HienTextdraw"/>
 			<dependency name="OPBA_SetPlayerPos"/>
 			<dependency name="OPBA_SetVehiclePos"/>
 			<dependency name="PlayerInfo"/>
