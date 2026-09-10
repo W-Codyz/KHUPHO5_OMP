@@ -6,9 +6,9 @@
 #define DIALOG_MENU_WOODSELL3 (9009)
 #define DIALOG_MENU_LUMBERMEM (9015)
 
-const WoodSell1 = 5000;
-const WoodSell2 = 7500;
-const WoodSell3 = 10000;
+const WoodSell1 = 1500;
+const WoodSell2 = 2500;
+const WoodSell3 = 4000;
 #define GOTHO 30
 new ChatCayTime[MAX_PLAYERS];
 new XuLyTime[MAX_PLAYERS];
@@ -117,7 +117,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
             }
             if (XuLyTime[playerid] > 0)
                 return 0;
-            XuLyTime[playerid] = 10;
+            XuLyTime[playerid] = 20;
             lXuLyTimer[playerid] = SetTimerEx("XuLyTimer", 1000, 0, "i", playerid);
             return 1;
         }
@@ -168,7 +168,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
                     }
                     WoodLumber[i][wStatus] = 1;
                     lChatCayTimer[playerid] = SetTimerEx("ChatCayTimer", 1000, 0, "ii", playerid, i);
-                    ChatCayTime[playerid] = 10;
+                    ChatCayTime[playerid] = 20;
                     return 1;
                 }
             }

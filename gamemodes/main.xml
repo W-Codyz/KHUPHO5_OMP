@@ -6012,15 +6012,15 @@
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="pc_cmd_kiemtrahang"/>
 		</member>
-		<member name="C:WoodSell1" value="5000">
+		<member name="C:WoodSell1" value="1500">
 			<referrer name="_@yHOnPlayerKeyStateChange@0H"/>
 			<referrer name="_@yHOnDialogResponse@0H"/>
 		</member>
-		<member name="C:WoodSell2" value="7500">
+		<member name="C:WoodSell2" value="2500">
 			<referrer name="_@yHOnPlayerKeyStateChange@0H"/>
 			<referrer name="_@yHOnDialogResponse@0H"/>
 		</member>
-		<member name="C:WoodSell3" value="10000">
+		<member name="C:WoodSell3" value="4000">
 			<referrer name="_@yHOnPlayerKeyStateChange@0H"/>
 			<referrer name="_@yHOnDialogResponse@0H"/>
 		</member>
@@ -7633,7 +7633,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="pkrActivePlayers"/>
+			<referrer name="pkrRX"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>

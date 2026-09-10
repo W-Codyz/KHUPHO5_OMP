@@ -42,11 +42,11 @@ public ConstructionLoader(playerid)
         new payment;
         switch(GetJobLevel(playerid, JOB_CONSTRUCTION))
         {
-            case 1: payment = 850;
-            case 2: payment = 1000;
-            case 3: payment = 1150;
-            case 4: payment = 1300;
-            case 5: payment = 1450;
+            case 1: payment = 3000;
+            case 2: payment = 3500;
+            case 3: payment = 4000;
+            case 4: payment = 4500;
+            case 5: payment = 5000;
         }
 
         payment = Random(payment * 90 / 100, payment * 110 / 100);
@@ -110,7 +110,7 @@ hook OnPlayerEnterCheckpoint(playerid)
                     }
                 }
                 TogglePlayerControllable(playerid, true);
-                SetLoading(playerid, 10000, "Dang xay dung...", "ConstructionLoader");
+                SetLoading(playerid, 20000, "Dang xay dung...", "ConstructionLoader");
                 
                 return 1;
             }

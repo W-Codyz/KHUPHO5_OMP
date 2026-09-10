@@ -24,11 +24,11 @@ public PorterAnimation(playerid, step)
         new payment;
         switch(GetJobLevel(playerid, JOB_PORTER))
         {
-            case 1: payment = 600;
-            case 2: payment = 700;
-            case 3: payment = 800;
-            case 4: payment = 900;
-            case 5: payment = 1000;
+            case 1: payment = 2500;
+            case 2: payment = 3000;
+            case 3: payment = 3500;
+            case 4: payment = 4000;
+            case 5: payment = 4500;
         }
 
         payment = Random(payment * 90 / 100, payment * 110 / 100);
@@ -108,8 +108,8 @@ hook OnPlayerEnterCheckpoint(playerid)
         for(new i=0;i<3;i++) {
             if(IsPlayerInRangeOfPoint(playerid, 3.0, PorterLoad[i][0], PorterLoad[i][1], PorterLoad[i][2])) {
                 ApplyAnimation(playerid, "CARRY", "liftup", 4.1, false, true, true, false, 0);
-                SetTimerEx("PorterAnimation", 1200, false, "ii", playerid, 0);
-                SetLoading(playerid, 1200, "Dang boc hang...");
+                SetTimerEx("PorterAnimation", 5000, false, "ii", playerid, 0);
+                SetLoading(playerid, 5000, "Dang boc hang...");
                 return 1;
             }
         }
@@ -127,8 +127,8 @@ hook OnPlayerEnterCheckpoint(playerid)
             }
 
             ApplyAnimation(playerid, "CARRY", "putdwn", 4.1, false, true, true, false, 0);
-            SetTimerEx("PorterAnimation", 1200, false, "ii", playerid, 1);
-            SetLoading(playerid, 1200, "Dang chat hang...");
+            SetTimerEx("PorterAnimation", 5000, false, "ii", playerid, 1);
+            SetLoading(playerid, 5000, "Dang chat hang...");
             return 1;
         }
     }

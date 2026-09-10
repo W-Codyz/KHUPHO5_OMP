@@ -72,14 +72,14 @@ hook OnPlayerEnterCheckpoint(playerid)
 		new payment;
         switch(GetJobLevel(playerid, JOB_PIZZABOY))
         {
-			case 1: payment = 6500;
-			case 2: payment = 7000;
-			case 3: payment = 7500;
-			case 4: payment = 8000;
-			case 5: payment = 8500;
+			case 1: payment = 5000;
+			case 2: payment = 5500;
+			case 3: payment = 6000;
+			case 4: payment = 6500;
+			case 5: payment = 7000;
         }
 		new timeBonus = GetPVarInt(playerid, "pizzaTimer") * 10;
-		if(timeBonus > 1500) timeBonus = 1500;
+		if(timeBonus > 1000) timeBonus = 1000;
 		payment += timeBonus;
 		GivePlayerCash(playerid, payment);
 		SendClientMessageEx(playerid, COLOR_WHITE, "Ban nhan duoc {15C836}$%s{FFFFFF} sau khi giao chiec banh Pizza thanh cong.", number_format(payment));

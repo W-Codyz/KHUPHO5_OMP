@@ -2,7 +2,7 @@
 
 new dangchebien[MAX_PLAYERS];
 new inputcansa[MAX_PLAYERS];
-#define MONEY_SELL_CANSA 1700 // money sell 1 tep can sa
+#define MONEY_SELL_CANSA 350 // money sell 1 tep can sa
 #define THUNGRAC 21
 #define GIAOCANSA 10
 #define INVALID_FLOAT -1.0
@@ -597,7 +597,7 @@ public NhanTienCanSa(playerid)
     if (IsPlayerConnected(playerid) && PlayerInfo[playerid][pOnline] == 1)
     {
         new moneybonus = floatround(PlayerGiaoCanSa[playerid]*1.5);
-        new moneytotal = inputcansa[playerid] * (1500 + moneybonus);
+        new moneytotal = inputcansa[playerid] * (900 + moneybonus);
         new str[128];
         format(str, sizeof(str), "Giao can sa thanh cong va nhan duoc %d$!", moneytotal);
         SendClientMessage(playerid, -1, str);

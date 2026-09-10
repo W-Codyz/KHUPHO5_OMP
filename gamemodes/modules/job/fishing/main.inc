@@ -79,16 +79,16 @@ new const FishNames[MAX_FISH_TYPES][] = {
 };
 
 new const FishPrices[MAX_FISH_TYPES] = {
-    80,      // C� ch�p
-    120,     // C� r� phi
-    180,     // C� l�c
-    220,     // C� tr�
-    300,     // C� h?i
-    400,     // C� ng?
-    700,     // C� qu?
-    1200,    // C� t?m
-    2500,    // C� koi
-    5000     // C� v�ng
+    120,
+    180,
+    270,
+    330,
+    450,
+    600,
+    1050,
+    1800,
+    3750,
+    7500
 };
 
 new const FishRarity[MAX_FISH_TYPES] = {

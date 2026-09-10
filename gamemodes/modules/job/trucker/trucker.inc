@@ -712,7 +712,7 @@ hook OnPlayerEnterCheckpoint(playerid)
 				if(truckdeliver >= 1 && truckdeliver < 5)
 				{
 					new Float:distancepay;
-					distancepay = floatmul(GetDistance(LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2], Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ]), 0.3);
+					distancepay = floatmul(GetDistance(LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2], Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ]), 0.2);
 					payment += floatround(distancepay);
 					GivePlayerCash(playerid, payment);
 					format(string, sizeof(string), "* Ban duoc tra {5BFF89}$%s{FFFFFF} cho viec van chuyen hang hoa va tra lai xe.", number_format(payment));
@@ -720,9 +720,9 @@ hook OnPlayerEnterCheckpoint(playerid)
 				else if(truckdeliver >= 5 && truckdeliver <= 7)
 				{
 					new Float:distancepay;
-					distancepay = floatmul(GetDistance(LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2], Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ]), 0.3);
+					distancepay = floatmul(GetDistance(LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2], Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ]), 0.2);
 					payment += floatround(distancepay);
-					payment = floatround(payment * 1.10);
+					payment = floatround(payment * 1.25);
 					GivePlayerCash(playerid, payment);
 					format(string, sizeof(string), "* Ban duoc tra {5BFF89}$%s{FFFFFF} cho viec van chuyen hang hoa va tra lai xe.", number_format(payment));
 					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban nhan duoc 10%% tien thuong do rui ro cua hang hoa.");
