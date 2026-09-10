@@ -17877,7 +17877,7 @@ CMD:changeuserpin(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1337)
 	{
-        SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+        ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
         return 1;
     }
 
@@ -17912,7 +17912,7 @@ CMD:changeuserpassword(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1337)
 	{
-        SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+        ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
         return 1;
     }
 
@@ -19336,7 +19336,7 @@ CMD:banaccount(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4)
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 		return 1;
 	}
 
@@ -19494,7 +19494,7 @@ CMD:unban(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	}
 	return 1;
 }
@@ -19560,7 +19560,7 @@ CMD:osetrmutes(playerid, params[]) {
 		}
 		else SendClientMessageEx(playerid, COLOR_GRAD1, "Mutes cannot be set to less than zero.");
 	}
-	else SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+	else ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -21703,7 +21703,7 @@ CMD:oipcheck(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 3)
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 		return 1;
 	}
 
@@ -23287,7 +23287,7 @@ CMD:checkinv(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 3)
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 		return 1;
 	}
 
@@ -27687,7 +27687,7 @@ CMD:ddowner(playerid, params[])
 			mysql_function_query(MainPipeline, query, true, "OnSetDDOwner", "ii", playerid, doorid);
 		}
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -32909,7 +32909,7 @@ CMD:okills(playerid, params[])
 		format(query, sizeof(query), "SELECT `id` FROM `accounts` WHERE `Username` = '%s'", tmpName);
 		mysql_function_query(MainPipeline, query, true, "OnGetOKills", "i", playerid);
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -33653,7 +33653,7 @@ CMD:owarn(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 3)
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 		return 1;
 	}
 
@@ -45911,7 +45911,7 @@ CMD:fmute(playerid, params[])
 		}
 		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -45945,7 +45945,7 @@ CMD:funmute(playerid, params[])
 		}
 		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -45978,7 +45978,7 @@ CMD:setfamed(playerid, params[])
 		}
 		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -46013,7 +46013,7 @@ CMD:osetfamed(playerid, params[])
  			SendClientMessageEx(playerid, COLOR_YELLOW, "Xin vui long cho...");
  		}
  	}
- 	else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+ 	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
  	return 1;
 }
 
@@ -46136,7 +46136,7 @@ CMD:mods(playerid, params[])
 		ShowPlayerDialog(playerid, 0, DIALOG_STYLE_LIST, "Moderators dang Online", string, "Dong", "");
 	}
 	else
-		return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+		return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -46818,7 +46818,7 @@ CMD:createbackpack(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	}
 	return true;
 }
@@ -46836,7 +46836,7 @@ CMD:starthunger(playerid, params[])
 	}
 	else
 	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay!");
+		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
 	}
 	return true;
 }

@@ -125,6 +125,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     SetPlayerSkin(playerid, tempskinpaint[playerid]);
 
                     SendClientMessage(playerid, COLOR_GREY, "Ban da nghi viec!");
+                    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da nghi viec!");
                 }
                 else
                 {
@@ -132,6 +133,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     tempskinpaint[playerid] = GetPlayerSkin(playerid);
                     SetPlayerSkin(playerid, PlayerPaintSkin[playerid]);
                     SendClientMessage(playerid, COLOR_GREY, "Hay di den CHECKPOINT de lam cong viec!");
+                    ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de lam cong viec!");
                     antitelepainter[playerid] = 10+random(15);
                     PlayerJobHouseID[playerid] = Random(0, 11);
                     PlayerJobPaintSpot[playerid] = 0;
@@ -143,12 +145,21 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             case 1:
             {
                 if (PlayerInfo[playerid][pCash] < 15000)
-                    return SendClientMessage(playerid, COLOR_GREY, "Khong du tien de mua chai son!");
+                {
+                    SendClientMessage(playerid, COLOR_GREY, "Khong du tien de mua chai son!");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Khong du tien de mua chai son!");
+                    return 1;
+                }
                 if (PlayerInfo[playerid][pBinhXit] >= 5)
-                    return SendClientMessage(playerid, COLOR_GREY, "Chai son ATM cua ban con do ben nhieu hon 5 nen khong the mua them!");
+                {
+                    SendClientMessage(playerid, COLOR_GREY, "Chai son ATM cua ban con do ben nhieu hon 5 nen khong the mua them!");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Chai son ATM cua ban con do ben nhieu hon 5.");
+                    return 1;
+                }
                 PlayerInfo[playerid][pBinhXit] = 20;
                 GivePlayerCash(playerid, -15000);
                 SendClientMessage(playerid, -1, "Ban da mua thanh cong {ff0000}chai son ATM (do ben 20){ffffff} voi gia 15.000$.");
+                ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da mua thanh cong chai son ATM.");
                 SendClientMessage(playerid, COLOR_GREY, "Neu nhu ban khong co CHECKPOINT de lam viec ban co the ngung va nhan cong viec lai.");
             }
         }
@@ -169,6 +180,7 @@ hook OnPlayerEnterCheckpoint(playerid)
                 {
                     CP[playerid] = 252000;
                     SendClientMessageEx(playerid, COLOR_GREY, "Chai son cua ban da het hay di den CHECKPOINT de lay them son.");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Chai son cua ban da het.");
                     DisableCheckPoint(playerid);
                     SetPlayerCheckpoint(playerid, -2456.8425,786.6091,35.1719, 3.0);
                     ResetPaintVariable(playerid);

@@ -211,7 +211,8 @@ task UpdateDoiBung[900000]() {
         if(IsPlayerConnected(i) && GetPVarInt(i, "Injured") == 0) {
             if(PlayerInfo[i][pThucAn] > 0) {
                 PlayerInfo[i][pThucAn] -= 5 + random(10);
-                SendClientMessageEx(i, COLOR_YELLOW, "Ban vua bi tru diem doi bung.");
+                //SendClientMessageEx(i, COLOR_YELLOW, "Ban vua bi tru diem doi bung.");
+                ShowTDN(i, NOTIFICATION_INFO, "Ban vua bi tru diem doi bung.");
             }
             else {
                 new Float:health;
@@ -234,7 +235,8 @@ task UpdateKhatNuoc[800000]() {
         if(IsPlayerConnected(i) && GetPVarInt(i, "Injured") == 0) {
             if(PlayerInfo[i][pNuoc] > 0) {
                 PlayerInfo[i][pNuoc] -= 5 + random(10);
-                SendClientMessageEx(i, COLOR_YELLOW, "Ban vua bi tru diem khat nuoc.");
+                //SendClientMessageEx(i, COLOR_YELLOW, "Ban vua bi tru diem khat nuoc.");
+                ShowTDN(i, NOTIFICATION_INFO, "Ban vua bi tru diem khat nuoc.");
             }
             else {
                 new Float:health;

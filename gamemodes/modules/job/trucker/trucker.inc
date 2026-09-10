@@ -365,7 +365,8 @@ CMD:kiemtrahang(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJob] != JOB_TRUCKER && PlayerInfo[playerid][pJob2] != JOB_TRUCKER && !IsACop(playerid))
 	{
-        SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai chu lo hang hoac canh sat!");
+		SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai chu lo hang hoac canh sat!");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong phai chu lo hang hoac canh sat!");
         return 1;
 	}
 
@@ -376,13 +377,15 @@ CMD:kiemtrahang(playerid, params[])
 		if(IsPlayerInAnyVehicle(playerid))
 		{
 			SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong the kiem tra lo hang khi dang trong xe.");
+			ShowTDN(playerid, NOTIFICATION_WARNING, "Co loi xay ra.");
 			return 1;
 		}
 		new engine, lights, alarm, doors, bonnet, boot, objective;
 		GetVehicleParamsEx(closestcar,engine,lights,alarm,doors,bonnet,boot,objective);
 		if(boot == VEHICLE_PARAMS_OFF || boot == VEHICLE_PARAMS_UNSET)
 		{
-			SendClientMessageEx(playerid, COLOR_GRAD1, "Than xe phai duoc mo ra moi co the kiem tra.");
+			//SendClientMessageEx(playerid, COLOR_GRAD1, "Than xe phai duoc mo ra moi co the kiem tra.");
+			ShowTDN(playerid, NOTIFICATION_INFO, "Co loi xay ra.");
 			return 1;
 		}
 
@@ -449,7 +452,8 @@ CMD:kiemtrahang(playerid, params[])
     }
 	else
 	{
- 		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong dung gan xe van chuyen hang hoa.");
+		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong dung gan xe van chuyen hang hoa.");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong dung gan xe van chuyen hang hoa.");
  	}
     return 1;
 }
@@ -458,7 +462,8 @@ CMD:clearcargo(playerid, params[])
 {
 	if(!IsACop(playerid))
 	{
-        SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai nhan vien thuc thi phap luat!");
+		SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai nhan vien thuc thi phap luat!");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong phai nhan vien thuc thi phap luat!");
         return 1;
 	}
 

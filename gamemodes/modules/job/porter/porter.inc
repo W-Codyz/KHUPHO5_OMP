@@ -102,6 +102,7 @@ hook OnPlayerEnterCheckpoint(playerid)
             SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
             PlayerPorter[playerid] = 0;
             SendClientMessage(playerid, COLOR_RED, "Phat hien van de trong qua trinh van chuyen, vui long lien he voi quan tri vien.");
+            ShowTDN(playerid, NOTIFICATION_ERROR, "Co loi xay ra!!");
             return 1;
         }
 
@@ -123,6 +124,7 @@ hook OnPlayerEnterCheckpoint(playerid)
             if(modelid != 2060) {
                 Porter_Stop(playerid);
                 SendClientMessage(playerid, COLOR_GREY, "Khong thay vat pham tren tay, hay thu lai!");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Khong thay vat pham tren tay, hay thu lai!");
                 return 1;
             }
 

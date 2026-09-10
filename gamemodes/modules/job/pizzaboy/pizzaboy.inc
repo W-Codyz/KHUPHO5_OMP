@@ -11,18 +11,23 @@ stock IsAPizzaCar(carid)
 CMD:laybanh(playerid, params[]) {
 	if(PlayerInfo[playerid][pJob] != JOB_PIZZABOY && PlayerInfo[playerid][pJob2] != JOB_PIZZABOY) {
 		SendClientMessageEx(playerid, COLOR_GREY, "Ban khong phai la Pizza Boy!");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong phai la Pizza Boy!");
 	}
     else if(!IsAPizzaCar(GetPlayerVehicleID(playerid))) {
 	    SendClientMessageEx(playerid, COLOR_GREY, "Ban khong dieu khien xe cua Pizza!");
+	    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong dieu khien xe cua Pizza!");
 	}
 	else if(GetPlayerSkin(playerid) != 155) {
 	    SendClientMessageEx(playerid, COLOR_GREY, "Ban can phai mac ao Pizza Boy!");
+	    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban can phai mac ao Pizza Boy!");
 	}
 	else if(GetPVarType(playerid, "Pizza")) {
 		SendClientMessageEx(playerid, COLOR_GREY, "Bang dang co don hang Pizza can giao!");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang co don hang Pizza can giao!");
 	}
 	else if(!IsPlayerInRangeOfPoint(playerid, 3.0, -1713.961425, 1348.545166, 7.180452)) {
 		SendClientMessageEx(playerid, COLOR_GREY, "Ban khong dang dung o vi tri lay banh!");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong dang dung o vi tri lay banh!");
 	}
 	else {
 
@@ -33,7 +38,9 @@ CMD:laybanh(playerid, params[]) {
 
 			if(rand < 0) rand = 0;
 			if (i++ > MAX_HOUSES) 
-				return SendClientMessageEx(playerid, COLOR_GREY, "Khong tim thay don hang Pizza nao!");
+				SendClientMessageEx(playerid, COLOR_GREY, "Khong tim thay don hang Pizza nao!");
+				ShowTDN(playerid, NOTIFICATION_WARNING, "Khong tim thay don hang Pizza nao!");
+				return 1;
 		}
 
 		new

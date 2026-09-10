@@ -103,10 +103,15 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
         if(IsPlayerInRangeOfPoint(playerid, 10.0, -547.7433,-181.8307,78.4063))
         {
             if (DangCamKhucGo[playerid] == 0)
-                return SendClientMessage(playerid, COLOR_GREY, "Ban can phai chat mot khuc go sau do moi co the xu ly.");
+            {
+                SendClientMessage(playerid, COLOR_GREY, "Ban can phai chat mot khuc go sau do moi co the xu ly.");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co go de xu ly.");
+                return 1;
+            }
             if (PlayerInfo[playerid][pGoThuong]+PlayerInfo[playerid][pGoXin]+PlayerInfo[playerid][pGoHiem] >= 20)
             {
                 SendClientMessage(playerid, COLOR_GREY, "Tui cua ban da day khong the xu ly them go, hay mang den CHECKPOINT de ban.");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Tui cua ban da day.");
                 DangCamKhucGo[playerid] = 0;
                 ClearAnimations(playerid);
                 SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -143,6 +148,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
                     if (PlayerInfo[playerid][pAxe] <= 0)
                     {
                         SendClientMessage(playerid, COLOR_GREY, "Ban chua mua riu hoac riu cua ban da bi hong, hay mua riu moi.");
+                        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban chua mua riu hoac riu da bi hong.");
                         SetPlayerCheckpoint(playerid, -543.9225,-79.9980,62.9417, 3.0);
                         CP[playerid] = 252000;
                         return 1;
@@ -150,6 +156,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
                     if (PlayerInfo[playerid][pGoThuong]+PlayerInfo[playerid][pGoXin]+PlayerInfo[playerid][pGoHiem] >= 20)
                     {
                         SendClientMessage(playerid, COLOR_GREY, "Tui cua ban da day khong the xu ly them go, hay mang den CHECKPOINT de ban.");
+                        ShowTDN(playerid, NOTIFICATION_WARNING, "Tui cua ban da day.");
                         DangCamKhucGo[playerid] = 0;
                         ClearAnimations(playerid);
                         SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -162,6 +169,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
                     if (DangCamKhucGo[playerid])
                     {
                         SendClientMessage(playerid, COLOR_GREY, "Hay mang khuc go den CHECKPOINT de xu ly go.");
+                        ShowTDN(playerid, NOTIFICATION_INFO, "Hay mang khuc go di xu ly.");
                         SetPlayerCheckpoint(playerid,  -547.7433,-181.8307,78.4063, 3.0);
                         CP[playerid] = 252000;
                         return 1;
@@ -189,10 +197,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     SetPlayerCheckpoint(playerid, -596.1323,-83.0602,64.0670, 3.0);
                     CP[playerid] = 252000;
                     SendClientMessage(playerid, COLOR_GREY, "Hay di đen CHECKPOINT de chat cay.");
+                    ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de chat cay.");
                 }
                 case 1:
                 {
                     SendClientMessage(playerid, COLOR_GREY, "Hay di đen CHECKPOINT de mua riu.");
+                    ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de mua riu.");
                     SetPlayerCheckpoint(playerid, -543.9225,-79.9980,62.9417, 3.0);
                     CP[playerid] = 252000;
                 }
@@ -201,6 +211,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     SetPlayerCheckpoint(playerid,  -911.7522,-490.6188,25.9609, 3.0);
                     CP[playerid] = 252000;
                     SendClientMessage(playerid, COLOR_GREY, "Hay di đen CHECKPOINT de ban go.");
+                    ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de ban go.");
                 }
             }
         }
@@ -211,15 +222,25 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         if (response)
         {
             if (PlayerInfo[playerid][pAxe] > 0)
-                return SendClientMessage(playerid, COLOR_GREY, "Ban da co 'riu chat cay' roi, hay xai den khi bi hong moi co the mua them.");
+            {
+                SendClientMessage(playerid, COLOR_GREY, "Ban da co 'riu chat cay' roi, hay xai den khi bi hong moi co the mua them.");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban da co riu chat cay.");
+                return 1;
+            }
             if (PlayerInfo[playerid][pCash] < 15000)
-                return SendClientMessage(playerid, COLOR_GREY, "Ban khong co du tien de mua 'riu chat cay'.");
+            {
+                SendClientMessage(playerid, COLOR_GREY, "Ban khong co du tien de mua 'riu chat cay'.");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co du tien.");
+                return 1;
+            }
             GivePlayerCash(playerid, -15000);
             SendClientMessage(playerid, COLOR_GREY, "Ban da mua thanh cong 'riu chat cay' voi 15.000$, do ben 20.");
+            ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da mua thanh cong.");
             PlayerInfo[playerid][pAxe] = 20;
             SetPlayerCheckpoint(playerid, -596.1323,-83.0602,64.0670, 3.0);
             CP[playerid] = 252000;
             SendClientMessage(playerid, COLOR_GREY, "Hay di đen CHECKPOINT de chat cay.");
+            ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de chat cay.");
         }
         return 1;
     }
@@ -254,11 +275,20 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
             new amount = strval(inputtext), str[128];
             if (amount <= 0 || amount > 100)
-                return SendClientMessage(playerid, COLOR_GREY, "Vui long nhap so luong hop le!");
+            {
+                SendClientMessage(playerid, COLOR_GREY, "Vui long nhap so luong hop le!");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Vui long nhap so luong hop le!");
+                return 1;
+            }
             if (amount > PlayerInfo[playerid][pGoThuong])
-                return SendClientMessage(playerid, COLOR_GREY, "Ban khong co du so luong go de ban!");
+            {
+                SendClientMessage(playerid, COLOR_GREY, "Ban khong co du so luong go de ban!");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co du so luong go de ban!");
+                return 1;
+            }
             format(str, sizeof(str), "Ban da ban %d go va nhan duoc $%d.", amount, amount*WoodSell1);
             SendClientMessage(playerid, -1, str);
+            ShowTDN(playerid, NOTIFICATION_SUCCESS, str);
             PlayerInfo[playerid][pGoThuong] -= amount;
             GivePlayerCash(playerid, amount*WoodSell1);
         }

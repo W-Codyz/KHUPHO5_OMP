@@ -66,6 +66,16 @@
 
 #include "./modules/misc/msg"
 
+//==============SYSTEM============//
+#include "./modules/system/ruatho"
+#include "./modules/system/food"
+#include "./modules/system/safezone"
+#include "./modules/system/faction/leader_cmd"
+#include "./modules/system/logo"
+//#include "./modules/system/logo_anim"
+#include "./modules/system/support_notif"
+#include "./modules/system/notification"
+
 //==============JOB============//
 #include "./modules/job/header"
 #include "./modules/job/trucker/header"
@@ -82,16 +92,6 @@
 #include "./modules/player/inventory/header"
 #include "./modules/player/mission/header"
 #include "./modules/player/suckhoe"
-
-//==============SYSTEM============//
-#include "./modules/system/ruatho"
-#include "./modules/system/food"
-#include "./modules/system/safezone"
-#include "./modules/system/faction/leader_cmd"
-#include "./modules/system/logo"
-//#include "./modules/system/logo_anim"
-#include "./modules/system/support_notif"
-#include "./modules/system/notification"
 
 #include "./modules/timers"
 #include "./modules/mysql"

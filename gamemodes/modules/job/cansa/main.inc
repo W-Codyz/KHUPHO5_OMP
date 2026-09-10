@@ -281,10 +281,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     SetTimerEx("antiteleportcansa", 1000, false, "d", playerid);
                 }
                 else
-                    return SendClientMessage(playerid, COLOR_GREY, "Ban khong co du so luong can sa de van chuyen.");
+                {
+                    SendClientMessage(playerid, COLOR_GREY, "Ban khong co du so luong can sa de van chuyen.");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co du so luong can sa de van chuyen.");
+                }
             }
             else
-                return SendClientMessage(playerid, COLOR_GREY, "Ban khong the nhap so luong be hon 0.");
+            {
+                SendClientMessage(playerid, COLOR_GREY, "Ban khong the nhap so luong be hon 0.");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong the nhap so luong be hon 0.");
+            }
         }
     }
 	if(dialogid == CANSA_LIST)
@@ -399,8 +405,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(listitem == 0)
 			{
-				if(dangchebien[playerid] == 1) return SendClientMessage(playerid, -1, "Ban dang che bien roi, khong the tiep tuc.");
-				if(PlayerInfo[playerid][pCanSa] < 1) return SendClientMessage(playerid, -1, "Ban khong co cay can sa nao de che bien.");
+                if(dangchebien[playerid] == 1)
+                {
+                    SendClientMessage(playerid, -1, "Ban dang che bien roi, khong the tiep tuc.");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang che bien roi, khong the tiep tuc.");
+                }
+                if(PlayerInfo[playerid][pCanSa] < 1)
+                {
+                    SendClientMessage(playerid, -1, "Ban khong co cay can sa nao de che bien.");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co cay can sa nao de che bien.");
+                }
 
 				SetPVarInt(playerid, "CheBienTime", 15);
 				SetTimerEx("CheBien", 1000, 0, "d", playerid);
@@ -465,6 +479,7 @@ public NhanDiemGiaoHangCanSa(playerid)
         else
         {
             SendClientMessage(playerid, COLOR_LIGHTRED, "Nhan diem giao hang that bai do ban da di chuyen ra khoi khu vuc nhan diem giao hang.");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Nhan diem giao hang that bai.");
             NhanDiemCount[playerid] = 0;
             antitelecansa[playerid] = 0;
             inputcansa[playerid] = 0;
@@ -600,7 +615,8 @@ public NhanTienCanSa(playerid)
         new moneytotal = inputcansa[playerid] * (900 + moneybonus);
         new str[128];
         format(str, sizeof(str), "Giao can sa thanh cong va nhan duoc %d$!", moneytotal);
-        SendClientMessage(playerid, -1, str);
+        //SendClientMessage(playerid, -1, str);
+        ShowTDN(playerid, NOTIFICATION_SUCCESS, str);
         GivePlayerCash(playerid, moneytotal);
         PlayerInfo[playerid][pTepCanSa] -= inputcansa[playerid];
         inputcansa[playerid] = 0;
@@ -618,11 +634,20 @@ CMD:bantepcansa(playerid, params[])
         return 1;
     }
     if (PlayerInfo[playerid][pTepCanSa] < tepcs)
-        return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du so luong tep can sa.");
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du so luong tep can sa.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co du so luong tep can sa.");
+    }
     if (money < 1000 || money > 1000000)
-        return SendClientMessageEx(playerid, COLOR_GREY, "So tien chi co the tu 1.000$ den 1.000.000$.");
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "So tien chi co the tu 1.000$ den 1.000.000$.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Hay nhap so tien khac.");
+    }
     if (tepcs < 10 || tepcs > 1000)
-        return SendClientMessageEx(playerid, COLOR_GREY, "Tep can sa chi co the dua tu 10 den 1000 tep.");
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "Tep can sa chi co the dua tu 10 den 1000 tep.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Hay thu lai sau.");
+    }
     if (ProxDetectorS(8.0, playerid, playa))
     {
         if(IsPlayerConnected(playa))
@@ -642,7 +667,10 @@ CMD:bantepcansa(playerid, params[])
         }
     }
     else
-        return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi do khong o gan ban.");
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi do khong o gan ban.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Nguoi choi do khong o gan ban.");
+    }
 
 
     return 1;
@@ -664,12 +692,14 @@ CMD:settepcansa(playerid, params[])
                 PlayerInfo[playerid][pTepCanSa] = tepcs;
                 format(string, sizeof(string), "Ban da thiet lap tep can sa %s cho %d.", GetPlayerNameEx(playa), tepcs);
                 SendClientMessageEx(playerid, COLOR_WHITE, string);
+                ShowTDN(playerid, NOTIFICATION_SUCCESS, string);
             }
         }
     }
     else
 	{
         SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay.");
+        ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
     }
     return 1;
 }
@@ -679,6 +709,7 @@ CMD:checktepcansa(playerid, params[])
     if(sscanf(params, "u", playa))
 	{
         SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /checktepcansa [Player]");
+        ShowTDN(playerid, NOTIFICATION_INFO, "SU DUNG: /checktepcansa [Player]");
         return 1;
     }
     if (PlayerInfo[playerid][pAdmin] >= 4)
@@ -695,6 +726,7 @@ CMD:checktepcansa(playerid, params[])
     else
 	{
         SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
     }
     return 1;
 }

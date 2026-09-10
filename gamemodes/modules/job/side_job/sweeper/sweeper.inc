@@ -206,7 +206,10 @@ hook OnPlayerEnterCheckpoint(playerid)
                 SendMessageTD(playerid, 4000, "Ban da hoan thanh quet don tuyen duong");
                 new payment = Random(PlayerSweeperStep[playerid] * 13, PlayerSweeperStep[playerid] * 18);
                 GivePlayerCash(playerid, payment);
+                new paymentMessage[96];
+                format(paymentMessage, sizeof(paymentMessage), "Ban da nhan duoc $%d tien luong tu viec quet don rac.", payment);
                 SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc $%d tien luong tu viec quet don rac.", payment);
+                ShowTDN(playerid, NOTIFICATION_SUCCESS, paymentMessage);
 
                 new routeName[3][28] = {"Tuyến A", "Tuyến B", "Tuyến C"};
                 new title[64];
@@ -287,6 +290,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext)
 
             if(gPlayerCheckpointStatus[playerid] != CHECKPOINT_NONE) {
                 SendClientMessageEx(playerid, COLOR_GREY, "Ban can xoa diem danh dau tren mini-map truoc.");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban can xoa diem danh dau tren mini-map truoc.");
             }
             return 1;
         }

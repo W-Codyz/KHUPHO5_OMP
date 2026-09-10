@@ -186,17 +186,27 @@ CMD:quitjob(playerid, params[])
 		    case 1:
 			{
                 if(PlayerWorking[playerid] > 0 && PlayerInfo[playerid][pJob] == PlayerWorking[playerid])
-                    return SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec, can dung lam viec truoc khi nghi viec.");
+                {
+                    SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec, can dung lam viec truoc khi nghi viec.");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec, can dung lam viec truoc khi nghi viec.");
+                    return 1;
+                }
 
 				SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da thoat cong viec chinh thanh cong.");
+				ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da thoat cong viec chinh thanh cong.");
 				PlayerInfo[playerid][pJob] = 0;
 			}
 		    case 2:
 			{
                 if(PlayerWorking[playerid] > 0 && PlayerInfo[playerid][pJob2] == PlayerWorking[playerid])
-                    return SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec, can dung lam viec truoc khi nghi viec.");
+				{
+					SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec, can dung lam viec truoc khi nghi viec.");
+					ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec.");
+					return 1;
+				}
 				
                 SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da thoat cong viec phu thanh cong.");
+                ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da thoat cong viec phu thanh cong.");
 				PlayerInfo[playerid][pJob2] = 0;
 			}
 		    default:
@@ -211,14 +221,20 @@ CMD:quitjob(playerid, params[])
 		if(PlayerInfo[playerid][pJob] > 0 )
 		{
             if(PlayerWorking[playerid] > 0 && PlayerInfo[playerid][pJob] == PlayerWorking[playerid])
-                return SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec, can dung lam viec truoc khi nghi viec.");
+            {
+                SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec, can dung lam viec truoc khi nghi viec.");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec.");
+                return 1;
+            }
 
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da thoat cong viec chinh thanh cong.");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da thoat cong viec chinh thanh cong.");
 			PlayerInfo[playerid][pJob] = 0;
 		}
 		else
 		{
-			SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong co cong viec!");
+            SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong co cong viec!");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co cong viec!");
 		}
 	}
 	return 1;
@@ -227,21 +243,31 @@ CMD:quitjob(playerid, params[])
 CMD:lamviec(playerid, params[])
 {
     if(PlayerInfo[playerid][pJob] == JOB_NONE && PlayerInfo[playerid][pJob2] == JOB_NONE)
-        return SendClientMessage(playerid, COLOR_GREY, "Ban khong co cong viec nao de su dung lenh nay.");
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong co cong viec nao de su dung lenh nay.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co cong viec nao de su dung lenh nay.");
+        return 1;
+    }
 
     if(PlayerWorking[playerid])
-        return SendClientMessage(playerid, COLOR_GREY, "Ban dang lam viec roi.");
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec roi.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec roi.");
+        return 1;
+    }
 
     if(PlayerInfo[playerid][pJob] == JOB_PORTER || PlayerInfo[playerid][pJob2] == JOB_PORTER)
     {
         if(PlayerPorter[playerid] == 0)
         {
             PlayerWorking[playerid] = JOB_PORTER;
-            SendClientMessage(playerid, 0xCEE276FF, "Ban da bat dau lam viec, go \"/dunglamviec\" neu muon nghi ngoi.");
+            //SendClientMessage(playerid, 0xCEE276FF, "Ban da bat dau lam viec, go \"/dunglamviec\" neu muon nghi ngoi.");
+            ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da bat dau lam viec.");
             Porter_Start(playerid);
         }
         else {
             SendClientMessage(playerid, 0xCEE276FF, "Ban dang lam viec roi.");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec roi.");
             return 1;
         }
     }
@@ -252,10 +278,12 @@ CMD:lamviec(playerid, params[])
             PlayerPizzaBoy[playerid] = 1;
             PlayerWorking[playerid] = JOB_PIZZABOY;
             SendClientMessage(playerid, 0xCEE276FF, "Ban da bat dau lam viec, go \"/dunglamviec\" neu muon nghi ngoi.");
+            ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da bat dau lam viec.");
             SetPlayerSkin(playerid, JobInfo[JOB_PIZZABOY][jobSkin]);
         }
         else {
             SendClientMessage(playerid, 0xCEE276FF, "Ban dang lam viec roi.");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec roi.");
             return 1;
         }
     }
@@ -271,11 +299,13 @@ CMD:lamviec(playerid, params[])
         {
             PlayerWorking[playerid] = JOB_CONSTRUCTION;
             SendClientMessage(playerid, 0xCEE276FF, "Ban da bat dau lam viec, go \"/dunglamviec\" neu muon nghi ngoi.");
+            ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da bat dau lam viec.");
             SetPlayerSkin(playerid, JobInfo[JOB_CONSTRUCTION][jobSkin]);
             Construction_Start(playerid);
         }
         else {
             SendClientMessage(playerid, 0xCEE276FF, "Ban dang lam viec roi.");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec roi.");
             return 1;
         }
     }

@@ -256,6 +256,7 @@ ShowFishingRodInfo(playerid) {
 
     if(totalRods == 0) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban khong co can cau nao!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co can cau nao!");
         return 0;
     }
 
@@ -329,6 +330,7 @@ DecreaseFishingRodDurability(playerid, rodIndex) {
             // N?u kh�ng c�n c?n c�u n�o kh? d?ng
             if(GetAvailableFishingRod(playerid) == -1) {
                 SendClientMessage(playerid, COLOR_WHITE, "Ban khong con can cau nao de su dung!");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong con can cau nao de su dung!");
             }
         } else {
             // Th�ng b�o d? b?n gi?m
@@ -590,7 +592,11 @@ stock Load_Fishing()
 // Start fishing
 StartFishing(playerid) {
     if (PlayerInfo[playerid][pLevel] <= 1)
-        return SendClientMessage(playerid, COLOR_GREY, "Ban can phai dat level 2 moi co the lam cong viec nay.");
+    {
+        SendClientMessage(playerid, COLOR_GREY, "Ban can phai dat level 2 moi co the lam cong viec nay.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban can phai dat level 2 moi co the lam cong viec nay.");
+        return 1;
+    }
     if(IsPlayerFishing[playerid]) {
         StopFishing(playerid);
         return 1;
@@ -600,11 +606,13 @@ StartFishing(playerid) {
     new rodIndex = GetAvailableFishingRod(playerid);
     if(rodIndex == -1) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban khong co can cau hoac tat ca can cau da hong!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co can cau hoac tat ca can cau da hong!");
         return 0;
     }
 
     if(PlayerInfo[playerid][pMoiCau] <= 0) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban khong co moi cau!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co moi cau!");
         return 0;
     }
 
@@ -614,12 +622,14 @@ StartFishing(playerid) {
 
     if(totalFish >= 20) {
         SendClientMessage(playerid, COLOR_WHITE, "Tui do ca da day! Ban can di ban bot ca truoc khi tiep tuc cau.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Tui do ca da day!");
         return 0;
     }
 
     new spotid = IsPlayerAtFishingSpot(playerid);
     if(spotid == -1) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban khong o dia diem cau ca!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong o dia diem cau ca!");
         return 0;
     }
 
@@ -635,7 +645,8 @@ StartFishing(playerid) {
     new string[128];
     format(string, sizeof(string), "Ban da bat dau cau ca voi can cau so %d... Cho doi trong giay lat.", rodIndex + 1);
     SendClientMessage(playerid, COLOR_WHITE, string);
-    SendClientMessage(playerid, COLOR_WHITE, "An Y lan nua de ngung cau ca.");
+    SendClientMessage(playerid, COLOR_WHITE, "An [Y] lan nua de ngung cau ca.");
+    ShowTDN(playerid, NOTIFICATION_INFO, "An [Y] lan nua de ngung cau ca.");
 
     new ThoiGianCau = FISH_CATCH_TIME + Random(1000, 5000);
     PlayerFishingTimer[playerid] = SetTimerEx("CatchFish", ThoiGianCau, false, "i", playerid);
@@ -653,6 +664,7 @@ StopFishing(playerid) {
     KillTimer(PlayerFishingTimer[playerid]);
     PlayerInfo[playerid][pMoiCau]++;
     SendClientMessage(playerid, COLOR_WHITE, "Ban da ngung cau ca.");
+    ShowTDN(playerid, NOTIFICATION_INFO, "Ban da ngung cau ca.");
     return 1;
 }
 
@@ -678,6 +690,7 @@ public CatchFish(playerid) {
     // Ki?m tra xem c?n c�u c�n s? d?ng du?c kh�ng
     if(PlayerInfo[playerid][pDoBenCan][rodIndex] <= 0) {
         SendClientMessage(playerid, COLOR_WHITE, "Can cau cua ban da hong! Hay tim can cau khac.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Can cau cua ban da hong!");
         StopFishing(playerid);
         return 0;
     }
@@ -768,6 +781,7 @@ SellFish(playerid) {
 
     if(totalFish <= 0) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban khong co ca de ban!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co ca de ban!");
         return 0;
     }
 
@@ -837,6 +851,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
                 if(totalFish <= 0) {
                     SendClientMessage(playerid, COLOR_WHITE, "Ban khong co ca nao!");
+                    ShowTDN(playerid, NOTIFICATION_INFO, "Ban khong co ca nao!");
                     return 1;
                 }
 
@@ -864,6 +879,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                     SendClientMessage(playerid, COLOR_YELLOW, string);
                 } else {
                     SendClientMessage(playerid, COLOR_WHITE, "Ban chua cau duoc con ca nao!");
+                    ShowTDN(playerid, NOTIFICATION_INFO, "Ban chua cau duoc con ca nao!");
                 }
             }
         }
@@ -956,6 +972,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
             if(amount > maxCanBuy) amount = maxCanBuy;
             if(amount <= 0) {
                 SendClientMessage(playerid, COLOR_WHITE, "So luong khong hop le!");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "So luong khong hop le!");
                 return 1;
             }
 
@@ -1016,7 +1033,11 @@ hook OnPlayerSpawn(playerid) {
 // H�m hi?n th? menu c?a h�ng c�u c�
 ShowFishingShop(playerid) {
     if (PlayerInfo[playerid][pLevel] <= 1)
-        return SendClientMessage(playerid, COLOR_GREY, "Ban can phai dat level 2 moi co the lam cong viec nay.");
+    {
+        SendClientMessage(playerid, COLOR_GREY, "Ban can phai dat level 2 moi co the lam cong viec nay.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban can phai dat level 2 moi co the lam cong viec nay.");
+        return 1;
+    }
     new string[512];
     new money = PlayerInfo[playerid][pCash];
     new totalRods = GetTotalFishingRods(playerid);
@@ -1043,6 +1064,7 @@ ShowBuyFishingRod(playerid) {
 
     if(totalRods >= MAX_FISHING_RODS) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban da co du 3 can cau roi! Khong the mua them.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban da co du 3 can cau roi!");
         return 0;
     }
 
@@ -1107,6 +1129,7 @@ ShowConfirmBuyBait(playerid, amount) {
 
     if(totalPrice > money) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban khong du tien de mua so luong nay!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong du tien de mua so luong nay!");
         return 0;
     }
 
@@ -1132,11 +1155,13 @@ ProcessBuyFishingRod(playerid) {
     // Ki?m tra l?i di?u ki?n
     if(totalRods >= MAX_FISHING_RODS) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban da co du 3 can cau roi!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban da co du 3 can cau roi!");
         return 0;
     }
 
     if(money < FISHING_ROD_PRICE) {
         SendClientMessage(playerid, COLOR_WHITE, "Ban khong du tien!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong du tien!");
         return 0;
     }
 
@@ -1144,6 +1169,7 @@ ProcessBuyFishingRod(playerid) {
     new rodSlot = AddFishingRod(playerid);
     if(rodSlot == -1) {
         SendClientMessage(playerid, COLOR_WHITE, "Loi: Khong the them can cau!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Khong the them can cau!");
         return 0;
     }
 
