@@ -17,7 +17,7 @@
 #if !defined NOTIFICATION_ERROR
     #define NOTIFICATION_ERROR 0
     #define NOTIFICATION_INFO 1
-    #define NOTIFICATION_SUKSES 2
+    #define NOTIFICATION_SUCCESS 2
     #define NOTIFICATION_SYNTAX 3
     #define NOTIFICATION_WARNING 4
 #endif
@@ -470,7 +470,7 @@ stock CreateTDN(playerid, type, TDN)
             {
                 color = -1052226817;
             }
-            case NOTIFICATION_SUKSES:
+            case NOTIFICATION_SUCCESS:
             {
                 color = 1018393087;
             }
@@ -808,7 +808,7 @@ ShowTDN(playerid, notifid, text[])
             PlayerPlaySound(playerid, 1139, 0, 0, 0);
             ShowNotify(playerid, text, 1);
         }
-        case NOTIFICATION_SUKSES:
+        case NOTIFICATION_SUCCESS:
         {
             PlayerPlaySound(playerid, 5203, 0, 0, 0);
             ShowNotify(playerid, text, 3);
@@ -843,7 +843,7 @@ ShowTDN(playerid, notifid, text[])
 			PlayerPlaySound(playerid, 1139, 0, 0, 0);
 			ShowNotify(playerid, pesan, 1);
 		}
-		case NOTIFICATION_SUKSES:
+		case NOTIFICATION_SUCCESS:
 		{
             if(MaxPlayerNotify[playerid] >= 4) return false;
 			PlayerPlaySound(playerid, 5203, 0, 0, 0);
@@ -951,7 +951,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawSetProportional(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawShow(playerid, notifyTextdraws[playerid][i]);
 
-        notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 518.000, 110.000+newpos, "INFO");
+        notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 518.000, 110.000+newpos, "THONG TIN");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.200, 1.099);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 1097458175);
@@ -1042,7 +1042,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawSetProportional(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawShow(playerid, notifyTextdraws[playerid][i]);
 
-        notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 528.000, 109.000+newpos, "ERROR");
+        notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 528.000, 109.000+newpos, "LOI");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.210, 1.099);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1052226817);
@@ -1122,7 +1122,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawSetProportional(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawShow(playerid, notifyTextdraws[playerid][i]);
 
-        notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 518.000, 110.000+newpos, "SUCCESS");
+        notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 518.000, 110.000+newpos, "THANH CONG");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.200, 1.099);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 1018393087);
@@ -1180,7 +1180,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawSetProportional(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawShow(playerid, notifyTextdraws[playerid][i]);
 
-        notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 513.000, 110.000+newpos, "SYNTAX");
+        notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 513.000, 110.000+newpos, "MEO");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.159, 1.100);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -2139062017);
@@ -1238,7 +1238,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawSetProportional(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawShow(playerid, notifyTextdraws[playerid][i]);
 
-        notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 513.000, 110.000+newpos, "WARNING");
+        notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 513.000, 110.000+newpos, "CHU Y");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.159, 1.100);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
         PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -626712321);
@@ -1265,12 +1265,30 @@ CreateNotify(playerid, index, i, Float:new_x)
 
 CMD:testnotif(playerid, params[])
 {
+    new choice;
+
 	if(PlayerInfo[playerid][pAdmin] < 1)
 		return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong duoc phep su dung lenh nay.");
 
+    if(strlen(params) > 0)
+    {
+        if(sscanf(params, "d", choice) || choice < 1 || choice > 5)
+            return SendClientMessageEx(playerid, COLOR_GRAD2, "Su dung: /testnotif [1-5]. 1 INFO, 2 ERROR, 3 SUCCESS, 4 SYNTAX, 5 WARNING.");
+
+        switch(choice)
+        {
+            case 1: ShowTDN(playerid, NOTIFICATION_INFO, "Test notification: INFO");
+            case 2: ShowTDN(playerid, NOTIFICATION_ERROR, "Test notification: ERROR");
+            case 3: ShowTDN(playerid, NOTIFICATION_SUCCESS, "Test notification: SUCCESS");
+            case 4: ShowTDN(playerid, NOTIFICATION_SYNTAX, "Test notification: SYNTAX");
+            case 5: ShowTDN(playerid, NOTIFICATION_WARNING, "Test notification: WARNING");
+        }
+        return 1;
+    }
+
 	ShowTDN(playerid, NOTIFICATION_INFO, "Test notification: INFO");
 	ShowTDN(playerid, NOTIFICATION_ERROR, "Test notification: ERROR");
-	ShowTDN(playerid, NOTIFICATION_SUKSES, "Test notification: SUCCESS");
+	ShowTDN(playerid, NOTIFICATION_SUCCESS, "Test notification: SUCCESS");
 	ShowTDN(playerid, NOTIFICATION_SYNTAX, "Test notification: SYNTAX");
 	ShowTDN(playerid, NOTIFICATION_WARNING, "Test notification: WARNING");
 	return 1;
