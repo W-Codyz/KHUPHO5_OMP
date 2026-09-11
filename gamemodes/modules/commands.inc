@@ -19966,6 +19966,7 @@ CMD:hospital(playerid, params[])
 	return 1;
 }
 
+alias:revive("hoisinh")
 CMD:revive(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 2)
