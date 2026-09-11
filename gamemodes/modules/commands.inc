@@ -49505,3 +49505,10 @@ CMD:map(playerid, params[])
 	ShowPlayerDialog(playerid, DIALOG_MAP_TPHAT, DIALOG_STYLE_LIST, "MAP | Ban dang muon di dau ?", "{ffffff}Tim duong\nTim viec lam", "Chon", "Huy");
 	return 1;
 }
+
+CMD:tuido(playerid, params[])
+{
+	HienTextdraw(playerid, "Lenh dang bao tri!!");
+	ShowTDN(playerid, NOTIFICATION_ERROR, "Lenh dang bao tri!!");
+	return 1;
+}

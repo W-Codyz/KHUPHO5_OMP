@@ -9,6 +9,7 @@ new inputcansa[MAX_PLAYERS];
 
 #define LUCLOI_TIME 15
 #define TIME_RESPAWN_THUNGRAC 120
+#define CANSA_ANTI_TELEPORT_TIME 10
 new antitelecansa[MAX_PLAYERS];
 new NhanDiemCount[MAX_PLAYERS];
 new GiaoCanSaTimer[MAX_PLAYERS];
@@ -83,11 +84,16 @@ public ThungRacCreate(iMar) {
 forward TienTrinhHaiCanSa(playerid);
 public TienTrinhHaiCanSa(playerid)
 {
+    if(!MocRac[playerid]) return 1;
+
     new time = GetPVarInt(playerid, "ThoiGianHaiCanSa");
     new iMar = GetPVarInt(playerid, "IDCanSaDangHai");
 
+    if(iMar < 0 || iMar >= THUNGRAC) return 1;
+
     if(!IsPlayerInRangeOfPoint(playerid, 3.0, ThungRac[iMar][thungrac_X], ThungRac[iMar][thungrac_Y], ThungRac[iMar][thungrac_Z]))
     {
+        StopLoading(playerid);
         MocRac[playerid] = false;
         ThungRac[iMar][thungrac_status] = false;
         ClearAnimations(playerid);
@@ -102,18 +108,29 @@ public TienTrinhHaiCanSa(playerid)
     time--;
     SetPVarInt(playerid, "ThoiGianHaiCanSa", time);
 
-    new string[128];
-    format(string, sizeof(string), "~r~Dang hai...~n~~w~%d giay", time);
-    GameTextForPlayer(playerid, string, 1100, 4);
-
     if(time > 0)
     {
         SetTimerEx("TienTrinhHaiCanSa", 1000, false, "d", playerid);
     }
-    else
-    {
-        OnPlayerMocRac(playerid, iMar);
+    return 1;
+}
+
+forward OnLoadingHaiCanSa(playerid);
+public OnLoadingHaiCanSa(playerid)
+{
+    if(!MocRac[playerid]) return 1;
+
+    new iMar = GetPVarInt(playerid, "IDCanSaDangHai");
+    if(iMar < 0 || iMar >= THUNGRAC || !IsPlayerInRangeOfPoint(playerid, 3.0, ThungRac[iMar][thungrac_X], ThungRac[iMar][thungrac_Y], ThungRac[iMar][thungrac_Z])) {
+        MocRac[playerid] = false;
+        if(iMar >= 0 && iMar < THUNGRAC) ThungRac[iMar][thungrac_status] = false;
+        ClearAnimations(playerid);
+        DeletePVar(playerid, "ThoiGianHaiCanSa");
+        DeletePVar(playerid, "IDCanSaDangHai");
+        return 1;
     }
+
+    OnPlayerMocRac(playerid, iMar);
     return 1;
 }
 
@@ -130,6 +147,7 @@ public OnPlayerMocRac(playerid, iMar)
     PlayerInfo[playerid][pCanSa]++;
     format(string, sizeof(string), "{FFFF00}GTAHTB{FFFFFF} Ban da hai duoc 1 cay can sa {00FF00} (/cansa de xem vi tri che bien)");
     SendClientMessage(playerid, -1, string);
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "+1 cay can sa (/tuido).");
 
     ThungRac[iMar][thungrac_X] = INVALID_FLOAT;
     DestroyDynamicObject(ThungRac[iMar][thungrac_id]);
@@ -173,6 +191,7 @@ hook OnPlayerDisconnect(playerid, reason)
     if(GiaoCanSaTimer[playerid])
         KillTimer(GiaoCanSaTimer[playerid]);
     if(MocRac[playerid]) {
+        StopLoading(playerid);
         new iMar = GetPVarInt(playerid, "IDCanSaDangHai");
         ThungRac[iMar][thungrac_status] = false;
         DeletePVar(playerid, "ThoiGianHaiCanSa");
@@ -204,6 +223,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                         SetPVarInt(playerid, "ThoiGianHaiCanSa", LUCLOI_TIME);
                         SetPVarInt(playerid, "IDCanSaDangHai", iThungRac);
                         SetTimerEx("TienTrinhHaiCanSa", 1000, false, "d", playerid);
+                        SetLoading(playerid, LUCLOI_TIME * 1000, "Dang hai can sa...", "OnLoadingHaiCanSa");
                         SendClientMessage(playerid, -1, "{00FF00}Bat dau hai can sa...");
                     }
                     else
@@ -277,7 +297,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     GiaoCanSaTimer[playerid] = SetTimerEx("NhanDiemGiaoHangCanSa", 1000, 0, "d", playerid);
                     NhanDiemCount[playerid] = amount*5;
                     inputcansa[playerid] = amount;
-                    antitelecansa[playerid] = 80+random(60);
+                    antitelecansa[playerid] = CANSA_ANTI_TELEPORT_TIME;
                     SetTimerEx("antiteleportcansa", 1000, false, "d", playerid);
                 }
                 else
@@ -408,16 +428,19 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if(dangchebien[playerid] == 1)
                 {
                     SendClientMessage(playerid, -1, "Ban dang che bien roi, khong the tiep tuc.");
-                    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang che bien roi, khong the tiep tuc.");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang che bien roi.");
+                    return 1;
                 }
                 if(PlayerInfo[playerid][pCanSa] < 1)
                 {
                     SendClientMessage(playerid, -1, "Ban khong co cay can sa nao de che bien.");
-                    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co cay can sa nao de che bien.");
+                    ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co cay can sa nao.");
+                    return 1;
                 }
 
 				SetPVarInt(playerid, "CheBienTime", 15);
-				SetTimerEx("CheBien", 1000, 0, "d", playerid);
+                ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0, 1);
+                SetLoading(playerid, 15000, "Dang che bien can sa...", "OnLoadingCheBienFinish");
 				dangchebien[playerid] = 1;
 			}
 			if(listitem == 1)
@@ -457,7 +480,7 @@ hook OnPlayerEnterCheckpoint(playerid)
                 }
                 DisableCheckPoint(playerid);
                 SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Dang kiem tra CLEO/CHEAT...");
-                SetTimerEx("NhanTienCanSa", 5000, 0, "i", playerid);
+                NhanTienCanSa(playerid);
             }
         }
     }
@@ -534,7 +557,42 @@ public CheBien(playerid)
 	return 1;
 }
 
+forward OnLoadingCheBienFinish(playerid);
+public OnLoadingCheBienFinish(playerid)
+{
+    if(!dangchebien[playerid]) return 1;
+
+    DeletePVar(playerid, "CheBienTime");
+    dangchebien[playerid] = 0;
+
+    if(PlayerInfo[playerid][pCanSa] < 1) {
+        SendClientMessage(playerid, -1, "Ban khong con cay can sa de che bien.");
+        return 1;
+    }
+
+    ClearAnimations(playerid);
+    PlayerInfo[playerid][pCanSa] -= 1;
+    PlayerInfo[playerid][pTepCanSa] += 3;
+    SendClientMessage(playerid, 0x33FF33FF, "{FFFF00}GTAHTB{FFFFFF} Ban da che bien thanh cong 1 cay can sa va nhan duoc 3 tep can sa.");
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Che bien thanh cong.");
+    return 1;
+}
+
 hook OnPlayerDeath(playerid, killerid, reason) {
+    if(IsLoadingActive(playerid)) {
+        StopLoading(playerid);
+    }
+    if(MocRac[playerid]) {
+        new iMar = GetPVarInt(playerid, "IDCanSaDangHai");
+        if(iMar >= 0 && iMar < THUNGRAC) ThungRac[iMar][thungrac_status] = false;
+        MocRac[playerid] = false;
+        DeletePVar(playerid, "ThoiGianHaiCanSa");
+        DeletePVar(playerid, "IDCanSaDangHai");
+    }
+    if(dangchebien[playerid]) {
+        dangchebien[playerid] = 0;
+        DeletePVar(playerid, "CheBienTime");
+    }
 	if(gPlayerLogged{playerid} == 1) {
         if (PlayerGiaoCanSa[playerid] != 0)
         {
@@ -606,23 +664,19 @@ public antiteleportcansa(playerid)
     }
 } 
 
-forward NhanTienCanSa(playerid);
-public NhanTienCanSa(playerid)
+NhanTienCanSa(playerid)
 {
-    if (IsPlayerConnected(playerid) && PlayerInfo[playerid][pOnline] == 1)
-    {
-        new moneybonus = floatround(PlayerGiaoCanSa[playerid]*1.5);
-        new moneytotal = inputcansa[playerid] * (900 + moneybonus);
-        new str[128];
-        format(str, sizeof(str), "Giao can sa thanh cong va nhan duoc %d$!", moneytotal);
-        //SendClientMessage(playerid, -1, str);
-        ShowTDN(playerid, NOTIFICATION_SUCCESS, str);
-        GivePlayerCash(playerid, moneytotal);
-        PlayerInfo[playerid][pTepCanSa] -= inputcansa[playerid];
-        inputcansa[playerid] = 0;
-        PlayerGiaoCanSa[playerid] = 0;
-    }
-    return 1;
+
+    new moneybonus = floatround(PlayerGiaoCanSa[playerid]*1.5);
+    new moneytotal = inputcansa[playerid] * (900 + moneybonus);
+    new str[128];
+    format(str, sizeof(str), "Giao can sa thanh cong va nhan duoc %d$!", moneytotal);
+    SendClientMessage(playerid, -1, str);
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Giao can sa thanh cong!");
+    GivePlayerCash(playerid, moneytotal);
+    PlayerInfo[playerid][pTepCanSa] -= inputcansa[playerid];
+    inputcansa[playerid] = 0;
+    PlayerGiaoCanSa[playerid] = 0;
 }
 
 CMD:bantepcansa(playerid, params[])

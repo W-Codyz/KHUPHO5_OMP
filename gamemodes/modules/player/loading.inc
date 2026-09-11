@@ -120,6 +120,10 @@ stock createLoadingTD(playerid, const text[])
 
 stock SetLoading(playerid, time, const text[], const function[]="", va_args<>)
 {
+    if(IsLoadingActive(playerid)) {
+        StopLoading(playerid);
+    }
+
     new string[256];
     va_format(string, sizeof(string), text, va_start<4>);
     createLoadingTD(playerid, string);
@@ -145,6 +149,8 @@ stock StopLoading(playerid)
 {
     if(loadingAnimation[playerid] != -1) {
         Animator_Destroy(loadingAnimation[playerid]);
+        loadingAnimation[playerid] = -1;
+        loadingFunction[playerid][0] = EOS;
         for(new i; i < 6; i++) {
             PlayerTextDrawDestroy(playerid, Loader_TD[playerid][i]);
         }

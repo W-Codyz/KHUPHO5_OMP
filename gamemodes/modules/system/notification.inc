@@ -780,6 +780,8 @@ stock CreateTDN(playerid, type, TDN)
     }
     new NotifInfo[MAX_PLAYERS][4][e_notify];
     new MaxPlayerNotify[MAX_PLAYERS];
+    #define NOTIFY_TEXTDRAWS_PER_ITEM 7
+
     new PlayerText: notifyTextdraws[MAX_PLAYERS][4*8];
     new NotifIndex[MAX_PLAYERS];
 
@@ -789,7 +791,7 @@ stock CreateTDN(playerid, type, TDN)
         if(!NotifIndex[playerid]) return 1;
         -- NotifIndex[playerid];
         MaxPlayerNotify[playerid] --;
-        for (new i = -1; ++ i < 8;) PlayerTextDrawDestroy(playerid, notifyTextdraws[playerid][(NotifIndex[playerid] * 8) + i]);
+        for (new i = -1; ++ i < NOTIFY_TEXTDRAWS_PER_ITEM;) PlayerTextDrawDestroy(playerid, notifyTextdraws[playerid][(NotifIndex[playerid] * 8) + i]);
         return 1;
     }
 
@@ -871,7 +873,7 @@ stock ShowNotify(playerid, message[], icon)
     MaxPlayerNotify[playerid] ++;
     for (new x = -1; ++ x < NotifIndex[playerid] && x < 4;)
     {
-        for (new i = -1; ++ i < 8;) PlayerTextDrawDestroy(playerid, notifyTextdraws[playerid][(x * 8) + i]);
+        for (new i = -1; ++ i < NOTIFY_TEXTDRAWS_PER_ITEM;) PlayerTextDrawDestroy(playerid, notifyTextdraws[playerid][(x * 8) + i]);
         NotifInfo[playerid][NotifIndex[playerid] - x] = NotifInfo[playerid][(NotifIndex[playerid] - x) - 1];
     }
     format(NotifInfo[playerid][0][notifyMessage], 320, "%s", message);
