@@ -2230,10 +2230,6 @@ new gdCanSa[MAX_PLAYERS];
 new slCanSa[MAX_PLAYERS];
 new tienCanSa[MAX_PLAYERS];
 
-new SharelocSender[MAX_PLAYERS];
-new SharelocTimer[MAX_PLAYERS] = {0, ...};
-new NearestPlayer[MAX_PLAYERS][MAX_PLAYERS];
-
 
 //color
 #define WHITE       "{FFFFFF}"
