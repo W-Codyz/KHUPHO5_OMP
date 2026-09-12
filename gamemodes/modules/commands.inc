@@ -36536,16 +36536,16 @@ CMD:dmalert(playerid, params[])
 CMD:baocao(playerid, params[])
 {
     if(GetPVarType(playerid, "HasReport")) {
-		SendClientMessageEx(playerid, COLOR_GREY, "Ban chi co the co 1 bao cao. (/huybaocao)");
+		SendClientMessageEx(playerid, COLOR_WHITE, "Ban chi co the co 1 bao cao. (/huybaocao)");
 	}
- 	else if(PlayerInfo[playerid][pAdmin] >= 2 && PlayerInfo[playerid][pAdmin] < 1338) {
+ 	else if(PlayerInfo[playerid][pAdmin] >= 2 && PlayerInfo[playerid][pAdmin] < 6) {
 		SendClientMessageEx(playerid, COLOR_GRAD2, "You can't submit reports as an administrator.");
 	}
 	else if(PlayerInfo[playerid][pRMuted] != 0) {
 	    ShowPlayerDialog(playerid, 7955, DIALOG_STYLE_MSGBOX,"Report blocked","You are blocked from submitting any reports!\n\nTips when reporting:\n- Report what you need, not who you need.\n- Be specific, report exactly what you need.\n- Do not make false reports.\n- Do not flame admins.\n- Report only for in-game items.\n- For shop orders use the /shoporder command","Dong", "");
 	}
 	else {
-	    ShowPlayerDialog(playerid, DIALOG_REPORTMENU, DIALOG_STYLE_LIST, "Report Menu [1/2]", "Deathmatch\nFalling\nHacking\nChicken Running\nCar Ramming\nPower Gaming\nMeta Gaming\nGun Discharge Exploits (QS/CS)\nSpamming\nMoney Farming\nBan Evader\nGeneral Exploits\nReleasing Hitman Names\nRunning Man Exploiter\nCar Surfing\nNonRP Behavior\nNext Page","Select", "Exit");
+	    ShowPlayerDialog(playerid, DIALOG_REPORTMENU, DIALOG_STYLE_LIST, "Bao cao", "Hacking\nBug (Freeze)\nYeu cau ho tro tu Administrator\nYeu cau tro giup C.A","Chon", "Thoat");
 	}
 	return 1;
 }

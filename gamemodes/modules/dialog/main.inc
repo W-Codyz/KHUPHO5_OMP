@@ -11108,7 +11108,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 	    }
 	}
-	else if(dialogid == DIALOG_REPORTMENU)
+	/* else if(dialogid == DIALOG_REPORTMENU)
 	{
 	    if(response)
 	    {
@@ -11204,6 +11204,63 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    {
 			        ShowPlayerDialog(playerid, DIALOG_REPORTMENU2, DIALOG_STYLE_LIST, "Report Menu [2/2]", "Revenge Killing\nOOC Hit\nQuang cao may chu\nNonRP Name\nOther/Freetext (PVIP Only)\nHouse Move\nAppeal Admin Action\nPrize Claim\nShop Issue\nNot Listed Here\nRequest CA\nRequest Unmute\nPrevious Page","Select", "Exit");
 			    }
+			}
+	    }
+	} */
+	else if(dialogid == DIALOG_REPORTMENU)
+	{
+	    if(response)
+	    {
+	        switch(listitem)
+			{
+			    /* case 0: //Vi pham luat
+			    {
+			        if(PlayerInfo[playerid][pJailTime] > 0) {
+			            SendClientMessage(playerid, COLOR_WHITE, "Ban khong the bao cao khi dang trong tu.");
+			        }
+			        else {
+			        	ShowPlayerDialog(playerid, DIALOG_REPORTDM, DIALOG_STYLE_INPUT, "Bao cao nguoi choi - Deathmatch", "Nhap ID nguoi choi.", "Dong y", "Huy bo");
+					}
+				} */
+				case 0: //Vi pham luat
+			    {
+			        if(PlayerInfo[playerid][pJailTime] > 0) {
+			            SendClientMessage(playerid, COLOR_WHITE, "Ban khong the bao cao khi dang trong tu.");
+			        }
+			        else {
+			        	ShowPlayerDialog(playerid, DIALOG_REPORTHACK, DIALOG_STYLE_INPUT, "BAO CAO - HACKING", "Nhap ID nguoi choi.", "Dong y", "Huy bo");
+					}
+				}
+			    case 1: //Bug
+			    {
+			        if(gettime() - LastShot[playerid] < 20)
+			        {
+			            SendClientMessageEx(playerid, COLOR_WHITE, "You have been hurt in the last 20 seconds, abusing this system will result in a temporary ban.");
+			        }
+			        else
+			        {
+			            new
+			                Message[128];
+
+			            TogglePlayerControllable(playerid, 0);
+						SetPVarInt(playerid, "IsFrozen", 1);
+						SetPVarInt(playerid, "_rAutoM", 5);
+						SetPVarInt(playerid, "_rRepID", playerid);
+      					format(Message, sizeof(Message), "{AA3333}AdmWarning{FFFF00}: %s (ID %d) has been frozen. (Falling Report)", GetPlayerNameEx(playerid), playerid);
+						ABroadCast(COLOR_YELLOW, Message, 2);
+						SendReportToQue(playerid, "Falling (Player Frozen)", 2, GetPlayerPriority(playerid));
+						SendClientMessageEx(playerid, COLOR_WHITE, "A report has been sent to the available admins, you have been frozen.");
+			        }
+			    }
+	            case 2: //Lien he admin
+	            {
+	                ShowPlayerDialog(playerid, DIALOG_REPORTNOTLIST, DIALOG_STYLE_INPUT,"Lien he Admin","Dien thong tin ban muon bao cao voi Admin tai day.","Gui","Huy bo");
+				}
+				case 3: //Lien he admin
+	            {
+					PC_EmulateCommand(playerid, "yeucautrogiup");
+				}
+
 			}
 	    }
 	}
