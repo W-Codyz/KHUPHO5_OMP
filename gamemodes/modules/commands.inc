@@ -41289,6 +41289,37 @@ CMD:f(playerid, params[])
 	return 1;
 }*/
 
+CMD:g(playerid, params[])
+{
+    new
+        iGroupID = PlayerInfo[playerid][pMember],
+        iRank = PlayerInfo[playerid][pRank];
+
+    if (0 <= iGroupID < MAX_GROUPS)
+    {
+        if (iRank >= arrGroupData[iGroupID][g_iRadioAccess])
+        {
+                if(!isnull(params))
+                {
+                    new string[128], employer[GROUP_MAX_NAME_LEN], rank[GROUP_MAX_RANK_LEN], division[GROUP_MAX_DIV_LEN];
+                    GetPlayerGrouPlayerInfo(playerid, rank, division, employer);
+                    format(string, sizeof(string), " {77bbff} *[FOC][%s] %s: ((%s))" , arrGroupData[iGroupID][g_szGroupName], GetPlayerNameEx(playerid), params);
+                    foreach(new i: Player)
+                    {
+                        if(PlayerInfo[i][pMember] == iGroupID && iRank >= arrGroupData[iGroupID][g_iRadioAccess])
+                        {
+                            SendClientMessageEx(i, arrGroupData[iGroupID][g_hRadioColour] * 256 + 255, string);
+                        }
+                    }
+                }
+                else return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: (/g)roup [radio OOC chat]");
+        }
+        else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co quyen truy cap tan so radio nay.");
+    }
+    else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o trong to chuc.");
+    return 1;
+}
+
 CMD:news(playerid, params[])
 {
 	if (IsAReporter(playerid))

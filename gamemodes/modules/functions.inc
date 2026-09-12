@@ -22117,3 +22117,53 @@ stock FormatLastLoginTime(const input[], output[], maxlength = sizeof(output))
     format(output, maxlength, "%s:%s:%s %s/%s/%s", hour, minute, second, day, month, year);
     return 1;
 }
+
+stock IsPlayerNearPlayer(playerid, targetid, Float:radius)
+{
+    static
+        Float:fX,
+        Float:fY,
+        Float:fZ;
+
+    GetPlayerPos(targetid, fX, fY, fZ);
+
+    return (GetPlayerInterior(playerid) == GetPlayerInterior(targetid) && GetPlayerVirtualWorld(playerid) == GetPlayerVirtualWorld(targetid)) && IsPlayerInRangeOfPoint(playerid, radius, fX, fY, fZ);
+}
+
+stock GetPlayerGrouPlayerInfo(targetid, rank[], division[], employer[])
+{
+	new
+		iGroupID = PlayerInfo[targetid][pMember],
+	 	iRankID = PlayerInfo[targetid][pRank];
+
+	if (0 <= iGroupID < MAX_GROUPS)
+	{
+	    if(0 <= iRankID < MAX_GROUP_RANKS)
+	    {
+		    if(arrGroupRanks[iGroupID][iRankID][0]) {
+				format(rank, (GROUP_MAX_RANK_LEN), "%s", arrGroupRanks[iGroupID][iRankID]);
+			}
+			else format(rank, (GROUP_MAX_RANK_LEN), "undefined");
+		}
+	    if(0 <= PlayerInfo[targetid][pDivision] < MAX_GROUP_DIVS)
+		{
+			if(arrGroupDivisions[iGroupID][PlayerInfo[targetid][pDivision]][0]) { format(division, (GROUP_MAX_DIV_LEN), "%s", arrGroupDivisions[iGroupID][PlayerInfo[targetid][pDivision]]); }
+			else format(division, (GROUP_MAX_DIV_LEN), "undefined");
+		}
+	    else format(division, (GROUP_MAX_DIV_LEN), "G.D.");
+	    if(arrGroupData[iGroupID][g_szGroupName][0]) {
+			format(employer, (GROUP_MAX_NAME_LEN), "%s", arrGroupData[iGroupID][g_szGroupName]);
+		}
+		else
+		{
+		    format(employer, (GROUP_MAX_NAME_LEN), "undefined");
+		}
+	}
+	else
+	{
+	    format(rank, (GROUP_MAX_RANK_LEN), "N/A");
+	    format(division, (GROUP_MAX_DIV_LEN), "None");
+	    format(employer, (GROUP_MAX_NAME_LEN), "None");
+	}
+	return 1;
+}
