@@ -281,6 +281,21 @@ public LoadStreamerDynamicPickups()
 forward LoadStreamerDynamic3DTextLabels();
 public LoadStreamerDynamic3DTextLabels()
 {
+	CreateDynamicPickup(1239, 23, 2941.1841,-1773.3141,1191.5032);
+	CreateDynamic3DTextLabel("{00ff00}[NGAN HANG]\n{99cc00}Khu vuc chuyen tien / gui tien.{FFFFFF}\nSu dung {ffff00}[Y]{FFFFFF} de bat dau su dung ngan hang.", -1, 2941.1841,-1773.3141,1191.5032, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
+
+	CreateDynamicPickup(1239, 23, 1460.7382, 1403.4080, 14.2062);
+	CreateDynamic3DTextLabel("{00ff00}[NGAN HANG]\n{99cc00}Khu vuc chuyen tien / gui tien.{FFFFFF}\nSu dung {ffff00}[Y]{FFFFFF} de bat dau su dung ngan hang.", -1, 1460.7382, 1403.4080, 14.2062, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
+
+	CreateDynamicPickup(1239, 23, 1460.7364, 1405.5347, 14.2062);
+	CreateDynamic3DTextLabel("{00ff00}[NGAN HANG]\n{99cc00}Khu vuc chuyen tien / gui tien.{FFFFFF}\nSu dung {ffff00}[Y]{FFFFFF} de bat dau su dung ngan hang.", -1, 1460.7364, 1405.5347, 14.2062, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
+
+	CreateDynamicPickup(1239, 23, 1460.7369, 1400.8198, 14.2062);
+	CreateDynamic3DTextLabel("{00ff00}[NGAN HANG]\n{99cc00}Khu vuc chuyen tien / gui tien.{FFFFFF}\nSu dung {ffff00}[Y]{FFFFFF} de bat dau su dung ngan hang.", -1, 1460.7369, 1400.8198, 14.2062, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
+
+	CreateDynamicPickup(1239, 23, 1460.7401, 1407.7728, 14.2062);
+	CreateDynamic3DTextLabel("{00ff00}[NGAN HANG]\n{99cc00}Khu vuc dang ky tai khoan bank.\n{FFFFFF}Su dung {ffff00}[/dangkybank]{FFFFFF} de dang ky.", -1,  1460.7401, 1407.7728, 14.2062, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
+
 	new string[128];
     CreateDynamic3DTextLabel("{FF8000}/loadforklift\nDe dua cac thung len xe forklift", COLOR_YELLOW, -2114.1, -1723.5, 11984.5, 20.0, _, _, 1, 0, -1, _, 20.0);
 	CreateDynamic3DTextLabel("{FF8000}LOCKDOWN\nCHI BAM TRONG TRUONG HOP KHAN CAP", COLOR_YELLOW, -1121.70, 4290.41, 5.88, 20.0, _, _, 1, 0, 0, _, 20.0);
