@@ -23099,6 +23099,7 @@ CMD:donggop(playerid, params[])
 	return 1;
 }
 
+alias:accent("giongnoi")
 CMD:accent(playerid, params[])
 {
 	new accent;
