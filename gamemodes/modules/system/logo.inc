@@ -46,7 +46,6 @@ stock LoadTDLogo()
     TextDrawFont(LogoTD[3], 1);
     TextDrawSetProportional(LogoTD[3], 1);
 
-    SetTimer("UpdateRealTime", 1000, true);
 	return 1;
 }
 
@@ -593,7 +592,7 @@ stock UpdateHudUI(playerid)
     format(str, sizeof(str), "$%d", PlayerInfo[playerid][pAccount]);
     PlayerTextDrawSetString(playerid, UiPlayerInfoTD[playerid][43], str);
 
-    format(str, sizeof(str), "%s", GetJobName(playerid));
+    format(str, sizeof(str), "%s", GetJobName(PlayerInfo[playerid][pJob]));
     PlayerTextDrawSetString(playerid, UiPlayerInfoTD[playerid][30], str);
 
     new year, month, day;
