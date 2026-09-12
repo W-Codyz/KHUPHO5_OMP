@@ -28915,7 +28915,7 @@ CMD:tlnext(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_RED, "* Listing next available text label...");
 		for(new x = 0;x<MAX_3DLABELS;x++)
 		{
-			if(strcmp(TxtLabels[x][tlText], "None", true) == 0)
+			if(TxtLabels[x][tlPickupModel] == 0)
 		    {
 		        new string[128];
 		        format(string, sizeof(string), "%d is available to use.", x);
