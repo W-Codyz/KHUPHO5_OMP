@@ -49512,3 +49512,33 @@ CMD:tuido(playerid, params[])
 	ShowTDN(playerid, NOTIFICATION_ERROR, "Lenh dang bao tri!!");
 	return 1;
 }
+
+CMD:laypos(playerid, params[])
+{
+    new DCC_Channel:g_WorkBot = DCC_FindChannelById("1548210474515177482");
+    if(PlayerInfo[playerid][pAdmin] <= 2) 
+        return SendClientMessage(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban khong the lam viec nay.");
+
+    new Float:posx, Float:posy, Float:posz, Float:ang;
+    new inter, vWrld, string[1280], name[50];
+    new comment[128];
+
+    GetPlayerPos(playerid, posx, posy, posz);
+    GetPlayerFacingAngle(playerid, ang);
+    inter = GetPlayerInterior(playerid);
+    vWrld = GetPlayerVirtualWorld(playerid);
+    GetPlayerName(playerid, name, sizeof(name));
+
+    if(sscanf(params, "s[128]", comment)) { // Nếu không có comment
+        format(string, sizeof(string), "**%s đã lấy vị trí**\n**> Vị trí:  %f %f %f %f %i %i**",
+            name, posx, posy, posz, ang, inter, vWrld);
+    }
+    else { // Nếu có comment
+        format(string, sizeof(string), "**%s đã lấy vị trí**\n**> Vị trí:  %f %f %f %f %i %i // %s**",
+            name, posx, posy, posz, ang, inter, vWrld, comment);
+    }
+
+    DCC_SendChannelMessage(g_WorkBot, string);
+    SendClientMessage(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Lay vi tri thanh cong!");
+    return 1;
+}
