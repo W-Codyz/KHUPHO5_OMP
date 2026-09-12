@@ -1,0 +1,3743 @@
+#include <YSI\YSI_Coding\y_hooks>
+
+// Hook để xử lý click vào TextDraw
+hook OnClickDynamicPlayerTextDraw(playerid, PlayerText:playertextid)
+{
+    if(playertextid == Text_Player[playerid][18])
+    {
+		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_sacombank(playerid, "");
+        return 1;
+    }
+    
+    if(playertextid == Text_Player[playerid][27])
+    {
+		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_timduong(playerid, "");
+        return 1;
+    }
+    
+    if(playertextid == Text_Player[playerid][33])
+    {
+		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_time(playerid, "");
+        return 1;
+    }
+    
+    if(playertextid == Text_Player[playerid][49])
+    {
+		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_dichvu(playerid, "taxi");
+        return 1;
+    }
+    
+    if(playertextid == Text_Player[playerid][61])
+    {
+		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_danhbacuatoi(playerid, "");
+        return 1;
+    }
+    
+    if(playertextid == Text_Player[playerid][59])
+    {
+		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_sms(playerid, "");
+        return 1;
+    }
+	if(playertextid == Text_Player[playerid][62])
+	{
+		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+		ShowPlayerDialog(playerid, DIALOG_DIENTHOAI, DIALOG_STYLE_LIST, "DIEN THOAI", "Goi bang so dien thoai\nGoi canh sat\nGoi cap cuu\nGoi tho sua xe\nGoi taxi", "Lua chon", "Huy bo");
+	}
+	if(playertextid == Text_Player[playerid][30] || playertextid == Text_Player[playerid][31])
+	{
+		HienTextdraw(playerid, "Chuc nang dang phat trien....");
+	}
+	if(playertextid == Text_Player[playerid][54])
+	{
+		pc_cmd_selfie(playerid, "");
+	}
+	if(playertextid == Text_Player[playerid][32])
+	{
+		/* PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+		pc_cmd_nghenhac(playerid, ""); */
+		HienTextdraw(playerid, "Chuc nang dang phat trien...");
+	}
+    
+    if(playertextid == Text_Player[playerid][20])
+    {
+        if(GetPVarInt(playerid, "DIENTHOAI_") == 1)
+        {
+            for(new i = 0; i < 82; i++)
+            {
+                PlayerTextDrawHide(playerid, Text_Player[playerid][i]);
+            }
+            PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+            SetPVarInt(playerid, "DIENTHOAI_", 0);
+            CancelSelectTextDraw(playerid, 0xff78bcf0);
+            pc_cmd_me(playerid, "da tat dien thoai.");
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			ClearAnimations(playerid);
+			RemovePlayerAttachedObject(playerid, 9);
+			SetPlayerChatBubble(playerid, "", COLOR_PURPLE, 1.0, 1000);
+        }
+		if(takingselfie[playerid] == 1)
+		{
+			TogglePlayerControllable(playerid,1);
+			SetCameraBehindPlayer(playerid);
+			takingselfie[playerid] = 0;
+			ApplyAnimation(playerid, "PED", "ATM", 4.1, 0, 1, 1, 0, 1, 1);
+			return 1;
+		}
+        return 1;
+    }
+	/* if(playertextid == Stream_TD[playerid][6])
+    {
+         SendClientMessage(playerid, -1, "You have successfully exited live!");
+         PlayerTextDrawHide(playerid, Stream_TD[playerid][0]);
+         PlayerTextDrawHide(playerid, Stream_TD[playerid][1]);
+   	     PlayerTextDrawHide(playerid, Stream_TD[playerid][2]);
+   	     PlayerTextDrawHide(playerid, Stream_TD[playerid][3]);
+   	     PlayerTextDrawHide(playerid, Stream_TD[playerid][4]);
+   	     PlayerTextDrawHide(playerid, Stream_TD[playerid][5]);
+   	     PlayerTextDrawHide(playerid, Stream_TD[playerid][6]);
+         CancelSelectTextDraw(playerid);
+         StopPlayerWatchingCamera(playerid);
+         return 1;
+    } */
+    return 0;
+}
+
+hook OnClickDynamicTextDraw(playerid, Text:clickedid)
+{
+    if(clickedid == Text:INVALID_TEXT_DRAW) 
+    {
+		if(GetPVarInt(playerid, "DelayPhone") == 1)
+        {
+            DeletePVar(playerid, "DelayPhone");
+            return 1;
+        }
+        if(GetPVarInt(playerid, "DIENTHOAI_") == 1)
+        {
+            for(new i = 0; i < 82; i++)
+            {
+                PlayerTextDrawHide(playerid, Text_Player[playerid][i]);
+            }
+            PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+            SetPVarInt(playerid, "DIENTHOAI_", 0);
+            CancelSelectTextDraw(playerid, 0xff78bcf0);
+            pc_cmd_me(playerid, "da tat dien thoai.");
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			ClearAnimations(playerid);
+			RemovePlayerAttachedObject(playerid, 9);
+			SetPlayerChatBubble(playerid, "", COLOR_PURPLE, 1.0, 1000);
+			if(takingselfie[playerid] == 1)
+			{
+				TogglePlayerControllable(playerid,1);
+				SetCameraBehindPlayer(playerid);
+				takingselfie[playerid] = 0;
+				ApplyAnimation(playerid, "PED", "ATM", 4.1, 0, 1, 1, 0, 1, 1);
+				return 1;
+			}
+        }
+    }
+    return 0;
+}
+
+hook OnPlayerConnect(playerid) {
+    
+	Text_Player[playerid][0] = CreatePlayerTextDraw(playerid, 532.500, 344.329, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][0], 46.000, 52.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][0], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][0], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][0], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][0], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][0], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][0], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][0], 1);
+
+	Text_Player[playerid][1] = CreatePlayerTextDraw(playerid, 483.000, 140.000, "LD_BUM:blkdot");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][1], 71.000, 247.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][1], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][1], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][1], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][1], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][1], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][1], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][1], 1);
+
+	Text_Player[playerid][2] = CreatePlayerTextDraw(playerid, 468.000, 158.000, "LD_BUM:blkdot");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][2], 103.000, 213.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][2], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][2], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][2], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][2], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][2], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][2], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][2], 1);
+
+	Text_Player[playerid][3] = CreatePlayerTextDraw(playerid, 460.100, 131.500, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][3], 46.000, 52.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][3], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][3], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][3], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][3], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][3], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][3], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][3], 1);
+
+	Text_Player[playerid][4] = CreatePlayerTextDraw(playerid, 532.500, 131.500, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][4], 46.000, 52.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][4], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][4], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][4], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][4], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][4], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][4], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][4], 1);
+
+	Text_Player[playerid][5] = CreatePlayerTextDraw(playerid, 460.100, 344.329, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][5], 46.000, 52.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][5], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][5], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][5], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][5], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][5], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][5], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][5], 1);
+
+	Text_Player[playerid][6] = CreatePlayerTextDraw(playerid, 484.000, 143.000, "LD_BUM:blkdot");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][6], 71.000, 241.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][6], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][6], 421097727);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][6], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][6], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][6], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][6], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][6], 1);
+
+	Text_Player[playerid][7] = CreatePlayerTextDraw(playerid, 470.000, 158.000, "LD_BUM:blkdot");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][7], 99.000, 213.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][7], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][7], 421097727);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][7], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][7], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][7], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][7], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][7], 1);
+
+	Text_Player[playerid][8] = CreatePlayerTextDraw(playerid, 462.500, 134.328, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][8], 43.000, 51.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][8], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][8], 421097727);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][8], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][8], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][8], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][8], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][8], 1);
+
+	Text_Player[playerid][9] = CreatePlayerTextDraw(playerid, 462.500, 341.329, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][9], 43.000, 51.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][9], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][9], 421097727);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][9], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][9], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][9], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][9], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][9], 1);
+
+	Text_Player[playerid][10] = CreatePlayerTextDraw(playerid, 533.500, 341.329, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][10], 43.000, 51.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][10], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][10], 421097727);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][10], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][10], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][10], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][10], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][10], 1);
+
+	Text_Player[playerid][11] = CreatePlayerTextDraw(playerid, 533.500, 134.328, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][11], 43.000, 51.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][11], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][11], 421097727);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][11], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][11], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][11], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][11], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][11], 1);
+
+	Text_Player[playerid][12] = CreatePlayerTextDraw(playerid, 501.000, 143.000, "LD_BUM:blkdot");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][12], 37.000, 7.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][12], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][12], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][12], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][12], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][12], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][12], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][12], 1);
+
+	Text_Player[playerid][13] = CreatePlayerTextDraw(playerid, 493.000, 138.500, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][13], 19.000, 14.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][13], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][13], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][13], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][13], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][13], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][13], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][13], 1);
+
+	Text_Player[playerid][14] = CreatePlayerTextDraw(playerid, 527.000, 138.500, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][14], 19.000, 14.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][14], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][14], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][14], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][14], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][14], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][14], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][14], 1);
+
+	Text_Player[playerid][15] = CreatePlayerTextDraw(playerid, 546.000, 148.000, "LD_BUM:blkdot");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][15], 1.600, 4.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][15], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][15], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][15], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][15], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][15], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][15], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][15], 1);
+
+	Text_Player[playerid][16] = CreatePlayerTextDraw(playerid, 549.000, 146.399, "LD_BUM:blkdot");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][16], 1.600, 5.500);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][16], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][16], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][16], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][16], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][16], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][16], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][16], 1);
+
+	Text_Player[playerid][17] = CreatePlayerTextDraw(playerid, 552.000, 144.699, "LD_BUM:blkdot");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][17], 1.600, 7.500);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][17], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][17], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][17], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][17], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][17], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][17], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][17], 1);
+
+	Text_Player[playerid][18] = CreatePlayerTextDraw(playerid, 472.000, 236.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][18], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][18], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][18], -251662081);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][18], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][18], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][18], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][18], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][18], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][18], 1);
+
+	Text_Player[playerid][19] = CreatePlayerTextDraw(playerid, 555.000, 145.000, "5G");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][19], 0.136, 0.897);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][19], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][19], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][19], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][19], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][19], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][19], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][19], 1);
+
+	Text_Player[playerid][20] = CreatePlayerTextDraw(playerid, 490.000, 375.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][20], 60.000, 5.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][20], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][20], -167773441);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][20], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][20], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][20], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][20], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][20], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][20], 1);
+
+	Text_Player[playerid][21] = CreatePlayerTextDraw(playerid, 502.000, 145.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][21], 26.000, 1.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][21], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][21], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][21], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][21], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][21], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][21], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][21], 1);
+
+	Text_Player[playerid][22] = CreatePlayerTextDraw(playerid, 531.000, 144.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][22], 3.000, 3.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][22], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][22], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][22], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][22], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][22], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][22], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][22], 1);
+
+	Text_Player[playerid][23] = CreatePlayerTextDraw(playerid, 571.000, 185.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][23], 1.000, 26.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][23], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][23], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][23], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][23], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][23], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][23], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][23], 1);
+
+	Text_Player[playerid][24] = CreatePlayerTextDraw(playerid, 571.000, 185.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][24], 14.000, 27.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][24], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][24], -33949184);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][24], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][24], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][24], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][24], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][24], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][24], 1);
+
+	Text_Player[playerid][25] = CreatePlayerTextDraw(playerid, 467.000, 200.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][25], 1.000, 34.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][25], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][25], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][25], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][25], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][25], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][25], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][25], 1);
+
+	Text_Player[playerid][26] = CreatePlayerTextDraw(playerid, 467.000, 239.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][26], 1.000, 34.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][26], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][26], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][26], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][26], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][26], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][26], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][26], 1);
+
+	Text_Player[playerid][27] = CreatePlayerTextDraw(playerid, 472.000, 163.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][27], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][27], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][27], -2147483393);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][27], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][27], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][27], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][27], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][27], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][27], 1);
+
+	Text_Player[playerid][28] = CreatePlayerTextDraw(playerid, 472.000, 199.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][28], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][28], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][28], 548580095);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][28], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][28], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][28], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][28], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][28], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][28], 1);
+
+	Text_Player[playerid][29] = CreatePlayerTextDraw(playerid, 482.000, 244.000, "HUD:radar_cash");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][29], 17.000, 18.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][29], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][29], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][29], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][29], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][29], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][29], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][29], 1);
+
+	Text_Player[playerid][30] = CreatePlayerTextDraw(playerid, 501.000, 163.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][30], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][30], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][30], 1768516095);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][30], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][30], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][30], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][30], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][30], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][30], 1);
+
+	Text_Player[playerid][31] = CreatePlayerTextDraw(playerid, 531.000, 163.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][31], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][31], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][31], 12582911);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][31], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][31], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][31], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][31], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][31], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][31], 1);
+
+	Text_Player[playerid][32] = CreatePlayerTextDraw(playerid, 501.000, 199.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][32], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][32], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][32], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][32], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][32], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][32], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][32], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][32], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][32], 1);
+
+	Text_Player[playerid][33] = CreatePlayerTextDraw(playerid, 531.000, 199.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][33], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][33], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][33], 13554175);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][33], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][33], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][33], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][33], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][33], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][33], 1);
+
+	Text_Player[playerid][34] = CreatePlayerTextDraw(playerid, 541.000, 172.000, "LD_CHAT:badchat");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][34], 15.000, 16.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][34], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][34], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][34], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][34], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][34], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][34], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][34], 1);
+
+	Text_Player[playerid][35] = CreatePlayerTextDraw(playerid, 482.000, 172.000, "HUD:radar_waypoint");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][35], 15.000, 16.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][35], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][35], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][35], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][35], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][35], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][35], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][35], 1);
+
+	Text_Player[playerid][36] = CreatePlayerTextDraw(playerid, 483.000, 201.000, "/");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][36], 0.537, 2.898);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][36], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][36], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][36], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][36], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][36], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][36], 2);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][36], 1);
+
+	Text_Player[playerid][37] = CreatePlayerTextDraw(playerid, 495.000, 201.000, "/");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][37], -0.527, 2.890);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][37], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][37], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][37], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][37], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][37], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][37], 2);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][37], 1);
+
+	Text_Player[playerid][38] = CreatePlayerTextDraw(playerid, 484.000, 217.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][38], 10.000, 1.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][38], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][38], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][38], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][38], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][38], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][38], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][38], 1);
+
+	Text_Player[playerid][39] = CreatePlayerTextDraw(playerid, 503.000, 201.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][39], 31.000, 31.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][39], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][39], 16711935);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][39], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][39], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][39], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][39], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][39], 1);
+
+	Text_Player[playerid][40] = CreatePlayerTextDraw(playerid, 505.000, 205.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][40], 27.000, 22.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][40], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][40], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][40], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][40], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][40], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][40], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][40], 1);
+
+	Text_Player[playerid][41] = CreatePlayerTextDraw(playerid, 505.000, 208.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][41], 27.000, 22.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][41], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][41], 2096890111);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][41], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][41], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][41], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][41], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][41], 1);
+
+	Text_Player[playerid][42] = CreatePlayerTextDraw(playerid, 508.000, 212.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][42], 21.000, 12.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][42], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][42], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][42], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][42], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][42], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][42], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][42], 1);
+
+	Text_Player[playerid][43] = CreatePlayerTextDraw(playerid, 508.000, 215.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][43], 21.000, 12.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][43], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][43], 2096890111);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][43], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][43], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][43], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][43], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][43], 1);
+
+	Text_Player[playerid][44] = CreatePlayerTextDraw(playerid, 512.000, 217.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][44], 13.000, 9.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][44], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][44], 255);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][44], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][44], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][44], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][44], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][44], 1);
+
+	Text_Player[playerid][45] = CreatePlayerTextDraw(playerid, 534.000, 202.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][45], 29.000, 29.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][45], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][45], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][45], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][45], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][45], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][45], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][45], 1);
+
+	Text_Player[playerid][46] = CreatePlayerTextDraw(playerid, 542.000, 212.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][46], 13.000, 10.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][46], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][46], 512819199);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][46], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][46], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][46], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][46], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][46], 1);
+
+	Text_Player[playerid][47] = CreatePlayerTextDraw(playerid, 550.000, 212.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][47], 5.000, 4.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][47], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][47], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][47], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][47], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][47], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][47], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][47], 1);
+
+	Text_Player[playerid][48] = CreatePlayerTextDraw(playerid, 542.000, 218.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][48], 5.000, 4.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][48], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][48], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][48], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][48], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][48], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][48], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][48], 1);
+
+	Text_Player[playerid][49] = CreatePlayerTextDraw(playerid, 501.000, 236.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][49], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][49], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][49], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][49], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][49], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][49], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][49], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][49], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][49], 1);
+
+	Text_Player[playerid][50] = CreatePlayerTextDraw(playerid, 506.000, 240.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][50], 25.000, 27.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][50], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][50], 579543807);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][50], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][50], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][50], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][50], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][50], 1);
+
+	Text_Player[playerid][51] = CreatePlayerTextDraw(playerid, 510.000, 244.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][51], 17.000, 19.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][51], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][51], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][51], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][51], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][51], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][51], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][51], 1);
+
+	Text_Player[playerid][52] = CreatePlayerTextDraw(playerid, 513.000, 248.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][52], 11.000, 11.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][52], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][52], 579543807);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][52], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][52], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][52], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][52], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][52], 1);
+
+	Text_Player[playerid][53] = CreatePlayerTextDraw(playerid, 517.000, 259.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][53], 3.000, 5.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][53], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][53], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][53], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][53], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][53], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][53], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][53], 1);
+
+	Text_Player[playerid][54] = CreatePlayerTextDraw(playerid, 531.000, 236.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][54], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][54], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][54], -1378294017);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][54], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][54], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][54], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][54], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][54], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][54], 1);
+
+	Text_Player[playerid][55] = CreatePlayerTextDraw(playerid, 541.000, 248.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][55], 15.000, 11.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][55], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][55], 1887473919);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][55], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][55], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][55], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][55], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][55], 1);
+
+	Text_Player[playerid][56] = CreatePlayerTextDraw(playerid, 547.000, 250.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][56], 8.000, 9.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][56], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][56], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][56], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][56], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][56], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][56], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][56], 1);
+
+	Text_Player[playerid][57] = CreatePlayerTextDraw(playerid, 548.000, 251.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][57], 6.000, 7.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][57], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][57], 1768516095);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][57], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][57], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][57], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][57], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][57], 1);
+
+	Text_Player[playerid][58] = CreatePlayerTextDraw(playerid, 541.000, 247.000, "LD_SPAC:white");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][58], 4.000, 3.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][58], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][58], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][58], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][58], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][58], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][58], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][58], 1);
+
+	Text_Player[playerid][59] = CreatePlayerTextDraw(playerid, 502.000, 331.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][59], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][59], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][59], 1433087999);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][59], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][59], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][59], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][59], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][59], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][59], 1);
+
+	Text_Player[playerid][60] = CreatePlayerTextDraw(playerid, 512.000, 339.000, "LD_CHAT:goodcha");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][60], 15.000, 16.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][60], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][60], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][60], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][60], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][60], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][60], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][60], 1);
+
+	Text_Player[playerid][61] = CreatePlayerTextDraw(playerid, 532.000, 331.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][61], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][61], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][61], 548580095);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][61], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][61], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][61], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][61], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][61], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][61], 1);
+
+	Text_Player[playerid][62] = CreatePlayerTextDraw(playerid, 472.000, 331.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][62], 35.000, 35.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][62], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][62], -1131442177);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][62], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][62], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][62], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][62], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][62], 1);
+	PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][62], 1);
+
+	Text_Player[playerid][63] = CreatePlayerTextDraw(playerid, 541.000, 345.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][63], 17.000, 13.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][63], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][63], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][63], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][63], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][63], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][63], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][63], 1);
+
+	Text_Player[playerid][64] = CreatePlayerTextDraw(playerid, 543.000, 338.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][64], 12.000, 11.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][64], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][64], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][64], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][64], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][64], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][64], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][64], 1);
+
+	Text_Player[playerid][65] = CreatePlayerTextDraw(playerid, 493.000, 340.000, "/");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][65], -0.726, 1.699);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][65], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][65], 640034559);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][65], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][65], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][65], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][65], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][65], 1);
+
+	Text_Player[playerid][66] = CreatePlayerTextDraw(playerid, 481.000, 338.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][66], 12.000, 11.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][66], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][66], 640034559);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][66], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][66], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][66], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][66], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][66], 1);
+
+	Text_Player[playerid][67] = CreatePlayerTextDraw(playerid, 486.000, 348.000, "LD_BEAT:chit");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][67], 12.000, 11.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][67], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][67], 640034559);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][67], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][67], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][67], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][67], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][67], 1);
+
+	Text_Player[playerid][68] = CreatePlayerTextDraw(playerid, 485.000, 193.000, "GPS");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][68], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][68], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][68], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][68], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][68], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][68], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][68], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][68], 1);
+
+	Text_Player[playerid][69] = CreatePlayerTextDraw(playerid, 509.000, 193.000, "Cai dat");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][69], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][69], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][69], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][69], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][69], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][69], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][69], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][69], 1);
+
+	Text_Player[playerid][70] = CreatePlayerTextDraw(playerid, 540.000, 193.000, "Dich vu");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][70], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][70], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][70], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][70], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][70], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][70], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][70], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][70], 1);
+
+	Text_Player[playerid][71] = CreatePlayerTextDraw(playerid, 479.000, 229.000, "Aps Store");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][71], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][71], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][71], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][71], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][71], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][71], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][71], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][71], 1);
+
+	Text_Player[playerid][72] = CreatePlayerTextDraw(playerid, 512.000, 229.000, "Spotify");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][72], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][72], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][72], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][72], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][72], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][72], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][72], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][72], 1);
+
+	Text_Player[playerid][73] = CreatePlayerTextDraw(playerid, 538.000, 229.000, "Thoi gian");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][73], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][73], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][73], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][73], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][73], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][73], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][73], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][73], 1);
+
+	Text_Player[playerid][74] = CreatePlayerTextDraw(playerid, 476.000, 266.000, "Ngan hang");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][74], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][74], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][74], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][74], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][74], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][74], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][74], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][74], 1);
+
+	Text_Player[playerid][75] = CreatePlayerTextDraw(playerid, 512.000, 266.000, "Grab");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][75], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][75], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][75], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][75], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][75], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][75], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][75], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][75], 1);
+
+	Text_Player[playerid][76] = CreatePlayerTextDraw(playerid, 539.000, 266.000, "Camera");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][76], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][76], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][76], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][76], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][76], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][76], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][76], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][76], 1);
+
+	Text_Player[playerid][77] = CreatePlayerTextDraw(playerid, 477.000, 361.000, "Dien thoai");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][77], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][77], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][77], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][77], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][77], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][77], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][77], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][77], 1);
+
+	Text_Player[playerid][78] = CreatePlayerTextDraw(playerid, 509.000, 361.000, "Tin nhan");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][78], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][78], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][78], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][78], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][78], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][78], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][78], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][78], 1);
+
+	Text_Player[playerid][79] = CreatePlayerTextDraw(playerid, 540.000, 361.000, "Lien he");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][79], 0.158, 0.799);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][79], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][79], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][79], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][79], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][79], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][79], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][79], 1);
+
+	Text_Player[playerid][80] = CreatePlayerTextDraw(playerid, 511.000, 172.000, "HUD:radar_modGarage");
+	PlayerTextDrawTextSize(playerid, Text_Player[playerid][80], 15.000, 16.000);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][80], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][80], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][80], 0);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][80], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][80], 255);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][80], 4);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][80], 1);
+
+	Text_Player[playerid][81] = CreatePlayerTextDraw(playerid, 476.000, 147.000, "15:00");
+	PlayerTextDrawLetterSize(playerid, Text_Player[playerid][81], 0.170, 0.699);
+	PlayerTextDrawAlignment(playerid, Text_Player[playerid][81], 1);
+	PlayerTextDrawColour(playerid, Text_Player[playerid][81], -1);
+	PlayerTextDrawSetShadow(playerid, Text_Player[playerid][81], 1);
+	PlayerTextDrawSetOutline(playerid, Text_Player[playerid][81], 0);
+	PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][81], 150);
+	PlayerTextDrawFont(playerid, Text_Player[playerid][81], 1);
+	PlayerTextDrawSetProportional(playerid, Text_Player[playerid][81], 1);
+
+	return 1;
+}
+
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+	new string[1280];
+
+
+	if(dialogid == DIALOG_SACOMBANK)
+    {
+        if(response){
+            ShowPlayerDialog(playerid, DIALOG_THEBANK, DIALOG_STYLE_LIST, "Ban muon lam gi?","Quan ly the va tai khoan\nChuyen tien\nMo tai khoan thanh toan\nNap tien dien thoai","Chon", "Dong");
+		}
+	}
+
+	if(dialogid == DIALOG_THEBANK)
+    {
+        if(response)
+        {
+            if(listitem == 0)
+                pc_cmd_sacombank(playerid, "");
+            if(listitem == 1){
+                if(PlayerInfo[playerid][pSoTaiKhoan] != 0){
+                	ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "Vui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
+                }else SendClientMessage(playerid, COLOR_YELLOW, "Ban chua mo tai khoan thanh toan , vui long mo tai khoan thanh toan de su dung chuc nang nay!");
+			}
+			if(listitem == 2){
+			    if(PlayerInfo[playerid][pSoTaiKhoan] == 0)
+			    {
+	                if(PlayerInfo[playerid][pCash] > 500){
+	                    PlayerInfo[playerid][pCash] -= 500;
+
+	                    new sotaikhoan;
+		    			sotaikhoan = 100000 + random(999999);
+		    			PlayerInfo[playerid][pSoTaiKhoan] = sotaikhoan;
+						//UpdateMoTaiKhoanMission(playerid);
+
+						format(string, sizeof(string), "UPDATE accounts SET `SoTaiKhoan`=%d WHERE `UserName` = '%e'", PlayerInfo[playerid][pSoTaiKhoan], GetPlayerNameEx(playerid));
+						mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+		    			format(string,sizeof string,"Dang ky thanh cong the ngan hang\nSo tai khoan cua ban la: %d",sotaikhoan);
+		    			ShowPlayerDialog(playerid, DIALOG_NOTHING,DIALOG_STYLE_MSGBOX,"Dang ky",string,"Dong y","");
+	                }else SendClientMessage(playerid, COLOR_YELLOW, "Ban khong du 500$ de mo tai khoan ngan hang!");
+                }else SendClientMessage(playerid, COLOR_YELLOW, "Ban da kich hoat the ngan hang truoc do , khong the tiep tuc!");
+			}
+		}
+	}
+	
+	if(dialogid == DIALOG_CHUYENTIEN)
+    {
+        if(response) {
+    		if(!IsNumeric(inputtext) || strval(inputtext) < 123) return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "Vui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
+			new check;
+			if(strval(inputtext) == PlayerInfo[playerid][pSoTaiKhoan]) return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "Ban khong the chuyen tien cho minh\nVui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pSoTaiKhoan] == strval(inputtext)) {
+					SetPVarInt(playerid, "NguoiNhan", i);
+					format(string, sizeof string, "Ten chu the\t\t\t\t%s\nSo tai khoan\t\t\t\t%d\nBan hay nhap so tien muon giao dich o ben duoi", GetPlayerNameEx(i),strval(inputtext));
+					ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN1, DIALOG_STYLE_INPUT, "Chuyen tien", string, "Tuy chon", "Thoat");
+			   	    check = 1;
+				}
+			}
+			if(check == 0) {
+				format(string, sizeof(string), "SELECT `UserName`,`SoTaiKhoan` from accounts WHERE SoTaiKhoan = '%d'", strval(inputtext));
+				mysql_tquery(MainPipeline, string, "STK_check", "d", playerid);
+			}
+		}
+		else {
+			DeletePVar(playerid,"Offline");
+		}
+	}
+
+	if(dialogid == DIALOG_CHUYENTIEN2)
+    {
+        if(response) {
+    		if(GetPVarInt(playerid, "Offline") == 1) {
+				format(string, sizeof(string), "SELECT `UserName`,`SoTaiKhoan`,`Bank` from accounts WHERE SoTaiKhoan = '%d'", GetPVarInt(playerid, "STK"));
+				mysql_tquery(MainPipeline, string, "UpdateTK", "d", playerid);
+				new nguoinhan[24];
+				GetPVarString(playerid,"_NguoiNhan",nguoinhan,24);
+				DeletePVar(playerid,"Offline");
+				format(string, sizeof string, "[NGAN HANG] Ban da chuyen $%s vao tai khoan cua %s (STK: %d) ",number_format(GetPVarInt(playerid, "TienGD")),nguoinhan,GetPVarInt(playerid,"STK"));
+    		    SendClientMessage(playerid, COLOR_YELLOW2,string);
+				return 1;
+    		}
+    		new i = GetPVarInt(playerid, "NguoiNhan");
+    		PlayerInfo[playerid][pAccount] -= GetPVarInt(playerid, "TienGD");
+    		PlayerInfo[i][pAccount] += GetPVarInt(playerid, "TienGD");
+    		format(string, sizeof string, "[NGAN HANG] %s (STK: %d) da chuyen $%s vao tai khoan ngan hang cua ban", GetPlayerNameEx(playerid),PlayerInfo[playerid][pSoTaiKhoan],number_format(GetPVarInt(playerid, "TienGD")));
+    		SendClientMessage(i, COLOR_YELLOW2,string);
+    		format(string, sizeof string, "[NGAN HANG] Ban da chuyen $%s vao tai khoan cua %s (STK: %d) ",number_format(GetPVarInt(playerid, "TienGD")),GetPlayerNameEx(i),PlayerInfo[i][pSoTaiKhoan]);
+    		SendClientMessage(playerid, COLOR_YELLOW2,string);
+    	}
+	}
+
+	if(dialogid == DIALOG_CHUYENTIEN1)
+    {
+        if(response) {
+   			if(!IsNumeric(inputtext) || strval(inputtext) < 1 || strval(inputtext) > 1000000) return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "Vui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
+			if(PlayerInfo[playerid][pAccount] < strval(inputtext)) return SendClientMessageEx(playerid, COLOR_GREY,"Ban khong du tien trong vi khong the tiep tuc giao dich.");
+			SetPVarInt(playerid, "TienGD", strval(inputtext));
+
+			if(GetPVarInt(playerid, "Offline") == 1) {
+				new namez[24];
+				GetPVarString(playerid, "_NguoiNhan", namez, 24);
+				//new i = GetPVarInt(playerid, "NguoiNhan");
+				format(string, sizeof string, "Ten chu the\t\t\t\t%s\nSo tai khoan\t\t\t\t%d\nSo tien giao dich\t\t\t\t$%s\nPhi giao dich: $0\nSo tien du trong vi: %s",namez,GetPVarInt(playerid, "STK"),number_format(strval(inputtext)),number_format(PlayerInfo[playerid][pAccount]));
+				ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN2, DIALOG_STYLE_MSGBOX, "Xac nhan giao dich",string , "Xac nhan", "huy bo");
+		   	 	return 1;
+			}
+			new i = GetPVarInt(playerid, "NguoiNhan");
+			format(string, sizeof string, "Ten chu the\t\t\t\t%s\nSo tai khoan\t\t\t\t%d\nSo tien giao dich\t\t\t\t$%s\nPhi giao dich: $0\nSo tien du trong vi: %s", GetPlayerNameEx(i),PlayerInfo[i][pSoTaiKhoan],number_format(strval(inputtext)),number_format(PlayerInfo[playerid][pAccount]));
+			ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN2, DIALOG_STYLE_MSGBOX, "Xac nhan giao dich",string , "Xac nhan", "huy bo");
+		}
+		else {
+			DeletePVar(playerid,"Offline");
+		}
+	}
+
+    if(dialogid == DIALOG_DIENTHOAI)
+    {
+        if(response)
+        {
+            if(listitem == 0)
+            {
+    			if(PlayerInfo[playerid][pPhoneBook] == 0)
+        			return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban chua mua sim cho dien thoai.");
+                ShowPlayerDialog(playerid, DIALOG_CALL, DIALOG_STYLE_INPUT, "Ban muon goi dien cho ai?", "Ban vui long dien so dien thoai ban can goi vao o ben duoi nay:", "Dong y", "");
+            }
+            if(listitem == 1)
+            {
+                ShowOnlineCops(playerid);
+            }
+            if(listitem == 2)
+            {
+                ShowOnlineMedics(playerid);
+            }
+            if(listitem == 3) { //mechanic
+				//cmd_goisdt(playerid, "");
+				//ShowTDN(playerid, NOTIFICATION_WARNING, "Chuc nang dang duoc phat trien...");
+				HienTextdraw(playerid, "Chuc nang dang phat trien...");
+			}
+            if(listitem == 4)
+            {
+				ShowOnlineTaxiDrivers(playerid);
+            }
+        }
+	}
+	if(dialogid == DIALOG_LIST_COPS || dialogid == DIALOG_LIST_MEDICS || dialogid == DIALOG_LIST_TAXI)
+	{
+		if(!response) return 1;
+		
+		new varname[32];
+		format(varname, sizeof(varname), "SelectedPhone_%d", listitem);
+		new phonenumber = GetPVarInt(playerid, varname);
+		
+		new total = GetPVarInt(playerid, "TotalPhones");
+		
+		for(new i = 0; i < total; i++)
+		{
+			new debugVarname[32];
+			format(debugVarname, sizeof(debugVarname), "SelectedPhone_%d", i);
+		}
+		
+		if(phonenumber > 0)
+		{
+			new phonestr[12];
+			format(phonestr, sizeof(phonestr), "%d", phonenumber);
+			pc_cmd_call(playerid, phonestr);
+		}
+		else
+		{
+			new name[MAX_PLAYER_NAME];
+			GetPlayerName(playerid, name, sizeof(name));
+				
+			SendClientMessageEx(playerid, COLOR_GREY, "Vui long chon lai nguoi can goi.");
+		}
+		
+		// Xóa tất cả PVar sau khi sử dụng
+		for(new i = 0; i < total; i++)
+		{
+			format(varname, sizeof(varname), "SelectedPhone_%d", i);
+			DeletePVar(playerid, varname);
+		}
+		DeletePVar(playerid, "TotalPhones");
+		
+		return 1;
+	}
+	if(dialogid == DIALOG_SMS_PHONE)
+    {
+            if(!response) return 1;
+            
+            new phonenumber = strval(inputtext);
+            if(phonenumber == 0)
+            {
+                SendClientMessageEx(playerid, COLOR_GREY, "So dien thoai khong hop le!");
+                ShowPlayerDialog(playerid, DIALOG_SMS_PHONE, DIALOG_STYLE_INPUT, 
+                    "Gui tin nhan", "Nhap so dien thoai nguoi nhan:", "Tiep tuc", "Huy");
+                return 1;
+            }
+            
+            // Lưu số điện thoại và chuyển sang nhập nội dung
+            SetPVarInt(playerid, "SMS_Number", phonenumber);
+            ShowPlayerDialog(playerid, DIALOG_SMS_TEXT, DIALOG_STYLE_INPUT, 
+                "Gui tin nhan", "Nhap noi dung tin nhan:", "Gui", "Quay lai");
+            return 1;
+        }
+        
+	if(dialogid == DIALOG_SMS_TEXT)
+    {
+            if(!response)
+            {
+                // Quay lại nhập số điện thoại
+                DeletePVar(playerid, "SMS_Number");
+                ShowPlayerDialog(playerid, DIALOG_SMS_PHONE, DIALOG_STYLE_INPUT, 
+                    "Gui tin nhan", "Nhap so dien thoai nguoi nhan:", "Tiep tuc", "Huy");
+                return 1;
+            }
+            
+            if(strlen(inputtext) == 0)
+            {
+                SendClientMessageEx(playerid, COLOR_GREY, "Noi dung tin nhan khong duoc de trong!");
+                ShowPlayerDialog(playerid, DIALOG_SMS_TEXT, DIALOG_STYLE_INPUT, 
+                    "Gui tin nhan", "Nhap noi dung tin nhan:", "Gui", "Quay lai");
+                return 1;
+            }
+            
+            // Lấy số điện thoại đã lưu và gọi cmd gốc
+            new phonenumber = GetPVarInt(playerid, "SMS_Number");
+            new params[128];
+            format(params, sizeof(params), "%d %s", phonenumber, inputtext);
+            DeletePVar(playerid, "SMS_Number");
+            pc_cmd_sms(playerid, params);
+            return 1;
+        }
+	
+	if(dialogid == DIALOG_CALL && response == 1)
+	{
+    	if(strfind(inputtext, "%", true) != -1) {
+			return 1;
+		}
+		if(strfind(inputtext, "c", true) != -1) {
+			return 1;
+		}
+
+		new phonenumb = strval(inputtext);
+		//___________________________________________________________________________________________________//
+		if (PlayerInfo[playerid][pJailTime] > 0)
+		{
+			SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+			return 1;
+		}
+		if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+		{
+			SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+			return 1;
+		}
+		if(PlayerInfo[playerid][pPnumber] == 0)
+		{
+			SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+			return 1;
+		}
+		if(PhoneOnline[playerid] > 0)
+		{
+			SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+			return 1;
+		}
+		if(!strcmp(inputtext, "*101#", true)) {
+			pc_cmd_xemtiendt(playerid, "");
+			return 1;
+		}
+		if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+	   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+		}
+		format(string, sizeof(string), "* %s lay dien thoai ra va goi cho ai do.", GetPlayerNameEx(playerid));
+		ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+		/* if(phonenumb == 101)
+		{
+			cmd_xemtiendt(playerid, "");
+			return 1;
+		} */
+		if(phonenumb == PlayerInfo[playerid][pPnumber])
+		{
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+			return 1;
+		}
+		if(Mobile[playerid] != INVALID_PLAYER_ID)
+		{
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+			return 1;
+		}
+
+		foreach(new i: Player)
+		{
+			if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+			{
+				new giveplayerid = i;
+				Mobile[playerid] = giveplayerid; //caller connecting
+				if(IsPlayerConnected(giveplayerid))
+				{
+					if(giveplayerid != INVALID_PLAYER_ID)
+					{
+						if(PhoneOnline[giveplayerid] > 0)
+						{
+							SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+							return 1;
+						}
+						if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+						{
+							SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+							return 1;
+						}
+						if(Spectating[giveplayerid]!=0)
+						{
+							SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+							return 1;
+						}
+						if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+						{
+							format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+							PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							RingTone[giveplayerid] = 10;
+							format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+							SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+							ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+							new Float:rX, Float:rY, Float:rZ;
+							GetPlayerPos(giveplayerid, rX, rY, rZ);
+							CellTime[playerid] = 1;
+							SetPlayerAttachedObject(playerid, 9, 330, 6);
+							return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//________________________________________________________________________//
+	if(dialogid == DIALOG_DANHBA)
+    {
+        if(response)
+        {
+            if(listitem == 0)
+                ShowPlayerDialog(playerid, DANHBA_1, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+            if(listitem == 1)
+                ShowPlayerDialog(playerid, DANHBA_2, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+            if(listitem == 2)
+                ShowPlayerDialog(playerid, DANHBA_3, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+            if(listitem == 3)
+                ShowPlayerDialog(playerid, DANHBA_4, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+            if(listitem == 4)
+                ShowPlayerDialog(playerid, DANHBA_5, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+            if(listitem == 5)
+                ShowPlayerDialog(playerid, DANHBA_6, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+            if(listitem == 6)
+                ShowPlayerDialog(playerid, DANHBA_7, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+            if(listitem == 7)
+                ShowPlayerDialog(playerid, DANHBA_8, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+            if(listitem == 8)
+                ShowPlayerDialog(playerid, DANHBA_9, DIALOG_STYLE_LIST, "Danh ba dien thoai cua ban","Goi\nNhan tin\nSua\nXoa","Chon", "Dong");
+        }
+	}
+
+	//________________________________________________________________________//
+	if(dialogid == DANHBA_1)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT1] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa1]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT1]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_1, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT1] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_1, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_1, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT1] = 0;
+	            format(PlayerInfo[playerid][pDanhBa1], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_1)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT1];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_1)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT1];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_1)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa1], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa1`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_1_1, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_1_1)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_1_1, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT1] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT1`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT1], PlayerInfo[playerid][pDanhBa1]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+
+    //________________________________________________________________________//
+	if(dialogid == DANHBA_2)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT2] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa2]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT2]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_2, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT2] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_2, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_2, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT2] = 0;
+	            format(PlayerInfo[playerid][pDanhBa2], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_2)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT2];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_2)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT2];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_2)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa2], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa2`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_2_2, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_2_2)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_2_2, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT2] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT2`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT2], PlayerInfo[playerid][pDanhBa2]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+
+    //________________________________________________________________________//
+	if(dialogid == DANHBA_3)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT3] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa3]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT3]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_3, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT3] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_3, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_3, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT3] = 0;
+	            format(PlayerInfo[playerid][pDanhBa3], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_3)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT3];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_3)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT3];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_3)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa3], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa3`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_3_3, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_3_3)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_3_3, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT3] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT3`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT3], PlayerInfo[playerid][pDanhBa3]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+
+    //________________________________________________________________________//
+	if(dialogid == DANHBA_4)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT4] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa4]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT4]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_4, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT4] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_4, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_4, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT4] = 0;
+	            format(PlayerInfo[playerid][pDanhBa4], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_4)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT4];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_4)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT4];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_4)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa4], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa4`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_4_4, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_4_4)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_4_4, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT4] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT4`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT4], PlayerInfo[playerid][pDanhBa4]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+
+    //________________________________________________________________________//
+	if(dialogid == DANHBA_5)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT5] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa5]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT5]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_5, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT5] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_5, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_5, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT5] = 0;
+	            format(PlayerInfo[playerid][pDanhBa5], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_5)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT5];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_5)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT5];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_5)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa5], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa5`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_5_5, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_5_5)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_5_5, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT5] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT5`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT5], PlayerInfo[playerid][pDanhBa5]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+
+    //________________________________________________________________________//
+	if(dialogid == DANHBA_6)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT6] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa6]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT6]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_6, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT6] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_6, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_6, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT6] = 0;
+	            format(PlayerInfo[playerid][pDanhBa6], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_6)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT6];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_6)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT6];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_6)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa6], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa6`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_6_6, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_6_6)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_6_6, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT6] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT6`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT6], PlayerInfo[playerid][pDanhBa6]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+
+    //________________________________________________________________________//
+	if(dialogid == DANHBA_7)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT7] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa7]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT7]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_7, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT7] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_7, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_7, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT7] = 0;
+	            format(PlayerInfo[playerid][pDanhBa7], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_7)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT7];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_7)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT7];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_7)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa7], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa7`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_7_7, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_7_7)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_7_7, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT7] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT7`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT7], PlayerInfo[playerid][pDanhBa7]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+
+    //________________________________________________________________________//
+	if(dialogid == DANHBA_8)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT8] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa8]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT8]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_8, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT8] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_8, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_8, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT8] = 0;
+	            format(PlayerInfo[playerid][pDanhBa8], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_8)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT8];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_8)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT8];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_8)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa8], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa8`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_8_8, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_8_8)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_8_8, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT8] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT8`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT8], PlayerInfo[playerid][pDanhBa8]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+
+    //________________________________________________________________________//
+	if(dialogid == DANHBA_9)
+    {
+        if(response)
+        {
+            if(listitem == 0){ // GOI
+				if(PlayerInfo[playerid][pSDT9] != 0){
+				    new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], name[1280];
+					format(str1, sizeof(str), "THONG TIN CUOC GOI : ");
+				    format(str2, sizeof(str), "    -> Ten nguoi nhan : %s", PlayerInfo[playerid][pDanhBa9]);
+				    format(str3, sizeof(str), "    -> SDT : %d", PlayerInfo[playerid][pSDT9]);
+				    format(str4, sizeof(str), "Neu ban muon goi dien cho nguoi nay, vui long nhan 'Goi ngay' de bat dau cuoc goi");
+				    format(str, sizeof(str), "%s\n\n%s\n%s\n%s", str1,str2,str3,str4);
+				    format(name, sizeof(name), "DIEN THOAI");
+					ShowPlayerDialog(playerid, GOIDIEN_9, DIALOG_STYLE_MSGBOX, name, str, "Goi ngay", "Huy Bo");
+					return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de goi dien...","Dong y", "");
+            }
+            if(listitem == 1){ // NHAN TIN
+				if(PlayerInfo[playerid][pSDT9] != 0){
+				    ShowPlayerDialog(playerid, NHANTIN_9, DIALOG_STYLE_INPUT, "Nhan tin", "Vui long nhap tin nhan", "Gui", "Huy");
+				    return 1;
+				}else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "DIEN THOAI","Hien tai danh ba nay van dang con trong , ban vui long them nguoi than vao danh ba slot nay de nhan tin...","Dong y", "");
+            }
+            if(listitem == 2){ // EDIT DANH BA
+                ShowPlayerDialog(playerid, EDITDB_9, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien ten hien thi", "Tiep Tuc", "Tro lai");
+                return 1;
+			}
+			if(listitem == 3){ // XOA DANH BA
+	            PlayerInfo[playerid][pSDT9] = 0;
+	            format(PlayerInfo[playerid][pDanhBa9], 32, "None");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da xoa danh ba thanh cong !.");
+			}
+        }
+	}
+
+	if(dialogid == GOIDIEN_9)
+    {
+        if(response){
+            new phonenumb = PlayerInfo[playerid][pSDT9];
+            if (PlayerInfo[playerid][pJailTime] > 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai khi dang o trong tu.");
+				return 1;
+			}
+			if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0)
+			{
+				SendClientMessageEx(playerid,COLOR_GREY,"Ban khong the su dung dien thoai.");
+				return 1;
+			}
+			if(PlayerInfo[playerid][pPnumber] == 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
+				return 1;
+			}
+			if(PhoneOnline[playerid] > 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+				return 1;
+			}
+			if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen")) {
+		   		return SendClientMessage(playerid, COLOR_GRAD2, "Ban khong the lam dieu do vao luc nay!");
+			}
+			format(string, sizeof(string), "* %s lay dien thoai di dong tu tui quan ra.", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			if(phonenumb == PlayerInfo[playerid][pPnumber])
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Dien thoai nguoi do dang ban...");
+				return 1;
+			}
+			if(Mobile[playerid] != INVALID_PLAYER_ID)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban dang co mot cuoc goi...");
+				return 1;
+			}
+
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if(Spectating[giveplayerid]!=0)
+							{
+								SendClientMessageEx(playerid, COLOR_GRAD2, "Dien thoai nguoi do dang ban...");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							if (Mobile[giveplayerid] == INVALID_PLAYER_ID)
+							{
+								format(string, sizeof(string), "Dien thoai di dong cua ban dang vang len - su dung /p de tra loi. [Nguoi goi: %s]", GetPlayerNameEx(playerid));
+								PlayerPlaySound(playerid, 23000, 0.0, 0.0, 0.0);
+								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+								RingTone[giveplayerid] = 10;
+								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+								new Float:rX, Float:rY, Float:rZ;
+								GetPlayerPos(giveplayerid, rX, rY, rZ);
+								CellTime[playerid] = 1;
+								SetPlayerAttachedObject(playerid, 9, 330, 6);
+								return SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+							}
+						}
+					}
+				}
+			}
+        }
+    }
+
+    if(dialogid == NHANTIN_9)
+    {
+       if(response)
+       {
+			new phonenumb = PlayerInfo[playerid][pSDT9];
+    	    if(Spectating[playerid] == 0)
+			{
+				format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+			}
+
+			if(phonenumb == 555)
+			{
+				if ((strcmp("yes", inputtext, true, strlen(inputtext)) == 0) && (strlen(inputtext) == strlen("yes")))
+				{
+					SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+					RingTone[playerid] = 20;
+					return 1;
+				}
+			}
+			foreach(new i: Player)
+			{
+				if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+				{
+					new giveplayerid = i;
+					if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+						return 1;
+					}
+					Mobile[playerid] = giveplayerid; //caller connecting
+					if(IsPlayerConnected(giveplayerid))
+					{
+						if(giveplayerid != INVALID_PLAYER_ID)
+						{
+
+							if(PhoneOnline[giveplayerid] > 0)
+							{
+								SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+								Mobile[playerid] = INVALID_PLAYER_ID;
+								return 1;
+							}
+							foreach(new u: Player)
+				    		{
+				        		if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+				        		{
+		       						format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), inputtext);
+									SendClientMessageEx(u,COLOR_YELLOW, string);
+								}
+							}
+							if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", inputtext, GetPlayerNameEx(playerid));
+							}
+							else
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", inputtext, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+							}
+
+							if(i != playerid)
+							{
+								if(PlayerInfo[i][pSmslog] > 0)
+								{
+									new query[384], ftext[128];
+									mysql_escape_string(inputtext, ftext);
+									if(PlayerInfo[playerid][pPhonePrivacy] == 1) format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									else format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())", GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+									mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+								}
+							}
+
+							RingTone[giveplayerid] =20;
+							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+							Mobile[playerid] = INVALID_PLAYER_ID;
+
+							if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+							{
+								format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+								SendClientMessageEx(playerid, COLOR_YELLOW, string);
+							}
+
+							return 1;
+						}
+					}
+				}
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
+       }
+    }
+
+    if(dialogid == EDITDB_9)
+    {
+        if(response)
+		{
+			strmid(PlayerInfo[playerid][pDanhBa9], inputtext, 0, strlen(inputtext), 128);
+			format(string, sizeof(string), "UPDATE `accounts` SET `DanhBa9`='%s' WHERE `id`=%d", inputtext, GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+			ShowPlayerDialog(playerid, EDITDB_9_9, DIALOG_STYLE_INPUT, "Them/Sua so dien thoai", "Vui long dien so dien thoai", "Tiep Tuc", "Tro lai");
+        }
+	}
+
+	if(dialogid == EDITDB_9_9)
+    {
+		if(response)
+		{
+			new sdtdanhba = strval(inputtext);
+
+			if(~strfind(inputtext, ";") || ~strfind(inputtext, ",") || ~strfind(inputtext, "'") || ~strfind(inputtext, ":") ||
+			~strfind(inputtext, "|") || ~strfind(inputtext, "{") || ~strfind(inputtext, "}") || ~strfind(inputtext, "+") ||
+			~strfind(inputtext, "?") || ~strfind(inputtext, "/")  || ~strfind(inputtext, " ") ||
+			~strfind(inputtext, "@") || ~strfind(inputtext, "[") || ~strfind(inputtext, "]") || ~strfind(inputtext, "<") ||
+			~strfind(inputtext, ">") || ~strfind(inputtext, "!") || ~strfind(inputtext, "#") || ~strfind(inputtext, "^") ||
+			~strfind(inputtext, "*") || ~strfind(inputtext, "&") || ~strfind(inputtext, "q") || ~strfind(inputtext, "w") ||
+			~strfind(inputtext, "e") || ~strfind(inputtext, "r") || ~strfind(inputtext, "t") || ~strfind(inputtext, "y") ||
+			~strfind(inputtext, "u") || ~strfind(inputtext, "i") || ~strfind(inputtext, "o") || ~strfind(inputtext, "p") ||
+			~strfind(inputtext, "a") || ~strfind(inputtext, "s") || ~strfind(inputtext, "d") || ~strfind(inputtext, "f") ||
+			~strfind(inputtext, "g") || ~strfind(inputtext, "h") || ~strfind(inputtext, "j") || ~strfind(inputtext, "k") ||
+			~strfind(inputtext, "l") || ~strfind(inputtext, "z") || ~strfind(inputtext, "x") || ~strfind(inputtext, "c") ||
+			~strfind(inputtext, "v") || ~strfind(inputtext, "b") || ~strfind(inputtext, "n") || ~strfind(inputtext, "m") ||
+			~strfind(inputtext, "(") || ~strfind(inputtext, ")") || ~strfind(inputtext, ".") || ~strfind(inputtext, "%")) return ShowPlayerDialog(playerid, EDITDB_9_9, DIALOG_STYLE_INPUT,"{ff0000}[!]","{ff0000}Vui long nhap so dien thoai bang so.","Chap nhan","Thoat");
+
+			PlayerInfo[playerid][pSDT9] = sdtdanhba;
+
+			format(string, sizeof(string), "UPDATE `accounts` SET `SDT9`=%d WHERE `id` = %d",number_format(sdtdanhba), GetPlayerSQLId(playerid));
+			mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+			format(string, sizeof(string), "Ban da them thanh cong so dien thoai %d duoi ten %s.",PlayerInfo[playerid][pSDT9], PlayerInfo[playerid][pDanhBa9]);
+			SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		}
+    }
+	return 1;
+}
