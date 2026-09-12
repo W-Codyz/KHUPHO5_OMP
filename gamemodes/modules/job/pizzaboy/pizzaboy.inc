@@ -33,14 +33,17 @@ CMD:laybanh(playerid, params[]) {
 
 		new rand = random(MAX_HOUSES - 1), i;
 
-		while(!(HouseInfo[rand][hOwned] && HouseInfo[rand][hExteriorZ] <= 100 && HouseInfo[rand][hExteriorX] > -2802.389648 && HouseInfo[rand][hExteriorX] < -1400.710327 && HouseInfo[rand][hExteriorY] < 2800 && HouseInfo[rand][hExteriorY] > -216.298019)) {
+		while(!(HouseInfo[rand][hOwned] && HouseInfo[rand][hExteriorZ] <= 100 && HouseInfo[rand][hExteriorX] > -2802.389648 && HouseInfo[rand][hExteriorX] < -1400.710327 && HouseInfo[rand][hExteriorY] < 2800 && HouseInfo[rand][hExteriorY] > -216.298019)) 
+		{
 			rand = random(MAX_HOUSES - rand);
 
 			if(rand < 0) rand = 0;
-			if (i++ > MAX_HOUSES) 
+			if (i++ > MAX_HOUSES)
+			{
 				SendClientMessageEx(playerid, COLOR_GREY, "Khong tim thay don hang Pizza nao!");
 				ShowTDN(playerid, NOTIFICATION_WARNING, "Khong tim thay don hang Pizza nao!");
 				return 1;
+			}
 		}
 
 		new
