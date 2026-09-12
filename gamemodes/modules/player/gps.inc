@@ -245,12 +245,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			if(listitem == 2) //Boc vac
 			{
-			    HienTextdraw(playerid, "~y~Boc Vac~w~ Cong viec hien tai dang bao tri.");
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -1710.7943, 7.6406, 3.5547, 3.0);
+				gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
                 return 1;
 			}
 			if(listitem == 3) //Xay dung
-			{
-			    HienTextdraw(playerid, "~y~Xay Dung~w~ Cong viec hien tai dang bao tri.");
+			{	
+				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+				SetPlayerCP(playerid, -2071.5452, 227.5330, 36.1192, 3.0);
+				gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
                 return 1;
 			}
 			if(listitem == 4) // son tuong
