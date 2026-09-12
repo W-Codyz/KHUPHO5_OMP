@@ -27,11 +27,33 @@ Construction_Stop(playerid)
     return 1;
 }
 
+// Xử lý khi người chơi rời khỏi vị trí làm việc -> thất bại
+stock Construction_LoadingFailed(playerid)
+{
+    TogglePlayerControllable(playerid, true);
+    ClearAnimations(playerid, SYNC_ALL);
+    if(IsPlayerAttachedObjectSlotUsed(playerid, 9)) {
+        RemovePlayerAttachedObject(playerid, 9);
+    }
+    DeletePVar(playerid, "ConstructionID");
+    Construction_Stop(playerid);
+    Construction_Start(playerid);
+    SendClientMessage(playerid, COLOR_RED, "Xay dung that bai vi ban da roi khoi vi tri lam viec.");
+    ShowTDN(playerid, NOTIFICATION_WARNING, "Xay dung that bai.");
+    return 1;
+}
+
 forward ConstructionLoader(playerid);
 public ConstructionLoader(playerid)
 {
     new consId = GetPVarInt(playerid, "ConstructionID");
     if(consId >= 0 && consId < sizeof(ConstructionPos)) {
+        // Kiểm tra vị trí lần cuối trước khi hoàn thành
+        if(!IsPlayerInRangeOfPoint(playerid, 3.0, ConstructionPos[consId][0], ConstructionPos[consId][1], ConstructionPos[consId][2])) {
+            Construction_LoadingFailed(playerid);
+            return 1;
+        }
+
         if(IsPlayerAttachedObjectSlotUsed(playerid, 9)) {
             RemovePlayerAttachedObject(playerid, 9);
         }
@@ -109,9 +131,9 @@ hook OnPlayerEnterCheckpoint(playerid)
                         SetPlayerAttachedObject(playerid, 9, 18635, 6);
                     }
                 }
-                TogglePlayerControllable(playerid, true);
+                //TogglePlayerControllable(playerid, true);
                 SetLoading(playerid, 20000, "Dang xay dung...", "ConstructionLoader");
-                
+
                 return 1;
             }
         }
