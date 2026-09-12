@@ -595,6 +595,26 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "pNuoc", szResult, MainPipeline); PlayerInfo[extraid][pNuoc] = strval(szResult);
 					cache_get_field_content(row,  "pCanSa", szResult, MainPipeline); PlayerInfo[extraid][pCanSa] = strval(szResult);
 					cache_get_field_content(row,  "pTepCanSa", szResult, MainPipeline); PlayerInfo[extraid][pTepCanSa] = strval(szResult);
+
+					cache_get_field_content(row,  "SoTaiKhoan", szResult, MainPipeline); PlayerInfo[extraid][pSoTaiKhoan] = strval(szResult);
+					cache_get_field_content(row,  "DanhBa1", PlayerInfo[extraid][pDanhBa1], MainPipeline, 64);
+					cache_get_field_content(row,  "DanhBa2", PlayerInfo[extraid][pDanhBa2], MainPipeline, 64);
+					cache_get_field_content(row,  "DanhBa3", PlayerInfo[extraid][pDanhBa3], MainPipeline, 64);
+					cache_get_field_content(row,  "DanhBa4", PlayerInfo[extraid][pDanhBa4], MainPipeline, 64);
+					cache_get_field_content(row,  "DanhBa5", PlayerInfo[extraid][pDanhBa5], MainPipeline, 64);
+					cache_get_field_content(row,  "DanhBa6", PlayerInfo[extraid][pDanhBa6], MainPipeline, 64);
+					cache_get_field_content(row,  "DanhBa7", PlayerInfo[extraid][pDanhBa7], MainPipeline, 64);
+					cache_get_field_content(row,  "DanhBa8", PlayerInfo[extraid][pDanhBa8], MainPipeline, 64);
+					cache_get_field_content(row,  "DanhBa9", PlayerInfo[extraid][pDanhBa9], MainPipeline, 64);
+					cache_get_field_content(row,  "SDT1", szResult, MainPipeline); PlayerInfo[extraid][pSDT1] = strval(szResult);
+					cache_get_field_content(row,  "SDT2", szResult, MainPipeline); PlayerInfo[extraid][pSDT2] = strval(szResult);
+					cache_get_field_content(row,  "SDT3", szResult, MainPipeline); PlayerInfo[extraid][pSDT3] = strval(szResult);
+					cache_get_field_content(row,  "SDT4", szResult, MainPipeline); PlayerInfo[extraid][pSDT4] = strval(szResult);
+					cache_get_field_content(row,  "SDT5", szResult, MainPipeline); PlayerInfo[extraid][pSDT5] = strval(szResult);
+					cache_get_field_content(row,  "SDT6", szResult, MainPipeline); PlayerInfo[extraid][pSDT6] = strval(szResult);
+					cache_get_field_content(row,  "SDT7", szResult, MainPipeline); PlayerInfo[extraid][pSDT7] = strval(szResult);
+					cache_get_field_content(row,  "SDT8", szResult, MainPipeline); PlayerInfo[extraid][pSDT8] = strval(szResult);
+					cache_get_field_content(row,  "SDT9", szResult, MainPipeline); PlayerInfo[extraid][pSDT9] = strval(szResult);
 					
 					//gg
 					cache_get_field_content(row,  "DiscordCode", szResult, MainPipeline); PlayerInfo[extraid][pDiscordCode] = strval(szResult);
@@ -3141,6 +3161,16 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "InvType", PlayerInfo[playerid][pInvType]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "DiscordCode", PlayerInfo[playerid][pDiscordCode]);
 	SavePlayerString(query, GetPlayerSQLId(playerid), "DiscordID", PlayerInfo[playerid][pDiscordID]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoTaiKhoan", PlayerInfo[playerid][pSoTaiKhoan]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT1", PlayerInfo[playerid][pSDT1]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT2", PlayerInfo[playerid][pSDT2]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT3", PlayerInfo[playerid][pSDT3]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT4", PlayerInfo[playerid][pSDT4]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT5", PlayerInfo[playerid][pSDT5]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT6", PlayerInfo[playerid][pSDT6]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT7", PlayerInfo[playerid][pSDT7]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT8", PlayerInfo[playerid][pSDT8]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "SDT9", PlayerInfo[playerid][pSDT9]);
 	
 	//gg
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "HUDInfo", PlayerInfo[playerid][pHUDInfo]);

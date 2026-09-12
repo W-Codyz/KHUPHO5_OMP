@@ -975,7 +975,27 @@ enum pInfo
 	pGoThuong,
 	pGoXin,
 	pGoHiem,
-	pHUDInfo
+	pHUDInfo,
+	
+	pSoTaiKhoan,
+    pDanhBa1[64],
+    pDanhBa2[64],
+    pDanhBa3[64],
+    pDanhBa4[64],
+    pDanhBa5[64],
+    pDanhBa6[64],
+    pDanhBa7[64],
+    pDanhBa8[64],
+    pDanhBa9[64],
+	pSDT1,
+    pSDT2,
+    pSDT3,
+    pSDT4,
+    pSDT5,
+    pSDT6,
+    pSDT7,
+    pSDT8,
+    pSDT9
 
 
 	//enum pinfo
