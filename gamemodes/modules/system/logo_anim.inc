@@ -118,7 +118,7 @@ stock CreateTextDrawNamaServer(playerid)
     NamaServer[playerid][0] = CreatePlayerTextDraw(playerid, 491.000, 8.000, "GTAHTB.ONLINE");
 	PlayerTextDrawLetterSize(playerid, NamaServer[playerid][0], 0.180, 1.098);
 	PlayerTextDrawAlignment(playerid, NamaServer[playerid][0], 1);
-	PlayerTextDrawColor(playerid, NamaServer[playerid][0], -1);
+	PlayerTextDrawColour(playerid, NamaServer[playerid][0], -1);
 	PlayerTextDrawSetShadow(playerid, NamaServer[playerid][0], 0);
 	PlayerTextDrawSetOutline(playerid, NamaServer[playerid][0], 0);
 	PlayerTextDrawBackgroundColor(playerid, NamaServer[playerid][0], 150);

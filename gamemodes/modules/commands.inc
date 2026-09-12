@@ -17877,7 +17877,7 @@ CMD:changeuserpin(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1337)
 	{
-        ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
         return 1;
     }
 
@@ -17912,7 +17912,7 @@ CMD:changeuserpassword(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 1337)
 	{
-        ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
         return 1;
     }
 
@@ -19337,7 +19337,7 @@ CMD:banaccount(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4)
 	{
-		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 		return 1;
 	}
 
@@ -19495,7 +19495,7 @@ CMD:unban(playerid, params[])
 	}
 	else
 	{
-		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	}
 	return 1;
 }
@@ -19561,7 +19561,7 @@ CMD:osetrmutes(playerid, params[]) {
 		}
 		else SendClientMessageEx(playerid, COLOR_GRAD1, "Mutes cannot be set to less than zero.");
 	}
-	else ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+	else ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -21705,7 +21705,7 @@ CMD:oipcheck(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 3)
 	{
-		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 		return 1;
 	}
 
@@ -23290,7 +23290,7 @@ CMD:checkinv(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 3)
 	{
-		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 		return 1;
 	}
 
@@ -26009,7 +26009,7 @@ CMD:call(playerid, params[])
 }
 
 alias:sms("txt", "t")
-CMD:sms(playerid, params[])
+/* CMD:sms(playerid, params[])
 {
 	if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "   Ban chua dang nhap!");
 	if(PlayerInfo[playerid][pPnumber] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban khong co dien thoai di dong.");
@@ -26122,6 +26122,149 @@ CMD:sms(playerid, params[])
 	}
 	SendClientMessageEx(playerid, COLOR_GRAD2, "  Gui tin nhan that bai...");
 	return 1;
+} */
+
+CMD:sms(playerid, params[])
+{
+    // Kiểm tra các điều kiện như cmd gốc
+    if(gPlayerLogged{playerid} == 0) return SendClientMessageEx(playerid, COLOR_GREY, "Ban chua dang nhap!");
+    if(PlayerInfo[playerid][pPnumber] == 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai di dong.");
+    if(PhoneOnline[playerid] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua ban dang tat.");
+    if(GetPVarInt(playerid, "Injured") != 0 || PlayerInfo[playerid][pHospital] != 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
+    if(PlayerTied[playerid] != 0 || PlayerCuffed[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the su dung dien thoai di dong.");
+    if(PlayerInfo[playerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the su dung dien thoai trong tu!");
+
+    // Nếu có params thì chạy như cmd gốc
+    if(strlen(params) > 0)
+    {
+        new phonenumb, text[100];
+        if(sscanf(params, "ds[100]", phonenumb, text)) 
+        {
+            // Hiển thị dialog nếu syntax sai
+            ShowPlayerDialog(playerid, DIALOG_SMS_PHONE, DIALOG_STYLE_INPUT, 
+                "Gui tin nhan", "Nhap so dien thoai nguoi nhan:", "Tiep tuc", "Huy");
+            return 1;
+        }
+        
+        // Animation lấy điện thoại
+        if(Spectating[playerid] == 0)
+        {
+            new string[128];
+            format(string, sizeof(string), "* %s lay dien thoai di dong tu trong tui quan.", GetPlayerNameEx(playerid));
+            ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+        }
+
+        if(phonenumb == 555)
+        {
+            if((strcmp("yes", text, true, strlen(text)) == 0) && (strlen(text) == strlen("yes")))
+            {
+                SendClientMessageEx(playerid, COLOR_WHITE, "Tin nhan van ban.");
+                SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+                RingTone[playerid] = 20;
+                return 1;
+            }
+            else
+            {
+                SendClientMessageEx(playerid, COLOR_YELLOW, "SMS: Toi dang theo doi ban, Sender: MOLE (555)");
+                RingTone[playerid] = 20;
+                return 1;
+            }
+        }
+
+        new bool:found = false;
+        foreach(new i: Player)
+        {
+            if(PlayerInfo[i][pPnumber] == phonenumb && phonenumb != 0)
+            {
+                found = true;
+                new giveplayerid = i;
+                if(Mobile[giveplayerid] != INVALID_PLAYER_ID)
+                {
+                    SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang ban.");
+                    return 1;
+                }
+                Mobile[playerid] = giveplayerid; //caller connecting
+                if(IsPlayerConnected(giveplayerid))
+                {
+                    if(giveplayerid != INVALID_PLAYER_ID)
+                    {
+                        new string[128];
+
+                        if(PhoneOnline[giveplayerid] > 0)
+                        {
+                            SendClientMessageEx(playerid, COLOR_GREY, "Dien thoai cua nguoi do dang tat.");
+                            Mobile[playerid] = INVALID_PLAYER_ID;
+                            return 1;
+                        }
+                        foreach(new u: Player)
+                        {
+                            if(GetPVarInt(u, "BigEar") == 6 && (GetPVarInt(u, "BigEarPlayer") == playerid || GetPVarInt(u, "BigEarPlayer") == giveplayerid))
+                            {
+                                format(string, sizeof(string), "(BE) %s SMS cho %s: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), text);
+                                SendClientMessageEx(u,COLOR_YELLOW, string);
+                            }
+                        }
+                        if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+                        {
+                            format(string, sizeof(string), "SMS: %s, Nguoi gui: Khong biet.", text);
+                        }
+                        else
+                        {
+                            format(string, sizeof(string), "SMS: %s, Nguoi gui: %s (%d)", text, GetPlayerNameEx(playerid), PlayerInfo[playerid][pPnumber]);
+                        }
+
+                        if(i != playerid)
+                        {
+                            if(PlayerInfo[i][pSmslog] > 0)
+                            {
+                                new query[384], ftext[128];
+                                mysql_escape_string(text, ftext);
+                                if(PlayerInfo[playerid][pPhonePrivacy] == 1)
+                                {
+                                    format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, 0, '%s', %d, %d, '%s', NOW())",
+                                        GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+                                }
+                                else
+                                {
+                                    format(query, sizeof(query), "INSERT INTO `sms` (`id`, `sender`, `senderid`, `sendernumber`, `receiver`, `receiverid`, `receivernumber`, `message`, `date`) VALUES (NULL, '%s', %d, %d, '%s', %d, %d, '%s', NOW())",
+                                        GetPlayerNameExt(playerid), GetPlayerSQLId(playerid), PlayerInfo[playerid][pPnumber], GetPlayerNameExt(i), GetPlayerSQLId(i), phonenumb, ftext);
+                                }
+                                mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
+                            }
+                        }
+
+                        RingTone[giveplayerid] = 20;
+                        SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
+                        SendClientMessageEx(playerid, COLOR_YELLOW, string);
+                        SendClientMessageEx(playerid, COLOR_WHITE, "Gui tin nhan van ban");
+                        format(string, sizeof(string), "~r~$-%d", 25);
+                        GameTextForPlayer(playerid, string, 5000, 1);
+                        GivePlayerCash(playerid,-25);
+                        Mobile[playerid] = INVALID_PLAYER_ID;
+
+                        if(strcmp(PlayerInfo[giveplayerid][pAutoTextReply], "Nothing", true) != 0)
+                        {
+                            format(string, sizeof(string), "SMS: %s, Nguoi gui: %s [automated response] (%d)", PlayerInfo[giveplayerid][pAutoTextReply], GetPlayerNameEx(giveplayerid), PlayerInfo[giveplayerid][pPnumber]);
+                            SendClientMessageEx(playerid, COLOR_YELLOW, string);
+                        }
+                        return 1;
+                    }
+                }
+            }
+        }
+        if(!found)
+        {
+            SendClientMessageEx(playerid, COLOR_GRAD2, "Gui tin nhan that bai...");
+        }
+        return 1;
+    }
+    else
+    {
+        // Nếu không có params thì hiển thị dialog
+        ShowPlayerDialog(playerid, DIALOG_SMS_PHONE, DIALOG_STYLE_INPUT, 
+            "Gui tin nhan", "Nhap so dien thoai nguoi nhan:", "Tiep tuc", "Huy");
+    }
+    return 1;
 }
 
 alias:pickup("p")
@@ -27690,7 +27833,7 @@ CMD:ddowner(playerid, params[])
 			mysql_function_query(MainPipeline, query, true, "OnSetDDOwner", "ii", playerid, doorid);
 		}
 	}
-	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+	else return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -32912,7 +33055,7 @@ CMD:okills(playerid, params[])
 		format(query, sizeof(query), "SELECT `id` FROM `accounts` WHERE `Username` = '%s'", tmpName);
 		mysql_function_query(MainPipeline, query, true, "OnGetOKills", "i", playerid);
 	}
-	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+	else return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -33656,7 +33799,7 @@ CMD:owarn(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 3)
 	{
-		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 		return 1;
 	}
 
@@ -39337,7 +39480,7 @@ CMD:lucsoat(playerid, params[])
 					}
 				}
 
-				if(PlayerInfo[giveplayerid][pPhoneBook] > 0) SendClientMessageEx(playerid, COLOR_GREY, "Danh ba dien thoai.");
+				if(PlayerInfo[giveplayerid][pPhoneBook] > 0) SendClientMessageEx(playerid, COLOR_GREY, "Sim dien thoai.");
 				if(PlayerInfo[giveplayerid][pCDPlayer] > 0) SendClientMessageEx(playerid, COLOR_GREY, "May ghe nhac.");
 				new weaponname[50];
 				format(string, sizeof(string), "*** %s' vu khi...  ***", GetPlayerNameEx(giveplayerid));
@@ -45945,7 +46088,7 @@ CMD:fmute(playerid, params[])
 		}
 		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
 	}
-	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+	else return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -45979,7 +46122,7 @@ CMD:funmute(playerid, params[])
 		}
 		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
 	}
-	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+	else return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -46012,7 +46155,7 @@ CMD:setfamed(playerid, params[])
 		}
 		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
 	}
-	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+	else return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -46047,7 +46190,7 @@ CMD:osetfamed(playerid, params[])
  			SendClientMessageEx(playerid, COLOR_YELLOW, "Xin vui long cho...");
  		}
  	}
- 	else return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+ 	else return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
  	return 1;
 }
 
@@ -46170,7 +46313,7 @@ CMD:mods(playerid, params[])
 		ShowPlayerDialog(playerid, 0, DIALOG_STYLE_LIST, "Moderators dang Online", string, "Dong", "");
 	}
 	else
-		return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+		return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -46852,7 +46995,7 @@ CMD:createbackpack(playerid, params[])
 	}
 	else
 	{
-		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	}
 	return true;
 }
@@ -46870,7 +47013,7 @@ CMD:starthunger(playerid, params[])
 	}
 	else
 	{
-		ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
 	}
 	return true;
 }
@@ -49542,7 +49685,7 @@ CMD:map(playerid, params[])
 CMD:tuido(playerid, params[])
 {
 	//HienTextdraw(playerid, "Lenh dang bao tri!!");
-	ShowTDN(playerid, NOTIFICATION_ERROR, "Lenh dang bao tri!!");
+	ShowTDN(playerid, NOTIFICATION_WARNING, "Lenh dang bao tri!!");
 	return 1;
 }
 

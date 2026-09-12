@@ -1,3 +1,5 @@
+#include <YSI\YSI_Coding\y_hooks>
+
 #define MAX_TDN 4
 #define TDN_POS_X_INFO 4.00000
 #define TDN_POS_X 358.000000
@@ -55,7 +57,7 @@ timer TimerHideTDN[2000](playerid)
         if(TextDrawsNotification[playerid][cycle][notifyHide] == -1)
         {
             TextDrawsNotification[playerid][cycle][notifyUse] = 0;
-            if(TextDrawsNotification[playerid][cycle][notifyTextDraw] != PlayerText:-1)
+            if(IsValidDynamicPlayerTextDraw(playerid, TextDrawsNotification[playerid][cycle][notifyTextDraw]))
             {
                 PlayerTextDrawDestroys(playerid, TextDrawsNotification[playerid][cycle][notifyTextDraw]);
                 TextDrawsNotification[playerid][cycle][notifyLine] = 0;
@@ -160,7 +162,7 @@ JavaTR:hideTDN(playerid, TDN)
         if(TextDrawsNotification[playerid][cycle][notifyHide] == TDN)
         {
             TextDrawsNotification[playerid][cycle][notifyUse] = 0;
-            if(TextDrawsNotification[playerid][cycle][notifyTextDraw] != PlayerText:-1)
+            if(IsValidDynamicPlayerTextDraw(playerid, TextDrawsNotification[playerid][cycle][notifyTextDraw]))
             {
                 PlayerTextDrawDestroys(playerid, TextDrawsNotification[playerid][cycle][notifyTextDraw]);
                 TextDrawsNotification[playerid][cycle][notifyLine] = 0;
@@ -391,8 +393,8 @@ stock LinesTDN(playerid, TDN)
 
 stock PlayerTextDrawDestroys(playerid, PlayerText:textid)
 {
-    if(textid != PlayerText:-1)
-        PlayerTextDrawDestroy(playerid, PlayerText:textid);
+    if(IsValidDynamicPlayerTextDraw(playerid, textid))
+        PlayerTextDrawDestroy(playerid, textid);
     return 1;
 }
 
@@ -402,13 +404,16 @@ stock CreateTDN(playerid, type, TDN)
     {
         TextDrawsNotification[playerid][TDN][notifyWidth] = 0.0;
         TextDrawsNotification[playerid][TDN][notifymode] = type;
-        if(TextDrawsNotification[playerid][TDN][notifyTextDraw] != PlayerText:-1)
+        if(IsValidDynamicPlayerTextDraw(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw]))
         {
             PlayerTextDrawDestroy(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw]);
+            TextDrawsNotification[playerid][TDN][notifyTextDraw] = PlayerText:-1;
+
             forex(txd, 5)
             {
-                if(TextDrawsNotification[playerid][TDN][textdraw_notification][txd] != PlayerText:-1)
+                if(IsValidDynamicPlayerTextDraw(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][txd]))
                     PlayerTextDrawDestroy(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][txd]);
+                TextDrawsNotification[playerid][TDN][textdraw_notification][txd] = PlayerText:-1;
             }
         }
         new lines = 1, supr, len = strlen(TextDrawsNotification[playerid][TDN][notifyText]);
@@ -509,9 +514,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], color);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], color);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 255);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 0);
@@ -523,9 +528,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], color);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], color);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 572732415);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 0);
@@ -537,9 +542,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 255);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 255);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 572732415);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 0);
@@ -551,9 +556,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], color);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], color);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 255);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 0);
@@ -565,9 +570,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
@@ -579,9 +584,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], -1);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], -1);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 255);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
@@ -595,9 +600,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], color);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], color);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 255);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 0);
@@ -609,9 +614,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], color);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], color);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 572732415);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 0);
@@ -623,9 +628,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 255);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 255);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 572732415);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 0);
@@ -637,9 +642,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], color);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], color);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 255);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 0);
@@ -651,9 +656,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
@@ -665,9 +670,9 @@ stock CreateTDN(playerid, type, TDN)
                 PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
                 PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
                 PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 1);
-                PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], -1);
+                PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], -1);
                 PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 255);
-                PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 50);
+                PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 50);
                 PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
                 PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 1);
                 PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
@@ -683,9 +688,9 @@ stock CreateTDN(playerid, type, TDN)
             PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
             PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 0);
             PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
-            PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], color);
+            PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], color);
             PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 255);
-            PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 50);
+            PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 50);
             PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
             PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 1);
             PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][0], 0);
@@ -697,9 +702,9 @@ stock CreateTDN(playerid, type, TDN)
             PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
             PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 0);
             PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
-            PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], color);
+            PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], color);
             PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 572732415);
-            PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 50);
+            PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 50);
             PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
             PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 1);
             PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][1], 0);
@@ -711,9 +716,9 @@ stock CreateTDN(playerid, type, TDN)
             PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
             PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 0);
             PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
-            PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 255);
+            PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 255);
             PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 572732415);
-            PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 50);
+            PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 50);
             PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
             PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 1);
             PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][2], 0);
@@ -725,9 +730,9 @@ stock CreateTDN(playerid, type, TDN)
             PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
             PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 0);
             PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
-            PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], color);
+            PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], color);
             PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 255);
-            PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 50);
+            PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 50);
             PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
             PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 1);
             PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][3], 0);
@@ -739,9 +744,9 @@ stock CreateTDN(playerid, type, TDN)
             PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
             PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
             PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 1);
-            PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
+            PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
             PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 255);
-            PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 50);
+            PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 50);
             PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
             PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 1);
             PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][textdraw_notification][4], 0);
@@ -753,9 +758,9 @@ stock CreateTDN(playerid, type, TDN)
             PlayerTextDrawSetOutline(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
             PlayerTextDrawSetShadow(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
             PlayerTextDrawAlignment(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 1);
-            PlayerTextDrawColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], -1);
+            PlayerTextDrawColour(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], -1);
             PlayerTextDrawBackgroundColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 255);
-            PlayerTextDrawBoxColor(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 50);
+            PlayerTextDrawBoxColour(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 50);
             PlayerTextDrawUseBox(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
             PlayerTextDrawSetProportional(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 1);
             PlayerTextDrawSetSelectable(playerid, TextDrawsNotification[playerid][TDN][notifyTextDraw], 0);
@@ -780,20 +785,27 @@ stock CreateTDN(playerid, type, TDN)
     }
     new NotifInfo[MAX_PLAYERS][4][e_notify];
     new MaxPlayerNotify[MAX_PLAYERS];
-    #define NOTIFY_TEXTDRAWS_PER_ITEM 7
+    #define NOTIFY_TEXTDRAWS_PER_ITEM 8
 
     new PlayerText: notifyTextdraws[MAX_PLAYERS][4*8];
     new NotifIndex[MAX_PLAYERS];
 
-    forward NotifyHide(playerid);
-    public NotifyHide(playerid)
+forward NotifyHide(playerid);
+public NotifyHide(playerid)
+{
+    if(!NotifIndex[playerid]) return 1;
+    --NotifIndex[playerid];
+    MaxPlayerNotify[playerid]--;
+
+    for (new i = -1; ++i < NOTIFY_TEXTDRAWS_PER_ITEM;)
     {
-        if(!NotifIndex[playerid]) return 1;
-        -- NotifIndex[playerid];
-        MaxPlayerNotify[playerid] --;
-        for (new i = -1; ++ i < NOTIFY_TEXTDRAWS_PER_ITEM;) PlayerTextDrawDestroy(playerid, notifyTextdraws[playerid][(NotifIndex[playerid] * 8) + i]);
-        return 1;
+        new slot = (NotifIndex[playerid] * 8) + i;
+        if(IsValidDynamicPlayerTextDraw(playerid, notifyTextdraws[playerid][slot]))
+            PlayerTextDrawDestroy(playerid, notifyTextdraws[playerid][slot]);
+        notifyTextdraws[playerid][slot] = PlayerText:-1;   // ← BẮT BUỘC
     }
+    return 1;
+}
 
 
 ShowTDN(playerid, notifid, text[])
@@ -871,11 +883,17 @@ stock ShowNotify(playerid, message[], icon)
 {
     if(MaxPlayerNotify[playerid] >= 4) return 1;
     MaxPlayerNotify[playerid] ++;
-    for (new x = -1; ++ x < NotifIndex[playerid] && x < 4;)
+    for (new x = -1; ++x < NotifIndex[playerid] && x < 4;)
+{
+    for (new i = -1; ++i < NOTIFY_TEXTDRAWS_PER_ITEM;)
     {
-        for (new i = -1; ++ i < NOTIFY_TEXTDRAWS_PER_ITEM;) PlayerTextDrawDestroy(playerid, notifyTextdraws[playerid][(x * 8) + i]);
-        NotifInfo[playerid][NotifIndex[playerid] - x] = NotifInfo[playerid][(NotifIndex[playerid] - x) - 1];
+        new slot = (x * 8) + i;
+        if(IsValidDynamicPlayerTextDraw(playerid, notifyTextdraws[playerid][slot]))
+            PlayerTextDrawDestroy(playerid, notifyTextdraws[playerid][slot]);
+        notifyTextdraws[playerid][slot] = PlayerText:-1;
     }
+    NotifInfo[playerid][NotifIndex[playerid] - x] = NotifInfo[playerid][(NotifIndex[playerid] - x) - 1];
+}
     format(NotifInfo[playerid][0][notifyMessage], 320, "%s", message);
     NotifInfo[playerid][0][notifyIcon] = icon;
     NotifInfo[playerid][0][notifySize] = 3;
@@ -901,7 +919,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][i] = CreatePlayerTextDraw(playerid, 500.000, 103.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 1097458175);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 1097458175);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -912,7 +930,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 500.000, 107.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 943210495);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 943210495);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -923,7 +941,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 502.000, 107.000+newpos, "LD_BEAT:chit");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 17.000, 17.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -934,7 +952,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 503.000, 108.000+newpos, "LD_BEAT:chit");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 15.000, 15.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 1097458175);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 1097458175);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -945,7 +963,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 509.000, 109.000+newpos, "i");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.310, 1.299);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -956,7 +974,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 518.000, 110.000+newpos, "THONG TIN");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.200, 1.099);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 1097458175);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 1097458175);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -968,7 +986,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.133, 0.949);
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 610.000, 21.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -981,7 +999,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][i] = CreatePlayerTextDraw(playerid, 500.000, 103.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1052226817);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1052226817);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -992,7 +1010,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 500.000, 107.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 943210495);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 943210495);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1003,7 +1021,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 506.000, 109.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 20.000, 5.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1052226817);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1052226817);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1014,7 +1032,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 506.000, 115.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 20.000, 5.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1052226817);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1052226817);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1025,7 +1043,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 525.000, 110.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], -5.000, 3.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 943210495);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 943210495);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1036,7 +1054,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 525.000, 116.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], -5.000, 3.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 943210495);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 943210495);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1047,7 +1065,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++i] = CreatePlayerTextDraw(playerid, 528.000, 109.000+newpos, "LOI");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.210, 1.099);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1052226817);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1052226817);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -1059,7 +1077,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.133, 0.949);
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 610.000, 21.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1072,7 +1090,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][i] = CreatePlayerTextDraw(playerid, 500.000, 103.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 1018393087);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 1018393087);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1083,7 +1101,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 500.000, 107.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 943210495);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 943210495);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1094,7 +1112,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 502.000, 107.000+newpos, "LD_BEAT:chit");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 17.000, 17.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1105,7 +1123,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 510.000, 111.000+newpos, "/");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.230, 0.699);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 16744447);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 16744447);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -1116,7 +1134,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 512.000, 114.000+newpos, "/");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], -0.260, 0.499);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 16744447);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 16744447);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -1127,7 +1145,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 518.000, 110.000+newpos, "THANH CONG");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.200, 1.099);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 1018393087);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 1018393087);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -1139,7 +1157,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.133, 0.949);
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 610.000, 21.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1152,7 +1170,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][i] = CreatePlayerTextDraw(playerid, 500.000, 103.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -2139062017);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -2139062017);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1163,7 +1181,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 500.000, 107.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 943210495);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 943210495);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1174,7 +1192,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 507.000, 108.000+newpos, "!");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.329, 1.399);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -2139062017);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -2139062017);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -1185,7 +1203,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 513.000, 110.000+newpos, "MEO");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.159, 1.100);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -2139062017);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -2139062017);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -1197,7 +1215,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.133, 0.949);
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 610.000, 21.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1210,7 +1228,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][i] = CreatePlayerTextDraw(playerid, 500.000, 103.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -626712321);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -626712321);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1221,7 +1239,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 500.000, 107.000+newpos, "LD_BUM:blkdot");
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 113.000, 35.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], 943210495);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], 943210495);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1232,7 +1250,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 507.000, 108.000+newpos, "!");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.329, 1.399);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -626712321);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -626712321);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -1243,7 +1261,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         notifyTextdraws[playerid][++ i] = CreatePlayerTextDraw(playerid, 513.000, 110.000+newpos, "CHU Y");
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.159, 1.100);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -626712321);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -626712321);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 150);
@@ -1255,7 +1273,7 @@ CreateNotify(playerid, index, i, Float:new_x)
         PlayerTextDrawLetterSize(playerid, notifyTextdraws[playerid][i], 0.133, 0.949);
         PlayerTextDrawTextSize(playerid, notifyTextdraws[playerid][i], 610.000, 21.000);
         PlayerTextDrawAlignment(playerid, notifyTextdraws[playerid][i], 1);
-        PlayerTextDrawColor(playerid, notifyTextdraws[playerid][i], -1);
+        PlayerTextDrawColour(playerid, notifyTextdraws[playerid][i], -1);
         PlayerTextDrawSetShadow(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawSetOutline(playerid, notifyTextdraws[playerid][i], 0);
         PlayerTextDrawBackgroundColor(playerid, notifyTextdraws[playerid][i], 255);
@@ -1294,4 +1312,21 @@ CMD:testnotif(playerid, params[])
 	ShowTDN(playerid, NOTIFICATION_SYNTAX, "Test notification: SYNTAX");
 	ShowTDN(playerid, NOTIFICATION_WARNING, "Test notification: WARNING");
 	return 1;
+}
+
+hook OnPlayerConnect(playerid)
+{
+    for(new i = 0; i < sizeof(notifyTextdraws[]); i++)
+        notifyTextdraws[playerid][i] = PlayerText:-1;
+
+    for(new n = 0; n < MAX_TDN; n++)
+    {
+        TextDrawsNotification[playerid][n][notifyTextDraw] = PlayerText:-1;
+        for(new t = 0; t < 5; t++)
+            TextDrawsNotification[playerid][n][textdraw_notification][t] = PlayerText:-1;
+    }
+
+    NotifIndex[playerid] = 0;
+    MaxPlayerNotify[playerid] = 0;
+    return 1;
 }

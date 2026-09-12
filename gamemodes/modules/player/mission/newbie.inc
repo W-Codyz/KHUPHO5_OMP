@@ -31,7 +31,7 @@ ShowNewbieMission(playerid)
     }
 
     SetPVarInt(playerid, "NbMissionSelected", 0);
-    ShowPlayerDialog(playerid, DIALOG_NEWBIE_MISSION, DIALOG_STYLE_TABLIST_HEADERS, "{FFFFFF}Michael Evans - Nhiem vu tan thu", dialogInfo, "Chon", "Dong");
+    ShowPlayerDialog(playerid, DIALOG_NEWBIE_MISSION, DIALOG_STYLE_TABLIST_HEADERS, "{FFFFFF} Nhiem vu tan thu", dialogInfo, "Chon", "Dong");
     return 1;
 }
 

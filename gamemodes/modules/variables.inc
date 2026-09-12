@@ -128,7 +128,7 @@ new StoreItemCost[][StoreItemCostEnum] =
 new const StoreItems[][] =
 {
 	"Dien thoai di dong",
-	"Danh ba dien thoai",
+	"Sim dien thoai",
 	"Dice",
 	"Bao cao su",
 	"May nghe nhac",
@@ -290,7 +290,7 @@ new gListAmount = 0; // Amount of lists used
 new gRotZoomAmount = 0; // Amount of Rotation/Zoom informations used
 
 // Textdraw Global Variables
-new Text:NoticeTxtdraw[8];
+new Text:NoticeTxtdraw[4];
 new Text:WristWatch;
 new Text:GPS[MAX_PLAYERS] = {INVALID_TEXT_DRAW, ...};
 new Text:BFText;
@@ -2231,3 +2231,15 @@ new Float:PlayerGiaoCanSa[MAX_PLAYERS];
 new gdCanSa[MAX_PLAYERS];
 new slCanSa[MAX_PLAYERS];
 new tienCanSa[MAX_PLAYERS];
+
+new SharelocSender[MAX_PLAYERS];
+new SharelocTimer[MAX_PLAYERS] = {0, ...};
+new NearestPlayer[MAX_PLAYERS][MAX_PLAYERS];
+
+
+//color
+#define WHITE       "{FFFFFF}"
+#define RED         "{FF0000}"
+#define YELLOW      "{FFFF00}"
+#define JAVA     "{FF9999}"
+#define LIGHTGREEN                  "{90EE90}"

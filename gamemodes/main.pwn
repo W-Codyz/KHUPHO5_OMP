@@ -1,4 +1,5 @@
 #define SERVER_VERSION "v2.0" 
+#define MIXED_SPELLINGS
 
 #define MAIL_URL 		"http://localhost/htb/m_mail.php"
 #define MAIL_ADDRESS 	""
@@ -45,6 +46,7 @@
 
 #define OVERRIDE_NATIVE_GAMETEXT 
 #include <gametext_plus>
+#include <textdraw-streamer>
 
 #include "./modules/header"
 #include "./modules/enums"
@@ -75,6 +77,11 @@
 //#include "./modules/system/logo_anim"
 #include "./modules/system/support_notif"
 #include "./modules/system/notification"
+#include "./modules/system/bank"
+#include "./modules/system/phone/phone"
+#include "./modules/system/phone/callback_phone"
+#include "./modules/system/panel/ui_panel"
+#include "./modules/system/panel/panel"
 
 //==============JOB============//
 #include "./modules/job/header"
@@ -92,6 +99,7 @@
 #include "./modules/player/inventory/header"
 #include "./modules/player/mission/header"
 #include "./modules/player/suckhoe"
+//#include "./modules/player/phone"
 
 #include "./modules/timers"
 #include "./modules/mysql"

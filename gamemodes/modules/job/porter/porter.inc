@@ -160,7 +160,7 @@ hook OnPlayerEnterCheckpoint(playerid)
             SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
             PlayerPorter[playerid] = 0;
             SendClientMessage(playerid, COLOR_RED, "Phat hien van de trong qua trinh van chuyen, vui long lien he voi quan tri vien.");
-            ShowTDN(playerid, NOTIFICATION_ERROR, "Co loi xay ra!!");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Co loi xay ra!!");
             return 1;
         }
 

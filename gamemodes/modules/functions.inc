@@ -8220,7 +8220,7 @@ stock ShowNoticeGUIFrame(playerid, frame)
 
 stock HideNoticeGUIFrame(playerid)
 {
-	for(new i = 0; i < 8; i++)
+	for(new i = 0; i < 4; i++)
 	{
 		TextDrawHideForPlayer(playerid, NoticeTxtdraw[i]);
 	}
@@ -11343,7 +11343,7 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
   		case ITEM_PHONEBOOK:
 		{
 			PlayerInfo[playerid][pPhoneBook] = 1;
-			SendClientMessageEx(playerid, COLOR_GRAD4, "Ban da mua danh ba dien thoai, bay gio ban co the tim so dien thoai cua moi nguoi.");
+			SendClientMessageEx(playerid, COLOR_GRAD4, "Ban da mua sim dien thoai, bay gio ban co the tim so dien thoai cua moi nguoi.");
 			SendClientMessageEx(playerid, COLOR_WHITE, "HUONG DAN: Su dung /sdt <id/name>.");
 			UpdateNewbieMission(playerid, 2);
 		}

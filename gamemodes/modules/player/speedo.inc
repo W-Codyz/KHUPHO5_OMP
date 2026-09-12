@@ -74,7 +74,7 @@ stock CreateSpeedoTD(playerid)
 	SpeedoDrpTD[playerid][0] = CreatePlayerTextDraw(playerid, 146.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][0], 50.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][0], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][0], 150);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][0], 150);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][0], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][0], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][0], 255);
@@ -84,7 +84,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][1] = CreatePlayerTextDraw(playerid, 146.000, 359.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][1], 15.000, 15.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][1], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][1], -1732209921);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][1], -1732209921);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][1], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][1], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][1], 255);
@@ -94,7 +94,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][2] = CreatePlayerTextDraw(playerid, 198.000, 359.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][2], 4.000, 38.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][2], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][2], 255);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][2], 255);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][2], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][2], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][2], 255);
@@ -104,7 +104,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][3] = CreatePlayerTextDraw(playerid, 198.898, 396.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][3], 1.500, -35.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][3], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][3], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][3], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][3], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][3], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][3], 255);
@@ -114,7 +114,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][4] = CreatePlayerTextDraw(playerid, 198.000, 358.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][4], 5.000, -2.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][4], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][4], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][4], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][4], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][4], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][4], 255);
@@ -124,7 +124,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][5] = CreatePlayerTextDraw(playerid, 198.000, 358.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][5], 1.000, -9.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][5], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][5], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][5], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][5], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][5], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][5], 255);
@@ -134,7 +134,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][6] = CreatePlayerTextDraw(playerid, 201.000, 358.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][6], 1.000, -9.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][6], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][6], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][6], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][6], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][6], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][6], 255);
@@ -144,7 +144,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][7] = CreatePlayerTextDraw(playerid, 199.000, 353.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][7], 3.000, 5.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][7], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][7], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][7], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][7], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][7], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][7], 255);
@@ -154,7 +154,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][8] = CreatePlayerTextDraw(playerid, 198.000, 350.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][8], 4.000, -1.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][8], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][8], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][8], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][8], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][8], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][8], 255);
@@ -164,7 +164,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][9] = CreatePlayerTextDraw(playerid, 201.000, 349.000, ")");
     PlayerTextDrawLetterSize(playerid, SpeedoDrpTD[playerid][9], 0.259, 0.597);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][9], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][9], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][9], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][9], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][9], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][9], 150);
@@ -174,7 +174,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][10] = CreatePlayerTextDraw(playerid, 146.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][10], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][10], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][10], 16711935);   // index 0
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][10], 16711935);   // index 0
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][10], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][10], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][10], 255);
@@ -184,7 +184,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][11] = CreatePlayerTextDraw(playerid, 148.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][11], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][11], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][11], 872349951);  // index 1
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][11], 872349951);  // index 1
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][11], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][11], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][11], 255);
@@ -194,7 +194,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][12] = CreatePlayerTextDraw(playerid, 150.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][12], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][12], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][12], 872349951);  // index 2
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][12], 872349951);  // index 2
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][12], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][12], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][12], 255);
@@ -204,7 +204,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][13] = CreatePlayerTextDraw(playerid, 152.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][13], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][13], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][13], -1711341313); // index 3
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][13], -1711341313); // index 3
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][13], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][13], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][13], 255);
@@ -214,7 +214,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][14] = CreatePlayerTextDraw(playerid, 154.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][14], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][14], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][14], -1711341313); // index 4
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][14], -1711341313); // index 4
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][14], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][14], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][14], 255);
@@ -224,7 +224,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][15] = CreatePlayerTextDraw(playerid, 156.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][15], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][15], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][15], -855703297); // index 5
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][15], -855703297); // index 5
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][15], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][15], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][15], 255);
@@ -234,7 +234,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][16] = CreatePlayerTextDraw(playerid, 158.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][16], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][16], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][16], -855703297); // index 6
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][16], -855703297); // index 6
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][16], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][16], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][16], 255);
@@ -244,7 +244,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][17] = CreatePlayerTextDraw(playerid, 160.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][17], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][17], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][17], -65281);      // index 7
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][17], -65281);      // index 7
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][17], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][17], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][17], 255);
@@ -254,7 +254,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][18] = CreatePlayerTextDraw(playerid, 162.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][18], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][18], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][18], -65281);      // index 8
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][18], -65281);      // index 8
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][18], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][18], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][18], 255);
@@ -264,7 +264,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][19] = CreatePlayerTextDraw(playerid, 164.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][19], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][19], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][19], -65281);      // index 9
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][19], -65281);      // index 9
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][19], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][19], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][19], 255);
@@ -274,7 +274,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][20] = CreatePlayerTextDraw(playerid, 166.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][20], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][20], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][20], -65281);      // index 10
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][20], -65281);      // index 10
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][20], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][20], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][20], 255);
@@ -284,7 +284,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][21] = CreatePlayerTextDraw(playerid, 168.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][21], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][21], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][21], -65281);      // index 11
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][21], -65281);      // index 11
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][21], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][21], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][21], 255);
@@ -294,7 +294,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][22] = CreatePlayerTextDraw(playerid, 170.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][22], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][22], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][22], -3407617);    // index 12
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][22], -3407617);    // index 12
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][22], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][22], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][22], 255);
@@ -304,7 +304,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][23] = CreatePlayerTextDraw(playerid, 172.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][23], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][23], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][23], -3407617);    // index 13
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][23], -3407617);    // index 13
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][23], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][23], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][23], 255);
@@ -314,7 +314,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][24] = CreatePlayerTextDraw(playerid, 174.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][24], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][24], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][24], -3407617);    // index 14
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][24], -3407617);    // index 14
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][24], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][24], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][24], 255);
@@ -324,7 +324,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][25] = CreatePlayerTextDraw(playerid, 176.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][25], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][25], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][25], -3407617);    // index 15
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][25], -3407617);    // index 15
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][25], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][25], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][25], 255);
@@ -334,7 +334,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][26] = CreatePlayerTextDraw(playerid, 178.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][26], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][26], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][26], -6749953);    // index 16
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][26], -6749953);    // index 16
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][26], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][26], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][26], 255);
@@ -344,7 +344,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][27] = CreatePlayerTextDraw(playerid, 180.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][27], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][27], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][27], -6749953);    // index 17
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][27], -6749953);    // index 17
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][27], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][27], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][27], 255);
@@ -354,7 +354,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][28] = CreatePlayerTextDraw(playerid, 182.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][28], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][28], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][28], -6749953);    // index 18
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][28], -6749953);    // index 18
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][28], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][28], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][28], 255);
@@ -364,7 +364,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][29] = CreatePlayerTextDraw(playerid, 184.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][29], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][29], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][29], -10092289);   // index 19
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][29], -10092289);   // index 19
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][29], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][29], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][29], 255);
@@ -374,7 +374,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][30] = CreatePlayerTextDraw(playerid, 186.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][30], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][30], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][30], -10092289);   // index 20
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][30], -10092289);   // index 20
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][30], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][30], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][30], 255);
@@ -384,7 +384,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][31] = CreatePlayerTextDraw(playerid, 188.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][31], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][31], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][31], -13434625);   // index 21
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][31], -13434625);   // index 21
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][31], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][31], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][31], 255);
@@ -394,7 +394,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][32] = CreatePlayerTextDraw(playerid, 190.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][32], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][32], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][32], -13434625);   // index 22
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][32], -13434625);   // index 22
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][32], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][32], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][32], 255);
@@ -404,7 +404,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][33] = CreatePlayerTextDraw(playerid, 192.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][33], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][33], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][33], -16776961);   // index 23
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][33], -16776961);   // index 23
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][33], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][33], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][33], 255);
@@ -414,7 +414,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][34] = CreatePlayerTextDraw(playerid, 194.000, 377.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][34], 2.000, 20.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][34], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][34], -16776961);   // index 24
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][34], -16776961);   // index 24
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][34], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][34], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][34], 255);
@@ -424,7 +424,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][35] = CreatePlayerTextDraw(playerid, 153.000, 362.000, "NW");
     PlayerTextDrawLetterSize(playerid, SpeedoDrpTD[playerid][35], 0.200, 1.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][35], 2);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][35], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][35], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][35], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][35], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][35], 150);
@@ -434,7 +434,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][36] = CreatePlayerTextDraw(playerid, 174.000, 364.000, "250");
     PlayerTextDrawLetterSize(playerid, SpeedoDrpTD[playerid][36], 0.200, 1.200);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][36], 2);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][36], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][36], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][36], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][36], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][36], 150);
@@ -444,7 +444,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][37] = CreatePlayerTextDraw(playerid, 186.000, 356.000, "KM/H");
     PlayerTextDrawLetterSize(playerid, SpeedoDrpTD[playerid][37], 0.100, 0.898);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][37], 2);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][37], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][37], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][37], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][37], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][37], 150);
@@ -454,7 +454,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][38] = CreatePlayerTextDraw(playerid, 146.000, 405.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][38], 8.000, 6.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][38], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][38], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][38], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][38], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][38], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][38], 255);
@@ -464,7 +464,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][39] = CreatePlayerTextDraw(playerid, 146.000, 399.000, "/");
     PlayerTextDrawLetterSize(playerid, SpeedoDrpTD[playerid][39], 0.160, 0.699);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][39], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][39], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][39], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][39], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][39], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][39], 150);
@@ -474,7 +474,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][40] = CreatePlayerTextDraw(playerid, 154.000, 399.000, "/");
     PlayerTextDrawLetterSize(playerid, SpeedoDrpTD[playerid][40], -0.169, 0.699);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][40], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][40], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][40], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][40], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][40], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][40], 150);
@@ -484,7 +484,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][41] = CreatePlayerTextDraw(playerid, 148.000, 400.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][41], 4.000, 2.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][41], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][41], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][41], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][41], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][41], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][41], 255);
@@ -494,7 +494,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][42] = CreatePlayerTextDraw(playerid, 153.000, 404.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][42], 3.000, 3.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][42], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][42], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][42], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][42], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][42], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][42], 255);
@@ -504,7 +504,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][43] = CreatePlayerTextDraw(playerid, 144.000, 404.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][43], 3.000, 3.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][43], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][43], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][43], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][43], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][43], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][43], 255);
@@ -514,7 +514,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][44] = CreatePlayerTextDraw(playerid, 147.000, 411.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][44], 2.000, 2.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][44], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][44], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][44], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][44], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][44], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][44], 255);
@@ -524,7 +524,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][45] = CreatePlayerTextDraw(playerid, 151.000, 411.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][45], 2.000, 2.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][45], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][45], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][45], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][45], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][45], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][45], 255);
@@ -534,7 +534,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][46] = CreatePlayerTextDraw(playerid, 151.000, 408.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][46], 2.000, 2.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][46], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][46], -1732209921);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][46], -1732209921);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][46], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][46], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][46], 255);
@@ -544,7 +544,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][47] = CreatePlayerTextDraw(playerid, 147.000, 408.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][47], 2.000, 2.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][47], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][47], -1732209921);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][47], -1732209921);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][47], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][47], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][47], 255);
@@ -554,7 +554,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][48] = CreatePlayerTextDraw(playerid, 157.000, 404.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][48], 39.000, 5.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][48], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][48], 255);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][48], 255);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][48], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][48], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][48], 255);
@@ -564,7 +564,7 @@ stock CreateSpeedoTD(playerid)
     SpeedoDrpTD[playerid][49] = CreatePlayerTextDraw(playerid, 158.898, 407.000, "LD_BUM:blkdot");
     PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][49], 35.500, -2.000);
     PlayerTextDrawAlignment(playerid, SpeedoDrpTD[playerid][49], 1);
-    PlayerTextDrawColor(playerid, SpeedoDrpTD[playerid][49], -1);
+    PlayerTextDrawColour(playerid, SpeedoDrpTD[playerid][49], -1);
     PlayerTextDrawSetShadow(playerid, SpeedoDrpTD[playerid][49], 0);
     PlayerTextDrawSetOutline(playerid, SpeedoDrpTD[playerid][49], 0);
     PlayerTextDrawBackgroundColor(playerid, SpeedoDrpTD[playerid][49], 255);
@@ -604,7 +604,7 @@ ShowSpeedoTD(playerid)
 {
 	for(new i = 0; i < 50; i++)
 	{
-		PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][i]);
+        PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][i]);
 	}
 	return 1;
 }
@@ -613,7 +613,7 @@ HideSpeedoTD(playerid)
 {
 	for(new i = 0; i < 50; i++)
 	{
-		PlayerTextDrawHide(playerid, SpeedoDrpTD[playerid][i]);
+        PlayerTextDrawHide(playerid, SpeedoDrpTD[playerid][i]);
 	}
 	return 1;
 }

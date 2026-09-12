@@ -310,7 +310,7 @@ stock CreateBossHPTextdraws(playerid)
     PlayerTextDrawTextSize(playerid, BossHP[playerid][0], 400.000000, 17.000000);
     PlayerTextDrawSetOutline(playerid, BossHP[playerid][0], 1);
     PlayerTextDrawAlignment(playerid, BossHP[playerid][0], 1);
-    PlayerTextDrawColor(playerid, BossHP[playerid][0], 0xFFFF00FF);
+    PlayerTextDrawColour(playerid, BossHP[playerid][0], 0xFFFF00FF);
     PlayerTextDrawSetProportional(playerid, BossHP[playerid][0], 1);
 
     BossHP[playerid][1] = CreatePlayerTextDraw(playerid, 250.000000, 354.000000, "Boss Tau Hai Tac (GTAHTB)");
@@ -319,7 +319,7 @@ stock CreateBossHPTextdraws(playerid)
     PlayerTextDrawTextSize(playerid, BossHP[playerid][1], 15000.000000, 7.000000);
     PlayerTextDrawSetOutline(playerid, BossHP[playerid][1], 1);
     PlayerTextDrawAlignment(playerid, BossHP[playerid][1], 1);
-    PlayerTextDrawColor(playerid, BossHP[playerid][1], 0xDD0000FF); 
+    PlayerTextDrawColour(playerid, BossHP[playerid][1], 0xDD0000FF); 
     PlayerTextDrawSetProportional(playerid, BossHP[playerid][1], 1);
 
     BossHPBar[playerid][0] = CreatePlayerProgressBar(playerid, 263.000000, 380.000000, 122.000000, 6.500000, -16776961, 100.0, 100);

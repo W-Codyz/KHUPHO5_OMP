@@ -759,7 +759,7 @@ CMD:settepcansa(playerid, params[])
     else
 	{
         SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay.");
-        ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong duoc phep su dung lenh nay.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong duoc phep su dung lenh nay.");
     }
     return 1;
 }
