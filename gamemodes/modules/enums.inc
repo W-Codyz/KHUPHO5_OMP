@@ -995,7 +995,8 @@ enum pInfo
     pSDT6,
     pSDT7,
     pSDT8,
-    pSDT9
+    pSDT9,
+	pTypeHunger
 
 
 	//enum pinfo

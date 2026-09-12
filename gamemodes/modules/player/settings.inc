@@ -11,9 +11,17 @@ stock ShowPlayerSettings(playerid)
         DCC_GetUserName(dccUser, dccUsername, sizeof(dccUsername));
         format(dccUsername, sizeof(dccUsername), "{00FF00}#%s", dccUsername);
     }
-    
-    format(dialogInfo, _, "\
-    {FFFFFF}Discord lien ket\t\t\t%s\n\
+
+    // HUD Suc khoe: 0 = Tat | 1 = Hien dai | 2 = Don gian
+    new hudSucKhoeStr[24];
+    switch(PlayerInfo[playerid][pTypeHunger]) {
+        case 1: hudSucKhoeStr = "{00FF00}Hien dai";
+        case 2: hudSucKhoeStr = "{FFFF00}Don gian";
+        default: hudSucKhoeStr = "{FF0000}Tat";
+    }
+
+    format(dialogInfo, _,
+    "{FFFFFF}Discord lien ket\t\t\t%s\n\
     {FFFFFF}Tro chuyen Family\t\t%s\n\
     {FFFFFF}Tro chuyen OOC\t\t%s\n\
     {FFFFFF}Kenh quang cao\t\t%s\n\
@@ -21,7 +29,8 @@ stock ShowPlayerSettings(playerid)
     {FFFFFF}Tin nhan rieng tu\t\t%s\n\
     {FFFFFF}Dien thoai\t\t\t%s\n\
     {FFFFFF}Kenh radio\t\t\t%s\n\
-    {FFFFFF}HUD nhan vat\t\t\t%s\n",
+    {FFFFFF}HUD nhan vat\t\t\t%s\n\
+    {FFFFFF}HUD Suc khoe\t\t\t%s\n",
     dccUsername,
     !gFam[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !gOoc[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
@@ -30,7 +39,8 @@ stock ShowPlayerSettings(playerid)
     !HidePM[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !PhoneOnline[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !GetPVarInt(playerid, "togRadio") ? ("{00FF00}Bat") : ("{FF0000}Tat"),
-    PlayerInfo[playerid][pHUDInfo] ? ("{00FF00}Bat") : ("{FF0000}Tat"));
+    PlayerInfo[playerid][pHUDInfo] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
+    hudSucKhoeStr);
 
     ShowPlayerDialog(playerid, DIALOG_SETTING, DIALOG_STYLE_TABLIST, "{FFFFFF}Cai dat tai khoan", dialogInfo, "Chon", "Dong");
     return 1;
@@ -39,13 +49,13 @@ stock ShowPlayerSettings(playerid)
 alias:caidat("setting")
 CMD:caidat(playerid, params[])
 {
-    if(GetPVarInt(playerid, "IsInArena") >= 0) 
+    if(GetPVarInt(playerid, "IsInArena") >= 0)
         return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lam dieu nay tai dau truong!");
 
-    if(GetPVarType(playerid, "StreamPrep")) 
-		return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lam dieu do vao luc nay, hay doi den khi khi ket thuc.");
-	
-    if(PlayerCuffed[playerid] >= 1) 
+    if(GetPVarType(playerid, "StreamPrep"))
+        return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lam dieu do vao luc nay, hay doi den khi khi ket thuc.");
+
+    if(PlayerCuffed[playerid] >= 1)
         return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lam dieu nay ngay bay gio.");
 
     ShowPlayerSettings(playerid);
@@ -91,6 +101,21 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     PlayerInfo[playerid][pHUDInfo] = 0;
                     HideUiPlayerInfo(playerid);
                 }
+            }
+            case 9: { // HUD Suc khoe - cycle 0 -> 1 -> 2 -> 0
+                new type = PlayerInfo[playerid][pTypeHunger];
+                type = (type + 1) % 3;
+                PlayerInfo[playerid][pTypeHunger] = type;
+
+                switch(type) {
+                    case 0: SendClientMessageEx(playerid, COLOR_WHITE, "HUD Suc khoe: {FF0000}Tat");
+                    case 1: SendClientMessageEx(playerid, COLOR_WHITE, "HUD Suc khoe: {00FF00}Hien dai");
+                    case 2: SendClientMessageEx(playerid, COLOR_WHITE, "HUD Suc khoe: {FFFF00}Don gian");
+                }
+
+                HideAllHungerTextdraws(playerid);
+                UpdatePlayerHungerDisplay(playerid);
+                ShowHungerDisplay(playerid);
             }
         }
 
