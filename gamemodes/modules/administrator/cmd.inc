@@ -236,7 +236,7 @@ CMD:kickallbaotri(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] == 99999)
 	{
 	    for(new i = 0; i < MAX_PLAYERS; i++){
-	        KickWithMessage(i, "Ban vui long /q , may chu dang bao tri!");
+	        SendClientMessageEx(i, COLOR_GRAD2, "{ff4400}>{ffffff} May chu dang bao tri. Xin loi vi su bat tien nay. <3");
 			Kick(i);
 		}
 	}
