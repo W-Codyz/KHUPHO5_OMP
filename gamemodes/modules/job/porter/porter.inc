@@ -3,19 +3,71 @@
 // step 0: load
 // step 1: unload
 forward PorterAnimation(playerid, step);
+forward PorterLoadingFinish(playerid);
+
+stock Porter_LoadingFailed(playerid)
+{
+    TogglePlayerControllable(playerid, true);
+    ClearAnimations(playerid, SYNC_ALL);
+    DeletePVar(playerid, "PorterLoadID");
+    Porter_Stop(playerid);
+    Porter_Start(playerid);
+    SendClientMessage(playerid, COLOR_RED, "Boc hang that bai vi ban da roi khoi vi tri lam viec.");
+    ShowTDN(playerid, NOTIFICATION_WARNING, "Boc hang that bai.");
+    return 1;
+}
+
+public PorterLoadingFinish(playerid)
+{
+    new step = GetPVarInt(playerid, "PorterLoadingStep");
+    new loadId = GetPVarInt(playerid, "PorterLoadID");
+    new bool:isAtPosition;
+
+    if(PlayerPorter[playerid] == 1)
+    {
+        if(!step && gPlayerCheckpointStatus[playerid] == CHECKPOINT_PORTERLOAD && loadId >= 0 && loadId < sizeof(PorterLoad)) {
+            isAtPosition = IsPlayerInRangeOfPoint(playerid, 3.0, PorterLoad[loadId][0], PorterLoad[loadId][1], PorterLoad[loadId][2]);
+        }
+        else if(step && gPlayerCheckpointStatus[playerid] == CHECKPOINT_PORTERUNLOAD)
+        {
+            new unloadId = GetPVarInt(playerid, "PorterUnloadID");
+            if(unloadId >= 0 && unloadId < sizeof(PorterUnload)) {
+                isAtPosition = IsPlayerInRangeOfPoint(playerid, 3.0, PorterUnload[unloadId][0], PorterUnload[unloadId][1], PorterUnload[unloadId][2]);
+            }
+        }
+    }
+
+    DeletePVar(playerid, "PorterLoadingStep");
+    if(!isAtPosition)
+    {
+        Porter_LoadingFailed(playerid);
+        return 1;
+    }
+
+    TogglePlayerControllable(playerid, true);
+    ClearAnimations(playerid, SYNC_ALL);
+    DeletePVar(playerid, "PorterLoadID");
+    PorterAnimation(playerid, step);
+    return 1;
+}
+
 public PorterAnimation(playerid, step)
 {
     if(!step) {
         SetPlayerAttachedObject(playerid, 9, 2060, 1, 0.051000, 0.424000, -0.022000, -22.600000, -84.000000, -19.500000);
     	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 		gPlayerCheckpointStatus[playerid] = CHECKPOINT_PORTERUNLOAD;
-		SetPlayerCP(playerid, PorterUnload[0], PorterUnload[1], PorterUnload[2], 2.0, false);
+        new unloadId = random(sizeof(PorterUnload));
+        SetPVarInt(playerid, "PorterUnloadID", unloadId);
+		SetPlayerCP(playerid, PorterUnload[unloadId][0], PorterUnload[unloadId][1], PorterUnload[unloadId][2], 2.0, false);
+        ApplyAnimation(playerid, "CARRY", "liftup", 4.1, false, true, true, false, 0);
     }
     else {
         new randCp = random(3);
         SetPlayerCP(playerid, PorterLoad[randCp][0], PorterLoad[randCp][1], PorterLoad[randCp][2], 2.0, false);
         gPlayerCheckpointStatus[playerid] = CHECKPOINT_PORTERLOAD;  
         SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+        ApplyAnimation(playerid, "CARRY", "liftup", 4.1, false, true, true, false, 0);
 
         new modelid;
         GetPlayerAttachedObject(playerid, 9, modelid);
@@ -24,11 +76,11 @@ public PorterAnimation(playerid, step)
         new payment;
         switch(GetJobLevel(playerid, JOB_PORTER))
         {
-            case 1: payment = 2500;
-            case 2: payment = 3000;
-            case 3: payment = 3500;
-            case 4: payment = 4000;
-            case 5: payment = 4500;
+            case 1: payment = 1500;
+            case 2: payment = 2000;
+            case 3: payment = 2500;
+            case 4: payment = 3000;
+            case 5: payment = 3500;
         }
 
         payment = Random(payment * 90 / 100, payment * 110 / 100);
@@ -77,9 +129,15 @@ Porter_Stop(playerid)
 {
     if(PlayerPorter[playerid] == 0) return 0;
 
+    if(IsLoadingActive(playerid)) StopLoading(playerid);
     DisablePlayerCP(playerid);
     gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
     SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+    TogglePlayerControllable(playerid, true);
+    ClearAnimations(playerid, SYNC_ALL);
+    DeletePVar(playerid, "PorterLoadingStep");
+    DeletePVar(playerid, "PorterLoadID");
+    DeletePVar(playerid, "PorterUnloadID");
     PlayerPorter[playerid] = 0;
 
     new modelid;
@@ -108,9 +166,11 @@ hook OnPlayerEnterCheckpoint(playerid)
 
         for(new i=0;i<3;i++) {
             if(IsPlayerInRangeOfPoint(playerid, 3.0, PorterLoad[i][0], PorterLoad[i][1], PorterLoad[i][2])) {
-                ApplyAnimation(playerid, "CARRY", "liftup", 4.1, false, true, true, false, 0);
-                SetTimerEx("PorterAnimation", 5000, false, "ii", playerid, 0);
-                SetLoading(playerid, 5000, "Dang boc hang...");
+                SetPVarInt(playerid, "PorterLoadID", i);
+                SetPVarInt(playerid, "PorterLoadingStep", 0);
+                TogglePlayerControllable(playerid, false);
+                ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0, 1);
+                SetLoading(playerid, 5000, "Dang boc hang...", "PorterLoadingFinish");
                 return 1;
             }
         }
@@ -119,7 +179,8 @@ hook OnPlayerEnterCheckpoint(playerid)
     {
         new modelid;
         GetPlayerAttachedObject(playerid, 9, modelid);
-        if(IsPlayerInRangeOfPoint(playerid, 3.0, PorterUnload[0], PorterUnload[1], PorterUnload[2]))
+        new unloadId = GetPVarInt(playerid, "PorterUnloadID");
+        if(unloadId >= 0 && unloadId < sizeof(PorterUnload) && IsPlayerInRangeOfPoint(playerid, 3.0, PorterUnload[unloadId][0], PorterUnload[unloadId][1], PorterUnload[unloadId][2]))
         {
             if(modelid != 2060) {
                 Porter_Stop(playerid);
@@ -128,9 +189,10 @@ hook OnPlayerEnterCheckpoint(playerid)
                 return 1;
             }
 
-            ApplyAnimation(playerid, "CARRY", "putdwn", 4.1, false, true, true, false, 0);
-            SetTimerEx("PorterAnimation", 5000, false, "ii", playerid, 1);
-            SetLoading(playerid, 5000, "Dang chat hang...");
+            SetPVarInt(playerid, "PorterLoadingStep", 1);
+            TogglePlayerControllable(playerid, false);
+            ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0, 1);
+            SetLoading(playerid, 5000, "Dang chat hang...", "PorterLoadingFinish");
             return 1;
         }
     }
