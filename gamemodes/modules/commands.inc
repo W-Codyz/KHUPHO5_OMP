@@ -49541,7 +49541,7 @@ CMD:map(playerid, params[])
 
 CMD:tuido(playerid, params[])
 {
-	HienTextdraw(playerid, "Lenh dang bao tri!!");
+	//HienTextdraw(playerid, "Lenh dang bao tri!!");
 	ShowTDN(playerid, NOTIFICATION_ERROR, "Lenh dang bao tri!!");
 	return 1;
 }

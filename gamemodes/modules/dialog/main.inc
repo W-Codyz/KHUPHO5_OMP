@@ -11258,7 +11258,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				case 3: //Lien he admin
 	            {
-					PC_EmulateCommand(playerid, "yeucautrogiup");
+					PC_EmulateCommand(playerid, "/yeucautrogiup");
 				}
 
 			}
