@@ -115,7 +115,7 @@ public AntiCheat(playerid)
 	return 1;
 }
 
-task VehicleAntiNoFuel[1000]()
+/* task VehicleAntiNoFuel[1000]()
 {
     static engine,lights,alarm,doors,bonnet,boot,objective, Float:healthv;
     for(new v = 0; v < MAX_VEHICLES; v++) if(GetVehicleModel(v) && GetVehicleModel(v) != 481 && GetVehicleModel(v) != 509 && GetVehicleModel(v) != 510) 
@@ -136,7 +136,7 @@ task VehicleAntiNoFuel[1000]()
 			}
 		}
 	}
-}
+} */
 stock SlapAntiSlap(playerid)
 {
 	if (IsPlayerInAnyVehicle(playerid))

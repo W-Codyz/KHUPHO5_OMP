@@ -548,8 +548,6 @@ new gWheelTransAlternate = 0;
 new Float:gFerrisOrigin[3] = {389.77, -2028.47, 22.0};
 
 new PlayerText:Loader_TD[MAX_PLAYERS][6];
-new loadingAnimation[MAX_PLAYERS];
-new loadingFunction[MAX_PLAYERS][32];
 
 new Text3D:SANews3DText;
 new gBug[MAX_PLAYERS char];
