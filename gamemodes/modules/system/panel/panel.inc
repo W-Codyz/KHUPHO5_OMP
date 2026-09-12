@@ -9,18 +9,17 @@ ShowMainMenuTextdraws(playerid)
 {
     if(g_PlayerTextDrawShown[playerid])
         return 0;
-    
+
     for(new i = 0; i < 80; i++)
     {
-        PlayerTextDrawShow(playerid, Panel_TextDraw[playerid][i]);
+        if(IsValidDynamicPlayerTextDraw(playerid, Panel_TextDraw[playerid][i]))
+            PlayerTextDrawShow(playerid, Panel_TextDraw[playerid][i]);
     }
     SelectTextDraw(playerid, 0xff78bcf0);
-    
     PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-    
+
     g_PlayerTextDrawShown[playerid] = true;
     g_PlayerInTextDrawMode[playerid] = true;
-    
     return 1;
 }
 
@@ -28,23 +27,21 @@ HideMainMenuTextdraws(playerid)
 {
     if(!g_PlayerTextDrawShown[playerid])
         return 0;
-    
+
     for(new i = 0; i < 80; i++)
     {
-        PlayerTextDrawHide(playerid, Panel_TextDraw[playerid][i]);
+        if(IsValidDynamicPlayerTextDraw(playerid, Panel_TextDraw[playerid][i]))
+            PlayerTextDrawHide(playerid, Panel_TextDraw[playerid][i]);
     }
-    
     CancelSelectTextDraw(playerid);
-    
     PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-    
+
     g_PlayerTextDrawShown[playerid] = false;
     g_PlayerInTextDrawMode[playerid] = false;
-    
     return 1;
 }
 
-hook OnPlayerClickTextDraw(playerid, Text:clickedid)
+hook OnClickDynamicTextDraw(playerid, Text:clickedid)
 {
     if(clickedid == Text:INVALID_TEXT_DRAW) 
     {
@@ -57,7 +54,7 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
     return 0;
 }
 
-hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
+hook OnClickDynamicPlayerTextDraw(playerid, PlayerText:playertextid)
 {
     if(!g_PlayerInTextDrawMode[playerid])
         return 0;
