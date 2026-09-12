@@ -19125,6 +19125,7 @@ CMD:loadpvehicles(playerid, params[])
 	return 1;
 }
 
+alias:createpvehicle("setcar")
 CMD:createpvehicle(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
