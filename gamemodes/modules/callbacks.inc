@@ -2625,6 +2625,10 @@ public OnPlayerConnect(playerid) {
 	SetTimerEx("LoginCheckEx", 5000, false, "i", playerid);
 
 	RemoveBuildings(playerid);
+
+	TogglePlayerSpectating(playerid, true);
+    gPlayerLogged{playerid} = 0;
+
 	return 1;
 }
 
@@ -3845,12 +3849,12 @@ public OnVehicleDeath(vehicleid) {
 public OnPlayerSpawn(playerid)
 {
     if(IsPlayerNPC(playerid)) return 1;
-    if(!gPlayerLogged{playerid})
-    {
+    if(!gPlayerLogged{playerid}) return 0;
+    /* {
         SendClientMessageEx(playerid, COLOR_WHITE, "ERROR: Ban chua dang nhap!");
         SetTimerEx("KickEx", 1000, false, "i", playerid);
         return 1;
-	}
+	} */
 	SetPlayerSkillLevel(playerid, WEAPONSKILL_PISTOL, 1);
 	SetPlayerSkillLevel(playerid, WEAPONSKILL_MICRO_UZI, 1);
 

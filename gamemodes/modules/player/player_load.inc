@@ -1,3 +1,59 @@
+stock PrepareLoginSpawn(playerid)
+{
+    // Ưu tiên theo thứ tự giống SetPlayerSpawn:
+    // 1. Đang bị giam (jail)
+    // 2. Đang nằm viện (hospital)
+    // 3. Bình thường → vị trí save
+
+    if(PlayerInfo[playerid][pJailTime] > 0)
+    {
+        // Jail: xác định vị trí theo logic hiện tại của bạn
+        new rand;
+        if(strfind(PlayerInfo[playerid][pPrisonReason], "[IC]", true) != -1)
+        {
+            rand = random(sizeof(DocPrison));
+            SetSpawnInfo(playerid, NO_TEAM, 50,
+                DocPrison[rand][0], DocPrison[rand][1], DocPrison[rand][2], 0.0,
+                0, 0, 0, 0, 0, 0);
+            SetPlayerInterior(playerid, 10);
+            SetPlayerVirtualWorld(playerid, 0);
+        }
+        else if(strfind(PlayerInfo[playerid][pPrisonReason], "[ISOLATE]", true) != -1)
+        {
+            SetSpawnInfo(playerid, NO_TEAM, 50,
+                -2095.3391, -215.8563, 978.8315, 0.0,
+                0, 0, 0, 0, 0, 0);
+            SetPlayerInterior(playerid, 10);
+            SetPlayerVirtualWorld(playerid, 0);
+        }
+        else
+        {
+            rand = random(sizeof(OOCPrisonSpawns));
+            SetSpawnInfo(playerid, NO_TEAM, 50,
+                OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2], 0.0,
+                0, 0, 0, 0, 0, 0);
+            SetPlayerInterior(playerid, 1);
+            SetPlayerVirtualWorld(playerid, 0);
+        }
+        return 1;
+    }
+
+    if(PlayerInfo[playerid][pHospital] == 0)
+    {
+        // Bình thường: vị trí save
+        SetSpawnInfo(playerid, NO_TEAM, PlayerInfo[playerid][pModel],
+            PlayerInfo[playerid][pPos_x], PlayerInfo[playerid][pPos_y], PlayerInfo[playerid][pPos_z],
+            PlayerInfo[playerid][pPos_r],
+            0, 0, 0, 0, 0, 0);
+        SetPlayerInterior(playerid, PlayerInfo[playerid][pInt]);
+        SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][pVW]);
+        return 1;
+    }
+
+    // Hospital: để SetPlayerSpawn xử lý ở OnPlayerSpawn (cần logic timer, camera...)
+    return 0;
+}
+
 forward OnPlayerLoad(playerid);
 public OnPlayerLoad(playerid)
 {
@@ -621,6 +677,18 @@ public OnPlayerLoad(playerid)
 		MySQLBan(GetPlayerSQLId(playerid), GetPlayerIpEx(playerid), "Canh bao thu Ba", 1, "He thong");
 		SetTimerEx("KickEx", 1000, false, "i", playerid);
 		return 1;
+	}
+	
+	if(PlayerInfo[playerid][pTut] == 0)
+	{
+	    // Người mới: để SetPlayerSpawn show dialog đăng ký
+	    TogglePlayerSpectating(playerid, false);
+	}
+	else
+	{
+	    // Người cũ: chuẩn bị spawn info trước, rồi tắt spectate
+	    PrepareLoginSpawn(playerid);
+	    TogglePlayerSpectating(playerid, false);
 	}
 
 	TogglePlayerSpectating(playerid, false);
