@@ -41011,7 +41011,7 @@ CMD:drag(playerid, params[])
 
 CMD:hfind(playerid, params[])
 {
-	if (IsAHitman(playerid) || (arrGroupData[PlayerInfo[playerid][pMember]][g_iBugAccess] != 1 || arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType] == 2) && PlayerInfo[playerid][pRank] >= arrGroupData[PlayerInfo[playerid][pMember]][g_iBugAccess])
+	if (IsAHitman(playerid) ||  arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType] == 2)
 	{
 	    if(GetPVarType(playerid, "hFind")) {
 	   		SendClientMessageEx(playerid, COLOR_GRAD2, "Stopped Updating");
