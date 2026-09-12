@@ -1,97 +1,54 @@
 #include <YSI\YSI_Coding\y_hooks>
 #include <open.mp>
 
-new PlayerText:HungerIcon[MAX_PLAYERS];
-new PlayerText:ThristIcon[MAX_PLAYERS];
-new PlayerText:HungerInLine[MAX_PLAYERS];
-new PlayerText:ThristInLine[MAX_PLAYERS];
-new PlayerText:ThristOutLine[MAX_PLAYERS];
-new PlayerText:HungerOutLine[MAX_PLAYERS];
-new PlayerText:ThristValue[MAX_PLAYERS];
-new PlayerText:HungerValue[MAX_PLAYERS];
+new PlayerText:Thrist[MAX_PLAYERS];
+new PlayerText:Hunger[MAX_PLAYERS];
+new PlayerText:Value_Hunger[MAX_PLAYERS];
+new PlayerText:Value_Thrist[MAX_PLAYERS];
 
 hook OnPlayerConnect(playerid)
 {
-    
-    HungerIcon[playerid] = CreatePlayerTextDraw(playerid, 241.000, 415.000, "HUD:radar_burgerShot");
-    PlayerTextDrawTextSize(playerid, HungerIcon[playerid], 14.000, 15.000);
-    PlayerTextDrawAlignment(playerid, HungerIcon[playerid], 1);
-    PlayerTextDrawColor(playerid, HungerIcon[playerid], -1);
-    PlayerTextDrawSetShadow(playerid, HungerIcon[playerid], 0);
-    PlayerTextDrawSetOutline(playerid, HungerIcon[playerid], 0);
-    PlayerTextDrawBackgroundColor(playerid, HungerIcon[playerid], 255);
-    PlayerTextDrawFont(playerid, HungerIcon[playerid], 4);
-    PlayerTextDrawSetProportional(playerid, HungerIcon[playerid], 1);
+    Thrist[playerid] = CreatePlayerTextDraw(playerid, 622.000, 5.000, "HUD:radar_centre");
+    PlayerTextDrawTextSize(playerid, Thrist[playerid], 13.000, 11.000);
+    PlayerTextDrawAlignment(playerid, Thrist[playerid], 1);
+    PlayerTextDrawColor(playerid, Thrist[playerid], 512819199);
+    PlayerTextDrawSetShadow(playerid, Thrist[playerid], 0);
+    PlayerTextDrawSetOutline(playerid, Thrist[playerid], 0);
+    PlayerTextDrawBackgroundColor(playerid, Thrist[playerid], 255);
+    PlayerTextDrawFont(playerid, Thrist[playerid], 4);
+    PlayerTextDrawSetProportional(playerid, Thrist[playerid], 1);
 
-    ThristIcon[playerid] = CreatePlayerTextDraw(playerid, 342.000, 415.000, "HUD:radar_diner");
-    PlayerTextDrawTextSize(playerid, ThristIcon[playerid], 14.000, 14.000);
-    PlayerTextDrawAlignment(playerid, ThristIcon[playerid], 1);
-    PlayerTextDrawColor(playerid, ThristIcon[playerid], -1);
-    PlayerTextDrawSetShadow(playerid, ThristIcon[playerid], 0);
-    PlayerTextDrawSetOutline(playerid, ThristIcon[playerid], 0);
-    PlayerTextDrawBackgroundColor(playerid, ThristIcon[playerid], 255);
-    PlayerTextDrawFont(playerid, ThristIcon[playerid], 4);
-    PlayerTextDrawSetProportional(playerid, ThristIcon[playerid], 1);
+    Hunger[playerid] = CreatePlayerTextDraw(playerid, 606.000, 5.000, "HUD:radar_burgerShot");
+    PlayerTextDrawTextSize(playerid, Hunger[playerid], 12.000, 12.000);
+    PlayerTextDrawAlignment(playerid, Hunger[playerid], 1);
+    PlayerTextDrawColor(playerid, Hunger[playerid], -1);
+    PlayerTextDrawSetShadow(playerid, Hunger[playerid], 0);
+    PlayerTextDrawSetOutline(playerid, Hunger[playerid], 0);
+    PlayerTextDrawBackgroundColor(playerid, Hunger[playerid], 255);
+    PlayerTextDrawFont(playerid, Hunger[playerid], 4);
+    PlayerTextDrawSetProportional(playerid, Hunger[playerid], 1);
 
-    HungerInLine[playerid] = CreatePlayerTextDraw(playerid, 259.000, 414.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, HungerInLine[playerid], 69.000, 15.000);
-    PlayerTextDrawAlignment(playerid, HungerInLine[playerid], 1);
-    PlayerTextDrawColor(playerid, HungerInLine[playerid], -1);
-    PlayerTextDrawSetShadow(playerid, HungerInLine[playerid], 0);
-    PlayerTextDrawSetOutline(playerid, HungerInLine[playerid], 0);
-    PlayerTextDrawBackgroundColor(playerid, HungerInLine[playerid], 255);
-    PlayerTextDrawFont(playerid, HungerInLine[playerid], 4);
-    PlayerTextDrawSetProportional(playerid, HungerInLine[playerid], 1);
+    Value_Hunger[playerid] = CreatePlayerTextDraw(playerid, 612.000, 15.000, "100");
+    PlayerTextDrawLetterSize(playerid, Value_Hunger[playerid], 0.170, 1.299);
+    PlayerTextDrawTextSize(playerid, Value_Hunger[playerid], 5.000, -2.000);
+    PlayerTextDrawAlignment(playerid, Value_Hunger[playerid], 2);
+    PlayerTextDrawColor(playerid, Value_Hunger[playerid], -1);
+    PlayerTextDrawSetShadow(playerid, Value_Hunger[playerid], 0);
+    PlayerTextDrawSetOutline(playerid, Value_Hunger[playerid], 0);
+    PlayerTextDrawBackgroundColor(playerid, Value_Hunger[playerid], 150);
+    PlayerTextDrawFont(playerid, Value_Hunger[playerid], 2);
+    PlayerTextDrawSetProportional(playerid, Value_Hunger[playerid], 1);
 
-    ThristInLine[playerid] = CreatePlayerTextDraw(playerid, 360.000, 414.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, ThristInLine[playerid], 69.000, 15.000);
-    PlayerTextDrawAlignment(playerid, ThristInLine[playerid], 1);
-    PlayerTextDrawColor(playerid, ThristInLine[playerid], -1);
-    PlayerTextDrawSetShadow(playerid, ThristInLine[playerid], 0);
-    PlayerTextDrawSetOutline(playerid, ThristInLine[playerid], 0);
-    PlayerTextDrawBackgroundColor(playerid, ThristInLine[playerid], 255);
-    PlayerTextDrawFont(playerid, ThristInLine[playerid], 4);
-    PlayerTextDrawSetProportional(playerid, ThristInLine[playerid], 1);
-
-    ThristOutLine[playerid] = CreatePlayerTextDraw(playerid, 362.000, 416.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, ThristOutLine[playerid], 65.000, 12.000);
-    PlayerTextDrawAlignment(playerid, ThristOutLine[playerid], 1);
-    PlayerTextDrawColor(playerid, ThristOutLine[playerid], -1061109505);
-    PlayerTextDrawSetShadow(playerid, ThristOutLine[playerid], 0);
-    PlayerTextDrawSetOutline(playerid, ThristOutLine[playerid], 0);
-    PlayerTextDrawBackgroundColor(playerid, ThristOutLine[playerid], 255);
-    PlayerTextDrawFont(playerid, ThristOutLine[playerid], 4);
-    PlayerTextDrawSetProportional(playerid, ThristOutLine[playerid], 1);
-
-    HungerOutLine[playerid] = CreatePlayerTextDraw(playerid, 261.000, 416.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, HungerOutLine[playerid], 65.000, 12.000);
-    PlayerTextDrawAlignment(playerid, HungerOutLine[playerid], 1);
-    PlayerTextDrawColor(playerid, HungerOutLine[playerid], -1061109505);
-    PlayerTextDrawSetShadow(playerid, HungerOutLine[playerid], 0);
-    PlayerTextDrawSetOutline(playerid, HungerOutLine[playerid], 0);
-    PlayerTextDrawBackgroundColor(playerid, HungerOutLine[playerid], 255);
-    PlayerTextDrawFont(playerid, HungerOutLine[playerid], 4);
-    PlayerTextDrawSetProportional(playerid, HungerOutLine[playerid], 1);
-
-    ThristValue[playerid] = CreatePlayerTextDraw(playerid, 362.000, 416.000, "LD_SPAC:white");
-    //PlayerTextDrawTextSize(playerid, ThristValue[playerid], 65.000, 12.000);
-    PlayerTextDrawAlignment(playerid, ThristValue[playerid], 1);
-    PlayerTextDrawColor(playerid, ThristValue[playerid], 512819199);
-    PlayerTextDrawSetShadow(playerid, ThristValue[playerid], 0);
-    PlayerTextDrawSetOutline(playerid, ThristValue[playerid], 0);
-    PlayerTextDrawBackgroundColor(playerid, ThristValue[playerid], 255);
-    PlayerTextDrawFont(playerid, ThristValue[playerid], 4);
-    PlayerTextDrawSetProportional(playerid, ThristValue[playerid], 1);
-
-    HungerValue[playerid] = CreatePlayerTextDraw(playerid, 261.000, 416.000, "LD_SPAC:white");
-    //PlayerTextDrawTextSize(playerid, HungerValue[playerid], 65.000, 12.000);
-    PlayerTextDrawAlignment(playerid, HungerValue[playerid], 1);
-    PlayerTextDrawColor(playerid, HungerValue[playerid], -7601921);
-    PlayerTextDrawSetShadow(playerid, HungerValue[playerid], 0);
-    PlayerTextDrawSetOutline(playerid, HungerValue[playerid], 0);
-    PlayerTextDrawBackgroundColor(playerid, HungerValue[playerid], 255);
-    PlayerTextDrawFont(playerid, HungerValue[playerid], 4);
-    PlayerTextDrawSetProportional(playerid, HungerValue[playerid], 1);
+    Value_Thrist[playerid] = CreatePlayerTextDraw(playerid, 629.000, 15.000, "100");
+    PlayerTextDrawLetterSize(playerid, Value_Thrist[playerid], 0.170, 1.299);
+    PlayerTextDrawTextSize(playerid, Value_Thrist[playerid], 5.000, -2.000);
+    PlayerTextDrawAlignment(playerid, Value_Thrist[playerid], 2);
+    PlayerTextDrawColor(playerid, Value_Thrist[playerid], -1);
+    PlayerTextDrawSetShadow(playerid, Value_Thrist[playerid], 0);
+    PlayerTextDrawSetOutline(playerid, Value_Thrist[playerid], 0);
+    PlayerTextDrawBackgroundColor(playerid, Value_Thrist[playerid], 150);
+    PlayerTextDrawFont(playerid, Value_Thrist[playerid], 2);
+    PlayerTextDrawSetProportional(playerid, Value_Thrist[playerid], 1);
 
     return 1;
 }
@@ -103,26 +60,18 @@ hook OnPlayerSpawn(playerid)
 }
 
 stock ShowHungerDisplay(playerid) {
-    PlayerTextDrawShow(playerid, HungerIcon[playerid]);
-    PlayerTextDrawShow(playerid, ThristIcon[playerid]);
-    PlayerTextDrawShow(playerid, HungerInLine[playerid]);
-    PlayerTextDrawShow(playerid, ThristInLine[playerid]);
-    PlayerTextDrawShow(playerid, ThristOutLine[playerid]);
-    PlayerTextDrawShow(playerid, HungerOutLine[playerid]);
-    PlayerTextDrawShow(playerid, ThristValue[playerid]);
-    PlayerTextDrawShow(playerid, HungerValue[playerid]);
+    PlayerTextDrawShow(playerid, Thrist[playerid]);
+    PlayerTextDrawShow(playerid, Hunger[playerid]);
+    PlayerTextDrawShow(playerid, Value_Hunger[playerid]);
+    PlayerTextDrawShow(playerid, Value_Thrist[playerid]);
     return 1;
 }
 
 stock HideHungerDisplay(playerid) {
-    PlayerTextDrawHide(playerid, HungerIcon[playerid]);
-    PlayerTextDrawHide(playerid, ThristIcon[playerid]);
-    PlayerTextDrawHide(playerid, HungerInLine[playerid]);
-    PlayerTextDrawHide(playerid, ThristInLine[playerid]);
-    PlayerTextDrawHide(playerid, ThristOutLine[playerid]);
-    PlayerTextDrawHide(playerid, HungerOutLine[playerid]);
-    PlayerTextDrawHide(playerid, ThristValue[playerid]);
-    PlayerTextDrawHide(playerid, HungerValue[playerid]);
+    PlayerTextDrawHide(playerid, Thrist[playerid]);
+    PlayerTextDrawHide(playerid, Hunger[playerid]);
+    PlayerTextDrawHide(playerid, Value_Hunger[playerid]);
+    PlayerTextDrawHide(playerid, Value_Thrist[playerid]);
     return 1;
 }
 
@@ -161,11 +110,15 @@ stock UpdatePlayerHealthBar(playerid, bool:isHunger, Float:value) {
 }
 
 stock UpdatePlayerHungerDisplay(playerid) {
+    new hungerStr[8], thirstStr[8];
     new Float:hungerValue = PlayerInfo[playerid][pThucAn];
     new Float:thirstValue = PlayerInfo[playerid][pNuoc];
     
-    UpdatePlayerHealthBar(playerid, true, hungerValue);
-    UpdatePlayerHealthBar(playerid, false, thirstValue);
+    format(hungerStr, sizeof(hungerStr), "%d", floatround(hungerValue));
+    format(thirstStr, sizeof(thirstStr), "%d", floatround(thirstValue));
+        
+    PlayerTextDrawSetString(playerid, Value_Hunger[playerid], hungerStr);
+    PlayerTextDrawSetString(playerid, Value_Thrist[playerid], thirstStr);
     return 1;
 }
 
@@ -197,7 +150,7 @@ CMD:suckhoe(playerid, params[]) {
 }
 
 /* ====================== TASKS ======================== */
-task UpdateBar[100]() {
+task UpdateBar[1000]() {
     foreach(new playerid: Player) {
         if(gPlayerLogged{playerid} == 1) {
             UpdatePlayerHungerDisplay(playerid);
