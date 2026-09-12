@@ -27,7 +27,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart){
 	        RemovePlayerWeapon(playerid, weaponid);
 	        format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Gun.", GetPlayerNameEx(playerid));
 			discord_messHack(szMess);
-	        ABroadCast(COLOR_YELLOW, szMess, 2);
+	        //ABroadCast(COLOR_YELLOW, szMess, 2);
 	        SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti hack distance, neu co hack that hay tat giup tuiiii...!");
 	        SetTimerEx("KickEx", 2000, 0, "i", playerid);
 		}
@@ -37,7 +37,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart){
         new szMess[256];
         RemovePlayerWeapon(playerid, 38);
         format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Minigun.", GetPlayerNameEx(playerid));
-        ABroadCast(COLOR_YELLOW, szMess, 2);
+        //ABroadCast(COLOR_YELLOW, szMess, 2);
 		discord_messHack(szMess);
         SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti cheating minigun, neu co hack that hay tat giup tuiiii...!");
         SetTimerEx("KickEx", 2000, 0, "i", playerid);
@@ -49,7 +49,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart){
         new szMess[256];
         RemovePlayerWeapon(playerid, 38);
         format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Distance.", GetPlayerNameEx(playerid));
-        ABroadCast(COLOR_YELLOW, szMess, 2);
+        //ABroadCast(COLOR_YELLOW, szMess, 2);
 		discord_messHack(szMess);
         SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti hack distance, neu co hack that hay tat giup tuiiii...!");
         SetTimerEx("KickEx", 2000, 0, "i", playerid);
@@ -59,7 +59,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart){
         new szMess[256];
         RemovePlayerWeapon(playerid, 38);
         format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Dame.", GetPlayerNameEx(playerid));
-        ABroadCast(COLOR_YELLOW, szMess, 2);
+        //ABroadCast(COLOR_YELLOW, szMess, 2);
 		discord_messHack(szMess);
         SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti hack dame, neu co hack that hay tat giup tuiiii...!");
         SetTimerEx("KickEx", 2000, 0, "i", playerid);
@@ -83,7 +83,7 @@ public AntiCheat(playerid)
 		{
 			new szMess[256];
 			format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Fakespawn.", GetPlayerNameEx(playerid));
-			ABroadCast(COLOR_YELLOW, szMess, 2);
+			//ABroadCast(COLOR_YELLOW, szMess, 2);
 			discord_messHack(szMess);
 			SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti cheating Fakespawn, neu co hack that hay tat giup tuiiii...!");
 			SetTimerEx("KickEx", 2000, 0, "i", playerid);
@@ -95,7 +95,7 @@ public AntiCheat(playerid)
 	    {
 	        new szMess[256];
 	        format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Crashing.", GetPlayerNameEx(playerid));
-	        ABroadCast(COLOR_YELLOW, szMess, 2);
+	        //ABroadCast(COLOR_YELLOW, szMess, 2);
 	        RemovePlayerWeapon(playerid, 40);
 			discord_messHack(szMess);
 	        SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti cheating crashing, neu co hack that hay tat giup tuiiii...!");
@@ -105,7 +105,7 @@ public AntiCheat(playerid)
 	    {
 	        new szMess[256];
 	        format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Minigun.", GetPlayerNameEx(playerid));
-	        ABroadCast(COLOR_YELLOW, szMess, 2);
+	        //ABroadCast(COLOR_YELLOW, szMess, 2);
 	        RemovePlayerWeapon(playerid, 40);
 			discord_messHack(szMess);
 	        SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti cheating Minigun, neu co hack that hay tat giup tuiiii...!");
@@ -158,7 +158,7 @@ stock SlapAntiSlap(playerid)
 		{
 	        new szMess[256];
 	        format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Anti Slap / Bypass Car / Bypass Tele", GetPlayerNameEx(playerid));
-	        ABroadCast(COLOR_YELLOW, szMess, 2);
+	        //ABroadCast(COLOR_YELLOW, szMess, 2);
 	        RemovePlayerWeapon(playerid, 40);
 			discord_messHack(szMess);
 	        SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti cheating Anti Slap / Bypass Car / Bypass Tele, neu co hack that hay tat giup tuiiii...!");
