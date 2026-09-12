@@ -7834,7 +7834,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
-			<referrer name="DynamicTextDrawTextSize"/>
+			<referrer name="operator-(Float:)"/>
 			<referrer name="SSCANF_GetSimilarString"/>
 			<referrer name="SSCANF_GetSimilarValue"/>
 			<referrer name="operator-(Float:)"/>
@@ -7902,7 +7902,7 @@
 			<referrer name="CGen_OnCodeInit"/>
 			<referrer name="YHNPS_Find"/>
 			<referrer name="Hooks_RegisterNPSHook"/>
-			<referrer name="gt_PosZ"/>
+			<referrer name="incar_rate"/>
 			<referrer name="FIXES_valstr"/>
 			<referrer name="Indirect_SetOwner_"/>
 			<referrer name="operator*(@Ik:,_:)"/>
@@ -16327,7 +16327,7 @@
 			<referrer name="Inline_GeneratePostamble"/>
 		</member>
 		<member name="F:YSI_g_sCodSize">
-			<referrer name="gt_PosZ"/>
+			<referrer name="incar_rate"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="operator*(@Ik:,_:)"/>
 		</member>
@@ -16414,7 +16414,7 @@
 			<referrer name="Inline_DoRetnGen"/>
 		</member>
 		<member name="F:YSI_g_sInlineLinkedList">
-			<referrer name="GANG_TAG_INFO"/>
+			<referrer name="weapon_rate"/>
 			<referrer name="Inline_FoundDestructor"/>
 			<referrer name="Hooks_OnRuntimeError"/>
 			<referrer name="Hooks_OnCodeInit"/>
@@ -16436,7 +16436,7 @@
 			<referrer name="Iter_YieldReturn"/>
 		</member>
 		<member name="F:YSI_g_sJumpOffset">
-			<referrer name="GANG_TAG_INFO"/>
+			<referrer name="weapon_rate"/>
 			<referrer name="Hooks_OnCodeInit"/>
 			<referrer name="Inline_DoRetnGen"/>
 			<referrer name="operator~(I@T:)"/>
@@ -40885,7 +40885,6 @@
 			<attribute name="native"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="LoadTextDraws"/>
-			<dependency name="cellmin"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 			</param>

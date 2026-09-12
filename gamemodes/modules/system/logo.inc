@@ -54,7 +54,7 @@ stock CreateUiPlayerInfo(playerid)
     UiPlayerInfoTD[playerid][0] = CreatePlayerTextDraw(playerid, 551.000, 136.000, "_");
 	PlayerTextDrawTextSize(playerid, UiPlayerInfoTD[playerid][0], 84.000, 25.000);
 	PlayerTextDrawAlignment(playerid, UiPlayerInfoTD[playerid][0], 1);
-	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][0], -1);
+	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][0], -158);
 	PlayerTextDrawSetShadow(playerid, UiPlayerInfoTD[playerid][0], 0);
 	PlayerTextDrawSetOutline(playerid, UiPlayerInfoTD[playerid][0], 0);
 	PlayerTextDrawBackgroundColor(playerid, UiPlayerInfoTD[playerid][0], 120);
@@ -67,7 +67,7 @@ stock CreateUiPlayerInfo(playerid)
 	UiPlayerInfoTD[playerid][1] = CreatePlayerTextDraw(playerid, 461.000, 136.000, "_");
 	PlayerTextDrawTextSize(playerid, UiPlayerInfoTD[playerid][1], 84.000, 25.000);
 	PlayerTextDrawAlignment(playerid, UiPlayerInfoTD[playerid][1], 1);
-	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][1], -1);
+	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][1], -158);
 	PlayerTextDrawSetShadow(playerid, UiPlayerInfoTD[playerid][1], 0);
 	PlayerTextDrawSetOutline(playerid, UiPlayerInfoTD[playerid][1], 0);
 	PlayerTextDrawBackgroundColor(playerid, UiPlayerInfoTD[playerid][1], 120);
@@ -80,7 +80,7 @@ stock CreateUiPlayerInfo(playerid)
 	UiPlayerInfoTD[playerid][2] = CreatePlayerTextDraw(playerid, 568.000, 104.000, "_");
 	PlayerTextDrawTextSize(playerid, UiPlayerInfoTD[playerid][2], 67.000, 25.000);
 	PlayerTextDrawAlignment(playerid, UiPlayerInfoTD[playerid][2], 1);
-	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][2], -1);
+	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][2], -158);
 	PlayerTextDrawSetShadow(playerid, UiPlayerInfoTD[playerid][2], 0);
 	PlayerTextDrawSetOutline(playerid, UiPlayerInfoTD[playerid][2], 0);
 	PlayerTextDrawBackgroundColor(playerid, UiPlayerInfoTD[playerid][2], 120);
@@ -93,7 +93,7 @@ stock CreateUiPlayerInfo(playerid)
 	UiPlayerInfoTD[playerid][3] = CreatePlayerTextDraw(playerid, 495.000, 104.000, "_");
 	PlayerTextDrawTextSize(playerid, UiPlayerInfoTD[playerid][3], 67.000, 25.000);
 	PlayerTextDrawAlignment(playerid, UiPlayerInfoTD[playerid][3], 1);
-	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][3], -1);
+	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][3], -158);
 	PlayerTextDrawSetShadow(playerid, UiPlayerInfoTD[playerid][3], 0);
 	PlayerTextDrawSetOutline(playerid, UiPlayerInfoTD[playerid][3], 0);
 	PlayerTextDrawBackgroundColor(playerid, UiPlayerInfoTD[playerid][3], 120);
@@ -106,7 +106,7 @@ stock CreateUiPlayerInfo(playerid)
 	UiPlayerInfoTD[playerid][4] = CreatePlayerTextDraw(playerid, 568.000, 168.000, "_");
 	PlayerTextDrawTextSize(playerid, UiPlayerInfoTD[playerid][4], 67.000, 25.000);
 	PlayerTextDrawAlignment(playerid, UiPlayerInfoTD[playerid][4], 1);
-	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][4], -1);
+	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][4], -158);
 	PlayerTextDrawSetShadow(playerid, UiPlayerInfoTD[playerid][4], 0);
 	PlayerTextDrawSetOutline(playerid, UiPlayerInfoTD[playerid][4], 0);
 	PlayerTextDrawBackgroundColor(playerid, UiPlayerInfoTD[playerid][4], 120);
@@ -119,7 +119,7 @@ stock CreateUiPlayerInfo(playerid)
 	UiPlayerInfoTD[playerid][5] = CreatePlayerTextDraw(playerid, 495.000, 168.000, "_");
 	PlayerTextDrawTextSize(playerid, UiPlayerInfoTD[playerid][5], 67.000, 25.000);
 	PlayerTextDrawAlignment(playerid, UiPlayerInfoTD[playerid][5], 1);
-	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][5], -1);
+	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][5], -158);
 	PlayerTextDrawSetShadow(playerid, UiPlayerInfoTD[playerid][5], 0);
 	PlayerTextDrawSetOutline(playerid, UiPlayerInfoTD[playerid][5], 0);
 	PlayerTextDrawBackgroundColor(playerid, UiPlayerInfoTD[playerid][5], 120);
@@ -132,7 +132,7 @@ stock CreateUiPlayerInfo(playerid)
 	UiPlayerInfoTD[playerid][6] = CreatePlayerTextDraw(playerid, 568.000, 200.000, "_");
 	PlayerTextDrawTextSize(playerid, UiPlayerInfoTD[playerid][6], 67.000, 25.000);
 	PlayerTextDrawAlignment(playerid, UiPlayerInfoTD[playerid][6], 1);
-	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][6], -1);
+	PlayerTextDrawColour(playerid, UiPlayerInfoTD[playerid][6], -158);
 	PlayerTextDrawSetShadow(playerid, UiPlayerInfoTD[playerid][6], 0);
 	PlayerTextDrawSetOutline(playerid, UiPlayerInfoTD[playerid][6], 0);
 	PlayerTextDrawBackgroundColor(playerid, UiPlayerInfoTD[playerid][6], 100);
