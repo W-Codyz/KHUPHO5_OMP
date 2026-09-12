@@ -835,6 +835,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
         new string[128];
         format(string, sizeof(string), "Ban da ban %d con ca va nhan duoc $%d!", totalFishSold, totalPrice);
         SendClientMessage(playerid, COLOR_GREEN, string);
+        new title[64];
+        format(title, sizeof(title), "%s (ID: %d) - Bán cá", GetPlayerNameEx(playerid), playerid);
+        DiscordLog(dclog_Fishing, title, "**Số cá bán: %d con**\n**Tiền nhận được: $%d**", totalFishSold, totalPrice);
         return 1;
     }
     else if(dialogid == DIALOG_CAUCA_MENU) {

@@ -61,6 +61,9 @@ CMD:fare(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da ket thuc ca lam viec va kiem duoc $%d.", TransportMoney[playerid]);
 		ShowTDN(playerid, NOTIFICATION_SUCCESS, paymentMessage);
 		GivePlayerCash(playerid, TransportMoney[playerid]);
+		new title[64];
+		format(title, sizeof(title), "%s (ID: %d) - Tài xế Taxi/Bus", GetPlayerNameEx(playerid), playerid);
+		DiscordLog(dclog_Taxi, title, "**Loại hình: %s**\n**Tiền nhận được: $%d**", TransportDuty[playerid] == 1 ? "Taxi" : "Bus", TransportMoney[playerid]);
 		TransportValue[playerid] = 0; TransportMoney[playerid] = 0;
 		SetPlayerToTeamColor(playerid);
 		return 1;

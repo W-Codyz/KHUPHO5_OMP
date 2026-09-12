@@ -126,18 +126,23 @@ Discord_Init()
     dcRole_Medic = DCC_FindRoleById("");
     dc_Verify = DCC_FindChannelById("1544221791369560155");
 
-    ccChannel = DCC_FindChannelById("");
-    dclog_Money = DCC_FindChannelById("");
-    dclog_Setvip = DCC_FindChannelById("");
+    ccChannel = DCC_FindChannelById("1548216250415456376");
+    dclog_Money = DCC_FindChannelById("1548216250415456376");
+    dclog_Setvip = DCC_FindChannelById("1548216250415456376");
 
     dclog_Join = DCC_FindChannelById("1544235359196684319");
-    dclog_Pay = DCC_FindChannelById("");
+    dclog_Pay = DCC_FindChannelById("1548216250415456376");
 
-    dclog_Pizza = DCC_FindChannelById("");
-    dclog_Sweeper = DCC_FindChannelById("");
-    dclog_Porter = DCC_FindChannelById("");
-    dclog_Trucker = DCC_FindChannelById("");
-    dclog_Construction = DCC_FindChannelById("");
+    dclog_Pizza = DCC_FindChannelById("1548215799087366194");
+    dclog_Sweeper = DCC_FindChannelById("1548215799087366194");
+    dclog_Porter = DCC_FindChannelById("1548215799087366194");
+    dclog_Trucker = DCC_FindChannelById("1548215799087366194");
+    dclog_Construction = DCC_FindChannelById("1548215799087366194");
+    dclog_CanSa = DCC_FindChannelById("1548215799087366194");
+    dclog_Fishing = DCC_FindChannelById("1548215799087366194");
+    dclog_Lumber = DCC_FindChannelById("1548215799087366194");
+    dclog_Painter = DCC_FindChannelById("1548215799087366194");
+    dclog_Taxi = DCC_FindChannelById("1548215799087366194");
 
     //old server
     renameChannel = DCC_FindChannelById("");
@@ -150,7 +155,7 @@ Discord_Init()
 	moneyChannel = DCC_FindChannelById("");
 	weaponChannel = DCC_FindChannelById("");
 	giveChannel = DCC_FindChannelById("");
-	antiChannel = DCC_FindChannelById("");
+	antiChannel = DCC_FindChannelById("1548216250415456376");
     
 }
 

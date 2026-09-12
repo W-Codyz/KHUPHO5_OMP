@@ -110,7 +110,7 @@ public PorterAnimation(playerid, step)
         }
 
         new title[64];
-        format(title, _, "%s (ID: %d) - bóc vác", GetPlayerNameEx(playerid), playerid);
+        format(title, _, "%s (ID: %d) - Bốc vác", GetPlayerNameEx(playerid), playerid);
         DiscordLog(dclog_Porter, title, "**Tiền nhận được: $%d**\n**Kinh nghiệm nhân vật: +%d XP**", payment, rand_xp);
     }
     return 1;

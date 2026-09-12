@@ -291,6 +291,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             ShowTDN(playerid, NOTIFICATION_SUCCESS, str);
             PlayerInfo[playerid][pGoThuong] -= amount;
             GivePlayerCash(playerid, amount*WoodSell1);
+            new title[64];
+            format(title, sizeof(title), "%s (ID: %d) - Bán gỗ", GetPlayerNameEx(playerid), playerid);
+            DiscordLog(dclog_Lumber, title, "**Loại gỗ: Gỗ thường**\n**Số lượng: %d**\n**Tiền nhận được: $%d**", amount, amount*WoodSell1);
         }
     }
     if(dialogid == DIALOG_MENU_WOODSELL2)
@@ -306,6 +309,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             PlayerInfo[playerid][pGoXin] -= amount;
             SendClientMessage(playerid, -1, str);
             GivePlayerCash(playerid, amount*WoodSell2);
+            new title[64];
+            format(title, sizeof(title), "%s (ID: %d) - Bán gỗ", GetPlayerNameEx(playerid), playerid);
+            DiscordLog(dclog_Lumber, title, "**Loại gỗ: Gỗ xịn**\n**Số lượng: %d**\n**Tiền nhận được: $%d**", amount, amount*WoodSell2);
         }
     }
     if(dialogid == DIALOG_MENU_WOODSELL3)
@@ -321,6 +327,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SendClientMessage(playerid, -1, str);
             GivePlayerCash(playerid, amount*WoodSell3);
             PlayerInfo[playerid][pGoHiem] -= amount;
+            new title[64];
+            format(title, sizeof(title), "%s (ID: %d) - án gỗ", GetPlayerNameEx(playerid), playerid);
+            DiscordLog(dclog_Lumber, title, "**Loại gỗ: Gỗ quý**\n**Số lượng: %d**\n**Tiền nhận được: $%d**", amount, amount*WoodSell3);
         }
     }
     return 0;

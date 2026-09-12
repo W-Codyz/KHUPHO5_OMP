@@ -242,6 +242,9 @@ public startpainter(playerid)
             format(str, sizeof(str), "Ban da hoan thanh cong viec va nhan duoc %d$.", cashjob);
             SendClientMessage(playerid, COLOR_GREY, str);
             GivePlayerCash(playerid, cashjob);
+            new title[64];
+            format(title, sizeof(title), "%s (ID: %d) - Sơn nhà", GetPlayerNameEx(playerid), playerid);
+            DiscordLog(dclog_Painter, title, "**Nhà đã sơn: #%d**\n**Tiền nhận được: $%d**", PlayerJobHouseID[playerid] + 1, cashjob);
             ResetPaintVariable(playerid);
         }
         ClearAnimations(playerid);

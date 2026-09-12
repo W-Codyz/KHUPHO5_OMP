@@ -369,6 +369,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GivePlayerCash(playerid, amount*MONEY_SELL_CANSA);
 					format(stringcs, sizeof(stringcs), "{ffff00}GTAHTB{ffffff} Ban da ban %d tui can sa va nhan duoc $%d", amount, amount*MONEY_SELL_CANSA);
 					SendClientMessage(playerid, -1, stringcs);
+                    new title[64];
+                    format(title, sizeof(title), "%s (ID: %d) - Bán cần sa", GetPlayerNameEx(playerid), playerid);
+                    DiscordLog(dclog_CanSa, title, "**Số túi cần sa: %d**\n**Tiền nhận được: $%d**", amount, amount*MONEY_SELL_CANSA);
 				}
 				else
 					SendClientMessage(playerid, -1,"{ffff00}GTAHTB{ffffff} - So luong khong hop le! Hay kiem tra lai so luong cua ban.");
@@ -674,6 +677,9 @@ NhanTienCanSa(playerid)
     SendClientMessage(playerid, -1, str);
     ShowTDN(playerid, NOTIFICATION_SUCCESS, "Giao can sa thanh cong!");
     GivePlayerCash(playerid, moneytotal);
+    new title[64];
+    format(title, sizeof(title), "%s (ID: %d) - Giao cần sa", GetPlayerNameEx(playerid), playerid);
+    DiscordLog(dclog_CanSa, title, "**Số tép cần sa: %d**\n**Tiền nhận được: $%d**", inputcansa[playerid], moneytotal);
     PlayerInfo[playerid][pTepCanSa] -= inputcansa[playerid];
     inputcansa[playerid] = 0;
     PlayerGiaoCanSa[playerid] = 0;

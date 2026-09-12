@@ -36,6 +36,11 @@ new DCC_Channel:dclog_Sweeper;
 new DCC_Channel:dclog_Porter;
 new DCC_Channel:dclog_Trucker;
 new DCC_Channel:dclog_Construction;
+new DCC_Channel:dclog_CanSa;
+new DCC_Channel:dclog_Fishing;
+new DCC_Channel:dclog_Lumber;
+new DCC_Channel:dclog_Painter;
+new DCC_Channel:dclog_Taxi;
 
 
 stock discord_messHack(const str[])
