@@ -229,3 +229,32 @@ CMD:dsadvisor(playerid, params[]) {
     }
     return 1;
 }
+
+
+CMD:kickallbaotri(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] == 99999)
+	{
+	    for(new i = 0; i < MAX_PLAYERS; i++){
+	        KickWithMessage(i, "Ban vui long /q , may chu dang bao tri!");
+			Kick(i);
+		}
+	}
+	return 1;
+}
+
+CMD:baotri(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 99999) {
+        SendClientMessageEx(playerid, COLOR_GRAD2, "{ff4400}>{ffffff} Ban khong duoc phep su dung lenh nay.");
+        return 1;
+    }
+
+    SetTimer( "Maintenance", 30000, false );
+    SendClientMessageToAllEx(COLOR_LIGHTBLUE, "*SERVER SE NGAT KET NOI SAU 30 GIAY DE BAO TRI, VUI LONG THOAT GAME");
+    foreach(new i: Player)
+	{
+        GameTextForPlayer(i, "~y~Bao tri may chu", 5000, 6);
+    }
+    return 1;
+}
