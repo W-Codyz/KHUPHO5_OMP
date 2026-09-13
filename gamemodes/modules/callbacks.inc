@@ -2626,7 +2626,7 @@ public OnPlayerConnect(playerid) {
 
 	RemoveBuildings(playerid);
 
-	TogglePlayerSpectating(playerid, true);
+	//TogglePlayerSpectating(playerid, true);
     gPlayerLogged{playerid} = 0;
 
 	return 1;
