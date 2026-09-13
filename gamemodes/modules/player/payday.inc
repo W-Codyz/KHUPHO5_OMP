@@ -332,7 +332,7 @@ PayDay(i) {
 }
 
 
-alias:payday("lanhluong")
+/* alias:payday("lanhluong")
 CMD:payday(playerid, params)
 {
 	if(!IsPlayerDiscordVerified(playerid)) 
@@ -343,7 +343,7 @@ CMD:payday(playerid, params)
 
 	ShowPlayerDialog(playerid, DIALOG_PAYDAY, DIALOG_STYLE_INPUT, "PayCheck", "{FFFFFF}Ma lanh luong cua ban: {FFFA77}%d\n\n{FFFFFF}Nhap ma lanh luong cua ban ben duoi de nhan luong:", "Gui", "Huy bo", PlayerInfo[playerid][pPayDayCode]);
 	return 1;
-}
+} */
 
 alias:nextpaycheck("thoigianlanhluong")
 CMD:nextpaycheck(playerid, params[])

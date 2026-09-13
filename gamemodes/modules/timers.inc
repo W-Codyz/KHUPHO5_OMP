@@ -939,13 +939,13 @@ task ServerHeartbeat[1000]() {
 			if(PlayerInfo[i][pPayDayCode] == 0)
 			{
 				if(++PlayerInfo[i][pConnectSeconds] >= 3600) {
-					//PayDay(i);
+					PayDay(i);
 					PlayerInfo[i][pPayDayCode] = Random(100000, 999999);
-					PlayerInfo[i][pPayDayTime] = 300; // 5mins
+					/*PlayerInfo[i][pPayDayTime] = 300; // 5mins
 					SendClientMessage(i, 0xFFFF36FF, "PAYDAY! Ban da co the nhan luong cua minh.");
 					SendClientMessage(i, -1, "Ban co 5 phut de lanh luong, go /lanhluong de lanh luong.");
-					//GameTextForPlayer(i, "~y~PAYDAY~n~~w~Ban co the nhan luong cua minh.", 5000, 1);
-					HienTextdraw(i, "~y~PAYDAY~w~ Ban co the nhan luong cua minh.");
+					//GameTextForPlayer(i, "~y~PAYDAY~n~~w~Ban co the nhan luong cua minh.", 5000, 1); */
+					HienTextdraw(i, "~y~PAYDAY~w~ Chuc mung ban da nhan luong.");
 				}
 
 				if(PlayerInfo[i][pConnectSeconds] % 3 == 0) {
