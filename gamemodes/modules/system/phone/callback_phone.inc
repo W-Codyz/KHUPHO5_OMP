@@ -69,7 +69,7 @@ hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
     if(playertextid == Text_Player[playerid][30]) //cai dat
     {
 		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        pc_cmd_setting(playerid, "");
+        PC_EmulateCommand(playerid, "/setting");
     }
 	if(playertextid == Text_Player[playerid][31]) //dich vu
 	{
