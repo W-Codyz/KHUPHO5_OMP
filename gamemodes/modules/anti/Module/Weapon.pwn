@@ -135,7 +135,7 @@ public hackWeapon(playerid)
 					discord_messHack(String);
 					Kick(playerid);
 				}
-
+				if(GetPVarInt(playerid, "Injured") == 1) return 1;
 				GetWeaponName(weapons[i][0], weaponname, sizeof(weaponname));
 				format(string, sizeof(string), "%s da bi kick do su dung hack/weapon %s (%d) (non server-side).", GetPlayerNameEx(playerid), weaponname, weapons[i][0]);
 				ABroadCast( COLOR_LIGHTRED, string, 2 );
