@@ -95,7 +95,7 @@
     "pawn": {
         "legacy_plugins": [
             "crashdetect", "streamer", "mysql", "whirlpool", 
-            "GPS", "pawn-memory", "ColAndreas", "textdraw-streamer"
+            "GPS", "pawn-memory", "ColAndreas"
         ],
         "main_scripts": [
             "main 1"

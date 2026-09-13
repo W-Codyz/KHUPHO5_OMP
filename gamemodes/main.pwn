@@ -46,7 +46,6 @@
 
 #define OVERRIDE_NATIVE_GAMETEXT 
 #include <gametext_plus>
-#include <textdraw-streamer>
 
 #include "./modules/header"
 #include "./modules/enums"
