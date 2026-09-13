@@ -153,54 +153,49 @@ PayDay(i) {
 				iGroupID = PlayerInfo[i][pMember],
 				iRank = PlayerInfo[i][pRank];
 
-			if((0 <= iGroupID < MAX_GROUPS) && 0 <= iRank <= 9 && arrGroupData[iGroupID][g_iPaycheck][iRank] > 0) {
+			if((0 <= iGroupID < MAX_GROUPS) && 0 <= iRank <= 9 && arrGroupData[iGroupID][g_iPaycheck][iRank] > 0)
+			{
 				if(arrGroupData[iGroupID][g_iAllegiance] == 1)
 				{
-					if(Tax > 0) {
-						Tax -= arrGroupData[iGroupID][g_iPaycheck][iRank];
-						GivePlayerCash(i, arrGroupData[iGroupID][g_iPaycheck][iRank]);
-						format(string,sizeof(string),"  Luong chinh phu SA: {19D700}$%s", number_format(arrGroupData[iGroupID][g_iPaycheck][iRank]));
-						SendClientMessageEx(i, COLOR_WHITE, string);
-						for(new z; z < MAX_GROUPS; z++)
+					GivePlayerCash(i, 3000);
+					format(string, sizeof(string), "  Luong chinh phu SA: {19D700}$3000");
+					SendClientMessageEx(i, COLOR_WHITE, string);
+
+					for(new z; z < MAX_GROUPS; z++)
+					{
+						if(arrGroupData[z][g_iAllegiance] == 1)
 						{
-							if(arrGroupData[z][g_iAllegiance] == 1)
+							if(arrGroupData[z][g_iGroupType] == 5)
 							{
-								if(arrGroupData[z][g_iGroupType] == 5)
-								{
-									new str[128], file[32];
-       							    format(str, sizeof(str), "%s da duoc tra $%s luong Chinh phu.", GetPlayerNameEx(i), number_format(arrGroupData[iGroupID][g_iPaycheck][iRank]));
-									format(file, sizeof(file), "grouppay/%d/%d-%d-%d.log", z, month, day, year);
-									Log(file, str);
-									break;
-								}
+								new str[128], file[32];
+								format(str, sizeof(str), "%s da duoc tra $3000 luong Chinh phu.", GetPlayerNameEx(i));
+								format(file, sizeof(file), "grouppay/%d/%d-%d-%d.log", z, month, day, year);
+								Log(file, str);
+								break;
 							}
 						}
 					}
-					else SendClientMessageEx(i, COLOR_RED, "[SA] Chinh phu no tien luong cua ban, ngan sach chinh phu khong co tien de chi tra.");
 				}
 				else if(arrGroupData[iGroupID][g_iAllegiance] == 2)
 				{
-					if(TRTax > 0) {
-						TRTax -= arrGroupData[iGroupID][g_iPaycheck][iRank];
-						GivePlayerCash(i, arrGroupData[iGroupID][g_iPaycheck][iRank]);
-						format(string,sizeof(string),"  Luong chinh phu TR: {19D700}$%s", number_format(arrGroupData[iGroupID][g_iPaycheck][iRank]));
-						SendClientMessageEx(i, COLOR_WHITE, string);
-						for(new z; z < MAX_GROUPS; z++)
+					GivePlayerCash(i, 3000);
+					format(string, sizeof(string), "  Luong chinh phu TR: {19D700}$3000");
+					SendClientMessageEx(i, COLOR_WHITE, string);
+
+					for(new z; z < MAX_GROUPS; z++)
+					{
+						if(arrGroupData[z][g_iAllegiance] == 2)
 						{
-							if(arrGroupData[z][g_iAllegiance] == 2)
+							if(arrGroupData[z][g_iGroupType] == 5)
 							{
-								if(arrGroupData[z][g_iGroupType] == 5)
-								{
-									new str[128], file[32];
-									format(str, sizeof(str), "%s da duoc tra $%s luong chinh phu.", GetPlayerNameEx(i), number_format(arrGroupData[iGroupID][g_iPaycheck][iRank]));
-									format(file, sizeof(file), "grouppay/%d/%d-%d-%d.log", z, month, day, year);
-									Log(file, str);
-									break;
-								}
+								new str[128], file[32];
+								format(str, sizeof(str), "%s da duoc tra $3000 luong chinh phu.", GetPlayerNameEx(i));
+								format(file, sizeof(file), "grouppay/%d/%d-%d-%d.log", z, month, day, year);
+								Log(file, str);
+								break;
 							}
 						}
 					}
-					else SendClientMessageEx(i, COLOR_RED, "[TR] Chinh phu no tien luong cua ban; quy chinh phu khong co tien de chi tra.");
 				}
 			}
    			if (PlayerInfo[i][pBusiness] != INVALID_BUSINESS_ID) {
