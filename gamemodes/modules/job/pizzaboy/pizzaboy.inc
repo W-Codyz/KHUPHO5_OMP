@@ -129,6 +129,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys & KEY_YES)
     {
+		if(IsPlayerInRangeOfPoint(playerid, 3.0, -1713.961425, 1348.545166, 7.180452))
         PC_EmulateCommand(playerid, "/laybanh");
     }
     return 1;

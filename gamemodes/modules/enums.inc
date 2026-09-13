@@ -996,7 +996,18 @@ enum pInfo
     pSDT7,
     pSDT8,
     pSDT9,
-	pTypeHunger
+	pTypeHunger, 
+	pBanhMi,
+	pNuocLoc,
+	pPizza,
+	pBunRieu,
+	pPhoBo,
+	pHamburger,
+	pCaPhe,
+	pSuaBo, 
+	pThit,
+	pTraiCay,
+	pNuocEp
 
 
 	//enum pinfo

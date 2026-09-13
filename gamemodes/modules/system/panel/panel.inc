@@ -108,7 +108,7 @@ hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
     else if(playertextid == Panel_TextDraw[playerid][13])
     {
         HideMainMenuTextdraws(playerid);
-        ShowTDN(playerid, NOTIFICATION_WARNING, "Chuc nang dang phat trien.");
+        PC_EmulateCommand(playerid, "/tuido");
         return 1;
     }
     else if(playertextid == Panel_TextDraw[playerid][12])
@@ -123,9 +123,12 @@ hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-    if(newkeys & KEY_NO)
+    if (newkeys & KEY_NO)
     {
-        if(!IsPlayerInAnyVehicle(playerid))
+        if (IsPlayerInAction(playerid))
+            return 1;
+
+        if (!IsPlayerInAnyVehicle(playerid))
         {
             PC_EmulateCommand(playerid, "/menu");
         }

@@ -17,6 +17,8 @@ new PlayerText:HungerOutLine[MAX_PLAYERS];
 new PlayerText:ThristValue[MAX_PLAYERS];
 new PlayerText:HungerValue[MAX_PLAYERS];
 
+#define AT_SLOT_SAE 6 
+
 // pTypeHunger: 0 = Tat | 1 = Hien dai | 2 = Don gian
 stock GetTypeHunger(playerid) {
     return PlayerInfo[playerid][pTypeHunger];

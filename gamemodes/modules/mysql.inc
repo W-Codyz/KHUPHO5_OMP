@@ -617,7 +617,18 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "SDT9", szResult, MainPipeline); PlayerInfo[extraid][pSDT9] = strval(szResult);
 
 					cache_get_field_content(row,  "TypeHunger", szResult, MainPipeline); PlayerInfo[extraid][pTypeHunger] = strval(szResult);
-					
+					cache_get_field_content(row,  "BanhMi", szResult, MainPipeline); PlayerInfo[extraid][pBanhMi] = strval(szResult);
+					cache_get_field_content(row,  "NuocLoc", szResult, MainPipeline); PlayerInfo[extraid][pNuocLoc] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongBanhPizza", szResult, MainPipeline); PlayerInfo[extraid][pPizza] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongBunRieu", szResult, MainPipeline); PlayerInfo[extraid][pBunRieu] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongPhoBo", szResult, MainPipeline); PlayerInfo[extraid][pPhoBo] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongHamburger", szResult, MainPipeline); PlayerInfo[extraid][pHamburger] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongCaPhe", szResult, MainPipeline); PlayerInfo[extraid][pCaPhe] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongSuaBo", szResult, MainPipeline); PlayerInfo[extraid][pSuaBo] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongThit", szResult, MainPipeline); PlayerInfo[extraid][pThit] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongTraiCay", szResult, MainPipeline); PlayerInfo[extraid][pTraiCay] = strval(szResult);
+					cache_get_field_content(row,  "SoLuongNuocEp", szResult, MainPipeline); PlayerInfo[extraid][pNuocEp] = strval(szResult);
+
 					//gg
 					cache_get_field_content(row,  "DiscordCode", szResult, MainPipeline); PlayerInfo[extraid][pDiscordCode] = strval(szResult);
 					cache_get_field_content(row,  "DiscordID", PlayerInfo[extraid][pDiscordID], MainPipeline);
@@ -3176,6 +3187,19 @@ stock g_mysql_SaveAccount(playerid)
 	
 	//gg
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "HUDInfo", PlayerInfo[playerid][pHUDInfo]);
+
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "BanhMi", PlayerInfo[playerid][pBanhMi]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "NuocLoc", PlayerInfo[playerid][pNuocLoc]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongBanhPizza", PlayerInfo[playerid][pPizza]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongBunRieu", PlayerInfo[playerid][pBunRieu]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongPhoBo", PlayerInfo[playerid][pPhoBo]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongHamburger", PlayerInfo[playerid][pHamburger]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongCaPhe", PlayerInfo[playerid][pCaPhe]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongSuaBo", PlayerInfo[playerid][pSuaBo]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongThit", PlayerInfo[playerid][pThit]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongTraiCay", PlayerInfo[playerid][pTraiCay]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "SoLuongNuocEp", PlayerInfo[playerid][pNuocEp]);
+	
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "TypeHunger", PlayerInfo[playerid][pTypeHunger]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pBinhXit", PlayerInfo[playerid][pBinhXit]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "pThucAn", PlayerInfo[playerid][pThucAn]);

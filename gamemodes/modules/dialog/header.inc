@@ -262,6 +262,7 @@
 #define 		INTERACTPAY					(3150)
 #define 		INTERACTGIVE				(3160)
 #define 		INTERACTGIVE2				(3170)
+#define 		INTERACTGIVE3				(3171)
 #define         REGISTERSEX                 (3180)
 #define         REGISTERMONTH               (3190)
 #define         REGISTERDAY                 (3192)

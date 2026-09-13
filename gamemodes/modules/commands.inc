@@ -41899,7 +41899,7 @@ CMD:usepot(playerid, params[])
 		if(itemEquipped == false) return SendClientMessageEx(playerid, COLOR_WHITE, "You don't have a storage device equipped!");
 	}*/
 
-	if(storageid == 0 && PlayerInfo[playerid][pPot] > 1 || (storageid > 0) && StorageInfo[playerid][storageid-1][sPot] > 1)
+	if((storageid == 0 && PlayerInfo[playerid][pPot] >= 1) || (storageid > 0 && StorageInfo[playerid][storageid-1][sPot] >= 1))
 	{
 		GetPlayerHealth(playerid, health);
 		healthint = floatround(health, floatround_round);
@@ -49679,13 +49679,6 @@ alias:map("gps")
 CMD:map(playerid, params[])
 {
 	ShowPlayerDialog(playerid, DIALOG_MAP_TPHAT, DIALOG_STYLE_LIST, "MAP | Ban dang muon di dau ?", "{ffffff}Tim duong\nTim viec lam", "Chon", "Huy");
-	return 1;
-}
-
-CMD:tuido(playerid, params[])
-{
-	//HienTextdraw(playerid, "Lenh dang bao tri!!");
-	ShowTDN(playerid, NOTIFICATION_WARNING, "Lenh dang bao tri!!");
 	return 1;
 }
 

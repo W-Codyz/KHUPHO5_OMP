@@ -43,6 +43,7 @@
 #include <m_mail>
 #include <pawn-easing-function>
 #include <EVF2>
+#include <td-actions>
 
 #define OVERRIDE_NATIVE_GAMETEXT 
 #include <gametext_plus>
@@ -127,6 +128,7 @@
 #include "./modules/player/rentcar/rentcar"
 //#include "./modules/player/inventory/inventory"
 //#include "./modules/player/inventory/drop"
+#include "./modules/player/inventory/inv"
 #include "./modules/player/mission/newbie"
 
 #include "./modules/player/loading"

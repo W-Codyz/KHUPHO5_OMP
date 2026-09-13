@@ -1,24 +1,42 @@
 #include <YSI\YSI_Coding\y_hooks>
 
-#define DIALOG_BUYFOOD 9150
+#define DIALOG_BUYFOOD              (9150)
+
+// Dialog nhập số lượng cho từng món
+#define DIALOG_BUYBANHMI            (9300)
+#define DIALOG_BUYNUOCLOC           (9301)
+#define DIALOG_BUYPIZZA             (9302)
+#define DIALOG_BUYBUNRIEU           (9303)
+#define DIALOG_BUYPHOBO             (9304)
+#define DIALOG_BUYHAMBURGER         (9305)
+#define DIALOG_BUYCAPHE             (9306)
+#define DIALOG_BUYSUABO             (9307)
+#define DIALOG_BUYTHITHUNKHOI       (9308)
+#define DIALOG_BUYTRAICAY           (9309)
+#define DIALOG_BUYNUOCEP            (9310)
+
+#define MAX_FOOD_AMOUNT             (99999)
+#define MIN_FOOD_AMOUNT             (1)
 
 enum ItemFood_Data {
     NameFood[128],
-    PriceFood
+    PriceFood,
+    DialogID,
+    InventoryVariable   // vị trí enum trong PlayerInfo (pBanhMi, pNuocLoc, ...)
 }
 
 new const ItemFood[][ItemFood_Data] = {
-    {"Banh mi", 2000},
-    {"Nuoc\t", 2000},
-    {"Pizza\t", 7000},
-    {"Bun rieu", 3000},
-    {"Pho bo", 4000},
-    {"Hamburger", 3000},
-    {"Ca phe", 2500},
-    {"Sua bo", 3000},
-    {"Thit hun khoi", 4000},
-    {"Trai cay", 1500},
-    {"Nuoc ep", 2500}
+    {"Banh mi",       2000, DIALOG_BUYBANHMI,      pBanhMi},
+    {"Nuoc\t",        2000, DIALOG_BUYNUOCLOC,     pNuocLoc},
+    {"Pizza\t",       7000, DIALOG_BUYPIZZA,       pPizza},
+    {"Bun rieu",      3000, DIALOG_BUYBUNRIEU,     pBunRieu},
+    {"Pho bo",        4000, DIALOG_BUYPHOBO,       pPhoBo},
+    {"Hamburger",     3000, DIALOG_BUYHAMBURGER,   pHamburger},
+    {"Ca phe",        2500, DIALOG_BUYCAPHE,       pCaPhe},
+    {"Sua bo",        3000, DIALOG_BUYSUABO,       pSuaBo},
+    {"Thit hun khoi", 4000, DIALOG_BUYTHITHUNKHOI, pThit},
+    {"Trai cay",      1500, DIALOG_BUYTRAICAY,     pTraiCay},
+    {"Nuoc ep",       2500, DIALOG_BUYNUOCEP,      pNuocEp}
 };
 
 stock ShowBuyFood(playerid) {
@@ -38,12 +56,19 @@ stock ShowBuyFood(playerid) {
 CMD:muathucan(playerid, params[])
 {
     if (!IsAtRestaurant(playerid))
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, " Ban khong o trong nha hang!");
-		return 0;
-	}
-	ShowBuyFood(playerid);
-	return 1;
+    {
+        SendClientMessageEx(playerid, COLOR_GRAD2, " Ban khong o trong nha hang!");
+        return 0;
+    }
+    ShowBuyFood(playerid);
+    return 1;
+}
+
+CMD:adminta(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 1) return 1;
+    ShowBuyFood(playerid);
+    return 1;
 }
 
 /* hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
@@ -51,217 +76,96 @@ CMD:muathucan(playerid, params[])
     if(newkeys & KEY_YES)
     {
         if (IsAtRestaurant(playerid))
-			return cmd_muathucan(playerid, "");
+            return cmd_muathucan(playerid, "");
     }
     return 1;
 } */
 
-// Xu ly dialog mua do an
+stock ProcessFoodPurchase(playerid, itemIndex, amount)
+{
+    // Kiểm tra số lượng hợp lệ
+    if(amount < MIN_FOOD_AMOUNT || amount > MAX_FOOD_AMOUNT)
+    {
+        SendClientMessage(playerid, -1, "Loi, hay nhap lai so luong");
+        return 0;
+    }
+
+    new totalCost = amount * ItemFood[itemIndex][PriceFood];
+
+    // Kiểm tra tiền
+    if(PlayerInfo[playerid][pCash] < totalCost)
+    {
+        new moneyNeeded = totalCost - PlayerInfo[playerid][pCash];
+        new str[256];
+        format(str, sizeof(str), "{FFFFFF}Ban con thieu {10ff94}%d {FFFFFF}Money de mua {10ff94}%d {FFFFFF}%s.",
+            moneyNeeded, amount, ItemFood[itemIndex][NameFood]);
+        SendClientMessage(playerid, -1, str);
+        return 0;
+    }
+
+    // Cộng vào biến tồn kho tương ứng (pBanhMi, pNuocLoc, ...)
+    new variable = ItemFood[itemIndex][InventoryVariable];
+    PlayerInfo[playerid][variable] += amount;
+
+    // Trừ tiền
+    PlayerInfo[playerid][pCash] -= totalCost;
+
+    // Thông báo
+    new str[128];
+    format(str, sizeof(str), "{00ff00}+%d {ffffff}%s", amount, ItemFood[itemIndex][NameFood]);
+    SendClientMessageEx(playerid, -1, str);
+
+    format(str, sizeof(str), "{ff0000}-%s {ffffff}Money", FormatMoney(totalCost));
+    SendClientMessageEx(playerid, -1, str);
+
+    format(str, sizeof(str), "Ban da mua %d %s", amount, ItemFood[itemIndex][NameFood]);
+    SuccesMsg(playerid, str);
+
+    PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
+
+    // Cảnh báo khai thác
+    if(amount > 9999999)
+    {
+        new str2[128], name[MAX_PLAYER_NAME];
+        GetPlayerName(playerid, name, sizeof(name));
+        format(str2, sizeof(str2), "Nguoi choi %s dang co the dang bug mua %s voi so luong %d",
+            name, ItemFood[itemIndex][NameFood], amount);
+        ABroadCast(COLOR_YELLOW, str2, 2);
+    }
+
+    return 1;
+}
+
+// Xử lý dialog mua đồ ăn
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-    if(dialogid == DIALOG_BUYFOOD)
+    // Bước 1: chọn món trong danh sách -> mở dialog nhập số lượng
+    if(dialogid == DIALOG_BUYFOOD && response)
     {
-        if(!response) return 1;
-        
         if(listitem < 0 || listitem >= sizeof(ItemFood)) return 1;
-        
-        new price = ItemFood[listitem][PriceFood];
-        
-        // Kiem tra tien
-        if(PlayerInfo[playerid][pCash] < price)
+
+        new name[128];
+        format(name, sizeof(name), "Ban muon mua bao nhieu %s?", ItemFood[listitem][NameFood]);
+        ShowPlayerDialog(playerid, ItemFood[listitem][DialogID], DIALOG_STYLE_INPUT,
+            name, "Nhap so luong muon mua vao ben duoi:", "Mua", "Huy Bo");
+        return 1;
+    }
+
+    // Bước 2: nhập số lượng -> xử lý mua
+    for(new i = 0; i < sizeof(ItemFood); i++)
+    {
+        if(dialogid == ItemFood[i][DialogID] && response)
         {
-            SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien de mua mon nay!");
+            // Chặn ký tự lạ
+            if(strfind(inputtext, "%", true) != -1 || strfind(inputtext, "c", true) != -1)
+            {
+                return pc_cmd_muathucan(playerid, "");
+            }
+
+            new amount = strval(inputtext);
+            ProcessFoodPurchase(playerid, i, amount);
             return 1;
         }
-        
-        // Tru tien
-        PlayerInfo[playerid][pCash] -= price;
-        
-        new string[256], rand, rand1;
-        
-        // Xu ly cho tung mon an
-        switch(listitem)
-        {
-            case 0: // Banh mi
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no roi, khong the an them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 15 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                format(string, sizeof(string), "Ban da mua {00FF00}Banh mi{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no.", 
-                    FormatMoney(price), rand);
-            }
-            case 1: // Nuoc loc
-            {
-                if(PlayerInfo[playerid][pNuoc] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no nuoc roi, khong the uong them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 15 + random(10);
-                PlayerInfo[playerid][pNuoc] += rand;
-                if(PlayerInfo[playerid][pNuoc] > 100) PlayerInfo[playerid][pNuoc] = 100;
-                format(string, sizeof(string), "Ban da mua {00BFFF}Nuoc loc{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {00BFFF}+%d{FFFFFF} do khat.", 
-                    FormatMoney(price), rand);
-            }
-            case 2: // Pizza
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no roi, khong the an them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 60 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                format(string, sizeof(string), "Ban da mua {00FF00}Pizza{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no.", 
-                    FormatMoney(price), rand);
-            }
-            case 3: // Bun rieu
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100 && PlayerInfo[playerid][pNuoc] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no va khong con khat nuoc, khong the an them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 35 + random(10);
-                rand1 = 10 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                PlayerInfo[playerid][pNuoc] += rand1;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                if(PlayerInfo[playerid][pNuoc] > 100) PlayerInfo[playerid][pNuoc] = 100;
-                format(string, sizeof(string), "Ban da mua {00FF00}Bun rieu{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no, {00BFFF}+%d{FFFFFF} do khat.", 
-                    FormatMoney(price), rand, rand1);
-            }
-            case 4: // Pho bo
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100 && PlayerInfo[playerid][pNuoc] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no va khong con khat nuoc, khong the an them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 40 + random(10);
-                rand1 = 10 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                PlayerInfo[playerid][pNuoc] += rand1;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                if(PlayerInfo[playerid][pNuoc] > 100) PlayerInfo[playerid][pNuoc] = 100;
-                format(string, sizeof(string), "Ban da mua {00FF00}Pho bo{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no, {00BFFF}+%d{FFFFFF} do khat.", 
-                    FormatMoney(price), rand, rand1);
-            }
-            case 5: // Hamburger
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100 && PlayerInfo[playerid][pNuoc] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no va khong con khat nuoc, khong the an them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 35 + random(10);
-                rand1 = 10 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                PlayerInfo[playerid][pNuoc] += rand1;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                if(PlayerInfo[playerid][pNuoc] > 100) PlayerInfo[playerid][pNuoc] = 100;
-                format(string, sizeof(string), "Ban da mua {00FF00}Hamburger{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no, {00BFFF}+%d{FFFFFF} do khat.", 
-                    FormatMoney(price), rand, rand1);
-            }
-            case 6: // Ca phe
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100 && PlayerInfo[playerid][pNuoc] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no va khong con khat nuoc, khong the uong them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 10 + random(10);
-                rand1 = 25 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                PlayerInfo[playerid][pNuoc] += rand1;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                if(PlayerInfo[playerid][pNuoc] > 100) PlayerInfo[playerid][pNuoc] = 100;
-                format(string, sizeof(string), "Ban da mua {00BFFF}Ca phe{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no, {00BFFF}+%d{FFFFFF} do khat.", 
-                    FormatMoney(price), rand, rand1);
-            }
-            case 7: // Sua bo
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100 && PlayerInfo[playerid][pNuoc] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no va khong con khat nuoc, khong the uong them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 10 + random(10);
-                rand1 = 20 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                PlayerInfo[playerid][pNuoc] += rand1;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                if(PlayerInfo[playerid][pNuoc] > 100) PlayerInfo[playerid][pNuoc] = 100;
-                format(string, sizeof(string), "Ban da mua {00BFFF}Sua bo{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no, {00BFFF}+%d{FFFFFF} do khat.", 
-                    FormatMoney(price), rand, rand1);
-            }
-            case 8: // Thit hun khoi
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no roi, khong the an them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 40 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                format(string, sizeof(string), "Ban da mua {00FF00}Thit hun khoi{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no.", 
-                    FormatMoney(price), rand);
-            }
-            case 9: // Trai cay
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100 && PlayerInfo[playerid][pNuoc] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no va khong con khat nuoc, khong the an them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 15 + random(10);
-                rand1 = 10 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                PlayerInfo[playerid][pNuoc] += rand1;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                if(PlayerInfo[playerid][pNuoc] > 100) PlayerInfo[playerid][pNuoc] = 100;
-                format(string, sizeof(string), "Ban da mua {00FF00}Trai cay{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no, {00BFFF}+%d{FFFFFF} do khat.", 
-                    FormatMoney(price), rand, rand1);
-            }
-            case 10: // Nuoc ep
-            {
-                if(PlayerInfo[playerid][pThucAn] >= 100 && PlayerInfo[playerid][pNuoc] >= 100)
-                {
-                    SendClientMessageEx(playerid, COLOR_GREY, "Ban da no va khong con khat nuoc, khong the uong them!");
-                    PlayerInfo[playerid][pCash] += price; // Hoan tien
-                    return 1;
-                }
-                rand = 10 + random(10);
-                rand1 = 30 + random(10);
-                PlayerInfo[playerid][pThucAn] += rand;
-                PlayerInfo[playerid][pNuoc] += rand1;
-                if(PlayerInfo[playerid][pThucAn] > 100) PlayerInfo[playerid][pThucAn] = 100;
-                if(PlayerInfo[playerid][pNuoc] > 100) PlayerInfo[playerid][pNuoc] = 100;
-                format(string, sizeof(string), "Ban da mua {00BFFF}Nuoc ep{FFFFFF} voi gia {00FF00}%s${FFFFFF}. Tang {FFA500}+%d{FFFFFF} do no, {00BFFF}+%d{FFFFFF} do khat.", 
-                    FormatMoney(price), rand, rand1);
-            }
-        }
-        
-        SendClientMessageEx(playerid, COLOR_WHITE, string);
-        PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-        return 1;
     }
     return 1;
 }
