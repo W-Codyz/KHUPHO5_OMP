@@ -2,6 +2,7 @@
 
 new Text:LogoTD[4];
 new PlayerText: UiPlayerInfoTD[MAX_PLAYERS][46];
+new bool:UiPlayerInfoCreated[MAX_PLAYERS];
 
 stock LoadTDLogo()
 {
@@ -533,31 +534,52 @@ stock CreateUiPlayerInfo(playerid)
 	PlayerTextDrawBackgroundColor(playerid, UiPlayerInfoTD[playerid][45], 150);
 	PlayerTextDrawFont(playerid, UiPlayerInfoTD[playerid][45], 1);
 	PlayerTextDrawSetProportional(playerid, UiPlayerInfoTD[playerid][45], 1);
+
+	UiPlayerInfoCreated[playerid] = true;
     return 1;
 }
 
-stock ShowUiPlayerInfo(playerid)
+stock DestroyUiPlayerInfo(playerid)
 {
-    for(new i = 0; i < 46; i++)
-    {
-        if(UiPlayerInfoTD[playerid][i] != PlayerText:INVALID_TEXT_DRAW)
-        {
-            PlayerTextDrawShow(playerid, UiPlayerInfoTD[playerid][i]);
+    if(!UiPlayerInfoCreated[playerid]) return 0;
+    for(new i = 0; i < 46; i++) {
+        if(UiPlayerInfoTD[playerid][i] != PlayerText:INVALID_TEXT_DRAW) {
+            PlayerTextDrawDestroy(playerid, UiPlayerInfoTD[playerid][i]);
+            UiPlayerInfoTD[playerid][i] = PlayerText:INVALID_TEXT_DRAW;
         }
     }
+    UiPlayerInfoCreated[playerid] = false;
+    return 1;
+}
+
+
+stock ShowUiPlayerInfo(playerid)
+{
+    if(!UiPlayerInfoCreated[playerid]) {
+        CreateUiPlayerInfo(playerid);
+        PlayerInfo[playerid][pHUDInfo] = 1;
+        UpdateHudUI(playerid);
+    }
+
+    for(new i = 0; i < 46; i++) {
+        if(UiPlayerInfoTD[playerid][i] != PlayerText:INVALID_TEXT_DRAW)
+            PlayerTextDrawShow(playerid, UiPlayerInfoTD[playerid][i]);
+    }
     PlayerInfo[playerid][pHUDInfo] = 1;
+    return 1;
 }
 
 stock HideUiPlayerInfo(playerid)
 {
-    for(new i = 0; i < 46; i++)
-    {
-        if(UiPlayerInfoTD[playerid][i] != PlayerText:INVALID_TEXT_DRAW)
-        {
-            PlayerTextDrawHide(playerid, UiPlayerInfoTD[playerid][i]);
+    if(UiPlayerInfoCreated[playerid]) {
+        for(new i = 0; i < 46; i++) {
+            if(UiPlayerInfoTD[playerid][i] != PlayerText:INVALID_TEXT_DRAW)
+                PlayerTextDrawHide(playerid, UiPlayerInfoTD[playerid][i]);
         }
+        DestroyUiPlayerInfo(playerid);
     }
     PlayerInfo[playerid][pHUDInfo] = 0;
+    return 1;
 }
 
 stock GetAllPlayer()
@@ -572,8 +594,9 @@ stock GetAllPlayer()
 
 stock UpdateHudUI(playerid)
 {
-	if(!PlayerInfo[playerid][pHUDInfo]) return 0;
-	
+    if(!PlayerInfo[playerid][pHUDInfo]) return 0;
+    if(!UiPlayerInfoCreated[playerid]) return 0;
+
     new str[255];
     format(str, sizeof(str), "%d - #%d", GetAllPlayer(), playerid);
     PlayerTextDrawSetString(playerid, UiPlayerInfoTD[playerid][17], str);
@@ -604,35 +627,32 @@ stock UpdateHudUI(playerid)
 
 hook OnPlayerSpawn(playerid)
 {
-    if(gPlayerLogged{playerid} == 1)
+    if(gPlayerLogged{playerid} == 1 && IsPlayerSpawned(playerid))
     {
-		if (IsPlayerSpawned(playerid))
-		{
-            TextDrawShowForPlayer(playerid, LogoTD[0]);
-            TextDrawShowForPlayer(playerid, LogoTD[1]);
-            TextDrawShowForPlayer(playerid, LogoTD[2]);
-            TextDrawShowForPlayer(playerid, LogoTD[3]);
+        TextDrawShowForPlayer(playerid, LogoTD[0]);
+        TextDrawShowForPlayer(playerid, LogoTD[1]);
+        TextDrawShowForPlayer(playerid, LogoTD[2]);
+        TextDrawShowForPlayer(playerid, LogoTD[3]);
 
-            if(PlayerInfo[playerid][pHUDInfo]) {
-                ShowUiPlayerInfo(playerid);
-            }
-            else {
-                HideUiPlayerInfo(playerid);
-            }
-        }
+        if(PlayerInfo[playerid][pHUDInfo])
+            ShowUiPlayerInfo(playerid); 
+        else
+            HideUiPlayerInfo(playerid);
     }
-	return 1;
+    return 1;
 }
 
 hook OnPlayerConnect(playerid)
 {
-	CreateUiPlayerInfo(playerid);
-    //PlayerInfo[playerid][pHUDInfo] = 0;
+    UiPlayerInfoCreated[playerid] = false;
+    for(new i = 0; i < 46; i++)
+        UiPlayerInfoTD[playerid][i] = PlayerText:INVALID_TEXT_DRAW;
     return 1;
 }
 
 hook OnGameModeInit()
 {
+    LoadTDLogo();
     SetTimer("UpdateUiPlayerInfo", 1000, true);
     return 1;
 }
@@ -642,7 +662,10 @@ public UpdateUiPlayerInfo()
 {
     for(new i = 0; i < MAX_PLAYERS; i++)
     {
-        if(IsPlayerConnected(i) && PlayerInfo[i][pHUDInfo] == 1) UpdateHudUI(i);
+        if(IsPlayerConnected(i)
+            && PlayerInfo[i][pHUDInfo] == 1
+            && UiPlayerInfoCreated[i])
+            UpdateHudUI(i);
     }
     return 1;
 }

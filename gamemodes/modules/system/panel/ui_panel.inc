@@ -1,12 +1,10 @@
 #include <YSI\YSI_Coding\y_hooks>
 
 new PlayerText: Panel_TextDraw[MAX_PLAYERS][80];
+new bool:g_PanelTextDrawCreated[MAX_PLAYERS];
 
-hook OnPlayerConnect(playerid)
+stock CreatePanelTextDraws(playerid)
 {
-    for(new i = 0; i < 80; i++)
-        Panel_TextDraw[playerid][i] = PlayerText:-1;
-
     Panel_TextDraw[playerid][0] = CreatePlayerTextDraw(playerid, 0.000, -1.000, "LD_SPAC:black");
     PlayerTextDrawTextSize(playerid, Panel_TextDraw[playerid][0], 641.000, 451.000);
     PlayerTextDrawAlignment(playerid, Panel_TextDraw[playerid][0], 1);
@@ -826,5 +824,29 @@ hook OnPlayerConnect(playerid)
     PlayerTextDrawBackgroundColor(playerid, Panel_TextDraw[playerid][79], 255);
     PlayerTextDrawFont(playerid, Panel_TextDraw[playerid][79], 4);
     PlayerTextDrawSetProportional(playerid, Panel_TextDraw[playerid][79], 1);
+
+    g_PanelTextDrawCreated[playerid] = true;
+    return 1;
+}
+
+stock DestroyPanelTextDraws(playerid)
+{
+    if(!g_PanelTextDrawCreated[playerid]) return 0;
+
+    for(new i = 0; i < 80; i++) {
+        if(Panel_TextDraw[playerid][i] != PlayerText:INVALID_TEXT_DRAW) {
+            PlayerTextDrawDestroy(playerid, Panel_TextDraw[playerid][i]);
+            Panel_TextDraw[playerid][i] = PlayerText:INVALID_TEXT_DRAW;
+        }
+    }
+    g_PanelTextDrawCreated[playerid] = false;
+    return 1;
+}
+
+hook OnPlayerConnect(playerid)
+{
+    g_PanelTextDrawCreated[playerid] = false;
+    for(new i = 0; i < 80; i++)
+        Panel_TextDraw[playerid][i] = PlayerText:INVALID_TEXT_DRAW;
     return 1;
 }

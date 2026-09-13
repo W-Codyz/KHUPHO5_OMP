@@ -5,16 +5,20 @@
 new bool:g_PlayerTextDrawShown[MAX_PLAYERS];
 new bool:g_PlayerInTextDrawMode[MAX_PLAYERS];
 
-ShowMainMenuTextdraws(playerid)
+stock ShowMainMenuTextdraws(playerid)
 {
     if(g_PlayerTextDrawShown[playerid])
         return 0;
 
+    if(!g_PanelTextDrawCreated[playerid])
+        CreatePanelTextDraws(playerid);
+
     for(new i = 0; i < 80; i++)
     {
-        if(IsValidDynamicPlayerTextDraw(playerid, Panel_TextDraw[playerid][i]))
+        if(Panel_TextDraw[playerid][i] != PlayerText:INVALID_TEXT_DRAW)
             PlayerTextDrawShow(playerid, Panel_TextDraw[playerid][i]);
     }
+
     SelectTextDraw(playerid, 0xff78bcf0);
     PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 
@@ -23,27 +27,30 @@ ShowMainMenuTextdraws(playerid)
     return 1;
 }
 
-HideMainMenuTextdraws(playerid)
+stock HideMainMenuTextdraws(playerid)
 {
     if(!g_PlayerTextDrawShown[playerid])
         return 0;
 
     for(new i = 0; i < 80; i++)
     {
-        if(IsValidDynamicPlayerTextDraw(playerid, Panel_TextDraw[playerid][i]))
+        if(Panel_TextDraw[playerid][i] != PlayerText:INVALID_TEXT_DRAW)
             PlayerTextDrawHide(playerid, Panel_TextDraw[playerid][i]);
     }
+
     CancelSelectTextDraw(playerid);
     PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+
+    DestroyPanelTextDraws(playerid);
 
     g_PlayerTextDrawShown[playerid] = false;
     g_PlayerInTextDrawMode[playerid] = false;
     return 1;
 }
 
-hook OnClickDynamicTextDraw(playerid, Text:clickedid)
+hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
-    if(clickedid == Text:INVALID_TEXT_DRAW) 
+    if(clickedid == Text:INVALID_TEXT_DRAW)
     {
         if(g_PlayerTextDrawShown[playerid])
         {
@@ -54,11 +61,12 @@ hook OnClickDynamicTextDraw(playerid, Text:clickedid)
     return 0;
 }
 
-hook OnClickDynamicPlayerTextDraw(playerid, PlayerText:playertextid)
+hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 {
     if(!g_PlayerInTextDrawMode[playerid])
         return 0;
-    
+
+    // Guard: các slot này bắt buộc phải tồn tại (chúng ta đang click vào chúng)
     if(playertextid == Panel_TextDraw[playerid][5])
     {
         HideMainMenuTextdraws(playerid);
@@ -86,7 +94,9 @@ hook OnClickDynamicPlayerTextDraw(playerid, PlayerText:playertextid)
     else if(playertextid == Panel_TextDraw[playerid][16])
     {
         HideMainMenuTextdraws(playerid);
-        ShowPlayerDialog(playerid, DIALOG_EMOTE, DIALOG_STYLE_LIST, "Hanh dong", "Gio tay dau hang\nChi tay ve phia truoc\nVay tay\nNoi chuyen\nChap tay thu thai\n{00FFAA}>{ffffff}Danh sach hanh dong\n{ff4400}X{ffffff}Dung hanh dong", "Chon", "Huy");
+        ShowPlayerDialog(playerid, DIALOG_EMOTE, DIALOG_STYLE_LIST, "Hanh dong",
+            "Gio tay dau hang\nChi tay ve phia truoc\nVay tay\nNoi chuyen\nChap tay thu thai\n{00FFAA}>{ffffff} Danh sach hanh dong\n{ff4400}X{ffffff} Dung hanh dong",
+            "Chon", "Huy");
         return 1;
     }
     else if(playertextid == Panel_TextDraw[playerid][14])
@@ -98,7 +108,6 @@ hook OnClickDynamicPlayerTextDraw(playerid, PlayerText:playertextid)
     else if(playertextid == Panel_TextDraw[playerid][13])
     {
         HideMainMenuTextdraws(playerid);
-        //PC_EmulateCommand(playerid, "/hoadon");
         ShowTDN(playerid, NOTIFICATION_WARNING, "Chuc nang dang phat trien.");
         return 1;
     }
@@ -108,37 +117,47 @@ hook OnClickDynamicPlayerTextDraw(playerid, PlayerText:playertextid)
         PC_EmulateCommand(playerid, "/timvieclam");
         return 1;
     }
-    
+
     return 0;
 }
 
-hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) 
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	if(newkeys & KEY_NO)
+    if(newkeys & KEY_NO)
     {
-		if(!IsPlayerInAnyVehicle(playerid))
-		{
-        	PC_EmulateCommand(playerid, "/menu");
-		}
+        if(!IsPlayerInAnyVehicle(playerid))
+        {
+            PC_EmulateCommand(playerid, "/menu");
+        }
     }
     return 1;
 }
-
 
 CMD:menu(playerid, params[])
 {
     if(g_PlayerTextDrawShown[playerid])
         return SendClientMessage(playerid, COLOR_GREY, "Menu da duoc hien thi.");
-    
+
     ShowMainMenuTextdraws(playerid);
+    return 1;
+}
+
+hook OnPlayerConnect(playerid)
+{
+    g_PlayerTextDrawShown[playerid]   = false;
+    g_PlayerInTextDrawMode[playerid]  = false;
+    // Không tạo TD ở đây nữa — xem ui_panel.inc
     return 1;
 }
 
 hook OnPlayerDisconnect(playerid, reason)
 {
-    g_PlayerTextDrawShown[playerid] = false;
+    // Dọn dẹp để chắc chắn — dù SA-MP tự free, vẫn tốt để state consistent
+    if(g_PanelTextDrawCreated[playerid])
+        DestroyPanelTextDraws(playerid);
+
+    g_PlayerTextDrawShown[playerid]  = false;
     g_PlayerInTextDrawMode[playerid] = false;
-    
     return 1;
 }
 
@@ -152,56 +171,43 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 case 0: // Gio tay
                 {
-                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0) 
+                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0)
                         return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                     ClearAnimations(playerid);
                     ApplyAnimation(playerid, "SHOP", "SHP_HandsUp_Scr", 4.1, 0, 0, 0, 1, 0);
                 }
-                case 1: // Chi tay
+                case 1:
                 {
-                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0) 
+                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0)
                         return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                     ClearAnimations(playerid);
                     ApplyAnimation(playerid, "ON_LOOKERS", "point_loop", 4.1, 1, 0, 0, 0, 0, 1);
                 }
-                case 2: // Vay tay
+                case 2:
                 {
-                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0) 
+                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0)
                         return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                     ClearAnimations(playerid);
                     ApplyAnimation(playerid, "ON_LOOKERS", "wave_loop", 4.1, 1, 0, 0, 0, 0, 1);
                 }
-                case 3: // Noi chuyen
+                case 3:
                 {
-                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0) 
+                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0)
                         return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                     ClearAnimations(playerid);
                     ApplyAnimation(playerid, "GANGS", "prtial_gngtlkD", 4.1, 1, 1, 1, 1, 1, 1);
                 }
-                case 4: // Bo tay
+                case 4:
                 {
-                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0) 
+                    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0)
                         return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                     ClearAnimations(playerid);
                     ApplyAnimation(playerid, "DEALER", "DEALER_IDLE", 4.1, 1, 0, 0, 0, 0, 1);
                 }
-                case 5: // Danh sach hanh dong
-                {
-                    PC_EmulateCommand(playerid, "/hanhdong");
-                }
-                case 6: // Dung hanh dong
-                {
-                    ClearAnimations(playerid);
-                }
+                case 5: PC_EmulateCommand(playerid, "/hanhdong");
+                case 6: ClearAnimations(playerid);
             }
         }
     }
-    return 1;
-}
-
-hook OnPlayerConnect(playerid)
-{
-    g_PlayerTextDrawShown[playerid] = false;
-    g_PlayerInTextDrawMode[playerid] = false;
     return 1;
 }

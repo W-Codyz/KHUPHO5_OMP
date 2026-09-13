@@ -30,7 +30,7 @@ stock ShowPlayerSettings(playerid)
     {FFFFFF}Dien thoai\t\t\t%s\n\
     {FFFFFF}Kenh radio\t\t\t%s\n\
     {FFFFFF}HUD nhan vat\t\t\t%s\n\
-    {FFFFFF}HUD Suc khoe\t\t\t%s\n",
+    {FFFFFF}HUD suc khoe\t\t\t%s\n",
     dccUsername,
     !gFam[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !gOoc[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
