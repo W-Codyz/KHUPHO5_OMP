@@ -61,6 +61,7 @@ public PorterAnimation(playerid, step)
         SetPVarInt(playerid, "PorterUnloadID", unloadId);
 		SetPlayerCP(playerid, PorterUnload[unloadId][0], PorterUnload[unloadId][1], PorterUnload[unloadId][2], 2.0, false);
         ApplyAnimation(playerid, "CARRY", "liftup", 4.1, false, true, true, false, 0);
+        HienTextdraw(playerid, "Di den diem danh dau tren mini-map.");
     }
     else {
         new randCp = random(3);
@@ -85,6 +86,9 @@ public PorterAnimation(playerid, step)
 
         payment = Random(payment * 90 / 100, payment * 110 / 100);
         GivePlayerCash(playerid, payment);
+        new strz[64];
+        format(strz, sizeof(strz), "Ban da hoan thanh cong viec va nhan duoc $%d.", payment);
+        ShowTDN(playerid, NOTIFICATION_SUCCESS, strz);
         UpdateNewbieMission(playerid, 3);
 
         new rand_xp = 0;
