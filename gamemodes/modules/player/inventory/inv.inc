@@ -41,7 +41,7 @@ new const ItemInventory[][Inv_Data] = {
     {pRope, "Day thung"},
     {pCigar, "Xi ga"},
     {pMoiCau, "Moi cau"},
-    //{pHamburger, "Hamburger"},
+    {pHamburger, "Hamburger"},
     {pCaPhe, "Ca phe"},
     {pSuaBo, "Sua bo"},
     {pThit, "Thit hun khoi"},
