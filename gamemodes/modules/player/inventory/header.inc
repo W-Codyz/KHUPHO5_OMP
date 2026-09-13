@@ -57,7 +57,7 @@ new ItemsInfo[MAX_INVENTORY_ITEMS][E_ITEM_INFO] =
     {pBoombox, false, 2103, "May nghe nhac", "Dat xuong va nghe nhac", 1.0000, 1.0000, 177.0000, 0.8900}
 };
 
-new DroppedItems[MAX_DROPPED_ITEMS][E_DROPPED_ITEM]; //drop
+/* new DroppedItems[MAX_DROPPED_ITEMS][E_DROPPED_ITEM]; //drop
 new Iterator:DropItems<MAX_DROPPED_ITEMS>;
 
 new PlayerItemList[MAX_PLAYERS][MAX_INVENTORY_ITEMS] = {{-1, ...}, ...};
@@ -71,4 +71,4 @@ new PlayerText: InvTD@ItemName[MAX_PLAYERS][15] = {{INVALID_PLAYER_TEXT_DRAW, ..
 new PlayerText: InvTD@OwnerName[MAX_PLAYERS] = {INVALID_PLAYER_TEXT_DRAW, ...};
 new PlayerText: InvTD@ItemInfo[MAX_PLAYERS] = {INVALID_PLAYER_TEXT_DRAW, ...};
 new PlayerText: InvTD@Page[MAX_PLAYERS] = {INVALID_PLAYER_TEXT_DRAW, ...};
-new Text:InvTD@Global[5];
+new Text:InvTD@Global[5]; */

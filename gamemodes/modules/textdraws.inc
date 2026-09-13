@@ -560,7 +560,7 @@ public LoadTextDraws()
 	TextDrawSetProportional(ServerTime_TD, true);
 	textdrawscount++;
 
-	InvTD@Global[0] = TextDrawCreate(203.000, 133.000, "LD_SPAC:white");
+	/* InvTD@Global[0] = TextDrawCreate(203.000, 133.000, "LD_SPAC:white");
 	TextDrawTextSize(InvTD@Global[0], 259.000, 15.000);
 	TextDrawAlignment(InvTD@Global[0], TEXT_DRAW_ALIGN_LEFT);
 	TextDrawColour(InvTD@Global[0], 168430335);
@@ -617,7 +617,7 @@ public LoadTextDraws()
 	TextDrawFont(InvTD@Global[4], TEXT_DRAW_FONT_SPRITE_DRAW);
 	TextDrawSetProportional(InvTD@Global[4], true);
 	TextDrawSetSelectable(InvTD@Global[4], true);
-	textdrawscount++;
+	textdrawscount++; */
 
     noticeCommand[0] = TextDrawCreate(237.000, 276.000, "LD_SPAC:white");
     TextDrawTextSize(noticeCommand[0], 169.000, 66.000);
