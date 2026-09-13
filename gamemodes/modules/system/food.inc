@@ -40,7 +40,7 @@ new const ItemFood[][ItemFood_Data] = {
 };
 
 stock ShowBuyFood(playerid) {
-    new string[15000];
+    new string[2048];
     for(new i = 0; i < sizeof(ItemFood); i++) {
         format(string, sizeof(string), "%s\n{00ffff}>{ffffff} %s\t\t%s$", 
             string, 
@@ -119,7 +119,7 @@ stock ProcessFoodPurchase(playerid, itemIndex, amount)
     SendClientMessageEx(playerid, -1, str);
 
     format(str, sizeof(str), "Ban da mua %d %s", amount, ItemFood[itemIndex][NameFood]);
-    SuccesMsg(playerid, str);
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, str);
 
     PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
 
