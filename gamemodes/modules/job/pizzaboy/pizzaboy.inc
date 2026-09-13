@@ -124,3 +124,12 @@ hook OnPlayerEnterCheckpoint(playerid)
 	}
 	return 1;
 }
+
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+{
+    if(newkeys & KEY_YES)
+    {
+        PC_EmulateCommand(playerid, "/laybanh");
+    }
+    return 1;
+}

@@ -385,7 +385,7 @@ public LoadStreamerDynamic3DTextLabels()
     CreateDynamic3DTextLabel("Tierra Robada Gant Bridge Access.",0xFFFF00AA,-2678.2702636719,2148.0134277344,55.4296875+0.6,20.0);// Border Lable
 	CreateDynamic3DTextLabel("Tierra Robada Airport",0xFFFF00AA,-1873.2819824219,2172.4621582031,6.2687501907349+0.6,20.0);// Airport Lable.
 	CreateDynamic3DTextLabel("Famed Locker \nType /famedlocker to access the locker", COLOR_YELLOW,901.4825,1429.7404,-82.3235+0.6,4.0); //Famed Locker
-	CreateDynamic3DTextLabel("Diem lay banh\n{FFFFFF}Go \"{43F8A7}/laybanh{FFFFFF}\" de lay banh pizza", COLOR_YELLOW, -1713.961425, 1348.545166, 7.180452+0.6,4.0); //Famed Locker
+	CreateDynamic3DTextLabel("Diem lay banh\n{FFFFFF}Go \"{43F8A7}/laybanh{FFFFFF}\" hoac \"{43F8A7}an [Y]{FFFFFF}\"de lay banh pizza", COLOR_YELLOW, -1713.961425, 1348.545166, 7.180452+0.6,4.0); //Famed Locker
 	//NGGShop
 	CreateDynamic3DTextLabel("Cua hang xe\n/carshop", COLOR_YELLOW, 2958.2200, -1339.2900, 5.2100+0.6, 10.0);
 	CreateDynamic3DTextLabel("Cua hang may bay\n/planeshop", COLOR_YELLOW, 2950.4014, -1283.0776, 4.6875+0.6, 10.0);
