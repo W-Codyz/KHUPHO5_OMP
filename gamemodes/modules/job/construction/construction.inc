@@ -2,6 +2,13 @@
 
 Construction_Start(playerid, oldPoint=-1)
 {
+    if(IsPlayerInAnyVehicle(playerid))
+    {
+        SendHintMessage(playerid, "Ban khong the lam viec khi dang o tren xe. Hay xuong xe truoc!");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Hay xuong xe de lam viec.");
+        return 1;
+    }
+
     new randCP = random(sizeof(ConstructionPos));
     for(new i=0; i < 1000 && oldPoint >= 0; i ++) {
         if(randCP != oldPoint) break;
@@ -48,6 +55,13 @@ public ConstructionLoader(playerid)
 {
     new consId = GetPVarInt(playerid, "ConstructionID");
     if(consId >= 0 && consId < sizeof(ConstructionPos)) {
+        if(IsPlayerInAnyVehicle(playerid))
+        {
+            SendHintMessage(playerid, "Ban da len xe trong luc xay dung. Cong viec that bai!");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Xay dung that bai.");
+            Construction_LoadingFailed(playerid);
+            return 1;
+        }
         // Kiểm tra vị trí lần cuối trước khi hoàn thành
         if(!IsPlayerInRangeOfPoint(playerid, 3.0, ConstructionPos[consId][0], ConstructionPos[consId][1], ConstructionPos[consId][2])) {
             Construction_LoadingFailed(playerid);
@@ -107,10 +121,26 @@ public ConstructionLoader(playerid)
 
 hook OnPlayerEnterCheckpoint(playerid)
 {
-    if(GetPVarType(playerid, "ConstructionID") == PLAYER_VARTYPE_INT &&  gPlayerCheckpointStatus[playerid] == CHECKPOINT_CONSTRUCTION) {
+    if(GetPVarType(playerid, "ConstructionID") == PLAYER_VARTYPE_INT
+    && gPlayerCheckpointStatus[playerid] == CHECKPOINT_CONSTRUCTION)
+    {
+        if(IsPlayerInAnyVehicle(playerid))
+        {
+            new consId = GetPVarInt(playerid, "ConstructionID");
+            SendHintMessage(playerid, "Ban khong the xay dung khi dang o tren xe. Hay xuong xe!");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Hay xuong xe de xay dung.");
+            Construction_Start(playerid, consId); 
+            return 1;
+        }
+
         new consId = GetPVarInt(playerid, "ConstructionID");
-        if(consId >= 0 && consId < sizeof(ConstructionPos)) {
-            if(IsPlayerInRangeOfPoint(playerid, 2.8, ConstructionPos[consId][0], ConstructionPos[consId][1], ConstructionPos[consId][2])) {
+        if(consId >= 0 && consId < sizeof(ConstructionPos))
+        {
+            if(IsPlayerInRangeOfPoint(playerid, 2.8,
+                ConstructionPos[consId][0],
+                ConstructionPos[consId][1],
+                ConstructionPos[consId][2]))
+            {
                 DisablePlayerCP(playerid);
                 new randA = random(4);
                 switch(randA) {
@@ -131,9 +161,7 @@ hook OnPlayerEnterCheckpoint(playerid)
                         SetPlayerAttachedObject(playerid, 9, 18635, 6);
                     }
                 }
-                //TogglePlayerControllable(playerid, true);
                 SetLoading(playerid, 20000, "Dang xay dung...", "ConstructionLoader");
-
                 return 1;
             }
         }
