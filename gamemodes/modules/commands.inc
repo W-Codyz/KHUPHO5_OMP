@@ -7026,6 +7026,7 @@ CMD:goto(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GRAD3, "Locations 3: countygen,cracklab,gym,rodeo,flint,idlewood,fbi,island,demorgan,doc,icprison,oocprison");
 			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 4: garagesm,garagemed,garagelg,garagexlg");
 			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 5: int1, int2, int3, bm, taxi, int247, intbank, intcansa, intsanews, intcityhall, intcityhalltang2");
+			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 6: inthos,...");
 			return 1;
 		}
 		if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING)
@@ -7046,6 +7047,27 @@ CMD:goto(playerid, params[])
 			else
 			{
 				SetPlayerPos(playerid, -24.0187, -55.2830, 1003.5468);
+			}
+			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
+			SetPlayerInterior(playerid,0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"inthos",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar, 158.579330, 44.465850, 3381.033203);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 158.579330, 44.465850, 3381.033203);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
 			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
