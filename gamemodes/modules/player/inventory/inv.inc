@@ -354,8 +354,8 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
             if(GetPVarInt(playerid, "TackleMode") == 1) {
                 return 1;
             }
-            new string[64];
-            new name[128];
+            new string[512];
+            new name[512];
             format(name, sizeof(name), "{ffffff} > Giao dich voi {FFFF00}%s", GetPlayerNameEx(GetPlayerTargetPlayer(playerid)));
             SetPVarString(playerid, "pInteractName", name);
             SetPVarInt(playerid, "pInteractID", GetPlayerTargetPlayer(playerid));
