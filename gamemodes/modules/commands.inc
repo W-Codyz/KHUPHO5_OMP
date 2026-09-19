@@ -18382,7 +18382,8 @@ CMD:deliverpt(playerid, params[])
 							SetPlayerVirtualWorld(giveplayerid, 14);
 							PlayerInfo[giveplayerid][pVW] = 14;
 						}
-						PlayerInfo[giveplayerid][pVW] =  0;
+						PlayerInfo[giveplayerid][pVW] = 0;
+						SetPlayerVirtualWorld(giveplayerid, 0);
                     }
                     else
 					{
@@ -19964,6 +19965,8 @@ CMD:hospital(playerid, params[])
 					HospitalSpawn(giveplayerid);
 					PlayerInfo[giveplayerid][pHospital] = 0;
 					DeletePVar(giveplayerid, "MedicBill");
+					PlayerInfo[giveplayerid][pVW] = 0;
+					SetPlayerVirtualWorld(giveplayerid, 0);
 				}
 				else SendClientMessageEx(playerid, COLOR_GRAD2, "That person is not in the hospital!");
 			}

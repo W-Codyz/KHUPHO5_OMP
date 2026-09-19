@@ -22167,3 +22167,20 @@ stock GetPlayerGrouPlayerInfo(targetid, rank[], division[], employer[])
 	}
 	return 1;
 }
+
+GetBodypartName(bodypart)
+{
+	new bodyname[11];
+	switch(bodypart)
+	{
+		case BODY_PART_TORSO: bodyname = "Than";
+		case BODY_PART_GROIN: bodyname = "Hang";
+		case BODY_PART_RIGHT_ARM: bodyname = "Tay phai";
+		case BODY_PART_LEFT_ARM: bodyname = "Tay trai";
+		case BODY_PART_RIGHT_LEG: bodyname = "Chan phai";
+		case BODY_PART_LEFT_LEG: bodyname = "Chan trai";
+		case BODY_PART_HEAD: bodyname = "Dau";
+		default: bodyname = "Null";
+	}
+	return bodyname;
+}

@@ -829,8 +829,8 @@ task EMSUpdate[5000]()
 						SpawnPlayer(i);
 	    			}
 					SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~/chapnhan chet hoac /dichvu capcuu");
-					new string[128];
-					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong ))");
+					new string[256];
+					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong )) \n (( /dmgcheck de kiem tra ))");
                     SetPlayerChatBubble(i, string, TEAM_CYAN_COLOR, 50.0, 10000);
 				}
 				if(GetPVarInt(i, "EMSAttempt") == 1)
@@ -843,8 +843,8 @@ task EMSUpdate[5000]()
 						SpawnPlayer(i);
 	    			}
 					SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~Dang doi EMS den...");
-					new string[128];
-					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong ))");
+					new string[256];
+					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong )) \n (( /dmgcheck de kiem tra ))");
                     SetPlayerChatBubble(i, string, TEAM_CYAN_COLOR, 50.0, 10000);
 				}
 				if(GetPVarInt(i, "EMSAttempt") == 2)
@@ -861,8 +861,8 @@ task EMSUpdate[5000]()
 						}
 	    			}
 					SendMessageTD(i, 5200, "~g~Dich vu~n~~w~Dang cho dieu tri...");
-					new string[128];
-					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong ))");
+					new string[256];
+					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong )) \n (( /dmgcheck de kiem tra ))");
                     SetPlayerChatBubble(i, string, TEAM_CYAN_COLOR, 50.0, 10000);
 				}
 				if(GetPVarInt(i, "EMSAttempt") == 3)

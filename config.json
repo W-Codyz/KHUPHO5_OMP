@@ -100,7 +100,7 @@
         "main_scripts": [
             "main 1"
         ],
-        "side_scripts": ["filterscripts/Object"]
+        "side_scripts": ["filterscripts/Object", "filterscripts/dmgcheck"]
     },
     "rcon": {
         "allow_teleport": false,

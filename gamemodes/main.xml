@@ -5999,6 +5999,27 @@
 			<referrer name="GetAmxHeaderNow"/>
 			<library>amx_assembly amx_header</library>
 		</member>
+		<member name="C:BODY_PART_GROIN" value="4">
+			<referrer name="GetBodypartName"/>
+		</member>
+		<member name="C:BODY_PART_HEAD" value="9">
+			<referrer name="GetBodypartName"/>
+		</member>
+		<member name="C:BODY_PART_LEFT_ARM" value="6">
+			<referrer name="GetBodypartName"/>
+		</member>
+		<member name="C:BODY_PART_LEFT_LEG" value="8">
+			<referrer name="GetBodypartName"/>
+		</member>
+		<member name="C:BODY_PART_RIGHT_ARM" value="5">
+			<referrer name="GetBodypartName"/>
+		</member>
+		<member name="C:BODY_PART_RIGHT_LEG" value="7">
+			<referrer name="GetBodypartName"/>
+		</member>
+		<member name="C:BODY_PART_TORSO" value="3">
+			<referrer name="GetBodypartName"/>
+		</member>
 		<member name="C:EOS" value="0">
 			<referrer name="strcopy"/>
 			<referrer name="Prev_CreatePlayerTextDraws"/>
@@ -22394,6 +22415,7 @@
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="OnPlayerEditAttachedObject"/>
 			<referrer name="OnPlayerTakeDamage"/>
+			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnVehicleDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
@@ -40677,7 +40699,7 @@
 		</member>
 		<member name="M:EMSUpdate" syntax="EMSUpdate()">
 			<attribute name="public"/>
-			<stacksize value="137"/>
+			<stacksize value="265"/>
 			<dependency name="operator-(Float:,_:)"/>
 			<dependency name="operator&lt;=(Float:,_:)"/>
 			<dependency name="ApplyAnimation"/>
@@ -43231,6 +43253,20 @@
 			<param name="id">
 			</param>
 		</member>
+		<member name="M:GetBodypartName" syntax="GetBodypartName(bodypart)">
+			<stacksize value="12"/>
+			<referrer name="OnPlayerGiveDamage"/>
+			<dependency name="BODY_PART_GROIN"/>
+			<dependency name="BODY_PART_HEAD"/>
+			<dependency name="BODY_PART_LEFT_ARM"/>
+			<dependency name="BODY_PART_LEFT_LEG"/>
+			<dependency name="BODY_PART_RIGHT_ARM"/>
+			<dependency name="BODY_PART_RIGHT_LEG"/>
+			<dependency name="BODY_PART_TORSO"/>
+			<dependency name="GetBodypartName"/>
+			<param name="bodypart">
+			</param>
+		</member>
 		<member name="M:GetBusinessCarSlot" syntax="GetBusinessCarSlot(carid)">
 			<stacksize value="3"/>
 			<referrer name="pc_cmd_park"/>
@@ -43637,6 +43673,7 @@
 			<referrer name="Anti_killall_4"/>
 			<referrer name="UpdateCarRadars"/>
 			<referrer name="GetClosestPlayer"/>
+			<referrer name="OnPlayerGiveDamage"/>
 			<dependency name="GetPlayerDistanceFromPoint"/>
 			<dependency name="GetPlayerPos"/>
 			<param name="iPlayerOne">
@@ -46229,6 +46266,7 @@
 			<referrer name="pc_cmd_divorce"/>
 			<referrer name="pc_cmd_getmats"/>
 			<referrer name="pc_cmd_laypos"/>
+			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OnPlayerText"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
@@ -49599,6 +49637,7 @@
 			<referrer name="pc_cmd_fgetgun"/>
 			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="OnPlayerTakeDamage"/>
+			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="GetWeaponNameFromID"/>
 			<referrer name="ShowPlayerInventory"/>
@@ -55698,6 +55737,7 @@
 			<referrer name="pc_cmd_spraytag"/>
 			<referrer name="pc_cmd_fireworknear"/>
 			<referrer name="OnPlayerPressButton"/>
+			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
@@ -67803,19 +67843,26 @@
 		</member>
 		<member name="M:OnPlayerGiveDamage" syntax="OnPlayerGiveDamage(playerid, damagedid, amount, weaponid, bodypart)">
 			<attribute name="public"/>
-			<stacksize value="153"/>
+			<stacksize value="4277"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator&gt;(Float:,Float:)"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="FIXES_GameTextForPlayer"/>
+			<dependency name="GetBodypartName"/>
+			<dependency name="GetBodypartName"/>
+			<dependency name="GetDistanceBetweenPlayers"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarType"/>
 			<dependency name="GetPlayerHealth"/>
+			<dependency name="GetPlayerName"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerPos"/>
 			<dependency name="GetPlayerState"/>
+			<dependency name="GetWeaponName"/>
 			<dependency name="GivePlayerValidWeapon"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="PlayerCuffed"/>
 			<dependency name="PlayerCuffedTime"/>
 			<dependency name="PlayerInfo"/>
@@ -67823,6 +67870,7 @@
 			<dependency name="ProxDetector"/>
 			<dependency name="ProxDetectorS"/>
 			<dependency name="RemovePlayerWeaponEx"/>
+			<dependency name="SendClientMessage"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetPVarInt"/>
 			<dependency name="SetPlayerHealth"/>
@@ -67833,6 +67881,7 @@
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pHasTazer"/>
+			<dependency name="pJailTime"/>
 			<dependency name="pTazer"/>
 			<dependency name="pTazerReplace"/>
 			<dependency name="pTogReports"/>
@@ -80413,6 +80462,7 @@
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="OnPlayerEditAttachedObject"/>
 			<referrer name="OnPlayerModelSelection"/>
+			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
@@ -85357,6 +85407,7 @@
 			<referrer name="pc_cmd_warrantarrest"/>
 			<referrer name="pc_cmd_sentence"/>
 			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="pc_cmd_hospital"/>
 			<referrer name="pc_cmd_travel"/>
 			<referrer name="pc_cmd_gotomapicon"/>
 			<referrer name="pc_cmd_gotofpoint"/>
@@ -116315,11 +116366,13 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerVirtualWorld"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pHospital"/>
+			<dependency name="pVW"/>
 			<param name="playerid">
 			</param>
 			<param name="params">

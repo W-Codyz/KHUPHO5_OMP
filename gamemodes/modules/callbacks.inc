@@ -1615,7 +1615,7 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 	return 1;
 }
 
-public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid)
+public OnPlayerTakeDamage(playerid, issuerid, Float: amount, weaponid, bodypart)
 {
 	if(GetPVarInt(playerid, "commitSuicide") == 1)
 	{
@@ -1822,10 +1822,78 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid)
 	return 1;
 }
 
-public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
+public OnPlayerGiveDamage(playerid, damagedid, Float:amount, WEAPON:weaponid, bodypart)
 {
 	if (damagedid == INVALID_PLAYER_ID) return 1;
 	if (playerid == INVALID_PLAYER_ID) return 1;
+
+	new Float:pos[3];
+	GetPlayerPos(damagedid, pos[0], pos[1], pos[2]);
+
+	new Float:Distance = GetDistanceBetweenPlayers(damagedid, playerid);
+
+	if(GetPVarInt(playerid, "IsInArena") == -1
+	&& GetPVarInt(damagedid, "IsInArena") == -1
+	&& GetPVarInt(playerid, "EventToken") == 0)
+	{
+		if(!IsPlayerInRangeOfPoint(playerid, 1.0, pos[0], pos[1], pos[2]))
+		{
+			if(GetPVarInt(damagedid, "Injured") == 0
+			&& GetPVarType(damagedid, "pGodMode") == 0)
+			{
+				// edit amount
+				switch(weaponid)
+				{
+					case 22: amount = 5.0;
+					case 23: amount = 8.0;
+					case 24: amount = 15.0;
+					case 25: if(amount > 30.0) amount = 12.0;
+					case 26: amount = 15.0;
+					case 27: if(amount > 30.0) amount = 15.0;
+					case 28: amount = 7.0;
+					case 29: amount = 8.0;
+					case 30: amount = 9.0;
+					case 31: amount = 10.0;
+					case 32: amount = 7.0;
+					case 33: amount = 30.0;
+					case 34: amount = 30.0;
+				}
+			}
+
+			// cac truong hop dat biet
+			if(GetPVarType(damagedid, "pGodMode") == 1) amount = 0.0;
+			if(GetPVarInt(damagedid, "Injured") == 1)     amount = 0.0;
+			if(PlayerInfo[damagedid][pJailTime] > 0)      amount = 0.0;
+		}
+	}
+
+	new stringdz[2000];
+	new weaponname[24], victim[MAX_PLAYER_NAME], attacker[MAX_PLAYER_NAME];
+	GetPlayerName(playerid, attacker, sizeof(attacker));
+	GetPlayerName(damagedid, victim, sizeof(victim));
+	GetWeaponName(weaponid, weaponname, sizeof(weaponname));
+
+	if(weaponid == 0)
+		format(stringdz, sizeof(stringdz), "Ban da dung {ff9900}Fist{FFFFFF} gay {ff9900}%.2f (%s){FFFFFF} cho {ff9900}%s{FFFFFF} (%0.2fm)",
+			amount, GetBodypartName(bodypart), victim, Distance);
+	else
+		format(stringdz, sizeof(stringdz), "Ban da dung {ff9900}%s{FFFFFF} gay {ff9900}%.2f (%s){FFFFFF} cho {ff9900}%s{FFFFFF} (%0.2fm)",
+			weaponname, amount, GetBodypartName(bodypart), victim, Distance);
+	SendClientMessage(playerid, -1, stringdz);
+
+	//__________________________________________________________________//
+
+	new infoString[2000], weaponName[24], attackerName[MAX_PLAYER_NAME];
+	GetPlayerName(playerid, attackerName, sizeof(attackerName));
+	GetWeaponName(weaponid, weaponName, sizeof(weaponName));
+
+	if(weaponid == 0)
+		format(infoString, sizeof(infoString), "{ff9900}%s{FFFFFF} da su dung {ff9900}Fist{FFFFFF} gay cho ban {ff9900}%.2f (%s){FFFFFF} (%0.2fm)",
+			attackerName, amount, GetBodypartName(bodypart), Distance);
+	else
+		format(infoString, sizeof(infoString), "{ff9900}%s{FFFFFF} da su dung {ff9900}%s{FFFFFF} gay cho ban {ff9900}%.2f (%s){FFFFFF} (%0.2fm)",
+			attackerName, weaponName, amount, GetBodypartName(bodypart), Distance);
+	SendClientMessageEx(damagedid, -1, infoString);
 
     if(pTazer{playerid} == 1)
 	{
