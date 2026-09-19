@@ -18382,6 +18382,7 @@ CMD:deliverpt(playerid, params[])
 							SetPlayerVirtualWorld(giveplayerid, 14);
 							PlayerInfo[giveplayerid][pVW] = 14;
 						}
+						PlayerInfo[giveplayerid][pVW] =  0;
                     }
                     else
 					{

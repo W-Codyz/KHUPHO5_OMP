@@ -266,30 +266,35 @@ task ProductionUpdate[300000]()
 
 // Timer Name: playerTabbedLoop()
 // TickRate: 1 secs.
-task playerTabbedLoop[1000]() {
-
+task playerTabbedLoop[1000]()
+{
 	new
 		iTick = gettime() - 1;
 
 	foreach(new x: Player)
 	{
-		if(1 <= GetPlayerState(x) <= 3) {
-			if(playerTabbed[x] >= 1) {
-				if(++playerTabbed[x] >= 1200 && PlayerInfo[x][pAdmin] < 2) {
+		if(1 <= GetPlayerState(x) <= 3)
+		{
+			if(playerTabbed[x] >= 1)
+			{
+				if(++playerTabbed[x] >= 1200 && PlayerInfo[x][pAdmin] < 2)
+				{
 				    SendClientMessageEx(x, COLOR_WHITE, "Ban da tu dong bi kick khoi may chu do treo may qua lau.");
 	    			return Disconnect(x);
 				}
 			}
-		    else if(++playerSeconds[x] < iTick && playerTabbed[x] == 0) {
+		    else if(++playerSeconds[x] < iTick && playerTabbed[x] == 0)
+			{
 		        playerTabbed[x] = 1;
 		    }
-			else if((IsPlayerInRangeOfPoint(x, 2.0, PlayerPos[x][0], PlayerPos[x][1], PlayerPos[x][2]) || InsidePlane[x] != INVALID_PLAYER_ID) && ++playerLastTyped[x] >= 10) {
-				if(++playerAFK[x] >= 1200 && PlayerInfo[x][pAdmin] < 2) {
-				    SendClientMessageEx(x, COLOR_WHITE, "Ban da tu dong bi kick khoi may chu do mat ket noi");
-					return Disconnect(x);
-				}
-			}
-			else playerAFK[x] = 0;
+
+			// bỏ toàn bộ block đếm AFK + kick AFK
+			// else if((IsPlayerInRangeOfPoint(...) || InsidePlane[x] != INVALID_PLAYER_ID) && ++playerLastTyped[x] >= 10)
+			// {
+			//     if(++playerAFK[x] >= 1200 && PlayerInfo[x][pAdmin] < 2) { ... }
+			// }
+			// else playerAFK[x] = 0;
+
 			GetPlayerPos(x, PlayerPos[x][0], PlayerPos[x][1], PlayerPos[x][2]);
 		}
 	}
