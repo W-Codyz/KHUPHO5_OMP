@@ -970,7 +970,7 @@ task ServerHeartbeat[1000]() {
 					PlayerInfo[i][pPayDayTime] = 0;
 					PlayerInfo[i][pConnectSeconds] = 0;
 					PlayerInfo[i][pPayCheck] = 0;
-					SendClientMessage(i, COLOR_GREY, "Ban da mat co hoi nhan luong cua minh, hay cho lan sau nhe!");
+					//SendClientMessage(i, COLOR_GREY, "Ban da mat co hoi nhan luong cua minh, hay cho lan sau nhe!");
 				}
 			}
 		}
