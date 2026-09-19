@@ -70,7 +70,6 @@
 
 //==============SYSTEM============//
 #include "./modules/system/ruatho"
-#include "./modules/system/food"
 #include "./modules/system/safezone"
 #include "./modules/system/faction/leader_cmd"
 #include "./modules/system/logo"
@@ -82,6 +81,7 @@
 #include "./modules/system/phone/callback_phone"
 #include "./modules/system/panel/ui_panel"
 #include "./modules/system/panel/panel"
+#include "./modules/system/food"
 
 //==============JOB============//
 #include "./modules/job/header"

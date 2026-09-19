@@ -13471,8 +13471,8 @@ CMD:rehashall(playerid, params[])
 	return 1;
 }
 
-alias:kill("tutu")
-CMD:kill(playerid, params[])
+alias:killzz("tutuzz")
+CMD:killzz(playerid, params[])
 {
 	if(!IsPlayerConnected(playerid)) return SendClientMessageEx (playerid, COLOR_GRAD2, "Ban khong the tu tu vao thoi diem nay.");
 	else if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong the tu tu khi dang trong su kien Hunger Games!");
@@ -13499,7 +13499,7 @@ CMD:kill(playerid, params[])
 		    return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da yeu cau tu tu.");
 		}
 		else {
-			SetTimerEx("killPlayer", 10000, false, "i", playerid);
+			SetTimerEx("killPlayer", 2000, false, "i", playerid);
 			SetPVarInt(playerid, "commitSuicide", 1);
 			SendClientMessageEx(playerid, COLOR_YELLOW, "Ban yeu cau duoc tu tu, xin vui long dung im va cho 10 giay...");
 		}
@@ -18271,11 +18271,12 @@ CMD:givekeys(playerid, params[])
     return 1;
 }
 
+alias:deliverpt("capcuu")
 CMD:deliverpt(playerid, params[])
 {
     if(IsAMedic(playerid))
 	{
-        if(IsPlayerInAnyVehicle(playerid))
+        if(IsPlayerConnected(playerid)) //IsPlayerInAnyVehicle(playerid)
 		{
 			new string[128], giveplayerid;
 		    if(sscanf(params, "u", giveplayerid)) return SendHelpMessage(playerid, "/deliverpt [player]");
@@ -18316,11 +18317,15 @@ CMD:deliverpt(playerid, params[])
                         SendClientMessageEx(giveplayerid, TEAM_CYAN_COLOR, "Doc: Hoa don y te cua ban la $270. Chuc mot ngay tot lanh!");
                         format(string,sizeof(string),"Ban nhan duoc $300 cho viec chua tri benh nhan!");
                         SendClientMessageEx(playerid, TEAM_CYAN_COLOR, string);
-                        SetPlayerPos(giveplayerid, 1169.7588,-1351.5490,2423.0461);
-                        Streamer_UpdateEx(giveplayerid, 1169.7588,-1351.5490,2423.0461);
-                        Player_StreamPrep(giveplayerid, 1169.7588,-1351.5490,2423.0461,FREEZE_TIME);
-                        SetPlayerInterior(giveplayerid, 1);
-                        PlayerInfo[giveplayerid][pInt] = 1;
+
+                        SetPlayerPos(giveplayerid, -2656.966064, 623.142883, 14.453125);
+                        Streamer_UpdateEx(giveplayerid, -2656.966064, 623.142883, 14.453125);
+                        Player_StreamPrep(giveplayerid, -2656.966064, 623.142883, 14.453125, FREEZE_TIME);
+						SetPlayerCameraPos(giveplayerid,-2656.966064, 623.142883, 14.453125);
+						SetPlayerCameraLookAt(giveplayerid,-2656.966064, 623.142883, 14.453125);
+                        //SetPlayerInterior(giveplayerid, 1);
+						//PlayerInfo[giveplayerid][pInt] = 1;
+
                         PlayerInfo[playerid][pPatientsDelivered]++;
                         format(string, sizeof(string), "Nhan vien Y te %s da chuyen giao thanh cong benh nhan %s toi benh vien.",GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
 						SendGroupMessage(3, TEAM_MED_COLOR, string);
