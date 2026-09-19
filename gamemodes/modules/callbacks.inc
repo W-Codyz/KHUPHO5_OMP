@@ -2967,15 +2967,27 @@ public OnPlayerDisconnect(playerid, reason)
 		if(GetPVarType(playerid, "pTable")) {
 		    DestroyPokerTable(GetPVarInt(playerid, "pTable"));
 		}
-		if(GetPVarInt(playerid, "DraggingPlayer") != INVALID_PLAYER_ID)
+		if(GetPVarInt(playerid, "DraggingPlayer") != INVALID_PLAYER_ID && IsPlayerConnected(GetPVarInt(playerid, "DraggingPlayer")))
 		{
-            DeletePVar(GetPVarInt(playerid, "DraggingPlayer"), "BeingDragged");
+			new dragee = GetPVarInt(playerid, "DraggingPlayer");
+			SetPVarInt(dragee, "BeingDragged", 0);
+			SendClientMessageEx(dragee, COLOR_GRAD2, "Nguoi da dan ban di da mat ket noi.");
 		}
+		SetPVarInt(playerid, "DraggingPlayer", INVALID_PLAYER_ID);
 		if(pTazer{playerid} == 1) GivePlayerValidWeapon(playerid,pTazerReplace{playerid},60000);
 		if(GetPVarInt(playerid, "SpeedRadar") == 1) GivePlayerValidWeapon(playerid, GetPVarInt(playerid, "RadarReplacement"), 60000);
 
-		if(GetPVarInt(playerid, "MovingStretcher") != -1) {
+		new patientid = GetPVarInt(playerid, "MovingStretcher");
+		if(patientid != -1)
+		{
 			KillTimer(GetPVarInt(playerid, "TickEMSMove"));
+			KillTimer(GetPVarInt(playerid, "EMSMoveFollow"));
+			SetPVarInt(playerid, "MovingStretcher", -1);
+			if(IsPlayerConnected(patientid))
+			{
+				SetPVarInt(patientid, "OnStretcher", 0);
+				SendClientMessageEx(patientid, COLOR_GRAD2, "Nhan vien y te da mat ket noi, ban duoc tha.");
+			}
 		}
 
 		if(GetPVarInt(playerid, "Injured") == 1) {
@@ -3621,12 +3633,21 @@ public OnPlayerDeath(playerid, killerid, reason)
     DeletePVar(playerid, "UsingSprunk");
     KillTimer(GetPVarInt(playerid, "firstaid5"));
   	DeletePVar(playerid, "usingfirstaid");
-	if(GetPVarInt(playerid, "MovingStretcher") != -1)
-	{
-	    KillTimer(GetPVarInt(playerid, "TickEMSMove"));
-	    DeletePVar(GetPVarInt(playerid, "MovingStretcher"), "OnStretcher");
-	    SetPVarInt(playerid, "MovingStretcher", -1);
-	}
+
+	new patientid = GetPVarInt(playerid, "MovingStretcher");
+    if(patientid != -1)
+    {
+        KillTimer(GetPVarInt(playerid, "TickEMSMove"));
+        KillTimer(GetPVarInt(playerid, "EMSMoveFollow"));
+        SetPVarInt(playerid, "MovingStretcher", -1);
+        if(IsPlayerConnected(patientid))
+            SetPVarInt(patientid, "OnStretcher", 0);
+    }
+
+    if(GetPVarInt(playerid, "OnStretcher") == 1)
+    {
+        SetPVarInt(playerid, "OnStretcher", 0);
+    }
 
 	if(IsPlayerConnected(Mobile[playerid]))
 	{
@@ -5099,11 +5120,12 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 			return 1;
  	    }
  	    if(GetPVarInt(playerid, "MovingStretcher") != -1)
- 	    {
- 	        KillTimer(GetPVarInt(playerid, "TickEMSMove"));
-		    MoveEMS(playerid);
+		{
+			new patientid = GetPVarInt(playerid, "MovingStretcher");
+			StopMoveEMS(playerid, patientid);
+			SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da tha benh nhan.");
 			return 1;
- 	    }
+		}
 		if(GetPVarInt(playerid, "editingfamhq") != INVALID_FAMILY_ID)
 		{
 		    if(GetPVarInt(playerid, "editingfamhqaction") == 1)
@@ -5130,28 +5152,39 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 		    }
 
 		}
-		if(GetPVarInt(playerid, "DraggingPlayer") != INVALID_PLAYER_ID)
+		if(IsKeyJustDown(KEY_FIRE, newkeys, oldkeys))
 		{
-			new Float:dX, Float:dY, Float:dZ, string[128];
-    		GetPlayerPos(playerid, dX, dY, dZ);
-			floatsub(dX, 0.4);
-			floatsub(dY, 0.4);
+			new dragee = GetPVarInt(playerid, "DraggingPlayer");
+			if(dragee != INVALID_PLAYER_ID && IsPlayerConnected(dragee))
+			{
+				// Lấy vị trí dragger, đặt dragee phía sau lưng (theo hướng quay)
+				new Float:dX, Float:dY, Float:dZ, Float:angle, string[128];
+				GetPlayerPos(playerid, dX, dY, dZ);
+				GetPlayerFacingAngle(playerid, angle);
 
-    		SetPVarFloat(GetPVarInt(playerid, "DraggingPlayer"), "DragX", dX);
-			SetPVarFloat(GetPVarInt(playerid, "DraggingPlayer"), "DragY", dY);
-			SetPVarFloat(GetPVarInt(playerid, "DraggingPlayer"), "DragZ", dZ);
-			SetPVarInt(GetPVarInt(playerid, "DraggingPlayer"), "DragWorld", GetPlayerVirtualWorld(playerid));
-			SetPVarInt(GetPVarInt(playerid, "DraggingPlayer"), "DragInt", GetPlayerInterior(playerid));
-			Streamer_UpdateEx(GetPVarInt(playerid, "DraggingPlayer"), dX, dY, dZ);
-			SetPlayerPos(GetPVarInt(playerid, "DraggingPlayer"), dX, dY, dZ);
-			SetPlayerInterior(GetPVarInt(playerid, "DraggingPlayer"), GetPlayerInterior(playerid));
-			SetPlayerVirtualWorld(GetPVarInt(playerid, "DraggingPlayer"), GetPlayerVirtualWorld(playerid));
-			ClearAnimations(GetPVarInt(playerid, "DraggingPlayer"));
-			ApplyAnimation(GetPVarInt(playerid, "DraggingPlayer"), "ped","cower",1,true,false,false,false,0,1);
-            DeletePVar(GetPVarInt(playerid, "DraggingPlayer"), "BeingDragged");
-            SetPVarInt(playerid, "DraggingPlayer", INVALID_PLAYER_ID);
-            format(string, sizeof(string), "* You have stopped dragging %s.", GetPlayerNameEx(GetPVarInt(playerid, "DraggingPlayer")));
-            SendClientMessage(playerid, COLOR_GRAD2, string);
+				const Float:DRAG_DIST = 1.0;
+				dX -= DRAG_DIST * floatsin(-angle, degrees);
+				dY -= DRAG_DIST * floatcos(-angle, degrees);
+
+				SetPVarFloat(dragee, "DragX", dX);
+				SetPVarFloat(dragee, "DragY", dY);
+				SetPVarFloat(dragee, "DragZ", dZ);
+				SetPVarInt(dragee, "DragWorld", GetPlayerVirtualWorld(playerid));
+				SetPVarInt(dragee, "DragInt", GetPlayerInterior(playerid));
+
+				Streamer_UpdateEx(dragee, dX, dY, dZ);
+				SetPlayerPos(dragee, dX, dY, dZ);
+				SetPlayerInterior(dragee, GetPlayerInterior(playerid));
+				SetPlayerVirtualWorld(dragee, GetPlayerVirtualWorld(playerid));
+				ClearAnimations(dragee);
+				ApplyAnimation(dragee, "ped", "cower", 4.1, true, false, false, false, 0, SYNC_ALL);
+
+				format(string, sizeof(string), "* Ban da tha %s.", GetPlayerNameEx(dragee));
+				SendClientMessage(playerid, COLOR_GRAD2, string);
+
+				SetPVarInt(dragee, "BeingDragged", 0);
+				SetPVarInt(playerid, "DraggingPlayer", INVALID_PLAYER_ID);
+			}
 		}
 		if(GetPVarInt(playerid, "CreateGT") == 1)
 		{

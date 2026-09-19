@@ -4028,28 +4028,85 @@ public TickKOTH(playerid)
 	return 1;
 }
 
+forward MoveEMSFollow(medicid, patientid);
+public MoveEMSFollow(medicid, patientid)
+{
+    // Mất kết nối → cleanup
+    if(!IsPlayerConnected(medicid) || !IsPlayerConnected(patientid))
+    {
+        if(IsPlayerConnected(medicid))
+        {
+            KillTimer(GetPVarInt(medicid, "EMSMoveFollow"));
+            KillTimer(GetPVarInt(medicid, "TickEMSMove"));
+            SetPVarInt(medicid, "MovingStretcher", -1);
+            SetPVarInt(medicid, "EMSMoveFollow", -1);
+            SetPVarInt(medicid, "TickEMSMove", -1);
+        }
+        if(IsPlayerConnected(patientid))
+            SetPVarInt(patientid, "OnStretcher", 0);
+        return 1;
+    }
+
+    // Điều kiện dừng: hết bị thương, hết nằm cáng, hoặc medic đã thả
+    if(GetPVarInt(medicid, "MovingStretcher") != patientid
+    || GetPVarInt(patientid, "OnStretcher") != 1
+    || GetPVarInt(patientid, "Injured") != 1)
+    {
+        StopMoveEMS(medicid, patientid);
+        return 1;
+    }
+
+    // Đặt bệnh nhân phía sau lưng medic (theo hướng quay)
+    new Float:mX, Float:mY, Float:mZ, Float:angle;
+    GetPlayerPos(medicid, mX, mY, mZ);
+    GetPlayerFacingAngle(medicid, angle);
+
+    const Float:STRETCHER_DIST = 1.5;
+    mX -= STRETCHER_DIST * floatsin(-angle, degrees);
+    mY -= STRETCHER_DIST * floatcos(-angle, degrees);
+
+    SetPVarFloat(patientid, "MedicX", mX);
+    SetPVarFloat(patientid, "MedicY", mY);
+    SetPVarFloat(patientid, "MedicZ", mZ);
+    SetPVarInt(patientid, "MedicVW", GetPlayerVirtualWorld(medicid));
+    SetPVarInt(patientid, "MedicInt", GetPlayerInterior(medicid));
+
+    Streamer_UpdateEx(patientid, mX, mY, mZ);
+    SetPlayerPos(patientid, mX, mY, mZ);
+    SetPlayerInterior(patientid, GetPlayerInterior(medicid));      // ← FIX bug cũ (trước ghi = VW)
+    SetPlayerVirtualWorld(patientid, GetPlayerVirtualWorld(medicid));
+
+    ClearAnimations(patientid);
+    ApplyAnimation(patientid, "SWEET", "Sweet_injuredloop", 4.0, true, false, false, true, 0, SYNC_ALL);
+    return 1;
+}
+
+stock StopMoveEMS(medicid, patientid)
+{
+    if(IsPlayerConnected(medicid))
+    {
+        KillTimer(GetPVarInt(medicid, "TickEMSMove"));
+        KillTimer(GetPVarInt(medicid, "EMSMoveFollow"));
+        SetPVarInt(medicid, "MovingStretcher", -1);
+        SetPVarInt(medicid, "TickEMSMove", -1);
+        SetPVarInt(medicid, "EMSMoveFollow", -1);
+    }
+    if(IsPlayerConnected(patientid))
+        SetPVarInt(patientid, "OnStretcher", 0);
+    return 1;
+}
+
 forward MoveEMS(playerid);
 public MoveEMS(playerid)
 {
-    new Float:mX, Float:mY, Float:mZ;
-    GetPlayerPos(playerid, mX, mY, mZ);
-
-    SetPVarFloat(GetPVarInt(playerid, "MovingStretcher"), "MedicX", mX);
-	SetPVarFloat(GetPVarInt(playerid, "MovingStretcher"), "MedicY", mY);
-	SetPVarFloat(GetPVarInt(playerid, "MovingStretcher"), "MedicZ", mZ);
-	SetPVarInt(GetPVarInt(playerid, "MovingStretcher"), "MedicVW", GetPlayerVirtualWorld(playerid));
-	SetPVarInt(GetPVarInt(playerid, "MovingStretcher"), "MedicInt", GetPlayerInterior(playerid));
-
-	Streamer_UpdateEx(GetPVarInt(playerid, "MovingStretcher"), mX, mY, mZ);
-	SetPlayerPos(GetPVarInt(playerid, "MovingStretcher"), mX, mY, mZ);
-	SetPlayerInterior(GetPVarInt(playerid, "MovingStretcher"), GetPlayerVirtualWorld(playerid));
-	SetPlayerVirtualWorld(GetPVarInt(playerid, "MovingStretcher"), GetPlayerVirtualWorld(playerid));
-
-	ClearAnimations(GetPVarInt(playerid, "MovingStretcher"));
-	ApplyAnimation(GetPVarInt(playerid, "MovingStretcher"), "SWAT", "gnstwall_injurd", 4.0, false, true, true, true, 0, 1);
-
-	DeletePVar(GetPVarInt(playerid, "MovingStretcher"), "OnStretcher");
-	SetPVarInt(playerid, "MovingStretcher", -1);
+    new patientid = GetPVarInt(playerid, "MovingStretcher");
+    if(patientid != -1)
+    {
+        StopMoveEMS(playerid, patientid);
+        if(IsPlayerConnected(playerid))
+            SendClientMessageEx(playerid, COLOR_GRAD2, "Da het thoi gian di chuyen benh nhan (30 giay).");
+    }
+    return 1;
 }
 
 forward KillEMSQueue(playerid);
@@ -6654,32 +6711,55 @@ public AttemptPurify(playerid)
 forward DragPlayer(dragger, dragee);
 public DragPlayer(dragger, dragee)
 {
-	if(!IsPlayerConnected(dragee))
-	{
-		SetPVarInt(dragger, "DraggingPlayer", INVALID_PLAYER_ID);
-		SendClientMessageEx(dragger, COLOR_GRAD2, "Nguoi choi ban dang dan di da mat ket noi.");
-	}
-	if(GetPVarInt(dragger, "DraggingPlayer") != INVALID_PLAYER_ID)
-	{
-		new Float:dX, Float:dY, Float:dZ;
-		GetPlayerPos(dragger, dX, dY, dZ);
-		floatsub(dX, 0.4);
-		floatsub(dY, 0.4);
+    // 1. Dragee mất kết nối
+    if(!IsPlayerConnected(dragee))
+    {
+        SetPVarInt(dragger, "DraggingPlayer", INVALID_PLAYER_ID);
+        SendClientMessageEx(dragger, COLOR_GRAD2, "Nguoi choi ban dang dan di da mat ket noi.");
+        return 1;
+    }
 
-		SetPVarFloat(dragee, "DragX", dX);
-		SetPVarFloat(dragee, "DragY", dY);
-		SetPVarFloat(dragee, "DragZ", dZ);
-		SetPVarInt(dragee, "DragWorld", GetPlayerVirtualWorld(dragger));
-		SetPVarInt(dragee, "DragInt", GetPlayerInterior(dragger));
-		Streamer_UpdateEx(dragee, dX, dY, dZ);
-		SetPlayerPos(dragee, dX, dY, dZ);
-		SetPlayerInterior(dragee, GetPlayerInterior(dragger));
-		SetPlayerVirtualWorld(dragee, GetPlayerVirtualWorld(dragger));
-		ClearAnimations(dragee);
-		ApplyAnimation(dragee, "ped","cower",1,true,false,false,false,0,1);
-        SetTimerEx("DragPlayer", 1000, false, "ii", dragger, dragee);
-	}
-	return 1;
+    // 2. Dragger mất kết nối (task vẫn fire được do timer)
+    if(!IsPlayerConnected(dragger))
+    {
+        SetPVarInt(dragee, "BeingDragged", 0);
+        return 1;
+    }
+
+    // 3. Điều kiện dừng: hết còng, hết bị dẫn, hoặc dragger đã thả
+    if(GetPVarInt(dragger, "DraggingPlayer") == INVALID_PLAYER_ID
+    || GetPVarInt(dragee, "BeingDragged") != 1
+    || GetPVarInt(dragee, "PlayerCuffed") != 2)
+    {
+        SetPVarInt(dragger, "DraggingPlayer", INVALID_PLAYER_ID);
+        SetPVarInt(dragee, "BeingDragged", 0);
+        return 1;
+    }
+
+    // 4. Cập nhật vị trí dragee theo hướng quay dragger
+    new Float:dX, Float:dY, Float:dZ, Float:angle;
+    GetPlayerPos(dragger, dX, dY, dZ);
+    GetPlayerFacingAngle(dragger, angle);
+
+    const Float:DRAG_DIST = 2.0;
+    dX -= DRAG_DIST * floatsin(-angle, degrees);
+    dY -= DRAG_DIST * floatcos(-angle, degrees);
+
+    SetPVarFloat(dragee, "DragX", dX);
+    SetPVarFloat(dragee, "DragY", dY);
+    SetPVarFloat(dragee, "DragZ", dZ);
+    SetPVarInt(dragee, "DragWorld", GetPlayerVirtualWorld(dragger));
+    SetPVarInt(dragee, "DragInt", GetPlayerInterior(dragger));
+
+    Streamer_UpdateEx(dragee, dX, dY, dZ);
+    SetPlayerPos(dragee, dX, dY, dZ);
+    SetPlayerInterior(dragee, GetPlayerInterior(dragger));
+    SetPlayerVirtualWorld(dragee, GetPlayerVirtualWorld(dragger));
+    ClearAnimations(dragee);
+    ApplyAnimation(dragee, "ped", "cower", 4.1, true, false, false, false, 0, SYNC_ALL);
+
+    SetTimerEx("DragPlayer", 1000, false, "ii", dragger, dragee);
+    return 1;
 }
 
 forward CuffTackled(playerid, giveplayerid);

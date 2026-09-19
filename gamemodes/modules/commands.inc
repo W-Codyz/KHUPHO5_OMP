@@ -32326,49 +32326,54 @@ CMD:getpt(playerid, params[])
 
 CMD:movept(playerid, params[])
 {
-	if(IsAMedic(playerid))
-	{
-		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendHelpMessage(playerid, "/movepatient [player]");
+    if(!IsAMedic(playerid)) return 1;
 
-		if(IsPlayerConnected(giveplayerid))
-		{
-			if(GetPVarInt(giveplayerid,"Injured") == 1)
-			{
-				if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung lenh nay khi dang tren mot chiec xe.");
-				if(PlayerInfo[giveplayerid][pJailTime] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung lenh nay voi nguoi choi dang o tu");
-				if(GetPVarInt(giveplayerid, "OnStretcher") == 1)
-				{
-					SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi do da nam tren xe nang, ban khong the dieu do vao luc nay!");
-					return 1;
-				}
+    new string[128], giveplayerid;
+    if(sscanf(params, "u", giveplayerid)) return SendHelpMessage(playerid, "/movepatient [player]");
 
-				new Float:mX, Float:mY, Float:mZ;
-				GetPlayerPos(giveplayerid, mX, mY, mZ);
-				if(!IsPlayerInRangeOfPoint(playerid, 5.0, mX, mY, mZ))
-				{
-					SendClientMessageEx(playerid, COLOR_GRAD2, "Ban phai gan benh nhan de co the di chuyen !");
-					return 1;
-				}
-				SendClientMessageEx(playerid, COLOR_GRAD2, "Ban co 30 giay de di chuyen den vi tri khac hoac co the nhan phim '{AA3333}FIRE{BFC0C2}'.");
-				format(string, sizeof(string), "* Ban da duoc dua len can cuu thuong boi %s.", GetPlayerNameEx(playerid));
-				SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
-				format(string, sizeof(string), "* Ban da dua %s len cang, ban co the van chuyen ho bay gio", GetPlayerNameEx(giveplayerid));
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
-				format(string, sizeof(string), "* %s dat %s len tren cang va that chat day an toan.", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
-				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+    if(!IsPlayerConnected(giveplayerid))
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi choi khong ton tai.");
 
-				SetPVarInt(giveplayerid, "OnStretcher", 1);
-				SetPVarInt(playerid, "TickEMSMove", SetTimerEx("MoveEMS", 30000, false, "d", playerid));
-				SetPVarInt(playerid, "MovingStretcher", giveplayerid);
-			}
-			else
-			{
-				SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi do phai bi thuong moi co the di chuyen!");
-			}
-		}
-	}
-	return 1;
+    if(GetPVarInt(giveplayerid, "Injured") != 1)
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi do phai bi thuong moi co the di chuyen!");
+
+    if(IsPlayerInAnyVehicle(playerid))
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung lenh nay khi dang tren mot chiec xe.");
+
+    if(PlayerInfo[giveplayerid][pJailTime] > 0)
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung lenh nay voi nguoi choi dang o tu");
+
+    if(GetPVarInt(giveplayerid, "OnStretcher") == 1)
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi do da nam tren xe nang, ban khong the dieu do vao luc nay!");
+
+    // Chặn di chuyển 2 bệnh nhân cùng lúc
+    if(GetPVarInt(playerid, "MovingStretcher") != -1)
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban dang di chuyen mot benh nhan khac, hay tha truoc (FIRE).");
+
+    new Float:mX, Float:mY, Float:mZ;
+    GetPlayerPos(giveplayerid, mX, mY, mZ);
+    if(!IsPlayerInRangeOfPoint(playerid, 5.0, mX, mY, mZ))
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban phai gan benh nhan de co the di chuyen !");
+
+    SendClientMessageEx(playerid, COLOR_GRAD2, "Ban co 30 giay de di chuyen den vi tri khac hoac nhan phim '{AA3333}FIRE{BFC0C2}' de tha.");
+
+    format(string, sizeof(string), "* Ban da duoc dua len can cuu thuong boi %s.", GetPlayerNameEx(playerid));
+    SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
+
+    format(string, sizeof(string), "* Ban da dua %s len cang, ban co the van chuyen ho bay gio", GetPlayerNameEx(giveplayerid));
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+
+    format(string, sizeof(string), "* %s dat %s len tren cang va that chat day an toan.", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+    ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+    SetPVarInt(giveplayerid, "OnStretcher", 1);
+    SetPVarInt(playerid, "MovingStretcher", giveplayerid);
+
+    // Timeout 30s tự kết thúc
+    SetPVarInt(playerid, "TickEMSMove", SetTimerEx("MoveEMS", 30000, false, "d", playerid));
+    // Follow timer 500ms
+    SetPVarInt(playerid, "EMSMoveFollow", SetTimerEx("MoveEMSFollow", 500, true, "ii", playerid, giveplayerid));
+    return 1;
 }
 
 CMD:lockarena(playerid, params[])
@@ -41116,51 +41121,52 @@ CMD:detain(playerid, params[])
 alias:drag("dandi")
 CMD:drag(playerid, params[])
 {
-	if(IsACop(playerid))
-	{
-		new string[128], giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) return SendHelpMessage(playerid, "/dandi [playerid]");
+    if(!IsACop(playerid))
+        return SendClientMessageEx(playerid, COLOR_GREY, " Ban khong phai la thuc thi phap luat chinh' thuc!");
 
-		if(IsPlayerConnected(giveplayerid))
-		{
-			if(GetPVarInt(giveplayerid, "PlayerCuffed") == 2)
-			{
-				if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, " Ban phai ra khoi xe moi co the su dung lenh nay.");
-				if(GetPVarInt(giveplayerid, "BeingDragged") == 1)
-				{
-					SendClientMessageEx(playerid, COLOR_WHITE, " Nguoi do da duoc dan theo. ");
-					return 1;
-				}
-                new Float:dX, Float:dY, Float:dZ;
-				GetPlayerPos(giveplayerid, dX, dY, dZ);
-				if(!IsPlayerInRangeOfPoint(playerid, 5.0, dX, dY, dZ))
-				{
-					SendClientMessageEx(playerid, COLOR_GRAD2, " Nguoi do o gan ban.");
-					return 1;
-				}
-				format(string, sizeof(string), "* %s hien dan dan ban di.", GetPlayerNameEx(playerid));
-				SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
-				format(string, sizeof(string), "* Ban bi dan di %s, ban the di chuyen chung ngay bay gio.", GetPlayerNameEx(giveplayerid));
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
-				format(string, sizeof(string), "* %s grabs ahold of %s and begins to move them.", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
-				ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-				SendClientMessageEx(playerid, COLOR_WHITE, "Ban dang dan mot nguoi tinh nghi, Nhan '{AA3333}FIRE{FFFFFF}' nut de dung lai.");
-				SetPVarInt(giveplayerid, "BeingDragged", 1);
-				SetPVarInt(playerid, "DraggingPlayer", giveplayerid);
-				SetTimerEx("DragPlayer", 1000, false, "ii", playerid, giveplayerid);
-			}
-			else
-			{
-				SendClientMessageEx(playerid, COLOR_WHITE, " Nguoi chi dinh khong bi cong!");
-			}
-		}
-	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GREY, " Ban khong phai la thuc thi phap luat chinh' thuc!");
-		return 1;
-	}
-	return 1;
+    // Chặn dẫn 2 người cùng lúc
+    if(GetPVarInt(playerid, "DraggingPlayer") != INVALID_PLAYER_ID)
+        return SendClientMessageEx(playerid, COLOR_WHITE, " Ban dang dan mot nguoi khac, hay tha truoc (nhan FIRE).");
+
+    new string[128], giveplayerid;
+    if(sscanf(params, "u", giveplayerid))
+        return SendHelpMessage(playerid, "/dandi [playerid]");
+
+    if(!IsPlayerConnected(giveplayerid))
+        return SendClientMessageEx(playerid, COLOR_WHITE, " Nguoi choi khong ton tai.");
+
+    if(giveplayerid == playerid)
+        return SendClientMessageEx(playerid, COLOR_WHITE, " Ban khong the tu dan chinh minh.");
+
+    if(GetPVarInt(giveplayerid, "PlayerCuffed") != 2)
+        return SendClientMessageEx(playerid, COLOR_WHITE, " Nguoi chi dinh khong bi cong!");
+
+    if(IsPlayerInAnyVehicle(playerid))
+        return SendClientMessageEx(playerid, COLOR_WHITE, " Ban phai ra khoi xe moi co the su dung lenh nay.");
+
+    if(GetPVarInt(giveplayerid, "BeingDragged") == 1)
+        return SendClientMessageEx(playerid, COLOR_WHITE, " Nguoi do da duoc dan theo. ");
+
+    new Float:dX, Float:dY, Float:dZ;
+    GetPlayerPos(giveplayerid, dX, dY, dZ);
+    if(!IsPlayerInRangeOfPoint(playerid, 5.0, dX, dY, dZ))
+        return SendClientMessageEx(playerid, COLOR_GRAD2, " Nguoi do o gan ban.");
+
+    // Thông báo cho cả 2 bên
+    format(string, sizeof(string), "* Ban dang bi %s dan di, hay di chuyen theo ho.", GetPlayerNameEx(playerid));
+    SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
+
+    format(string, sizeof(string), "* Ban dang dan %s di. Nhan '{AA3333}FIRE{FFFFFF}' de tha.", GetPlayerNameEx(giveplayerid));
+    SendClientMessageEx(playerid, COLOR_WHITE, string);
+
+    format(string, sizeof(string), "* %s grabs ahold of %s and begins to move them.",
+        GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+    ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+    SetPVarInt(giveplayerid, "BeingDragged", 1);
+    SetPVarInt(playerid, "DraggingPlayer", giveplayerid);
+    SetTimerEx("DragPlayer", 1000, false, "ii", playerid, giveplayerid);
+    return 1;
 }
 
 CMD:hfind(playerid, params[])

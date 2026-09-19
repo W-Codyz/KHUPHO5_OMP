@@ -8365,7 +8365,7 @@
 			<referrer name="InitiateGamemode"/>
 			<referrer name="Countdown"/>
 			<referrer name="sobeitCheck"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="PrepareLotto"/>
 			<referrer name="StartLotto"/>
@@ -8874,7 +8874,7 @@
 			<referrer name="sobeitCheck"/>
 			<referrer name="ReleasePlayer"/>
 			<referrer name="StationSelectHTTP"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="cameraexpire"/>
 			<referrer name="PokerExit"/>
@@ -8995,6 +8995,7 @@
 			<referrer name="pc_cmd_seteventtype"/>
 			<referrer name="pc_cmd_editevent"/>
 			<referrer name="pc_cmd_seteventviponly"/>
+			<referrer name="pc_cmd_movept"/>
 			<referrer name="pc_cmd_unfreeze"/>
 			<referrer name="pc_cmd_poke"/>
 			<referrer name="pc_cmd_fstoregun"/>
@@ -21340,11 +21341,14 @@
 			<referrer name="CameraRadiusSetPos"/>
 			<referrer name="GetXYInFrontOfPlayer"/>
 			<referrer name="GetXYBehindPlayer"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="DragPlayer"/>
 			<referrer name="GetXYBehindVehicle"/>
 			<referrer name="pc_cmd_placetable"/>
 			<referrer name="pc_cmd_placeboombox"/>
 			<referrer name="pc_cmd_placefirework"/>
 			<referrer name="SetPlayerToFacePos"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<dependency name="cellmin"/>
 			<param name="__oper">
 				<paraminfo>Float </paraminfo>
@@ -21443,6 +21447,8 @@
 			<referrer name="SetPlayerPosObjectOffset"/>
 			<referrer name="IsInRangeOfPoint"/>
 			<referrer name="GasPumpSaleTimer"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="DragPlayer"/>
 			<referrer name="GetDistance"/>
 			<referrer name="GetDistanceBetweenPoints"/>
 			<referrer name="mS_ShowPlayerMPs"/>
@@ -21467,6 +21473,7 @@
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnVehicleDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="CreateInventoryTextDraws"/>
 			<referrer name="CreateGarbageObject"/>
 			<referrer name="AddDroppedItem"/>
@@ -21767,6 +21774,8 @@
 			<referrer name="GetXYBehindPlayer"/>
 			<referrer name="IsInRangeOfPoint"/>
 			<referrer name="GasPumpSaleTimer"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="DragPlayer"/>
 			<referrer name="mS_ShowPlayerMPs"/>
 			<referrer name="GetXYBehindVehicle"/>
 			<referrer name="DistanceCameraTargetToLocation"/>
@@ -21774,6 +21783,7 @@
 			<referrer name="vehicle_get_speed"/>
 			<referrer name="SetPlayerToFacePos"/>
 			<referrer name="OnPlayerTakeDamage"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnPlayerText"/>
 			<referrer name="GetVehicleSpeed"/>
 			<referrer name="_@yHOnPlayerUpdate@0i"/>
@@ -22151,7 +22161,6 @@
 			<referrer name="LoadForklift"/>
 			<referrer name="HealthHackCheck"/>
 			<referrer name="StopaniTimer"/>
-			<referrer name="DragPlayer"/>
 			<referrer name="HeroinEffect"/>
 			<referrer name="InjectHeroin"/>
 			<referrer name="GetDistance"/>
@@ -27554,7 +27563,10 @@
 			<attribute name="public"/>
 			<stacksize value="308"/>
 			<dependency name="operator+(Float:,_:)"/>
+			<dependency name="operator-(Float:)"/>
+			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="operator&gt;(Float:,Float:)"/>
 			<dependency name="operator&lt;(Float:,Float:)"/>
@@ -27585,6 +27597,7 @@
 			<dependency name="GetPVarFloat"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarType"/>
+			<dependency name="GetPlayerFacingAngle"/>
 			<dependency name="GetPlayerHealth"/>
 			<dependency name="GetPlayerInterior"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -27615,7 +27628,6 @@
 			<dependency name="Job_KeyState"/>
 			<dependency name="KillTimer"/>
 			<dependency name="Log"/>
-			<dependency name="MoveEMS"/>
 			<dependency name="OPBA_SetPlayerPos"/>
 			<dependency name="OPBA_TogglePlayerSpectating"/>
 			<dependency name="PickUpC4"/>
@@ -27643,6 +27655,7 @@
 			<dependency name="SetTimerEx"/>
 			<dependency name="SetVehicleEngine"/>
 			<dependency name="ShowElevatorDialog"/>
+			<dependency name="StopMoveEMS"/>
 			<dependency name="Streamer_UpdateEx"/>
 			<dependency name="TacklePlayer"/>
 			<dependency name="TogglePlayerControllable"/>
@@ -27651,9 +27664,11 @@
 			<dependency name="VEHICLE_PARAMS_UNSET"/>
 			<dependency name="VehicleBomb"/>
 			<dependency name="cellmax"/>
+			<dependency name="degrees"/>
 			<dependency name="fVehSpeed"/>
 			<dependency name="false"/>
-			<dependency name="floatsub"/>
+			<dependency name="floatcos"/>
+			<dependency name="floatsin"/>
 			<dependency name="format"/>
 			<dependency name="gt_Int"/>
 			<dependency name="gt_PosX"/>
@@ -28771,7 +28786,7 @@
 			<referrer name="JoinPokerTable"/>
 			<referrer name="LeavePokerTable"/>
 			<referrer name="PreloadAnimLib"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="PokerPulse"/>
 			<referrer name="Player_StreamPrep"/>
@@ -34514,7 +34529,7 @@
 			<referrer name="LoadPlayerZone"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="PokerExit"/>
 			<referrer name="Player_StreamPrep"/>
@@ -38538,7 +38553,6 @@
 			<referrer name="GenreHTTP"/>
 			<referrer name="StationListHTTP"/>
 			<referrer name="StationInfoHTTP"/>
-			<referrer name="MoveEMS"/>
 			<referrer name="KillEMSQueue"/>
 			<referrer name="PokerPulse"/>
 			<referrer name="OtherTimerEx"/>
@@ -40225,11 +40239,14 @@
 		</member>
 		<member name="M:DragPlayer" syntax="DragPlayer(dragger, dragee)">
 			<attribute name="public"/>
-			<stacksize value="15"/>
-			<dependency name="Float:operator=(_:)"/>
+			<stacksize value="16"/>
+			<dependency name="operator-(Float:)"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="ClearAnimations"/>
 			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerFacingAngle"/>
 			<dependency name="GetPlayerInterior"/>
 			<dependency name="GetPlayerPos"/>
 			<dependency name="GetPlayerVirtualWorld"/>
@@ -40242,8 +40259,10 @@
 			<dependency name="SetPlayerVirtualWorld"/>
 			<dependency name="SetTimerEx"/>
 			<dependency name="Streamer_UpdateEx"/>
+			<dependency name="degrees"/>
 			<dependency name="false"/>
-			<dependency name="floatsub"/>
+			<dependency name="floatcos"/>
+			<dependency name="floatsin"/>
 			<dependency name="true"/>
 			<param name="dragger">
 			</param>
@@ -44945,6 +44964,8 @@
 			<referrer name="StationSelectHTTP"/>
 			<referrer name="TickCTF"/>
 			<referrer name="TickKOTH"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="StopMoveEMS"/>
 			<referrer name="MoveEMS"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="SetVehicleEngine"/>
@@ -45761,7 +45782,9 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="GetXYInFrontOfPlayer"/>
 			<referrer name="GetXYBehindPlayer"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
+			<referrer name="DragPlayer"/>
 			<referrer name="PlayerFacePlayer"/>
 			<referrer name="OnPlayerStatsUpdate"/>
 			<referrer name="CreateDynamicGasPump"/>
@@ -45794,6 +45817,7 @@
 			<referrer name="pc_cmd_laypos"/>
 			<referrer name="OnPlayerModelSelection"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="PlayerCompassUpdate"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
@@ -45949,7 +45973,7 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="DynVeh_CreateDVQuery"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
 			<referrer name="DragPlayer"/>
@@ -47137,7 +47161,7 @@
 			<referrer name="sobeitCheck"/>
 			<referrer name="DynVeh_CreateDVQuery"/>
 			<referrer name="SetCamBack"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SetVehicleEngine"/>
 			<referrer name="OtherTimerEx"/>
 			<referrer name="LoadForklift"/>
@@ -47982,7 +48006,7 @@
 			<referrer name="ProxDetector"/>
 			<referrer name="ProxDetectorS"/>
 			<referrer name="DynVeh_CreateDVQuery"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SyncMinTime"/>
 			<referrer name="CaptureTimer"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
@@ -55002,6 +55026,9 @@
 			<referrer name="GivePlayerCashEx"/>
 			<referrer name="ReturnUser"/>
 			<referrer name="SetCamBack"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="StopMoveEMS"/>
+			<referrer name="MoveEMS"/>
 			<referrer name="BackupClear"/>
 			<referrer name="Firework"/>
 			<referrer name="SetPlayerFree"/>
@@ -58856,6 +58883,8 @@
 			<referrer name="_@yHOnPlayerDisconnect@0S"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="LeavePokerTable"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="StopMoveEMS"/>
 			<referrer name="firstaidexpire"/>
 			<referrer name="CaptureTimer"/>
 			<referrer name="EndAuction"/>
@@ -61533,24 +61562,44 @@
 		</member>
 		<member name="M:MoveEMS" syntax="MoveEMS(playerid)">
 			<attribute name="public"/>
-			<stacksize value="15"/>
-			<referrer name="Action_OnPlayerKeyStateChange"/>
+			<stacksize value="7"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="StopMoveEMS"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:MoveEMSFollow" syntax="MoveEMSFollow(medicid, patientid)">
+			<attribute name="public"/>
+			<stacksize value="16"/>
+			<dependency name="operator-(Float:)"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="ClearAnimations"/>
-			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerFacingAngle"/>
 			<dependency name="GetPlayerInterior"/>
 			<dependency name="GetPlayerPos"/>
 			<dependency name="GetPlayerVirtualWorld"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="KillTimer"/>
 			<dependency name="OPBA_SetPlayerPos"/>
 			<dependency name="SetPVarFloat"/>
 			<dependency name="SetPVarInt"/>
 			<dependency name="SetPlayerInterior"/>
 			<dependency name="SetPlayerVirtualWorld"/>
+			<dependency name="StopMoveEMS"/>
 			<dependency name="Streamer_UpdateEx"/>
+			<dependency name="degrees"/>
 			<dependency name="false"/>
+			<dependency name="floatcos"/>
+			<dependency name="floatsin"/>
 			<dependency name="true"/>
-			<param name="playerid">
+			<param name="medicid">
+			</param>
+			<param name="patientid">
 			</param>
 		</member>
 		<member name="M:MoveGate" syntax="MoveGate(playerid, gateid)">
@@ -62857,7 +62906,7 @@
 		</member>
 		<member name="M:OPBA_OnPlayerDisconnect" syntax="OPBA_OnPlayerDisconnect(playerid, reason)">
 			<attribute name="public"/>
-			<stacksize value="264"/>
+			<stacksize value="265"/>
 			<dependency name="operator!=(Float:,Float:)"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="operator&gt;(Float:,Float:)"/>
@@ -63711,7 +63760,7 @@
 			<referrer name="SetPlayerPosObjectOffset"/>
 			<referrer name="LeavePokerTable"/>
 			<referrer name="SetCamBack"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="SurfingFix"/>
 			<referrer name="rccam"/>
@@ -80653,6 +80702,7 @@
 			<referrer name="sobeitCheck"/>
 			<referrer name="killPlayer"/>
 			<referrer name="GasPumpSaleTimer"/>
+			<referrer name="MoveEMS"/>
 			<referrer name="BackupClear"/>
 			<referrer name="SetVehicleEngine"/>
 			<referrer name="IslandThreatElim"/>
@@ -83445,7 +83495,7 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="JoinPokerTable"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="OtherTimerEx"/>
 			<referrer name="LoadForklift"/>
 			<referrer name="DragPlayer"/>
@@ -83549,7 +83599,8 @@
 			<referrer name="ShowCasinoGamesMenu"/>
 			<referrer name="sobeitCheck"/>
 			<referrer name="StationSelectHTTP"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="StopMoveEMS"/>
 			<referrer name="KillEMSQueue"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="firstaidexpire"/>
@@ -84573,7 +84624,7 @@
 			<referrer name="JoinPokerTable"/>
 			<referrer name="LeavePokerTable"/>
 			<referrer name="SetCamBack"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="cameraexpire"/>
 			<referrer name="PokerPulse"/>
@@ -85381,7 +85432,7 @@
 			<referrer name="ReferralSecurity"/>
 			<referrer name="JoinPokerTable"/>
 			<referrer name="LeavePokerTable"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="cameraexpire"/>
 			<referrer name="PokerPulse"/>
@@ -88407,6 +88458,20 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:StopMoveEMS" syntax="StopMoveEMS(medicid, patientid)">
+			<stacksize value="5"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="MoveEMS"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="KillTimer"/>
+			<dependency name="SetPVarInt"/>
+			<param name="medicid">
+			</param>
+			<param name="patientid">
+			</param>
+		</member>
 		<member name="M:StopMusic" syntax="StopMusic()">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -88655,7 +88720,7 @@
 		<member name="M:Streamer_UpdateEx" syntax="Streamer_UpdateEx(playerid, x, y, z, worldid, interiorid, type, compensatedtime, freezeplayer)">
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerDeath@0Q"/>
-			<referrer name="MoveEMS"/>
+			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="Player_StreamPrep"/>
 			<referrer name="DragPlayer"/>
@@ -98596,10 +98661,13 @@
 			<referrer name="CameraRadiusSetPos"/>
 			<referrer name="GetXYInFrontOfPlayer"/>
 			<referrer name="GetXYBehindPlayer"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="DragPlayer"/>
 			<referrer name="GetXYBehindVehicle"/>
 			<referrer name="pc_cmd_placetable"/>
 			<referrer name="pc_cmd_placeboombox"/>
 			<referrer name="pc_cmd_placefirework"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<param name="value">
 				<paraminfo>Float </paraminfo>
 				The angle from which to get the cosine
@@ -98785,10 +98853,13 @@
 			<referrer name="CameraRadiusSetPos"/>
 			<referrer name="GetXYInFrontOfPlayer"/>
 			<referrer name="GetXYBehindPlayer"/>
+			<referrer name="MoveEMSFollow"/>
+			<referrer name="DragPlayer"/>
 			<referrer name="GetXYBehindVehicle"/>
 			<referrer name="pc_cmd_placetable"/>
 			<referrer name="pc_cmd_placeboombox"/>
 			<referrer name="pc_cmd_placefirework"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<param name="value">
 				<paraminfo>Float </paraminfo>
 				The angle from which to get the sine
@@ -98877,9 +98948,7 @@
 			<referrer name="operator-(Float:,_:)"/>
 			<referrer name="operator-(_:,Float:)"/>
 			<referrer name="GDBP"/>
-			<referrer name="DragPlayer"/>
 			<referrer name="pc_cmd_detain"/>
-			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 				First Float
@@ -119285,6 +119354,7 @@
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="pJailTime"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
