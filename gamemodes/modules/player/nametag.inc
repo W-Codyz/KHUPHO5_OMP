@@ -66,16 +66,17 @@ public UpdateNameTag(playerid)
 
         if(IsValid3DTextLabel(PlayerNameTag[playerid]) && gPlayerLogged{playerid} == 1)
         {
-            new Float:fHP, Float:fARM, string[256];
+            new Float:fHP, Float:fARM, string[256], szNameColor[8] = "FFFFFF";
             if(0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS && PlayerInfo[playerid][pDuty] == 1) {
                 new gId = PlayerInfo[playerid][pMember];
-                format(string, _, "{%s}%s\n", Group_NumToDialogHex(arrGroupData[gId][g_hDutyColour]), arrGroupData[gId][g_szGroupName]);
+                format(szNameColor, _, "%s", Group_NumToDialogHex(arrGroupData[gId][g_hDutyColour]));
+                format(string, _, "{%s}%s\n", szNameColor, arrGroupData[gId][g_szGroupName]);
             }
 
             GetPlayerHealth(playerid, fHP);
             GetPlayerArmour(playerid, fARM);
-            if(fARM <= 0) format(string, _, "%s{FFFFFF}%s (%d)\n%s", string, GetPlayerNameEx(playerid), playerid, GetHealthDot(fHP));
-            else format(string, _, "%s{FFFFFF}%s (%d)\n%s\n%s", string, GetPlayerNameEx(playerid), playerid, GetARMDot(fARM), GetHealthDot(fHP));
+            if(fARM <= 0) format(string, _, "%s{%s}%s (%d)\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetHealthDot(fHP));
+            else format(string, _, "%s{%s}%s (%d)\n%s\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetARMDot(fARM), GetHealthDot(fHP));
             
             Update3DTextLabelText(PlayerNameTag[playerid], 0xFFFFFFFF, string);
         }
