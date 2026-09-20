@@ -82,6 +82,7 @@
 #include "./modules/system/panel/ui_panel"
 #include "./modules/system/panel/panel"
 #include "./modules/system/food"
+#include "./modules/system/sendlocation"
 
 //==============JOB============//
 #include "./modules/job/header"
