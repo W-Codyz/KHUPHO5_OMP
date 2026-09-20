@@ -142,7 +142,7 @@ public UpdateTruckerPrices()
             case 3: base = giatruck[2];
         }
         ThuMuaTruck[i][giahang]       = base;
-        ThuMuaTruck[i][giabanhientai] = base + random(15000);
+        ThuMuaTruck[i][giabanhientai] = base + random(10000);
     }
     SendClientMessageToAll(COLOR_WHITE,
         "{FFA900}> {FFFFFF}THONG BAO: Gia thu mua hang hoa Trucker vua duoc cap nhat!");
