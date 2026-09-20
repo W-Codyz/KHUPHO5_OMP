@@ -2943,6 +2943,12 @@ public InitiateGamemode()
     print("[Textdraws] Loading Textdraws...");
     LoadTextDraws();
 	LoadTDLogo();
+	
+	print("\n--------------------------------------");
+    print("Safe Zone System - Loaded");
+    print("--------------------------------------\n");
+    LoadSafeZones();
+    TextDrawSafeZone();
     
     // Dynamic Groups
     print("[Dynamic Groups] Loading Dynamic Groups...");

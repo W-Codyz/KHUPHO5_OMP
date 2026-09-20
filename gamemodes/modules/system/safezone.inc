@@ -7,11 +7,11 @@
 #define MAX_SZ 100 // MAX SAFE ZONE
 
 // Dialog IDs
-#define DIALOG_SAFEZONE_LIST        (9200)
-#define DIALOG_SAFEZONE_MANAGE      (9201)
-#define DIALOG_SAFEZONE_EDIT        (9202)
-#define DIALOG_SAFEZONE_EDIT_SIZE   (9203)
-#define DIALOG_SAFEZONE_CONFIRM_DEL (9204)
+#define DIALOG_SAFEZONE_LIST        (8310)
+#define DIALOG_SAFEZONE_MANAGE      (8311)
+#define DIALOG_SAFEZONE_EDIT        (8312)
+#define DIALOG_SAFEZONE_EDIT_SIZE   (8313)
+#define DIALOG_SAFEZONE_CONFIRM_DEL (8314)
 
 // ==================================================================
 // ENUMS
@@ -394,7 +394,7 @@ stock TDHide(playerid)
 // ==================================================================
 // HOOKS - CALLBACKS
 // ==================================================================
-hook OnGameModeInit()
+/* hook OnGameModeInit()
 {
     print("\n--------------------------------------");
     print("Safe Zone System - Loaded");
@@ -402,7 +402,7 @@ hook OnGameModeInit()
     LoadSafeZones();
     TextDrawSafeZone();
     return 1;
-}
+} */
 
 hook OnPlayerConnect(playerid)
 {
@@ -446,12 +446,12 @@ hook OnPlayerUpdate(playerid)
             if(!IsACop(playerid))
             {
                 SetPlayerArmedWeapon(playerid, 0);
+            }
 
-                if(zombieevent == 0 && EnterSafeZones[playerid] != Sz)
-                {
-                    EnterSafeZones[playerid] = Sz;
-                    TDShow(playerid);
-                }
+            if(zombieevent == 0 && gPlayerLogged{playerid} == 1 && EnterSafeZones[playerid] != Sz)
+            {
+                EnterSafeZones[playerid] = Sz;
+                TDShow(playerid);
             }
             break;
         }

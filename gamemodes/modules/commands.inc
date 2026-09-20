@@ -9783,7 +9783,6 @@ CMD:accept(playerid, params[])
                         GetPlayerName(MedicCall, giveplayer, sizeof(giveplayer));
                         format(szMessage, sizeof(szMessage), "* Ban da chap nhan cuoc goi bac si tu %s.",giveplayer);
                         SendClientMessageEx(playerid, COLOR_LIGHTBLUE, szMessage);
-                        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Sau 45 giay, diem do tren rada se mat.");
                         format(szMessage, sizeof(szMessage), "* Bac si %s da chap nhan cuoc goi yeu cau bac si cua ban, xin vui long cho doi",sendername);
                         SendClientMessageEx(MedicCall, COLOR_LIGHTBLUE, szMessage);
                         new Float:X,Float:Y,Float:Z;

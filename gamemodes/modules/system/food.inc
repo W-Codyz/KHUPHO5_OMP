@@ -75,7 +75,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys & KEY_YES)
     {
-        if (IsAtRestaurant(playerid))
+        if (IsAtRestaurant(playerid) && !IsNearAnyDoor(playerid))
             return pc_cmd_muathucan(playerid, "");
     }
     return 1;

@@ -897,6 +897,38 @@ stock PlayerExitInterior(playerid)
     return 0;
 }
 
+stock IsNearAnyDoor(playerid)
+{
+    new i;
+    for(i = 0; i < sizeof(DDoorsInfo); i++) {
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, DDoorsInfo[i][ddExteriorX], DDoorsInfo[i][ddExteriorY], DDoorsInfo[i][ddExteriorZ]) && PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddExteriorVW])
+            return 1;
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, DDoorsInfo[i][ddInteriorX], DDoorsInfo[i][ddInteriorY], DDoorsInfo[i][ddInteriorZ]) && PlayerInfo[playerid][pVW] == DDoorsInfo[i][ddInteriorVW])
+            return 1;
+    }
+    for(i = 0; i < sizeof(FamilyInfo); i++) {
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, FamilyInfo[i][FamilyEntrance][0], FamilyInfo[i][FamilyEntrance][1], FamilyInfo[i][FamilyEntrance][2]))
+            return 1;
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, FamilyInfo[i][FamilyExit][0], FamilyInfo[i][FamilyExit][1], FamilyInfo[i][FamilyExit][2]) && PlayerInfo[playerid][pVW] == FamilyInfo[i][FamilyVirtualWorld])
+            return 1;
+    }
+    for(i = 0; i < sizeof(HouseInfo); i++) {
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ]) && GetPlayerInterior(playerid) == HouseInfo[i][hExtIW] && GetPlayerVirtualWorld(playerid) == HouseInfo[i][hExtVW])
+            return 1;
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, HouseInfo[i][hInteriorX], HouseInfo[i][hInteriorY], HouseInfo[i][hInteriorZ]) && PlayerInfo[playerid][pVW] == HouseInfo[i][hIntVW])
+            return 1;
+    }
+    for(i = 0; i < sizeof(Businesses); i++) {
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]))
+            return 1;
+        if(IsPlayerInRangeOfPoint(playerid, 3.0, Businesses[i][bIntPos][0], Businesses[i][bIntPos][1], Businesses[i][bIntPos][2])) {
+            if(Businesses[i][bVW] == 0 && PlayerInfo[playerid][pVW] == BUSINESS_BASE_VW + i || Businesses[i][bVW] != 0 && PlayerInfo[playerid][pVW] == Businesses[i][bVW])
+                return 1;
+        }
+    }
+    return 0;
+}
+
 hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 {
     if(PRESSED(KEY_YES)) {
