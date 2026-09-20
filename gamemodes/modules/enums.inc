@@ -1436,3 +1436,5 @@ enum {
 	BODY_PART_LEFT_LEG,
 	BODY_PART_HEAD
 }
+
+new PlayerPorter[MAX_PLAYERS];

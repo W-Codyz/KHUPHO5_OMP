@@ -17,5 +17,3 @@ new const Float:PorterUnload[9][3] =
     {-1710.935058, 1.675565, 3.548918},
     {-1718.980590, 10.430986, 3.624261}
 };
-
-new PlayerPorter[MAX_PLAYERS];
