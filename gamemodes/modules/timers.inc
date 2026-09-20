@@ -1190,16 +1190,9 @@ task ServerHeartbeat[1000]() {
 		}
 		if(MedicCallTime[i] > 0)
 		{
-			if(MedicCallTime[i] == 45) { MedicCallTime[i] = 0; DisablePlayerCP(i); PlayerPlaySound(i, 1056, 0.0, 0.0, 0.0); GameTextForPlayer(i, "~r~RedMarker gone", 2500, 1); }
-			else
-			{
-				format(string, sizeof(string), "%d", 45 - MedicCallTime[i]);
-				new Float:X,Float:Y,Float:Z;
-				GetPlayerPos(MedicAccepted[i], X, Y, Z);
-				SetPlayerCP(i, X, Y, Z, 5);
-				GameTextForPlayer(i, string, 1500, 6);
-				MedicCallTime[i] += 1;
-			}
+			new Float:X,Float:Y,Float:Z;
+			GetPlayerPos(MedicAccepted[i], X, Y, Z);
+			SetPlayerCP(i, X, Y, Z, 5);
 		}
 
 		if(PlayerCuffed[i] == 1)
