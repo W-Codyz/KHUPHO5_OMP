@@ -2138,6 +2138,28 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		SetPVarInt(playerid, "UsingSprunk", 0);
 		SetPVarInt(playerid, "DrinkCooledDown", 0);
 	}
+	if(LockStatus{vehicleid} >= 1 && !ispassenger)
+	{
+		new bool: isOwner = false;
+		foreach(new p: Player)
+		{
+			if(GetPlayerVehicle(p, vehicleid) != -1)
+			{
+				if(p == playerid) isOwner = true;
+				break;
+			}
+		}
+		if(!isOwner)
+		{
+			new Float:slx, Float:sly, Float:slz;
+			GetPlayerPos(playerid, slx, sly, slz);
+			SetPlayerPos(playerid, slx, sly, slz + 1.3);
+			RemovePlayerFromVehicle(playerid);
+			defer NOPCheck(playerid);
+			SendClientMessageEx(playerid, COLOR_GREY, " Xe nay da bi khoa boi chu xe.");
+			return 1;
+		}
+	}
 	if(!ispassenger)
 	{
 	    SetPlayerArmedWeapon(playerid, 0);
@@ -2331,7 +2353,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		    }
 		}
 	}
-	else if(!IsPlayerInRangeOfVehicle(playerid, vehicleid, 7.5) || LockStatus{vehicleid} >= 1) { // G-bugging fix
+	else if(!IsPlayerInRangeOfVehicle(playerid, vehicleid, 7.5)) { // G-bugging fix
 		ClearAnimations(playerid);
 	}
 
@@ -4736,6 +4758,12 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         }
     }
 	if(GetPVarInt(playerid, "Injured") == 1) return 1;
+	
+	if(PRESSED(KEY_WALK))
+	{
+		pc_cmd_pvlock(playerid,"");
+	}
+
 	if(newkeys & KEY_SECONDARY_ATTACK)
 	{
 	    new string[128];

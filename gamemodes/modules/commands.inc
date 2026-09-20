@@ -19037,66 +19037,27 @@ CMD:gotopveh(playerid, params[]) {
 CMD:pvlock(playerid, params[])
 {
     new Float: x, Float: y, Float: z;
-    if(PlayerInfo[playerid][pVehicleKeysFrom] != INVALID_PLAYER_ID)
-	{
-        new ownerid = PlayerInfo[playerid][pVehicleKeysFrom];
-        if(IsPlayerConnected(ownerid))
-		{
-            new d = PlayerInfo[playerid][pVehicleKeys];
-            if(PlayerVehicleInfo[ownerid][d][pvId] != INVALID_PLAYER_VEHICLE_ID) GetVehiclePos(PlayerVehicleInfo[ownerid][d][pvId], x, y, z);
-            if(IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
-			{
-                if(PlayerVehicleInfo[ownerid][d][pvLock] > 0)
-				{
-                    if(PlayerVehicleInfo[ownerid][d][pvLocked] == 0)
-					{
-                        GameTextForPlayer(playerid,"~r~Vehicle Locked!",5000,6);
-                        PlayerPlaySound(playerid, 1145, 0.0, 0.0, 0.0);
-                        PlayerVehicleInfo[ownerid][d][pvLocked] = 1;
-                        LockPlayerVehicle(ownerid, PlayerVehicleInfo[ownerid][d][pvId], PlayerVehicleInfo[ownerid][d][pvLock]);
-                        return 1;
-                    }
-                    else
-					{
-                        GameTextForPlayer(playerid,"~g~Vehicle Unlocked!",5000,6);
-                        PlayerPlaySound(playerid, 1145, 0.0, 0.0, 0.0);
-                        PlayerVehicleInfo[ownerid][d][pvLocked] = 0;
-                        UnLockPlayerVehicle(ownerid, PlayerVehicleInfo[ownerid][d][pvId], PlayerVehicleInfo[ownerid][d][pvLock]);
-                        return 1;
-                    }
-                }
-                else
-				{
-                    SendClientMessageEx(playerid, COLOR_GREY, " You don't have a lock system installed on this vehicle.");
-                    return 1;
-                }
-            }
-        }
-    }
     for(new d = 0 ; d < MAX_PLAYERVEHICLES; d++)
     {
         if(PlayerVehicleInfo[playerid][d][pvId] != INVALID_PLAYER_VEHICLE_ID) GetVehiclePos(PlayerVehicleInfo[playerid][d][pvId], x, y, z);
         if(IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
 		{
-            if(PlayerVehicleInfo[playerid][d][pvLock] > 0 && PlayerVehicleInfo[playerid][d][pvLocked] == 0)
+            if(PlayerVehicleInfo[playerid][d][pvLocked] == 0)
 			{
-                GameTextForPlayer(playerid,"~r~Vehicle Locked!",5000,6);
-                PlayerPlaySound(playerid, 1145, 0.0, 0.0, 0.0);
+                HienTextdraw(playerid,"~r~DA KHOA!");
+                PlayerPlaySound(playerid, 24600, 0.0, 0.0, 0.0);
                 PlayerVehicleInfo[playerid][d][pvLocked] = 1;
-                LockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], PlayerVehicleInfo[playerid][d][pvLock]);
+                LockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], 1);
                 return 1;
             }
-            else if(PlayerVehicleInfo[playerid][d][pvLock] > 0 && PlayerVehicleInfo[playerid][d][pvLocked] == 1)
+            else
 			{
-                GameTextForPlayer(playerid,"~g~Vehicle Unlocked!",5000,6);
-                PlayerPlaySound(playerid, 1145, 0.0, 0.0, 0.0);
+                HienTextdraw(playerid,"~g~MO KHOA!");
+                PlayerPlaySound(playerid, 24600, 0.0, 0.0, 0.0);
                 PlayerVehicleInfo[playerid][d][pvLocked] = 0;
-                UnLockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], PlayerVehicleInfo[playerid][d][pvLock]);
+                UnLockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], 1);
                 return 1;
-
             }
-            SendClientMessageEx(playerid, COLOR_GREY, " You don't have a lock system installed on this vehicle.");
-            return 1;
         }
     }
     SendClientMessageEx(playerid, COLOR_GREY, " You are not near any vehicle that you own.");

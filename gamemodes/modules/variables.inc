@@ -141,10 +141,10 @@ new const StoreItems[][] =
 	"May anh",
 	"Ve so xo",
 	"Ngan phieu",
-	"Giay trang",
-	"Khoa cong nghiep",
+	"Giay trang"
+	/* "Khoa cong nghiep",
 	"Khoa dien",
-	"Khoa bao dong"
+	"Khoa bao dong" */
 };
 
 new PokerTable[MAX_POKERTABLES][pkrInfo];

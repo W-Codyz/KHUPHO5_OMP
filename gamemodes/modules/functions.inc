@@ -994,22 +994,16 @@ Vehicle_Armor(iVehicleID) {
 
 LockPlayerVehicle(ownerid, carid, type)
 {
-	new v = GetPlayerVehicle(ownerid, carid);
-	if(PlayerVehicleInfo[ownerid][v][pvId] == carid && type == 3)
-	{
-	    LockStatus{carid} = 1;
-	    vehicle_lock_doors(carid);
-	}
+	#pragma unused ownerid, type
+	LockStatus{carid} = 1;
+	vehicle_lock_doors(carid);
 }
 
 UnLockPlayerVehicle(ownerid, carid, type)
 {
-	new v = GetPlayerVehicle(ownerid, carid);
-	if(PlayerVehicleInfo[ownerid][v][pvId] == carid && type == 3)
-	{
-	    LockStatus{carid} = 0;
-		vehicle_unlock_doors(carid);
-	}
+	#pragma unused ownerid, type
+	LockStatus{carid} = 0;
+	vehicle_unlock_doors(carid);
 }
 
 TimeConvert(time) {
@@ -14043,17 +14037,17 @@ stock RefreshBusinessPickup(i)
   	DestroyDynamicPickup(Businesses[i][bPickup]);
 	Businesses[i][bPickup] = INVALID_STREAMER_ID;
     if (!(Businesses[i][bExtPos][0] == 0.0 && Businesses[i][bExtPos][1] == 0.0 && Businesses[i][bExtPos][2] == 0.0)) {
-    	new string[128];
+    	new string[1280];
 		Businesses[i][bPickup] = CreateDynamicPickup(GetBusinessDefaultPickup(i), 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
         if (Businesses[i][bOwner] < 1) {
-			format(string,sizeof(string),"%s\n\nCua hang dang duoc ban!\nChi phi: %s\nDe mua cua hang nay su dung /muacuahang\nID: %d", GetBusinessTypeName(Businesses[i][bType]), number_format(Businesses[i][bValue]), i);
+			format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FF8C00}Cua hang dang duoc ban!\n{FFFFFF}Chi phi: {00FF00}$%s\n{FFFFFF}Su dung {FFFF00}/muacuahang\n{AAAAAA}ID: %d\n\n{FFFF00}[ Y ] {FFFFFF}De vao / ra", GetBusinessTypeName(Businesses[i][bType]), number_format(Businesses[i][bValue]), i);
 		}
 		else {
 		    if(Businesses[i][bType] != BUSINESS_TYPE_GYM) {
-				format(string,sizeof(string),"%s\n\n%s [Chu so huu: %s]\nID: %d", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i);
+				format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FFFFFF}%s\n{AAAAAA}Chu so huu: {00BFFF}%s\n{AAAAAA}ID: %d\n\n{FFFF00}[ Y ] {FFFFFF}De vao / ra", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i);
 			}
 			else {
-			    format(string,sizeof(string),"%s\n\n%s [Chu so huu: %s]\nID: %d\nPhong tap Entrance: $%s", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i, number_format(Businesses[i][bGymEntryFee]));
+			    format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FFFFFF}%s\n{AAAAAA}Chu so huu: {00BFFF}%s\n{AAAAAA}ID: %d\n{FFFFFF}Phi vao tap: {00FF00}$%s\n\n{FFFF00}[ Y ] {FFFFFF}De vao / ra", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i, number_format(Businesses[i][bGymEntryFee]));
 			}
 		}
 		Businesses[i][bDoorText] =	CreateDynamic3DTextLabel(string, BUSINESS_NAME_COLOR, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 0.85, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1);
