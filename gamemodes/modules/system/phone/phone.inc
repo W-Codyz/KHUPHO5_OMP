@@ -996,6 +996,9 @@ CMD:dienthoai(playerid, params[])
     if(PlayerInfo[playerid][pPnumber] == 0)
         return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban khong so huu hien thoai.");
 
+    if(PlayerPorter[playerid] == 1 && gPlayerCheckpointStatus[playerid] == CHECKPOINT_PORTERUNLOAD)
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the su dung dien thoai vao luc nay.");
+
     // ==== ĐÓNG PHONE (kể cả đang loading) ====
     if(GetPVarInt(playerid, "DIENTHOAI_") == 1 || GetPVarInt(playerid, "PHONE_LOADING") == 1)
     {
