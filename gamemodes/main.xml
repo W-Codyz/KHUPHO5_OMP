@@ -8323,6 +8323,7 @@
 			<referrer name="_@yHOnGameModeInit@0E"/>
 			<referrer name="_@yHOnPlayerConnect@0E"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
 			<referrer name="OnSelectMember"/>
 			<referrer name="OnLoadMemberList"/>
 			<referrer name="pc_cmd_ouninvite"/>
@@ -8795,8 +8796,13 @@
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
 			<referrer name="@yH_OnGameModeInit@0F"/>
-			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
+			<referrer name="@yH_OnPlayerConnect@0F"/>
+			<referrer name="@yH_OnPlayerDisconnect@0F"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<referrer name="@yH_OnPlayerTakeDamage@0F"/>
+			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnDialogResponse@0G"/>
@@ -9424,6 +9430,10 @@
 			<referrer name="OnQueryFinish"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="OnDialogResponse"/>
+		</member>
+		<member name="F:AntiSafeZone">
+			<referrer name="_@yHOnPlayerConnect@0F"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 		</member>
 		<member name="F:AntiServer">
 			<referrer name="SvSAMP"/>
@@ -10433,6 +10443,11 @@
 			<referrer name="AddFloorToQueue"/>
 			<referrer name="ReadNextFloorInQueue"/>
 			<referrer name="OnDynamicObjectMoved"/>
+		</member>
+		<member name="F:EnterSafeZones">
+			<referrer name="_@yHOnPlayerConnect@0F"/>
+			<referrer name="_@yHOnPlayerDisconnect@0F"/>
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
 		</member>
 		<member name="F:EventFloats">
 			<tagname value="Float"/>
@@ -12792,8 +12807,12 @@
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
 			<referrer name="@yH_OnGameModeInit@0F"/>
-			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
+			<referrer name="@yH_OnPlayerConnect@0F"/>
+			<referrer name="@yH_OnPlayerDisconnect@0F"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
+			<referrer name="@yH_OnPlayerTakeDamage@0F"/>
+			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
 			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnDialogResponse@0G"/>
 			<referrer name="@yH_OnPlayerSpawn@0H"/>
@@ -12887,6 +12906,7 @@
 		</member>
 		<member name="F:OOCPrisonSpawns">
 			<tagname value="Float"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="pc_cmd_mjail"/>
@@ -13076,6 +13096,7 @@
 			<referrer name="UpdatePhoneTime"/>
 		</member>
 		<member name="F:PhoneOnline">
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
@@ -13252,6 +13273,7 @@
 			<referrer name="OPBA_OnPlayerConnect"/>
 		</member>
 		<member name="F:PlayerEditingSZ">
+			<referrer name="_@yHOnPlayerConnect@0F"/>
 			<referrer name="ShowSafeZoneManage"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
 		</member>
@@ -13389,7 +13411,7 @@
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="pc_cmd_xoasz"/>
@@ -15285,8 +15307,10 @@
 		<member name="F:SafeZoneInfo">
 			<referrer name="SaveSafeZones"/>
 			<referrer name="LoadSafeZones"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="pc_cmd_xoasz"/>
@@ -15404,6 +15428,10 @@
 			<referrer name="pc_cmd_buyclothes"/>
 			<referrer name="OnPlayerModelSelection"/>
 			<referrer name="OnDialogResponse"/>
+		</member>
+		<member name="F:SoLanBK">
+			<referrer name="_@yHOnPlayerConnect@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 		</member>
 		<member name="F:SoLanRapid">
 			<referrer name="_@yHOnPlayerConnect@04"/>
@@ -19514,6 +19542,12 @@
 			<referrer name="pc_cmd_fly"/>
 			<referrer name="AdminFly"/>
 		</member>
+		<member name="F:fstd">
+			<tagname value="Text"/>
+			<referrer name="TextDrawSafeZone"/>
+			<referrer name="TDShow"/>
+			<referrer name="TDHide"/>
+		</member>
 		<member name="F:gAMXOpcodeBaseSizes">
 			<referrer name="InitOpcodeTable"/>
 			<referrer name="DisasmDecodeInsn"/>
@@ -20527,6 +20561,7 @@
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:pTazer">
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="pc_cmd_uninvite"/>
 			<referrer name="OnPlayerChangeWeapon"/>
@@ -21001,6 +21036,9 @@
 			<remarks>  If running on SA:MP this will remain <c>0</c>, open.mp will set it.  open.mp versions look like:  <code>  01.04.02.0544  </code>  Thus they are encoded here as:  <code>  (major << 28) | (minor << 21) | (patch << 14) | (prerel)  </code>  </remarks> 
 		</member>
 		<member name="F:zombieevent">
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="SyncPlayerTime"/>
@@ -21239,6 +21277,7 @@
 			<referrer name="AntiTrollCarNe"/>
 			<referrer name="ChongNoXe"/>
 			<referrer name="SlapAntiSlap"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="pc_cmd_selfie"/>
 			<referrer name="ServerHeartbeat"/>
@@ -21349,7 +21388,6 @@
 			<referrer name="lerp_rgba"/>
 			<referrer name="GetSpeedPlayer"/>
 			<referrer name="GetSpeedKM"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="ShowNotify"/>
 			<referrer name="CatchFish"/>
 			<referrer name="GasPumpSaleTimer"/>
@@ -21498,7 +21536,6 @@
 			<referrer name="TPInfo_RangeCheck"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_taoroulette"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="CreateNotify"/>
 			<referrer name="pc_cmd_selfie"/>
 			<referrer name="ThungRacCreate"/>
@@ -22162,8 +22199,10 @@
 			<referrer name="pc_cmd_taoboss"/>
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="NotifyLoadingUpdet"/>
 			<referrer name="ShowTDN"/>
 			<referrer name="pc_cmd_selfie"/>
@@ -22398,6 +22437,7 @@
 			<referrer name="VehicleSupportsNeonLights"/>
 			<referrer name="GetNearestVehicleToPos"/>
 			<referrer name="OnVehicleTimeUpdate"/>
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="pc_cmd_xoasz"/>
@@ -24620,6 +24660,18 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:@yH_OnPlayerConnect@0F" syntax="@yH_OnPlayerConnect@0F(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerConnect@0F"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:@yH_OnPlayerConnect@0H" syntax="@yH_OnPlayerConnect@0H(&amp;playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -24771,6 +24823,24 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerDeath@09"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="killerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="reason">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerDeath@0F" syntax="@yH_OnPlayerDeath@0F(&amp;playerid, &amp;killerid, &amp;reason)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerDeath@0F"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -24942,6 +25012,21 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerDisconnect@0E"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="reason">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerDisconnect@0F" syntax="@yH_OnPlayerDisconnect@0F(&amp;playerid, &amp;reason)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerDisconnect@0F"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -25637,6 +25722,30 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 			<param name="oldstate">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerTakeDamage@0F" syntax="@yH_OnPlayerTakeDamage@0F(&amp;playerid, &amp;issuerid, &amp;amount, &amp;weaponid, &amp;bodypart)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerTakeDamage@0F"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="issuerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="amount">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+			<param name="weaponid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="bodypart">
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
@@ -42310,6 +42419,7 @@
 			<stacksize value="8"/>
 			<referrer name="ChongNoXe"/>
 			<referrer name="pc_cmd_baotri"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
 			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="startpainter"/>
@@ -45699,6 +45809,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerUpdate@0@"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="OnPlayerStatsUpdate"/>
@@ -46254,6 +46365,7 @@
 		</member>
 		<member name="M:GetPlayerIpEx" syntax="GetPlayerIpEx(playerid)">
 			<stacksize value="21"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="OnQueryFinish"/>
@@ -46381,6 +46493,7 @@
 			<referrer name="fakeOnline_name"/>
 			<referrer name="_@yHOnPlayerUpdate@06"/>
 			<referrer name="_@yHOnPlayerUpdate@0@"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="UpdateHudUI"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="ProcessFoodPurchase"/>
@@ -46470,6 +46583,7 @@
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="OnOfflineRankUpdate"/>
 			<referrer name="OnOfflineDivisionUpdate"/>
@@ -47265,6 +47379,7 @@
 			<referrer name="SlapAntiSlap"/>
 			<referrer name="RadioBroadCast"/>
 			<referrer name="pc_cmd_taoroulette"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="pc_cmd_selfie"/>
@@ -47720,6 +47835,8 @@
 			<referrer name="_@yHOnPlayerUpdate@06"/>
 			<referrer name="_@yHOnPlayerGiveDamage@09"/>
 			<referrer name="CheckPlayerRemoteJacking"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="_@yHOnDialogResponse@0N"/>
 			<referrer name="NOPCheck"/>
@@ -47921,6 +48038,7 @@
 			<referrer name="CheckPlayerRemoteJacking"/>
 			<referrer name="_@yHOnPlayerStateChange@0A"/>
 			<referrer name="SlapAntiSlap"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="NOPCheck"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="EMSUpdate"/>
@@ -54054,8 +54172,8 @@
 		<member name="M:IsACop" syntax="IsACop(playerid)">
 			<stacksize value="1"/>
 			<referrer name="SendTeamBeepMessage"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="ShowOnlineCops"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
@@ -54174,6 +54292,7 @@
 		</member>
 		<member name="M:IsAHelicopter" syntax="IsAHelicopter(carid)">
 			<stacksize value="3"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="UpdateSpeedCamerasForPlayer"/>
 			<referrer name="pc_cmd_tow"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
@@ -54250,6 +54369,7 @@
 		</member>
 		<member name="M:IsAMedic" syntax="IsAMedic(playerid)">
 			<stacksize value="1"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="pc_cmd_online"/>
 			<referrer name="ShowOnlineMedics"/>
 			<referrer name="ShowPlayerBeaconForMedics"/>
@@ -55099,6 +55219,7 @@
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="HenGioHieuUngQuay"/>
 			<referrer name="KetThucQuay"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="OnOfflineRankUpdate"/>
 			<referrer name="OnOfflineDivisionUpdate"/>
 			<referrer name="OnOfflineKickMember"/>
@@ -55711,8 +55832,10 @@
 			<referrer name="CheckBossRange"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0J"/>
 			<referrer name="pc_cmd_bank"/>
 			<referrer name="pc_cmd_dangkybank"/>
@@ -62365,8 +62488,12 @@
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
 			<referrer name="@yH_OnGameModeInit@0F"/>
-			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
+			<referrer name="@yH_OnPlayerConnect@0F"/>
+			<referrer name="@yH_OnPlayerDisconnect@0F"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
+			<referrer name="@yH_OnPlayerTakeDamage@0F"/>
+			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
 			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnDialogResponse@0G"/>
 			<referrer name="@yH_OnPlayerSpawn@0H"/>
@@ -63877,6 +64004,8 @@
 			<referrer name="checkTeleport"/>
 			<referrer name="ChongNoXe"/>
 			<referrer name="SafeSetPlayerPos"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0R"/>
 			<referrer name="SyncUp"/>
@@ -75162,6 +75291,7 @@
 		</member>
 		<member name="M:ProxDetector" syntax="ProxDetector(f_Radius, playerid, string[], col1, col2, col3, col4, col5, chat)">
 			<stacksize value="266"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="MoneyUpdate"/>
@@ -77309,6 +77439,7 @@
 		</member>
 		<member name="M:ResetPlayerWeaponsEx" syntax="ResetPlayerWeaponsEx(playerid)">
 			<stacksize value="3"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="SetVehicleEngine"/>
 			<referrer name="SetPlayerSpawn"/>
@@ -78705,7 +78836,6 @@
 		</member>
 		<member name="M:SafeSetPlayerHealth" syntax="SafeSetPlayerHealth(playerid, health)">
 			<stacksize value="4"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<dependency name="SetPlayerHealth"/>
 			<param name="playerid">
@@ -80728,6 +80858,9 @@
 			<referrer name="SendFamedMessage"/>
 			<referrer name="SendAdvisorMessage"/>
 			<referrer name="SendDutyAdvisorMessage"/>
+			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="pc_cmd_xoasz"/>
@@ -81940,6 +82073,7 @@
 		<member name="M:SendClientMessageToAllEx" syntax="SendClientMessageToAllEx(color, string[], ...)">
 			<stacksize value="271"/>
 			<referrer name="pc_cmd_baotri"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="SetServerWeather"/>
@@ -84164,6 +84298,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="SafeSetPlayerArmour"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="SetPlayerArmor"/>
 			<referrer name="RemoveArmor"/>
 			<referrer name="ac_SetPlayerArmour"/>
@@ -84470,6 +84605,7 @@
 		<member name="M:SetPlayerColor" syntax="SetPlayerColor(playerid, colour)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="SetPlayerFirstSpawn"/>
 			<referrer name="SetPlayerSpawn"/>
@@ -84534,6 +84670,7 @@
 		<member name="M:SetPlayerFacingAngle" syntax="SetPlayerFacingAngle(playerid, angle)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_selfie"/>
 			<referrer name="SyncUp"/>
 			<referrer name="MoneyUpdate"/>
@@ -84661,6 +84798,8 @@
 			<referrer name="Utils_ChaosMod"/>
 			<referrer name="EVF_OnVehicleBombExplode"/>
 			<referrer name="SafeSetPlayerHealth"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="SyncUp"/>
@@ -84750,6 +84889,7 @@
 			<attribute name="native"/>
 			<referrer name="Utils_ChaosMod"/>
 			<referrer name="TeleportVehicle"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
@@ -85559,6 +85699,7 @@
 			<attribute name="native"/>
 			<referrer name="TeleportVehicle"/>
 			<referrer name="_@yHOnPlayerConnect@0B"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="MoneyUpdate"/>
@@ -85990,6 +86131,7 @@
 			<referrer name="SendMessageTD"/>
 			<referrer name="TaoHenGioRoulette"/>
 			<referrer name="HenGioQuayRoulette"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="ShowNotify"/>
 			<referrer name="_@yHOnDialogResponse@0Q"/>
@@ -88376,6 +88518,7 @@
 		</member>
 		<member name="M:StaffAccountCheck" syntax="StaffAccountCheck(playerid, ip[])">
 			<stacksize value="135"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="pc_cmd_dm"/>
 			<referrer name="pc_cmd_sdm"/>
@@ -89743,6 +89886,23 @@
 			<param name="response">
 			</param>
 		</member>
+		<member name="M:TDHide" syntax="TDHide(playerid)">
+			<stacksize value="5"/>
+			<referrer name="_@yHOnPlayerDisconnect@0F"/>
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<dependency name="TextDrawHideForPlayer"/>
+			<dependency name="fstd"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:TDShow" syntax="TDShow(playerid)">
+			<stacksize value="5"/>
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<dependency name="TextDrawShowForPlayer"/>
+			<dependency name="fstd"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:TPInfo_RangeCheck" syntax="TPInfo_RangeCheck(x1, y1, z1, radius, x2, y2, z2)">
 			<stacksize value="1"/>
 			<referrer name="_@yHOnPlayerUpdate@06"/>
@@ -89969,6 +90129,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="LoadTextDraws"/>
 			<referrer name="CreatePlayerTextDraws"/>
@@ -89980,6 +90141,18 @@
 				<b><c>1</c></b>-left <b><c>2</c></b>-centered <b><c>3</c></b>-right
 			</param>
 			<library>omp_textdraw</library>  <summary>Set the alignment of text in a text draw.</summary>      <remarks>For alignment <b><c>2</c></b> (center) the x and y values of <a href="#TextSize">TextSize</a>  need to be swapped, see notes at <a href="#TextDrawTextSize">TextDrawTextSize</a>, also position  coordinate become position of center of textdraw and not left/top edges. </remarks> 
+		</member>
+		<member name="M:TextDrawBackgroundColor" syntax="TextDrawBackgroundColor(textid, backgroundColor)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="TextDrawSafeZone"/>
+			<param name="textid">
+				<paraminfo>Text </paraminfo>
+				The ID of the textdraw to set the background colour of
+			</param>
+			<param name="backgroundColor">
+			</param>
+			<library>omp_textdraw</library>  <summary>Adjusts the text draw area background colour (the outline/shadow - NOT the box.  For box  colour, see <a href="#TextDrawBoxColor">TextDrawBoxColor</a>).</summary>    <param name="backgroundColour">The colour that the textdraw should be set to</param>  <remarks>If <a href="#TextDrawSetOutline">TextDrawSetOutline</a> is used with size &gt; <b><c>0</c></b>,  the outline colour will match the colour used in <a href="#TextDrawBackgroundColor">TextDrawBackgroundColor</a>.  Changing the value of colour seems to alter the colour used in <a href="#TextDrawColor">TextDrawColor</a></remarks>  <remarks>If you want to change the background colour of a textdraw that is already shown, you don't  have to recreate it.  Simply use <a href="#TextDrawShowForPlayer">TextDrawShowForPlayer</a>/  <a href="#TextDrawShowForAll">TextDrawShowForAll</a>  after modifying the textdraw and the change will be visible.</remarks> 
 		</member>
 		<member name="M:TextDrawBackgroundColour" syntax="TextDrawBackgroundColour(textid, backgroundColour)">
 			<tagname value="bool"/>
@@ -90002,6 +90175,18 @@
 			</param>
 			<library>omp_textdraw</library>  <summary>Adjusts the text draw area background colour (the outline/shadow - NOT the box.  For box  colour, see <a href="#TextDrawBoxColour">TextDrawBoxColour</a>).</summary>      <remarks>If <a href="#TextDrawSetOutline">TextDrawSetOutline</a> is used with size &gt; <b><c>0</c></b>,  the outline colour will match the colour used in <a href="#TextDrawBackgroundColour">TextDrawBackgroundColour</a>.  Changing the value of colour seems to alter the colour used in <a href="#TextDrawColour">TextDrawColour</a></remarks>  <remarks>If you want to change the background colour of a textdraw that is already shown, you don't  have to recreate it.  Simply use <a href="#TextDrawShowForPlayer">TextDrawShowForPlayer</a>/  <a href="#TextDrawShowForAll">TextDrawShowForAll</a>  after modifying the textdraw and the change will be visible.</remarks> 
 		</member>
+		<member name="M:TextDrawBoxColor" syntax="TextDrawBoxColor(textid, boxColor)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="TextDrawSafeZone"/>
+			<param name="textid">
+				<paraminfo>Text </paraminfo>
+				The TextDraw to change
+			</param>
+			<param name="boxColor">
+			</param>
+			<library>omp_textdraw</library>  <summary>Adjusts the text box colour (only used if <a href="#TextDrawUseBox">TextDrawUseBox</a> 'use'  parameter is <b><c>1</c></b>).</summary>    <param name="boxColour">The colour (<b>RGBA</b>)</param>  <remarks>If you want to change the boxcolour of a textdraw that is already shown, you don't have  to recreate it.  Simply use <a href="#TextDrawShowForPlayer">TextDrawShowForPlayer</a>/  <a href="#TextDrawShowForAll">TextDrawShowForAll</a>  after modifying the textdraw and the change will be visible.</remarks> 
+		</member>
 		<member name="M:TextDrawBoxColour" syntax="TextDrawBoxColour(textid, boxColour)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
@@ -90018,6 +90203,18 @@
 				The colour (<b>RGBA</b>)
 			</param>
 			<library>omp_textdraw</library>  <summary>Adjusts the text box colour (only used if <a href="#TextDrawUseBox">TextDrawUseBox</a> 'use'  parameter is <b><c>1</c></b>).</summary>      <remarks>If you want to change the boxcolour of a textdraw that is already shown, you don't have  to recreate it.  Simply use <a href="#TextDrawShowForPlayer">TextDrawShowForPlayer</a>/  <a href="#TextDrawShowForAll">TextDrawShowForAll</a>  after modifying the textdraw and the change will be visible.</remarks> 
+		</member>
+		<member name="M:TextDrawColor" syntax="TextDrawColor(textid, textColor)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="TextDrawSafeZone"/>
+			<param name="textid">
+				<paraminfo>Text </paraminfo>
+				The ID of the textdraw to change the colour of.
+			</param>
+			<param name="textColor">
+			</param>
+			<library>omp_textdraw</library>  <summary>Sets the text colour of a textdraw.</summary>    <param name="textColour">The colour to set the textdraw to</param>  <remarks>You can also use GameText colours in TextDraws.</remarks>  <remarks>If the TextDraw is already shown, it must be re-shown (<a href="#TextDrawShowForAll">TextDrawShowForAll</a>/<a  href="#TextDrawShowForPlayer">TextDrawShowForPlayer</a>) for the changes of this function to take  effect.</remarks> 
 		</member>
 		<member name="M:TextDrawColour" syntax="TextDrawColour(textid, textColour)">
 			<tagname value="bool"/>
@@ -90047,6 +90244,7 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
@@ -90086,6 +90284,7 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
@@ -90145,6 +90344,7 @@
 			<referrer name="Prev_HidePlayerDialog"/>
 			<referrer name="OnPlayerClickTextDraw"/>
 			<referrer name="Prev_ShowPlayerDialog"/>
+			<referrer name="TDHide"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="HideReportText"/>
 			<referrer name="HideNoticeGUIFrame"/>
@@ -90165,6 +90365,7 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
@@ -90184,11 +90385,32 @@
 			</param>
 			<library>omp_textdraw</library>  <summary>Sets the width and height of the letters.</summary>        <remarks>When using this function purely for the benefit of affecting the TextDraw box, multiply  'y' by <b><c>0.135</c></b> to convert to <a href="#TextDrawTextSize">TextDrawTextSize</a>-like measurements.  <b>Hint</b>: it is easier and extremely precise to use <b><c>LD_SPAC:white</c></b> sprite for box-only  textdraws, <a href="#TextDrawTextSize">TextDrawTextSize</a> will have regular offsets.</remarks>  <remarks>If you want to change the letter size of a textdraw that is already shown, you don't have  to recreate it.  Simply use <a href="#TextDrawShowForPlayer">TextDrawShowForPlayer</a>/  <a href="#TextDrawShowForAll">TextDrawShowForAll</a>  after modifying the textdraw and the change will be visible. </remarks>  <remarks>Fonts appear to look the best with an x to y ratio of <b><c>1</c></b> to <b><c>4</c></b>  (e.g.  if x is <b><c>0.5</c></b> then y should be <b><c>2</c></b>). </remarks> 
 		</member>
+		<member name="M:TextDrawSafeZone" syntax="TextDrawSafeZone()">
+			<stacksize value="7"/>
+			<referrer name="_@yHOnGameModeInit@0F"/>
+			<dependency name="TextDrawAlignment"/>
+			<dependency name="TextDrawBackgroundColor"/>
+			<dependency name="TextDrawBoxColor"/>
+			<dependency name="TextDrawColor"/>
+			<dependency name="TextDrawCreate"/>
+			<dependency name="TextDrawFont"/>
+			<dependency name="TextDrawLetterSize"/>
+			<dependency name="TextDrawSetOutline"/>
+			<dependency name="TextDrawSetPreviewModel"/>
+			<dependency name="TextDrawSetPreviewRot"/>
+			<dependency name="TextDrawSetProportional"/>
+			<dependency name="TextDrawSetSelectable"/>
+			<dependency name="TextDrawSetShadow"/>
+			<dependency name="TextDrawTextSize"/>
+			<dependency name="TextDrawUseBox"/>
+			<dependency name="fstd"/>
+		</member>
 		<member name="M:TextDrawSetOutline" syntax="TextDrawSetOutline(textid, outlineSize)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
@@ -90208,6 +90430,7 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="Prev_UpdateListitems"/>
+			<referrer name="TextDrawSafeZone"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The textdraw ID that will display the 3D preview
@@ -90223,6 +90446,7 @@
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="Prev_UpdateListitems"/>
 			<referrer name="OnPlayerClickTextDraw"/>
+			<referrer name="TextDrawSafeZone"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 			</param>
@@ -90265,6 +90489,7 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
@@ -90284,6 +90509,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
+			<referrer name="TextDrawSafeZone"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The ID of the textdraw to make selectable
@@ -90299,6 +90525,7 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
@@ -90350,6 +90577,7 @@
 			<referrer name="Prev_UpdateListitems"/>
 			<referrer name="OnPlayerClickTextDraw"/>
 			<referrer name="Prev_ShowPlayerDialog"/>
+			<referrer name="TDShow"/>
 			<referrer name="_@yHOnPlayerSpawn@0H"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ShowNoticeGUIFrame"/>
@@ -90370,6 +90598,7 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
 			<referrer name="LoadTextDraws"/>
 			<param name="textid">
@@ -90391,6 +90620,7 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="GameTextEx"/>
+			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTextDraws"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
@@ -90649,6 +90879,7 @@
 			<referrer name="deleteTB_AntiRapid"/>
 			<referrer name="Anti_killall_4"/>
 			<referrer name="unFreezeDistance"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="pc_cmd_selfie"/>
 			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
@@ -93333,8 +93564,12 @@
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
 			<referrer name="@yH_OnGameModeInit@0F"/>
-			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
+			<referrer name="@yH_OnPlayerConnect@0F"/>
+			<referrer name="@yH_OnPlayerDisconnect@0F"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
+			<referrer name="@yH_OnPlayerTakeDamage@0F"/>
+			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
 			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnDialogResponse@0G"/>
 			<referrer name="@yH_OnPlayerSpawn@0H"/>
@@ -94554,6 +94789,7 @@
 			<stacksize value="3"/>
 			<referrer name="@yH_OnGameModeInit@0F"/>
 			<dependency name="LoadSafeZones"/>
+			<dependency name="TextDrawSafeZone"/>
 			<dependency name="__print"/>
 		</member>
 		<member name="M:_@yHOnGameModeInit@0H" syntax="_@yHOnGameModeInit@0H()">
@@ -94809,6 +95045,17 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:_@yHOnPlayerConnect@0F" syntax="_@yHOnPlayerConnect@0F(playerid)">
+			<attribute name="public"/>
+			<stacksize value="1"/>
+			<referrer name="@yH_OnPlayerConnect@0F"/>
+			<dependency name="AntiSafeZone"/>
+			<dependency name="EnterSafeZones"/>
+			<dependency name="PlayerEditingSZ"/>
+			<dependency name="SoLanBK"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:_@yHOnPlayerConnect@0H" syntax="_@yHOnPlayerConnect@0H(playerid)">
 			<attribute name="public"/>
 			<stacksize value="2"/>
@@ -94970,6 +95217,55 @@
 			<dependency name="discord_messHack"/>
 			<dependency name="format"/>
 			<dependency name="gPlayerLogged"/>
+			<param name="playerid">
+			</param>
+			<param name="killerid">
+			</param>
+			<param name="reason">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerDeath@0F" syntax="_@yHOnPlayerDeath@0F(playerid, killerid, reason)">
+			<attribute name="public"/>
+			<stacksize value="2570"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="GetPlayerIpEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerState"/>
+			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="IsAHelicopter"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="OOCPrisonSpawns"/>
+			<dependency name="OOCPrisonSpawns"/>
+			<dependency name="OPBA_SetPlayerPos"/>
+			<dependency name="PhoneOnline"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ResetPlayerWeaponsEx"/>
+			<dependency name="SafeZoneInfo"/>
+			<dependency name="SafeZoneInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SendClientMessageToAllEx"/>
+			<dependency name="SetPlayerColor"/>
+			<dependency name="SetPlayerFacingAngle"/>
+			<dependency name="SetPlayerHealth"/>
+			<dependency name="SetPlayerInterior"/>
+			<dependency name="SetPlayerVirtualWorld"/>
+			<dependency name="SoLanBK"/>
+			<dependency name="StaffAccountCheck"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pJailTime"/>
+			<dependency name="pPrisonReason"/>
+			<dependency name="pPrisonedBy"/>
+			<dependency name="pVW"/>
+			<dependency name="random"/>
+			<dependency name="szPosX"/>
+			<dependency name="szPosY"/>
+			<dependency name="szPosZ"/>
+			<dependency name="szSize"/>
+			<dependency name="zombieevent"/>
 			<param name="playerid">
 			</param>
 			<param name="killerid">
@@ -95169,6 +95465,17 @@
 			<dependency name="number_format"/>
 			<dependency name="strcat"/>
 			<dependency name="strlen"/>
+			<param name="playerid">
+			</param>
+			<param name="reason">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerDisconnect@0F" syntax="_@yHOnPlayerDisconnect@0F(playerid, reason)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerDisconnect@0F"/>
+			<dependency name="EnterSafeZones"/>
+			<dependency name="TDHide"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
@@ -95780,20 +96087,26 @@
 		</member>
 		<member name="M:_@yHOnPlayerGiveDamage@0F" syntax="_@yHOnPlayerGiveDamage@0F(playerid, damagedid, amount, weaponid)">
 			<attribute name="public"/>
-			<stacksize value="9"/>
+			<stacksize value="1313"/>
 			<referrer name="@yH_OnPlayerGiveDamage@0F"/>
-			<dependency name="operator*(Float:,_:)"/>
-			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="Float:operator=(_:)"/>
+			<dependency name="AntiSafeZone"/>
 			<dependency name="FIXES_GameTextForPlayer"/>
+			<dependency name="GetPlayerArmour"/>
 			<dependency name="GetPlayerHealth"/>
+			<dependency name="GetPlayerName"/>
 			<dependency name="IsACop"/>
+			<dependency name="IsAMedic"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="SafeSetPlayerHealth"/>
 			<dependency name="SafeZoneInfo"/>
 			<dependency name="SafeZoneInfo"/>
-			<dependency name="pAdmin"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerArmour"/>
+			<dependency name="SetPlayerHealth"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="TogglePlayerControllable"/>
+			<dependency name="format"/>
+			<dependency name="pTazer"/>
 			<dependency name="szPosX"/>
 			<dependency name="szPosY"/>
 			<dependency name="szPosZ"/>
@@ -96132,6 +96445,38 @@
 			<param name="oldstate">
 			</param>
 		</member>
+		<member name="M:_@yHOnPlayerTakeDamage@0F" syntax="_@yHOnPlayerTakeDamage@0F(playerid, issuerid, amount, weaponid, bodypart)">
+			<attribute name="public"/>
+			<stacksize value="143"/>
+			<referrer name="@yH_OnPlayerTakeDamage@0F"/>
+			<dependency name="operator+(Float:,_:)"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="FIXES_GameTextForPlayer"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="GetPlayerState"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="OPBA_SetPlayerPos"/>
+			<dependency name="ProxDetector"/>
+			<dependency name="SafeZoneInfo"/>
+			<dependency name="SafeZoneInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="szPosX"/>
+			<dependency name="szPosY"/>
+			<dependency name="szPosZ"/>
+			<dependency name="szSize"/>
+			<dependency name="zombieevent"/>
+			<param name="playerid">
+			</param>
+			<param name="issuerid">
+			</param>
+			<param name="amount">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="weaponid">
+			</param>
+			<param name="bodypart">
+			</param>
+		</member>
 		<member name="M:_@yHOnPlayerText@08" syntax="_@yHOnPlayerText@08(playerid, text[])">
 			<attribute name="public"/>
 			<stacksize value="3"/>
@@ -96208,18 +96553,25 @@
 		</member>
 		<member name="M:_@yHOnPlayerUpdate@0F" syntax="_@yHOnPlayerUpdate@0F(playerid)">
 			<attribute name="public"/>
-			<stacksize value="8"/>
+			<stacksize value="9"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
 			<dependency name="Float:operator=(_:)"/>
+			<dependency name="operator==(Float:,Float:)"/>
+			<dependency name="EnterSafeZones"/>
 			<dependency name="IsACop"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="SafeZoneInfo"/>
 			<dependency name="SafeZoneInfo"/>
 			<dependency name="SetPlayerArmedWeapon"/>
+			<dependency name="TDHide"/>
+			<dependency name="TDShow"/>
+			<dependency name="false"/>
 			<dependency name="szPosX"/>
 			<dependency name="szPosY"/>
 			<dependency name="szPosZ"/>
 			<dependency name="szSize"/>
+			<dependency name="true"/>
+			<dependency name="zombieevent"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -99288,6 +99640,8 @@
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="SaveSafeZones"/>
 			<referrer name="LoadSafeZones"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="pc_cmd_xoasz"/>
@@ -131266,6 +131620,7 @@
 			<referrer name="GetVehicleRandomColors"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="KetThucQuay"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_ouninvite"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnDialogResponse@0Q"/>
