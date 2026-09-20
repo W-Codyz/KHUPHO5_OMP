@@ -71,15 +71,15 @@ CMD:adminta(playerid, params[])
     return 1;
 }
 
-/* hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys & KEY_YES)
     {
         if (IsAtRestaurant(playerid))
-            return cmd_muathucan(playerid, "");
+            return pc_cmd_muathucan(playerid, "");
     }
     return 1;
-} */
+}
 
 stock ProcessFoodPurchase(playerid, itemIndex, amount)
 {

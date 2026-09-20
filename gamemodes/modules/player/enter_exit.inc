@@ -176,7 +176,7 @@ stock PlayerEnterInterior(playerid)
                 }
                 else if (Businesses[i][bType] == BUSINESS_TYPE_RESTAURANT)
 				{
-                    SendHintMessage(playerid, "Su dung lenh \"{01A407}/muathucan{FFFFFF}\" de mua thuc an tai day.");
+                    SendHintMessage(playerid, "Su dung lenh \"{01A407}/muathucan{FFFFFF}\" hoac \"{01A407}an [Y]{FFFFFF}\" de mua thuc an tai day.");
                 }
 
 				SetPVarInt(playerid, "BusinessesID", i);
