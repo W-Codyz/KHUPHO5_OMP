@@ -40,11 +40,15 @@ new JobHelp[MAX_JOB_TYPE][1028] =
       chong. Day khong chi la mot cong \nviec kiem song ma con la co hoi de ban kham pha moi \
       ngoc ngach cua thanh pho,\ngap go nhung nhan vat thu vi, va khang dinh ky nang lai xe \
       cua minh.\n\n\n{3F7EAB}Cau lenh co san: /fare /ataxi"},
-    {"{F5F52F}Van chuyen hang hoa {FFFFFF}la mot cong viec quan trong trong chuoi cung \
-        ung, noi ban dam nhan \nnhiem vu giao hang den dung dia diem va dung thoi gian. Cong \
-        viec nay yeu cau su can than, \nky nang lai xe an toan va kha nang xu ly tinh huong \
-        nhanh nhay.\n\nHay tham gia ngay de tro thanh mot nhan to khong the thieu trong he \
-        thong van chuyen!\n\n\n{3F7EAB}Cau lenh co san: /layhang /kiemtrahang /cuophang"},
+    {"{F5F52F}Van chuyen hang hoa {FFFFFF}la cong viec mua va giao hang cho cac cua hang.\n\n\
+        {FFFF00}FLOW:\n{FFFFFF}1. Len xe Mule/Yankee tai Ben Cang SF\n\
+        2. Di bo den Diem Lay Hang, bam [Y] mua hang\n\
+        3. Dem hang den gan xe va bam [Y] gan xe de chat len xe (max 5 kien)\n\
+        4. Lai xe den diem ban hang (/diemgiaohang de xem)\n\
+        5. Dung xe, dung /xemhang lay hang, di bo ban hang\n\
+        6. Quay ve Ben Cang SF bam [Y] Diem Lanh Luong\n\n\
+        {FF0606}Hang cam:{FFFFFF} Mua tai diem bi mat, can 2+ cops on-duty\n\n\
+        {3F7EAB}Lenh: /diemgiaohang /xemhang /kiemtrahang /huongdan"},
     {"{F5F52F}Boc vac{FFFFFF} la mot cong viec kiem them thu nhap mot cach don gian va\n\
         nhanh chong khong yeu cau ve trinh do. Cong viec cua ban chi can\nkhuan vac cac thung \
         hang cua Ben cang vao kho hang mot cach nhanh\nchong, cong viec doi hoi su nhanh nhen, \

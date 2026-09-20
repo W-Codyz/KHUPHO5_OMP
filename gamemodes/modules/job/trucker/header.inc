@@ -1,51 +1,120 @@
 
-enum CargoArrayData
+// ================================================================
+//  TRUCKER JOB - HEADER
+// ================================================================
+
+// Dialog IDs (9830-9836 range, safe from conflicts)
+#define DIALOG_TRUCKERGO        (9830)  // Mua hang hoa
+#define DIALOG_XEMHANG          (9831)  // Xem hang tren xe
+#define DIALOG_DIEMGIAOHANG     (9832)  // Danh sach diem giao hang
+#define DIALOG_BANHANGTRUCK     (9833)  // Xac nhan ban hang
+#define DIALOG_TRUCKER_KIEMTRA  (9834)  // Canh sat kiem tra xe
+#define DIALOG_BANGHANGCAM      (9835)  // (du phong)
+#define DIALOG_HIENTHI_HUONGDAN (9836)  // Huong dan trucker
+#define DIALOG_TRUCKERNPC       (9837)  // Menu NPC: lay xe / diem giao / huong dan
+
+// ---- Locations ----
+// Ben cang SF - diem lay hang (on foot, bam Y)
+#define TRUCKER_BUY_POS         -1554.040405, 101.120498, 3.554687
+// Ben cang SF - diem lanh luong (on foot, bam Y)
+#define TRUCKER_PAYMENT_POS     -1551.603393, 120.569969, 3.554687
+
+// Mau sac thong bao cua job trucker
+#define COLOR_TRUCKER           0xb7eced
+
+// ---- Cargo category constants ----
+#define HANG_THUCAN     0
+#define HANG_VATLIEU    1
+#define HANG_QUANAO     2
+#define HANG_CAM        3
+
+// ---- Selling point data (12 diem) ----
+enum thumuaenum
 {
-	Float:PosX,
-	Float:PosY,
-	Float:PosZ
+    idhang,
+    giahang,
+    giabanhientai,
+    tenhang[24],
+    loaihang        // 1=ThucAn, 2=VatLieu, 3=QuanAo
 };
 
-new Float:Dropoffs_Legal[][CargoArrayData] = {
-	{-2323.1299, 1003.3121, 50.7029}, // food
-	{-2792.5205, 767.2720, 50.2177}, // food
-	{-2678.1885, 271.6288, 4.3359}, // food
-	{-2163.3164, -2461.5193, 30.6250}, // food
-	{-2134.0710, -2258.9431, 30.6319}, // clothing
-	{-2429.8330, 694.4214, 35.1798}, // clothing
-	{-2515.5938, -6.7849, 25.6172}, // clothing
-	{-2236.7383, 18.9512, 35.3279}, // clothing
-	{-2524.2256, -30.2916, 25.6172}, // mat
-	{-1906.6427, -1707.7050, 21.7500}, // mat
-	{-2109.3347, -2417.3875, 30.6913}, // mat
-	{-542.5701, -499.1310, 25.5178}, // mat
-	{-2464.1841, 785.9523, 35.1719}, // 24/7
-	{-2448.0498, -55.0803, 34.2656}, // 24/7
-	{-816.8967, 1487.1857, 19.7615}, // 24/7
-	{-2171.0415, -2430.3816, 30.6250} // 24/7
+new ThuMuaTruck[12][thumuaenum] = {
+    {1,  50, 0, "Thuc An",  1},
+    {2,  50, 0, "Thuc An",  1},
+    {3,  50, 0, "Thuc An",  1},
+    {4,  50, 0, "Thuc An",  1},
+    {5,  80, 0, "Vat Lieu", 2},
+    {6,  80, 0, "Vat Lieu", 2},
+    {7,  80, 0, "Vat Lieu", 2},
+    {8,  80, 0, "Vat Lieu", 2},
+    {9,  50, 0, "Quan Ao",  3},
+    {10, 50, 0, "Quan Ao",  3},
+    {11, 50, 0, "Quan Ao",  3},
+    {12, 50, 0, "Quan Ao",  3}
 };
 
-new Float:Dropoffs_Illegal[][CargoArrayData] = {
-	{-1529.6995, 2633.8313, 55.8359}, // weapons
-	{-110.5067, 1119.6017, 19.7422}, // weapons
-	{-1108.1709, -1620.9913, 76.3672}, // weapons
-	{-266.1076, -2159.2637, 28.8517}, // weapons
-	{1080.8147, -341.3548, 73.9922}, // weapons
-	{-2193.2783, -2323.0916, 30.6250}, // drugs
-	{-1444.7745, -1499.4692, 101.7578}, // drugs
-	{1196.1184, 159.0284, 20.5048}, // drugs
-	{-143.3698, 1116.7057, 19.7500}, // drugs
-	{-296.7323, 1764.0319, 42.6875}, // drugs
-	{-782.3159, 2756.3357, 45.6614}, // materials
-	{-777.6516, 1620.2128, 27.1172}, // materials
-	{-111.2993, -324.7798, 1.4297}, // materials
-	{1076.4320, 1917.4923, 10.8203}, // materials
-	{643.4707, 1237.7942, 11.6636} // materials
+// Toa do 12 diem ban hang (tuong ung voi ThuMuaTruck)
+new Float:KhuVucThuMua[12][3] = {
+    {-1706.942626, 1352.670043, 7.179687},
+    {-2516.719970, 1211.980834, 37.421875},
+    {-2787.734619, 796.907653, 49.534320},
+    {-2457.207275, 780.532348, 35.171875},
+    {-2457.207275, 780.532348, 35.171875},
+    {-2277.069335, 541.004821, 35.171875},
+    {-2089.259521, 84.565551, 35.313430},
+    {-1910.224487, 823.038452, 35.171875},
+    {-1885.797241, 870.894714, 35.171875},
+    {-1677.007690, 436.915771, 7.179687},
+    {-2446.061279, -55.994037, 34.265625},
+    { -2634.525634, 209.178329, 4.392440}
 };
 
-new Float:LoadTruckPosition[3] = {-1704.303600, 17.379200, 3.554700};
+// ---- Illegal buying areas (3 diem) ----
+enum BuyAreaInfo
+{
+    Float:buyX, Float:buyY, Float:buyZ,
+    buyText3D,      // STREAMER_TAG_3D_TEXT_LABEL handle (untagged)
+    buyStock        // So luong hien co (max 5)
+};
 
+new IllegalAreaInfo[3][BuyAreaInfo] = {
+    {-2527.096191, -624.251403, 132.762710, -1, 3},
+    {-1425.506835, -1528.897094, 102.126312, -1, 4},
+    {-1080.323486, -1195.421752, 129.705718, -1, 2}
+};
+
+// Diem ban hang cam duy nhat
+new Float:SellIllegalPosition[3] = {-1805.887207, -1613.531250, 23.015625};
+
+// ---- Pricing ----
+// index: 0=ThucAn, 1=VatLieu, 2=QuanAo, 3=HangCam
+new giatruck[4];
+
+// ---- Per-player state ----
+// Hang tren tay (dang cam): [ThucAn, VatLieu, QuanAo, HangCam]
+new hangtrentay[MAX_PLAYERS][4];
+// Hang tren xe: [ThucAn, VatLieu, QuanAo, HangCam]
+new hangtrenxe[MAX_PLAYERS][4];
+// Tong so kien hang dang tren xe
+new LuongHang[MAX_PLAYERS];
+// Tong tien luong tich luy (chua lanh)
+new lanhluong[MAX_PLAYERS];
+// So lan giao hang thanh cong (de tinh XP/skill)
+new TruckerDeliveries[MAX_PLAYERS];
+// XP tich luy (chua nhan, nhan 1 lan khi lanh luong)
+new tongXPTruck[MAX_PLAYERS];
+// Player dang trong animation ban hang
+new bool:PlayerSellingCargo[MAX_PLAYERS];
+// Xe tai duoc gan cho player
+new TruckerJobCar[MAX_PLAYERS];
+// 3D text label tren xe (nhan dang chu xe, standard SA-MP)
+new Text3D:TruckerJobText[MAX_PLAYERS];
+
+enum CargoArrayData { Float:PosX, Float:PosY, Float:PosZ };
+new Float:Dropoffs_Legal[16][CargoArrayData];
+new Float:Dropoffs_Illegal[15][CargoArrayData];
+new Float:LoadTruckPosition[3];
 new TruckUsed[MAX_PLAYERS];
 new TruckDeliveringTo[MAX_VEHICLES];
-new TruckContents[MAX_VEHICLES char] = 0;
-new TruckRoute[MAX_VEHICLES char] = -1;
+new TruckContents[MAX_VEHICLES char];
+new TruckRoute[MAX_VEHICLES char];

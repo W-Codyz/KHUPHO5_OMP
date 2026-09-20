@@ -12691,7 +12691,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			return 1;
 		}
 	}
-	else if(dialogid == DIALOG_LOADTRUCKOLD) // TRUCKER JOB LOAD TRUCK
+	/* else if(dialogid == DIALOG_LOADTRUCKOLD) // TRUCKER JOB LOAD TRUCK
 	{
  		if(response)
 		{
@@ -12727,8 +12727,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			TogglePlayerControllable(playerid, true);
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban muon huy bo lay hang, su dung /layhang de thu lai.");
 		}
-	}
-	else if(dialogid == DIALOG_LOADTRUCKC)
+	} */
+	/* else if(dialogid == DIALOG_LOADTRUCKC)
 	{
 		if(response)
 		{
@@ -12738,7 +12738,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			DisplayOrders(playerid, 2);
 		}
 		return 1;
-	}
+	} */
 	else if(dialogid == DIALOG_LOADTRUCKL) // TRUCKER JOB LEGAL GOODS
 	{
  		if(response)

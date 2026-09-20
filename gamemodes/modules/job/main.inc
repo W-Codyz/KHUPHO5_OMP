@@ -31,7 +31,15 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
             {
                 if(IsPlayerInRangeOfPoint(playerid, 2.5, JobInfo[i][jobPosX], JobInfo[i][jobPosY], JobInfo[i][jobPosZ]) && !IsPlayerInAnyVehicle(playerid))
                 {
-                    if(JobInfo[i][jobLevel] > PlayerInfo[playerid][pLevel])
+                    // Neu da la trucker: hien thi menu NPC thay vi hop thoai xin viec
+                    if(i == JOB_TRUCKER && (PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER))
+                    {
+                        ShowPlayerDialog(playerid, DIALOG_TRUCKERNPC, DIALOG_STYLE_LIST,
+                            "{D5A30A}Van Chuyen Hang Hoa",
+                            "Lay xe (Mule)\nDanh sach diem giao hang\nHuong dan lam viec",
+                            "Chon", "Dong");
+                    }
+                    else if(JobInfo[i][jobLevel] > PlayerInfo[playerid][pLevel])
                     {
                         ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Thong tin cong viec", "{FFFFFF}Cong viec {E23636}yeu cau cap do %d{FFFFFF} tuy nhien cap do hien tai cua ban\nkhong dat yeu cau, vi the ban khong du dieu kien lam cong viec\nnay. Vui long quay lai sau neu ban da du dieu kien.", "Dong", "", JobInfo[i][jobLevel]);
                     }
@@ -309,6 +317,16 @@ CMD:lamviec(playerid, params[])
             return 1;
         }
     }
+    else if(PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER)
+    {
+        if(PlayerWorking[playerid] == JOB_TRUCKER) {
+            SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec roi.");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec roi.");
+        } else {
+            SendClientMessageEx(playerid, 0xD5A30AFF, "[Trucker] Dung /huongdan de xem huong dan day du.");
+            SendClientMessageEx(playerid, COLOR_WHITE, "Hay len xe Mule/Yankee tai Ben Cang SF de bat dau lam viec.");
+        }
+    }
     else {
         SendClientMessage(playerid, COLOR_GREY, "Cong viec cua ban khong the su dung lenh nay, go \"/jobhelp\" de biet them chi tiet.");
     }
@@ -402,10 +420,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				return SendClientMessage(playerid, COLOR_GREY, "Ban can phai nghi viec cong viec chinh hoac phu truoc.");
 
 			if(PlayerInfo[playerid][pDonateRank] < 1 && PlayerInfo[playerid][pLevel] < 10)
-				return SendClientMessage(playerid, COLOR_LIGHTRED, "Ban khong du dieu kien de nhan cong viec phu.");
+				return SendClientMessage(playerid, COLOR_LIGHTRED, "Ban khong du dieu kien de nhan cong viec phu. (/nghiviec)");
 
 			PlayerInfo[playerid][pJob2] = jobId;
 			SendClientMessage(playerid, COLOR_LIGHTBLUE, "Ban da xin cong viec phu thanh cong, go \"/jobhelp\" de xem tro giup ve cong viec.");
+		}
+
+		// Hien thi huong dan chuyen biet cho Trucker
+		if(jobId == JOB_TRUCKER) {
+			SetTimerEx("TRUCKER_WELCOME_MSG", 1000, false, "i", playerid);
 		}
 
 		DeletePVar(playerid, "GetJobID");

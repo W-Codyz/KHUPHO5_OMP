@@ -102,7 +102,8 @@ public CheckPlayerRemoteJacking(playerid)
                 && !IsPlayerInRangeOfPoint(playerid,5.0, -2654.18, 619.02, 66.27) // may bay bac si
                 && !IsPlayerInRangeOfPoint(playerid,5.0, -1581.76, 722.83, -5.53) //xe cop
                 && !IsPlayerInRangeOfPoint(playerid,5.0, -1616.66, 703.10, 49.10) //mb cop
-                && !IsPlayerInRangeOfPoint(playerid,5.0, -1727.95, 1018.69, 17.29)) // xe taxi
+                && !IsPlayerInRangeOfPoint(playerid,5.0, -1727.95, 1018.69, 17.29) // xe taxi
+                && !IsPlayerInRangeOfPoint(playerid,40.0, -1560.0, 115.0, 3.5)) // lay xe trucker (SF Docks)
             {
                 new string[1280];
                 format(string, sizeof(string), "Thong Bao: %s (ID: %d) Phat hien nghi van hack troll car, /spec now.", GetPlayerNameEx(playerid), playerid);

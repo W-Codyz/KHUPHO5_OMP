@@ -1,883 +1,1079 @@
 #include <YSI\YSI_Coding\y_hooks>
 
+forward TRUCKER_WELCOME_MSG(playerid);
+public TRUCKER_WELCOME_MSG(playerid)
+{
+    if(IsPlayerConnected(playerid)) Trucker_ShowInstructions(playerid);
+    return 1;
+}
+
+// ================================================================
+//  TRUCKER JOB - MAIN LOGIC
+//  Flow: Lay xe tai (SF Docks) -> Mua hang (on foot) -> Chat len xe
+//        -> Lai den diem ban -> Xuat hang -> Quay ve lanh luong
+// ================================================================
+
+// ----- Utility stocks -----
+
 stock IsATruckerCar(carid)
 {
-	for(new v = 0; v < sizeof(TruckerVehicles); v++) {
-	    if(carid == TruckerVehicles[v] && IsValidVehicle(TruckerVehicles[v])) return 1;
-	}
-	return 0;
+    foreach(new i : Player) {
+        if(TruckerJobCar[i] == carid && carid != INVALID_VEHICLE_ID) return 1;
+    }
+    return 0;
 }
 
-stock IsAtTruckDeliveryPoint(playerid)
+stock IsTrucker(playerid)
 {
-	for(new i = 0; i < sizeof(Dropoffs_Legal); i++)
-	{
-		if(IsPlayerInRangeOfPoint(playerid, 6.0, Dropoffs_Legal[i][PosX], Dropoffs_Legal[i][PosY], Dropoffs_Legal[i][PosZ])) {
-		    return 1;
-		}
-	}
-
-	for(new i = 0; i < sizeof(Dropoffs_Illegal); i++)
-	{
-		if(IsPlayerInRangeOfPoint(playerid, 6.0, Dropoffs_Illegal[i][PosX], Dropoffs_Illegal[i][PosY], Dropoffs_Illegal[i][PosZ])) {
-		    return 1;
-		}
-	}
-	return 0;
+    return (PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER);
 }
 
-stock CancelTruckDelivery(playerid)
+stock CountCopsOnDuty()
 {
-    new vehicleid = GetPlayerVehicleID(playerid);
-	if(TruckDeliveringTo[TruckUsed[playerid]] != INVALID_BUSINESS_ID)
-	{
-	    if(TruckDeliveringTo[TruckUsed[playerid]] == BUSINESS_TYPE_GASSTATION)
-	    {
-	        DestroyVehicle(GetPVarInt(playerid, "Gas_TrailerID"));
-	        DeletePVar(playerid, "Gas_TrailerID");
-	    }
-	    Businesses[TruckDeliveringTo[TruckUsed[playerid]]][bOrderState] = 1;
-		SaveBusiness(TruckDeliveringTo[TruckUsed[playerid]]);
-	}
-	if(1 <= TruckUsed[playerid] <= MAX_VEHICLES){
-		TruckDeliveringTo[TruckUsed[playerid]] = INVALID_BUSINESS_ID, TruckContents{TruckUsed[playerid]} = 0;
-	}
-	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-	{
-		if(IsATruckerCar(vehicleid)) SetVehicleToRespawn(vehicleid);
-	}
-	gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
-	TruckUsed[playerid] = INVALID_VEHICLE_ID;
- 	DisablePlayerCP(playerid);
- 	DeletePVar(playerid, "TruckDeliver");
-	return 1;
+    new count = 0;
+    foreach(new i : Player) {
+        if(IsACop(i) && PlayerInfo[i][pDuty] == 1) count++;
+    }
+    return count;
 }
 
-// type 0: kiểm tra giửa business và dropoff
-// type 1: chỉ business
-// type 2: chỉ dropoff
-stock DisplayOrders(playerid, type=0)
+stock Trucker_Cleanup(playerid)
 {
-	new szDialog[2048];
-	if(type != 2)
-	{
-		for (new i, j; i < MAX_BUSINESSES; i++)
-		{
-			if (Businesses[i][bOrderState] == 1)
-			{
-				if(Businesses[i][bType] > 0)
-				{
-					format(szDialog, sizeof(szDialog), "%s%s\t%s\n", szDialog, Businesses[i][bName], GetInventoryType(i));
-					ListItemTrackId[playerid][j++] = i;
-				}
-			}
-		}
-	}
+    if(TruckerJobCar[playerid] != INVALID_VEHICLE_ID && IsValidVehicle(TruckerJobCar[playerid])) {
+        DestroyVehicle(TruckerJobCar[playerid]);
+    }
+    TruckerJobCar[playerid] = INVALID_VEHICLE_ID;
 
-	if (!szDialog[0])
-	{
+    if(TruckerJobText[playerid] != Text3D:INVALID_3DTEXT_ID) {
+        Delete3DTextLabel(TruckerJobText[playerid]);
+        TruckerJobText[playerid] = Text3D:INVALID_3DTEXT_ID;
+    }
+    LuongHang[playerid]          = 0;
+    lanhluong[playerid]          = 0;
+    TruckerDeliveries[playerid]  = 0;
+    PlayerSellingCargo[playerid] = false;
 
-		/*ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Error", "No jobs available right now. Try again later.", "OK", "");
-		TogglePlayerControllable(playerid, true);
-		DeletePVar(playerid, "IsFrozen"); */
-		if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 456 || GetVehicleModel(GetPlayerVehicleID(playerid)) == 414)
-		{
-			ShowPlayerDialog(playerid, DIALOG_LOADTRUCKOLD, DIALOG_STYLE_LIST, "Ban muon van chuyen gi?", "{D5D822}[YEU CAU CAP DO TRUCKER 1]\n{00F70C}Hang hoa hop phap {FFFFFF}(hop phap va khong co tien thuong)\n \n{D5D822}[YEU CAU CAP DO TRUCKER 2]\n{FF0606}Hang hoa pham phap {FFFFFF}(nguy co bi canh sat bat va co tien thuong cao)", "Chon", "Dong");
-		}
-		else
-		{
-			ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Loi", "Hien tai cong viec chua co san cho loai xe tai nay.", "Dong", "");
-			TogglePlayerControllable(playerid, true);
-			DeletePVar(playerid, "IsFrozen");
-		}
-	}
-	else
-	{
-		if(type == 0)
-		{
-			ShowPlayerDialog(playerid, DIALOG_LOADTRUCKC, DIALOG_STYLE_MSGBOX, "{FFFFFF}Truck Delivery", "{FFFFFF}Co mot so doanh nghiep da dat don hang den Cong ty Van chuyen\nban co muon xem danh sach don hang khong?\n\n\nNhan \"{2BD822}Co{FFFFFF}\" de xem danh sach don hang, nhan \"{D82222}Khong{FFFFFF}\" de xem\ndanh sach hang hoa van chuyen khac.", "Co", "Khong");
-			return 1;
-		}
-		
-	    ShowPlayerDialog(playerid, DIALOG_LOADTRUCK, DIALOG_STYLE_LIST, "Don dat hang co san", szDialog, "Co", "Dong lai");
-	}
-	return 1;
+    for(new c = 0; c < 4; c++) {
+        hangtrentay[playerid][c] = 0;
+        hangtrenxe[playerid][c]  = 0;
+    }
+
+    tongXPTruck[playerid]        = 0;
+    if(PlayerWorking[playerid] == JOB_TRUCKER) PlayerWorking[playerid] = 0;
+    RemovePlayerAttachedObject(playerid, 6);
+    SetPlayerSpecialAction(playerid, 0);
+    ClearAnimations(playerid);
+    DisablePlayerCheckpoint(playerid);
+    return 1;
 }
 
-forward HijackTruck(playerid);
-public HijackTruck(playerid)
+stock Trucker_ShowInstructions(playerid)
 {
-    new vehicleid = GetPlayerVehicleID(playerid);
-  	new business = TruckDeliveringTo[vehicleid];
+    SendClientMessageEx(playerid, COLOR_TRUCKER,
+        "|---------- HUONG DAN TRUCKER -----------|");
+    SendClientMessageEx(playerid, COLOR_WHITE,
+        "1. {FFFF00}1. {FFFFFF}Lay xe o NPC cong viec{FFFFFF} tai San Fierro Docks (diem vang).");
+    SendClientMessageEx(playerid, COLOR_WHITE,
+        " {FFFF00}2. {FFFFFF}Di bo den diem LAY HANG{FFFFFF} (diem xanh, Bam [Y] de mo bang mua).");
+    SendClientMessageEx(playerid, COLOR_WHITE,
+        "{FFFF00}3. {FFFFFF}Di ve xe, ban Y gan xe de {44ff00}chat hang len xe{FFFFFF} (toi da 5 kien).");
+    SendClientMessageEx(playerid, COLOR_WHITE,
+        "{FFFF00}4. {FFFFFF}Lai xe den diem BAN HANG{FFFFFF} (dung /diemgiaohang de xem danh sach).");
+    SendClientMessageEx(playerid, COLOR_WHITE,
+        "{FFFF00}5. {FFFFFF}Dung xe, lay hang (/xemhang), di bo den diem ban, bam [Y] de ban.");
+    SendClientMessageEx(playerid, COLOR_WHITE,
+        "{FFFF00}6. {FFFFFF}Quay ve Ben Cang SF, bam [Y] tai diem {5BFF89}LANH LUONG{FFFFFF} de nhan tien.");
+    SendClientMessageEx(playerid, COLOR_TRUCKER,
+        "   Lenh: /diemgiaohang  /xemhang  /kiemtrahang  /dungviec");
+    SendClientMessageEx(playerid, COLOR_TRUCKER,
+        "|----------------------------------------|");
+    return 1;
+}
 
-	SetPVarInt(playerid, "LoadTruckTime", GetPVarInt(playerid, "LoadTruckTime")-1);
-	new string[128];
-	SendMessageTD(playerid, 1200, "Con ~y~~h~%d~w~ giay nua de hoan thanh vu cuop", GetPVarInt(playerid, "LoadTruckTime"));
-	if(GetPVarInt(playerid, "LoadTruckTime") > 0) SetTimerEx("HijackTruck", 1000, false, "d", playerid);
+// ----- Price persistence -----
 
-	if(GetPVarInt(playerid, "LoadTruckTime") <= 0)
-	{
-		DeletePVar(playerid, "IsFrozen");
-		TogglePlayerControllable(playerid, true);
-  		DeletePVar(playerid, "LoadTruckTime");
+stock TruckPrice_Save()
+{
+    new File:f = fopen("truckConfig.ini", io_write);
+    if(!f) return;
+    new buf[64];
+    format(buf, sizeof(buf), "ThucAn=%d\n",  giatruck[0]); fwrite(f, buf);
+    format(buf, sizeof(buf), "VatLieu=%d\n", giatruck[1]); fwrite(f, buf);
+    format(buf, sizeof(buf), "QuanAo=%d\n",  giatruck[2]); fwrite(f, buf);
+    format(buf, sizeof(buf), "HangCam=%d\n", giatruck[3]); fwrite(f, buf);
+    fclose(f);
+}
 
-        if(!IsPlayerInVehicle(playerid, vehicleid))
-        {
-			TruckUsed[playerid] = INVALID_VEHICLE_ID;
-			gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
- 			DisablePlayerCP(playerid);
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban khong co quyen chiem lo hang.");
-			return 1;
+stock TruckPrice_Load()
+{
+    new File:f = fopen("truckConfig.ini", io_read);
+    if(!f) {
+        // Default prices
+        giatruck[0] = 5000; giatruck[1] = 5500; giatruck[2] = 4800; giatruck[3] = 15000;
+        TruckPrice_Save();
+        return;
+    }
+    new line[64];
+    while(fread(f, line, sizeof(line))) {
+        new pos = strfind(line, "=");
+        if(pos < 0) continue;
+        new key[32], val[16];
+        strmid(key, line, 0, pos, sizeof(key));
+        strmid(val, line, pos + 1, strlen(line), sizeof(val));
+        if(!strcmp(key, "ThucAn"))       giatruck[0] = strval(val);
+        else if(!strcmp(key, "VatLieu")) giatruck[1] = strval(val);
+        else if(!strcmp(key, "QuanAo"))  giatruck[2] = strval(val);
+        else if(!strcmp(key, "HangCam")) giatruck[3] = strval(val);
+    }
+    if(!giatruck[3]) giatruck[3] = 15000;
+    fclose(f);
+}
+
+// ----- Timers -----
+
+forward UpdateTruckerPrices();
+public UpdateTruckerPrices()
+{
+    for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
+        new base = 0;
+        switch(ThuMuaTruck[i][loaihang]) {
+            case 1: base = giatruck[0];
+            case 2: base = giatruck[1];
+            case 3: base = giatruck[2];
+        }
+        ThuMuaTruck[i][giahang]       = base;
+        ThuMuaTruck[i][giabanhientai] = base + random(15000);
+    }
+    SendClientMessageToAll(COLOR_WHITE,
+        "{FFA900}> {FFFFFF}THONG BAO: Gia thu mua hang hoa Trucker vua duoc cap nhat!");
+    return 1;
+}
+
+forward UpdateIllegalStock();
+public UpdateIllegalStock()
+{
+    for(new i = 0; i < sizeof(IllegalAreaInfo); i++) {
+        if(IllegalAreaInfo[i][buyStock] < 5) {
+            IllegalAreaInfo[i][buyStock]++;
+            new string[128];
+            format(string, sizeof(string),
+                "{ff1100}Khu vuc mua hang cam\n\n{FFFFFF}So luong hien co: %d/5\nBam {FFFF00}[ Y ]{FFFFFF} de mua",
+                IllegalAreaInfo[i][buyStock]);
+            UpdateDynamic3DTextLabelText(
+                STREAMER_TAG_3D_TEXT_LABEL:IllegalAreaInfo[i][buyText3D],
+                COLOR_WHITE, string);
+        }
+    }
+    return 1;
+}
+
+forward TRUCKER_GMI_DELAY();
+public TRUCKER_GMI_DELAY()
+{
+    TruckPrice_Load();
+    UpdateTruckerPrices();
+    return 1;
+}
+
+// ----- Game Mode Init -----
+
+hook OnGameModeInit()
+{
+    // Labels tai 12 diem ban hang
+    for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
+        new string[128], loaiStr[24];
+        switch(ThuMuaTruck[i][loaihang]) {
+            case 1: loaiStr = "Thuc An";
+            case 2: loaiStr = "Vat Lieu";
+            case 3: loaiStr = "Quan Ao";
+        }
+        format(string, sizeof(string),
+            "{FFFFFF}< DIEM BAN HANG >\n\n{44ff00}Nhan hang: %s\n{FFFFFF}Bam {FFFF00}[ Y ]{FFFFFF} de ban",
+            loaiStr);
+        CreateDynamic3DTextLabel(string, COLOR_WHITE,
+            KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2], 12.0);
+        CreateDynamicPickup(1239, 23,
+            KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2], -1);
+    }
+
+    // Labels tai 3 khu vuc mua hang cam
+    for(new i = 0; i < sizeof(IllegalAreaInfo); i++) {
+        new string[128];
+        format(string, sizeof(string),
+            "{ff1100}Khu vuc mua hang cam\n\n{FFFFFF}So luong hien co: %d/5\nBam {FFFF00}[ Y ]{FFFFFF} de mua",
+            IllegalAreaInfo[i][buyStock]);
+        IllegalAreaInfo[i][buyText3D] = _:CreateDynamic3DTextLabel(string, COLOR_RED,
+            IllegalAreaInfo[i][buyX], IllegalAreaInfo[i][buyY], IllegalAreaInfo[i][buyZ],
+            12.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, -1, -1);
+        CreateDynamicPickup(1239, 23,
+            IllegalAreaInfo[i][buyX], IllegalAreaInfo[i][buyY], IllegalAreaInfo[i][buyZ], -1);
+    }
+
+    // Diem ban hang cam
+    CreateDynamic3DTextLabel(
+        "{ff1100}< DIEM BAN HANG CAM >\n\n{FFFFFF}Bam {FFFF00}[ Y ]{FFFFFF} de ban hang cam",
+        COLOR_RED,
+        SellIllegalPosition[0], SellIllegalPosition[1], SellIllegalPosition[2], 12.0);
+    CreateDynamicPickup(1239, 23,
+        SellIllegalPosition[0], SellIllegalPosition[1], SellIllegalPosition[2], -1);
+
+    // Diem lay hang (Ben Cang SF)
+    CreateDynamic3DTextLabel(
+        "{FFFFFF}< BEN CANG SF - DIEM LAY HANG >\n\n{44ff00}Cong ty Van chuyen\n{FFFFFF}Bam {FFFF00}[ Y ]{FFFFFF} de mua hang hoa",
+        COLOR_WHITE, TRUCKER_BUY_POS, 10.0);
+    CreateDynamicPickup(1239, 23, TRUCKER_BUY_POS, -1);
+
+    // Diem lanh luong (Ben Cang SF)
+    CreateDynamic3DTextLabel(
+        "{FFFFFF}< DIEM LANH LUONG >\n\n{5BFF89}Nhan tien luong tai day\n{FFFFFF}Bam {FFFF00}[ Y ]{FFFFFF} de lanh luong",
+        0x00FF7FFF, TRUCKER_PAYMENT_POS, 10.0);
+    CreateDynamicPickup(1239, 23, TRUCKER_PAYMENT_POS, -1);
+
+    // Timers
+    SetTimer("UpdateTruckerPrices", 1800000, true); // 30 phut
+    SetTimer("UpdateIllegalStock",  1800000, true);
+    SetTimerEx("TRUCKER_GMI_DELAY", 1200, false, "");
+    return 1;
+}
+
+// ----- Player Callbacks -----
+
+hook OnPlayerConnect(playerid)
+{
+    for(new c = 0; c < 4; c++) {
+        hangtrentay[playerid][c] = 0;
+        hangtrenxe[playerid][c]  = 0;
+    }
+    LuongHang[playerid]          = 0;
+    lanhluong[playerid]          = 0;
+    TruckerDeliveries[playerid]  = 0;
+    tongXPTruck[playerid]        = 0;
+    PlayerSellingCargo[playerid] = false;
+    TruckerJobCar[playerid]      = INVALID_VEHICLE_ID;
+    TruckerJobText[playerid]     = Text3D:INVALID_3DTEXT_ID;
+    return 1;
+}
+
+hook OnPlayerDisconnect(playerid, reason)
+{
+    Trucker_Cleanup(playerid);
+    return 1;
+}
+
+// ----- Y Key Interactions -----
+
+hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
+{
+    if(!PRESSED(KEY_YES)) return 1;
+
+    // ==================================================
+    // 1. DIEM LANH LUONG
+    // ==================================================
+    if(IsPlayerInRangeOfPoint(playerid, 4.0, TRUCKER_PAYMENT_POS))
+    {
+        if(!IsTrucker(playerid))                    return 1;
+        if(PlayerWorking[playerid] != JOB_TRUCKER)  return 1;
+        if(IsPlayerInAnyVehicle(playerid))          return 1;
+
+        if(lanhluong[playerid] <= 0) {
+            SendClientMessageEx(playerid, COLOR_GREY,
+                "[Trucker] Ban chua giao hang nao, khong co tien de lanh!");
+            return 1;
         }
 
+        new salary = lanhluong[playerid];
+        GivePlayerCash(playerid, salary);
 
-		foreach(new i: Player)
-		{
-  			if(TruckUsed[i] == vehicleid)
-  			{
-				DeletePVar(i, "LoadTruckTime");
-				TruckUsed[i] = INVALID_VEHICLE_ID;
-				DisablePlayerCP(i);
-				gPlayerCheckpointStatus[i] = CHECKPOINT_NONE;
- 				SendClientMessageEx(i, COLOR_WHITE, "Lo hang da bi cuop, vi vay ban khong the giao lo hang nay.");
-			}
-		}
+        new xp_give = tongXPTruck[playerid];
+        if(DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) xp_give *= 2;
+        if(xp_give > 0) {
+            GivePlayerXP(playerid, xp_give);
+            SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem: +%d XP%s",
+                xp_give, (DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) ? " [2X]" : "");
+        }
 
-  		TruckUsed[playerid] = vehicleid;
+        SendClientMessageEx(playerid, COLOR_TRUCKER,
+            "{D5A30A}[Trucker] Ban da lanh {5BFF89}$%s{D5A30A} luong. Cam on da lam viec!",
+            number_format(salary));
+        ShowTDN(playerid, NOTIFICATION_SUCCESS, "Lanh luong thanh cong!");
 
-		new route = TruckRoute[vehicleid];
-		SetPVarInt(playerid, "TruckDeliver", TruckContents{vehicleid});
-		switch(TruckContents{vehicleid}) {
-			case 0: {
-				if(business != INVALID_BUSINESS_ID)
-				{
-					format(string, sizeof(string), "Ban da cuop lo hang %s", GetInventoryType(TruckDeliveringTo[vehicleid]));
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+        // Discord log
+        new title[64];
+        format(title, sizeof(title), "%s (ID: %d) - Lanh luong Trucker", GetPlayerNameEx(playerid), playerid);
+        DiscordLog(dclog_Trucker, title,
+            "**Tien lanh: $%s**\n**%d kien da giao**",
+            number_format(salary), TruckerDeliveries[playerid]);
 
-					SetPlayerCP(playerid, Businesses[business][bSupplyPos][0], Businesses[business][bSupplyPos][1], Businesses[business][bSupplyPos][2], 10.0);
-				}
-			}
-			case 1: {
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"Ban da cuop lo hang thuc pham va do uong");
-				SetPlayerCP(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ], 5);
-			}
-			case 2:
-			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"Ban da cuop lo hang quan ao");
-				SetPlayerCP(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ], 5);
-			}
-			case 3:
-			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"Ban da cuop lo hang vat lieu.");
-				SetPlayerCP(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ], 5);
-			}
-			case 4:
-			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban da cuop lo hang vat pham 24/7.");
-				SetPlayerCP(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ], 5);
-			}
-			case 5:
-			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban da cuop lo hang vu khi.");
-				SetPlayerCP(playerid, Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ], 5);
-			}
-			case 6:
-			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"Ban bi cuop lo hang thuoc.");
-				SetPlayerCP(playerid, Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ], 5);
-			}
-			case 7:
-			{
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"Ban bi cuop lo hang vat lieu pham phap.");
-				SetPlayerCP(playerid, Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ], 5);
-			}
-		}
+        Trucker_Cleanup(playerid);
+        return 1;
+    }
 
-		SendClientMessageEx(playerid, COLOR_REALRED, "CANH BAO: Coi chung nhung ten cuop, chung co the lay hang hoa cua ban va tau thoat....");
-		SendClientMessageEx(playerid, COLOR_WHITE, "Giao hang den vi tri quy dinh (di theo diem danh dau tren mini-map).");
-	}
-	return 1;
+    // ==================================================
+    // 2. DIEM MUA HANG (Ben Cang SF, on foot)
+    // ==================================================
+    if(IsPlayerInRangeOfPoint(playerid, 3.0, TRUCKER_BUY_POS))
+    {
+        if(!IsTrucker(playerid))                    return 1;
+        if(PlayerWorking[playerid] != JOB_TRUCKER)  return 1;
+        if(IsPlayerInAnyVehicle(playerid)) {
+            SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Xuong xe de lay hang.");
+            return 1;
+        }
+        if(LuongHang[playerid] >= 5) {
+            SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Xe da day 5 kien hang, khong the mua them!");
+            return 1;
+        }
+        // Kiem tra dang cam hang
+        for(new c = 0; c < 3; c++) {
+            if(hangtrentay[playerid][c] == 1) {
+                SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Ban dang cam hang, hay chat len xe truoc.");
+                return 1;
+            }
+        }
+
+        // Build dialog voi gia VIP
+        new szDialog[1024], row[200];
+        strcat(szDialog, "#\tHang Hoa\tGia\n");
+
+        if(PlayerInfo[playerid][pDonateRank] == 2) {
+            format(row, sizeof(row), "0\tThuc An\t{4dad2b}$%s {FFFF00}(-10%%)\n",  number_format(floatround(giatruck[0] * 0.9))); strcat(szDialog, row);
+            format(row, sizeof(row), "1\tVat Lieu\t{4dad2b}$%s {FFFF00}(-10%%)\n", number_format(floatround(giatruck[1] * 0.9))); strcat(szDialog, row);
+            format(row, sizeof(row), "2\tQuan Ao\t{4dad2b}$%s {FFFF00}(-10%%)\n",  number_format(floatround(giatruck[2] * 0.9))); strcat(szDialog, row);
+        } else if(PlayerInfo[playerid][pDonateRank] >= 3) {
+            format(row, sizeof(row), "0\tThuc An\t{4dad2b}$%s {FFFF00}(-30%%)\n",  number_format(floatround(giatruck[0] * 0.7))); strcat(szDialog, row);
+            format(row, sizeof(row), "1\tVat Lieu\t{4dad2b}$%s {FFFF00}(-30%%)\n", number_format(floatround(giatruck[1] * 0.7))); strcat(szDialog, row);
+            format(row, sizeof(row), "2\tQuan Ao\t{4dad2b}$%s {FFFF00}(-30%%)\n",  number_format(floatround(giatruck[2] * 0.7))); strcat(szDialog, row);
+        } else {
+            format(row, sizeof(row), "0\tThuc An\t{4dad2b}$%s\n",  number_format(giatruck[0])); strcat(szDialog, row);
+            format(row, sizeof(row), "1\tVat Lieu\t{4dad2b}$%s\n", number_format(giatruck[1])); strcat(szDialog, row);
+            format(row, sizeof(row), "2\tQuan Ao\t{4dad2b}$%s\n",  number_format(giatruck[2])); strcat(szDialog, row);
+        }
+        ShowPlayerDialog(playerid, DIALOG_TRUCKERGO, DIALOG_STYLE_TABLIST_HEADERS,
+            "{FFFFFF}Mua hang hoa - Ben Cang SF", szDialog, "Mua", "Dong");
+        return 1;
+    }
+
+    // ==================================================
+    // 3. DIEM BAN HANG (12 diem, khop voi loai hang dang cam)
+    // ==================================================
+    for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
+        if(IsPlayerInRangeOfPoint(playerid, 2.5,
+            KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2]))
+        {
+            new loaiIdx = GetPVarInt(playerid, "idloaihang"); // 1=ThucAn, 2=VatLieu, 3=QuanAo
+            if(loaiIdx < 1 || loaiIdx > 3) {
+                SendClientMessageEx(playerid, COLOR_GREY,
+                    "[Trucker] Ban khong dang cam hang hoa nao.");
+                return 1;
+            }
+            if(ThuMuaTruck[i][loaihang] != loaiIdx) {
+                SendClientMessageEx(playerid, COLOR_GREY,
+                    "[Trucker] Diem nay khong nhan loai hang ban dang mang.");
+                return 1;
+            }
+
+            PlayerSellingCargo[playerid] = true;
+            new string[128];
+            format(string, sizeof(string),
+                "{FFFFFF}Gia thu mua hien tai: {5BFF89}$%d{FFFFFF}\nBan co muon ban khong?",
+                ThuMuaTruck[i][giabanhientai]);
+            ShowPlayerDialog(playerid, DIALOG_BANHANGTRUCK, DIALOG_STYLE_MSGBOX,
+                "> Ban Hang", string, "BAN LUON", "HUY");
+            SetPVarInt(playerid, "giatientruck", ThuMuaTruck[i][giabanhientai]);
+            return 1;
+        }
+    }
+
+    // ==================================================
+    // 4. CHAT HANG LEN XE (gan xe cua ban, dang cam hang)
+    // ==================================================
+    if(IsTrucker(playerid) && PlayerWorking[playerid] == JOB_TRUCKER && !IsPlayerInAnyVehicle(playerid))
+    {
+        new vid = TruckerJobCar[playerid];
+        if(vid != INVALID_VEHICLE_ID && IsValidVehicle(vid)) {
+            new Float:vx, Float:vy, Float:vz;
+            GetVehiclePos(vid, vx, vy, vz);
+            if(IsPlayerInRangeOfPoint(playerid, 4.0, vx, vy, vz)) {
+                if(PlayerSellingCargo[playerid]) return 1;
+
+                new loaded = false;
+                for(new c = 0; c < 4; c++) {
+                    if(hangtrentay[playerid][c] == 1) {
+                        hangtrenxe[playerid][c] += 1;
+                        hangtrentay[playerid][c]  = 0;
+                        LuongHang[playerid]       += 1;
+                        SetPVarInt(playerid, "idloaihang", 0);
+                        ClearAnimations(playerid);
+                        RemovePlayerAttachedObject(playerid, 6);
+                        SetPlayerSpecialAction(playerid, 0);
+
+                        new loaiName[24];
+                        switch(c) {
+                            case 0: loaiName = "Thuc An";
+                            case 1: loaiName = "Vat Lieu";
+                            case 2: loaiName = "Quan Ao";
+                            case 3: loaiName = "Hang Cam";
+                        }
+                        SendClientMessageEx(playerid, COLOR_WHITE,
+                            "{D5A30A}[Trucker] Da chat {44ff00}%s{D5A30A} len xe (%d/5 kien).",
+                            loaiName, LuongHang[playerid]);
+
+                        if(LuongHang[playerid] == 1) {
+                            DisablePlayerCheckpoint(playerid);
+                            SendClientMessageEx(playerid, COLOR_WHITE,
+                                "Hint: Dung {FFFF00}/diemgiaohang{FFFFFF} de xem va danh dau diem ban hang gan nhat.");
+                        }
+                        loaded = true;
+                        break;
+                    }
+                }
+                if(!loaded) {
+                    SendClientMessageEx(playerid, COLOR_GREY,
+                        "[Trucker] Ban khong dang cam hang hoa nao de chat len xe.");
+                }
+                return 1;
+            }
+        }
+    }
+
+
+    // ==================================================
+    // 5. KHU VUC MUA HANG CAM (3 diem illegal)
+    // ==================================================
+    for(new i = 0; i < sizeof(IllegalAreaInfo); i++) {
+        if(IsPlayerInRangeOfPoint(playerid, 2.5,
+            IllegalAreaInfo[i][buyX], IllegalAreaInfo[i][buyY], IllegalAreaInfo[i][buyZ]))
+        {
+            if(!IsTrucker(playerid))                   return 1;
+            if(PlayerWorking[playerid] != JOB_TRUCKER) return 1;
+            if(IsPlayerInAnyVehicle(playerid)) {
+                SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Xuong xe de mua hang."); return 1;
+            }
+            if(IsACop(playerid)) {
+                SendClientMessageEx(playerid, COLOR_WHITE, "[Trucker] Ban la nguoi nha nuoc, khong the mua hang cam!"); return 1;
+            }
+            if(CountCopsOnDuty() < 2) {
+                SendClientMessageEx(playerid, COLOR_WHITE, "[Trucker] Can it nhat 2 canh sat dang on-duty de mua hang cam!"); return 1;
+            }
+
+            for(new c = 0; c < 4; c++) {
+                if(hangtrentay[playerid][c] == 1) {
+                    SendClientMessageEx(playerid, COLOR_WHITE, "[Trucker] Ban dang cam hang, khong the mua them!"); return 1;
+                }
+            }
+
+            if(IllegalAreaInfo[i][buyStock] <= 0) {
+                SendClientMessageEx(playerid, COLOR_WHITE, "[Trucker] Het hang cam tai khu vuc nay!"); return 1;
+            }
+            if(GetPlayerCash(playerid) < giatruck[3]) {
+                SendClientMessageEx(playerid, COLOR_WHITE,
+                    "[Trucker] Khong du tien! Can $%s.", number_format(giatruck[3])); return 1;
+            }
+
+            // Mua hang
+            IllegalAreaInfo[i][buyStock]--;
+            GivePlayerCash(playerid, -giatruck[3]);
+            hangtrentay[playerid][HANG_CAM] = 1;
+
+            new updateText[128];
+            format(updateText, sizeof(updateText),
+                "{ff1100}Khu vuc mua hang cam\n\n{FFFFFF}So luong: %d/5\nBam {FFFF00}[ Y ]{FFFFFF} de mua",
+                IllegalAreaInfo[i][buyStock]);
+            UpdateDynamic3DTextLabelText(
+                STREAMER_TAG_3D_TEXT_LABEL:IllegalAreaInfo[i][buyText3D], COLOR_WHITE, updateText);
+
+            ApplyAnimation(playerid, "CARRY", "LIFTUP", 4.0, 0, 0, 0, 0, 0);
+            SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+            SetPlayerAttachedObject(playerid, 6, 1271, 1,
+                0.299822, 0.663485, -0.036337, 184.311355, 90.004089, 0.0, 1.0, 1.0, 1.0);
+            SetPVarInt(playerid, "idloaihang", 4); // 4 = HangCam
+
+            SendClientMessageEx(playerid, COLOR_WHITE,
+                "[Trucker] Da mua 1 kien {FF0606}Hang Cam{FFFFFF} gia {FF0606}$%s{FFFFFF}.",
+                number_format(giatruck[3]));
+            SendHintMessage(playerid,"Di ve xe va bam [Y] gan xe de chat len. Diem ban hang cam co dau '!' tren map.");
+
+            // Discord log
+            new title[128], str[256];
+            format(title, sizeof(title), "**%s (ID: %d) - MUA HANG CAM**", GetPlayerNameEx(playerid), playerid);
+            format(str, sizeof(str), ":bell: **MUA HANG CAM**\n:money_with_wings: **GIA: $%s**", number_format(giatruck[3]));
+            DiscordLog(dclog_Trucker, title, str);
+            return 1;
+        }
+    }
+
+    // ==================================================
+    // 6. DIEM BAN HANG CAM (1 diem cố dinh)
+    // ==================================================
+    if(IsPlayerInRangeOfPoint(playerid, 2.5,
+        SellIllegalPosition[0], SellIllegalPosition[1], SellIllegalPosition[2]))
+    {
+        if(!IsTrucker(playerid))                   return 1;
+        if(PlayerWorking[playerid] != JOB_TRUCKER) return 1;
+        if(hangtrentay[playerid][HANG_CAM] == 0)   return 1;
+        if(PlayerSellingCargo[playerid])            return 1;
+
+        PlayerSellingCargo[playerid] = true;
+        ClearAnimations(playerid);
+        ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.0, 0, 0, 0, 0, 0);
+        RemovePlayerAttachedObject(playerid, 6);
+        SetPlayerSpecialAction(playerid, 0);
+
+        new price = giatruck[3] + 300 + random(100);
+        GivePlayerCash(playerid, price);
+        hangtrentay[playerid][HANG_CAM] = 0;
+        SetPVarInt(playerid, "idloaihang", 0);
+
+        // Thuong vu khi ngau nhien (model 1-15)
+        new randomWeapon = 1 + random(15);
+        if(PlayerInfo[playerid][pConnectHours] >= 2 && PlayerInfo[playerid][pWRestricted] <= 0) {
+            GivePlayerValidWeapon(playerid, randomWeapon, 50);
+            SendClientMessageEx(playerid, COLOR_WHITE,
+                "[Trucker] Da ban hang cam. Nhan {5BFF89}$%s{FFFFFF} + vu khi {b1ff00}%s{FFFFFF}!",
+                number_format(price), GetWeaponName(randomWeapon));
+        } else {
+            SendClientMessageEx(playerid, COLOR_WHITE,
+                "[Trucker] Da ban hang cam. Nhan {5BFF89}$%s{FFFFFF}!", number_format(price));
+        }
+        ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban hang cam thanh cong!");
+
+        lanhluong[playerid]         += price;
+        TruckerDeliveries[playerid] += 1;
+        PlayerSellingCargo[playerid] = false;
+        tongXPTruck[playerid]       += 40 + random(21);
+        PlayerInfo[playerid][pTruckSkill] += 1;
+
+        // Discord log
+        new title[128], str[256];
+        format(title, sizeof(title), "**%s (ID: %d) - BAN HANG CAM**", GetPlayerNameEx(playerid), playerid);
+        format(str, sizeof(str), ":bell: **BAN HANG CAM THANH CONG**\n:money_with_wings: **NHAN: $%s**\n:gun: **%s**",
+            number_format(price), GetWeaponName(randomWeapon));
+        DiscordLog(dclog_Trucker, title, str);
+        return 1;
+    }
+
+    return 1;
 }
 
-forward LoadTruckOld(playerid);
-public LoadTruckOld(playerid)
+// ----- Dialog Responses -----
+
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-    SetPVarInt(playerid, "LoadTruckTime", GetPVarInt(playerid, "LoadTruckTime")-1);
-	new string[128];
-	format(string, _, "~n~~n~~n~~n~~n~~n~~n~~n~~n~~w~%d giay con lai", GetPVarInt(playerid, "LoadTruckTime"));
-	GameTextForPlayer(playerid, string, 1100, 3);
-	if(GetPVarInt(playerid, "LoadTruckTime") > 0) SetTimerEx("LoadTruckOld", 1000, false, "d", playerid);
+    // ==================================================
+    // MUA HANG (DIALOG_TRUCKERGO)
+    // ==================================================
+    if(dialogid == DIALOG_TRUCKERGO)
+    {
+        if(!response) return 1;
+        if(listitem < 0 || listitem > 2) return 1;
 
-	if(GetPVarInt(playerid, "LoadTruckTime") <= 0)
-	{
-		DeletePVar(playerid, "LoadTruckTime");
-		DeletePVar(playerid, "IsFrozen");
-		TogglePlayerControllable(playerid, true);
+        if(LuongHang[playerid] >= 5) {
+            SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Xe da day 5 kien!"); return 1;
+        }
+        for(new c = 0; c < 3; c++) {
+            if(hangtrentay[playerid][c] == 1) {
+                SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Ban dang cam hang roi, chat len xe truoc."); return 1;
+            }
+        }
 
-  		new vehicleid = GetPlayerVehicleID(playerid);
-  		new truckdeliver = GetPVarInt(playerid, "TruckDeliver");
-  		TruckContents{vehicleid} = truckdeliver;
-  		TruckUsed[playerid] = vehicleid;
+        new finalPrice = giatruck[listitem];
+        new vipDiscount = 0;
+        if(PlayerInfo[playerid][pDonateRank] == 2) {
+            vipDiscount = 10;
+            finalPrice  = floatround(finalPrice * 0.9);
+        } else if(PlayerInfo[playerid][pDonateRank] >= 3) {
+            vipDiscount = 30;
+            finalPrice  = floatround(finalPrice * 0.7);
+        }
 
-		new route;
-		if(truckdeliver > 0 && truckdeliver < 5) route = Random((truckdeliver-1)*4, truckdeliver*4-1);
-		else route = Random((truckdeliver-5)*5, (truckdeliver-4)*5-1);
+        if(GetPlayerCash(playerid) < finalPrice) {
+            SendClientMessageEx(playerid, COLOR_WHITE,
+                "[Trucker] Khong du tien! Can $%s.", number_format(finalPrice)); return 1;
+        }
 
-		TruckRoute[vehicleid] = route;
-		// 1 = food and bev
-		// 2 = clothing
-		// 3 = legal mats
-		// 4 = 24/7 items
-		// 5 = weapons
-		// 6 = illegal drugs
-		// 7 = illegal materials
-		if(truckdeliver == 1)
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Xe cua ban da chat day thuc pham va do uong.");
-			SetPlayerCP(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ], 5);
-		}
-		else if(truckdeliver == 2)
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Xe cua ban da chat day quan ao.");
-			SetPlayerCP(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ], 5);
-		}
-		else if(truckdeliver == 3)
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Xe cua ban da chat day vat lieu.");
-			SetPlayerCP(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ], 5);
-		}
-		else if(truckdeliver == 4)
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Xe cua ban da chat day vat pham 24/7.");
-			SetPlayerCP(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ], 5);
-		}
-		else if(truckdeliver == 5)
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Xe cua ban da chat day vu khi.");
-			SetPlayerCP(playerid, Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ], 5);
-		}
-		else if(truckdeliver == 6)
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Xe cua ban da chat day thuoc.");
-			SetPlayerCP(playerid, Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ], 5);
-		}
-		else if(truckdeliver == 7)
-		{
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Xe cua ban da chat day vat lieu pham phap.");
-			SetPlayerCP(playerid, Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ], 5);
-		}
+        new loaiName[24];
+        switch(listitem) {
+            case HANG_THUCAN:  loaiName = "Thuc An";
+            case HANG_VATLIEU: loaiName = "Vat Lieu";
+            case HANG_QUANAO:  loaiName = "Quan Ao";
+        }
 
-		SendClientMessageEx(playerid, COLOR_REALRED, "CANH BAO: Coi chung nhung ten cuop, chung co the lay hang hoa cua ban va tau thoat...");
-		new Float:distance = 0.0;
-		if(truckdeliver >= 5)
-		{
-			distance = GetPlayerDistanceFromPoint(playerid, Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ]);
-			SendClientMessageEx(playerid, COLOR_REALRED, "CANH BAO #2: Ban dang dua hang pham phap, hay coi trung nhan vien thuc thi phap luat.");
-		}
-		else {
-			distance = GetPlayerDistanceFromPoint(playerid, Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ]);
-		}
+        GivePlayerCash(playerid, -finalPrice);
+        hangtrentay[playerid][listitem] = 1;
+        SetPVarInt(playerid, "idloaihang", listitem + 1); // 1=ThucAn, 2=VatLieu, 3=QuanAo
 
-		SendClientMessageEx(playerid, COLOR_WHITE, "HUONG DAN: Dua hang hoa yeu cau den dia diem nhan hang (di theo diem danh dau tren mini-map).");
-		SendClientMessageEx(playerid, 0x4FF3A6FF, "GHI CHU: Khoang cach giao hang la %0.1f km.", distance / 1000);
-		
-		SetPVarInt(playerid, "tpTruckRunTimer", 30);
-		SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_TPTRUCKRUNTIMER);
-	}
-	return 1;
+        ApplyAnimation(playerid, "CARRY", "LIFTUP", 4.0, 0, 0, 0, 0, 0);
+        SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+        SetPlayerAttachedObject(playerid, 6, 1220, 1,
+            0.299822, 0.663485, -0.036337, 184.311355, 90.004089, 0.0, 1.0, 1.0, 1.0);
+
+        if(vipDiscount > 0) {
+            SendClientMessageEx(playerid, COLOR_WHITE,
+                "[Trucker] Da mua 1 kien {44ff00}%s{FFFFFF} - {5BFF89}$%s {FFFF00}(-VIP %d%%){FFFFFF}.",
+                loaiName, number_format(finalPrice), vipDiscount);
+        } else {
+            SendClientMessageEx(playerid, COLOR_WHITE,
+                "[Trucker] Da mua 1 kien {44ff00}%s{FFFFFF} - {5BFF89}$%s{FFFFFF}.",
+                loaiName, number_format(finalPrice));
+        }
+        SendHintMessage(playerid,"Di ve xe cua ban va bam {FFFF00}[Y]{FFFFFF} gan xe de chat hang len.");
+        return 1;
+    }
+
+    // ==================================================
+    // BAN HANG (DIALOG_BANHANGTRUCK)
+    // ==================================================
+    if(dialogid == DIALOG_BANHANGTRUCK)
+    {
+        if(!response) {
+            PlayerSellingCargo[playerid] = false;
+            return 1;
+        }
+        ClearAnimations(playerid);
+        ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.0, 0, 0, 0, 0, 0);
+        RemovePlayerAttachedObject(playerid, 6);
+        SetPlayerSpecialAction(playerid, 0);
+
+        new earn    = GetPVarInt(playerid, "giatientruck");
+        new loai    = GetPVarInt(playerid, "idloaihang");   // 1-3
+
+        lanhluong[playerid]         += earn;
+        TruckerDeliveries[playerid] += 1;
+        tongXPTruck[playerid]       += 40 + random(21);
+        PlayerInfo[playerid][pTruckSkill] += 1;
+
+        if(loai >= 1 && loai <= 3) hangtrentay[playerid][loai - 1] = 0;
+
+        SetPVarInt(playerid, "idloaihang",   0);
+        SetPVarInt(playerid, "giatientruck", 0);
+        PlayerSellingCargo[playerid] = false;
+
+        SendClientMessageEx(playerid, COLOR_TRUCKER,
+            "{D5A30A}[Trucker] Giao hang thanh cong! Tich luy {5BFF89}+$%s{D5A30A} (chua lanh).",
+            number_format(earn));
+        ShowTDN(playerid, NOTIFICATION_SUCCESS, "Giao hang thanh cong!");
+
+        if(LuongHang[playerid] > 0) {
+            SendClientMessageEx(playerid, COLOR_WHITE,
+                "Hint: Xe con hang, dung {FFFF00}/xemhang{FFFFFF} de lay va giao tiep.");
+        } else {
+            SetPlayerCP(playerid, TRUCKER_PAYMENT_POS, 3.0);
+            gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+            SendHintMessage(playerid,"Xe da het hang! Quay ve {FFFF00}Ben Cang SF{FFFFFF} (diem xanh) de lanh {5BFF89}$%s{FFFFFF}.",number_format(lanhluong[playerid]));
+        }
+        return 1;
+    }
+
+    // ==================================================
+    // XEM HANG TREN XE (DIALOG_XEMHANG)
+    // ==================================================
+    if(dialogid == DIALOG_XEMHANG)
+    {
+        if(!response) return 1;
+        if(IsPlayerInAnyVehicle(playerid)) return 1;
+        if(PlayerSellingCargo[playerid])   return 1;
+
+        new vid = TruckerJobCar[playerid];
+        if(vid == INVALID_VEHICLE_ID || !IsValidVehicle(vid)) return 1;
+
+        new validItems[4], itemCount = 0;
+        for(new c = 0; c < 4; c++) {
+            if(hangtrenxe[playerid][c] >= 1) validItems[itemCount++] = c;
+        }
+
+        if(listitem < 0 || listitem >= itemCount) return 1;
+
+        new sel = validItems[listitem];
+        hangtrenxe[playerid][sel] -= 1;
+        hangtrentay[playerid][sel]  = 1;
+        LuongHang[playerid]        -= 1;
+        SetPVarInt(playerid, "idloaihang", sel + 1);
+
+        ApplyAnimation(playerid, "CARRY", "LIFTUP", 4.0, 0, 0, 0, 0, 0);
+        SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+        // Box khac nhau cho hang cam
+        SetPlayerAttachedObject(playerid, 6,
+            (sel == HANG_CAM) ? 1271 : 1220, 1,
+            0.299822, 0.663485, -0.036337, 184.311355, 90.004089, 0.0, 1.0, 1.0, 1.0);
+
+        new loaiName[24];
+        switch(sel) {
+            case HANG_THUCAN:  loaiName = "Thuc An";
+            case HANG_VATLIEU: loaiName = "Vat Lieu";
+            case HANG_QUANAO:  loaiName = "Quan Ao";
+            case HANG_CAM:     loaiName = "Hang Cam";
+        }
+        SendClientMessageEx(playerid, COLOR_TRUCKER,
+            "{D5A30A}[Trucker] Da lay 1 kien {44ff00}%s{D5A30A}. Di den diem ban hang!", loaiName);
+
+        if(sel == HANG_CAM) {
+            SendClientMessageEx(playerid, COLOR_RED,
+                "CANH BAO: Ban dang mang hang cam, canh sat co the bat ban bat cu luc nao!");
+        }
+        return 1;
+    }
+
+    // ==================================================
+    // DANH SACH DIEM GIAO HANG (DIALOG_DIEMGIAOHANG)
+    // ==================================================
+    if(dialogid == DIALOG_DIEMGIAOHANG)
+    {
+        if(response && listitem >= 0 && listitem < sizeof(ThuMuaTruck)) {
+            SetPlayerCP(playerid, KhuVucThuMua[listitem][0], KhuVucThuMua[listitem][1], KhuVucThuMua[listitem][2], 3.0);
+            gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+            SendClientMessageEx(playerid, COLOR_WHITE,
+                "{FFFFFF}[Trucker] Da danh dau diem ban hang {D5A30A}#(%d)%s {FFFFFF}tren mini-map.", listitem + 1, ThuMuaTruck[listitem][tenhang]);
+        }
+        return 1;
+    }
+
+    // ==================================================
+    // CANH SAT KIEM TRA XE (DIALOG_TRUCKER_KIEMTRA)
+    // ==================================================
+    if(dialogid == DIALOG_TRUCKER_KIEMTRA)
+    {
+        if(!response) return 1;
+
+        new targetid = GetPVarInt(playerid, "KiemTraHang_TargetID");
+        DeletePVar(playerid, "KiemTraHang_TargetID");
+
+        if(!IsPlayerConnected(targetid) || !IsTrucker(targetid) || PlayerWorking[targetid] != JOB_TRUCKER) {
+            SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Nguoi choi khong con hop le.");
+            return 1;
+        }
+
+        new validItems[4], itemCount = 0;
+        for(new c = 0; c < 4; c++) {
+            if(hangtrenxe[targetid][c] >= 1) validItems[itemCount++] = c;
+        }
+
+        if(listitem < 0 || listitem >= itemCount) return 1;
+
+        new sel = validItems[listitem];
+        if(sel == HANG_CAM) {
+            new confiscated = hangtrenxe[targetid][HANG_CAM];
+            hangtrenxe[targetid][HANG_CAM] = 0;
+            if(LuongHang[targetid] >= confiscated) LuongHang[targetid] -= confiscated;
+            else LuongHang[targetid] = 0;
+
+            new bonus = 100 + random(20);
+            GivePlayerCash(playerid, bonus);
+
+            new string[256];
+            format(string, sizeof(string),
+                "* %s da tich thu %d kien hang cam tu xe cua %s.",
+                GetPlayerNameEx(playerid), confiscated, GetPlayerNameEx(targetid));
+            ProxDetector(30.0, playerid, string,
+                COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+
+            SendClientMessageEx(playerid, COLOR_GREEN,
+                "[Trucker] Da tich thu %d kien hang cam. Nhan {5BFF89}$%d{FFFFFF} tien thuong.", confiscated, bonus);
+            SendClientMessageEx(targetid, COLOR_RED,
+                "[Trucker] %s da tich thu %d kien hang cam cua ban!", GetPlayerNameEx(playerid), confiscated);
+            ApplyAnimation(playerid, "POLICE", "CopTraf_Come", 4.1, 0, 0, 0, 0, 0);
+        } else {
+            SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Chi co the tich thu hang cam.");
+        }
+        return 1;
+    }
+
+    // ==================================================
+    // MENU NPC TRUCKER (DIALOG_TRUCKERNPC)
+    // ==================================================
+    if(dialogid == DIALOG_TRUCKERNPC)
+    {
+        if(!response) return 1;
+
+        switch(listitem)
+        {
+            case 0: // Lay xe Mule
+            {
+                if(TruckerJobCar[playerid] != INVALID_VEHICLE_ID && IsValidVehicle(TruckerJobCar[playerid])) {
+                    SendClientMessageEx(playerid, COLOR_GREY,
+                        "[Trucker] Ban da co xe. Hay su dung xe cu hoac /dungviec truoc.");
+                    return 1;
+                }
+                if(PlayerWorking[playerid] != 0 && PlayerWorking[playerid] != JOB_TRUCKER) {
+                    SendClientMessageEx(playerid, COLOR_GREY,
+                        "[Trucker] Ban dang lam cong viec khac, khong the lay xe trucker.");
+                    return 1;
+                }
+
+                new vid = CreateVehicle(414, -1565.0, 113.0, 3.5547, 38.4066, -1, -1, -1);
+                if(vid == INVALID_VEHICLE_ID) {
+                    SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Loi: khong the tao xe. Thu lai sau.");
+                    return 1;
+                }
+
+                SetVehicleHealth(vid, 999.0);
+                PutPlayerInVehicle(playerid, vid, 0);
+                SetPlayerSkin(playerid, JobInfo[JOB_TRUCKER][jobSkin]);
+
+                new labelText[128];
+                format(labelText, sizeof(labelText),
+                    "{b7eced}Trucker Delivery\n{FFFFFF}Chu xe: {b7eced}%s", GetPlayerNameEx(playerid));
+                new Text3D:lbl = Create3DTextLabel(labelText, 0xFFFF00FF, 0.0, 0.0, 0.5, 12.0, 0);
+                Attach3DTextLabelToVehicle(lbl, vid, 0.0, 0.0, 0.5);
+
+                TruckerJobCar[playerid]  = vid;
+                TruckerJobText[playerid] = lbl;
+                PlayerWorking[playerid]  = JOB_TRUCKER;
+
+                SetPlayerCP(playerid, TRUCKER_BUY_POS, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                SendClientMessageEx(playerid, COLOR_TRUCKER,
+                    "{D5A30A}[Trucker] Da lay xe Mule! Den {FFFF00}Diem lay hang{D5A30A} tai Ben Cang SF (checkpoint vang).");
+                SendClientMessageEx(playerid, COLOR_WHITE,
+                    "Hint: Xuong xe, di bo den diem vang va bam {FFFF00}[Y]{FFFFFF}. Dung /huongdan de biet them.");
+            }
+
+            case 1: // Diem giao hang
+            {
+                PC_EmulateCommand(playerid, "/diemgiaohang");
+            }
+
+            case 2: // Huong dan
+            {
+                Trucker_ShowInstructions(playerid);
+            }
+        }
+        return 1;
+    }
+
+    return 1;
 }
 
-forward LoadTruck(playerid);
-public LoadTruck(playerid)
+// ================================================================
+//  COMMANDS
+// ================================================================
+
+CMD:huongdan(playerid, params[])
 {
-    SetPVarInt(playerid, "LoadTruckTime", GetPVarInt(playerid, "LoadTruckTime")-1);
-	new string[128];
-	format(string, _, "~n~~n~~n~~n~~n~~n~~n~~n~~n~~w~%d giay con lai", GetPVarInt(playerid, "LoadTruckTime"));
-	GameTextForPlayer(playerid, string, 1100, 3);
-	if(GetPVarInt(playerid, "LoadTruckTime") > 0) SetTimerEx("LoadTruck", 1000, false, "d", playerid);
+    if(!IsTrucker(playerid)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "Ban khong phai Trucker."); return 1;
+    }
+    Trucker_ShowInstructions(playerid);
+    return 1;
+}
 
-	if(GetPVarInt(playerid, "LoadTruckTime") <= 0)
-	{
-		DeletePVar(playerid, "LoadTruckTime");
-		DeletePVar(playerid, "IsFrozen");
-		TogglePlayerControllable(playerid, true);
+CMD:diemgiaohang(playerid, params[])
+{
+    if(!IsTrucker(playerid)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Ban khong phai Trucker."); return 1;
+    }
+    new szDialog[1024], string[128], zone[MAX_ZONE_NAME];
+    strcat(szDialog, "#\tLoai\tKhu Vuc\tKhoang Cach\n");
+    for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
+        Get3DZone(KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2], zone, sizeof(zone));
+        format(string, sizeof(string), "%d\t%s\t%s\t%.0fm\n",
+            ThuMuaTruck[i][idhang], ThuMuaTruck[i][tenhang], zone,
+            GetPlayerDistanceFromPoint(playerid,
+                KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2]));
+        strcat(szDialog, string);
+    }
+    ShowPlayerDialog(playerid, DIALOG_DIEMGIAOHANG, DIALOG_STYLE_TABLIST_HEADERS,
+        "Dia Diem Giao Hang", szDialog, "Den", "Huy");
+    return 1;
+}
 
-  		new vehicleid = GetPlayerVehicleID(playerid);
-  		new business = TruckDeliveringTo[vehicleid];
-  		TruckUsed[playerid] = vehicleid;
+alias:xemhang("viewcargo")
+CMD:xemhang(playerid, params[])
+{
+    if(!IsTrucker(playerid))                   return 1;
+    if(PlayerWorking[playerid] != JOB_TRUCKER) return 1;
 
+    for(new c = 0; c < 4; c++) {
+        if(hangtrentay[playerid][c] == 1) {
+            SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Dang cam hang, hay giao truoc."); return 1;
+        }
+    }
+    if(IsPlayerInAnyVehicle(playerid)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Xuong xe truoc."); return 1;
+    }
 
-		gPlayerCheckpointStatus[playerid] = CHECKPOINT_DELIVERY;
+    new vid = TruckerJobCar[playerid];
+    if(vid == INVALID_VEHICLE_ID) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Ban chua co xe."); return 1;
+    }
+    new Float:vx, Float:vy, Float:vz;
+    GetVehiclePos(vid, vx, vy, vz);
+    if(!IsPlayerInRangeOfPoint(playerid, 6.0, vx, vy, vz)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Phai o gan xe cua ban (trong vong 6m)."); return 1;
+    }
 
-		format(string, sizeof(string), "* Xe tai cua ban da day %s", GetInventoryType(business));
-		SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+    new szDialog[512], string[128], itemCount = 0;
+    strcat(szDialog, "#\tHang Hoa\tSo Luong\n");
 
-        SetPlayerCP(playerid, Businesses[business][bSupplyPos][0], Businesses[business][bSupplyPos][1], Businesses[business][bSupplyPos][2], 10.0);
-		new Float:distance = GetPlayerDistanceFromPoint(playerid, Businesses[business][bSupplyPos][0], Businesses[business][bSupplyPos][1], Businesses[business][bSupplyPos][2]);
-		
-		SendClientMessageEx(playerid, COLOR_WHITE, "HUONG DAN: Dua hang hoa yeu cau den dia diem nhan hang (di theo diem danh dau tren mini-map).");
-		SendClientMessageEx(playerid, COLOR_REALRED, "CANH BAO: Coi chung nhung ten cuop, chung co the lay hang hoa cua ban va tau thoat...");
-		SendClientMessageEx(playerid, 0x4FF3A6FF, "GHI CHU: Khoang cach giao hang la %0.1f km.", distance / 1000);
+    if(hangtrenxe[playerid][0] >= 1) { format(string, sizeof(string), "%d\tThuc An\t%d\n",  itemCount++, hangtrenxe[playerid][0]); strcat(szDialog, string); }
+    if(hangtrenxe[playerid][1] >= 1) { format(string, sizeof(string), "%d\tVat Lieu\t%d\n", itemCount++, hangtrenxe[playerid][1]); strcat(szDialog, string); }
+    if(hangtrenxe[playerid][2] >= 1) { format(string, sizeof(string), "%d\tQuan Ao\t%d\n",  itemCount++, hangtrenxe[playerid][2]); strcat(szDialog, string); }
+    if(hangtrenxe[playerid][3] >= 1) { format(string, sizeof(string), "%d\t{FF0606}Hang Cam{FFFFFF}\t%d\n", itemCount++, hangtrenxe[playerid][3]); strcat(szDialog, string); }
 
-		if (Businesses[business][bType] == BUSINESS_TYPE_GUNSHOP)
-		{
-			SendClientMessageEx(playerid, COLOR_REALRED, "CANH BAO #2: Ban dang dua hang pham phap, hay coi chung nhan vien thuc thi phap luat.");
-		}
-		else if (Businesses[business][bType] == BUSINESS_TYPE_GASSTATION)
-		{
-		  	new Float:x, Float:y, Float:z, Float:ang;
-		  	SetVehiclePos(vehicleid, -1570.9833,96.7547,4.1442);
-		  	SetVehicleZAngle(vehicleid, 136.18);
-		    GetPlayerPos(playerid, x, y, z);
-		    GetVehicleZAngle(vehicleid, ang);
-		    new iTrailer = CreateVehicle(584, x, y, z+1, ang, -1, -1, 1000);
-		    SetPVarInt(playerid, "Gas_TrailerID", iTrailer);
-			SetTimerEx("AttachGasTrailer", 500, false, "ii", iTrailer, vehicleid);
-		}
-		/*else if (Businesses[business][bType] == BUSINESS_TYPE_NEWCARDEALERSHIP)
-		{
-			new iModel, iSlot;
-		    for (new i; i < MAX_BUSINESS_DEALERSHIP_VEHICLES; i++)
-		    {
-			    if (Businesses[business][DealershipVehOrder][i]) {
-					iModel = Businesses[business][bModel][i];
-					iSlot = i;
-	 			}
-		    }
-			new Float: fVehPos[4];
-			GetVehiclePos(vehicleid, fVehPos[0], fVehPos[1], fVehPos[2]);
-			GetVehicleZAngle(vehicleid, fVehPos[3]);
-			new iDeliveredVeh = CreateVehicle(iModel, fVehPos[0], fVehPos[1], fVehPos[2] + 3, fVehPos[3], 1, 1, -1);
-			SetVehicleZAngle(iDeliveredVeh, fVehPos[3]);
-			vehicle_lock_doors(iDeliveredVeh);
-
-			SetPVarInt(playerid, "CarryingVehicle", iDeliveredVeh);
-			SetPVarInt(playerid, "CarryingSlot", iSlot);
-		} */
-		SetPVarInt(playerid, "tpTruckRunTimer", floatround(GetPlayerDistanceFromPoint(playerid, Businesses[business][bSupplyPos][0], Businesses[business][bSupplyPos][1], Businesses[business][bSupplyPos][2]) / 100));
-		SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_TPTRUCKRUNTIMER);
-	}
-	return 1;
+    if(itemCount == 0) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Khong co hang tren xe."); return 1;
+    }
+    ShowPlayerDialog(playerid, DIALOG_XEMHANG, DIALOG_STYLE_TABLIST_HEADERS,
+        "Hang Hoa Tren Xe", szDialog, "Lay Hang", "Huy");
+    return 1;
 }
 
 alias:kiemtrahang("checkcargo")
 CMD:kiemtrahang(playerid, params[])
 {
-	if(PlayerInfo[playerid][pJob] != JOB_TRUCKER && PlayerInfo[playerid][pJob2] != JOB_TRUCKER && !IsACop(playerid))
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai chu lo hang hoac canh sat!");
-		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong phai chu lo hang hoac canh sat!");
-        return 1;
-	}
-
-	new carid = GetPlayerVehicleID(playerid);
- 	new closestcar = GetClosestCar(playerid, carid);
-  	if(IsPlayerInRangeOfVehicle(playerid, closestcar, 6.0) && IsATruckerCar(closestcar))
-	{
-		if(IsPlayerInAnyVehicle(playerid))
-		{
-			SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong the kiem tra lo hang khi dang trong xe.");
-			ShowTDN(playerid, NOTIFICATION_WARNING, "Co loi xay ra.");
-			return 1;
-		}
-		new engine, lights, alarm, doors, bonnet, boot, objective;
-		GetVehicleParamsEx(closestcar,engine,lights,alarm,doors,bonnet,boot,objective);
-		if(boot == VEHICLE_PARAMS_OFF || boot == VEHICLE_PARAMS_UNSET)
-		{
-			//SendClientMessageEx(playerid, COLOR_GRAD1, "Than xe phai duoc mo ra moi co the kiem tra.");
-			ShowTDN(playerid, NOTIFICATION_INFO, "Co loi xay ra.");
-			return 1;
-		}
-
-		new string[128];
-
-     	SendClientMessageEx(playerid, COLOR_GREEN,"_______________ LO HANG _______________");
-		if(IsPlayerInVehicle(playerid, closestcar))
-  		{
-    		SendClientMessageEx(playerid, COLOR_WHITE, "Co mot nguoi dang dieu khien xe, nguoi do phai xuong xe moi co the tiep tuc kiem tra lo hang.");
-      		return 1;
-		}
-		new iTruckContents = TruckContents{closestcar};
-		new truckcontentname[50];
-		if(iTruckContents == 1)
-		{ format(truckcontentname, sizeof(truckcontentname), "{00F70C}Thuc an & Do uong");}
-		else if(iTruckContents == 2)
-		{ format(truckcontentname, sizeof(truckcontentname), "{00F70C}Quan ao"); }
-		else if(iTruckContents == 3)
-		{ format(truckcontentname, sizeof(truckcontentname), "{00F70C}Vat lieu hop phap"); }
-		else if(iTruckContents == 4)
-		{ format(truckcontentname, sizeof(truckcontentname), "{00F70C}Vat pham 24/7"); }
-		else if(iTruckContents == 5)
-		{ format(truckcontentname, sizeof(truckcontentname), "{FF0606}Vu khi"); }
-		else if(iTruckContents == 6)
-		{ format(truckcontentname, sizeof(truckcontentname), "{FF0606}Ma tuy"); }
-		else if(iTruckContents == 7)
-		{ format(truckcontentname, sizeof(truckcontentname), "{FF0606}Vat lieu pham phap"); }
-		format(string, sizeof(string), "Giay to xe: %s (%d)", GetVehicleName(closestcar), closestcar);
-		SendClientMessageEx(playerid, COLOR_WHITE, string);
-		if(iTruckContents == 0)
-		{ format(truckcontentname, sizeof(truckcontentname), "%s",  GetInventoryType(TruckDeliveringTo[closestcar])); }
-		format(string, sizeof(string), "Hang hoa: %s", truckcontentname);
-		SendClientMessageEx(playerid, COLOR_WHITE, string);
-
-		if(IsACop(playerid))
-		{
-			SendClientMessageEx(playerid, COLOR_YELLOW, "De loai bo hang hoa pham phap, su dung /clearcargo gan xe tai.");
-		}
-
-		if(PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER)
-		{
-			if(TruckDeliveringTo[closestcar] > 0 && TruckUsed[playerid] == INVALID_VEHICLE_ID)
-			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "De cuop hang hoa, su dung /cuophang.");
-			}
-			else if(TruckUsed[playerid] == INVALID_VEHICLE_ID)
-			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "De cung cap hang hoa, su dung /layhang cho tai xe.");
-			}
-			else if(TruckUsed[playerid] == closestcar && gPlayerCheckpointStatus[playerid] == CHECKPOINT_RETURNTRUCK)
-			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Ban chua tra xe lai cho ben cang, luong cua ban khong duoc tra.");
-			}
-			else if(TruckUsed[playerid] == closestcar)
-			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Day la xe cua ban, ban da khong giao hang dung hen.");
-			}
-			else if(TruckUsed[playerid] != INVALID_VEHICLE_ID)
-			{
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da co cong viec khac. Su dung /huybo giaohang de huy bo viec giao hang.");
-			}
-		}
-     	SendClientMessageEx(playerid, COLOR_GREEN,"_________________________________________________________");
+    if(!IsACop(playerid)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Lenh nay chi danh cho canh sat."); return 1;
     }
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong dung gan xe van chuyen hang hoa.");
-		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong dung gan xe van chuyen hang hoa.");
- 	}
+    if(PlayerInfo[playerid][pDuty] == 0) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Phai on-duty moi dung lenh nay."); return 1;
+    }
+
+    new targetid;
+    if(sscanf(params, "u", targetid)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "Su dung: /kiemtrahang [id/ten]"); return 1;
+    }
+    if(!IsPlayerConnected(targetid) || targetid == playerid) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Nguoi choi khong ton tai."); return 1;
+    }
+    if(!IsTrucker(targetid)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Nguoi do khong phai Trucker."); return 1;
+    }
+
+    new vid = TruckerJobCar[targetid];
+    if(vid == INVALID_VEHICLE_ID) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Nguoi choi chua co xe trucker."); return 1;
+    }
+    new Float:vx, Float:vy, Float:vz;
+    GetVehiclePos(vid, vx, vy, vz);
+    if(!IsPlayerInRangeOfPoint(playerid, 6.0, vx, vy, vz)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Phai o gan xe cua nguoi choi (trong vong 6m)."); return 1;
+    }
+
+    new szDialog[512], string[128], itemCount = 0;
+    strcat(szDialog, "#\tHang Hoa\tSo Luong\tLoai\n");
+
+    if(hangtrenxe[targetid][0] >= 1) { format(string, sizeof(string), "%d\tThuc An\t%d\t{44ff00}Hop phap\n",          itemCount++, hangtrenxe[targetid][0]); strcat(szDialog, string); }
+    if(hangtrenxe[targetid][1] >= 1) { format(string, sizeof(string), "%d\tVat Lieu\t%d\t{44ff00}Hop phap\n",         itemCount++, hangtrenxe[targetid][1]); strcat(szDialog, string); }
+    if(hangtrenxe[targetid][2] >= 1) { format(string, sizeof(string), "%d\tQuan Ao\t%d\t{44ff00}Hop phap\n",          itemCount++, hangtrenxe[targetid][2]); strcat(szDialog, string); }
+    if(hangtrenxe[targetid][3] >= 1) { format(string, sizeof(string), "%d\tHang Cam\t%d\t{FF0606}Bat hop phap\n",     itemCount++, hangtrenxe[targetid][3]); strcat(szDialog, string); }
+
+    if(itemCount == 0) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Xe khong co hang hoa nao."); return 1;
+    }
+
+    SetPVarInt(playerid, "KiemTraHang_TargetID", targetid);
+    new title[64];
+    format(title, sizeof(title), "Kiem tra xe cua %s", GetPlayerNameEx(targetid));
+    ShowPlayerDialog(playerid, DIALOG_TRUCKER_KIEMTRA, DIALOG_STYLE_TABLIST_HEADERS,
+        title, szDialog, "Tich thu", "Dong");
+    SendClientMessageEx(targetid, COLOR_YELLOW,
+        "[Trucker] Canh sat {FFFF00}%s{FFFFFF} dang kiem tra xe cua ban.", GetPlayerNameEx(playerid));
     return 1;
 }
 
-CMD:clearcargo(playerid, params[])
+CMD:dungviec(playerid, params[])
 {
-	if(!IsACop(playerid))
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai nhan vien thuc thi phap luat!");
-		ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong phai nhan vien thuc thi phap luat!");
-        return 1;
-	}
-
-	new carid = GetPlayerVehicleID(playerid);
- 	new closestcar = GetClosestCar(playerid, carid);
-  	if(IsPlayerInRangeOfVehicle(playerid, closestcar, 6.0) && IsATruckerCar(closestcar))
-	{
-		if(IsPlayerInAnyVehicle(playerid))
-		{
-		    SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong xoa hang hoa khi dang ben trong mot chiec xe.");
-		    return 1;
-		}
-		if(TruckContents{closestcar} == 0)
-		{
-		 	if(TruckDeliveringTo[closestcar] != INVALID_BUSINESS_ID && (Businesses[TruckDeliveringTo[closestcar]][bType] != BUSINESS_TYPE_GASSTATION || Businesses[TruckDeliveringTo[closestcar]][bType] == BUSINESS_TYPE_NEWCARDEALERSHIP))
-			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lay hang hoa di.");
-				return 1;
-			}
-		}
-		new truckcontentname[50];
-		new iTruckContents = TruckContents{closestcar};
-		if(iTruckContents >= 0 && iTruckContents < 5)
-		{
-			SendClientMessageEx(playerid, COLOR_WHITE, "Khong co vat pham pham phap tren xe.");
-			return 1;
-		}
-		else if(TruckDeliveringTo[closestcar] == INVALID_BUSINESS_ID && iTruckContents == 0)
-		{
-			SendClientMessageEx(playerid, COLOR_WHITE, "Khong co vat pham pham phap tren xe.");
-			return 1;
-		}
-		if(iTruckContents == 5)
-		{ format(truckcontentname, sizeof(truckcontentname), "{FF0606}Vu khi pham phap"); }
-		else if(iTruckContents == 6)
-		{ format(truckcontentname, sizeof(truckcontentname), "{FF0606}Ma tuy pham phap"); }
-		else if(iTruckContents == 7)
-		{ format(truckcontentname, sizeof(truckcontentname), "{FF0606}Vat lieu pham phap"); }
-		else format(truckcontentname, sizeof(truckcontentname), "{FF0606}Vat lieu pham phap");
- 		foreach(new i: Player)
-		{
-  			if(TruckUsed[i] == closestcar)
-     		{
-				TruckUsed[i] = INVALID_VEHICLE_ID;
-				TruckDeliveringTo[closestcar] = INVALID_BUSINESS_ID;
-				TruckContents{closestcar} = 0;
-				TruckRoute[closestcar] = 0;
-				DisablePlayerCP(i);
-				gPlayerCheckpointStatus[i] = CHECKPOINT_NONE;
-				DeletePVar(i, "TruckDeliver");
- 				SendClientMessageEx(i, COLOR_WHITE, "Viec giao hang cua ban that bai, mot nhan vien canh sat da tich thu lo hang cua ban.");
-       		}
-		}
-		new string[128];
-		format(string, sizeof(string), "Ban da loai bo %s {FFFFFF}khoi chiec xe.", truckcontentname);
-		SendClientMessageEx(playerid, COLOR_WHITE, string);
-		format(string, sizeof(string), "* %s da lay vat pham pham phap ra khoi xe.", GetPlayerNameEx(playerid));
-		ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+    if(!IsTrucker(playerid))                   return 1;
+    if(PlayerWorking[playerid] != JOB_TRUCKER) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Ban chua bat dau lam viec."); return 1;
     }
-   	else
-	{
- 		SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong dung gan mot chiec xe giao hang.");
- 	}
+
+    if(lanhluong[playerid] > 0) {
+        SendClientMessageEx(playerid, COLOR_RED,
+            "[Trucker] Ban con {5BFF89}$%s{FFFFFF} chua lanh! Hay ve Ben Cang SF de lanh luong truoc.",
+            number_format(lanhluong[playerid]));
+        return 1;
+    }
+
+    Trucker_Cleanup(playerid);
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "[Trucker] Da dung lam viec. Cam on ban da phuc vu!");
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Da dung lam viec Trucker.");
     return 1;
 }
 
-CMD:cuophang(playerid, params[])
+// Admin commands
+CMD:chinhgiatruck(playerid, params[])
 {
-	if(PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER)
-	{
-	    new vehicleid = GetPlayerVehicleID(playerid);
-	    if(IsATruckerCar(vehicleid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-	    {
-     		if(!CheckPointCheck(playerid))
-	        {
-         		if(GetPVarInt(playerid, "LoadTruckTime") > 0)
-	            {
-	                SendClientMessageEx(playerid, COLOR_WHITE, "Ban dang doi van chuyen hang hoa len xe tai cua ban!");
-					return 1;
-	            }
-	            if(TruckUsed[playerid] != INVALID_VEHICLE_ID)
-	            {
-	                SendClientMessageEx(playerid, COLOR_WHITE, "Ban da co mot chuyen hang truoc do, su dung \"{50FFCD}/huybo giaohang\"{FFFFFF} de huy bo don dat hang hien tai.");
-					return 1;
-	            }
-				if(TruckDeliveringTo[vehicleid] == 0 && TruckContents{vehicleid} == 0)
-				{
-				    SendClientMessageEx(playerid, COLOR_WHITE, "Xe tai nay khong co bat ki hang hoa nao!");
-				    return 1;
-				}
-				if(IsPlayerInRangeOfPoint(playerid, 65.0, LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2]))
-				{
-				    SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the cuop hang khi xe dang o ben cang San Fierro!");
-					return 1;
-				}
-			
+    if(PlayerInfo[playerid][pAdmin] == 0) return 1;
 
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban dang co gang cuop mot lo hang tu xe tai, xin vui long cho...");
-				TogglePlayerControllable(playerid, false);
-				SetPVarInt(playerid, "IsFrozen", 1);
+    new type, value;
+    if(sscanf(params, "ii", type, value)) {
+        SendClientMessageEx(playerid, COLOR_GREY, "Su dung: /chinhgiatruck [Loai 0-3] [Gia]");
+        SendClientMessageEx(playerid, COLOR_WHITE, "0=Thuc An | 1=Vat Lieu | 2=Quan Ao | 3=Hang Cam");
+        return 1;
+    }
+    if(type < 0 || type > 3) {
+        SendClientMessageEx(playerid, COLOR_GREY, "Loai khong hop le (0-3)!"); return 1;
+    }
+    if(value < 1) {
+        SendClientMessageEx(playerid, COLOR_GREY, "Gia phai lon hon 0!"); return 1;
+    }
 
-				SetPVarInt(playerid, "LoadTruckTime", 10);
-				SetTimerEx("HijackTruck", 1000, false, "d", playerid);
-	        }
-	        else SendClientMessageEx(playerid, COLOR_WHITE, "Xin hay chac chan rang cac diem danh dau cua ban da bi xoa bo.");
-	    }
-	    else SendClientMessageEx(playerid, COLOR_GREY, "Ban khong lai xe van chuyen hang hoa!");
-	}
-	else SendClientMessageEx(playerid, COLOR_GREY, "Ban khong phai la nguoi van chuyen hang hoa");
-	return 1;
+    giatruck[type] = value;
+    new names[4][24] = {"Thuc An", "Vat Lieu", "Quan Ao", "Hang Cam"};
+    TruckPrice_Save();
+    UpdateTruckerPrices();
+
+    SendClientMessageEx(playerid, COLOR_GREEN,
+        "[Admin-Trucker] Da doi gia {44ff00}%s{FFFFFF} thanh {5BFF89}$%d{FFFFFF}.", names[type], value);
+    foreach(new i : Player) {
+        if(PlayerInfo[i][pAdmin] > 0 && i != playerid)
+            SendClientMessageEx(i, COLOR_RED,
+                "[Admin-Trucker] %s doi gia %s thanh $%d.", GetPlayerNameEx(playerid), names[type], value);
+    }
+    return 1;
 }
 
-alias:layhang("loadshipment")
-CMD:layhang(playerid, params[])
+CMD:checkgiahang(playerid, params[])
 {
-	if(PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER)
-	{
-	    new vehicleid = GetPlayerVehicleID(playerid);
-	    if(IsATruckerCar(vehicleid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-	    {
-	        if(!CheckPointCheck(playerid))
-	        {
-	            if(GetPVarInt(playerid, "LoadTruckTime") > 0)
-	            {
-	                SendClientMessageEx(playerid, COLOR_WHITE, "Ban dang dua hang len xe roi!");
-					return 1;
-	            }
-	            if(TruckUsed[playerid] != INVALID_VEHICLE_ID)
-	            {
-	                SendClientMessageEx(playerid, COLOR_WHITE, "Ban dang giao mat hang khac, su dung \"{50FFCD}/huybo giaohang\"{FFFFFF} de huy bo giao hang.");
-					return 1;
-	            }
-				if(TruckContents{vehicleid} != 0)
-				{
-				    return SendClientMessageEx(playerid, COLOR_GRAD2, "Da dua hang len xe thanh cong.");
-				}
-				if(TruckDeliveringTo[vehicleid] != INVALID_BUSINESS_ID && TruckContents{vehicleid} == 0)
-				{
-				    return SendClientMessageEx(playerid, COLOR_GRAD2, "Da dua hang len xe thanh cong.");
-				}
+    if(PlayerInfo[playerid][pAdmin] < 1) return 1;
 
-	            gPlayerCheckpointStatus[playerid] = CHECKPOINT_LOADTRUCK;
-				//SetPlayerCP(playerid, -1572.767822, 81.137527, 3.554687, 5.0); old checkpoint
-				SetPlayerCP(playerid, LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2], 8.0);
-				SendMessageTD(playerid, 5000, "Dia diem ~r~~h~~h~Ben cang San Fierro");
-				SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Chon hang hoa de van chuyen tai ben cang San Fierro (Diem danh dau).");
+    new szDialog[1024], string[128];
+    strcat(szDialog, "Loai hang\tGia mua\tGia ban cao nhat\n");
 
-	        }
-	        else return SendClientMessageEx(playerid, COLOR_WHITE, "Xin hay chac chan rang cac diem checkpoint cua ban da bi xoa bo.");
-	    }
-	    else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong lai chiec xe tai cho hang hoa yeu cau!");
-	}
-	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong phai Nguoi dua hang!");
-	return 1;
+    new highPrices[4];
+    for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
+        new l = ThuMuaTruck[i][loaihang];
+        if(l >= 1 && l <= 3 && ThuMuaTruck[i][giabanhientai] > highPrices[l])
+            highPrices[l] = ThuMuaTruck[i][giabanhientai];
+    }
+    format(string, sizeof(string), "Thuc An\t$%s\t$%s\n",  number_format(giatruck[0]), number_format(highPrices[1])); strcat(szDialog, string);
+    format(string, sizeof(string), "Vat Lieu\t$%s\t$%s\n", number_format(giatruck[1]), number_format(highPrices[2])); strcat(szDialog, string);
+    format(string, sizeof(string), "Quan Ao\t$%s\t$%s\n",  number_format(giatruck[2]), number_format(highPrices[3])); strcat(szDialog, string);
+    format(string, sizeof(string), "Hang Cam\t$%s\t-\n",   number_format(giatruck[3])); strcat(szDialog, string);
+
+    ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_TABLIST_HEADERS,
+        "Gia Hang Hoa Trucker", szDialog, "Dong", "");
+    return 1;
 }
 
-hook OnPlayerEnterCheckpoint(playerid)
+// VIP Platinum: xem gia thu mua cao nhat
+CMD:giahang(playerid, params[])
 {
-	switch(gPlayerCheckpointStatus[playerid])
-	{
-		case CHECKPOINT_LOADTRUCK:
-		{
-			if(IsPlayerInRangeOfPoint(playerid, 10.0, LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2]))
-			{
-				new vehicleid = GetPlayerVehicleID(playerid);
-				if(IsATruckerCar(vehicleid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-				{
-					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
-					DisablePlayerCP(playerid);
-					gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
-					TogglePlayerControllable(playerid, false);
-					SetPVarInt(playerid, "IsFrozen", 1);
-					DisplayOrders(playerid);
-				}
-				else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong lai dung xe tai hoac tau truck!");
-			}
-		}
-		case CHECKPOINT_RETURNTRUCK:
-		{
-			if(!IsPlayerInRangeOfPoint(playerid, 6.0, -1548.087524, 123.590423, 3.554687))
-			{
-				new vehicleid = GetPlayerVehicleID(playerid);
-				if(IsATruckerCar(vehicleid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-				{
-					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
-					DisablePlayerCP(playerid);
-					gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
-				}// In the case the person finds a way to exploit the checkpoint to different location
-				CancelTruckDelivery(playerid);
-				SendClientMessageEx(playerid, COLOR_REALRED, "ERROR: Wrong checkpoint entered. Truck delivery canceled completely.");
-				return 1;
-			}
+    if(PlayerInfo[playerid][pDonateRank] < 4) return 1;
 
-			new bool:isTeleporting = false;
-			if(GetPVarInt(playerid, "tpTruckRunTimer") != 0)
-			{
-				new string[128];
-				format(string, sizeof(string), "{AA3333}AdmWarning{FFFF00}: %s (ID %d) is possibly teleport truck/boat running.", GetPlayerNameEx(playerid), playerid);
-				ABroadCast( COLOR_YELLOW, string, 2 );
-				isTeleporting = true;
-				// format(string, sizeof(string), "%s (ID %d) is possibly teleport truckrunning.", GetPlayerNameEx(playerid), playerid);
-				// Log("logs/hack.log", string);
-			}
-			new vehicleid = GetPlayerVehicleID(playerid);
-			if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
-			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong o trong xe van chuyen hang!");
-				return 1;
-			}
-			if(TruckUsed[playerid] != INVALID_VEHICLE_ID && vehicleid != TruckUsed[playerid])
-			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "Day khong phai la chiec xe cua ban van chuyen hang, vui long su dung dung xe cua ban de nhan thu lao!");
-				return 1;
-			}
+    new highPrices[4];
+    for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
+        new l = ThuMuaTruck[i][loaihang];
+        if(l >= 1 && l <= 3 && ThuMuaTruck[i][giabanhientai] > highPrices[l])
+            highPrices[l] = ThuMuaTruck[i][giabanhientai];
+    }
 
-			PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
-			DisablePlayerCP(playerid);
-			gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
-			new route = TruckRoute[vehicleid];
-			new string[128], payment;
+    new szDialog[512], s[64];
+    strcat(szDialog, "Loai hang\tGia thu mua cao nhat\n");
+    format(s, sizeof(s), "Thuc An\t{4dad2b}$%s\n",  number_format(highPrices[1])); strcat(szDialog, s);
+    format(s, sizeof(s), "Vat Lieu\t{4dad2b}$%s\n", number_format(highPrices[2])); strcat(szDialog, s);
+    format(s, sizeof(s), "Quan Ao\t{4dad2b}$%s\n",  number_format(highPrices[3])); strcat(szDialog, s);
 
-			switch(GetJobLevel(playerid, JOB_TRUCKER))
-			{
-				case 1: payment = 15000;
-				case 2: payment = 17000;
-				case 3: payment = 19000;
-				case 4: payment = 21500;
-				case 5: payment = 24000;
-			}
+    ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_TABLIST_HEADERS,
+        "Gia Thu Mua Cao Nhat (VIP)", szDialog, "Dong", "");
+    return 1;
+}
 
-			new reward[128];
-			new truckdeliver = GetPVarInt(playerid, "TruckDeliver");
-			strcat(reward, "Không có");
-			if(TruckDeliveringTo[vehicleid] != INVALID_BUSINESS_ID) {
-				new iBusiness = TruckDeliveringTo[vehicleid];
-				new Float: iDist = GetPlayerDistanceFromPoint(playerid, Businesses[iBusiness][bSupplyPos][0], Businesses[iBusiness][bSupplyPos][1], Businesses[iBusiness][bSupplyPos][2]);
-
-				payment = floatround(iDist / 2000 * payment);
-				if (payment > 32000) payment = 32000;
-
-				GivePlayerCash(playerid, payment);
-				format(string, sizeof(string), "* Ban duoc tra {5BFF89}$%s{FFFFFF} cho viec van chuyen hang hoa va tra lai xe.", number_format(payment));
-
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
-				SetVehicleToRespawn(vehicleid);
-			}
-			else {
-				DeletePVar(playerid, "LoadType");
-				TruckContents{vehicleid} = 0;
-
-				if(truckdeliver >= 1 && truckdeliver < 5)
-				{
-					new Float:distancepay;
-					distancepay = floatmul(GetDistance(LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2], Dropoffs_Legal[route][PosX], Dropoffs_Legal[route][PosY], Dropoffs_Legal[route][PosZ]), 0.2);
-					payment += floatround(distancepay);
-					GivePlayerCash(playerid, payment);
-					format(string, sizeof(string), "* Ban duoc tra {5BFF89}$%s{FFFFFF} cho viec van chuyen hang hoa va tra lai xe.", number_format(payment));
-				}
-				else if(truckdeliver >= 5 && truckdeliver <= 7)
-				{
-					new Float:distancepay;
-					distancepay = floatmul(GetDistance(LoadTruckPosition[0], LoadTruckPosition[1], LoadTruckPosition[2], Dropoffs_Illegal[route][PosX], Dropoffs_Illegal[route][PosY], Dropoffs_Illegal[route][PosZ]), 0.2);
-					payment += floatround(distancepay);
-					payment = floatround(payment * 1.25);
-					GivePlayerCash(playerid, payment);
-					format(string, sizeof(string), "* Ban duoc tra {5BFF89}$%s{FFFFFF} cho viec van chuyen hang hoa va tra lai xe.", number_format(payment));
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban nhan duoc 10%% tien thuong do rui ro cua hang hoa.");
-
-				}
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
-				if(truckdeliver == 5) // Weapons
-				{
-					if(PlayerInfo[playerid][pConnectHours] >= 2 && PlayerInfo[playerid][pWRestricted] <= 0)
-					{
-						if(GetJobLevel(playerid, JOB_TRUCKER) == 2)
-						{
-							format(reward, _, "9MM");
-							SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban nhan duoc mien phi 9mm cho viec van chuyen vu khi trai phep.");
-							GivePlayerValidWeapon(playerid, 22, 60000);
-						}
-						else if(GetJobLevel(playerid, JOB_TRUCKER) == 3)
-						{
-							format(reward, _, "Shotgun");
-							SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban nhan duoc mien phi Shotgun cho viec van chuyen vu khi trai phep.");
-							GivePlayerValidWeapon(playerid, 25, 60000);
-						}
-						else if(GetJobLevel(playerid, JOB_TRUCKER) == 4)
-						{
-							format(reward, _, "MP5");
-							SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban nhan duoc mien phi MP5 cho viec van chuyen vu khi trai phep.");
-							GivePlayerValidWeapon(playerid, 29, 60000);
-						}
-						else if(GetJobLevel(playerid, JOB_TRUCKER) == 5)
-						{
-							format(reward, _, "Desert Eagle");
-							SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban nhan duoc mien phi Desert Eagle cho viec van chuyen vu khi trai phep.");
-							GivePlayerValidWeapon(playerid, 24, 60000);
-						}
-					}
-					else
-					{
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban khong nhan duoc vu khi do ban co mot lenh gioi han vu khi.");
-					}
-				}
-				if(truckdeliver == 6) // Drugs
-				{
-
-					if(GetJobLevel(playerid, JOB_TRUCKER) == 2)
-					{
-						format(reward, _, "2 Pot và 1 Crack");
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc 2 pot & 1 cho viec van chuyen ma tuy bat hop phap.");
-						PlayerInfo[playerid][pPot] += 2;
-						PlayerInfo[playerid][pCrack] += 1;
-					}
-					else if(GetJobLevel(playerid, JOB_TRUCKER) == 3)
-					{
-						format(reward, _, "4 Pot và 2 Crack");
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc 4 pot & 2 cho viec van chuyen ma tuy bat hop phap.");
-						PlayerInfo[playerid][pPot] += 4;
-						PlayerInfo[playerid][pCrack] += 2;
-					}
-					else if(GetJobLevel(playerid, JOB_TRUCKER) == 4)
-					{
-						format(reward, _, "6 Pot và 3 Crack");
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc 6 pot & 3 cho viec van chuyen ma tuy bat hop phap.");
-						PlayerInfo[playerid][pPot] += 6;
-						PlayerInfo[playerid][pCrack] += 3;
-					}
-					else if(GetJobLevel(playerid, JOB_TRUCKER) == 5)
-					{
-						format(reward, _, "8 Pot và 4 Crack");
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc 8 pot & 4 cho viec van chuyen ma tuy bat hop phap.");
-						PlayerInfo[playerid][pPot] += 8;
-						PlayerInfo[playerid][pCrack] += 4;
-					}
-				}
-				if(truckdeliver == 7) // Illegal materials
-				{
-					if(GetJobLevel(playerid, JOB_TRUCKER) == 2)
-					{
-						format(reward, _, "100 Vật liệu");
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc 100 cho viec van chuyen vat lieu bat hop phap.");
-						PlayerInfo[playerid][pMats] += 100;
-					}
-					else if(GetJobLevel(playerid, JOB_TRUCKER) == 3)
-					{
-						format(reward, _, "200 Vật liệu");
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc 200 cho viec van chuyen vat lieu bat hop phap.");
-						PlayerInfo[playerid][pMats] += 200;
-					}
-					else if(GetJobLevel(playerid, JOB_TRUCKER) == 4)
-					{
-						format(reward, _, "400 Vật liệu");
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc 400 cho viec van chuyen vat lieu bat hop phap.");
-						PlayerInfo[playerid][pMats] += 400;
-					}
-					else if(GetJobLevel(playerid, JOB_TRUCKER) == 5)
-					{
-						format(reward, _, "600 Vật liệu");
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da nhan duoc 600 cho viec van chuyen vat lieu bat hop phap.");
-						PlayerInfo[playerid][pMats] += 600;
-					}
-				}
-				SetVehicleToRespawn(vehicleid);
-			}
-
-			new rand_xp = 0;
-			if(DoubleXP) {
-				rand_xp = Random(PlayerInfo[playerid][pLevel] * XP_RATE - 3, PlayerInfo[playerid][pLevel] * XP_RATE + 3);
-				PlayerInfo[playerid][pTruckSkill] += 2;
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem nhan vat: +%d XP (%s/%s) | +2 Trucker Skill (DOUBLE XP)", rand_xp*2, number_format(PlayerInfo[playerid][pXP]+rand_xp*2), number_format(GetRequiredXP(playerid)));
-				GivePlayerXP(playerid, rand_xp*2);
-			}
-			else
-			if(PlayerInfo[playerid][pDoubleEXP] > 0 && !DoubleXP)
-			{
-				rand_xp = Random(PlayerInfo[playerid][pLevel] * XP_RATE - 3, PlayerInfo[playerid][pLevel] * XP_RATE + 3);
-				PlayerInfo[playerid][pTruckSkill] += 2;
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem nhan vat: +%d XP (%s/%s) | +2 Trucker Skill (DOUBLE XP)", rand_xp*2, number_format(PlayerInfo[playerid][pXP]+rand_xp*2), number_format(GetRequiredXP(playerid)));
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Ban co %d gio con lai de nhan doi EXP Token.", PlayerInfo[playerid][pDoubleEXP]);
-				GivePlayerXP(playerid, rand_xp*2);
-			}
-			else
-			{
-				rand_xp = Random(PlayerInfo[playerid][pLevel] * XP_RATE - 3, PlayerInfo[playerid][pLevel] * XP_RATE + 3);
-				PlayerInfo[playerid][pTruckSkill] += 1;
-				SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem nhan vat: +%d XP (%s/%s) | +1 Trucker Skill", rand_xp, number_format(PlayerInfo[playerid][pXP]+rand_xp), number_format(GetRequiredXP(playerid)));
-				GivePlayerXP(playerid, rand_xp);
-			}
-
-			new title[64];
-			format(title, _, "%s (ID: %d) - Giao hàng", GetPlayerNameEx(playerid), playerid);
-			DiscordLog(dclog_Trucker, title, "**Tiền nhận được: $%s**\n**Kinh nghiệm nhân vật: +%d XP**\n**Loại hàng: %s**\n**Phần thưởng: %s**%s", number_format(payment), rand_xp, (truckdeliver < 5) ? ("HỢP PHÁP") : ("BẤT HỢP PHÁP"), reward, (isTeleporting) ? ("\n\n:shield: ***NGHI VẤN NGƯỜI CHƠI ĐANG GIAN LẬN***") : (""));
-
-			TruckUsed[playerid] = INVALID_VEHICLE_ID;
-			DeletePVar(playerid, "TruckDeliver");
-
-			new mypoint = -1;
-			for (new i=0; i<MAX_POINTS; i++)
-			{
-				if(strcmp(Points[i][Name], "San Fierro Docks", true) == 0)
-				{
-					mypoint = i;
-				}
-			}
-			for(new i = 0; i < sizeof(FamilyInfo); i++)
-			{
-				if(mypoint != -1 && strcmp(Points[mypoint][Owner], FamilyInfo[i][FamilyName], true) == 0)
-				{
-					Misc_Save();
-					FamilyInfo[i][FamilyBank] = FamilyInfo[i][FamilyBank]+(200);
-				}
-			}
-		}
-	}
-	return 1;
+// Admin: reload gia
+CMD:reloadgiatruck(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] == 0) return 1;
+    UpdateTruckerPrices();
+    SendClientMessageEx(playerid, COLOR_GREEN, "[Admin-Trucker] Da reload gia hang hoa.");
+    return 1;
 }

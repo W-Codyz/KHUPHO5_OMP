@@ -22264,3 +22264,9 @@ GetBodypartName(bodypart)
 	}
 	return bodyname;
 }
+
+
+// Backward-compat stubs cho code cu trong timers.inc / callbacks.inc.
+// Cac ham nay se khong bao gio chay vi TruckUsed[] luon = INVALID_VEHICLE_ID.
+stock CancelTruckDelivery(playerid)    { Trucker_Cleanup(playerid); }
+stock IsAtTruckDeliveryPoint(playerid) { return playerid >= 0 ? 0 : 0; }

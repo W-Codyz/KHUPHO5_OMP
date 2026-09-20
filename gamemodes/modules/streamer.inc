@@ -1,7 +1,7 @@
 forward LoadStreamerStaticVehicles();
 public LoadStreamerStaticVehicles()
 {
-    TruckerVehicles[0] = AddStaticVehicleEx(414,-1572.34008789,129.09317017,3.69948244,225.00000000,-1,-1,300); //Mule
+    /* TruckerVehicles[0] = AddStaticVehicleEx(414,-1572.34008789,129.09317017,3.69948244,225.00000000,-1,-1,300); //Mule
 	TruckerVehicles[1] = AddStaticVehicleEx(414,-1575.85583496,125.90543365,3.69948244,225.00000000,-1,-1,300); //Mule
 	TruckerVehicles[2] = AddStaticVehicleEx(414,-1578.88806152,122.54198456,3.69948244,225.00000000,-1,-1,300); //Mule
 	TruckerVehicles[3] = AddStaticVehicleEx(414,-1581.52319336,119.51720428,3.69948244,225.00000000,-1,-1,300); //Mule
@@ -9,7 +9,7 @@ public LoadStreamerStaticVehicles()
 	TruckerVehicles[5] = AddStaticVehicleEx(456,-1588.0071,112.8444,3.7230,225.0000,-1,-1,300); //Yankee
 	TruckerVehicles[6] = AddStaticVehicleEx(456,-1591.9919,108.2651,3.7230,225.0000,-1,-1,300); //Yankee
 	TruckerVehicles[7] = AddStaticVehicleEx(456,-1615.8422,77.3187,3.7234,135.0000,-1,-1,300); //Yankee
-	TruckerVehicles[8] = AddStaticVehicleEx(456,-1625.7900,67.1034,3.7250,135.0000,-1,-1,300); //Yankee
+	TruckerVehicles[8] = AddStaticVehicleEx(456,-1625.7900,67.1034,3.7250,135.0000,-1,-1,300); //Yankee */
 	
 	for(new i = 0; i < sizeof(TruckerVehicles); i++)
 	{

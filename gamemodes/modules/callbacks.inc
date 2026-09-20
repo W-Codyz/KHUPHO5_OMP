@@ -2227,7 +2227,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			}
 		}
 
-		else if(IsATruckerCar(vehicleid))
+		/* else if(IsATruckerCar(vehicleid))
 		{
 		    if((PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER))
 			{
@@ -2287,7 +2287,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			    defer NOPCheck(playerid);
 			    SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai la nha thau lo hang!");
 			}
-		}
+		} */
 	   	else if(IsAPlane(vehicleid))
 		{
 	  		if(PlayerInfo[playerid][pFlyLic] != 1)
