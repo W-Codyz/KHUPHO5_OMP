@@ -7723,6 +7723,8 @@
 			<referrer name="ShowOnlineTaxiDrivers"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
+			<referrer name="CanSa_AlertCops"/>
+			<referrer name="HasCopOnDuty"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="ResetDailyFishing"/>
 			<referrer name="ResetAllPlayersFishingCount"/>
@@ -8380,6 +8382,8 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="startpainter"/>
 			<referrer name="antiteleportpainter"/>
+			<referrer name="CanSa_AlertCops"/>
+			<referrer name="HasCopOnDuty"/>
 			<referrer name="ThungRacCreate"/>
 			<referrer name="TienTrinhHaiCanSa"/>
 			<referrer name="OnLoadingHaiCanSa"/>
@@ -8882,6 +8886,8 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0Q"/>
 			<referrer name="@yH_OnDialogResponse@0Q"/>
 			<referrer name="@yH_OnPlayerEnterCheckpoint@0Q"/>
+			<referrer name="CanSa_AlertCops"/>
+			<referrer name="HasCopOnDuty"/>
 			<referrer name="@yH_OnGameModeInit@0R"/>
 			<referrer name="@yH_OnPlayerConnect@0R"/>
 			<referrer name="@yH_OnPlayerDisconnect@0R"/>
@@ -11690,6 +11696,8 @@
 			<referrer name="ShowOnlineTaxiDrivers"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
+			<referrer name="CanSa_AlertCops"/>
+			<referrer name="HasCopOnDuty"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="ResetDailyFishing"/>
 			<referrer name="ResetAllPlayersFishingCount"/>
@@ -13492,6 +13500,8 @@
 			<referrer name="_@yHOnDialogResponse@0Q"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="startpainter"/>
+			<referrer name="CanSa_AlertCops"/>
+			<referrer name="HasCopOnDuty"/>
 			<referrer name="OnPlayerMocRac"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
@@ -34014,6 +34024,29 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
+		<member name="M:CanSa_AlertCops" syntax="CanSa_AlertCops(playerid, action[])">
+			<stacksize value="296"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
+			<referrer name="_@yHOnDialogResponse@0R"/>
+			<referrer name="OnLoadingCheBienFinish"/>
+			<referrer name="pc_cmd_bantepcansa"/>
+			<dependency name="Get3DZone"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="IsACop"/>
+			<dependency name="Iterator@Player"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="cellmax"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="pDuty"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="action">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:CancelSelectTextDraw" syntax="CancelSelectTextDraw(playerid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
@@ -43383,6 +43416,7 @@
 		<member name="M:Get3DZone" syntax="Get3DZone(x, y, z, zone[], len)">
 			<stacksize value="6"/>
 			<referrer name="h_OnPlayerClickMap"/>
+			<referrer name="CanSa_AlertCops"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_crates"/>
@@ -47509,6 +47543,7 @@
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="pc_cmd_guivitri"/>
 			<referrer name="_@yHOnDialogResponse@0P"/>
+			<referrer name="CanSa_AlertCops"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="IsPlayerAtFishingSpot"/>
 			<referrer name="playerTabbedLoop"/>
@@ -51038,6 +51073,18 @@
 				<paraminfo>F@_@is </paraminfo>
 			</param>
 		</member>
+		<member name="M:HasCopOnDuty" syntax="HasCopOnDuty()">
+			<stacksize value="5"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
+			<referrer name="_@yHOnDialogResponse@0R"/>
+			<dependency name="IsACop"/>
+			<dependency name="Iterator@Player"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="cellmax"/>
+			<dependency name="false"/>
+			<dependency name="pDuty"/>
+			<dependency name="true"/>
+		</member>
 		<member name="M:HasCrashDetectAddr0" syntax="HasCrashDetectAddr0()">
 			<tagname value="bool"/>
 			<stacksize value="1"/>
@@ -54243,6 +54290,8 @@
 			<referrer name="_@yHOnPlayerUpdate@0F"/>
 			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="ShowOnlineCops"/>
+			<referrer name="CanSa_AlertCops"/>
+			<referrer name="HasCopOnDuty"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="MoneyUpdate"/>
@@ -66870,6 +66919,7 @@
 		<member name="M:OnLoadingCheBienFinish" syntax="OnLoadingCheBienFinish(playerid)">
 			<attribute name="public"/>
 			<stacksize value="6"/>
+			<dependency name="CanSa_AlertCops"/>
 			<dependency name="ClearAnimations"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="PlayerInfo"/>
@@ -80627,6 +80677,7 @@
 			<referrer name="ProcessFoodPurchase"/>
 			<referrer name="_@yHOnDialogResponse@0Q"/>
 			<referrer name="startpainter"/>
+			<referrer name="CanSa_AlertCops"/>
 			<referrer name="TienTrinhHaiCanSa"/>
 			<referrer name="OnPlayerMocRac"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
@@ -88043,6 +88094,7 @@
 			<referrer name="_@yHOnDialogResponse@0Q"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="OnPlayerMocRac"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="OnLoadingCheBienFinish"/>
@@ -94393,10 +94445,12 @@
 			<referrer name="@yH_OnDialogResponse@0R"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="CP"/>
+			<dependency name="CanSa_AlertCops"/>
 			<dependency name="DiscordLog"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GiaoCanSaTimer"/>
 			<dependency name="GivePlayerCash"/>
+			<dependency name="HasCopOnDuty"/>
 			<dependency name="NhanDiemCount"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -94414,6 +94468,7 @@
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="inputcansa"/>
+			<dependency name="number_format"/>
 			<dependency name="pCanSa"/>
 			<dependency name="pCrack"/>
 			<dependency name="pPot"/>
@@ -96346,7 +96401,9 @@
 			<stacksize value="13"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0R"/>
 			<dependency name="ApplyAnimation"/>
+			<dependency name="CanSa_AlertCops"/>
 			<dependency name="GetPVarInt"/>
+			<dependency name="HasCopOnDuty"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="IsPlayerNearThungRac"/>
@@ -96359,10 +96416,12 @@
 			<dependency name="SetLoading"/>
 			<dependency name="SetPVarInt"/>
 			<dependency name="SetTimerEx"/>
+			<dependency name="ShowTDN"/>
 			<dependency name="ThungRac"/>
 			<dependency name="ThungRac"/>
 			<dependency name="false"/>
 			<dependency name="floatround"/>
+			<dependency name="gettime"/>
 			<dependency name="pCanSa"/>
 			<dependency name="pJailTime"/>
 			<dependency name="pMember"/>
@@ -99929,6 +99988,7 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0Q"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="startpainter"/>
+			<referrer name="CanSa_AlertCops"/>
 			<referrer name="OnPlayerMocRac"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0R"/>
@@ -102156,6 +102216,7 @@
 			<referrer name="UpdatePhoneTime"/>
 			<referrer name="pc_cmd_guivitri"/>
 			<referrer name="pc_cmd_xemvitri"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="SetupDailyReset"/>
 			<referrer name="CheckAndResetIfNeeded"/>
@@ -103712,6 +103773,7 @@
 			<referrer name="_@yHOnDialogResponse@0J"/>
 			<referrer name="pc_cmd_xemtiendt"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
+			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="ShowFishingShop"/>
 			<referrer name="ShowBuyFishingRod"/>
 			<referrer name="ShowBuyBait"/>
@@ -106574,6 +106636,7 @@
 		<member name="M:pc_cmd_bantepcansa" syntax="pc_cmd_bantepcansa(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="140"/>
+			<dependency name="CanSa_AlertCops"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="PlayerInfo"/>
