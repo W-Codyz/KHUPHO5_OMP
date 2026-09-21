@@ -68,6 +68,7 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
     {
         HideMainMenuTextdraws(playerid);
         PC_EmulateCommand(playerid, "/tuido");
+        SetPVarInt(playerid, "DelayInv", 1);
         return 1;
     }
     else if(clickedid == PanelTD[18])      // Chinh xe
@@ -94,6 +95,7 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
     {
         HideMainMenuTextdraws(playerid);
         PC_EmulateCommand(playerid, "/tuido");
+        SetPVarInt(playerid, "DelayInv", 1);
         return 1;
     }
     else if(clickedid == PanelTD[12])      // Tim viec lam

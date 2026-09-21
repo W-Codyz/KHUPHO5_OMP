@@ -133,6 +133,7 @@
 #include "./modules/player/rentcar/rentcar"
 //#include "./modules/player/inventory/inventory"
 //#include "./modules/player/inventory/drop"
+#include "./modules/player/inventory/inv_td"
 #include "./modules/player/inventory/inv"
 #include "./modules/player/mission/newbie"
 

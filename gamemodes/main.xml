@@ -6086,7 +6086,7 @@
 			<referrer name="pc_cmd_jointable"/>
 			<referrer name="StopLoading"/>
 			<referrer name="Animator_OnFinish"/>
-			<referrer name="_@yHOnPlayerConnect@0g"/>
+			<referrer name="_@yHOnPlayerConnect@0h"/>
 		</member>
 		<member name="C:E_INDIRECTION_CLAIM__" value="8">
 			<referrer name="Indirect_Claim_"/>
@@ -6808,7 +6808,7 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="171">
+		<member name="C:__line" value="172">
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="LoadSafeZones"/>
@@ -8369,15 +8369,10 @@
 			<referrer name="DestroySCMTextDraw"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="ShowNotify"/>
-			<referrer name="Phone_Destroy"/>
 			<referrer name="Phone_Close"/>
-			<referrer name="_@yHOnPlayerDisconnect@0K"/>
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="DestroyPanelTextDraws"/>
-			<referrer name="_@yHOnPlayerConnect@0M"/>
 			<referrer name="HideMainMenuTextdraws"/>
 			<referrer name="_@yHOnPlayerConnect@0N"/>
-			<referrer name="_@yHOnPlayerDisconnect@0N"/>
 			<referrer name="pc_cmd_guivitri"/>
 			<referrer name="pc_cmd_xemvitri"/>
 			<referrer name="_@yHOnDialogResponse@0Q"/>
@@ -8625,8 +8620,11 @@
 			<referrer name="Construction_Start"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="_@yHOnPlayerStateChange@0c"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerConnect@0e"/>
+			<referrer name="_@yHOnPlayerDisconnect@0e"/>
 			<referrer name="RemoveDroppedItem"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="PayDay"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
@@ -8864,23 +8862,19 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0J"/>
 			<referrer name="@yH_OnDialogResponse@0J"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
-			<referrer name="Phone_Build"/>
 			<referrer name="Phone_Open"/>
+			<referrer name="@yH_OnGameModeInit@0K"/>
 			<referrer name="@yH_OnPlayerDisconnect@0K"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="OnPhoneLoadingFinish"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0L"/>
 			<referrer name="@yH_OnDialogResponse@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
-			<referrer name="CreatePanelTextDraws"/>
-			<referrer name="@yH_OnPlayerConnect@0M"/>
+			<referrer name="@yH_OnGameModeInit@0M"/>
 			<referrer name="ShowMainMenuTextdraws"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0N"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0N"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0N"/>
-			<referrer name="@yH_OnPlayerDisconnect@0N"/>
 			<referrer name="@yH_OnDialogResponse@0N"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
 			<referrer name="@yH_OnDialogResponse@0O"/>
@@ -9203,23 +9197,30 @@
 			<referrer name="_@yHOnDialogResponse@0c"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="@yH_OnDialogResponse@0d"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="@yH_OnGameModeInit@0e"/>
+			<referrer name="@yH_OnPlayerConnect@0e"/>
+			<referrer name="@yH_OnPlayerDisconnect@0e"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@0e"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0e"/>
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="AddDroppedItem"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
-			<referrer name="@yH_OnDialogResponse@0e"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0f"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
-			<referrer name="@yH_OnPlayerConnect@0g"/>
+			<referrer name="@yH_OnDialogResponse@0g"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
+			<referrer name="@yH_OnPlayerConnect@0h"/>
 			<referrer name="CreatePlayerNameTag"/>
-			<referrer name="@yH_OnDialogResponse@0h"/>
 			<referrer name="@yH_OnDialogResponse@0i"/>
+			<referrer name="@yH_OnDialogResponse@0j"/>
 			<referrer name="PrepareLoginSpawn"/>
 			<referrer name="OnPlayerLoad"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0j"/>
-			<referrer name="@yH_OnPlayerConnect@0j"/>
-			<referrer name="@yH_OnPlayerDisconnect@0j"/>
-			<referrer name="@yH_OnPlayerStateChange@0j"/>
-			<referrer name="@yH_OnPlayerUpdate@0j"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0k"/>
+			<referrer name="@yH_OnPlayerConnect@0k"/>
+			<referrer name="@yH_OnPlayerDisconnect@0k"/>
+			<referrer name="@yH_OnPlayerStateChange@0k"/>
+			<referrer name="@yH_OnGameModeInit@0k"/>
+			<referrer name="@yH_OnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:ucharmax" value="16777215">
@@ -9840,7 +9841,7 @@
 			<referrer name="ChatCayTimer"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 		</member>
 		<member name="F:CRC_EVFExit">
 			<tagname value="bool"/>
@@ -11058,7 +11059,7 @@
 			<referrer name="pc_cmd_w"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 		</member>
 		<member name="F:HireCar">
 			<referrer name="AntiVPN_OnPlayerConnect"/>
@@ -11470,6 +11471,22 @@
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
+		<member name="F:InvTDOpen">
+			<tagname value="bool"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="RefreshInvTD"/>
+			<referrer name="_@yHOnPlayerConnect@0e"/>
+			<referrer name="_@yHOnPlayerDisconnect@0e"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0e"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
+		</member>
+		<member name="F:InvTDSlot">
+			<referrer name="BuildInvTDSlotMap"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0e"/>
+		</member>
 		<member name="F:InviteFamily">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_invite"/>
@@ -11543,9 +11560,11 @@
 			<referrer name="_@yHOnDialogResponse@0O"/>
 		</member>
 		<member name="F:ItemInventory">
+			<referrer name="BuildInvTDSlotMap"/>
+			<referrer name="PopulateInvTDSlots"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="ShowItemOptions"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="pc_cmd_additem"/>
 		</member>
 		<member name="F:ItemsInfo">
@@ -12764,11 +12783,11 @@
 		<member name="F:NbMissionInfo">
 			<referrer name="ShowNewbieMission"/>
 			<referrer name="UpdateNewbieMission"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="OnPlayerLoad"/>
 		</member>
 		<member name="F:NbMissionIntro">
-			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="pc_cmd_nhiemvu"/>
 		</member>
 		<member name="F:NewbieTimer">
@@ -12880,16 +12899,14 @@
 			<referrer name="@yH_OnPlayerDisconnect@0I"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0J"/>
 			<referrer name="@yH_OnDialogResponse@0J"/>
+			<referrer name="@yH_OnGameModeInit@0K"/>
 			<referrer name="@yH_OnPlayerDisconnect@0K"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0L"/>
 			<referrer name="@yH_OnDialogResponse@0L"/>
-			<referrer name="@yH_OnPlayerConnect@0M"/>
+			<referrer name="@yH_OnGameModeInit@0M"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0N"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0N"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0N"/>
-			<referrer name="@yH_OnPlayerDisconnect@0N"/>
 			<referrer name="@yH_OnDialogResponse@0N"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
 			<referrer name="@yH_OnDialogResponse@0O"/>
@@ -12945,17 +12962,23 @@
 			<referrer name="@yH_OnPlayerEnterCheckpoint@0c"/>
 			<referrer name="@yH_OnDialogResponse@0c"/>
 			<referrer name="@yH_OnDialogResponse@0d"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
-			<referrer name="@yH_OnDialogResponse@0e"/>
+			<referrer name="@yH_OnGameModeInit@0e"/>
+			<referrer name="@yH_OnPlayerConnect@0e"/>
+			<referrer name="@yH_OnPlayerDisconnect@0e"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@0e"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0e"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0f"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
-			<referrer name="@yH_OnPlayerConnect@0g"/>
-			<referrer name="@yH_OnDialogResponse@0h"/>
+			<referrer name="@yH_OnDialogResponse@0g"/>
+			<referrer name="@yH_OnPlayerConnect@0h"/>
 			<referrer name="@yH_OnDialogResponse@0i"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0j"/>
-			<referrer name="@yH_OnPlayerConnect@0j"/>
-			<referrer name="@yH_OnPlayerDisconnect@0j"/>
-			<referrer name="@yH_OnPlayerStateChange@0j"/>
-			<referrer name="@yH_OnPlayerUpdate@0j"/>
+			<referrer name="@yH_OnDialogResponse@0j"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0k"/>
+			<referrer name="@yH_OnPlayerConnect@0k"/>
+			<referrer name="@yH_OnPlayerDisconnect@0k"/>
+			<referrer name="@yH_OnPlayerStateChange@0k"/>
+			<referrer name="@yH_OnGameModeInit@0k"/>
+			<referrer name="@yH_OnPlayerUpdate@0k"/>
 			<library>amx_assembly addressof_light</library>
 		</member>
 		<member name="F:OLD_DEFAULT_CUSTOM">
@@ -13129,14 +13152,12 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="startpainter"/>
 		</member>
-		<member name="F:Panel_TextDraw">
-			<tagname value="PlayerText"/>
-			<referrer name="CreatePanelTextDraws"/>
-			<referrer name="DestroyPanelTextDraws"/>
-			<referrer name="_@yHOnPlayerConnect@0M"/>
+		<member name="F:PanelTD">
+			<tagname value="Text"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="ShowMainMenuTextdraws"/>
 			<referrer name="HideMainMenuTextdraws"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0N"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0N"/>
 		</member>
 		<member name="F:PayNSprays">
 			<referrer name="SavePayNSpray"/>
@@ -13149,14 +13170,6 @@
 			<referrer name="pc_cmd_pnsnext"/>
 			<referrer name="pc_cmd_gotopaynspray"/>
 			<referrer name="pc_cmd_repaircar"/>
-		</member>
-		<member name="F:PhoneBuilt">
-			<tagname value="bool"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="Phone_Destroy"/>
-			<referrer name="Phone_Open"/>
-			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="UpdatePhoneTime"/>
 		</member>
 		<member name="F:PhoneOnline">
 			<referrer name="_@yHOnPlayerDeath@0F"/>
@@ -13187,7 +13200,7 @@
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:PhoneOpen">
@@ -13195,7 +13208,18 @@
 			<referrer name="Phone_Open"/>
 			<referrer name="Phone_Close"/>
 			<referrer name="_@yHOnPlayerDisconnect@0K"/>
+			<referrer name="UpdatePhoneTime"/>
 			<referrer name="OnPhoneLoadingFinish"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
+		</member>
+		<member name="F:PhoneTD">
+			<tagname value="Text"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="Phone_Open"/>
+			<referrer name="Phone_Close"/>
+			<referrer name="UpdatePhoneTime"/>
+			<referrer name="OnPhoneLoadingFinish"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 		</member>
 		<member name="F:PizzaVehicles">
 			<referrer name="LoadStreamerStaticVehicles"/>
@@ -13297,7 +13321,7 @@
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="PickupNearestItem"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="pc_cmd_caidat"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
@@ -14588,11 +14612,14 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0a"/>
 			<referrer name="ConstructionLoader"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
+			<referrer name="BuildInvTDSlotMap"/>
+			<referrer name="PopulateInvTDSlots"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="ShowItemOptions"/>
 			<referrer name="PickupNearestItem"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="pc_cmd_additem"/>
 			<referrer name="TDA_DIALOG_USEBANHMI"/>
 			<referrer name="TDA_DIALOG_USENUOCLOC"/>
@@ -14618,18 +14645,18 @@
 			<referrer name="OnPlayerUseNuocEp"/>
 			<referrer name="ShowNewbieMission"/>
 			<referrer name="UpdateNewbieMission"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="pc_cmd_nhiemvu"/>
 			<referrer name="UpdateNameTag"/>
 			<referrer name="ShowPlayerSettings"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<referrer name="PayDay"/>
 			<referrer name="pc_cmd_nextpaycheck"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="ShowSecondaryStats"/>
 			<referrer name="pc_cmd_anetstats"/>
 			<referrer name="pc_cmd_quickstats"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="ShowHelpCommand"/>
 			<referrer name="pc_cmd_jobhelp"/>
 			<referrer name="PrepareLoginSpawn"/>
@@ -14638,7 +14665,7 @@
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="IsNearAnyDoor"/>
 			<referrer name="pc_cmd_exit"/>
-			<referrer name="_@yHOnPlayerStateChange@0j"/>
+			<referrer name="_@yHOnPlayerStateChange@0k"/>
 			<referrer name="pc_cmd_speedo"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
@@ -15431,7 +15458,7 @@
 		</member>
 		<member name="F:SelectedItem">
 			<referrer name="ShowItemOptions"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 		</member>
 		<member name="F:SellClosed">
 			<referrer name="pc_cmd_sellcredits"/>
@@ -15600,14 +15627,22 @@
 		<member name="F:SpeedoDrpTD">
 			<tagname value="PlayerText"/>
 			<referrer name="CreateSpeedoTD"/>
+			<referrer name="_@yHOnPlayerConnect@0k"/>
 			<referrer name="ShowSpeedoTD"/>
 			<referrer name="HideSpeedoTD"/>
 			<referrer name="PlayerCompassUpdate"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 		</member>
 		<member name="F:SpeedoMeter_TD">
 			<tagname value="PlayerText"/>
 			<referrer name="CreatePlayerTextDraws"/>
+		</member>
+		<member name="F:SpeedoStaticTD">
+			<tagname value="Text"/>
+			<referrer name="CreateSpeedoStaticTD"/>
+			<referrer name="ShowSpeedoTD"/>
+			<referrer name="HideSpeedoTD"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 		</member>
 		<member name="F:SpikeStrips">
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
@@ -15803,16 +15838,6 @@
 			<referrer name="OtherTimerEx"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerText"/>
-		</member>
-		<member name="F:Text_Player">
-			<tagname value="PlayerText"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="Phone_Destroy"/>
-			<referrer name="Phone_Open"/>
-			<referrer name="Phone_Close"/>
-			<referrer name="UpdatePhoneTime"/>
-			<referrer name="OnPhoneLoadingFinish"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 		</member>
 		<member name="F:Thrist">
 			<tagname value="PlayerText"/>
@@ -16189,6 +16214,8 @@
 		</member>
 		<member name="F:UNIQUE_SYMBOL_LESS_THAN_0063">
 		</member>
+		<member name="F:UNIQUE_SYMBOL_LESS_THAN_0063">
+		</member>
 		<member name="F:UiPlayerInfoCreated">
 			<tagname value="bool"/>
 			<referrer name="CreateUiPlayerInfo"/>
@@ -16297,7 +16324,7 @@
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="ParkRentedVehicle"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:VehicleId">
@@ -17136,6 +17163,8 @@
 		</member>
 		<member name="F:Y_UNIQUE_0000_0063_CALLED">
 		</member>
+		<member name="F:Y_UNIQUE_0000_0063_CALLED">
+		</member>
 		<member name="F:ZombieSpawns">
 			<tagname value="Float"/>
 			<referrer name="SpawnZombie"/>
@@ -17282,6 +17311,14 @@
 		</member>
 		<member name="F:__file">
 			<referrer name="pc_cmd_anetstats"/>
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -18743,7 +18780,7 @@
 			<referrer name="pc_cmd_buybizlevel"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="_@yHOnPlayerStateChange@0c"/>
-			<referrer name="_@yHOnPlayerStateChange@0j"/>
+			<referrer name="_@yHOnPlayerStateChange@0k"/>
 			<p/>
 		</member>
 		<member name="F:__optimisation__">
@@ -19820,7 +19857,7 @@
 			<referrer name="pc_cmd_f"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 		</member>
 		<member name="F:gFerrisCageOffsets">
 			<tagname value="Float"/>
@@ -19945,7 +19982,7 @@
 			<referrer name="pc_cmd_newb"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<referrer name="OnPlayerLoad"/>
 		</member>
 		<member name="F:gNews">
@@ -19955,7 +19992,7 @@
 			<referrer name="pc_cmd_tognews"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:gNextButtonTextDrawId">
@@ -19984,7 +20021,7 @@
 			<referrer name="pc_cmd_o"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 		</member>
 		<member name="F:gPlayerCPArrow">
 			<referrer name="OPBA_OnPlayerDisconnect"/>
@@ -20019,7 +20056,7 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
 			<referrer name="_@yHOnDialogResponse@0c"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 		</member>
 		<member name="F:gPlayerLogTries">
 			<referrer name="OnQueryFinish"/>
@@ -20081,7 +20118,7 @@
 			<referrer name="pc_cmd_netstats"/>
 			<referrer name="pc_cmd_anetstats"/>
 			<referrer name="OnPlayerLoad"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 		</member>
 		<member name="F:gPrevButtonTextDrawId">
 			<tagname value="PlayerText"/>
@@ -20188,13 +20225,13 @@
 			<referrer name="hosp_StopRecovery"/>
 			<referrer name="hosp_PlacePatientInBed"/>
 		</member>
-		<member name="F:g_PanelTextDrawCreated">
+		<member name="F:g_InvTDCreated">
 			<tagname value="bool"/>
-			<referrer name="CreatePanelTextDraws"/>
-			<referrer name="DestroyPanelTextDraws"/>
-			<referrer name="_@yHOnPlayerConnect@0M"/>
-			<referrer name="ShowMainMenuTextdraws"/>
-			<referrer name="_@yHOnPlayerDisconnect@0N"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="RefreshInvTD"/>
+			<referrer name="_@yHOnPlayerConnect@0e"/>
+			<referrer name="_@yHOnPlayerDisconnect@0e"/>
 		</member>
 		<member name="F:g_PlayerActionHandledTick">
 			<referrer name="HideActionForPlayer"/>
@@ -20219,9 +20256,8 @@
 			<tagname value="bool"/>
 			<referrer name="ShowMainMenuTextdraws"/>
 			<referrer name="HideMainMenuTextdraws"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0N"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0N"/>
 			<referrer name="_@yHOnPlayerConnect@0N"/>
-			<referrer name="_@yHOnPlayerDisconnect@0N"/>
 		</member>
 		<member name="F:g_PlayerTextDrawShown">
 			<tagname value="bool"/>
@@ -20230,7 +20266,9 @@
 			<referrer name="_@yHOnPlayerClickTextDraw@0N"/>
 			<referrer name="pc_cmd_menu"/>
 			<referrer name="_@yHOnPlayerConnect@0N"/>
-			<referrer name="_@yHOnPlayerDisconnect@0N"/>
+		</member>
+		<member name="F:g_SpeedBarColors">
+			<referrer name="CreateSpeedoStaticTD"/>
 		</member>
 		<member name="F:g_StrlibBuffer">
 			<referrer name="strcatmid"/>
@@ -20492,6 +20530,61 @@
 			<referrer name="PayDay"/>
 			<referrer name="OnPlayerLoad"/>
 		</member>
+		<member name="F:iTD_bar">
+			<tagname value="Text"/>
+			<referrer name="CreateInvTDGlobal"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="HideInvTD"/>
+		</member>
+		<member name="F:iTD_box">
+			<tagname value="PlayerText"/>
+			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="DestroyInvTDPlayer"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerConnect@0e"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0e"/>
+		</member>
+		<member name="F:iTD_g">
+			<tagname value="Text"/>
+			<referrer name="CreateInvTDGlobal"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0e"/>
+		</member>
+		<member name="F:iTD_mdl">
+			<tagname value="PlayerText"/>
+			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="DestroyInvTDPlayer"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerConnect@0e"/>
+		</member>
+		<member name="F:iTD_name">
+			<tagname value="PlayerText"/>
+			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="DestroyInvTDPlayer"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerConnect@0e"/>
+		</member>
+		<member name="F:iTD_pstr">
+			<tagname value="PlayerText"/>
+			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="DestroyInvTDPlayer"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerConnect@0e"/>
+		</member>
+		<member name="F:iTD_qty">
+			<tagname value="PlayerText"/>
+			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="DestroyInvTDPlayer"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerConnect@0e"/>
+		</member>
 		<member name="F:inputcansa">
 			<referrer name="_@yHOnPlayerConnect@0R"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
@@ -20564,13 +20657,13 @@
 			<referrer name="StopLoading"/>
 			<referrer name="IsLoadingActive"/>
 			<referrer name="Animator_OnFinish"/>
-			<referrer name="_@yHOnPlayerConnect@0g"/>
+			<referrer name="_@yHOnPlayerConnect@0h"/>
 		</member>
 		<member name="F:loadingFunction">
 			<referrer name="SetLoading"/>
 			<referrer name="StopLoading"/>
 			<referrer name="Animator_OnFinish"/>
-			<referrer name="_@yHOnPlayerConnect@0g"/>
+			<referrer name="_@yHOnPlayerConnect@0h"/>
 		</member>
 		<member name="F:lockdownbutton">
 			<referrer name="OnPlayerPressButton"/>
@@ -21046,7 +21139,6 @@
 		<member name="F:takingselfie">
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="pc_cmd_selfie"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 		</member>
 		<member name="F:tempskinpaint">
@@ -21534,7 +21626,7 @@
 			<referrer name="GetPosBehindVehicle"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OnPlayerText"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<dependency name="float"/>
 			<dependency name="floatdiv"/>
 			<param name="__oper1">
@@ -21578,6 +21670,9 @@
 			<referrer name="pc_cmd_cancelresupply"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0Z"/>
 			<referrer name="_@yHOnDialogResponse@0Z"/>
+			<referrer name="CreateInvTDGlobal"/>
+			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="float"/>
 			<dependency name="floatmul"/>
@@ -21919,9 +22014,12 @@
 			<referrer name="Job_Init"/>
 			<referrer name="GetDistanceRoute"/>
 			<referrer name="_@yHOnDialogResponse@0c"/>
+			<referrer name="CreateInvTDGlobal"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="SetPlayerCP"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="GetVehicleSpeed"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
@@ -22058,7 +22156,7 @@
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnPlayerText"/>
 			<referrer name="GetVehicleSpeed"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
@@ -22594,7 +22692,7 @@
 			<referrer name="pc_cmd_nextpaycheck"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="oper">
 			</param>
@@ -22746,7 +22844,7 @@
 			<referrer name="pc_cmd_usecrack"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="float"/>
 			<dependency name="floatcmp"/>
@@ -22919,7 +23017,7 @@
 			<referrer name="pc_cmd_laybanh"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="PlayerEnterInterior"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="float"/>
 			<dependency name="floatcmp"/>
@@ -24514,30 +24612,6 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnDialogResponse@0e" syntax="@yH_OnDialogResponse@0e(&amp;playerid, &amp;dialogid, &amp;response, &amp;listitem, inputtext[])">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="O@A_"/>
-			<dependency name="O@V_"/>
-			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnDialogResponse@0e"/>
-			<dependency name="true"/>
-			<param name="playerid">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-			<param name="dialogid">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-			<param name="response">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-			<param name="listitem">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-			<param name="inputtext">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
 		<member name="M:@yH_OnDialogResponse@0f" syntax="@yH_OnDialogResponse@0f(&amp;playerid, &amp;dialogid, &amp;response, &amp;listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -24562,13 +24636,13 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnDialogResponse@0h" syntax="@yH_OnDialogResponse@0h(&amp;playerid, &amp;dialogid, &amp;response, &amp;listitem, inputtext[])">
+		<member name="M:@yH_OnDialogResponse@0g" syntax="@yH_OnDialogResponse@0g(&amp;playerid, &amp;dialogid, &amp;response, &amp;listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnDialogResponse@0h"/>
+			<dependency name="_@yHOnDialogResponse@0g"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -24593,6 +24667,30 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnDialogResponse@0i"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="dialogid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="response">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="listitem">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="inputtext">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnDialogResponse@0j" syntax="@yH_OnDialogResponse@0j(&amp;playerid, &amp;dialogid, &amp;response, &amp;listitem, inputtext[])">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnDialogResponse@0j"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -24637,6 +24735,24 @@
 			<dependency name="_@yHOnGameModeInit@0H"/>
 			<dependency name="true"/>
 		</member>
+		<member name="M:@yH_OnGameModeInit@0K" syntax="@yH_OnGameModeInit@0K()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@0K"/>
+			<dependency name="true"/>
+		</member>
+		<member name="M:@yH_OnGameModeInit@0M" syntax="@yH_OnGameModeInit@0M()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@0M"/>
+			<dependency name="true"/>
+		</member>
 		<member name="M:@yH_OnGameModeInit@0Q" syntax="@yH_OnGameModeInit@0Q()">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -24673,6 +24789,24 @@
 			<dependency name="_@yHOnGameModeInit@0Z"/>
 			<dependency name="true"/>
 		</member>
+		<member name="M:@yH_OnGameModeInit@0e" syntax="@yH_OnGameModeInit@0e()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@0e"/>
+			<dependency name="true"/>
+		</member>
+		<member name="M:@yH_OnGameModeInit@0k" syntax="@yH_OnGameModeInit@0k()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@0k"/>
+			<dependency name="true"/>
+		</member>
 		<member name="M:@yH_OnPlayerClickMap@06" syntax="@yH_OnPlayerClickMap@06(&amp;playerid, &amp;fX, &amp;fY, &amp;fZ)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -24694,28 +24828,13 @@
 				<paraminfo>Float &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerClickPlayerTextDraw@0L" syntax="@yH_OnPlayerClickPlayerTextDraw@0L(&amp;playerid, &amp;playertextid)">
+		<member name="M:@yH_OnPlayerClickPlayerTextDraw@0e" syntax="@yH_OnPlayerClickPlayerTextDraw@0e(&amp;playerid, &amp;playertextid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
-			<dependency name="true"/>
-			<param name="playerid">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-			<param name="playertextid">
-				<paraminfo>PlayerText &amp; </paraminfo>
-			</param>
-		</member>
-		<member name="M:@yH_OnPlayerClickPlayerTextDraw@0N" syntax="@yH_OnPlayerClickPlayerTextDraw@0N(&amp;playerid, &amp;playertextid)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="O@A_"/>
-			<dependency name="O@V_"/>
-			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerClickPlayerTextDraw@0N"/>
+			<dependency name="_@yHOnPlayerClickPlayerTextDraw@0e"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -24746,6 +24865,21 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerClickTextDraw@0N"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="clickedid">
+				<paraminfo>Text &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerClickTextDraw@0e" syntax="@yH_OnPlayerClickTextDraw@0e(&amp;playerid, &amp;clickedid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerClickTextDraw@0e"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -24889,18 +25023,6 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerConnect@0M" syntax="@yH_OnPlayerConnect@0M(&amp;playerid)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="O@A_"/>
-			<dependency name="O@V_"/>
-			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerConnect@0M"/>
-			<dependency name="true"/>
-			<param name="playerid">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-		</member>
 		<member name="M:@yH_OnPlayerConnect@0N" syntax="@yH_OnPlayerConnect@0N(&amp;playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -24997,25 +25119,37 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerConnect@0g" syntax="@yH_OnPlayerConnect@0g(&amp;playerid)">
+		<member name="M:@yH_OnPlayerConnect@0e" syntax="@yH_OnPlayerConnect@0e(&amp;playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerConnect@0g"/>
+			<dependency name="_@yHOnPlayerConnect@0e"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerConnect@0j" syntax="@yH_OnPlayerConnect@0j(&amp;playerid)">
+		<member name="M:@yH_OnPlayerConnect@0h" syntax="@yH_OnPlayerConnect@0h(&amp;playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerConnect@0j"/>
+			<dependency name="_@yHOnPlayerConnect@0h"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerConnect@0k" syntax="@yH_OnPlayerConnect@0k(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerConnect@0k"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -25270,21 +25404,6 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerDisconnect@0N" syntax="@yH_OnPlayerDisconnect@0N(&amp;playerid, &amp;reason)">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="O@A_"/>
-			<dependency name="O@V_"/>
-			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerDisconnect@0N"/>
-			<dependency name="true"/>
-			<param name="playerid">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-			<param name="reason">
-				<paraminfo> &amp; </paraminfo>
-			</param>
-		</member>
 		<member name="M:@yH_OnPlayerDisconnect@0P" syntax="@yH_OnPlayerDisconnect@0P(&amp;playerid, &amp;reason)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -25417,13 +25536,28 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerDisconnect@0j" syntax="@yH_OnPlayerDisconnect@0j(&amp;playerid, &amp;reason)">
+		<member name="M:@yH_OnPlayerDisconnect@0e" syntax="@yH_OnPlayerDisconnect@0e(&amp;playerid, &amp;reason)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerDisconnect@0j"/>
+			<dependency name="_@yHOnPlayerDisconnect@0e"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="reason">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerDisconnect@0k" syntax="@yH_OnPlayerDisconnect@0k(&amp;playerid, &amp;reason)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerDisconnect@0k"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -25843,13 +25977,13 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerKeyStateChange@0e" syntax="@yH_OnPlayerKeyStateChange@0e(&amp;playerid, &amp;newkeys, &amp;oldkeys)">
+		<member name="M:@yH_OnPlayerKeyStateChange@0f" syntax="@yH_OnPlayerKeyStateChange@0f(&amp;playerid, &amp;newkeys, &amp;oldkeys)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerKeyStateChange@0e"/>
+			<dependency name="_@yHOnPlayerKeyStateChange@0f"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -25861,13 +25995,13 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerKeyStateChange@0j" syntax="@yH_OnPlayerKeyStateChange@0j(&amp;playerid, &amp;newkeys, &amp;oldkeys)">
+		<member name="M:@yH_OnPlayerKeyStateChange@0k" syntax="@yH_OnPlayerKeyStateChange@0k(&amp;playerid, &amp;newkeys, &amp;oldkeys)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerKeyStateChange@0j"/>
+			<dependency name="_@yHOnPlayerKeyStateChange@0k"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -25951,13 +26085,13 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerStateChange@0j" syntax="@yH_OnPlayerStateChange@0j(&amp;playerid, &amp;newstate, &amp;oldstate)">
+		<member name="M:@yH_OnPlayerStateChange@0k" syntax="@yH_OnPlayerStateChange@0k(&amp;playerid, &amp;newstate, &amp;oldstate)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerStateChange@0j"/>
+			<dependency name="_@yHOnPlayerStateChange@0k"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -26056,13 +26190,13 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerUpdate@0j" syntax="@yH_OnPlayerUpdate@0j(&amp;playerid)">
+		<member name="M:@yH_OnPlayerUpdate@0k" syntax="@yH_OnPlayerUpdate@0k(&amp;playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerUpdate@0j"/>
+			<dependency name="_@yHOnPlayerUpdate@0k"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -28271,7 +28405,7 @@
 		<member name="M:AddDroppedItem" syntax="AddDroppedItem(variable, itemname[], quantity, x, y, z, isWeaponItem, weapType)">
 			<stacksize value="145"/>
 			<referrer name="DropPlayerWeapon"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="Create3DTextLabel"/>
 			<dependency name="CreateDynamicObject"/>
@@ -29534,7 +29668,6 @@
 			<attribute name="native"/>
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="pc_cmd_selfie"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0N"/>
 			<referrer name="startpainter"/>
@@ -29594,7 +29727,7 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="PickupNearestItem"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="TDA_DIALOG_USEBANHMI"/>
 			<referrer name="TDA_DIALOG_USENUOCLOC"/>
 			<referrer name="TDA_DIALOG_USEPIZZA"/>
@@ -32621,6 +32754,18 @@
 			<param name="size">
 			</param>
 		</member>
+		<member name="M:BuildInvTDSlotMap" syntax="BuildInvTDSlotMap(playerid)">
+			<stacksize value="3"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="RefreshInvTD"/>
+			<dependency name="InvTDSlot"/>
+			<dependency name="InvTDSlot"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="pVariable"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:BusinessesLoadQueryFinish" syntax="BusinessesLoadQueryFinish()">
 			<attribute name="public"/>
 			<stacksize value="215"/>
@@ -34443,12 +34588,13 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CancelSelectTextDraw"/>
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="HideMainMenuTextdraws"/>
 			<referrer name="LeavePokerTable"/>
 			<referrer name="PokerExit"/>
 			<referrer name="HideModelSelectionMenu"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0e"/>
 			<param name="playerid">
 				The ID of the player that should be the textdraw selection disabled
 			</param>
@@ -35316,7 +35462,6 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0N"/>
 			<referrer name="startpainter"/>
@@ -37758,6 +37903,56 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:CreateInvTDGlobal" syntax="CreateInvTDGlobal()">
+			<stacksize value="9"/>
+			<referrer name="_@yHOnGameModeInit@0e"/>
+			<dependency name="operator*(Float:,_:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="TextDrawAlignment"/>
+			<dependency name="TextDrawBackgroundColor"/>
+			<dependency name="TextDrawColor"/>
+			<dependency name="TextDrawCreate"/>
+			<dependency name="TextDrawFont"/>
+			<dependency name="TextDrawSetOutline"/>
+			<dependency name="TextDrawSetProportional"/>
+			<dependency name="TextDrawSetSelectable"/>
+			<dependency name="TextDrawSetShadow"/>
+			<dependency name="TextDrawTextSize"/>
+			<dependency name="iTD_bar"/>
+			<dependency name="iTD_g"/>
+		</member>
+		<member name="M:CreateInvTDPlayer" syntax="CreateInvTDPlayer(playerid)">
+			<stacksize value="13"/>
+			<referrer name="ShowInvTD"/>
+			<dependency name="operator*(Float:,_:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="CreatePlayerTextDraw"/>
+			<dependency name="PlayerTextDrawAlignment"/>
+			<dependency name="PlayerTextDrawBackgroundColor"/>
+			<dependency name="PlayerTextDrawColor"/>
+			<dependency name="PlayerTextDrawFont"/>
+			<dependency name="PlayerTextDrawLetterSize"/>
+			<dependency name="PlayerTextDrawSetOutline"/>
+			<dependency name="PlayerTextDrawSetPreviewModel"/>
+			<dependency name="PlayerTextDrawSetPreviewRot"/>
+			<dependency name="PlayerTextDrawSetPreviewVehCol"/>
+			<dependency name="PlayerTextDrawSetProportional"/>
+			<dependency name="PlayerTextDrawSetSelectable"/>
+			<dependency name="PlayerTextDrawSetShadow"/>
+			<dependency name="PlayerTextDrawTextSize"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_qty"/>
+			<dependency name="iTD_qty"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:CreateInventoryTextDraws" syntax="CreateInventoryTextDraws(playerid)">
 			<stacksize value="9"/>
 			<dependency name="operator-(Float:,Float:)"/>
@@ -37877,26 +38072,21 @@
 			<param name="arenaid">
 			</param>
 		</member>
-		<member name="M:CreatePanelTextDraws" syntax="CreatePanelTextDraws(playerid)">
-			<stacksize value="6"/>
-			<referrer name="ShowMainMenuTextdraws"/>
-			<dependency name="CreatePlayerTextDraw"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="PlayerTextDrawAlignment"/>
-			<dependency name="PlayerTextDrawBackgroundColor"/>
-			<dependency name="PlayerTextDrawColour"/>
-			<dependency name="PlayerTextDrawFont"/>
-			<dependency name="PlayerTextDrawLetterSize"/>
-			<dependency name="PlayerTextDrawSetOutline"/>
-			<dependency name="PlayerTextDrawSetProportional"/>
-			<dependency name="PlayerTextDrawSetSelectable"/>
-			<dependency name="PlayerTextDrawSetShadow"/>
-			<dependency name="PlayerTextDrawTextSize"/>
-			<dependency name="g_PanelTextDrawCreated"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
+		<member name="M:CreatePanelAllTD" syntax="CreatePanelAllTD()">
+			<stacksize value="5"/>
+			<referrer name="_@yHOnGameModeInit@0M"/>
+			<dependency name="PanelTD"/>
+			<dependency name="TextDrawAlignment"/>
+			<dependency name="TextDrawBackgroundColor"/>
+			<dependency name="TextDrawColor"/>
+			<dependency name="TextDrawCreate"/>
+			<dependency name="TextDrawFont"/>
+			<dependency name="TextDrawLetterSize"/>
+			<dependency name="TextDrawSetOutline"/>
+			<dependency name="TextDrawSetProportional"/>
+			<dependency name="TextDrawSetSelectable"/>
+			<dependency name="TextDrawSetShadow"/>
+			<dependency name="TextDrawTextSize"/>
 		</member>
 		<member name="M:CreatePlayerNameTag" syntax="CreatePlayerNameTag(playerid)">
 			<stacksize value="10"/>
@@ -38034,8 +38224,6 @@
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -38048,6 +38236,7 @@
 			<referrer name="ShowFPSCounter"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
@@ -38258,13 +38447,31 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
+		<member name="M:CreateSpeedoStaticTD" syntax="CreateSpeedoStaticTD()">
+			<stacksize value="6"/>
+			<referrer name="_@yHOnGameModeInit@0k"/>
+			<dependency name="operator*(Float:,_:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="SpeedoStaticTD"/>
+			<dependency name="TextDrawAlignment"/>
+			<dependency name="TextDrawBackgroundColor"/>
+			<dependency name="TextDrawColor"/>
+			<dependency name="TextDrawCreate"/>
+			<dependency name="TextDrawFont"/>
+			<dependency name="TextDrawLetterSize"/>
+			<dependency name="TextDrawSetOutline"/>
+			<dependency name="TextDrawSetProportional"/>
+			<dependency name="TextDrawSetShadow"/>
+			<dependency name="TextDrawTextSize"/>
+			<dependency name="g_SpeedBarColors"/>
+		</member>
 		<member name="M:CreateSpeedoTD" syntax="CreateSpeedoTD(playerid)">
 			<stacksize value="6"/>
-			<referrer name="_@yHOnPlayerConnect@0j"/>
+			<referrer name="_@yHOnPlayerConnect@0k"/>
 			<dependency name="CreatePlayerTextDraw"/>
 			<dependency name="PlayerTextDrawAlignment"/>
 			<dependency name="PlayerTextDrawBackgroundColor"/>
-			<dependency name="PlayerTextDrawColour"/>
+			<dependency name="PlayerTextDrawColor"/>
 			<dependency name="PlayerTextDrawFont"/>
 			<dependency name="PlayerTextDrawLetterSize"/>
 			<dependency name="PlayerTextDrawSetOutline"/>
@@ -38580,7 +38787,7 @@
 			<referrer name="AntiVPN"/>
 			<referrer name="pc_cmd_laypos"/>
 			<referrer name="Discord_Init"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<param name="channel_id">
 				<paraminfo> [] </paraminfo>
 			</param>
@@ -39508,8 +39715,9 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0a"/>
 			<referrer name="Construction_Stop"/>
 			<referrer name="Construction_LoadingFailed"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0e"/>
 			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="PayDay"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="pc_cmd_exit"/>
@@ -39863,6 +40071,24 @@
 			<param name="pickupid">
 			</param>
 		</member>
+		<member name="M:DestroyInvTDPlayer" syntax="DestroyInvTDPlayer(playerid)">
+			<stacksize value="5"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="_@yHOnPlayerDisconnect@0e"/>
+			<dependency name="PlayerTextDrawDestroy"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_qty"/>
+			<dependency name="iTD_qty"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:DestroyInventoryTextDraws" syntax="DestroyInventoryTextDraws(playerid)">
 			<stacksize value="5"/>
 			<dependency name="IsValidPlayerTextDraw"/>
@@ -39897,18 +40123,6 @@
 				The ID of the object to destroy.  Returned by <a href="#CreateObject">CreateObject</a>
 			</param>
 			<library>omp_object</library>  <summary>Destroys (removes) an object that was created using <a href="#CreateObject">CreateObject</a>.</summary>    <seealso name="CreateObject" />  <seealso name="IsValidObject" />  <seealso name="DestroyPlayerObject" /> 
-		</member>
-		<member name="M:DestroyPanelTextDraws" syntax="DestroyPanelTextDraws(playerid)">
-			<stacksize value="5"/>
-			<referrer name="HideMainMenuTextdraws"/>
-			<referrer name="_@yHOnPlayerDisconnect@0N"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="PlayerTextDrawDestroy"/>
-			<dependency name="false"/>
-			<dependency name="g_PanelTextDrawCreated"/>
-			<param name="playerid">
-			</param>
 		</member>
 		<member name="M:DestroyPlant" syntax="DestroyPlant(i)">
 			<stacksize value="3"/>
@@ -40668,7 +40882,7 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0a"/>
 			<referrer name="ConstructionLoader"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="DCC_CreateEmbed"/>
 			<dependency name="DCC_SendChannelEmbedMessage"/>
 			<dependency name="DCC_SetEmbedColor"/>
@@ -41106,7 +41320,7 @@
 		</member>
 		<member name="M:DropPlayerWeapon" syntax="DropPlayerWeapon(playerid, weaponid, ammo)">
 			<stacksize value="196"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="AddDroppedItem"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -41928,7 +42142,6 @@
 			<stacksize value="9"/>
 			<referrer name="OnVehicleTimeUpdate"/>
 			<referrer name="VehPlayerUpdate"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
 			<dependency name="GetVehicleVelocity"/>
 			<dependency name="VectorSize"/>
 			<dependency name="floatmul"/>
@@ -44987,6 +45200,34 @@
 			</param>
 			<library>y_utils - ip</library>    <returns>  IP as a 32bit int.  </returns> 
 		</member>
+		<member name="M:GetInvItemModel" syntax="GetInvItemModel(itemVariable)">
+			<stacksize value="1"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<dependency name="pBanhMi"/>
+			<dependency name="pBunRieu"/>
+			<dependency name="pCaPhe"/>
+			<dependency name="pCanSa"/>
+			<dependency name="pCigar"/>
+			<dependency name="pCrack"/>
+			<dependency name="pCredits"/>
+			<dependency name="pDice"/>
+			<dependency name="pHamburger"/>
+			<dependency name="pMoiCau"/>
+			<dependency name="pNuocEp"/>
+			<dependency name="pNuocLoc"/>
+			<dependency name="pPaper"/>
+			<dependency name="pPhoBo"/>
+			<dependency name="pPizza"/>
+			<dependency name="pPot"/>
+			<dependency name="pRadio"/>
+			<dependency name="pRope"/>
+			<dependency name="pSuaBo"/>
+			<dependency name="pTepCanSa"/>
+			<dependency name="pThit"/>
+			<dependency name="pTraiCay"/>
+			<param name="itemVariable">
+			</param>
+		</member>
 		<member name="M:GetInventoryType" syntax="GetInventoryType(businessid)">
 			<stacksize value="31"/>
 			<referrer name="pc_cmd_binventory"/>
@@ -45687,7 +45928,6 @@
 			<referrer name="ShowOnlineMedics"/>
 			<referrer name="ShowOnlineTaxiDrivers"/>
 			<referrer name="ProcessSMS"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnDialogResponse@0N"/>
@@ -46030,13 +46270,14 @@
 			<referrer name="ConstructionLoader"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0e"/>
 			<referrer name="PickupNearestItem"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
 			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="pc_cmd_caidat"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
@@ -46089,7 +46330,7 @@
 			<referrer name="pc_cmd_ar"/>
 			<referrer name="pc_cmd_showrequests"/>
 			<referrer name="OnPlayerEnterDynamicArea"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player whose player variable to get
@@ -46902,7 +47143,7 @@
 			<referrer name="EVF_OnVehicleMod"/>
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="Iter_OnRconLoginAttempt"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
@@ -47785,10 +48026,12 @@
 			<referrer name="ConstructionLoader"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
 			<referrer name="ParkRentedVehicle"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="ShowInvTD"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="DropPlayerWeapon"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="UpdateNameTag"/>
 			<referrer name="PayDay"/>
 			<referrer name="ShowMainStats"/>
@@ -48085,7 +48328,7 @@
 			<referrer name="_@yHOnDialogResponse@0c"/>
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="PickupNearestItem"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="PlayerCompassUpdate"/>
@@ -48460,7 +48703,7 @@
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="PlayerCompassUpdate"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="pc_cmd_speedo"/>
 			<param name="playerid">
 				The ID of the player to get the current state of
@@ -48480,7 +48723,7 @@
 		<member name="M:GetPlayerTargetPlayer" syntax="GetPlayerTargetPlayer(playerid)">
 			<attribute name="native"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
 			<param name="playerid">
 				The ID of the player to get the target of
 			</param>
@@ -48706,7 +48949,7 @@
 			<referrer name="TDA_DIALOG_USENUOCEP"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player in the vehicle that you want to get the ID of
@@ -48920,7 +49163,7 @@
 			<referrer name="pc_cmd_myguns"/>
 			<referrer name="pc_cmd_listguns"/>
 			<referrer name="ShowPlayerInventory"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<param name="playerid">
 				The ID of the player whose weapon data to retrieve
 			</param>
@@ -49765,7 +50008,7 @@
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_famedplate"/>
 			<referrer name="ParkRentedVehicle"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="vehicleid">
 				The ID of the vehicle to get the health of
@@ -50282,7 +50525,7 @@
 		</member>
 		<member name="M:GetVehicleSpeed" syntax="GetVehicleSpeed(vehicleid)">
 			<stacksize value="10"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="operator*(Float:,Float:)"/>
 			<dependency name="GetVehicleVelocity"/>
@@ -50850,7 +51093,7 @@
 			<referrer name="ConstructionLoader"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="UpdateNewbieMission"/>
 			<referrer name="PayDay"/>
 			<referrer name="PlayerEnterInterior"/>
@@ -51725,7 +51968,7 @@
 			<referrer name="ShowHungerDisplay"/>
 			<referrer name="pc_cmd_hungertype"/>
 			<referrer name="_@yHOnPlayerDisconnect@0U"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<dependency name="Hunger"/>
 			<dependency name="HungerIcon"/>
 			<dependency name="HungerInLine"/>
@@ -51799,16 +52042,40 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:HideInvTD" syntax="HideInvTD(playerid)">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
+			<dependency name="CancelSelectTextDraw"/>
+			<dependency name="DestroyInvTDPlayer"/>
+			<dependency name="InvTDOpen"/>
+			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="TextDrawHideForPlayer"/>
+			<dependency name="false"/>
+			<dependency name="g_InvTDCreated"/>
+			<dependency name="iTD_bar"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_g"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_qty"/>
+			<dependency name="iTD_qty"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:HideMainMenuTextdraws" syntax="HideMainMenuTextdraws(playerid)">
 			<stacksize value="7"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0N"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0N"/>
 			<dependency name="CancelSelectTextDraw"/>
-			<dependency name="DestroyPanelTextDraws"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="Panel_TextDraw"/>
+			<dependency name="PanelTD"/>
 			<dependency name="PlayerPlaySound"/>
-			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="TextDrawHideForPlayer"/>
 			<dependency name="false"/>
 			<dependency name="g_PlayerInTextDrawMode"/>
 			<dependency name="g_PlayerTextDrawShown"/>
@@ -51948,12 +52215,14 @@
 		</member>
 		<member name="M:HideSpeedoTD" syntax="HideSpeedoTD(playerid)">
 			<stacksize value="5"/>
-			<referrer name="_@yHOnPlayerDisconnect@0j"/>
-			<referrer name="_@yHOnPlayerStateChange@0j"/>
+			<referrer name="_@yHOnPlayerDisconnect@0k"/>
+			<referrer name="_@yHOnPlayerStateChange@0k"/>
 			<referrer name="pc_cmd_speedo"/>
 			<dependency name="PlayerTextDrawHide"/>
 			<dependency name="SpeedoDrpTD"/>
 			<dependency name="SpeedoDrpTD"/>
+			<dependency name="SpeedoStaticTD"/>
+			<dependency name="TextDrawHideForPlayer"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -51993,7 +52262,7 @@
 		<member name="M:HideUiPlayerInfo" syntax="HideUiPlayerInfo(playerid)">
 			<stacksize value="5"/>
 			<referrer name="_@yHOnPlayerSpawn@0H"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<dependency name="DestroyUiPlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -52014,7 +52283,7 @@
 			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="OnPlayerCommandPerformed"/>
 			<referrer name="PorterAnimation"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="PayDay"/>
 			<dependency name="CreateSCMTextDraw"/>
 			<dependency name="KillTimer"/>
@@ -54419,7 +54688,7 @@
 		</member>
 		<member name="M:Internal_ShowActionForPlayer" syntax="Internal_ShowActionForPlayer(playerid, tda_callback[], tda_description[], tda_title[], action_time)">
 			<stacksize value="7"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="CreatePlayerTextDraw"/>
 			<dependency name="HideActionForPlayer"/>
 			<dependency name="PlayerPlaySound"/>
@@ -56188,7 +56457,8 @@
 			<referrer name="TRUCKER_WELCOME_MSG"/>
 			<referrer name="_@yHOnDialogResponse@0Z"/>
 			<referrer name="pc_cmd_kiemtrahang"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="ShowHelpCommand"/>
 			<referrer name="OnDialogResponse"/>
@@ -56211,7 +56481,7 @@
 			<referrer name="pc_cmd_sellbiz"/>
 			<referrer name="_@yHOnDialogResponse@0Y"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="ShowPlayerSettings"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -56252,6 +56522,8 @@
 			<referrer name="checkSpeedVehicle"/>
 			<referrer name="CheckPlayerRemoteJacking"/>
 			<referrer name="SlapAntiSlap"/>
+			<referrer name="pc_cmd_dienthoai"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0N"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="MoneyUpdate"/>
@@ -56337,8 +56609,8 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="_@yHOnPlayerDisconnect@0c"/>
 			<referrer name="DropPlayerWeapon"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="TDA_DIALOG_USEBANHMI"/>
 			<referrer name="TDA_DIALOG_USENUOCLOC"/>
 			<referrer name="TDA_DIALOG_USEPIZZA"/>
@@ -56362,7 +56634,7 @@
 			<referrer name="OnPlayerUseTraiCay"/>
 			<referrer name="OnPlayerUseNuocEp"/>
 			<referrer name="PlayerCompassUpdate"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player to check
@@ -56786,7 +57058,7 @@
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnPlayerRequestClass"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
 			<param name="playerid">
 				The ID of the player to check
 			</param>
@@ -57271,8 +57543,6 @@
 		<member name="M:IsValidPlayerTextDraw" syntax="IsValidPlayerTextDraw(playerid, textid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="UpdatePhoneTime"/>
-			<referrer name="OnPhoneLoadingFinish"/>
 			<referrer name="DestroyInventoryTextDraws"/>
 			<param name="playerid">
 			</param>
@@ -57341,7 +57611,7 @@
 			<referrer name="SpawnRentalCar"/>
 			<referrer name="DestroyRentalCar"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<param name="vehicleid">
 				The ID of the vehicle to check
 			</param>
@@ -61169,7 +61439,7 @@
 			<referrer name="OnPlayerCommandReceived"/>
 			<referrer name="OnPlayerText"/>
 			<referrer name="EVF_OnPlayerEditDynamicObject"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="PayDay"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
@@ -63092,16 +63362,14 @@
 			<referrer name="@yH_OnPlayerDisconnect@0I"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0J"/>
 			<referrer name="@yH_OnDialogResponse@0J"/>
+			<referrer name="@yH_OnGameModeInit@0K"/>
 			<referrer name="@yH_OnPlayerDisconnect@0K"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0L"/>
 			<referrer name="@yH_OnDialogResponse@0L"/>
-			<referrer name="@yH_OnPlayerConnect@0M"/>
+			<referrer name="@yH_OnGameModeInit@0M"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0N"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0N"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0N"/>
-			<referrer name="@yH_OnPlayerDisconnect@0N"/>
 			<referrer name="@yH_OnDialogResponse@0N"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
 			<referrer name="@yH_OnDialogResponse@0O"/>
@@ -63157,17 +63425,23 @@
 			<referrer name="@yH_OnPlayerEnterCheckpoint@0c"/>
 			<referrer name="@yH_OnDialogResponse@0c"/>
 			<referrer name="@yH_OnDialogResponse@0d"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
-			<referrer name="@yH_OnDialogResponse@0e"/>
+			<referrer name="@yH_OnGameModeInit@0e"/>
+			<referrer name="@yH_OnPlayerConnect@0e"/>
+			<referrer name="@yH_OnPlayerDisconnect@0e"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@0e"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0e"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0f"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
-			<referrer name="@yH_OnPlayerConnect@0g"/>
-			<referrer name="@yH_OnDialogResponse@0h"/>
+			<referrer name="@yH_OnDialogResponse@0g"/>
+			<referrer name="@yH_OnPlayerConnect@0h"/>
 			<referrer name="@yH_OnDialogResponse@0i"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0j"/>
-			<referrer name="@yH_OnPlayerConnect@0j"/>
-			<referrer name="@yH_OnPlayerDisconnect@0j"/>
-			<referrer name="@yH_OnPlayerStateChange@0j"/>
-			<referrer name="@yH_OnPlayerUpdate@0j"/>
+			<referrer name="@yH_OnDialogResponse@0j"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0k"/>
+			<referrer name="@yH_OnPlayerConnect@0k"/>
+			<referrer name="@yH_OnPlayerDisconnect@0k"/>
+			<referrer name="@yH_OnPlayerStateChange@0k"/>
+			<referrer name="@yH_OnGameModeInit@0k"/>
+			<referrer name="@yH_OnPlayerUpdate@0k"/>
 			<dependency name="O@V_"/>
 			<dependency name="cellbytes"/>
 			<dependency name="false"/>
@@ -67515,13 +67789,11 @@
 			<attribute name="public"/>
 			<stacksize value="5"/>
 			<dependency name="DeletePVar"/>
-			<dependency name="IsValidPlayerTextDraw"/>
 			<dependency name="PhoneOpen"/>
-			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="PhoneTD"/>
 			<dependency name="SelectTextDraw"/>
 			<dependency name="SetPVarInt"/>
-			<dependency name="Text_Player"/>
-			<dependency name="Text_Player"/>
+			<dependency name="TextDrawShowForPlayer"/>
 			<dependency name="UpdatePhoneTime"/>
 			<dependency name="pc_cmd_me"/>
 			<dependency name="true"/>
@@ -71726,15 +71998,15 @@
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="OnOfflineKickMember"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0N"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0N"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0N"/>
 			<referrer name="_@yHOnDialogResponse@0N"/>
 			<referrer name="pc_cmd_dunglamviec"/>
 			<referrer name="_@yHOnDialogResponse@0Z"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0a"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="ShowHelpCommand"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
@@ -71879,7 +72151,6 @@
 			<referrer name="pc_alias_addmaterials"/>
 			<referrer name="pc_alias_bizradio"/>
 			<referrer name="pc_alias_famedlocker"/>
-			<referrer name="pc_alias_map"/>
 			<referrer name="pc_alias_quitjob"/>
 			<referrer name="pc_alias_ataxi"/>
 			<referrer name="pc_alias_xemhang"/>
@@ -71888,6 +72159,7 @@
 			<referrer name="pc_alias_nextpaycheck"/>
 			<referrer name="pc_alias_stats"/>
 			<referrer name="pc_alias_quickstats"/>
+			<referrer name="pc_alias_map"/>
 			<referrer name="pc_alias_help"/>
 			<referrer name="pc_alias_enter"/>
 			<referrer name="pc_alias_exit"/>
@@ -72405,64 +72677,41 @@
 			<param name="vehicleid">
 			</param>
 		</member>
-		<member name="M:Phone_Build" syntax="Phone_Build(playerid)">
-			<stacksize value="6"/>
-			<referrer name="Phone_Open"/>
-			<referrer name="pc_cmd_dienthoai"/>
-			<dependency name="CreatePlayerTextDraw"/>
-			<dependency name="PhoneBuilt"/>
-			<dependency name="PlayerTextDrawAlignment"/>
-			<dependency name="PlayerTextDrawBackgroundColor"/>
-			<dependency name="PlayerTextDrawColour"/>
-			<dependency name="PlayerTextDrawFont"/>
-			<dependency name="PlayerTextDrawLetterSize"/>
-			<dependency name="PlayerTextDrawSetOutline"/>
-			<dependency name="PlayerTextDrawSetProportional"/>
-			<dependency name="PlayerTextDrawSetSelectable"/>
-			<dependency name="PlayerTextDrawSetShadow"/>
-			<dependency name="PlayerTextDrawTextSize"/>
-			<dependency name="Text_Player"/>
-			<dependency name="Text_Player"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:Phone_Close" syntax="Phone_Close(playerid)">
 			<stacksize value="5"/>
+			<referrer name="_@yHOnPlayerDisconnect@0K"/>
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<dependency name="PhoneOpen"/>
-			<dependency name="Phone_Destroy"/>
-			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="PhoneTD"/>
 			<dependency name="SetPVarInt"/>
-			<dependency name="Text_Player"/>
-			<dependency name="Text_Player"/>
+			<dependency name="TextDrawHideForPlayer"/>
 			<dependency name="false"/>
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:Phone_Destroy" syntax="Phone_Destroy(playerid)">
+		<member name="M:Phone_CreateTD" syntax="Phone_CreateTD()">
 			<stacksize value="5"/>
-			<referrer name="Phone_Close"/>
-			<referrer name="_@yHOnPlayerDisconnect@0K"/>
-			<dependency name="PhoneBuilt"/>
-			<dependency name="PlayerTextDrawDestroy"/>
-			<dependency name="Text_Player"/>
-			<dependency name="Text_Player"/>
-			<dependency name="false"/>
-			<param name="playerid">
-			</param>
+			<referrer name="_@yHOnGameModeInit@0K"/>
+			<dependency name="PhoneTD"/>
+			<dependency name="TextDrawAlignment"/>
+			<dependency name="TextDrawBackgroundColor"/>
+			<dependency name="TextDrawColor"/>
+			<dependency name="TextDrawCreate"/>
+			<dependency name="TextDrawFont"/>
+			<dependency name="TextDrawLetterSize"/>
+			<dependency name="TextDrawSetOutline"/>
+			<dependency name="TextDrawSetProportional"/>
+			<dependency name="TextDrawSetSelectable"/>
+			<dependency name="TextDrawSetShadow"/>
+			<dependency name="TextDrawTextSize"/>
 		</member>
 		<member name="M:Phone_Open" syntax="Phone_Open(playerid)">
 			<stacksize value="5"/>
-			<dependency name="PhoneBuilt"/>
 			<dependency name="PhoneOpen"/>
-			<dependency name="Phone_Build"/>
-			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="PhoneTD"/>
 			<dependency name="SetPVarInt"/>
-			<dependency name="Text_Player"/>
-			<dependency name="Text_Player"/>
+			<dependency name="TextDrawShowForPlayer"/>
 			<dependency name="true"/>
 			<param name="playerid">
 			</param>
@@ -72512,7 +72761,7 @@
 		</member>
 		<member name="M:PickupNearestItem" syntax="PickupNearestItem(playerid)">
 			<stacksize value="146"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="DroppedItemCount"/>
@@ -72745,7 +72994,7 @@
 		</member>
 		<member name="M:PlayerCompassUpdate" syntax="PlayerCompassUpdate(playerid, vehid)">
 			<stacksize value="136"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<dependency name="operator&gt;=(Float:,Float:)"/>
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="GetPlayerFacingAngle"/>
@@ -72765,7 +73014,7 @@
 		</member>
 		<member name="M:PlayerEnterInterior" syntax="PlayerEnterInterior(playerid)">
 			<stacksize value="107"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0j"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0k"/>
 			<referrer name="pc_cmd_enter"/>
 			<dependency name="operator+(Float:,_:)"/>
 			<dependency name="operator-(Float:,Float:)"/>
@@ -72906,7 +73155,7 @@
 		</member>
 		<member name="M:PlayerExitInterior" syntax="PlayerExitInterior(playerid)">
 			<stacksize value="96"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0j"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0k"/>
 			<referrer name="pc_cmd_exit"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
@@ -73068,7 +73317,6 @@
 			<referrer name="ShowTDN"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="ShowMainMenuTextdraws"/>
@@ -73128,7 +73376,7 @@
 			<referrer name="_@yHOnPlayerEnterVehicle@0X"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
 			<referrer name="_@yHOnDialogResponse@0c"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player for whom to play the sound
@@ -73194,13 +73442,12 @@
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
 			<referrer name="CreatePokerGUI"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
@@ -73222,9 +73469,8 @@
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
@@ -73319,7 +73565,10 @@
 			<attribute name="native"/>
 			<referrer name="Internal_ShowActionForPlayer"/>
 			<referrer name="CreateNotify"/>
+			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="PopulateInvTDSlots"/>
 			<referrer name="createLoadingTD"/>
+			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
 				The ID of the player who's textdraw to set the colour of
 			</param>
@@ -73344,8 +73593,6 @@
 			<referrer name="CreateBossHPTextdraws"/>
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -73358,7 +73605,6 @@
 			<referrer name="ShowFPSCounter"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
-			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
 				The ID of the player who's textdraw to set the colour of
 			</param>
@@ -73384,12 +73630,11 @@
 			<referrer name="DestroySCMTextDraw"/>
 			<referrer name="HideNotify"/>
 			<referrer name="ShowNotify"/>
-			<referrer name="Phone_Destroy"/>
-			<referrer name="DestroyPanelTextDraws"/>
 			<referrer name="DestroyPokerGUI"/>
 			<referrer name="mS_DestroySelectionMenu"/>
 			<referrer name="mS_DestroyPlayerMPs"/>
 			<referrer name="DestroyInventoryTextDraws"/>
+			<referrer name="DestroyInvTDPlayer"/>
 			<referrer name="StopLoading"/>
 			<referrer name="Animator_OnFinish"/>
 			<param name="playerid">
@@ -73412,8 +73657,6 @@
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -73426,6 +73669,7 @@
 			<referrer name="ShowFPSCounter"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
@@ -73550,8 +73794,6 @@
 			<referrer name="DestroyMessageTD"/>
 			<referrer name="HideUiPlayerInfo"/>
 			<referrer name="XoaTextDraw"/>
-			<referrer name="Phone_Close"/>
-			<referrer name="HideMainMenuTextdraws"/>
 			<referrer name="HideAllHungerTextdraws"/>
 			<referrer name="hungerGames"/>
 			<referrer name="PokerOptions"/>
@@ -73566,8 +73808,9 @@
 			<referrer name="HideTradeToysGUI"/>
 			<referrer name="HideHungerGamesTextdraw"/>
 			<referrer name="HideFPSCounter"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="HideInvTD"/>
 			<referrer name="HideSpeedoTD"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
 			<param name="playerid">
 				The ID of the player to hide the textdraw for
 			</param>
@@ -73590,8 +73833,6 @@
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -73603,6 +73844,7 @@
 			<referrer name="ShowFPSCounter"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
@@ -73633,8 +73875,6 @@
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -73646,6 +73886,7 @@
 			<referrer name="ShowFPSCounter"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
@@ -73685,6 +73926,8 @@
 			<referrer name="mS_CreateMPTextDraw"/>
 			<referrer name="PrepTradeToysGUI"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="PopulateInvTDSlots"/>
 			<param name="playerid">
 				The PlayerTextDraw player ID
 			</param>
@@ -73704,6 +73947,7 @@
 			<referrer name="mS_CreateMPTextDraw"/>
 			<referrer name="PrepTradeToysGUI"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to change
 			</param>
@@ -73733,6 +73977,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="CreateUiPlayerInfo"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to change
 			</param>
@@ -73778,8 +74023,6 @@
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="CreatePokerGUI"/>
 			<referrer name="PrepTradeToysGUI"/>
@@ -73787,6 +74030,7 @@
 			<referrer name="ShowFPSCounter"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
@@ -73806,8 +74050,6 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
 			<referrer name="mS_CreateMPTextDraw"/>
 			<referrer name="CreatePokerGUI"/>
@@ -73816,6 +74058,7 @@
 			<referrer name="ShowFPSCounter"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the selectability of
 			</param>
@@ -73839,8 +74082,6 @@
 			<referrer name="CreateUiPlayerInfo"/>
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="mS_CreateCurrentPageTextDraw"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -73850,6 +74091,7 @@
 			<referrer name="PrepTradeToysGUI"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
 			<param name="playerid">
@@ -73876,7 +74118,6 @@
 			<referrer name="UpdateHudUI"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="XoaTextDraw"/>
-			<referrer name="UpdatePhoneTime"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
 			<referrer name="hungerGames"/>
 			<referrer name="fpsCounterUpdate"/>
@@ -73890,9 +74131,11 @@
 			<referrer name="pc_cmd_leavehunger"/>
 			<referrer name="pc_cmd_joinhunger"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="ShowInvTD"/>
 			<referrer name="PayDay"/>
 			<referrer name="PlayerCompassUpdate"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<param name="playerid">
 				The ID of the player who's textdraw string to set
 			</param>
@@ -73931,9 +74174,6 @@
 			<referrer name="HienTextdraw"/>
 			<referrer name="NotifyLoadingUpdet"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Open"/>
-			<referrer name="OnPhoneLoadingFinish"/>
-			<referrer name="ShowMainMenuTextdraws"/>
 			<referrer name="ShowHungerDisplay"/>
 			<referrer name="UpdatePlayerHealthBar"/>
 			<referrer name="PokerOptions"/>
@@ -73951,10 +74191,12 @@
 			<referrer name="PrepTradeToysGUI"/>
 			<referrer name="CreateHungerGamesTextdraw"/>
 			<referrer name="ShowFPSCounter"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="ShowInvTD"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="PayDay"/>
 			<referrer name="ShowSpeedoTD"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<param name="playerid">
 				The ID of the player to show the textdraw for
 			</param>
@@ -73980,8 +74222,6 @@
 			<referrer name="CreateSCMTextDraw"/>
 			<referrer name="NotifyLoadingUpdet"/>
 			<referrer name="CreateNotify"/>
-			<referrer name="Phone_Build"/>
-			<referrer name="CreatePanelTextDraws"/>
 			<referrer name="_@yHOnPlayerConnect@0U"/>
 			<referrer name="UpdatePlayerHealthBar"/>
 			<referrer name="mS_CreatePlayerDialogButton"/>
@@ -73991,9 +74231,10 @@
 			<referrer name="PrepTradeToysGUI"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="CreateInventoryTextDraws"/>
+			<referrer name="CreateInvTDPlayer"/>
 			<referrer name="createLoadingTD"/>
 			<referrer name="CreateSpeedoTD"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the size of
 			</param>
@@ -74605,6 +74846,38 @@
 			</param>
 			<library>amx_assembly dynamic_call</library>
 		</member>
+		<member name="M:PopulateInvTDSlots" syntax="PopulateInvTDSlots(playerid)">
+			<stacksize value="65"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="RefreshInvTD"/>
+			<dependency name="GetInvItemModel"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="InvTDSlot"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="NameItem"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerTextDrawColor"/>
+			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="PlayerTextDrawSetPreviewModel"/>
+			<dependency name="PlayerTextDrawSetString"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="format"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_qty"/>
+			<dependency name="iTD_qty"/>
+			<dependency name="pVariable"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:PorterAnimation" syntax="PorterAnimation(playerid, step)">
 			<attribute name="public"/>
 			<stacksize value="163"/>
@@ -75032,9 +75305,9 @@
 			<referrer name="ShowOnlineMedics"/>
 			<referrer name="ShowOnlineTaxiDrivers"/>
 			<referrer name="pc_cmd_goisdt"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0N"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0N"/>
 			<referrer name="ShowBuyFood"/>
 			<referrer name="_@yHOnDialogResponse@0O"/>
 			<referrer name="pc_cmd_xemvitri"/>
@@ -75211,7 +75484,6 @@
 			<referrer name="pc_cmd_joinhunger"/>
 			<referrer name="pc_cmd_gtedit"/>
 			<referrer name="pc_cmd_tagedit"/>
-			<referrer name="pc_cmd_map"/>
 			<referrer name="OnPlayerPressButton"/>
 			<referrer name="OnPlayerModelSelection"/>
 			<referrer name="OnPlayerTakeDamage"/>
@@ -75235,20 +75507,20 @@
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="ShowWeaponOptions"/>
 			<referrer name="ShowItemOptions"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="pc_cmd_additem"/>
 			<referrer name="ShowNewbieMission"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="pc_cmd_nhiemvu"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="ShowSecondaryStats"/>
 			<referrer name="pc_cmd_netstats"/>
 			<referrer name="pc_cmd_anetstats"/>
-			<referrer name="pc_cmd_timduong"/>
+			<referrer name="ShowGPSMainDialog"/>
 			<referrer name="pc_cmd_timvieclam"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="ShowJobHelp"/>
 			<referrer name="pc_cmd_cmds"/>
 			<referrer name="OnPlayerLoad"/>
@@ -75726,7 +75998,7 @@
 			<referrer name="_@yHOnDialogResponse@0Z"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="DropPlayerWeapon"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="OnDialogResponse"/>
@@ -75827,7 +76099,7 @@
 			<referrer name="pc_cmd_selltoy"/>
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
 			<dependency name="GetPlayerPos"/>
 			<dependency name="GetPlayerVirtualWorld"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
@@ -76651,6 +76923,15 @@
 			<param name="i">
 			</param>
 		</member>
+		<member name="M:RefreshInvTD" syntax="RefreshInvTD(playerid)">
+			<stacksize value="4"/>
+			<dependency name="BuildInvTDSlotMap"/>
+			<dependency name="InvTDOpen"/>
+			<dependency name="PopulateInvTDSlots"/>
+			<dependency name="g_InvTDCreated"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:RegisterVehicleNumberPlate" syntax="RegisterVehicleNumberPlate(vehicleid, sz_NumPlate[])">
 			<stacksize value="12"/>
 			<dependency name="EVF_SetVehicleZAngle"/>
@@ -77257,7 +77538,6 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="startpainter"/>
 			<referrer name="StopFishing"/>
@@ -80776,6 +81056,7 @@
 			<referrer name="JoinPokerTable"/>
 			<referrer name="ShowModelSelectionMenu"/>
 			<referrer name="ShowModelSelectionMenuEx"/>
+			<referrer name="ShowInvTD"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player that should be able to select a textdraw
@@ -81129,11 +81410,11 @@
 			<referrer name="Construction_LoadingFailed"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="PickupNearestItem"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
-			<referrer name="UpdateNewbieMission"/>
 			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="UpdateNewbieMission"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="PayDay"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="ShowHelpCommand"/>
 			<referrer name="pc_cmd_help"/>
 			<referrer name="pc_cmd_jobhelp"/>
@@ -82321,7 +82602,7 @@
 			<referrer name="_@yHOnDialogResponse@0d"/>
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="PickupNearestItem"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="TDA_DIALOG_USEBANHMI"/>
 			<referrer name="TDA_DIALOG_USENUOCLOC"/>
 			<referrer name="TDA_DIALOG_USEPIZZA"/>
@@ -82333,11 +82614,11 @@
 			<referrer name="TDA_DIALOG_USETHITHUNKHOI"/>
 			<referrer name="TDA_DIALOG_USETRAICAY"/>
 			<referrer name="TDA_DIALOG_USENUOCEP"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="pc_cmd_nhiemvu"/>
 			<referrer name="OnTestLoadingFinish"/>
 			<referrer name="pc_cmd_caidat"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<referrer name="PayDay"/>
 			<referrer name="pc_cmd_nextpaycheck"/>
 			<referrer name="pc_cmd_stats"/>
@@ -83711,7 +83992,6 @@
 			<referrer name="pc_cmd_thoathtb"/>
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="pc_cmd_selfie"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="SetPlayerFirstSpawn"/>
 			<referrer name="LeavePokerTable"/>
@@ -84161,7 +84441,7 @@
 			<referrer name="ShowOnlineTaxiDrivers"/>
 			<referrer name="OnPhoneLoadingFinish"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0N"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0N"/>
 			<referrer name="_@yHOnDialogResponse@0P"/>
 			<referrer name="TienTrinhHaiCanSa"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
@@ -84448,11 +84728,11 @@
 			<referrer name="Construction_Start"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
 			<referrer name="ShowWeaponOptions"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
-			<referrer name="ShowNewbieMission"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
 			<referrer name="_@yHOnDialogResponse@0f"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="ShowNewbieMission"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="ShowSecondaryStats"/>
 			<referrer name="OnPlayerLoad"/>
@@ -84513,7 +84793,7 @@
 			<referrer name="pc_cmd_givesprize"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnPlayerClickPlayer"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player whose player variable will be set
@@ -84765,7 +85045,7 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
 			<referrer name="_@yHOnDialogResponse@0c"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="CreatePlayerPickup"/>
@@ -84861,7 +85141,6 @@
 			<attribute name="native"/>
 			<referrer name="RadioBroadCast"/>
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="EMSUpdate"/>
@@ -84907,7 +85186,7 @@
 			<referrer name="_@yHOnDialogResponse@0T"/>
 			<referrer name="ChatCayTimer"/>
 			<referrer name="SetPlayerCP"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<param name="playerid">
 				The ID of the player for whom to set a checkpoint
 			</param>
@@ -85849,7 +86128,6 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
@@ -87549,6 +87827,13 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:ShowGPSMainDialog" syntax="ShowGPSMainDialog(playerid)">
+			<stacksize value="10"/>
+			<referrer name="pc_cmd_map"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:ShowHelpCommand" syntax="ShowHelpCommand(playerid, listitem)">
 			<stacksize value="9"/>
 			<referrer name="OnDialogResponse"/>
@@ -87577,7 +87862,7 @@
 			<stacksize value="5"/>
 			<referrer name="UpdateBar"/>
 			<referrer name="pc_cmd_hungertype"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<dependency name="GetTypeHunger"/>
 			<dependency name="HideAllHungerTextdraws"/>
 			<dependency name="Hunger"/>
@@ -87627,9 +87912,34 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:ShowInvTD" syntax="ShowInvTD(playerid)">
+			<attribute name="public"/>
+			<stacksize value="31"/>
+			<referrer name="ShowPlayerInventory"/>
+			<dependency name="BuildInvTDSlotMap"/>
+			<dependency name="CreateInvTDPlayer"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="InvTDOpen"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerTextDrawSetString"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="PopulateInvTDSlots"/>
+			<dependency name="SelectTextDraw"/>
+			<dependency name="TextDrawShowForPlayer"/>
+			<dependency name="g_InvTDCreated"/>
+			<dependency name="iTD_bar"/>
+			<dependency name="iTD_g"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:ShowItemOptions" syntax="ShowItemOptions(playerid, itemid)">
 			<stacksize value="268"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="ItemInventory"/>
 			<dependency name="ItemInventory"/>
 			<dependency name="NameItem"/>
@@ -87693,13 +88003,10 @@
 		<member name="M:ShowMainMenuTextdraws" syntax="ShowMainMenuTextdraws(playerid)">
 			<stacksize value="7"/>
 			<referrer name="pc_cmd_menu"/>
-			<dependency name="CreatePanelTextDraws"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="Panel_TextDraw"/>
+			<dependency name="PanelTD"/>
 			<dependency name="PlayerPlaySound"/>
-			<dependency name="PlayerTextDrawShow"/>
 			<dependency name="SelectTextDraw"/>
-			<dependency name="g_PanelTextDrawCreated"/>
+			<dependency name="TextDrawShowForPlayer"/>
 			<dependency name="g_PlayerInTextDrawMode"/>
 			<dependency name="g_PlayerTextDrawShown"/>
 			<dependency name="true"/>
@@ -88179,8 +88486,8 @@
 		</member>
 		<member name="M:ShowPlayerInventory" syntax="ShowPlayerInventory(playerid)">
 			<stacksize value="2193"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="pc_cmd_inv"/>
 			<referrer name="pc_cmd_tuido"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -88192,8 +88499,10 @@
 			<dependency name="NameItem"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="ShowInvTD"/>
 			<dependency name="format"/>
 			<dependency name="pGuns"/>
+			<dependency name="pInvType"/>
 			<dependency name="pVariable"/>
 			<param name="playerid">
 			</param>
@@ -88226,9 +88535,9 @@
 			</param>
 		</member>
 		<member name="M:ShowPlayerSettings" syntax="ShowPlayerSettings(playerid)">
-			<stacksize value="4168"/>
+			<stacksize value="4193"/>
 			<referrer name="pc_cmd_caidat"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="DCC_FindUserById"/>
 			<dependency name="DCC_GetUserName"/>
@@ -88246,6 +88555,7 @@
 			<dependency name="gOoc"/>
 			<dependency name="pDiscordID"/>
 			<dependency name="pHUDInfo"/>
+			<dependency name="pInvType"/>
 			<dependency name="pTypeHunger"/>
 			<dependency name="strcat"/>
 			<param name="playerid">
@@ -88342,11 +88652,13 @@
 		</member>
 		<member name="M:ShowSpeedoTD" syntax="ShowSpeedoTD(playerid)">
 			<stacksize value="5"/>
-			<referrer name="_@yHOnPlayerStateChange@0j"/>
+			<referrer name="_@yHOnPlayerStateChange@0k"/>
 			<referrer name="pc_cmd_speedo"/>
 			<dependency name="PlayerTextDrawShow"/>
 			<dependency name="SpeedoDrpTD"/>
 			<dependency name="SpeedoDrpTD"/>
+			<dependency name="SpeedoStaticTD"/>
+			<dependency name="TextDrawShowForPlayer"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -88372,7 +88684,7 @@
 			<referrer name="SyntaxMsg"/>
 			<referrer name="WarningMsg"/>
 			<referrer name="pc_cmd_testnofi"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="ProcessFoodPurchase"/>
 			<referrer name="_@yHOnDialogResponse@0P"/>
@@ -88480,7 +88792,7 @@
 		<member name="M:ShowUiPlayerInfo" syntax="ShowUiPlayerInfo(playerid)">
 			<stacksize value="5"/>
 			<referrer name="_@yHOnPlayerSpawn@0H"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<dependency name="CreateUiPlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -88521,7 +88833,7 @@
 		</member>
 		<member name="M:ShowWeaponOptions" syntax="ShowWeaponOptions(playerid, weaponid, ammo)">
 			<stacksize value="298"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="GetWeaponName"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="SetPVarInt"/>
@@ -90485,8 +90797,12 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="LoadTextDraws"/>
 			<referrer name="CreatePlayerTextDraws"/>
+			<referrer name="CreateInvTDGlobal"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The ID of the textdraw to set the alignment of
@@ -90500,6 +90816,10 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="TextDrawSafeZone"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
+			<referrer name="CreateInvTDGlobal"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The ID of the textdraw to set the background colour of
@@ -90562,6 +90882,10 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="TextDrawSafeZone"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
+			<referrer name="CreateInvTDGlobal"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The ID of the textdraw to change the colour of.
@@ -90600,10 +90924,14 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
 			<referrer name="CreatePlayerTextDraws"/>
+			<referrer name="CreateInvTDGlobal"/>
 			<referrer name="OnPlayerLoad"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="x">
 				<paraminfo>Float </paraminfo>
 				The x (left/right) coordinate to create the textdraw at
@@ -90640,10 +90968,14 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
 			<referrer name="CreatePlayerTextDraws"/>
+			<referrer name="CreateInvTDGlobal"/>
 			<referrer name="OnPlayerLoad"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The TextDraw to change
@@ -90699,12 +91031,17 @@
 			<referrer name="OnPlayerClickTextDraw"/>
 			<referrer name="Prev_ShowPlayerDialog"/>
 			<referrer name="TDHide"/>
+			<referrer name="Phone_Close"/>
+			<referrer name="HideMainMenuTextdraws"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="HideReportText"/>
 			<referrer name="HideNoticeGUIFrame"/>
 			<referrer name="HideNoticeCommand"/>
 			<referrer name="pc_cmd_wristwatch"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
+			<referrer name="HideInvTD"/>
+			<referrer name="HideSpeedoTD"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<param name="playerid">
 				The ID of the player that the textdraw should be hidden for
 			</param>
@@ -90721,10 +91058,13 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
 			<referrer name="CreatePlayerTextDraws"/>
 			<referrer name="OnPlayerLoad"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The TextDraw to change
@@ -90766,10 +91106,14 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
 			<referrer name="CreatePlayerTextDraws"/>
+			<referrer name="CreateInvTDGlobal"/>
 			<referrer name="OnPlayerLoad"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The ID of the text draw to set the outline thickness of
@@ -90845,10 +91189,14 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
 			<referrer name="CreatePlayerTextDraws"/>
+			<referrer name="CreateInvTDGlobal"/>
 			<referrer name="OnPlayerLoad"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The ID of the textdraw to set the proportionality of
@@ -90864,6 +91212,9 @@
 			<attribute name="native"/>
 			<referrer name="Prev_CreateTextDraws"/>
 			<referrer name="TextDrawSafeZone"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
+			<referrer name="CreateInvTDGlobal"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The ID of the textdraw to make selectable
@@ -90881,9 +91232,13 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="pc_cmd_makeadmin"/>
 			<referrer name="LoadTextDraws"/>
+			<referrer name="CreateInvTDGlobal"/>
 			<referrer name="OnPlayerLoad"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The ID of the textdraw to set the shadow size of
@@ -90897,6 +91252,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="FIXES_GameTextForAll"/>
+			<referrer name="UpdatePhoneTime"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ShowNoticeGUIFrame"/>
 			<referrer name="SendReportToQue"/>
@@ -90933,11 +91289,17 @@
 			<referrer name="Prev_ShowPlayerDialog"/>
 			<referrer name="TDShow"/>
 			<referrer name="_@yHOnPlayerSpawn@0H"/>
+			<referrer name="Phone_Open"/>
+			<referrer name="OnPhoneLoadingFinish"/>
+			<referrer name="ShowMainMenuTextdraws"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ShowNoticeGUIFrame"/>
 			<referrer name="SendReportToQue"/>
 			<referrer name="pc_cmd_wristwatch"/>
 			<referrer name="CreatePlayerTextDraws"/>
+			<referrer name="ShowInvTD"/>
+			<referrer name="ShowSpeedoTD"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<param name="playerid">
 				The ID of the player to show the textdraw for
 			</param>
@@ -90954,7 +91316,11 @@
 			<referrer name="GameTextEx"/>
 			<referrer name="TextDrawSafeZone"/>
 			<referrer name="LoadTDLogo"/>
+			<referrer name="Phone_CreateTD"/>
+			<referrer name="CreatePanelAllTD"/>
 			<referrer name="LoadTextDraws"/>
+			<referrer name="CreateInvTDGlobal"/>
+			<referrer name="CreateSpeedoStaticTD"/>
 			<param name="textid">
 				<paraminfo>Text </paraminfo>
 				The TextDraw to set the size of
@@ -91236,7 +91602,6 @@
 			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="pc_cmd_selfie"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="StartFishing"/>
 			<referrer name="StopFishing"/>
@@ -92140,7 +92505,7 @@
 			<referrer name="GivePlayerStoreItem"/>
 			<referrer name="_@yHOnPlayerEnterRaceCheckpoint@0X"/>
 			<referrer name="PorterAnimation"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
+			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="GivePlayerCash"/>
@@ -92174,11 +92539,9 @@
 			<stacksize value="41"/>
 			<referrer name="OnPhoneLoadingFinish"/>
 			<dependency name="GetPVarInt"/>
-			<dependency name="IsValidPlayerTextDraw"/>
-			<dependency name="PhoneBuilt"/>
-			<dependency name="PlayerTextDrawSetString"/>
-			<dependency name="Text_Player"/>
-			<dependency name="Text_Player"/>
+			<dependency name="PhoneOpen"/>
+			<dependency name="PhoneTD"/>
+			<dependency name="TextDrawSetString"/>
 			<dependency name="format"/>
 			<dependency name="gettime"/>
 			<param name="playerid">
@@ -92213,7 +92576,7 @@
 			<stacksize value="26"/>
 			<referrer name="UpdateBar"/>
 			<referrer name="pc_cmd_hungertype"/>
-			<referrer name="_@yHOnDialogResponse@0h"/>
+			<referrer name="_@yHOnDialogResponse@0i"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="GetTypeHunger"/>
 			<dependency name="PlayerInfo"/>
@@ -94020,16 +94383,14 @@
 			<referrer name="@yH_OnPlayerDisconnect@0I"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0J"/>
 			<referrer name="@yH_OnDialogResponse@0J"/>
+			<referrer name="@yH_OnGameModeInit@0K"/>
 			<referrer name="@yH_OnPlayerDisconnect@0K"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0L"/>
 			<referrer name="@yH_OnDialogResponse@0L"/>
-			<referrer name="@yH_OnPlayerConnect@0M"/>
+			<referrer name="@yH_OnGameModeInit@0M"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0N"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0N"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0N"/>
 			<referrer name="@yH_OnPlayerConnect@0N"/>
-			<referrer name="@yH_OnPlayerDisconnect@0N"/>
 			<referrer name="@yH_OnDialogResponse@0N"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
 			<referrer name="@yH_OnDialogResponse@0O"/>
@@ -94085,17 +94446,23 @@
 			<referrer name="@yH_OnPlayerEnterCheckpoint@0c"/>
 			<referrer name="@yH_OnDialogResponse@0c"/>
 			<referrer name="@yH_OnDialogResponse@0d"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
-			<referrer name="@yH_OnDialogResponse@0e"/>
+			<referrer name="@yH_OnGameModeInit@0e"/>
+			<referrer name="@yH_OnPlayerConnect@0e"/>
+			<referrer name="@yH_OnPlayerDisconnect@0e"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@0e"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0e"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0f"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
-			<referrer name="@yH_OnPlayerConnect@0g"/>
-			<referrer name="@yH_OnDialogResponse@0h"/>
+			<referrer name="@yH_OnDialogResponse@0g"/>
+			<referrer name="@yH_OnPlayerConnect@0h"/>
 			<referrer name="@yH_OnDialogResponse@0i"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0j"/>
-			<referrer name="@yH_OnPlayerConnect@0j"/>
-			<referrer name="@yH_OnPlayerDisconnect@0j"/>
-			<referrer name="@yH_OnPlayerStateChange@0j"/>
-			<referrer name="@yH_OnPlayerUpdate@0j"/>
+			<referrer name="@yH_OnDialogResponse@0j"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0k"/>
+			<referrer name="@yH_OnPlayerConnect@0k"/>
+			<referrer name="@yH_OnPlayerDisconnect@0k"/>
+			<referrer name="@yH_OnPlayerStateChange@0k"/>
+			<referrer name="@yH_OnGameModeInit@0k"/>
+			<referrer name="@yH_OnPlayerUpdate@0k"/>
 			<dependency name="Debug_Kill_"/>
 			<dependency name="Debug_Print0"/>
 			<dependency name="Hooks_ExtractName"/>
@@ -95095,10 +95462,10 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:_@yHOnDialogResponse@0e" syntax="_@yHOnDialogResponse@0e(playerid, dialogid, response, listitem, inputtext[])">
+		<member name="M:_@yHOnDialogResponse@0f" syntax="_@yHOnDialogResponse@0f(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="2187"/>
-			<referrer name="@yH_OnDialogResponse@0e"/>
+			<referrer name="@yH_OnDialogResponse@0f"/>
 			<dependency name="AddDroppedItem"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="DCC_FindChannelById"/>
@@ -95180,10 +95547,10 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:_@yHOnDialogResponse@0f" syntax="_@yHOnDialogResponse@0f(playerid, dialogid, response, listitem, inputtext[])">
+		<member name="M:_@yHOnDialogResponse@0g" syntax="_@yHOnDialogResponse@0g(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="10"/>
-			<referrer name="@yH_OnDialogResponse@0f"/>
+			<referrer name="@yH_OnDialogResponse@0g"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="IsPlayerDiscordVerified"/>
@@ -95215,10 +95582,10 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:_@yHOnDialogResponse@0h" syntax="_@yHOnDialogResponse@0h(playerid, dialogid, response, listitem, inputtext[])">
+		<member name="M:_@yHOnDialogResponse@0i" syntax="_@yHOnDialogResponse@0i(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="7"/>
-			<referrer name="@yH_OnDialogResponse@0h"/>
+			<referrer name="@yH_OnDialogResponse@0i"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="HideAllHungerTextdraws"/>
 			<dependency name="HidePM"/>
@@ -95237,6 +95604,7 @@
 			<dependency name="gNews"/>
 			<dependency name="gOoc"/>
 			<dependency name="pHUDInfo"/>
+			<dependency name="pInvType"/>
 			<dependency name="pTypeHunger"/>
 			<param name="playerid">
 			</param>
@@ -95250,10 +95618,10 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:_@yHOnDialogResponse@0i" syntax="_@yHOnDialogResponse@0i(playerid, dialogid, response, listitem, inputtext[])">
+		<member name="M:_@yHOnDialogResponse@0j" syntax="_@yHOnDialogResponse@0j(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="266"/>
-			<referrer name="@yH_OnDialogResponse@0i"/>
+			<referrer name="@yH_OnDialogResponse@0j"/>
 			<dependency name="CP"/>
 			<dependency name="PC_EmulateCommand"/>
 			<dependency name="PlayerInfo"/>
@@ -95320,6 +95688,18 @@
 			<dependency name="LoadTDLogo"/>
 			<dependency name="SetTimer"/>
 			<dependency name="true"/>
+		</member>
+		<member name="M:_@yHOnGameModeInit@0K" syntax="_@yHOnGameModeInit@0K()">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<referrer name="@yH_OnGameModeInit@0K"/>
+			<dependency name="Phone_CreateTD"/>
+		</member>
+		<member name="M:_@yHOnGameModeInit@0M" syntax="_@yHOnGameModeInit@0M()">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<referrer name="@yH_OnGameModeInit@0M"/>
+			<dependency name="CreatePanelAllTD"/>
 		</member>
 		<member name="M:_@yHOnGameModeInit@0Q" syntax="_@yHOnGameModeInit@0Q()">
 			<attribute name="public"/>
@@ -95389,6 +95769,18 @@
 			<dependency name="loaihang"/>
 			<dependency name="true"/>
 		</member>
+		<member name="M:_@yHOnGameModeInit@0e" syntax="_@yHOnGameModeInit@0e()">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<referrer name="@yH_OnGameModeInit@0e"/>
+			<dependency name="CreateInvTDGlobal"/>
+		</member>
+		<member name="M:_@yHOnGameModeInit@0k" syntax="_@yHOnGameModeInit@0k()">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<referrer name="@yH_OnGameModeInit@0k"/>
+			<dependency name="CreateSpeedoStaticTD"/>
+		</member>
 		<member name="M:_@yHOnPlayerClickMap@06" syntax="_@yHOnPlayerClickMap@06(playerid, fX, fY, fZ)">
 			<attribute name="public"/>
 			<stacksize value="10"/>
@@ -95407,50 +95799,15 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerClickPlayerTextDraw@0L" syntax="_@yHOnPlayerClickPlayerTextDraw@0L(playerid, playertextid)">
+		<member name="M:_@yHOnPlayerClickPlayerTextDraw@0e" syntax="_@yHOnPlayerClickPlayerTextDraw@0e(playerid, playertextid)">
 			<attribute name="public"/>
-			<stacksize value="12"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0L"/>
-			<dependency name="ApplyAnimation"/>
+			<stacksize value="7"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0e"/>
 			<dependency name="CancelSelectTextDraw"/>
-			<dependency name="ClearAnimations"/>
-			<dependency name="GetPVarInt"/>
-			<dependency name="PC_EmulateCommand"/>
-			<dependency name="Phone_Close"/>
-			<dependency name="PlayerPlaySound"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="RemovePlayerAttachedObject"/>
-			<dependency name="SetCameraBehindPlayer"/>
-			<dependency name="SetPlayerChatBubble"/>
-			<dependency name="SetPlayerSpecialAction"/>
-			<dependency name="ShowTDN"/>
-			<dependency name="Text_Player"/>
-			<dependency name="TogglePlayerControllable"/>
-			<dependency name="pc_cmd_danhbacuatoi"/>
-			<dependency name="pc_cmd_dichvu"/>
-			<dependency name="pc_cmd_me"/>
-			<dependency name="pc_cmd_sacombank"/>
-			<dependency name="pc_cmd_selfie"/>
-			<dependency name="pc_cmd_sms"/>
-			<dependency name="pc_cmd_timduong"/>
-			<dependency name="pc_cmd_time"/>
-			<dependency name="takingselfie"/>
-			<param name="playerid">
-			</param>
-			<param name="playertextid">
-				<paraminfo>PlayerText </paraminfo>
-			</param>
-		</member>
-		<member name="M:_@yHOnPlayerClickPlayerTextDraw@0N" syntax="_@yHOnPlayerClickPlayerTextDraw@0N(playerid, playertextid)">
-			<attribute name="public"/>
-			<stacksize value="10"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0N"/>
-			<dependency name="HideMainMenuTextdraws"/>
-			<dependency name="PC_EmulateCommand"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="SetPVarInt"/>
-			<dependency name="g_PlayerInTextDrawMode"/>
+			<dependency name="InvTDOpen"/>
+			<dependency name="InvTDSlot"/>
+			<dependency name="ShowItemOptions"/>
+			<dependency name="iTD_box"/>
 			<param name="playerid">
 			</param>
 			<param name="playertextid">
@@ -95466,14 +95823,26 @@
 			<dependency name="ClearAnimations"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarInt"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
+			<dependency name="PC_EmulateCommand"/>
+			<dependency name="PhoneOpen"/>
+			<dependency name="PhoneTD"/>
 			<dependency name="Phone_Close"/>
 			<dependency name="PlayerPlaySound"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="RemovePlayerAttachedObject"/>
 			<dependency name="SetCameraBehindPlayer"/>
 			<dependency name="SetPlayerChatBubble"/>
 			<dependency name="SetPlayerSpecialAction"/>
+			<dependency name="ShowTDN"/>
 			<dependency name="TogglePlayerControllable"/>
+			<dependency name="pc_cmd_danhbacuatoi"/>
+			<dependency name="pc_cmd_dichvu"/>
 			<dependency name="pc_cmd_me"/>
+			<dependency name="pc_cmd_sacombank"/>
+			<dependency name="pc_cmd_selfie"/>
+			<dependency name="pc_cmd_sms"/>
+			<dependency name="pc_cmd_time"/>
 			<dependency name="takingselfie"/>
 			<param name="playerid">
 			</param>
@@ -95483,10 +95852,30 @@
 		</member>
 		<member name="M:_@yHOnPlayerClickTextDraw@0N" syntax="_@yHOnPlayerClickTextDraw@0N(playerid, clickedid)">
 			<attribute name="public"/>
-			<stacksize value="4"/>
+			<stacksize value="10"/>
 			<referrer name="@yH_OnPlayerClickTextDraw@0N"/>
 			<dependency name="HideMainMenuTextdraws"/>
+			<dependency name="PC_EmulateCommand"/>
+			<dependency name="PanelTD"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="g_PlayerInTextDrawMode"/>
 			<dependency name="g_PlayerTextDrawShown"/>
+			<param name="playerid">
+			</param>
+			<param name="clickedid">
+				<paraminfo>Text </paraminfo>
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerClickTextDraw@0e" syntax="_@yHOnPlayerClickTextDraw@0e(playerid, clickedid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@0e"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="HideInvTD"/>
+			<dependency name="InvTDOpen"/>
+			<dependency name="iTD_g"/>
 			<param name="playerid">
 			</param>
 			<param name="clickedid">
@@ -95623,17 +96012,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerConnect@0M" syntax="_@yHOnPlayerConnect@0M(playerid)">
-			<attribute name="public"/>
-			<stacksize value="2"/>
-			<referrer name="@yH_OnPlayerConnect@0M"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="Panel_TextDraw"/>
-			<dependency name="false"/>
-			<dependency name="g_PanelTextDrawCreated"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:_@yHOnPlayerConnect@0N" syntax="_@yHOnPlayerConnect@0N(playerid)">
 			<attribute name="public"/>
 			<stacksize value="1"/>
@@ -95751,10 +96129,30 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerConnect@0g" syntax="_@yHOnPlayerConnect@0g(playerid)">
+		<member name="M:_@yHOnPlayerConnect@0e" syntax="_@yHOnPlayerConnect@0e(playerid)">
+			<attribute name="public"/>
+			<stacksize value="2"/>
+			<referrer name="@yH_OnPlayerConnect@0e"/>
+			<dependency name="InvTDOpen"/>
+			<dependency name="false"/>
+			<dependency name="g_InvTDCreated"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_box"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_mdl"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_name"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_pstr"/>
+			<dependency name="iTD_qty"/>
+			<dependency name="iTD_qty"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerConnect@0h" syntax="_@yHOnPlayerConnect@0h(playerid)">
 			<attribute name="public"/>
 			<stacksize value="1"/>
-			<referrer name="@yH_OnPlayerConnect@0g"/>
+			<referrer name="@yH_OnPlayerConnect@0h"/>
 			<dependency name="EOS"/>
 			<dependency name="loadingAnimation"/>
 			<dependency name="loadingFunction"/>
@@ -95762,11 +96160,13 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerConnect@0j" syntax="_@yHOnPlayerConnect@0j(playerid)">
+		<member name="M:_@yHOnPlayerConnect@0k" syntax="_@yHOnPlayerConnect@0k(playerid)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
-			<referrer name="@yH_OnPlayerConnect@0j"/>
+			<referrer name="@yH_OnPlayerConnect@0k"/>
 			<dependency name="CreateSpeedoTD"/>
+			<dependency name="SpeedoDrpTD"/>
+			<dependency name="SpeedoDrpTD"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -96066,22 +96466,7 @@
 			<referrer name="@yH_OnPlayerDisconnect@0K"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="PhoneOpen"/>
-			<dependency name="Phone_Destroy"/>
-			<dependency name="false"/>
-			<param name="playerid">
-			</param>
-			<param name="reason">
-			</param>
-		</member>
-		<member name="M:_@yHOnPlayerDisconnect@0N" syntax="_@yHOnPlayerDisconnect@0N(playerid, reason)">
-			<attribute name="public"/>
-			<stacksize value="4"/>
-			<referrer name="@yH_OnPlayerDisconnect@0N"/>
-			<dependency name="DestroyPanelTextDraws"/>
-			<dependency name="false"/>
-			<dependency name="g_PanelTextDrawCreated"/>
-			<dependency name="g_PlayerInTextDrawMode"/>
-			<dependency name="g_PlayerTextDrawShown"/>
+			<dependency name="Phone_Close"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
@@ -96209,10 +96594,23 @@
 			<param name="reason">
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerDisconnect@0j" syntax="_@yHOnPlayerDisconnect@0j(playerid, reason)">
+		<member name="M:_@yHOnPlayerDisconnect@0e" syntax="_@yHOnPlayerDisconnect@0e(playerid, reason)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
-			<referrer name="@yH_OnPlayerDisconnect@0j"/>
+			<referrer name="@yH_OnPlayerDisconnect@0e"/>
+			<dependency name="DestroyInvTDPlayer"/>
+			<dependency name="InvTDOpen"/>
+			<dependency name="false"/>
+			<dependency name="g_InvTDCreated"/>
+			<param name="playerid">
+			</param>
+			<param name="reason">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerDisconnect@0k" syntax="_@yHOnPlayerDisconnect@0k(playerid, reason)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerDisconnect@0k"/>
 			<dependency name="HideSpeedoTD"/>
 			<param name="playerid">
 			</param>
@@ -96911,23 +97309,27 @@
 			<param name="oldkeys">
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerKeyStateChange@0e" syntax="_@yHOnPlayerKeyStateChange@0e(playerid, newkeys, oldkeys)">
+		<member name="M:_@yHOnPlayerKeyStateChange@0f" syntax="_@yHOnPlayerKeyStateChange@0f(playerid, newkeys, oldkeys)">
 			<attribute name="public"/>
 			<stacksize value="1568"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0f"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerTargetPlayer"/>
+			<dependency name="HideInvTD"/>
+			<dependency name="InvTDOpen"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="IsPlayerNPC"/>
 			<dependency name="PickupNearestItem"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="ProxDetectorS"/>
 			<dependency name="SetPVarInt"/>
 			<dependency name="SetPVarString"/>
 			<dependency name="ShowPlayerInventory"/>
 			<dependency name="format"/>
+			<dependency name="pInvType"/>
 			<param name="playerid">
 			</param>
 			<param name="newkeys">
@@ -96935,10 +97337,10 @@
 			<param name="oldkeys">
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerKeyStateChange@0j" syntax="_@yHOnPlayerKeyStateChange@0j(playerid, newkeys, oldkeys)">
+		<member name="M:_@yHOnPlayerKeyStateChange@0k" syntax="_@yHOnPlayerKeyStateChange@0k(playerid, newkeys, oldkeys)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
-			<referrer name="@yH_OnPlayerKeyStateChange@0j"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0k"/>
 			<dependency name="PlayerEnterInterior"/>
 			<dependency name="PlayerExitInterior"/>
 			<param name="playerid">
@@ -97023,10 +97425,10 @@
 			<param name="oldstate">
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerStateChange@0j" syntax="_@yHOnPlayerStateChange@0j(playerid, newstate, oldstate)">
+		<member name="M:_@yHOnPlayerStateChange@0k" syntax="_@yHOnPlayerStateChange@0k(playerid, newstate, oldstate)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
-			<referrer name="@yH_OnPlayerStateChange@0j"/>
+			<referrer name="@yH_OnPlayerStateChange@0k"/>
 			<dependency name="HideSpeedoTD"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="ShowSpeedoTD"/>
@@ -97172,16 +97574,15 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerUpdate@0j" syntax="_@yHOnPlayerUpdate@0j(playerid)">
+		<member name="M:_@yHOnPlayerUpdate@0k" syntax="_@yHOnPlayerUpdate@0k(playerid)">
 			<attribute name="public"/>
 			<stacksize value="32"/>
-			<referrer name="@yH_OnPlayerUpdate@0j"/>
+			<referrer name="@yH_OnPlayerUpdate@0k"/>
 			<dependency name="operator/(Float:,_:)"/>
 			<dependency name="operator*(Float:,Float:)"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="operator&gt;(Float:,_:)"/>
 			<dependency name="operator&lt;(Float:,_:)"/>
-			<dependency name="EVF_GetVehicleSpeed"/>
 			<dependency name="GetPlayerState"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleHealth"/>
@@ -97189,12 +97590,14 @@
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="IsValidVehicle"/>
 			<dependency name="PlayerCompassUpdate"/>
-			<dependency name="PlayerTextDrawHide"/>
 			<dependency name="PlayerTextDrawSetString"/>
 			<dependency name="PlayerTextDrawShow"/>
 			<dependency name="PlayerTextDrawTextSize"/>
 			<dependency name="SpeedoDrpTD"/>
 			<dependency name="SpeedoDrpTD"/>
+			<dependency name="SpeedoStaticTD"/>
+			<dependency name="TextDrawHideForPlayer"/>
+			<dependency name="TextDrawShowForPlayer"/>
 			<dependency name="VehicleFuel"/>
 			<dependency name="format"/>
 			<dependency name="gPlayerLogged"/>
@@ -101388,6 +101791,7 @@
 			<referrer name="ShowDialogRentCar"/>
 			<referrer name="pc_cmd_xethue"/>
 			<referrer name="_@yHOnDialogResponse@0d"/>
+			<referrer name="PopulateInvTDSlots"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="ShowWeaponOptions"/>
 			<referrer name="DropPlayerWeapon"/>
@@ -101395,8 +101799,8 @@
 			<referrer name="AddDroppedItem"/>
 			<referrer name="RemoveDroppedItem"/>
 			<referrer name="PickupNearestItem"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0f"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="pc_cmd_additem"/>
 			<referrer name="ShowNewbieMission"/>
 			<referrer name="SetLoading"/>
@@ -101408,12 +101812,12 @@
 			<referrer name="pc_cmd_netstats"/>
 			<referrer name="pc_cmd_anetstats"/>
 			<referrer name="pc_cmd_quickstats"/>
-			<referrer name="_@yHOnDialogResponse@0i"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="ShowJobHelp"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
-			<referrer name="_@yHOnPlayerUpdate@0j"/>
+			<referrer name="_@yHOnPlayerUpdate@0k"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="output">
 				<paraminfo> [] </paraminfo>
@@ -104287,7 +104691,7 @@
 			<referrer name="PorterAnimation"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0a"/>
 			<referrer name="ConstructionLoader"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="UpdateNewbieMission"/>
 			<referrer name="PayDay"/>
 			<referrer name="ShowMainStats"/>
@@ -104735,7 +105139,7 @@
 		</member>
 		<member name="M:pc_alias_map" syntax="pc_alias_map()">
 			<attribute name="public"/>
-			<stacksize value="4"/>
+			<stacksize value="5"/>
 			<dependency name="PC_RegAlias"/>
 		</member>
 		<member name="M:pc_alias_movegate" syntax="pc_alias_movegate()">
@@ -110312,7 +110716,7 @@
 		<member name="M:pc_cmd_danhbacuatoi" syntax="pc_cmd_danhbacuatoi(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="2470"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<dependency name="EOS"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -111563,7 +111967,7 @@
 		<member name="M:pc_cmd_dice" syntax="pc_cmd_dice(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="116"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="PlayerInfo"/>
@@ -111581,7 +111985,7 @@
 		<member name="M:pc_cmd_dichvu" syntax="pc_cmd_dichvu(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="221"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<dependency name="BusDrivers"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayer2DZone"/>
@@ -111648,8 +112052,7 @@
 			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerState"/>
-			<dependency name="PhoneBuilt"/>
-			<dependency name="Phone_Build"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="Phone_Close"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
@@ -120368,8 +120771,8 @@
 		</member>
 		<member name="M:pc_cmd_map" syntax="pc_cmd_map(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="10"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
+			<stacksize value="4"/>
+			<dependency name="ShowGPSMainDialog"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -120427,7 +120830,6 @@
 			<stacksize value="160"/>
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="OnPhoneLoadingFinish"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -122292,7 +122694,7 @@
 		<member name="M:pc_cmd_placeboombox" syntax="pc_cmd_placeboombox(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="164"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="operator*(Float:,_:)"/>
 			<dependency name="operator-(Float:)"/>
 			<dependency name="operator-(Float:,Float:)"/>
@@ -124768,7 +125170,7 @@
 		<member name="M:pc_cmd_sacombank" syntax="pc_cmd_sacombank(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="17835"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="PlayerInfo"/>
@@ -125326,7 +125728,7 @@
 		<member name="M:pc_cmd_selfie" syntax="pc_cmd_selfie(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="12"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<dependency name="operator+(Float:,_:)"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
@@ -127800,7 +128202,7 @@
 		<member name="M:pc_cmd_sms" syntax="pc_cmd_sms(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="806"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<dependency name="FIXES_GameTextForPlayer"/>
 			<dependency name="GetPVarInt"/>
@@ -129128,7 +129530,7 @@
 		<member name="M:pc_cmd_tie" syntax="pc_cmd_tie(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="187"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="FIXES_GameTextForPlayer"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -129160,21 +129562,10 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:pc_cmd_timduong" syntax="pc_cmd_timduong(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="10"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
 		<member name="M:pc_cmd_time" syntax="pc_cmd_time(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="167"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="HienTextdraw"/>
@@ -130580,7 +130971,7 @@
 		<member name="M:pc_cmd_usecigar" syntax="pc_cmd_usecigar(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="160"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -130719,7 +131110,7 @@
 		<member name="M:pc_cmd_usepot" syntax="pc_cmd_usepot(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="163"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="ApplyAnimation"/>
@@ -134333,7 +134724,7 @@
 			<referrer name="pc_cmd_entercar"/>
 			<referrer name="pc_cmd_editevent"/>
 			<referrer name="TruckPrice_Load"/>
-			<referrer name="_@yHOnDialogResponse@0e"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="pc_cmd_nhiemvu"/>
 			<referrer name="pc_cmd_stats"/>
 			<referrer name="pc_cmd_jobhelp"/>
