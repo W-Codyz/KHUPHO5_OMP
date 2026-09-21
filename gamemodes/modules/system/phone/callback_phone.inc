@@ -32,7 +32,7 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
             CancelSelectTextDraw(playerid, 0xff78bcf0);
             pc_cmd_me(playerid, "da tat dien thoai.");
             SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-            ClearAnimations(playerid);
+            if(!IsPlayerInAnyVehicle(playerid)) ClearAnimations(playerid);
             RemovePlayerAttachedObject(playerid, 9);
             SetPlayerChatBubble(playerid, "", COLOR_PURPLE, 1.0, 1000);
             if(takingselfie[playerid] == 1)
@@ -126,7 +126,7 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
             CancelSelectTextDraw(playerid, 0xff78bcf0);
             pc_cmd_me(playerid, "da tat dien thoai.");
             SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-            ClearAnimations(playerid);
+            if(!IsPlayerInAnyVehicle(playerid)) ClearAnimations(playerid);
             RemovePlayerAttachedObject(playerid, 9);
             SetPlayerChatBubble(playerid, "", COLOR_PURPLE, 1.0, 1000);
         }
