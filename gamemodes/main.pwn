@@ -60,6 +60,7 @@
 #include "./modules/anti/Teleport"
 #include "./modules/anti/Main.pwn"
 #include "./modules/anti/anti-f4t"
+#include "./modules/anti/anti-vpn"
 
 //==============EVENT============//
 #include "./modules/Event/SanBoss"

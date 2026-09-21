@@ -6808,7 +6808,7 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="170">
+		<member name="C:__line" value="171">
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="LoadSafeZones"/>
@@ -8339,6 +8339,7 @@
 			<referrer name="Anti_killall_4"/>
 			<referrer name="_@yHOnPlayerEnterVehicle@0A"/>
 			<referrer name="_@yHOnPlayerStateChange@0A"/>
+			<referrer name="substr"/>
 			<referrer name="BossDiChuyen"/>
 			<referrer name="CheckBossRange"/>
 			<referrer name="pc_cmd_taoboss"/>
@@ -8593,7 +8594,7 @@
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnVehicleDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
@@ -8823,6 +8824,7 @@
 			<referrer name="@yH_OnPlayerConnect@0B"/>
 			<referrer name="@yH_OnPlayerDisconnect@0B"/>
 			<referrer name="@yH_OnPlayerGiveDamage@0B"/>
+			<referrer name="substr"/>
 			<referrer name="CheckBossRange"/>
 			<referrer name="pc_cmd_taoboss"/>
 			<referrer name="@yH_OnPlayerSpawn@0C"/>
@@ -9426,7 +9428,7 @@
 			<referrer name="SendClientMessageEx"/>
 			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="pc_cmd_togchatbox"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ActorInfo">
@@ -9447,7 +9449,7 @@
 			<referrer name="pc_cmd_aduty"/>
 		</member>
 		<member name="F:AdvertType">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:AdvisorMessage">
@@ -9492,10 +9494,10 @@
 			<referrer name="SvNonrpText"/>
 		</member>
 		<member name="F:AppealOffer">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:AppealOfferAccepted">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:AreaName">
 			<referrer name="OnDialogResponse"/>
@@ -9537,13 +9539,13 @@
 			<referrer name="pc_cmd_backupall"/>
 			<referrer name="Iter_OnPlayerStreamIn"/>
 			<referrer name="Iter_OnPlayerStreamOut"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:BackupClearTimer">
 			<referrer name="BackupClear"/>
 			<referrer name="pc_cmd_backup"/>
 			<referrer name="pc_cmd_backupall"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:BackupText">
 			<tagname value="PlayerText"/>
@@ -9673,7 +9675,7 @@
 			<referrer name="pc_cmd_joinarena"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="pc_cmd_ataxi"/>
@@ -9682,7 +9684,7 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="pc_cmd_ataxi"/>
@@ -9836,7 +9838,7 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
 			<referrer name="_@yHOnDialogResponse@0T"/>
 			<referrer name="ChatCayTimer"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="_@yHOnDialogResponse@0i"/>
 		</member>
@@ -9859,11 +9861,11 @@
 		</member>
 		<member name="F:CalledCops">
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:CalledMedics">
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:Calls">
 			<referrer name="CallTimer"/>
@@ -9882,7 +9884,7 @@
 			<referrer name="pc_cmd_dc"/>
 		</member>
 		<member name="F:CancelReport">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:CarExamSpawn">
@@ -9911,7 +9913,7 @@
 		<member name="F:CarRadars">
 			<referrer name="UpdateCarRadars"/>
 			<referrer name="pc_cmd_vradar"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="OPBA_OnPlayerExitVehicle"/>
@@ -9964,19 +9966,19 @@
 			<referrer name="ChatCayTimer"/>
 		</member>
 		<member name="F:ChosenSkin">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:Coastguard">
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:CommandSpamTimes">
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerCommandReceived"/>
 		</member>
 		<member name="F:CommandSpamUnmute">
 			<referrer name="OtherTimerEx"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerCommandReceived"/>
 		</member>
 		<member name="F:Cones">
@@ -9987,19 +9989,19 @@
 		<member name="F:ConfigEventCPId">
 			<referrer name="RFLCheckpointu"/>
 			<referrer name="pc_cmd_editevent"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ConfigEventCPs">
 			<referrer name="pc_cmd_editevent"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ConnectedToPC">
 			<referrer name="pc_cmd_mdc"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
@@ -10014,7 +10016,7 @@
 		</member>
 		<member name="F:CopsCallTime">
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:CountDown">
 			<referrer name="Countdown"/>
@@ -10099,10 +10101,10 @@
 			<referrer name="RemoveArmor"/>
 			<referrer name="pc_cmd_hackwarnings"/>
 			<referrer name="pc_cmd_usecrack"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:CurrentMoney">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:DDoorsInfo">
 			<referrer name="nearDoor"/>
@@ -10156,10 +10158,10 @@
 			<referrer name="PokerPulse"/>
 		</member>
 		<member name="F:DefendOffer">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:DefendPrice">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:Degree">
 			<tagname value="Float"/>
@@ -10170,7 +10172,7 @@
 			<referrer name="pc_cmd_divorce"/>
 			<referrer name="pc_cmd_adivorce"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:DocPrison">
 			<tagname value="Float"/>
@@ -10319,7 +10321,7 @@
 			<referrer name="pc_cmd_joinarena"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="pc_cmd_getpt"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
@@ -10327,7 +10329,7 @@
 		<member name="F:EMSCallTime">
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_getpt"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
@@ -10495,7 +10497,7 @@
 			<referrer name="pc_cmd_quitevent"/>
 			<referrer name="pc_cmd_denyevent"/>
 			<referrer name="pc_cmd_endevent"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:EventKernel">
@@ -10542,7 +10544,7 @@
 			<referrer name="pc_cmd_quitevent"/>
 			<referrer name="pc_cmd_denyevent"/>
 			<referrer name="pc_cmd_endevent"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:EventLastVW">
@@ -10553,7 +10555,7 @@
 			<referrer name="pc_cmd_quitevent"/>
 			<referrer name="pc_cmd_denyevent"/>
 			<referrer name="pc_cmd_endevent"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:EventPoints">
@@ -10798,7 +10800,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:FirstSpawn">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:FishNames">
 			<referrer name="CatchFish"/>
@@ -10836,7 +10838,7 @@
 		<member name="F:Fixr">
 			<referrer name="PlayerFixRadio2"/>
 			<referrer name="PlayerFixRadio"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:Flares">
 			<referrer name="pc_cmd_deploy"/>
@@ -10910,25 +10912,25 @@
 			<referrer name="SetVehicleEngine"/>
 			<referrer name="SearchingHit"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 		</member>
 		<member name="F:GettingJob">
 			<referrer name="pc_cmd_join"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:GettingJob2">
 			<referrer name="pc_cmd_join"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:GettingSpectated">
 			<referrer name="SpectatePlayer"/>
 			<referrer name="pc_cmd_dm"/>
 			<referrer name="pc_cmd_spec"/>
 			<referrer name="pc_cmd_dmwatch"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:GiaoCanSaTimer">
@@ -10967,7 +10969,7 @@
 		</member>
 		<member name="F:GiveKeysTo">
 			<referrer name="pc_cmd_givekeys"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:GlobalMOTD">
@@ -10984,7 +10986,7 @@
 			<referrer name="pc_cmd_givemehit"/>
 			<referrer name="pc_cmd_deletehit"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
@@ -10995,26 +10997,26 @@
 			<referrer name="pc_cmd_givehit"/>
 			<referrer name="pc_cmd_givemehit"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 		</member>
 		<member name="F:GotProposedBy">
 			<referrer name="pc_cmd_accept"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerText"/>
 		</member>
 		<member name="F:HHcheckFloats">
 			<tagname value="Float"/>
 			<referrer name="HealthHackCheck"/>
 			<referrer name="pc_cmd_hhcheck"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HHcheckInt">
 			<referrer name="HealthHackCheck"/>
 			<referrer name="pc_cmd_hhcheck"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HHcheckUsed">
 			<referrer name="HealthHackCheck"/>
@@ -11023,11 +11025,11 @@
 		<member name="F:HHcheckVW">
 			<referrer name="HealthHackCheck"/>
 			<referrer name="pc_cmd_hhcheck"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HackingMods">
 			<referrer name="EVF_OnVehicleMod"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:HalloweenShop">
@@ -11038,14 +11040,14 @@
 		</member>
 		<member name="F:HelperTimer">
 			<referrer name="pc_cmd_hl"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HelpingNewbie">
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_accepthelp"/>
 			<referrer name="pc_cmd_finishhelp"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HiddenTreasure">
 			<tagname value="Float"/>
@@ -11054,12 +11056,12 @@
 		<member name="F:HidePM">
 			<referrer name="pc_cmd_togwhisper"/>
 			<referrer name="pc_cmd_w"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 		</member>
 		<member name="F:HireCar">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:HitOffer">
@@ -11067,19 +11069,19 @@
 			<referrer name="pc_cmd_givemehit"/>
 			<referrer name="pc_cmd_deletehit"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HitToGet">
 			<referrer name="pc_cmd_givehit"/>
 			<referrer name="pc_cmd_givemehit"/>
 			<referrer name="pc_cmd_deletehit"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HlKickTimer">
 			<referrer name="pc_cmd_joinhelp"/>
 			<referrer name="pc_cmd_hlkick"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HoldingBones">
 			<referrer name="ShowEditMenu"/>
@@ -11128,13 +11130,13 @@
 			<referrer name="pc_cmd_evict"/>
 			<referrer name="pc_cmd_evictall"/>
 			<referrer name="pc_cmd_lockhouse"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:House">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_sellmyhouse"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HouseInfo">
 			<referrer name="nearHouse"/>
@@ -11216,13 +11218,13 @@
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_sellmyhouse"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:HousePrice">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_sellmyhouse"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:Hunger">
 			<tagname value="PlayerText"/>
@@ -11438,14 +11440,14 @@
 		<member name="F:InsideMainMenu">
 			<referrer name="SendClientMessageEx"/>
 			<referrer name="SendClientMessageToAllEx"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:InsidePlane">
 			<referrer name="ProxDetector"/>
 			<referrer name="SpectatePlayer"/>
 			<referrer name="pc_cmd_window"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnVehicleDeath"/>
@@ -11465,18 +11467,18 @@
 			<referrer name="SendClientMessageEx"/>
 			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="SpectatePlayer"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:InviteFamily">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_invite"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:InviteOffer">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_invite"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:IsDynamicGiftBoxEnabled">
 			<tagname value="bool"/>
@@ -11507,14 +11509,14 @@
 		<member name="F:IsPlayerFrozen">
 			<referrer name="CheckAccounts"/>
 			<referrer name="sobeitCheck"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:IsRim">
 			<referrer name="EVF_OnVehicleMod"/>
 		</member>
 		<member name="F:IsSpawned">
 			<referrer name="MoneyUpdate"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 		</member>
@@ -11577,7 +11579,7 @@
 			<referrer name="ScriptInit_OnPlayerConnect"/>
 			<referrer name="ScriptInit_OnPlayerDisconnect"/>
 			<referrer name="AFKUpdate"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:Iter_Single@PlayersFromVehicles">
 			<referrer name="ScriptInit_OnPlayerDisconnect"/>
@@ -12030,18 +12032,18 @@
 		</member>
 		<member name="F:JailPrice">
 			<referrer name="pc_cmd_bail"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:JetPack">
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="pc_cmd_givegun"/>
 			<referrer name="pc_cmd_jetpack"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:JobDuty">
 			<referrer name="SendJobMessage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:JobHelp">
@@ -12063,7 +12065,7 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_dmalert"/>
 			<referrer name="pc_cmd_yeucautrogiup"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:KhuVucThuMua">
@@ -12074,7 +12076,7 @@
 			<referrer name="pc_cmd_diemgiaohang"/>
 		</member>
 		<member name="F:KillTime">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 		</member>
 		<member name="F:LAElevatorFloorData">
@@ -12146,14 +12148,14 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ListItemRCPId">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ListItemReleaseId">
 			<referrer name="OnPlayerLoad"/>
 		</member>
 		<member name="F:ListItemReportId">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ListItemTrackId">
@@ -12165,7 +12167,7 @@
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_cancel"/>
 			<referrer name="pc_cmd_live"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:LoadForkliftStatus">
 			<referrer name="LoadForklift"/>
@@ -12187,7 +12189,7 @@
 			<referrer name="ShowTDN"/>
 		</member>
 		<member name="F:Locator">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:LockStatus">
 			<referrer name="Vehicle_ResetData"/>
@@ -12205,7 +12207,7 @@
 		<member name="F:LottoNumbers">
 			<referrer name="LoadTicket"/>
 			<referrer name="Lotto"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:LottoPrize">
@@ -12241,17 +12243,17 @@
 		<member name="F:MPDay">
 			<referrer name="Misc_Save"/>
 			<referrer name="Misc_Load"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MPMonth">
 			<referrer name="Misc_Save"/>
 			<referrer name="Misc_Load"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MPYear">
 			<referrer name="Misc_Save"/>
 			<referrer name="Misc_Load"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MailBoxes">
 			<referrer name="SaveMailbox"/>
@@ -12595,51 +12597,51 @@
 		</member>
 		<member name="F:MarriageCeremoney">
 			<referrer name="pc_cmd_accept"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerText"/>
 		</member>
 		<member name="F:MarryWitness">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_propose"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MarryWitnessOffer">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_propose"/>
 			<referrer name="pc_cmd_witness"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MatDeliver">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MatDeliver2">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MatsAmount">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_cancel"/>
 			<referrer name="pc_cmd_sell"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MatsHolding">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MatsOffer">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_cancel"/>
 			<referrer name="pc_cmd_sell"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MatsPrice">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_cancel"/>
 			<referrer name="pc_cmd_sell"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MatsStorageID">
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MaxPlayerNotify">
 			<referrer name="HideNotify"/>
@@ -12648,7 +12650,7 @@
 		<member name="F:MaxPlayersConnected">
 			<referrer name="Misc_Save"/>
 			<referrer name="Misc_Load"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MedicAccepted">
 			<referrer name="ServerHeartbeat"/>
@@ -12656,7 +12658,7 @@
 			<referrer name="pc_cmd_joinarena"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="pc_cmd_accept"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 		</member>
@@ -12668,7 +12670,7 @@
 		<member name="F:MedicCallTime">
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_accept"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 		</member>
@@ -12679,7 +12681,7 @@
 		</member>
 		<member name="F:MedicsCallTime">
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:MessageTD">
 			<tagname value="PlayerText"/>
@@ -12696,7 +12698,7 @@
 			<referrer name="pc_cmd_pickup"/>
 			<referrer name="pc_cmd_hangup"/>
 			<referrer name="pc_cmd_acceptcall"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OnPlayerText"/>
 			<referrer name="OnDialogResponse"/>
@@ -12712,7 +12714,7 @@
 		</member>
 		<member name="F:Music">
 			<referrer name="pc_cmd_music"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:NDP_DialogInfo">
 			<tagname value="Vector"/>
@@ -12753,7 +12755,7 @@
 		<member name="F:NOPTrigger">
 			<referrer name="NOPCheck"/>
 			<referrer name="ExecuteNOPAction"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 		</member>
 		<member name="F:NULL">
@@ -12771,7 +12773,7 @@
 		</member>
 		<member name="F:NewbieTimer">
 			<referrer name="pc_cmd_newb"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:News">
 			<referrer name="ResetNews"/>
@@ -13064,11 +13066,11 @@
 		<member name="F:OrderAssignedTo">
 			<referrer name="pc_cmd_orders"/>
 			<referrer name="pc_cmd_givemeorder"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:OrderReady">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:PVIPVoucher">
 			<referrer name="OnQueryFinish"/>
@@ -13183,7 +13185,7 @@
 			<referrer name="pc_cmd_jail"/>
 			<referrer name="pc_cmd_hfind"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 			<referrer name="OnDialogResponse"/>
@@ -13291,7 +13293,7 @@
 			<referrer name="pc_cmd_joinhunger"/>
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="PickupNearestItem"/>
@@ -13313,7 +13315,7 @@
 			<referrer name="pc_cmd_uncuff"/>
 			<referrer name="pc_cmd_deport"/>
 			<referrer name="OnPlayerGiveDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:PlayerCurrentRod">
@@ -13326,12 +13328,12 @@
 		<member name="F:PlayerDrunk">
 			<referrer name="ProductionUpdate"/>
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:PlayerDrunkTime">
 			<referrer name="ProductionUpdate"/>
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:PlayerEditingSZ">
 			<referrer name="_@yHOnPlayerConnect@0F"/>
@@ -13411,7 +13413,7 @@
 			<referrer name="pc_cmd_wat"/>
 			<referrer name="pc_cmd_dat"/>
 			<referrer name="pc_cmd_joinhunger"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:PlayerInfo">
@@ -14544,7 +14546,7 @@
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="Iter_OnPlayerStreamIn"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="Iter_OnRconLoginAttempt"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
@@ -14676,7 +14678,7 @@
 			<referrer name="_@yHOnDialogResponse@0Q"/>
 		</member>
 		<member name="F:PlayerPizzaBoy">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="pc_cmd_lamviec"/>
 			<referrer name="pc_cmd_dunglamviec"/>
 		</member>
@@ -14691,7 +14693,7 @@
 		</member>
 		<member name="F:PlayerPorter">
 			<referrer name="pc_cmd_dienthoai"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="pc_cmd_lamviec"/>
 			<referrer name="pc_cmd_dunglamviec"/>
 			<referrer name="PorterLoadingFinish"/>
@@ -14728,7 +14730,7 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_usepot"/>
 			<referrer name="pc_cmd_usecrack"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:PlayerSweeperRoute">
 			<referrer name="_@yHOnPlayerDisconnect@0c"/>
@@ -14752,7 +14754,7 @@
 			<referrer name="pc_cmd_tie"/>
 			<referrer name="pc_cmd_untie"/>
 			<referrer name="pc_cmd_bizradio"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:PlayerToyInfo">
 			<referrer name="OnQueryFinish"/>
@@ -14775,7 +14777,7 @@
 			<referrer name="pc_cmd_selltoy"/>
 			<referrer name="OnPlayerEditAttachedObject"/>
 			<referrer name="OnPlayerModelSelection"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
@@ -14838,7 +14840,7 @@
 			<referrer name="EVF_OnVehicleSpawn"/>
 			<referrer name="EVF_OnVehiclePaintjob"/>
 			<referrer name="EVF_OnVehicleRespray"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="OnPlayerLoad"/>
@@ -14846,7 +14848,7 @@
 		</member>
 		<member name="F:PlayerWorking">
 			<referrer name="pc_cmd_killcheckpoint"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="pc_cmd_quitjob"/>
 			<referrer name="pc_cmd_lamviec"/>
 			<referrer name="pc_cmd_dunglamviec"/>
@@ -15069,11 +15071,11 @@
 			<referrer name="pc_cmd_propose"/>
 			<referrer name="pc_cmd_witness"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:ProposedTo">
 			<referrer name="pc_cmd_accept"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerText"/>
 		</member>
 		<member name="F:PumpkinStock">
@@ -15098,7 +15100,7 @@
 		<member name="F:RCPIdCurrent">
 			<referrer name="WateringStation"/>
 			<referrer name="pc_cmd_joinevent"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerLeaveCheckpoint"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 		</member>
@@ -15128,7 +15130,7 @@
 			<referrer name="pc_cmd_buyrflteam"/>
 			<referrer name="pc_cmd_leaverflteam"/>
 			<referrer name="pc_cmd_rflkick"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
@@ -15168,11 +15170,11 @@
 			<referrer name="ReferralSecurity"/>
 			<referrer name="SetPlayerFirstSpawn"/>
 			<referrer name="SetPlayerSpawn"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ReleasingMenu">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:RentCarList">
 			<referrer name="ShowDialogRentCar"/>
@@ -15191,7 +15193,7 @@
 			<referrer name="pc_cmd_sta"/>
 			<referrer name="pc_cmd_ar"/>
 			<referrer name="pc_cmd_accepthelp"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ReportHourCount">
@@ -15203,7 +15205,7 @@
 			<referrer name="pc_cmd_sta"/>
 			<referrer name="pc_cmd_ar"/>
 			<referrer name="pc_cmd_accepthelp"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:Reports">
@@ -15264,7 +15266,7 @@
 			<referrer name="Firework"/>
 			<referrer name="pc_cmd_placefirework"/>
 			<referrer name="pc_cmd_fireworknear"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:RocketLight">
@@ -15417,14 +15419,14 @@
 			<referrer name="pc_cmd_editshop"/>
 		</member>
 		<member name="F:SelectFChar">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:SelectFCharPlace">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:Selected">
 			<referrer name="CheckSales"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:SelectedItem">
@@ -15508,7 +15510,7 @@
 		<member name="F:ShotPlayer">
 			<referrer name="pc_cmd_dmreport"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:SideJobInfo">
@@ -15534,7 +15536,7 @@
 		</member>
 		<member name="F:SpawnKick">
 			<referrer name="MoneyUpdate"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 		</member>
@@ -15557,7 +15559,7 @@
 			<referrer name="pc_cmd_spec"/>
 			<referrer name="pc_cmd_dmwatch"/>
 			<referrer name="OPBA_OnPlayerInteriorChange"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 		</member>
@@ -15574,7 +15576,7 @@
 			<referrer name="pc_cmd_spec"/>
 			<referrer name="pc_cmd_dmwatch"/>
 			<referrer name="OPBA_OnPlayerInteriorChange"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 		</member>
@@ -15614,17 +15616,17 @@
 			<referrer name="pc_cmd_spikes"/>
 		</member>
 		<member name="F:SpoofKill">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 		</member>
 		<member name="F:StartTime">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:StopaniFloats">
 			<tagname value="Float"/>
 			<referrer name="StopaniTimer"/>
 			<referrer name="pc_cmd_stopani"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:StorageInfo">
 			<referrer name="SkinDelay"/>
@@ -15718,7 +15720,7 @@
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_stopnews"/>
 			<referrer name="pc_cmd_live"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerText"/>
 		</member>
 		<member name="F:Tax">
@@ -15754,7 +15756,7 @@
 			<referrer name="pc_cmd_joinarena"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="pc_cmd_ataxi"/>
@@ -15763,7 +15765,7 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="pc_cmd_ataxi"/>
@@ -15777,7 +15779,7 @@
 		<member name="F:TazerTimeout">
 			<referrer name="TazerTimer"/>
 			<referrer name="OnPlayerGiveDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:TextDrawNotifikasi">
 			<tagname value="PlayerText"/>
@@ -15794,12 +15796,12 @@
 		</member>
 		<member name="F:TextSpamTimes">
 			<referrer name="ServerHeartbeat"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerText"/>
 		</member>
 		<member name="F:TextSpamUnmute">
 			<referrer name="OtherTimerEx"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerText"/>
 		</member>
 		<member name="F:Text_Player">
@@ -15866,13 +15868,13 @@
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_cancel"/>
 			<referrer name="pc_cmd_ticket"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:TicketOffer">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_cancel"/>
 			<referrer name="pc_cmd_ticket"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:TicketsSold">
 			<referrer name="Lotto"/>
@@ -15908,7 +15910,7 @@
 		<member name="F:TotalConnect">
 			<referrer name="Misc_Save"/>
 			<referrer name="Misc_Load"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:TotalJoinsRace">
 			<referrer name="Misc_Save"/>
@@ -15946,14 +15948,14 @@
 		</member>
 		<member name="F:TransportCost">
 			<referrer name="ServerHeartbeatTwo"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 		</member>
 		<member name="F:TransportDriver">
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="OnPlayerClickMap"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 		</member>
@@ -15965,7 +15967,7 @@
 			<referrer name="pc_cmd_dichvu"/>
 			<referrer name="pc_cmd_cancel"/>
 			<referrer name="OnPlayerClickMap"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="SendTaxiMessage"/>
@@ -15980,20 +15982,20 @@
 		</member>
 		<member name="F:TransportMoney">
 			<referrer name="ServerHeartbeatTwo"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="pc_cmd_fare"/>
 		</member>
 		<member name="F:TransportTime">
 			<referrer name="ServerHeartbeatTwo"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 		</member>
 		<member name="F:TransportValue">
 			<referrer name="ServerHeartbeatTwo"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="pc_cmd_fare"/>
 		</member>
@@ -16023,7 +16025,7 @@
 		<member name="F:TruckUsed">
 			<referrer name="MoneyUpdate"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 		</member>
 		<member name="F:TruckerDeliveries">
@@ -16076,7 +16078,7 @@
 		</member>
 		<member name="F:TutStep">
 			<referrer name="ReferralSecurity"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:TxtLabels">
@@ -16209,12 +16211,12 @@
 		<member name="F:UsedCrack">
 			<referrer name="ClearDrugs"/>
 			<referrer name="pc_cmd_usecrack"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:UsedWeed">
 			<referrer name="ClearDrugs"/>
 			<referrer name="pc_cmd_usepot"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:VIPGifts">
 			<referrer name="ProductionUpdate"/>
@@ -16302,7 +16304,7 @@
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:VehicleName">
 			<referrer name="BusinessesLoadQueryFinish"/>
@@ -16351,13 +16353,13 @@
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:VehiclePrice">
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_cancel"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:VehicleSpawned">
 			<referrer name="vehicleSpawnCountCheck"/>
@@ -16369,7 +16371,7 @@
 			<referrer name="pc_cmd_aimpound"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_rcabuse"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:VehicleSpeed">
@@ -18728,6 +18730,8 @@
 		</member>
 		<member name="F:__file">
 		</member>
+		<member name="F:__file">
+		</member>
 		<member name="F:__gOnce">
 			<referrer name="OnPlayerStateChange"/>
 			<referrer name="Iter_OnPlayerStateChange"/>
@@ -18797,18 +18801,18 @@
 		<member name="F:aLastShot">
 			<referrer name="pc_cmd_lastshot"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:acstruct">
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="OnPlayerClickMap"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:advisorchat">
 			<referrer name="SendAdvisorMessage"/>
 			<referrer name="pc_cmd_togstaff"/>
 			<referrer name="pc_cmd_staff"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:antiChannel">
 			<tagname value="DCC_Channel"/>
@@ -19012,7 +19016,7 @@
 			<referrer name="pc_cmd_untow"/>
 			<referrer name="pc_cmd_impound"/>
 			<referrer name="pc_cmd_aimpound"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:audiourlid">
 			<referrer name="SendAudioURLToRange"/>
@@ -19193,7 +19197,7 @@
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="pc_cmd_present"/>
 			<referrer name="pc_cmd_warrantarrest"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:creditChannel">
 			<tagname value="DCC_Channel"/>
@@ -19728,7 +19732,7 @@
 			<referrer name="mS_DestroySelectionMenu"/>
 			<referrer name="ShowModelSelectionMenu"/>
 			<referrer name="ShowModelSelectionMenuEx"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gBase">
 			<referrer name="CodeScanAddSwitchTarget"/>
@@ -19737,17 +19741,17 @@
 			<library>amx_assembly codescan</library>
 		</member>
 		<member name="F:gBike">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:gBikeRenting">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:gBug">
 			<referrer name="SendBugMessage"/>
 			<referrer name="pc_cmd_togbr"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gCancelButtonTextDrawId">
 			<tagname value="PlayerText"/>
@@ -19755,7 +19759,7 @@
 			<referrer name="ShowModelSelectionMenu"/>
 			<referrer name="ShowModelSelectionMenuEx"/>
 			<referrer name="OnPlayerClickPlayerTextDraw"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gCodBase">
 			<referrer name="CodeScanRunFastPrescanLocated"/>
@@ -19782,7 +19786,7 @@
 			<referrer name="mS_UpdatePageTextDraw"/>
 			<referrer name="ShowModelSelectionMenu"/>
 			<referrer name="ShowModelSelectionMenuEx"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gCurrentTargetYAngle">
 			<tagname value="Float"/>
@@ -19814,7 +19818,7 @@
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="pc_cmd_togfam"/>
 			<referrer name="pc_cmd_f"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 		</member>
@@ -19868,7 +19872,7 @@
 			<referrer name="mS_DestroySelectionMenu"/>
 			<referrer name="ShowModelSelectionMenu"/>
 			<referrer name="ShowModelSelectionMenuEx"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gHelp">
 			<referrer name="pc_cmd_hlban"/>
@@ -19876,7 +19880,7 @@
 			<referrer name="pc_cmd_joinhelp"/>
 			<referrer name="pc_cmd_leavehelp"/>
 			<referrer name="pc_cmd_hlkick"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerLoad"/>
 		</member>
 		<member name="F:gInitialized">
@@ -19910,7 +19914,7 @@
 			<referrer name="LoadModelSelectionMenu"/>
 		</member>
 		<member name="F:gItemAt">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gItemList">
 			<referrer name="LoadModelSelectionMenu"/>
@@ -19920,7 +19924,7 @@
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_oldcar"/>
 			<referrer name="pc_cmd_detain"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 		</member>
@@ -19939,7 +19943,7 @@
 		<member name="F:gNewbie">
 			<referrer name="pc_cmd_tognewbie"/>
 			<referrer name="pc_cmd_newb"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 			<referrer name="OnPlayerLoad"/>
@@ -19949,7 +19953,7 @@
 			<referrer name="SetPlayerFirstSpawn"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="pc_cmd_tognews"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 			<referrer name="OnDialogResponse"/>
@@ -19960,7 +19964,7 @@
 			<referrer name="ShowModelSelectionMenu"/>
 			<referrer name="ShowModelSelectionMenuEx"/>
 			<referrer name="OnPlayerClickPlayerTextDraw"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gOP_CASETBL">
 			<referrer name="CodeScanAddSwitchTarget"/>
@@ -19978,7 +19982,7 @@
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="pc_cmd_togooc"/>
 			<referrer name="pc_cmd_o"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 		</member>
@@ -19998,7 +20002,7 @@
 			<referrer name="pc_cmd_showmehq3"/>
 			<referrer name="pc_cmd_cancel"/>
 			<referrer name="OnPlayerClickMap"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="_@yHOnDialogResponse@0X"/>
@@ -20019,7 +20023,7 @@
 		</member>
 		<member name="F:gPlayerLogTries">
 			<referrer name="OnQueryFinish"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gPlayerLogged">
 			<referrer name="AntiHackForPlayer"/>
@@ -20066,7 +20070,7 @@
 			<referrer name="pc_cmd_newb"/>
 			<referrer name="pc_cmd_hl"/>
 			<referrer name="OPBA_OnPlayerInteriorChange"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<referrer name="OnPlayerRequestClass"/>
@@ -20085,7 +20089,7 @@
 			<referrer name="ShowModelSelectionMenu"/>
 			<referrer name="ShowModelSelectionMenuEx"/>
 			<referrer name="OnPlayerClickPlayerTextDraw"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gPreviousWriteOffset">
 			<referrer name="AsmEmitInstruction"/>
@@ -20096,7 +20100,7 @@
 		<member name="F:gRadio">
 			<referrer name="RadioBroadCast"/>
 			<referrer name="pc_cmd_togpr"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gRelocateRequired">
 			<tagname value="bool"/>
@@ -20122,7 +20126,7 @@
 			<referrer name="mS_DestroyPlayerMPs"/>
 			<referrer name="mS_ShowPlayerMPs"/>
 			<referrer name="OnPlayerClickPlayerTextDraw"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:gSelectionItemsTag">
 			<referrer name="mS_ShowPlayerMPs"/>
@@ -20259,7 +20263,7 @@
 			<referrer name="GivePlayerXP"/>
 			<referrer name="pc_cmd_listbugs"/>
 			<referrer name="pc_cmd_osetfamed"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:g_carjackData">
@@ -20403,19 +20407,19 @@
 		</member>
 		<member name="F:hInviteHouse">
 			<referrer name="pc_cmd_accept"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:hInviteOffer">
 			<referrer name="pc_cmd_accept"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:hInviteOfferTo">
 			<referrer name="pc_cmd_houseinvite"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:hangtrentay">
@@ -20606,7 +20610,7 @@
 			<referrer name="Log"/>
 		</member>
 		<member name="F:logincheck">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:lspddoor1">
@@ -20690,18 +20694,18 @@
 		</member>
 		<member name="F:pCurrentWeapon">
 			<referrer name="OPBA_OnPlayerUpdate"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:pDrunkLevelLast">
 			<referrer name="OPBA_OnPlayerUpdate"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:pFPS">
 			<referrer name="fpsCounterUpdate"/>
 			<referrer name="pc_cmd_id"/>
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowFPSCounter"/>
 		</member>
 		<member name="F:pFPSCounter">
@@ -20720,7 +20724,7 @@
 		</member>
 		<member name="F:pSpeed">
 			<tagname value="Float"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:pTazer">
@@ -20739,7 +20743,7 @@
 			<referrer name="pc_cmd_tazer"/>
 			<referrer name="pc_cmd_joinhunger"/>
 			<referrer name="OnPlayerGiveDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
@@ -20747,7 +20751,7 @@
 		<member name="F:pTazerReplace">
 			<referrer name="pc_cmd_tazer"/>
 			<referrer name="OnPlayerGiveDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 		</member>
@@ -20793,10 +20797,10 @@
 			<referrer name="AFKUpdate"/>
 			<referrer name="pc_cmd_afk"/>
 			<referrer name="pc_cmd_families"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:playerLastTyped">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerCommandReceived"/>
 			<referrer name="OnPlayerText"/>
 		</member>
@@ -20820,7 +20824,7 @@
 			<referrer name="pc_cmd_hhcheck"/>
 			<referrer name="pc_cmd_paused"/>
 			<referrer name="OPBA_OnPlayerUpdate"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:pointpinglimit">
 			<referrer name="pc_cmd_setcapping"/>
@@ -20833,7 +20837,7 @@
 		<member name="F:rBigEarT">
 			<referrer name="MoneyUpdate"/>
 			<referrer name="pc_cmd_ar"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:radarroom">
@@ -21003,14 +21007,14 @@
 			<referrer name="CheckAccounts"/>
 			<referrer name="sobeitCheck"/>
 			<referrer name="Player_StreamPrep"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 		</member>
 		<member name="F:sobeitCheckvar">
 			<referrer name="CheckAccounts"/>
 			<referrer name="sobeitCheck"/>
 			<referrer name="Player_StreamPrep"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 		</member>
 		<member name="F:speedHackPlayer">
@@ -21031,7 +21035,7 @@
 			<referrer name="pc_cmd_lucsoat"/>
 		</member>
 		<member name="F:szAdvert">
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:tRewardText">
@@ -21131,11 +21135,11 @@
 			<referrer name="SyncTurfWarsRadar"/>
 			<referrer name="pc_cmd_turfs"/>
 			<referrer name="pc_cmd_claim"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:unbanip">
 			<referrer name="Disconnect"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:using_deprecated_itertag_syntax">
@@ -22573,7 +22577,7 @@
 			<referrer name="OnPlayerPressButton"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnVehicleDeath"/>
@@ -29062,6 +29066,306 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:AntiVPN" syntax="AntiVPN(playerid, response_code, data[])">
+			<attribute name="public"/>
+			<stacksize value="901"/>
+			<dependency name="DCC_FindChannelById"/>
+			<dependency name="DiscordLog"/>
+			<dependency name="GetPlayerName"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="Kick"/>
+			<dependency name="SendClientMessageToAll"/>
+			<dependency name="__printf"/>
+			<dependency name="format"/>
+			<dependency name="substr"/>
+			<param name="playerid">
+			</param>
+			<param name="response_code">
+			</param>
+			<param name="data">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:AntiVPN_OnPlayerConnect" syntax="AntiVPN_OnPlayerConnect(playerid)">
+			<attribute name="public"/>
+			<stacksize value="7"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="ActiveChatbox"/>
+			<dependency name="AdvertType"/>
+			<dependency name="AppealOffer"/>
+			<dependency name="AppealOfferAccepted"/>
+			<dependency name="Backup"/>
+			<dependency name="BackupClearTimer"/>
+			<dependency name="BusAccepted"/>
+			<dependency name="BusCallTime"/>
+			<dependency name="CP"/>
+			<dependency name="CalledCops"/>
+			<dependency name="CalledMedics"/>
+			<dependency name="CancelReport"/>
+			<dependency name="CarRadars"/>
+			<dependency name="ChosenSkin"/>
+			<dependency name="ClearMarriage"/>
+			<dependency name="CommandSpamTimes"/>
+			<dependency name="CommandSpamUnmute"/>
+			<dependency name="ConfigEventCPId"/>
+			<dependency name="ConfigEventCPs"/>
+			<dependency name="ConfigEventCPs"/>
+			<dependency name="ConnectedToPC"/>
+			<dependency name="CopsCallTime"/>
+			<dependency name="CurrentArmor"/>
+			<dependency name="CurrentMoney"/>
+			<dependency name="DefendOffer"/>
+			<dependency name="DefendPrice"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="DestroyDynamic3DTextLabel"/>
+			<dependency name="DivorceOffer"/>
+			<dependency name="EMSAccepted"/>
+			<dependency name="EMSCallTime"/>
+			<dependency name="EventFloats"/>
+			<dependency name="EventFloats"/>
+			<dependency name="EventLastInt"/>
+			<dependency name="EventLastVW"/>
+			<dependency name="FirstSpawn"/>
+			<dependency name="Fixr"/>
+			<dependency name="GetChased"/>
+			<dependency name="GettingJob"/>
+			<dependency name="GettingJob2"/>
+			<dependency name="GettingSpectated"/>
+			<dependency name="GiveKeysTo"/>
+			<dependency name="GoChase"/>
+			<dependency name="GotHit"/>
+			<dependency name="GotProposedBy"/>
+			<dependency name="HHcheckFloats"/>
+			<dependency name="HHcheckFloats"/>
+			<dependency name="HHcheckInt"/>
+			<dependency name="HHcheckVW"/>
+			<dependency name="HackingMods"/>
+			<dependency name="HelperTimer"/>
+			<dependency name="HelpingNewbie"/>
+			<dependency name="HidePM"/>
+			<dependency name="HireCar"/>
+			<dependency name="HitOffer"/>
+			<dependency name="HitToGet"/>
+			<dependency name="HlKickTimer"/>
+			<dependency name="Homes"/>
+			<dependency name="House"/>
+			<dependency name="HouseOffer"/>
+			<dependency name="HousePrice"/>
+			<dependency name="InsideMainMenu"/>
+			<dependency name="InsidePlane"/>
+			<dependency name="InsideTut"/>
+			<dependency name="InvalidNameCheck"/>
+			<dependency name="InviteFamily"/>
+			<dependency name="InviteOffer"/>
+			<dependency name="IsPlayerFrozen"/>
+			<dependency name="IsPlayerNPC"/>
+			<dependency name="IsSpawned"/>
+			<dependency name="IsValidDynamic3DTextLabel"/>
+			<dependency name="Iter_Single@Player"/>
+			<dependency name="JailPrice"/>
+			<dependency name="JetPack"/>
+			<dependency name="JobDuty"/>
+			<dependency name="JustReported"/>
+			<dependency name="KillTime"/>
+			<dependency name="LastOnFootPosition"/>
+			<dependency name="ListItemRCPId"/>
+			<dependency name="ListItemRCPId"/>
+			<dependency name="ListItemReportId"/>
+			<dependency name="ListItemReportId"/>
+			<dependency name="LiveOffer"/>
+			<dependency name="Locator"/>
+			<dependency name="LottoNumbers"/>
+			<dependency name="LottoNumbers"/>
+			<dependency name="MPDay"/>
+			<dependency name="MPMonth"/>
+			<dependency name="MPYear"/>
+			<dependency name="MarriageCeremoney"/>
+			<dependency name="MarryWitness"/>
+			<dependency name="MarryWitnessOffer"/>
+			<dependency name="MatDeliver"/>
+			<dependency name="MatDeliver2"/>
+			<dependency name="MatsAmount"/>
+			<dependency name="MatsHolding"/>
+			<dependency name="MatsOffer"/>
+			<dependency name="MatsPrice"/>
+			<dependency name="MatsStorageID"/>
+			<dependency name="MaxPlayersConnected"/>
+			<dependency name="MedicAccepted"/>
+			<dependency name="MedicCallTime"/>
+			<dependency name="MedicsCallTime"/>
+			<dependency name="Mobile"/>
+			<dependency name="Music"/>
+			<dependency name="NOPTrigger"/>
+			<dependency name="NewbieTimer"/>
+			<dependency name="OrderAssignedTo"/>
+			<dependency name="OrderReady"/>
+			<dependency name="PhoneOnline"/>
+			<dependency name="PlayerCuffed"/>
+			<dependency name="PlayerCuffedTime"/>
+			<dependency name="PlayerDrunk"/>
+			<dependency name="PlayerDrunkTime"/>
+			<dependency name="PlayerHoldingObject"/>
+			<dependency name="PlayerHoldingObject"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerPizzaBoy"/>
+			<dependency name="PlayerPorter"/>
+			<dependency name="PlayerStoned"/>
+			<dependency name="PlayerTied"/>
+			<dependency name="PlayerToyInfo"/>
+			<dependency name="PlayerToyInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="PlayerWorking"/>
+			<dependency name="ProposeOffer"/>
+			<dependency name="ProposedTo"/>
+			<dependency name="RCPIdCurrent"/>
+			<dependency name="RFLTeamN3D"/>
+			<dependency name="RegistrationStep"/>
+			<dependency name="ReleasingMenu"/>
+			<dependency name="RemoveBuildings"/>
+			<dependency name="ReportCount"/>
+			<dependency name="ReportHourCount"/>
+			<dependency name="RocketExplosions"/>
+			<dependency name="SelectFChar"/>
+			<dependency name="SelectFCharPlace"/>
+			<dependency name="Selected"/>
+			<dependency name="Selected"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="SetPlayerColor"/>
+			<dependency name="SetPlayerSkillLevel"/>
+			<dependency name="SetPlayerVirtualWorld"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="ShotPlayer"/>
+			<dependency name="ShotPlayer"/>
+			<dependency name="ShowNoticeGUIFrame"/>
+			<dependency name="SpawnKick"/>
+			<dependency name="Spectate"/>
+			<dependency name="Spectating"/>
+			<dependency name="SpoofKill"/>
+			<dependency name="StartTime"/>
+			<dependency name="StopaniFloats"/>
+			<dependency name="StopaniFloats"/>
+			<dependency name="SyncPlayerTime"/>
+			<dependency name="TalkingLive"/>
+			<dependency name="TaxiAccepted"/>
+			<dependency name="TaxiCallTime"/>
+			<dependency name="TazerTimeout"/>
+			<dependency name="TextSpamTimes"/>
+			<dependency name="TextSpamUnmute"/>
+			<dependency name="TicketMoney"/>
+			<dependency name="TicketOffer"/>
+			<dependency name="TotalConnect"/>
+			<dependency name="TransportCost"/>
+			<dependency name="TransportDriver"/>
+			<dependency name="TransportDuty"/>
+			<dependency name="TransportMoney"/>
+			<dependency name="TransportTime"/>
+			<dependency name="TransportValue"/>
+			<dependency name="TruckUsed"/>
+			<dependency name="TutStep"/>
+			<dependency name="UsedCrack"/>
+			<dependency name="UsedWeed"/>
+			<dependency name="VehicleId"/>
+			<dependency name="VehicleOffer"/>
+			<dependency name="VehiclePrice"/>
+			<dependency name="VehicleSpawned"/>
+			<dependency name="aLastShot"/>
+			<dependency name="acstruct"/>
+			<dependency name="acstruct"/>
+			<dependency name="advisorchat"/>
+			<dependency name="arr_Towing"/>
+			<dependency name="checkmaptp"/>
+			<dependency name="courtjail"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="gBackgroundTextDrawId"/>
+			<dependency name="gBike"/>
+			<dependency name="gBikeRenting"/>
+			<dependency name="gBug"/>
+			<dependency name="gCancelButtonTextDrawId"/>
+			<dependency name="gCurrentPageTextDrawId"/>
+			<dependency name="gFam"/>
+			<dependency name="gHeaderTextDrawId"/>
+			<dependency name="gHelp"/>
+			<dependency name="gItemAt"/>
+			<dependency name="gLastCar"/>
+			<dependency name="gNewbie"/>
+			<dependency name="gNews"/>
+			<dependency name="gNextButtonTextDrawId"/>
+			<dependency name="gOoc"/>
+			<dependency name="gPlayerCheckpointStatus"/>
+			<dependency name="gPlayerLogTries"/>
+			<dependency name="gPlayerLogged"/>
+			<dependency name="gPrevButtonTextDrawId"/>
+			<dependency name="gRadio"/>
+			<dependency name="gSelectionItems"/>
+			<dependency name="gSelectionItems"/>
+			<dependency name="g_arrQueryHandle"/>
+			<dependency name="getdate"/>
+			<dependency name="hInviteHouse"/>
+			<dependency name="hInviteOffer"/>
+			<dependency name="hInviteOfferTo"/>
+			<dependency name="logincheck"/>
+			<dependency name="maptp"/>
+			<dependency name="maptplastclick"/>
+			<dependency name="pAGuns"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pAutoTextReply"/>
+			<dependency name="pBanned"/>
+			<dependency name="pBusiness"/>
+			<dependency name="pCrack"/>
+			<dependency name="pCurrentWeapon"/>
+			<dependency name="pDivision"/>
+			<dependency name="pDrunkLevelLast"/>
+			<dependency name="pFMember"/>
+			<dependency name="pFPS"/>
+			<dependency name="pGuns"/>
+			<dependency name="pKills"/>
+			<dependency name="pLeader"/>
+			<dependency name="pMember"/>
+			<dependency name="pModel"/>
+			<dependency name="pOrder"/>
+			<dependency name="pOrderConfirmed"/>
+			<dependency name="pPaintTeam"/>
+			<dependency name="pPhonePrivacy"/>
+			<dependency name="pPot"/>
+			<dependency name="pPrisonReason"/>
+			<dependency name="pRank"/>
+			<dependency name="pReg"/>
+			<dependency name="pServiceTime"/>
+			<dependency name="pSpeed"/>
+			<dependency name="pTazer"/>
+			<dependency name="pTazerReplace"/>
+			<dependency name="pVehicleKeys"/>
+			<dependency name="pVehicleKeysFrom"/>
+			<dependency name="pWantedLevel"/>
+			<dependency name="playerAFK"/>
+			<dependency name="playerLastTyped"/>
+			<dependency name="playerTabbed"/>
+			<dependency name="ptBone"/>
+			<dependency name="ptID"/>
+			<dependency name="ptModelID"/>
+			<dependency name="ptSpecial"/>
+			<dependency name="pvAllowedPlayerId"/>
+			<dependency name="pvId"/>
+			<dependency name="pvModelId"/>
+			<dependency name="pvSlotId"/>
+			<dependency name="pvSpawned"/>
+			<dependency name="rBigEarT"/>
+			<dependency name="random"/>
+			<dependency name="sobeitCheckIsDone"/>
+			<dependency name="sobeitCheckvar"/>
+			<dependency name="strdel"/>
+			<dependency name="szAdvert"/>
+			<dependency name="szAdvert"/>
+			<dependency name="turfWarsRadar"/>
+			<dependency name="unbanip"/>
+			<dependency name="unbanip"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:Anti_killall_1" syntax="Anti_killall_1(playerid, amount)">
 			<attribute name="public"/>
 			<stacksize value="135"/>
@@ -35271,7 +35575,7 @@
 			<stacksize value="31"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_adivorce"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -38273,6 +38577,7 @@
 		<member name="M:DCC_FindChannelById" syntax="DCC_FindChannelById(channel_id[])">
 			<tagname value="DCC_Channel"/>
 			<attribute name="native"/>
+			<referrer name="AntiVPN"/>
 			<referrer name="pc_cmd_laypos"/>
 			<referrer name="Discord_Init"/>
 			<referrer name="_@yHOnDialogResponse@0e"/>
@@ -39184,7 +39489,7 @@
 			<referrer name="OnPlayerLeaveDynamicArea"/>
 			<referrer name="OnPlayerModelSelection"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
@@ -39420,7 +39725,7 @@
 			<referrer name="pc_cmd_endhunger"/>
 			<referrer name="pc_cmd_leavehunger"/>
 			<referrer name="pc_cmd_openbackpack"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
@@ -40345,6 +40650,7 @@
 		</member>
 		<member name="M:DiscordLog" syntax="DiscordLog(channel, title[], string[], ...)">
 			<stacksize value="335"/>
+			<referrer name="AntiVPN"/>
 			<referrer name="pc_cmd_taoboss"/>
 			<referrer name="startpainter"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
@@ -46555,6 +46861,7 @@
 			<referrer name="rconBannedPlayer"/>
 			<referrer name="AntiCrasherWeapon"/>
 			<referrer name="_@yHOnPlayerCommandText@08"/>
+			<referrer name="OPBA_OnPlayerConnect"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
 			<referrer name="OnProcessOrderCheck"/>
 			<referrer name="ReferralSecurity"/>
@@ -46739,6 +47046,7 @@
 			<referrer name="fakeOnline_name"/>
 			<referrer name="_@yHOnPlayerUpdate@06"/>
 			<referrer name="_@yHOnPlayerUpdate@0@"/>
+			<referrer name="AntiVPN"/>
 			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="UpdateHudUI"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
@@ -46819,6 +47127,7 @@
 			<referrer name="_@yHOnPlayerGiveDamage@0B"/>
 			<referrer name="AntiCheat"/>
 			<referrer name="SlapAntiSlap"/>
+			<referrer name="AntiVPN"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
@@ -51127,6 +51436,7 @@
 		<member name="M:HTTP" syntax="HTTP(index, method, url[], data[], callback[])">
 			<attribute name="native"/>
 			<referrer name="Mail_Send"/>
+			<referrer name="OPBA_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="index">
 				ID used to differentiate requests that are sent to the same callback (useful  for playerids)
@@ -54404,7 +54714,7 @@
 		</member>
 		<member name="M:InvalidNameCheck" syntax="InvalidNameCheck(playerid)">
 			<stacksize value="182"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<dependency name="GetPlayerNameExt"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="SetPlayerName"/>
@@ -56471,7 +56781,7 @@
 			<referrer name="ScriptInit_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerStreamIn"/>
 			<referrer name="OnPlayerStreamOut"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
@@ -56833,7 +57143,7 @@
 			<referrer name="pc_cmd_rflkick"/>
 			<referrer name="pc_cmd_endhunger"/>
 			<referrer name="pc_cmd_leavehunger"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
@@ -59298,6 +59608,7 @@
 			<referrer name="Anti_killall_6"/>
 			<referrer name="CheckPlayerRemoteJacking"/>
 			<referrer name="ChongNoXe2"/>
+			<referrer name="AntiVPN"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="pc_cmd_kickallbaotri"/>
 			<referrer name="AFKUpdate"/>
@@ -63055,281 +63366,10 @@
 		</member>
 		<member name="M:OPBA_OnPlayerConnect" syntax="OPBA_OnPlayerConnect(playerid)">
 			<attribute name="public"/>
-			<stacksize value="7"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="ActiveChatbox"/>
-			<dependency name="AdvertType"/>
-			<dependency name="AppealOffer"/>
-			<dependency name="AppealOfferAccepted"/>
-			<dependency name="Backup"/>
-			<dependency name="BackupClearTimer"/>
-			<dependency name="BusAccepted"/>
-			<dependency name="BusCallTime"/>
-			<dependency name="CP"/>
-			<dependency name="CalledCops"/>
-			<dependency name="CalledMedics"/>
-			<dependency name="CancelReport"/>
-			<dependency name="CarRadars"/>
-			<dependency name="ChosenSkin"/>
-			<dependency name="ClearMarriage"/>
-			<dependency name="CommandSpamTimes"/>
-			<dependency name="CommandSpamUnmute"/>
-			<dependency name="ConfigEventCPId"/>
-			<dependency name="ConfigEventCPs"/>
-			<dependency name="ConfigEventCPs"/>
-			<dependency name="ConnectedToPC"/>
-			<dependency name="CopsCallTime"/>
-			<dependency name="CurrentArmor"/>
-			<dependency name="CurrentMoney"/>
-			<dependency name="DefendOffer"/>
-			<dependency name="DefendPrice"/>
-			<dependency name="DeletePVar"/>
-			<dependency name="DestroyDynamic3DTextLabel"/>
-			<dependency name="DivorceOffer"/>
-			<dependency name="EMSAccepted"/>
-			<dependency name="EMSCallTime"/>
-			<dependency name="EventFloats"/>
-			<dependency name="EventFloats"/>
-			<dependency name="EventLastInt"/>
-			<dependency name="EventLastVW"/>
-			<dependency name="FirstSpawn"/>
-			<dependency name="Fixr"/>
-			<dependency name="GetChased"/>
-			<dependency name="GettingJob"/>
-			<dependency name="GettingJob2"/>
-			<dependency name="GettingSpectated"/>
-			<dependency name="GiveKeysTo"/>
-			<dependency name="GoChase"/>
-			<dependency name="GotHit"/>
-			<dependency name="GotProposedBy"/>
-			<dependency name="HHcheckFloats"/>
-			<dependency name="HHcheckFloats"/>
-			<dependency name="HHcheckInt"/>
-			<dependency name="HHcheckVW"/>
-			<dependency name="HackingMods"/>
-			<dependency name="HelperTimer"/>
-			<dependency name="HelpingNewbie"/>
-			<dependency name="HidePM"/>
-			<dependency name="HireCar"/>
-			<dependency name="HitOffer"/>
-			<dependency name="HitToGet"/>
-			<dependency name="HlKickTimer"/>
-			<dependency name="Homes"/>
-			<dependency name="House"/>
-			<dependency name="HouseOffer"/>
-			<dependency name="HousePrice"/>
-			<dependency name="InsideMainMenu"/>
-			<dependency name="InsidePlane"/>
-			<dependency name="InsideTut"/>
-			<dependency name="InvalidNameCheck"/>
-			<dependency name="InviteFamily"/>
-			<dependency name="InviteOffer"/>
-			<dependency name="IsPlayerFrozen"/>
-			<dependency name="IsPlayerNPC"/>
-			<dependency name="IsSpawned"/>
-			<dependency name="IsValidDynamic3DTextLabel"/>
-			<dependency name="Iter_Single@Player"/>
-			<dependency name="JailPrice"/>
-			<dependency name="JetPack"/>
-			<dependency name="JobDuty"/>
-			<dependency name="JustReported"/>
-			<dependency name="KillTime"/>
-			<dependency name="LastOnFootPosition"/>
-			<dependency name="ListItemRCPId"/>
-			<dependency name="ListItemRCPId"/>
-			<dependency name="ListItemReportId"/>
-			<dependency name="ListItemReportId"/>
-			<dependency name="LiveOffer"/>
-			<dependency name="Locator"/>
-			<dependency name="LottoNumbers"/>
-			<dependency name="LottoNumbers"/>
-			<dependency name="MPDay"/>
-			<dependency name="MPMonth"/>
-			<dependency name="MPYear"/>
-			<dependency name="MarriageCeremoney"/>
-			<dependency name="MarryWitness"/>
-			<dependency name="MarryWitnessOffer"/>
-			<dependency name="MatDeliver"/>
-			<dependency name="MatDeliver2"/>
-			<dependency name="MatsAmount"/>
-			<dependency name="MatsHolding"/>
-			<dependency name="MatsOffer"/>
-			<dependency name="MatsPrice"/>
-			<dependency name="MatsStorageID"/>
-			<dependency name="MaxPlayersConnected"/>
-			<dependency name="MedicAccepted"/>
-			<dependency name="MedicCallTime"/>
-			<dependency name="MedicsCallTime"/>
-			<dependency name="Mobile"/>
-			<dependency name="Music"/>
-			<dependency name="NOPTrigger"/>
-			<dependency name="NewbieTimer"/>
-			<dependency name="OrderAssignedTo"/>
-			<dependency name="OrderReady"/>
-			<dependency name="PhoneOnline"/>
-			<dependency name="PlayerCuffed"/>
-			<dependency name="PlayerCuffedTime"/>
-			<dependency name="PlayerDrunk"/>
-			<dependency name="PlayerDrunkTime"/>
-			<dependency name="PlayerHoldingObject"/>
-			<dependency name="PlayerHoldingObject"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerPizzaBoy"/>
-			<dependency name="PlayerPorter"/>
-			<dependency name="PlayerStoned"/>
-			<dependency name="PlayerTied"/>
-			<dependency name="PlayerToyInfo"/>
-			<dependency name="PlayerToyInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="PlayerWorking"/>
-			<dependency name="ProposeOffer"/>
-			<dependency name="ProposedTo"/>
-			<dependency name="RCPIdCurrent"/>
-			<dependency name="RFLTeamN3D"/>
-			<dependency name="RegistrationStep"/>
-			<dependency name="ReleasingMenu"/>
-			<dependency name="RemoveBuildings"/>
-			<dependency name="ReportCount"/>
-			<dependency name="ReportHourCount"/>
-			<dependency name="RocketExplosions"/>
-			<dependency name="SelectFChar"/>
-			<dependency name="SelectFCharPlace"/>
-			<dependency name="Selected"/>
-			<dependency name="Selected"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SetPVarInt"/>
-			<dependency name="SetPlayerColor"/>
-			<dependency name="SetPlayerSkillLevel"/>
-			<dependency name="SetPlayerVirtualWorld"/>
-			<dependency name="SetTimerEx"/>
-			<dependency name="ShotPlayer"/>
-			<dependency name="ShotPlayer"/>
-			<dependency name="ShowNoticeGUIFrame"/>
-			<dependency name="SpawnKick"/>
-			<dependency name="Spectate"/>
-			<dependency name="Spectating"/>
-			<dependency name="SpoofKill"/>
-			<dependency name="StartTime"/>
-			<dependency name="StopaniFloats"/>
-			<dependency name="StopaniFloats"/>
-			<dependency name="SyncPlayerTime"/>
-			<dependency name="TalkingLive"/>
-			<dependency name="TaxiAccepted"/>
-			<dependency name="TaxiCallTime"/>
-			<dependency name="TazerTimeout"/>
-			<dependency name="TextSpamTimes"/>
-			<dependency name="TextSpamUnmute"/>
-			<dependency name="TicketMoney"/>
-			<dependency name="TicketOffer"/>
-			<dependency name="TotalConnect"/>
-			<dependency name="TransportCost"/>
-			<dependency name="TransportDriver"/>
-			<dependency name="TransportDuty"/>
-			<dependency name="TransportMoney"/>
-			<dependency name="TransportTime"/>
-			<dependency name="TransportValue"/>
-			<dependency name="TruckUsed"/>
-			<dependency name="TutStep"/>
-			<dependency name="UsedCrack"/>
-			<dependency name="UsedWeed"/>
-			<dependency name="VehicleId"/>
-			<dependency name="VehicleOffer"/>
-			<dependency name="VehiclePrice"/>
-			<dependency name="VehicleSpawned"/>
-			<dependency name="aLastShot"/>
-			<dependency name="acstruct"/>
-			<dependency name="acstruct"/>
-			<dependency name="advisorchat"/>
-			<dependency name="arr_Towing"/>
-			<dependency name="checkmaptp"/>
-			<dependency name="courtjail"/>
-			<dependency name="false"/>
+			<stacksize value="82"/>
+			<dependency name="GetPlayerIp"/>
+			<dependency name="HTTP"/>
 			<dependency name="format"/>
-			<dependency name="gBackgroundTextDrawId"/>
-			<dependency name="gBike"/>
-			<dependency name="gBikeRenting"/>
-			<dependency name="gBug"/>
-			<dependency name="gCancelButtonTextDrawId"/>
-			<dependency name="gCurrentPageTextDrawId"/>
-			<dependency name="gFam"/>
-			<dependency name="gHeaderTextDrawId"/>
-			<dependency name="gHelp"/>
-			<dependency name="gItemAt"/>
-			<dependency name="gLastCar"/>
-			<dependency name="gNewbie"/>
-			<dependency name="gNews"/>
-			<dependency name="gNextButtonTextDrawId"/>
-			<dependency name="gOoc"/>
-			<dependency name="gPlayerCheckpointStatus"/>
-			<dependency name="gPlayerLogTries"/>
-			<dependency name="gPlayerLogged"/>
-			<dependency name="gPrevButtonTextDrawId"/>
-			<dependency name="gRadio"/>
-			<dependency name="gSelectionItems"/>
-			<dependency name="gSelectionItems"/>
-			<dependency name="g_arrQueryHandle"/>
-			<dependency name="getdate"/>
-			<dependency name="hInviteHouse"/>
-			<dependency name="hInviteOffer"/>
-			<dependency name="hInviteOfferTo"/>
-			<dependency name="logincheck"/>
-			<dependency name="maptp"/>
-			<dependency name="maptplastclick"/>
-			<dependency name="pAGuns"/>
-			<dependency name="pAdmin"/>
-			<dependency name="pAutoTextReply"/>
-			<dependency name="pBanned"/>
-			<dependency name="pBusiness"/>
-			<dependency name="pCrack"/>
-			<dependency name="pCurrentWeapon"/>
-			<dependency name="pDivision"/>
-			<dependency name="pDrunkLevelLast"/>
-			<dependency name="pFMember"/>
-			<dependency name="pFPS"/>
-			<dependency name="pGuns"/>
-			<dependency name="pKills"/>
-			<dependency name="pLeader"/>
-			<dependency name="pMember"/>
-			<dependency name="pModel"/>
-			<dependency name="pOrder"/>
-			<dependency name="pOrderConfirmed"/>
-			<dependency name="pPaintTeam"/>
-			<dependency name="pPhonePrivacy"/>
-			<dependency name="pPot"/>
-			<dependency name="pPrisonReason"/>
-			<dependency name="pRank"/>
-			<dependency name="pReg"/>
-			<dependency name="pServiceTime"/>
-			<dependency name="pSpeed"/>
-			<dependency name="pTazer"/>
-			<dependency name="pTazerReplace"/>
-			<dependency name="pVehicleKeys"/>
-			<dependency name="pVehicleKeysFrom"/>
-			<dependency name="pWantedLevel"/>
-			<dependency name="playerAFK"/>
-			<dependency name="playerLastTyped"/>
-			<dependency name="playerTabbed"/>
-			<dependency name="ptBone"/>
-			<dependency name="ptID"/>
-			<dependency name="ptModelID"/>
-			<dependency name="ptSpecial"/>
-			<dependency name="pvAllowedPlayerId"/>
-			<dependency name="pvId"/>
-			<dependency name="pvModelId"/>
-			<dependency name="pvSlotId"/>
-			<dependency name="pvSpawned"/>
-			<dependency name="rBigEarT"/>
-			<dependency name="random"/>
-			<dependency name="sobeitCheckIsDone"/>
-			<dependency name="sobeitCheckvar"/>
-			<dependency name="strdel"/>
-			<dependency name="szAdvert"/>
-			<dependency name="szAdvert"/>
-			<dependency name="turfWarsRadar"/>
-			<dependency name="unbanip"/>
-			<dependency name="unbanip"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -77180,7 +77220,7 @@
 		<member name="M:RemoveBuildings" syntax="RemoveBuildings(playerid)">
 			<attribute name="public"/>
 			<stacksize value="1"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -81067,7 +81107,7 @@
 			<referrer name="OnPlayerEditAttachedObject"/>
 			<referrer name="OnPlayerModelSelection"/>
 			<referrer name="OnPlayerGiveDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
@@ -82333,6 +82373,7 @@
 		<member name="M:SendClientMessageToAll" syntax="SendClientMessageToAll(colour, format[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="AntiVPN"/>
 			<referrer name="pc_cmd_taoboss"/>
 			<referrer name="pc_cmd_xoabosshtb"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
@@ -84389,7 +84430,7 @@
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="Iter_OnPlayerStreamIn"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="Iter_OnRconLoginAttempt"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
@@ -84916,7 +84957,7 @@
 			<referrer name="pc_cmd_ram"/>
 			<referrer name="pc_cmd_hbadge"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="pc_cmd_fare"/>
@@ -85581,7 +85622,7 @@
 		<member name="M:SetPlayerSkillLevel" syntax="SetPlayerSkillLevel(playerid, skill, level)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<param name="playerid">
 				The ID of the player to set the weapon skill of
@@ -86076,7 +86117,7 @@
 			<referrer name="pc_cmd_joinhunger"/>
 			<referrer name="OnPlayerLeaveDynamicArea"/>
 			<referrer name="OnPlayerClickMap"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnVehicleDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
@@ -86557,7 +86598,7 @@
 			<referrer name="OPBA_OnPlayerInteriorChange"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OnPlayerGiveDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
@@ -87892,7 +87933,7 @@
 			<referrer name="g_mysql_AccountLoginCheck"/>
 			<referrer name="g_mysql_LoadAccount"/>
 			<referrer name="Player_StreamPrep"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="HideNoticeGUIFrame"/>
 			<dependency name="NoticeTxtdraw"/>
@@ -89628,7 +89669,7 @@
 		<member name="M:SyncPlayerTime" syntax="SyncPlayerTime(playerid)">
 			<attribute name="public"/>
 			<stacksize value="5"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<dependency name="SetPlayerTime"/>
 			<dependency name="minuite"/>
@@ -97672,6 +97713,7 @@
 			<referrer name="EVF_CreateVehicle"/>
 			<referrer name="EVF_Init"/>
 			<referrer name="EVF_Exit"/>
+			<referrer name="AntiVPN"/>
 			<referrer name="LuuBanRoulette"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="ThungRacCreate"/>
@@ -100166,6 +100208,8 @@
 			<referrer name="_@yHOnPlayerGiveDamage@0B"/>
 			<referrer name="AntiCheat"/>
 			<referrer name="SlapAntiSlap"/>
+			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
@@ -101299,7 +101343,7 @@
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="Iter_OnPlayerStreamIn"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="Iter_OnRconLoginAttempt"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
@@ -102386,7 +102430,7 @@
 			<referrer name="pc_cmd_sellcredits"/>
 			<referrer name="pc_cmd_invite"/>
 			<referrer name="pc_cmd_resupply"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="DiscordLog"/>
 			<referrer name="SendDiscordConnect"/>
 			<referrer name="SendDiscordDisconnect"/>
@@ -132405,7 +132449,7 @@
 			<referrer name="pc_cmd_deport"/>
 			<referrer name="pc_cmd_joinhunger"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="_@yHOnDialogResponse@0X"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0X"/>
@@ -133487,7 +133531,7 @@
 			<referrer name="_str_replace"/>
 			<referrer name="pc_cmd_bonline"/>
 			<referrer name="pc_cmd_setautoreply"/>
-			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 				The string to delete part of
@@ -133808,6 +133852,7 @@
 			<referrer name="_Hooks_AddReplacement"/>
 			<referrer name="NDP_CalculateListitemsPerPage"/>
 			<referrer name="NDP_ProcessDialogResponse"/>
+			<referrer name="substr"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
@@ -134313,6 +134358,19 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 			<param name="maxlength">
+			</param>
+		</member>
+		<member name="M:substr" syntax="substr(source[], find[])">
+			<stacksize value="6"/>
+			<referrer name="AntiVPN"/>
+			<dependency name="false"/>
+			<dependency name="strlen"/>
+			<dependency name="true"/>
+			<param name="source">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="find">
+				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
 		<member name="M:swapchars" syntax="swapchars(c)">
