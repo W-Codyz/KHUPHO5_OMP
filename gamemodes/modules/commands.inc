@@ -49671,13 +49671,6 @@ task CountTheGioiChat[1000]()
     }
 }
 
-alias:map("gps")
-CMD:map(playerid, params[])
-{
-	ShowPlayerDialog(playerid, DIALOG_MAP_TPHAT, DIALOG_STYLE_LIST, "MAP | Ban dang muon di dau ?", "{ffffff}Tim duong\nTim viec lam", "Chon", "Huy");
-	return 1;
-}
-
 CMD:laypos(playerid, params[])
 {
     new DCC_Channel:g_WorkBot = DCC_FindChannelById("1548210474515177482");

@@ -32,7 +32,7 @@ hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
     if(playertextid == Text_Player[playerid][27])
     {
         PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        pc_cmd_timduong(playerid, "");
+        PC_EmulateCommand(playerid, "/timduong");
         return 1;
     }
     if(playertextid == Text_Player[playerid][33])

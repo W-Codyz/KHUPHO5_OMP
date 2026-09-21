@@ -35,28 +35,18 @@ stock DisablePlayerCP(playerid)
 	return DisablePlayerCheckpoint(playerid);
 }
 
-CMD:timduong(playerid, params[])
+stock ShowGPSMainDialog(playerid)
 {
-   ShowPlayerDialog(playerid, TIMDUONG, DIALOG_STYLE_LIST, "Tim Duong", \
-   "Ngan hang San Fierro\n\
-   Ngan hang Los Santos\n\
-   Benh vien San Fierro\n\
-   Benh vien Los Santos\n\
-   Thi bang lai xe\n\
-   Cua xe the thao\n\
-   Cua hang xe moto\n\
-   Cua hang sieu xe VIP\n\
-   Cua hang quan ao\n\
-   Khu vuc cau ca\n\
-   Khu vuc ban ca\n\
-   Nha hang an uong\n\
-   Khu VIP\n\
-   Cua hang tien loi\n\
-   Cua hang sua xe\n\
-   Dau truong PvP\n\
-   Khu giai tri casino\n\
-   Phong tap vo", "Chon", "Dong");
-   return 1;
+    return ShowPlayerDialog(playerid, DIALOG_MAP_TPHAT, DIALOG_STYLE_LIST,
+        "{ffff00}GPS{ffffff} - Ban muon di dau?",
+        "Tim duong\nTim viec lam\nVi tri can sa",
+        "Chon", "Huy");
+}
+
+alias:map("gps", "timduong")
+CMD:map(playerid, params[])
+{
+    return ShowGPSMainDialog(playerid);
 }
 
 CMD:timvieclam(playerid, params[]) 
@@ -78,13 +68,35 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		if(response)
 		{
-			if(listitem == 0) 
+			switch(listitem)
 			{
-				PC_EmulateCommand(playerid, "/timduong");
-			}
-			if(listitem == 1) // Tim viec lam
-			{
-			    PC_EmulateCommand(playerid, "/timvieclam");
+				case 0: ShowPlayerDialog(playerid, TIMDUONG, DIALOG_STYLE_LIST, "Tim Duong",
+					
+					"Ngan hang San Fierro\n\
+					Ngan hang Los Santos\n\
+					Benh vien San Fierro\n\
+					Benh vien Los Santos\n\
+					Thi bang lai xe\n\
+					Cua xe the thao\n\
+					Cua hang xe moto\n\
+					Cua hang sieu xe VIP\n\
+					Cua hang quan ao\n\
+					Khu vuc cau ca\n\
+					Khu vuc ban ca\n\
+					Nha hang an uong\n\
+					Khu VIP\n\
+					Cua hang tien loi 24/7\n\
+					Cua hang sua xe\n\
+					Dau truong PvP\n\
+					Khu giai tri casino\n\
+					Phong tap vo",
+
+					"Chon", "Dong");
+				case 1: PC_EmulateCommand(playerid, "/timvieclam");
+				case 2: ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,
+					"{ffff00}GTAHTB{ffffff} - Can Sa",
+					"Tim duong can sa\nXem can sa",
+					"Chon", "Thoat");
 			}
 		}
 	}
