@@ -3536,7 +3536,7 @@
 				<tagname value="Text3D"/>
 			</member>
 		</member>
-		<member name="T:ddInfo" value="227">
+		<member name="T:ddInfo" value="229">
 			<tagname value="ddInfo"/>
 			<member name="C:ddSQLId" value="0">
 			</member>
@@ -3550,77 +3550,82 @@
 			</member>
 			<member name="C:ddPickupID" value="172">
 			</member>
-			<member name="C:ddTextID" value="173">
+			<member name="C:ddInteriorPickupID" value="173">
+			</member>
+			<member name="C:ddTextID" value="174">
 				<tagname value="Text3D"/>
 			</member>
-			<member name="C:ddCustomInterior" value="174">
+			<member name="C:ddInteriorTextID" value="175">
+				<tagname value="Text3D"/>
 			</member>
-			<member name="C:ddExteriorVW" value="175">
+			<member name="C:ddCustomInterior" value="176">
 			</member>
-			<member name="C:ddExteriorInt" value="176">
+			<member name="C:ddExteriorVW" value="177">
 			</member>
-			<member name="C:ddInteriorVW" value="177">
+			<member name="C:ddExteriorInt" value="178">
 			</member>
-			<member name="C:ddInteriorInt" value="178">
+			<member name="C:ddInteriorVW" value="179">
 			</member>
-			<member name="C:ddExteriorX" value="179">
+			<member name="C:ddInteriorInt" value="180">
+			</member>
+			<member name="C:ddExteriorX" value="181">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:ddExteriorY" value="180">
+			<member name="C:ddExteriorY" value="182">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:ddExteriorZ" value="181">
+			<member name="C:ddExteriorZ" value="183">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:ddExteriorA" value="182">
+			<member name="C:ddExteriorA" value="184">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:ddInteriorX" value="183">
+			<member name="C:ddInteriorX" value="185">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:ddInteriorY" value="184">
+			<member name="C:ddInteriorY" value="186">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:ddInteriorZ" value="185">
+			<member name="C:ddInteriorZ" value="187">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:ddInteriorA" value="186">
+			<member name="C:ddInteriorA" value="188">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:ddCustomExterior" value="187">
+			<member name="C:ddCustomExterior" value="189">
 			</member>
-			<member name="C:ddType" value="188">
+			<member name="C:ddType" value="190">
 			</member>
-			<member name="C:ddRank" value="189">
+			<member name="C:ddRank" value="191">
 			</member>
-			<member name="C:ddVIP" value="190">
+			<member name="C:ddVIP" value="192">
 			</member>
-			<member name="C:ddFamed" value="191">
+			<member name="C:ddFamed" value="193">
 			</member>
-			<member name="C:ddDPC" value="192">
+			<member name="C:ddDPC" value="194">
 			</member>
-			<member name="C:ddAllegiance" value="193">
+			<member name="C:ddAllegiance" value="195">
 			</member>
-			<member name="C:ddGroupType" value="194">
+			<member name="C:ddGroupType" value="196">
 			</member>
-			<member name="C:ddFamily" value="195">
+			<member name="C:ddFamily" value="197">
 			</member>
-			<member name="C:ddFaction" value="196">
+			<member name="C:ddFaction" value="198">
 			</member>
-			<member name="C:ddAdmin" value="197">
+			<member name="C:ddAdmin" value="199">
 			</member>
-			<member name="C:ddWanted" value="198">
+			<member name="C:ddWanted" value="200">
 			</member>
-			<member name="C:ddVehicleAble" value="199">
+			<member name="C:ddVehicleAble" value="201">
 			</member>
-			<member name="C:ddColor" value="200">
+			<member name="C:ddColor" value="202">
 			</member>
-			<member name="C:ddPickupModel" value="201">
+			<member name="C:ddPickupModel" value="203">
 			</member>
-			<member name="C:ddPass" value="202">
+			<member name="C:ddPass" value="204">
 				<size value="24"/>
 			</member>
-			<member name="C:ddLocked" value="226">
+			<member name="C:ddLocked" value="228">
 			</member>
 		</member>
 		<member name="T:dmpInfo" value="9">
@@ -21463,6 +21468,7 @@
 			<referrer name="StopaniTimer"/>
 			<referrer name="GetClosestPlayer"/>
 			<referrer name="FormatFloat"/>
+			<referrer name="CreateDynamicDoor"/>
 			<referrer name="LoadEventPoints"/>
 			<referrer name="CreateTurfWarsZone"/>
 			<referrer name="LoadPlayerVehicles"/>
@@ -37383,7 +37389,7 @@
 			</param>
 		</member>
 		<member name="M:CreateDynamicDoor" syntax="CreateDynamicDoor(doorid)">
-			<stacksize value="265"/>
+			<stacksize value="273"/>
 			<referrer name="OnLoadDynamicDoor"/>
 			<referrer name="OnLoadDynamicDoors"/>
 			<referrer name="OnSetName"/>
@@ -37392,6 +37398,7 @@
 			<referrer name="pc_cmd_ddname"/>
 			<referrer name="pc_cmd_ddowner"/>
 			<referrer name="pc_cmd_ddedit"/>
+			<dependency name="operator!=(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="CreateDynamicPickup"/>
@@ -37406,6 +37413,13 @@
 			<dependency name="ddExteriorX"/>
 			<dependency name="ddExteriorY"/>
 			<dependency name="ddExteriorZ"/>
+			<dependency name="ddInteriorInt"/>
+			<dependency name="ddInteriorPickupID"/>
+			<dependency name="ddInteriorTextID"/>
+			<dependency name="ddInteriorVW"/>
+			<dependency name="ddInteriorX"/>
+			<dependency name="ddInteriorY"/>
+			<dependency name="ddInteriorZ"/>
 			<dependency name="ddOwnerName"/>
 			<dependency name="ddPickupID"/>
 			<dependency name="ddPickupModel"/>
@@ -77010,6 +77024,8 @@
 			<dependency name="ddGroupType"/>
 			<dependency name="ddInteriorA"/>
 			<dependency name="ddInteriorInt"/>
+			<dependency name="ddInteriorPickupID"/>
+			<dependency name="ddInteriorTextID"/>
 			<dependency name="ddInteriorVW"/>
 			<dependency name="ddInteriorX"/>
 			<dependency name="ddInteriorY"/>

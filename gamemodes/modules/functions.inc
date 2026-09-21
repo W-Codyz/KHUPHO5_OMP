@@ -12485,7 +12485,9 @@ stock SaveDynamicDoors()
 stock RehashDynamicDoor(doorid)
 {
 	DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
+	DestroyDynamicPickup(DDoorsInfo[doorid][ddInteriorPickupID]);
 	if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+	if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddInteriorTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddInteriorTextID]);
 	DDoorsInfo[doorid][ddSQLId] = -1;
 	DDoorsInfo[doorid][ddOwner] = -1;
 	DDoorsInfo[doorid][ddCustomInterior] = 0;
@@ -12531,8 +12533,8 @@ stock RehashDynamicDoors()
 stock CreateDynamicDoor(doorid)
 {
 	new string[128];
-	if(DDoorsInfo[doorid][ddType] != 0) format(string, sizeof(string), "%s | So huu: %s\nID: %d\n\n{FFFFFF}Nhan \"{20A256}Y{FFFFFF}\" de vao/ra", DDoorsInfo[doorid][ddDescription], StripUnderscore(DDoorsInfo[doorid][ddOwnerName]), doorid);
-	else format(string, sizeof(string), "%s\nID: %d\n\n{FFFFFF}Nhan \"{20A256}Y{FFFFFF}\" de vao/ra", DDoorsInfo[doorid][ddDescription], doorid);
+	if(DDoorsInfo[doorid][ddType] != 0) format(string, sizeof(string), "%s | So huu: %s\nID: %d\n\n{FFFFFF}Nhan \"{20A256}Y{FFFFFF}\" de vao trong", DDoorsInfo[doorid][ddDescription], StripUnderscore(DDoorsInfo[doorid][ddOwnerName]), doorid);
+	else format(string, sizeof(string), "%s\nID: %d\n\n{FFFFFF}Nhan \"{20A256}Y{FFFFFF}\" de vao trong", DDoorsInfo[doorid][ddDescription], doorid);
 
 	switch(DDoorsInfo[doorid][ddColor])
 	{
@@ -12584,6 +12586,64 @@ stock CreateDynamicDoor(doorid)
 	    {
 			DDoorsInfo[doorid][ddPickupID] = CreateDynamicPickup(1318, 23, DDoorsInfo[doorid][ddExteriorX], DDoorsInfo[doorid][ddExteriorY], DDoorsInfo[doorid][ddExteriorZ], DDoorsInfo[doorid][ddExteriorVW]);
 	    }
+	}
+
+	if(DDoorsInfo[doorid][ddInteriorX] != 0.0 || DDoorsInfo[doorid][ddInteriorY] != 0.0)
+	{
+		new istring[128];
+		format(istring, sizeof(istring), "%s\nID: %d\n\n{FFFFFF}Nhan \"{20A256}Y{FFFFFF}\" de ra ngoai", DDoorsInfo[doorid][ddDescription], doorid);
+
+		switch(DDoorsInfo[doorid][ddColor])
+		{
+		    case -1: { /* Disable 3d Textdraw */ }
+		    case 1:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWWHITE, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 2:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWPINK, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 3:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWRED, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 4:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWBROWN, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 5:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWGRAY, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 6:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWOLIVE, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 7:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWPURPLE, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 8:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWORANGE, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 9:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWAZURE, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 10:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWGREEN, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 11:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWBLUE, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		    case 12:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_TWBLACK, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+			default:{DDoorsInfo[doorid][ddInteriorTextID] = CreateDynamic3DTextLabel(istring, COLOR_YELLOW, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ]+0.6, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, DDoorsInfo[doorid][ddInteriorVW], DDoorsInfo[doorid][ddInteriorInt], -1);}
+		}
+
+		switch(DDoorsInfo[doorid][ddPickupModel])
+		{
+		    case -1: { /* Disable Pickup */ }
+			case 1:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1210, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 2:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1212, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 3:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1239, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 4:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1240, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 5:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1241, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 6:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1242, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 7:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1247, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 8:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1248, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 9:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1252, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 10:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1253, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 11:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1254, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 12:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1313, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 13:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1272, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 14:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1273, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 15:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1274, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 16:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1275, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 17:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1276, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 18:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1277, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 19:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1279, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 20:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1314, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 21:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1316, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 22:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1317, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 23:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1559, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 24:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1582, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+			case 25:{DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(2894, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);}
+		    default:
+		    {
+				DDoorsInfo[doorid][ddInteriorPickupID] = CreateDynamicPickup(1318, 23, DDoorsInfo[doorid][ddInteriorX], DDoorsInfo[doorid][ddInteriorY], DDoorsInfo[doorid][ddInteriorZ], DDoorsInfo[doorid][ddInteriorVW]);
+		    }
+		}
 	}
 }
 
