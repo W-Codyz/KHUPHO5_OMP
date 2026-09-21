@@ -78,11 +78,11 @@ public ConstructionLoader(playerid)
         new payment;
         switch(GetJobLevel(playerid, JOB_CONSTRUCTION))
         {
-            case 1: payment = 3000;
-            case 2: payment = 3500;
-            case 3: payment = 4000;
-            case 4: payment = 4500;
-            case 5: payment = 5000;
+            case 1: payment = 1500;
+            case 2: payment = 1700;
+            case 3: payment = 2200;
+            case 4: payment = 2600;
+            case 5: payment = 3200;
         }
 
         payment = Random(payment * 90 / 100, payment * 110 / 100);
