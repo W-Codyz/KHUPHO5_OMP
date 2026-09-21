@@ -5,12 +5,8 @@ public OnPhoneLoadingFinish(playerid)
 {
     DeletePVar(playerid, "PHONE_LOADING");
 
-    // Show toàn bộ TD phone
     for(new i = 0; i < PHONE_TEXTDRAW_COUNT; i++)
-    {
-        if(IsValidPlayerTextDraw(playerid, Text_Player[playerid][i]))
-            PlayerTextDrawShow(playerid, Text_Player[playerid][i]);
-    }
+        TextDrawShowForPlayer(playerid, PhoneTD[i]);
 
     PhoneOpen[playerid] = true;
     SetPVarInt(playerid, "DIENTHOAI_", 1);
@@ -18,99 +14,6 @@ public OnPhoneLoadingFinish(playerid)
     SelectTextDraw(playerid, 0xff78bcf0);
     pc_cmd_me(playerid, "da mo dien thoai cua minh len.");
     return 1;
-}
-
-// Hook để xử lý click vào TextDraw
-hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
-{
-    if(playertextid == Text_Player[playerid][18])
-    {
-        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        pc_cmd_sacombank(playerid, "");
-        return 1;
-    }
-    if(playertextid == Text_Player[playerid][27])
-    {
-        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        PC_EmulateCommand(playerid, "/timduong");
-        return 1;
-    }
-    if(playertextid == Text_Player[playerid][33])
-    {
-        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        pc_cmd_time(playerid, "");
-        return 1;
-    }
-    if(playertextid == Text_Player[playerid][49])
-    {
-        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        pc_cmd_dichvu(playerid, "taxi");
-        return 1;
-    }
-    if(playertextid == Text_Player[playerid][61])
-    {
-        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        pc_cmd_danhbacuatoi(playerid, "");
-        return 1;
-    }
-    if(playertextid == Text_Player[playerid][59])
-    {
-        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        pc_cmd_sms(playerid, "");
-        return 1;
-    }
-    if(playertextid == Text_Player[playerid][62])
-    {
-        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        ShowPlayerDialog(playerid, DIALOG_DIENTHOAI, DIALOG_STYLE_LIST, "DIEN THOAI",
-            "Goi bang so dien thoai\nGoi canh sat\nGoi cap cuu\nGoi tho sua xe\nGoi taxi",
-            "Lua chon", "Huy bo");
-    }
-    if(playertextid == Text_Player[playerid][30]) //cai dat
-    {
-		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        PC_EmulateCommand(playerid, "/setting");
-    }
-	if(playertextid == Text_Player[playerid][31]) //dich vu
-	{
-		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-        ShowPlayerDialog(playerid, DIALOG_DIENTHOAI, DIALOG_STYLE_LIST, "DIEN THOAI",
-            "Goi bang so dien thoai\nGoi canh sat\nGoi cap cuu\nGoi tho sua xe\nGoi taxi",
-            "Lua chon", "Huy bo");
-	}
-    if(playertextid == Text_Player[playerid][54])
-    {
-        pc_cmd_selfie(playerid, "");
-    }
-    if(playertextid == Text_Player[playerid][32])
-    {
-        ShowTDN(playerid, NOTIFICATION_WARNING, "Chuc nang dang duoc phat trien...");
-    }
-
-    if(playertextid == Text_Player[playerid][20])
-    {
-        if(GetPVarInt(playerid, "DIENTHOAI_") == 1)
-        {
-            Phone_Close(playerid);
-            PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-            CancelSelectTextDraw(playerid, 0xff78bcf0);
-            pc_cmd_me(playerid, "da tat dien thoai.");
-            SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-            ClearAnimations(playerid);
-            RemovePlayerAttachedObject(playerid, 9);
-            SetPlayerChatBubble(playerid, "", COLOR_PURPLE, 1.0, 1000);
-        }
-        if(takingselfie[playerid] == 1)
-        {
-            TogglePlayerControllable(playerid,1);
-            SetCameraBehindPlayer(playerid);
-            takingselfie[playerid] = 0;
-            ApplyAnimation(playerid, "PED", "ATM", 4.1, 0, 1, 1, 0, 1, 1);
-            return 1;
-        }
-        return 1;
-    }
-    return 0;
 }
 
 hook OnPlayerClickTextDraw(playerid, Text:clickedid)
@@ -141,6 +44,100 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
                 return 1;
             }
         }
+        return 0;
+    }
+
+    if(!PhoneOpen[playerid]) return 0;
+
+    if(clickedid == PhoneTD[18])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_sacombank(playerid, "");
+        return 1;
+    }
+    if(clickedid == PhoneTD[27])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        PC_EmulateCommand(playerid, "/timduong");
+        return 1;
+    }
+    if(clickedid == PhoneTD[33])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_time(playerid, "");
+        return 1;
+    }
+    if(clickedid == PhoneTD[49])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_dichvu(playerid, "taxi");
+        return 1;
+    }
+    if(clickedid == PhoneTD[61])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_danhbacuatoi(playerid, "");
+        return 1;
+    }
+    if(clickedid == PhoneTD[59])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        pc_cmd_sms(playerid, "");
+        return 1;
+    }
+    if(clickedid == PhoneTD[62])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        ShowPlayerDialog(playerid, DIALOG_DIENTHOAI, DIALOG_STYLE_LIST, "DIEN THOAI",
+            "Goi bang so dien thoai\nGoi canh sat\nGoi cap cuu\nGoi tho sua xe\nGoi taxi",
+            "Lua chon", "Huy bo");
+        return 1;
+    }
+    if(clickedid == PhoneTD[30])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        PC_EmulateCommand(playerid, "/setting");
+        return 1;
+    }
+    if(clickedid == PhoneTD[31])
+    {
+        PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+        ShowPlayerDialog(playerid, DIALOG_DIENTHOAI, DIALOG_STYLE_LIST, "DIEN THOAI",
+            "Goi bang so dien thoai\nGoi canh sat\nGoi cap cuu\nGoi tho sua xe\nGoi taxi",
+            "Lua chon", "Huy bo");
+        return 1;
+    }
+    if(clickedid == PhoneTD[54])
+    {
+        pc_cmd_selfie(playerid, "");
+        return 1;
+    }
+    if(clickedid == PhoneTD[32])
+    {
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Chuc nang dang duoc phat trien...");
+        return 1;
+    }
+    if(clickedid == PhoneTD[20])
+    {
+        if(GetPVarInt(playerid, "DIENTHOAI_") == 1)
+        {
+            Phone_Close(playerid);
+            PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+            CancelSelectTextDraw(playerid, 0xff78bcf0);
+            pc_cmd_me(playerid, "da tat dien thoai.");
+            SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+            ClearAnimations(playerid);
+            RemovePlayerAttachedObject(playerid, 9);
+            SetPlayerChatBubble(playerid, "", COLOR_PURPLE, 1.0, 1000);
+        }
+        if(takingselfie[playerid] == 1)
+        {
+            TogglePlayerControllable(playerid,1);
+            SetCameraBehindPlayer(playerid);
+            takingselfie[playerid] = 0;
+            ApplyAnimation(playerid, "PED", "ATM", 4.1, 0, 1, 1, 0, 1, 1);
+        }
+        return 1;
     }
     return 0;
 }

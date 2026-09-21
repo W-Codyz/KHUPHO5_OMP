@@ -3,9 +3,8 @@
 
 #define PHONE_TEXTDRAW_COUNT    (82)
 
-new PlayerText: Text_Player[MAX_PLAYERS][PHONE_TEXTDRAW_COUNT];
-new bool:       PhoneBuilt[MAX_PLAYERS];
-new bool:       PhoneOpen[MAX_PLAYERS];
+new Text:  PhoneTD[PHONE_TEXTDRAW_COUNT];
+new bool:  PhoneOpen[MAX_PLAYERS];
 new takingselfie[MAX_PLAYERS];
 new Float:Degree[MAX_PLAYERS];
 const Float: RadiusPhone = 1.4;
@@ -79,879 +78,854 @@ new Float:lZ[MAX_PLAYERS];
 #define                 DIALOG_SMS_TEXT         (9454)
 
 // ============================================================
-//  Phone_Build — tạo 82 TextDraw (chỉ gọi khi mở phone)
+//  Phone_CreateTD — tạo 82 TextDraw global (gọi một lần khi server start)
 // ============================================================
-stock Phone_Build(playerid)
+static Phone_CreateTD()
 {
-    if(PhoneBuilt[playerid]) return 1;
-
-    Text_Player[playerid][0] = CreatePlayerTextDraw(playerid, 532.500, 344.329, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][0], 46.000, 52.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][0], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][0], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][0], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][0], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][0], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][0], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][0], 1);
-
-    Text_Player[playerid][1] = CreatePlayerTextDraw(playerid, 483.000, 140.000, "LD_BUM:blkdot");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][1], 71.000, 247.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][1], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][1], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][1], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][1], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][1], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][1], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][1], 1);
-
-    Text_Player[playerid][2] = CreatePlayerTextDraw(playerid, 468.000, 158.000, "LD_BUM:blkdot");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][2], 103.000, 213.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][2], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][2], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][2], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][2], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][2], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][2], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][2], 1);
-
-    Text_Player[playerid][3] = CreatePlayerTextDraw(playerid, 460.100, 131.500, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][3], 46.000, 52.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][3], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][3], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][3], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][3], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][3], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][3], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][3], 1);
-
-    Text_Player[playerid][4] = CreatePlayerTextDraw(playerid, 532.500, 131.500, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][4], 46.000, 52.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][4], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][4], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][4], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][4], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][4], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][4], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][4], 1);
-
-    Text_Player[playerid][5] = CreatePlayerTextDraw(playerid, 460.100, 344.329, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][5], 46.000, 52.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][5], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][5], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][5], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][5], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][5], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][5], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][5], 1);
-
-    Text_Player[playerid][6] = CreatePlayerTextDraw(playerid, 484.000, 143.000, "LD_BUM:blkdot");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][6], 71.000, 241.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][6], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][6], 421097727);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][6], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][6], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][6], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][6], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][6], 1);
-
-    Text_Player[playerid][7] = CreatePlayerTextDraw(playerid, 470.000, 158.000, "LD_BUM:blkdot");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][7], 99.000, 213.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][7], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][7], 421097727);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][7], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][7], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][7], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][7], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][7], 1);
-
-    Text_Player[playerid][8] = CreatePlayerTextDraw(playerid, 462.500, 134.328, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][8], 43.000, 51.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][8], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][8], 421097727);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][8], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][8], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][8], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][8], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][8], 1);
-
-    Text_Player[playerid][9] = CreatePlayerTextDraw(playerid, 462.500, 341.329, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][9], 43.000, 51.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][9], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][9], 421097727);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][9], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][9], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][9], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][9], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][9], 1);
-
-    Text_Player[playerid][10] = CreatePlayerTextDraw(playerid, 533.500, 341.329, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][10], 43.000, 51.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][10], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][10], 421097727);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][10], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][10], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][10], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][10], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][10], 1);
-
-    Text_Player[playerid][11] = CreatePlayerTextDraw(playerid, 533.500, 134.328, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][11], 43.000, 51.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][11], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][11], 421097727);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][11], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][11], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][11], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][11], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][11], 1);
-
-    Text_Player[playerid][12] = CreatePlayerTextDraw(playerid, 501.000, 143.000, "LD_BUM:blkdot");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][12], 37.000, 7.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][12], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][12], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][12], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][12], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][12], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][12], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][12], 1);
-
-    Text_Player[playerid][13] = CreatePlayerTextDraw(playerid, 493.000, 138.500, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][13], 19.000, 14.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][13], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][13], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][13], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][13], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][13], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][13], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][13], 1);
-
-    Text_Player[playerid][14] = CreatePlayerTextDraw(playerid, 527.000, 138.500, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][14], 19.000, 14.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][14], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][14], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][14], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][14], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][14], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][14], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][14], 1);
-
-    Text_Player[playerid][15] = CreatePlayerTextDraw(playerid, 546.000, 148.000, "LD_BUM:blkdot");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][15], 1.600, 4.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][15], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][15], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][15], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][15], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][15], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][15], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][15], 1);
-
-    Text_Player[playerid][16] = CreatePlayerTextDraw(playerid, 549.000, 146.399, "LD_BUM:blkdot");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][16], 1.600, 5.500);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][16], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][16], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][16], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][16], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][16], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][16], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][16], 1);
-
-    Text_Player[playerid][17] = CreatePlayerTextDraw(playerid, 552.000, 144.699, "LD_BUM:blkdot");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][17], 1.600, 7.500);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][17], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][17], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][17], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][17], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][17], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][17], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][17], 1);
-
-    Text_Player[playerid][18] = CreatePlayerTextDraw(playerid, 472.000, 236.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][18], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][18], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][18], -251662081);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][18], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][18], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][18], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][18], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][18], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][18], 1);
-
-    Text_Player[playerid][19] = CreatePlayerTextDraw(playerid, 555.000, 145.000, "5G");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][19], 0.136, 0.897);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][19], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][19], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][19], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][19], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][19], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][19], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][19], 1);
-
-    Text_Player[playerid][20] = CreatePlayerTextDraw(playerid, 490.000, 375.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][20], 60.000, 5.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][20], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][20], -167773441);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][20], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][20], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][20], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][20], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][20], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][20], 1);
-
-    Text_Player[playerid][21] = CreatePlayerTextDraw(playerid, 502.000, 145.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][21], 26.000, 1.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][21], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][21], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][21], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][21], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][21], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][21], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][21], 1);
-
-    Text_Player[playerid][22] = CreatePlayerTextDraw(playerid, 531.000, 144.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][22], 3.000, 3.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][22], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][22], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][22], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][22], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][22], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][22], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][22], 1);
-
-    Text_Player[playerid][23] = CreatePlayerTextDraw(playerid, 571.000, 185.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][23], 1.000, 26.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][23], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][23], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][23], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][23], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][23], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][23], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][23], 1);
-
-    Text_Player[playerid][24] = CreatePlayerTextDraw(playerid, 571.000, 185.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][24], 14.000, 27.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][24], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][24], -33949184);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][24], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][24], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][24], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][24], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][24], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][24], 1);
-
-    Text_Player[playerid][25] = CreatePlayerTextDraw(playerid, 467.000, 200.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][25], 1.000, 34.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][25], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][25], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][25], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][25], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][25], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][25], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][25], 1);
-
-    Text_Player[playerid][26] = CreatePlayerTextDraw(playerid, 467.000, 239.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][26], 1.000, 34.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][26], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][26], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][26], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][26], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][26], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][26], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][26], 1);
-
-    Text_Player[playerid][27] = CreatePlayerTextDraw(playerid, 472.000, 163.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][27], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][27], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][27], -2147483393);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][27], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][27], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][27], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][27], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][27], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][27], 1);
-
-    Text_Player[playerid][28] = CreatePlayerTextDraw(playerid, 472.000, 199.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][28], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][28], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][28], 548580095);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][28], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][28], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][28], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][28], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][28], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][28], 1);
-
-    Text_Player[playerid][29] = CreatePlayerTextDraw(playerid, 482.000, 244.000, "HUD:radar_cash");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][29], 17.000, 18.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][29], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][29], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][29], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][29], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][29], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][29], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][29], 1);
-
-    Text_Player[playerid][30] = CreatePlayerTextDraw(playerid, 501.000, 163.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][30], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][30], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][30], 1768516095);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][30], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][30], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][30], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][30], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][30], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][30], 1);
-
-    Text_Player[playerid][31] = CreatePlayerTextDraw(playerid, 531.000, 163.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][31], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][31], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][31], 12582911);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][31], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][31], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][31], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][31], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][31], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][31], 1);
-
-    Text_Player[playerid][32] = CreatePlayerTextDraw(playerid, 501.000, 199.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][32], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][32], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][32], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][32], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][32], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][32], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][32], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][32], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][32], 1);
-
-    Text_Player[playerid][33] = CreatePlayerTextDraw(playerid, 531.000, 199.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][33], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][33], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][33], 13554175);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][33], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][33], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][33], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][33], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][33], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][33], 1);
-
-    Text_Player[playerid][34] = CreatePlayerTextDraw(playerid, 541.000, 172.000, "LD_CHAT:badchat");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][34], 15.000, 16.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][34], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][34], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][34], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][34], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][34], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][34], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][34], 1);
-
-    Text_Player[playerid][35] = CreatePlayerTextDraw(playerid, 482.000, 172.000, "HUD:radar_waypoint");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][35], 15.000, 16.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][35], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][35], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][35], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][35], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][35], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][35], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][35], 1);
-
-    Text_Player[playerid][36] = CreatePlayerTextDraw(playerid, 483.000, 201.000, "/");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][36], 0.537, 2.898);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][36], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][36], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][36], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][36], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][36], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][36], 2);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][36], 1);
-
-    Text_Player[playerid][37] = CreatePlayerTextDraw(playerid, 495.000, 201.000, "/");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][37], -0.527, 2.890);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][37], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][37], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][37], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][37], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][37], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][37], 2);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][37], 1);
-
-    Text_Player[playerid][38] = CreatePlayerTextDraw(playerid, 484.000, 217.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][38], 10.000, 1.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][38], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][38], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][38], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][38], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][38], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][38], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][38], 1);
-
-    Text_Player[playerid][39] = CreatePlayerTextDraw(playerid, 503.000, 201.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][39], 31.000, 31.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][39], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][39], 16711935);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][39], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][39], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][39], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][39], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][39], 1);
-
-    Text_Player[playerid][40] = CreatePlayerTextDraw(playerid, 505.000, 205.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][40], 27.000, 22.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][40], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][40], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][40], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][40], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][40], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][40], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][40], 1);
-
-    Text_Player[playerid][41] = CreatePlayerTextDraw(playerid, 505.000, 208.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][41], 27.000, 22.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][41], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][41], 2096890111);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][41], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][41], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][41], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][41], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][41], 1);
-
-    Text_Player[playerid][42] = CreatePlayerTextDraw(playerid, 508.000, 212.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][42], 21.000, 12.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][42], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][42], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][42], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][42], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][42], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][42], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][42], 1);
-
-    Text_Player[playerid][43] = CreatePlayerTextDraw(playerid, 508.000, 215.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][43], 21.000, 12.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][43], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][43], 2096890111);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][43], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][43], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][43], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][43], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][43], 1);
-
-    Text_Player[playerid][44] = CreatePlayerTextDraw(playerid, 512.000, 217.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][44], 13.000, 9.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][44], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][44], 255);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][44], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][44], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][44], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][44], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][44], 1);
-
-    Text_Player[playerid][45] = CreatePlayerTextDraw(playerid, 534.000, 202.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][45], 29.000, 29.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][45], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][45], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][45], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][45], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][45], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][45], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][45], 1);
-
-    Text_Player[playerid][46] = CreatePlayerTextDraw(playerid, 542.000, 212.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][46], 13.000, 10.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][46], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][46], 512819199);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][46], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][46], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][46], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][46], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][46], 1);
-
-    Text_Player[playerid][47] = CreatePlayerTextDraw(playerid, 550.000, 212.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][47], 5.000, 4.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][47], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][47], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][47], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][47], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][47], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][47], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][47], 1);
-
-    Text_Player[playerid][48] = CreatePlayerTextDraw(playerid, 542.000, 218.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][48], 5.000, 4.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][48], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][48], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][48], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][48], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][48], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][48], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][48], 1);
-
-    Text_Player[playerid][49] = CreatePlayerTextDraw(playerid, 501.000, 236.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][49], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][49], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][49], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][49], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][49], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][49], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][49], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][49], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][49], 1);
-
-    Text_Player[playerid][50] = CreatePlayerTextDraw(playerid, 506.000, 240.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][50], 25.000, 27.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][50], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][50], 579543807);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][50], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][50], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][50], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][50], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][50], 1);
-
-    Text_Player[playerid][51] = CreatePlayerTextDraw(playerid, 510.000, 244.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][51], 17.000, 19.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][51], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][51], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][51], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][51], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][51], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][51], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][51], 1);
-
-    Text_Player[playerid][52] = CreatePlayerTextDraw(playerid, 513.000, 248.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][52], 11.000, 11.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][52], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][52], 579543807);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][52], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][52], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][52], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][52], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][52], 1);
-
-    Text_Player[playerid][53] = CreatePlayerTextDraw(playerid, 517.000, 259.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][53], 3.000, 5.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][53], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][53], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][53], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][53], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][53], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][53], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][53], 1);
-
-    Text_Player[playerid][54] = CreatePlayerTextDraw(playerid, 531.000, 236.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][54], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][54], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][54], -1378294017);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][54], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][54], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][54], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][54], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][54], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][54], 1);
-
-    Text_Player[playerid][55] = CreatePlayerTextDraw(playerid, 541.000, 248.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][55], 15.000, 11.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][55], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][55], 1887473919);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][55], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][55], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][55], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][55], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][55], 1);
-
-    Text_Player[playerid][56] = CreatePlayerTextDraw(playerid, 547.000, 250.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][56], 8.000, 9.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][56], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][56], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][56], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][56], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][56], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][56], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][56], 1);
-
-    Text_Player[playerid][57] = CreatePlayerTextDraw(playerid, 548.000, 251.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][57], 6.000, 7.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][57], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][57], 1768516095);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][57], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][57], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][57], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][57], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][57], 1);
-
-    Text_Player[playerid][58] = CreatePlayerTextDraw(playerid, 541.000, 247.000, "LD_SPAC:white");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][58], 4.000, 3.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][58], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][58], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][58], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][58], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][58], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][58], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][58], 1);
-
-    Text_Player[playerid][59] = CreatePlayerTextDraw(playerid, 502.000, 331.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][59], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][59], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][59], 1433087999);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][59], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][59], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][59], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][59], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][59], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][59], 1);
-
-    Text_Player[playerid][60] = CreatePlayerTextDraw(playerid, 512.000, 339.000, "LD_CHAT:goodcha");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][60], 15.000, 16.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][60], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][60], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][60], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][60], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][60], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][60], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][60], 1);
-
-    Text_Player[playerid][61] = CreatePlayerTextDraw(playerid, 532.000, 331.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][61], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][61], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][61], 548580095);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][61], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][61], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][61], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][61], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][61], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][61], 1);
-
-    Text_Player[playerid][62] = CreatePlayerTextDraw(playerid, 472.000, 331.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][62], 35.000, 35.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][62], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][62], -1131442177);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][62], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][62], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][62], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][62], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][62], 1);
-    PlayerTextDrawSetSelectable(playerid, Text_Player[playerid][62], 1);
-
-    Text_Player[playerid][63] = CreatePlayerTextDraw(playerid, 541.000, 345.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][63], 17.000, 13.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][63], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][63], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][63], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][63], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][63], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][63], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][63], 1);
-
-    Text_Player[playerid][64] = CreatePlayerTextDraw(playerid, 543.000, 338.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][64], 12.000, 11.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][64], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][64], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][64], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][64], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][64], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][64], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][64], 1);
-
-    Text_Player[playerid][65] = CreatePlayerTextDraw(playerid, 493.000, 340.000, "/");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][65], -0.726, 1.699);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][65], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][65], 640034559);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][65], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][65], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][65], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][65], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][65], 1);
-
-    Text_Player[playerid][66] = CreatePlayerTextDraw(playerid, 481.000, 338.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][66], 12.000, 11.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][66], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][66], 640034559);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][66], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][66], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][66], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][66], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][66], 1);
-
-    Text_Player[playerid][67] = CreatePlayerTextDraw(playerid, 486.000, 348.000, "LD_BEAT:chit");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][67], 12.000, 11.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][67], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][67], 640034559);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][67], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][67], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][67], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][67], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][67], 1);
-
-    Text_Player[playerid][68] = CreatePlayerTextDraw(playerid, 485.000, 193.000, "GPS");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][68], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][68], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][68], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][68], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][68], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][68], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][68], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][68], 1);
-
-    Text_Player[playerid][69] = CreatePlayerTextDraw(playerid, 509.000, 193.000, "Cai dat");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][69], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][69], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][69], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][69], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][69], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][69], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][69], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][69], 1);
-
-    Text_Player[playerid][70] = CreatePlayerTextDraw(playerid, 540.000, 193.000, "Dich vu");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][70], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][70], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][70], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][70], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][70], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][70], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][70], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][70], 1);
-
-    Text_Player[playerid][71] = CreatePlayerTextDraw(playerid, 479.000, 229.000, "Aps Store");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][71], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][71], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][71], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][71], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][71], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][71], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][71], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][71], 1);
-
-    Text_Player[playerid][72] = CreatePlayerTextDraw(playerid, 512.000, 229.000, "Spotify");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][72], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][72], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][72], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][72], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][72], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][72], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][72], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][72], 1);
-
-    Text_Player[playerid][73] = CreatePlayerTextDraw(playerid, 538.000, 229.000, "Thoi gian");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][73], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][73], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][73], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][73], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][73], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][73], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][73], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][73], 1);
-
-    Text_Player[playerid][74] = CreatePlayerTextDraw(playerid, 476.000, 266.000, "Ngan hang");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][74], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][74], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][74], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][74], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][74], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][74], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][74], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][74], 1);
-
-    Text_Player[playerid][75] = CreatePlayerTextDraw(playerid, 512.000, 266.000, "Grab");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][75], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][75], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][75], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][75], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][75], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][75], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][75], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][75], 1);
-
-    Text_Player[playerid][76] = CreatePlayerTextDraw(playerid, 539.000, 266.000, "Camera");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][76], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][76], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][76], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][76], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][76], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][76], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][76], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][76], 1);
-
-    Text_Player[playerid][77] = CreatePlayerTextDraw(playerid, 477.000, 361.000, "Dien thoai");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][77], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][77], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][77], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][77], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][77], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][77], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][77], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][77], 1);
-
-    Text_Player[playerid][78] = CreatePlayerTextDraw(playerid, 509.000, 361.000, "Tin nhan");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][78], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][78], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][78], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][78], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][78], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][78], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][78], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][78], 1);
-
-    Text_Player[playerid][79] = CreatePlayerTextDraw(playerid, 540.000, 361.000, "Lien he");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][79], 0.158, 0.799);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][79], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][79], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][79], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][79], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][79], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][79], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][79], 1);
-
-    Text_Player[playerid][80] = CreatePlayerTextDraw(playerid, 511.000, 172.000, "HUD:radar_modGarage");
-    PlayerTextDrawTextSize(playerid, Text_Player[playerid][80], 15.000, 16.000);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][80], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][80], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][80], 0);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][80], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][80], 255);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][80], 4);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][80], 1);
-
-    Text_Player[playerid][81] = CreatePlayerTextDraw(playerid, 476.000, 147.000, "15:00");
-    PlayerTextDrawLetterSize(playerid, Text_Player[playerid][81], 0.170, 0.699);
-    PlayerTextDrawAlignment(playerid, Text_Player[playerid][81], 1);
-    PlayerTextDrawColour(playerid, Text_Player[playerid][81], -1);
-    PlayerTextDrawSetShadow(playerid, Text_Player[playerid][81], 1);
-    PlayerTextDrawSetOutline(playerid, Text_Player[playerid][81], 0);
-    PlayerTextDrawBackgroundColor(playerid, Text_Player[playerid][81], 150);
-    PlayerTextDrawFont(playerid, Text_Player[playerid][81], 1);
-    PlayerTextDrawSetProportional(playerid, Text_Player[playerid][81], 1);
-
-    PhoneBuilt[playerid] = true;
+    PhoneTD[0] = TextDrawCreate(532.500, 344.329, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[0], 46.000, 52.000);
+    TextDrawAlignment(PhoneTD[0], 1);
+    TextDrawColor(PhoneTD[0], -167773441);
+    TextDrawSetShadow(PhoneTD[0], 0);
+    TextDrawSetOutline(PhoneTD[0], 0);
+    TextDrawBackgroundColor(PhoneTD[0], 255);
+    TextDrawFont(PhoneTD[0], 4);
+    TextDrawSetProportional(PhoneTD[0], 1);
+
+    PhoneTD[1] = TextDrawCreate(483.000, 140.000, "LD_BUM:blkdot");
+    TextDrawTextSize(PhoneTD[1], 71.000, 247.000);
+    TextDrawAlignment(PhoneTD[1], 1);
+    TextDrawColor(PhoneTD[1], -167773441);
+    TextDrawSetShadow(PhoneTD[1], 0);
+    TextDrawSetOutline(PhoneTD[1], 0);
+    TextDrawBackgroundColor(PhoneTD[1], 255);
+    TextDrawFont(PhoneTD[1], 4);
+    TextDrawSetProportional(PhoneTD[1], 1);
+
+    PhoneTD[2] = TextDrawCreate(468.000, 158.000, "LD_BUM:blkdot");
+    TextDrawTextSize(PhoneTD[2], 103.000, 213.000);
+    TextDrawAlignment(PhoneTD[2], 1);
+    TextDrawColor(PhoneTD[2], -167773441);
+    TextDrawSetShadow(PhoneTD[2], 0);
+    TextDrawSetOutline(PhoneTD[2], 0);
+    TextDrawBackgroundColor(PhoneTD[2], 255);
+    TextDrawFont(PhoneTD[2], 4);
+    TextDrawSetProportional(PhoneTD[2], 1);
+
+    PhoneTD[3] = TextDrawCreate(460.100, 131.500, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[3], 46.000, 52.000);
+    TextDrawAlignment(PhoneTD[3], 1);
+    TextDrawColor(PhoneTD[3], -167773441);
+    TextDrawSetShadow(PhoneTD[3], 0);
+    TextDrawSetOutline(PhoneTD[3], 0);
+    TextDrawBackgroundColor(PhoneTD[3], 255);
+    TextDrawFont(PhoneTD[3], 4);
+    TextDrawSetProportional(PhoneTD[3], 1);
+
+    PhoneTD[4] = TextDrawCreate(532.500, 131.500, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[4], 46.000, 52.000);
+    TextDrawAlignment(PhoneTD[4], 1);
+    TextDrawColor(PhoneTD[4], -167773441);
+    TextDrawSetShadow(PhoneTD[4], 0);
+    TextDrawSetOutline(PhoneTD[4], 0);
+    TextDrawBackgroundColor(PhoneTD[4], 255);
+    TextDrawFont(PhoneTD[4], 4);
+    TextDrawSetProportional(PhoneTD[4], 1);
+
+    PhoneTD[5] = TextDrawCreate(460.100, 344.329, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[5], 46.000, 52.000);
+    TextDrawAlignment(PhoneTD[5], 1);
+    TextDrawColor(PhoneTD[5], -167773441);
+    TextDrawSetShadow(PhoneTD[5], 0);
+    TextDrawSetOutline(PhoneTD[5], 0);
+    TextDrawBackgroundColor(PhoneTD[5], 255);
+    TextDrawFont(PhoneTD[5], 4);
+    TextDrawSetProportional(PhoneTD[5], 1);
+
+    PhoneTD[6] = TextDrawCreate(484.000, 143.000, "LD_BUM:blkdot");
+    TextDrawTextSize(PhoneTD[6], 71.000, 241.000);
+    TextDrawAlignment(PhoneTD[6], 1);
+    TextDrawColor(PhoneTD[6], 421097727);
+    TextDrawSetShadow(PhoneTD[6], 0);
+    TextDrawSetOutline(PhoneTD[6], 0);
+    TextDrawBackgroundColor(PhoneTD[6], 255);
+    TextDrawFont(PhoneTD[6], 4);
+    TextDrawSetProportional(PhoneTD[6], 1);
+
+    PhoneTD[7] = TextDrawCreate(470.000, 158.000, "LD_BUM:blkdot");
+    TextDrawTextSize(PhoneTD[7], 99.000, 213.000);
+    TextDrawAlignment(PhoneTD[7], 1);
+    TextDrawColor(PhoneTD[7], 421097727);
+    TextDrawSetShadow(PhoneTD[7], 0);
+    TextDrawSetOutline(PhoneTD[7], 0);
+    TextDrawBackgroundColor(PhoneTD[7], 255);
+    TextDrawFont(PhoneTD[7], 4);
+    TextDrawSetProportional(PhoneTD[7], 1);
+
+    PhoneTD[8] = TextDrawCreate(462.500, 134.328, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[8], 43.000, 51.000);
+    TextDrawAlignment(PhoneTD[8], 1);
+    TextDrawColor(PhoneTD[8], 421097727);
+    TextDrawSetShadow(PhoneTD[8], 0);
+    TextDrawSetOutline(PhoneTD[8], 0);
+    TextDrawBackgroundColor(PhoneTD[8], 255);
+    TextDrawFont(PhoneTD[8], 4);
+    TextDrawSetProportional(PhoneTD[8], 1);
+
+    PhoneTD[9] = TextDrawCreate(462.500, 341.329, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[9], 43.000, 51.000);
+    TextDrawAlignment(PhoneTD[9], 1);
+    TextDrawColor(PhoneTD[9], 421097727);
+    TextDrawSetShadow(PhoneTD[9], 0);
+    TextDrawSetOutline(PhoneTD[9], 0);
+    TextDrawBackgroundColor(PhoneTD[9], 255);
+    TextDrawFont(PhoneTD[9], 4);
+    TextDrawSetProportional(PhoneTD[9], 1);
+
+    PhoneTD[10] = TextDrawCreate(533.500, 341.329, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[10], 43.000, 51.000);
+    TextDrawAlignment(PhoneTD[10], 1);
+    TextDrawColor(PhoneTD[10], 421097727);
+    TextDrawSetShadow(PhoneTD[10], 0);
+    TextDrawSetOutline(PhoneTD[10], 0);
+    TextDrawBackgroundColor(PhoneTD[10], 255);
+    TextDrawFont(PhoneTD[10], 4);
+    TextDrawSetProportional(PhoneTD[10], 1);
+
+    PhoneTD[11] = TextDrawCreate(533.500, 134.328, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[11], 43.000, 51.000);
+    TextDrawAlignment(PhoneTD[11], 1);
+    TextDrawColor(PhoneTD[11], 421097727);
+    TextDrawSetShadow(PhoneTD[11], 0);
+    TextDrawSetOutline(PhoneTD[11], 0);
+    TextDrawBackgroundColor(PhoneTD[11], 255);
+    TextDrawFont(PhoneTD[11], 4);
+    TextDrawSetProportional(PhoneTD[11], 1);
+
+    PhoneTD[12] = TextDrawCreate(501.000, 143.000, "LD_BUM:blkdot");
+    TextDrawTextSize(PhoneTD[12], 37.000, 7.000);
+    TextDrawAlignment(PhoneTD[12], 1);
+    TextDrawColor(PhoneTD[12], -167773441);
+    TextDrawSetShadow(PhoneTD[12], 0);
+    TextDrawSetOutline(PhoneTD[12], 0);
+    TextDrawBackgroundColor(PhoneTD[12], 255);
+    TextDrawFont(PhoneTD[12], 4);
+    TextDrawSetProportional(PhoneTD[12], 1);
+
+    PhoneTD[13] = TextDrawCreate(493.000, 138.500, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[13], 19.000, 14.000);
+    TextDrawAlignment(PhoneTD[13], 1);
+    TextDrawColor(PhoneTD[13], -167773441);
+    TextDrawSetShadow(PhoneTD[13], 0);
+    TextDrawSetOutline(PhoneTD[13], 0);
+    TextDrawBackgroundColor(PhoneTD[13], 255);
+    TextDrawFont(PhoneTD[13], 4);
+    TextDrawSetProportional(PhoneTD[13], 1);
+
+    PhoneTD[14] = TextDrawCreate(527.000, 138.500, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[14], 19.000, 14.000);
+    TextDrawAlignment(PhoneTD[14], 1);
+    TextDrawColor(PhoneTD[14], -167773441);
+    TextDrawSetShadow(PhoneTD[14], 0);
+    TextDrawSetOutline(PhoneTD[14], 0);
+    TextDrawBackgroundColor(PhoneTD[14], 255);
+    TextDrawFont(PhoneTD[14], 4);
+    TextDrawSetProportional(PhoneTD[14], 1);
+
+    PhoneTD[15] = TextDrawCreate(546.000, 148.000, "LD_BUM:blkdot");
+    TextDrawTextSize(PhoneTD[15], 1.600, 4.000);
+    TextDrawAlignment(PhoneTD[15], 1);
+    TextDrawColor(PhoneTD[15], -1);
+    TextDrawSetShadow(PhoneTD[15], 0);
+    TextDrawSetOutline(PhoneTD[15], 0);
+    TextDrawBackgroundColor(PhoneTD[15], 255);
+    TextDrawFont(PhoneTD[15], 4);
+    TextDrawSetProportional(PhoneTD[15], 1);
+
+    PhoneTD[16] = TextDrawCreate(549.000, 146.399, "LD_BUM:blkdot");
+    TextDrawTextSize(PhoneTD[16], 1.600, 5.500);
+    TextDrawAlignment(PhoneTD[16], 1);
+    TextDrawColor(PhoneTD[16], -1);
+    TextDrawSetShadow(PhoneTD[16], 0);
+    TextDrawSetOutline(PhoneTD[16], 0);
+    TextDrawBackgroundColor(PhoneTD[16], 255);
+    TextDrawFont(PhoneTD[16], 4);
+    TextDrawSetProportional(PhoneTD[16], 1);
+
+    PhoneTD[17] = TextDrawCreate(552.000, 144.699, "LD_BUM:blkdot");
+    TextDrawTextSize(PhoneTD[17], 1.600, 7.500);
+    TextDrawAlignment(PhoneTD[17], 1);
+    TextDrawColor(PhoneTD[17], -1);
+    TextDrawSetShadow(PhoneTD[17], 0);
+    TextDrawSetOutline(PhoneTD[17], 0);
+    TextDrawBackgroundColor(PhoneTD[17], 255);
+    TextDrawFont(PhoneTD[17], 4);
+    TextDrawSetProportional(PhoneTD[17], 1);
+
+    PhoneTD[18] = TextDrawCreate(472.000, 236.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[18], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[18], 1);
+    TextDrawColor(PhoneTD[18], -251662081);
+    TextDrawSetShadow(PhoneTD[18], 0);
+    TextDrawSetOutline(PhoneTD[18], 0);
+    TextDrawBackgroundColor(PhoneTD[18], 255);
+    TextDrawFont(PhoneTD[18], 4);
+    TextDrawSetProportional(PhoneTD[18], 1);
+    TextDrawSetSelectable(PhoneTD[18], 1);
+
+    PhoneTD[19] = TextDrawCreate(555.000, 145.000, "5G");
+    TextDrawLetterSize(PhoneTD[19], 0.136, 0.897);
+    TextDrawAlignment(PhoneTD[19], 1);
+    TextDrawColor(PhoneTD[19], -1);
+    TextDrawSetShadow(PhoneTD[19], 0);
+    TextDrawSetOutline(PhoneTD[19], 0);
+    TextDrawBackgroundColor(PhoneTD[19], 255);
+    TextDrawFont(PhoneTD[19], 1);
+    TextDrawSetProportional(PhoneTD[19], 1);
+
+    PhoneTD[20] = TextDrawCreate(490.000, 375.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[20], 60.000, 5.000);
+    TextDrawAlignment(PhoneTD[20], 1);
+    TextDrawColor(PhoneTD[20], -167773441);
+    TextDrawSetShadow(PhoneTD[20], 0);
+    TextDrawSetOutline(PhoneTD[20], 0);
+    TextDrawBackgroundColor(PhoneTD[20], 255);
+    TextDrawFont(PhoneTD[20], 4);
+    TextDrawSetProportional(PhoneTD[20], 1);
+    TextDrawSetSelectable(PhoneTD[20], 1);
+
+    PhoneTD[21] = TextDrawCreate(502.000, 145.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[21], 26.000, 1.000);
+    TextDrawAlignment(PhoneTD[21], 1);
+    TextDrawColor(PhoneTD[21], 255);
+    TextDrawSetShadow(PhoneTD[21], 0);
+    TextDrawSetOutline(PhoneTD[21], 0);
+    TextDrawBackgroundColor(PhoneTD[21], 255);
+    TextDrawFont(PhoneTD[21], 4);
+    TextDrawSetProportional(PhoneTD[21], 1);
+
+    PhoneTD[22] = TextDrawCreate(531.000, 144.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[22], 3.000, 3.000);
+    TextDrawAlignment(PhoneTD[22], 1);
+    TextDrawColor(PhoneTD[22], 255);
+    TextDrawSetShadow(PhoneTD[22], 0);
+    TextDrawSetOutline(PhoneTD[22], 0);
+    TextDrawBackgroundColor(PhoneTD[22], 255);
+    TextDrawFont(PhoneTD[22], 4);
+    TextDrawSetProportional(PhoneTD[22], 1);
+
+    PhoneTD[23] = TextDrawCreate(571.000, 185.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[23], 1.000, 26.000);
+    TextDrawAlignment(PhoneTD[23], 1);
+    TextDrawColor(PhoneTD[23], 255);
+    TextDrawSetShadow(PhoneTD[23], 0);
+    TextDrawSetOutline(PhoneTD[23], 0);
+    TextDrawBackgroundColor(PhoneTD[23], 255);
+    TextDrawFont(PhoneTD[23], 4);
+    TextDrawSetProportional(PhoneTD[23], 1);
+
+    PhoneTD[24] = TextDrawCreate(571.000, 185.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[24], 14.000, 27.000);
+    TextDrawAlignment(PhoneTD[24], 1);
+    TextDrawColor(PhoneTD[24], -33949184);
+    TextDrawSetShadow(PhoneTD[24], 0);
+    TextDrawSetOutline(PhoneTD[24], 0);
+    TextDrawBackgroundColor(PhoneTD[24], 255);
+    TextDrawFont(PhoneTD[24], 4);
+    TextDrawSetProportional(PhoneTD[24], 1);
+    TextDrawSetSelectable(PhoneTD[24], 1);
+
+    PhoneTD[25] = TextDrawCreate(467.000, 200.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[25], 1.000, 34.000);
+    TextDrawAlignment(PhoneTD[25], 1);
+    TextDrawColor(PhoneTD[25], 255);
+    TextDrawSetShadow(PhoneTD[25], 0);
+    TextDrawSetOutline(PhoneTD[25], 0);
+    TextDrawBackgroundColor(PhoneTD[25], 255);
+    TextDrawFont(PhoneTD[25], 4);
+    TextDrawSetProportional(PhoneTD[25], 1);
+
+    PhoneTD[26] = TextDrawCreate(467.000, 239.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[26], 1.000, 34.000);
+    TextDrawAlignment(PhoneTD[26], 1);
+    TextDrawColor(PhoneTD[26], 255);
+    TextDrawSetShadow(PhoneTD[26], 0);
+    TextDrawSetOutline(PhoneTD[26], 0);
+    TextDrawBackgroundColor(PhoneTD[26], 255);
+    TextDrawFont(PhoneTD[26], 4);
+    TextDrawSetProportional(PhoneTD[26], 1);
+
+    PhoneTD[27] = TextDrawCreate(472.000, 163.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[27], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[27], 1);
+    TextDrawColor(PhoneTD[27], -2147483393);
+    TextDrawSetShadow(PhoneTD[27], 0);
+    TextDrawSetOutline(PhoneTD[27], 0);
+    TextDrawBackgroundColor(PhoneTD[27], 255);
+    TextDrawFont(PhoneTD[27], 4);
+    TextDrawSetProportional(PhoneTD[27], 1);
+    TextDrawSetSelectable(PhoneTD[27], 1);
+
+    PhoneTD[28] = TextDrawCreate(472.000, 199.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[28], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[28], 1);
+    TextDrawColor(PhoneTD[28], 548580095);
+    TextDrawSetShadow(PhoneTD[28], 0);
+    TextDrawSetOutline(PhoneTD[28], 0);
+    TextDrawBackgroundColor(PhoneTD[28], 255);
+    TextDrawFont(PhoneTD[28], 4);
+    TextDrawSetProportional(PhoneTD[28], 1);
+    TextDrawSetSelectable(PhoneTD[28], 1);
+
+    PhoneTD[29] = TextDrawCreate(482.000, 244.000, "HUD:radar_cash");
+    TextDrawTextSize(PhoneTD[29], 17.000, 18.000);
+    TextDrawAlignment(PhoneTD[29], 1);
+    TextDrawColor(PhoneTD[29], -1);
+    TextDrawSetShadow(PhoneTD[29], 0);
+    TextDrawSetOutline(PhoneTD[29], 0);
+    TextDrawBackgroundColor(PhoneTD[29], 255);
+    TextDrawFont(PhoneTD[29], 4);
+    TextDrawSetProportional(PhoneTD[29], 1);
+
+    PhoneTD[30] = TextDrawCreate(501.000, 163.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[30], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[30], 1);
+    TextDrawColor(PhoneTD[30], 1768516095);
+    TextDrawSetShadow(PhoneTD[30], 0);
+    TextDrawSetOutline(PhoneTD[30], 0);
+    TextDrawBackgroundColor(PhoneTD[30], 255);
+    TextDrawFont(PhoneTD[30], 4);
+    TextDrawSetProportional(PhoneTD[30], 1);
+    TextDrawSetSelectable(PhoneTD[30], 1);
+
+    PhoneTD[31] = TextDrawCreate(531.000, 163.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[31], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[31], 1);
+    TextDrawColor(PhoneTD[31], 12582911);
+    TextDrawSetShadow(PhoneTD[31], 0);
+    TextDrawSetOutline(PhoneTD[31], 0);
+    TextDrawBackgroundColor(PhoneTD[31], 255);
+    TextDrawFont(PhoneTD[31], 4);
+    TextDrawSetProportional(PhoneTD[31], 1);
+    TextDrawSetSelectable(PhoneTD[31], 1);
+
+    PhoneTD[32] = TextDrawCreate(501.000, 199.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[32], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[32], 1);
+    TextDrawColor(PhoneTD[32], 255);
+    TextDrawSetShadow(PhoneTD[32], 0);
+    TextDrawSetOutline(PhoneTD[32], 0);
+    TextDrawBackgroundColor(PhoneTD[32], 255);
+    TextDrawFont(PhoneTD[32], 4);
+    TextDrawSetProportional(PhoneTD[32], 1);
+    TextDrawSetSelectable(PhoneTD[32], 1);
+
+    PhoneTD[33] = TextDrawCreate(531.000, 199.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[33], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[33], 1);
+    TextDrawColor(PhoneTD[33], 13554175);
+    TextDrawSetShadow(PhoneTD[33], 0);
+    TextDrawSetOutline(PhoneTD[33], 0);
+    TextDrawBackgroundColor(PhoneTD[33], 255);
+    TextDrawFont(PhoneTD[33], 4);
+    TextDrawSetProportional(PhoneTD[33], 1);
+    TextDrawSetSelectable(PhoneTD[33], 1);
+
+    PhoneTD[34] = TextDrawCreate(541.000, 172.000, "LD_CHAT:badchat");
+    TextDrawTextSize(PhoneTD[34], 15.000, 16.000);
+    TextDrawAlignment(PhoneTD[34], 1);
+    TextDrawColor(PhoneTD[34], -1);
+    TextDrawSetShadow(PhoneTD[34], 0);
+    TextDrawSetOutline(PhoneTD[34], 0);
+    TextDrawBackgroundColor(PhoneTD[34], 255);
+    TextDrawFont(PhoneTD[34], 4);
+    TextDrawSetProportional(PhoneTD[34], 1);
+
+    PhoneTD[35] = TextDrawCreate(482.000, 172.000, "HUD:radar_waypoint");
+    TextDrawTextSize(PhoneTD[35], 15.000, 16.000);
+    TextDrawAlignment(PhoneTD[35], 1);
+    TextDrawColor(PhoneTD[35], -1);
+    TextDrawSetShadow(PhoneTD[35], 0);
+    TextDrawSetOutline(PhoneTD[35], 0);
+    TextDrawBackgroundColor(PhoneTD[35], 255);
+    TextDrawFont(PhoneTD[35], 4);
+    TextDrawSetProportional(PhoneTD[35], 1);
+
+    PhoneTD[36] = TextDrawCreate(483.000, 201.000, "/");
+    TextDrawLetterSize(PhoneTD[36], 0.537, 2.898);
+    TextDrawAlignment(PhoneTD[36], 1);
+    TextDrawColor(PhoneTD[36], -1);
+    TextDrawSetShadow(PhoneTD[36], 0);
+    TextDrawSetOutline(PhoneTD[36], 0);
+    TextDrawBackgroundColor(PhoneTD[36], 150);
+    TextDrawFont(PhoneTD[36], 2);
+    TextDrawSetProportional(PhoneTD[36], 1);
+
+    PhoneTD[37] = TextDrawCreate(495.000, 201.000, "/");
+    TextDrawLetterSize(PhoneTD[37], -0.527, 2.890);
+    TextDrawAlignment(PhoneTD[37], 1);
+    TextDrawColor(PhoneTD[37], -1);
+    TextDrawSetShadow(PhoneTD[37], 0);
+    TextDrawSetOutline(PhoneTD[37], 0);
+    TextDrawBackgroundColor(PhoneTD[37], 150);
+    TextDrawFont(PhoneTD[37], 2);
+    TextDrawSetProportional(PhoneTD[37], 1);
+
+    PhoneTD[38] = TextDrawCreate(484.000, 217.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[38], 10.000, 1.000);
+    TextDrawAlignment(PhoneTD[38], 1);
+    TextDrawColor(PhoneTD[38], -1);
+    TextDrawSetShadow(PhoneTD[38], 0);
+    TextDrawSetOutline(PhoneTD[38], 0);
+    TextDrawBackgroundColor(PhoneTD[38], 255);
+    TextDrawFont(PhoneTD[38], 4);
+    TextDrawSetProportional(PhoneTD[38], 1);
+
+    PhoneTD[39] = TextDrawCreate(503.000, 201.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[39], 31.000, 31.000);
+    TextDrawAlignment(PhoneTD[39], 1);
+    TextDrawColor(PhoneTD[39], 16711935);
+    TextDrawSetShadow(PhoneTD[39], 0);
+    TextDrawSetOutline(PhoneTD[39], 0);
+    TextDrawBackgroundColor(PhoneTD[39], 255);
+    TextDrawFont(PhoneTD[39], 4);
+    TextDrawSetProportional(PhoneTD[39], 1);
+
+    PhoneTD[40] = TextDrawCreate(505.000, 205.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[40], 27.000, 22.000);
+    TextDrawAlignment(PhoneTD[40], 1);
+    TextDrawColor(PhoneTD[40], 255);
+    TextDrawSetShadow(PhoneTD[40], 0);
+    TextDrawSetOutline(PhoneTD[40], 0);
+    TextDrawBackgroundColor(PhoneTD[40], 255);
+    TextDrawFont(PhoneTD[40], 4);
+    TextDrawSetProportional(PhoneTD[40], 1);
+
+    PhoneTD[41] = TextDrawCreate(505.000, 208.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[41], 27.000, 22.000);
+    TextDrawAlignment(PhoneTD[41], 1);
+    TextDrawColor(PhoneTD[41], 2096890111);
+    TextDrawSetShadow(PhoneTD[41], 0);
+    TextDrawSetOutline(PhoneTD[41], 0);
+    TextDrawBackgroundColor(PhoneTD[41], 255);
+    TextDrawFont(PhoneTD[41], 4);
+    TextDrawSetProportional(PhoneTD[41], 1);
+
+    PhoneTD[42] = TextDrawCreate(508.000, 212.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[42], 21.000, 12.000);
+    TextDrawAlignment(PhoneTD[42], 1);
+    TextDrawColor(PhoneTD[42], 255);
+    TextDrawSetShadow(PhoneTD[42], 0);
+    TextDrawSetOutline(PhoneTD[42], 0);
+    TextDrawBackgroundColor(PhoneTD[42], 255);
+    TextDrawFont(PhoneTD[42], 4);
+    TextDrawSetProportional(PhoneTD[42], 1);
+
+    PhoneTD[43] = TextDrawCreate(508.000, 215.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[43], 21.000, 12.000);
+    TextDrawAlignment(PhoneTD[43], 1);
+    TextDrawColor(PhoneTD[43], 2096890111);
+    TextDrawSetShadow(PhoneTD[43], 0);
+    TextDrawSetOutline(PhoneTD[43], 0);
+    TextDrawBackgroundColor(PhoneTD[43], 255);
+    TextDrawFont(PhoneTD[43], 4);
+    TextDrawSetProportional(PhoneTD[43], 1);
+
+    PhoneTD[44] = TextDrawCreate(512.000, 217.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[44], 13.000, 9.000);
+    TextDrawAlignment(PhoneTD[44], 1);
+    TextDrawColor(PhoneTD[44], 255);
+    TextDrawSetShadow(PhoneTD[44], 0);
+    TextDrawSetOutline(PhoneTD[44], 0);
+    TextDrawBackgroundColor(PhoneTD[44], 255);
+    TextDrawFont(PhoneTD[44], 4);
+    TextDrawSetProportional(PhoneTD[44], 1);
+
+    PhoneTD[45] = TextDrawCreate(534.000, 202.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[45], 29.000, 29.000);
+    TextDrawAlignment(PhoneTD[45], 1);
+    TextDrawColor(PhoneTD[45], -1);
+    TextDrawSetShadow(PhoneTD[45], 0);
+    TextDrawSetOutline(PhoneTD[45], 0);
+    TextDrawBackgroundColor(PhoneTD[45], 255);
+    TextDrawFont(PhoneTD[45], 4);
+    TextDrawSetProportional(PhoneTD[45], 1);
+
+    PhoneTD[46] = TextDrawCreate(542.000, 212.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[46], 13.000, 10.000);
+    TextDrawAlignment(PhoneTD[46], 1);
+    TextDrawColor(PhoneTD[46], 512819199);
+    TextDrawSetShadow(PhoneTD[46], 0);
+    TextDrawSetOutline(PhoneTD[46], 0);
+    TextDrawBackgroundColor(PhoneTD[46], 255);
+    TextDrawFont(PhoneTD[46], 4);
+    TextDrawSetProportional(PhoneTD[46], 1);
+
+    PhoneTD[47] = TextDrawCreate(550.000, 212.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[47], 5.000, 4.000);
+    TextDrawAlignment(PhoneTD[47], 1);
+    TextDrawColor(PhoneTD[47], -1);
+    TextDrawSetShadow(PhoneTD[47], 0);
+    TextDrawSetOutline(PhoneTD[47], 0);
+    TextDrawBackgroundColor(PhoneTD[47], 255);
+    TextDrawFont(PhoneTD[47], 4);
+    TextDrawSetProportional(PhoneTD[47], 1);
+
+    PhoneTD[48] = TextDrawCreate(542.000, 218.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[48], 5.000, 4.000);
+    TextDrawAlignment(PhoneTD[48], 1);
+    TextDrawColor(PhoneTD[48], -1);
+    TextDrawSetShadow(PhoneTD[48], 0);
+    TextDrawSetOutline(PhoneTD[48], 0);
+    TextDrawBackgroundColor(PhoneTD[48], 255);
+    TextDrawFont(PhoneTD[48], 4);
+    TextDrawSetProportional(PhoneTD[48], 1);
+
+    PhoneTD[49] = TextDrawCreate(501.000, 236.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[49], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[49], 1);
+    TextDrawColor(PhoneTD[49], -1);
+    TextDrawSetShadow(PhoneTD[49], 0);
+    TextDrawSetOutline(PhoneTD[49], 0);
+    TextDrawBackgroundColor(PhoneTD[49], 255);
+    TextDrawFont(PhoneTD[49], 4);
+    TextDrawSetProportional(PhoneTD[49], 1);
+    TextDrawSetSelectable(PhoneTD[49], 1);
+
+    PhoneTD[50] = TextDrawCreate(506.000, 240.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[50], 25.000, 27.000);
+    TextDrawAlignment(PhoneTD[50], 1);
+    TextDrawColor(PhoneTD[50], 579543807);
+    TextDrawSetShadow(PhoneTD[50], 0);
+    TextDrawSetOutline(PhoneTD[50], 0);
+    TextDrawBackgroundColor(PhoneTD[50], 255);
+    TextDrawFont(PhoneTD[50], 4);
+    TextDrawSetProportional(PhoneTD[50], 1);
+
+    PhoneTD[51] = TextDrawCreate(510.000, 244.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[51], 17.000, 19.000);
+    TextDrawAlignment(PhoneTD[51], 1);
+    TextDrawColor(PhoneTD[51], -1);
+    TextDrawSetShadow(PhoneTD[51], 0);
+    TextDrawSetOutline(PhoneTD[51], 0);
+    TextDrawBackgroundColor(PhoneTD[51], 255);
+    TextDrawFont(PhoneTD[51], 4);
+    TextDrawSetProportional(PhoneTD[51], 1);
+
+    PhoneTD[52] = TextDrawCreate(513.000, 248.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[52], 11.000, 11.000);
+    TextDrawAlignment(PhoneTD[52], 1);
+    TextDrawColor(PhoneTD[52], 579543807);
+    TextDrawSetShadow(PhoneTD[52], 0);
+    TextDrawSetOutline(PhoneTD[52], 0);
+    TextDrawBackgroundColor(PhoneTD[52], 255);
+    TextDrawFont(PhoneTD[52], 4);
+    TextDrawSetProportional(PhoneTD[52], 1);
+
+    PhoneTD[53] = TextDrawCreate(517.000, 259.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[53], 3.000, 5.000);
+    TextDrawAlignment(PhoneTD[53], 1);
+    TextDrawColor(PhoneTD[53], -1);
+    TextDrawSetShadow(PhoneTD[53], 0);
+    TextDrawSetOutline(PhoneTD[53], 0);
+    TextDrawBackgroundColor(PhoneTD[53], 255);
+    TextDrawFont(PhoneTD[53], 4);
+    TextDrawSetProportional(PhoneTD[53], 1);
+
+    PhoneTD[54] = TextDrawCreate(531.000, 236.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[54], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[54], 1);
+    TextDrawColor(PhoneTD[54], -1378294017);
+    TextDrawSetShadow(PhoneTD[54], 0);
+    TextDrawSetOutline(PhoneTD[54], 0);
+    TextDrawBackgroundColor(PhoneTD[54], 255);
+    TextDrawFont(PhoneTD[54], 4);
+    TextDrawSetProportional(PhoneTD[54], 1);
+    TextDrawSetSelectable(PhoneTD[54], 1);
+
+    PhoneTD[55] = TextDrawCreate(541.000, 248.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[55], 15.000, 11.000);
+    TextDrawAlignment(PhoneTD[55], 1);
+    TextDrawColor(PhoneTD[55], 1887473919);
+    TextDrawSetShadow(PhoneTD[55], 0);
+    TextDrawSetOutline(PhoneTD[55], 0);
+    TextDrawBackgroundColor(PhoneTD[55], 255);
+    TextDrawFont(PhoneTD[55], 4);
+    TextDrawSetProportional(PhoneTD[55], 1);
+
+    PhoneTD[56] = TextDrawCreate(547.000, 250.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[56], 8.000, 9.000);
+    TextDrawAlignment(PhoneTD[56], 1);
+    TextDrawColor(PhoneTD[56], -1);
+    TextDrawSetShadow(PhoneTD[56], 0);
+    TextDrawSetOutline(PhoneTD[56], 0);
+    TextDrawBackgroundColor(PhoneTD[56], 255);
+    TextDrawFont(PhoneTD[56], 4);
+    TextDrawSetProportional(PhoneTD[56], 1);
+
+    PhoneTD[57] = TextDrawCreate(548.000, 251.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[57], 6.000, 7.000);
+    TextDrawAlignment(PhoneTD[57], 1);
+    TextDrawColor(PhoneTD[57], 1768516095);
+    TextDrawSetShadow(PhoneTD[57], 0);
+    TextDrawSetOutline(PhoneTD[57], 0);
+    TextDrawBackgroundColor(PhoneTD[57], 255);
+    TextDrawFont(PhoneTD[57], 4);
+    TextDrawSetProportional(PhoneTD[57], 1);
+
+    PhoneTD[58] = TextDrawCreate(541.000, 247.000, "LD_SPAC:white");
+    TextDrawTextSize(PhoneTD[58], 4.000, 3.000);
+    TextDrawAlignment(PhoneTD[58], 1);
+    TextDrawColor(PhoneTD[58], -1);
+    TextDrawSetShadow(PhoneTD[58], 0);
+    TextDrawSetOutline(PhoneTD[58], 0);
+    TextDrawBackgroundColor(PhoneTD[58], 255);
+    TextDrawFont(PhoneTD[58], 4);
+    TextDrawSetProportional(PhoneTD[58], 1);
+
+    PhoneTD[59] = TextDrawCreate(502.000, 331.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[59], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[59], 1);
+    TextDrawColor(PhoneTD[59], 1433087999);
+    TextDrawSetShadow(PhoneTD[59], 0);
+    TextDrawSetOutline(PhoneTD[59], 0);
+    TextDrawBackgroundColor(PhoneTD[59], 255);
+    TextDrawFont(PhoneTD[59], 4);
+    TextDrawSetProportional(PhoneTD[59], 1);
+    TextDrawSetSelectable(PhoneTD[59], 1);
+
+    PhoneTD[60] = TextDrawCreate(512.000, 339.000, "LD_CHAT:goodcha");
+    TextDrawTextSize(PhoneTD[60], 15.000, 16.000);
+    TextDrawAlignment(PhoneTD[60], 1);
+    TextDrawColor(PhoneTD[60], -1);
+    TextDrawSetShadow(PhoneTD[60], 0);
+    TextDrawSetOutline(PhoneTD[60], 0);
+    TextDrawBackgroundColor(PhoneTD[60], 255);
+    TextDrawFont(PhoneTD[60], 4);
+    TextDrawSetProportional(PhoneTD[60], 1);
+
+    PhoneTD[61] = TextDrawCreate(532.000, 331.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[61], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[61], 1);
+    TextDrawColor(PhoneTD[61], 548580095);
+    TextDrawSetShadow(PhoneTD[61], 0);
+    TextDrawSetOutline(PhoneTD[61], 0);
+    TextDrawBackgroundColor(PhoneTD[61], 255);
+    TextDrawFont(PhoneTD[61], 4);
+    TextDrawSetProportional(PhoneTD[61], 1);
+    TextDrawSetSelectable(PhoneTD[61], 1);
+
+    PhoneTD[62] = TextDrawCreate(472.000, 331.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[62], 35.000, 35.000);
+    TextDrawAlignment(PhoneTD[62], 1);
+    TextDrawColor(PhoneTD[62], -1131442177);
+    TextDrawSetShadow(PhoneTD[62], 0);
+    TextDrawSetOutline(PhoneTD[62], 0);
+    TextDrawBackgroundColor(PhoneTD[62], 255);
+    TextDrawFont(PhoneTD[62], 4);
+    TextDrawSetProportional(PhoneTD[62], 1);
+    TextDrawSetSelectable(PhoneTD[62], 1);
+
+    PhoneTD[63] = TextDrawCreate(541.000, 345.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[63], 17.000, 13.000);
+    TextDrawAlignment(PhoneTD[63], 1);
+    TextDrawColor(PhoneTD[63], -1);
+    TextDrawSetShadow(PhoneTD[63], 0);
+    TextDrawSetOutline(PhoneTD[63], 0);
+    TextDrawBackgroundColor(PhoneTD[63], 255);
+    TextDrawFont(PhoneTD[63], 4);
+    TextDrawSetProportional(PhoneTD[63], 1);
+
+    PhoneTD[64] = TextDrawCreate(543.000, 338.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[64], 12.000, 11.000);
+    TextDrawAlignment(PhoneTD[64], 1);
+    TextDrawColor(PhoneTD[64], -1);
+    TextDrawSetShadow(PhoneTD[64], 0);
+    TextDrawSetOutline(PhoneTD[64], 0);
+    TextDrawBackgroundColor(PhoneTD[64], 255);
+    TextDrawFont(PhoneTD[64], 4);
+    TextDrawSetProportional(PhoneTD[64], 1);
+
+    PhoneTD[65] = TextDrawCreate(493.000, 340.000, "/");
+    TextDrawLetterSize(PhoneTD[65], -0.726, 1.699);
+    TextDrawAlignment(PhoneTD[65], 1);
+    TextDrawColor(PhoneTD[65], 640034559);
+    TextDrawSetShadow(PhoneTD[65], 0);
+    TextDrawSetOutline(PhoneTD[65], 0);
+    TextDrawBackgroundColor(PhoneTD[65], 150);
+    TextDrawFont(PhoneTD[65], 1);
+    TextDrawSetProportional(PhoneTD[65], 1);
+
+    PhoneTD[66] = TextDrawCreate(481.000, 338.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[66], 12.000, 11.000);
+    TextDrawAlignment(PhoneTD[66], 1);
+    TextDrawColor(PhoneTD[66], 640034559);
+    TextDrawSetShadow(PhoneTD[66], 0);
+    TextDrawSetOutline(PhoneTD[66], 0);
+    TextDrawBackgroundColor(PhoneTD[66], 255);
+    TextDrawFont(PhoneTD[66], 4);
+    TextDrawSetProportional(PhoneTD[66], 1);
+
+    PhoneTD[67] = TextDrawCreate(486.000, 348.000, "LD_BEAT:chit");
+    TextDrawTextSize(PhoneTD[67], 12.000, 11.000);
+    TextDrawAlignment(PhoneTD[67], 1);
+    TextDrawColor(PhoneTD[67], 640034559);
+    TextDrawSetShadow(PhoneTD[67], 0);
+    TextDrawSetOutline(PhoneTD[67], 0);
+    TextDrawBackgroundColor(PhoneTD[67], 255);
+    TextDrawFont(PhoneTD[67], 4);
+    TextDrawSetProportional(PhoneTD[67], 1);
+
+    PhoneTD[68] = TextDrawCreate(485.000, 193.000, "GPS");
+    TextDrawLetterSize(PhoneTD[68], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[68], 1);
+    TextDrawColor(PhoneTD[68], -1);
+    TextDrawSetShadow(PhoneTD[68], 0);
+    TextDrawSetOutline(PhoneTD[68], 0);
+    TextDrawBackgroundColor(PhoneTD[68], 150);
+    TextDrawFont(PhoneTD[68], 1);
+    TextDrawSetProportional(PhoneTD[68], 1);
+
+    PhoneTD[69] = TextDrawCreate(509.000, 193.000, "Cai dat");
+    TextDrawLetterSize(PhoneTD[69], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[69], 1);
+    TextDrawColor(PhoneTD[69], -1);
+    TextDrawSetShadow(PhoneTD[69], 0);
+    TextDrawSetOutline(PhoneTD[69], 0);
+    TextDrawBackgroundColor(PhoneTD[69], 150);
+    TextDrawFont(PhoneTD[69], 1);
+    TextDrawSetProportional(PhoneTD[69], 1);
+
+    PhoneTD[70] = TextDrawCreate(540.000, 193.000, "Dich vu");
+    TextDrawLetterSize(PhoneTD[70], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[70], 1);
+    TextDrawColor(PhoneTD[70], -1);
+    TextDrawSetShadow(PhoneTD[70], 0);
+    TextDrawSetOutline(PhoneTD[70], 0);
+    TextDrawBackgroundColor(PhoneTD[70], 150);
+    TextDrawFont(PhoneTD[70], 1);
+    TextDrawSetProportional(PhoneTD[70], 1);
+
+    PhoneTD[71] = TextDrawCreate(479.000, 229.000, "Aps Store");
+    TextDrawLetterSize(PhoneTD[71], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[71], 1);
+    TextDrawColor(PhoneTD[71], -1);
+    TextDrawSetShadow(PhoneTD[71], 0);
+    TextDrawSetOutline(PhoneTD[71], 0);
+    TextDrawBackgroundColor(PhoneTD[71], 150);
+    TextDrawFont(PhoneTD[71], 1);
+    TextDrawSetProportional(PhoneTD[71], 1);
+
+    PhoneTD[72] = TextDrawCreate(512.000, 229.000, "Spotify");
+    TextDrawLetterSize(PhoneTD[72], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[72], 1);
+    TextDrawColor(PhoneTD[72], -1);
+    TextDrawSetShadow(PhoneTD[72], 0);
+    TextDrawSetOutline(PhoneTD[72], 0);
+    TextDrawBackgroundColor(PhoneTD[72], 150);
+    TextDrawFont(PhoneTD[72], 1);
+    TextDrawSetProportional(PhoneTD[72], 1);
+
+    PhoneTD[73] = TextDrawCreate(538.000, 229.000, "Thoi gian");
+    TextDrawLetterSize(PhoneTD[73], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[73], 1);
+    TextDrawColor(PhoneTD[73], -1);
+    TextDrawSetShadow(PhoneTD[73], 0);
+    TextDrawSetOutline(PhoneTD[73], 0);
+    TextDrawBackgroundColor(PhoneTD[73], 150);
+    TextDrawFont(PhoneTD[73], 1);
+    TextDrawSetProportional(PhoneTD[73], 1);
+
+    PhoneTD[74] = TextDrawCreate(476.000, 266.000, "Ngan hang");
+    TextDrawLetterSize(PhoneTD[74], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[74], 1);
+    TextDrawColor(PhoneTD[74], -1);
+    TextDrawSetShadow(PhoneTD[74], 0);
+    TextDrawSetOutline(PhoneTD[74], 0);
+    TextDrawBackgroundColor(PhoneTD[74], 150);
+    TextDrawFont(PhoneTD[74], 1);
+    TextDrawSetProportional(PhoneTD[74], 1);
+
+    PhoneTD[75] = TextDrawCreate(512.000, 266.000, "Grab");
+    TextDrawLetterSize(PhoneTD[75], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[75], 1);
+    TextDrawColor(PhoneTD[75], -1);
+    TextDrawSetShadow(PhoneTD[75], 0);
+    TextDrawSetOutline(PhoneTD[75], 0);
+    TextDrawBackgroundColor(PhoneTD[75], 150);
+    TextDrawFont(PhoneTD[75], 1);
+    TextDrawSetProportional(PhoneTD[75], 1);
+
+    PhoneTD[76] = TextDrawCreate(539.000, 266.000, "Camera");
+    TextDrawLetterSize(PhoneTD[76], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[76], 1);
+    TextDrawColor(PhoneTD[76], -1);
+    TextDrawSetShadow(PhoneTD[76], 0);
+    TextDrawSetOutline(PhoneTD[76], 0);
+    TextDrawBackgroundColor(PhoneTD[76], 150);
+    TextDrawFont(PhoneTD[76], 1);
+    TextDrawSetProportional(PhoneTD[76], 1);
+
+    PhoneTD[77] = TextDrawCreate(477.000, 361.000, "Dien thoai");
+    TextDrawLetterSize(PhoneTD[77], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[77], 1);
+    TextDrawColor(PhoneTD[77], -1);
+    TextDrawSetShadow(PhoneTD[77], 0);
+    TextDrawSetOutline(PhoneTD[77], 0);
+    TextDrawBackgroundColor(PhoneTD[77], 150);
+    TextDrawFont(PhoneTD[77], 1);
+    TextDrawSetProportional(PhoneTD[77], 1);
+
+    PhoneTD[78] = TextDrawCreate(509.000, 361.000, "Tin nhan");
+    TextDrawLetterSize(PhoneTD[78], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[78], 1);
+    TextDrawColor(PhoneTD[78], -1);
+    TextDrawSetShadow(PhoneTD[78], 0);
+    TextDrawSetOutline(PhoneTD[78], 0);
+    TextDrawBackgroundColor(PhoneTD[78], 150);
+    TextDrawFont(PhoneTD[78], 1);
+    TextDrawSetProportional(PhoneTD[78], 1);
+
+    PhoneTD[79] = TextDrawCreate(540.000, 361.000, "Lien he");
+    TextDrawLetterSize(PhoneTD[79], 0.158, 0.799);
+    TextDrawAlignment(PhoneTD[79], 1);
+    TextDrawColor(PhoneTD[79], -1);
+    TextDrawSetShadow(PhoneTD[79], 0);
+    TextDrawSetOutline(PhoneTD[79], 0);
+    TextDrawBackgroundColor(PhoneTD[79], 150);
+    TextDrawFont(PhoneTD[79], 1);
+    TextDrawSetProportional(PhoneTD[79], 1);
+
+    PhoneTD[80] = TextDrawCreate(511.000, 172.000, "HUD:radar_modGarage");
+    TextDrawTextSize(PhoneTD[80], 15.000, 16.000);
+    TextDrawAlignment(PhoneTD[80], 1);
+    TextDrawColor(PhoneTD[80], -1);
+    TextDrawSetShadow(PhoneTD[80], 0);
+    TextDrawSetOutline(PhoneTD[80], 0);
+    TextDrawBackgroundColor(PhoneTD[80], 255);
+    TextDrawFont(PhoneTD[80], 4);
+    TextDrawSetProportional(PhoneTD[80], 1);
+
+    PhoneTD[81] = TextDrawCreate(476.000, 147.000, "15:00");
+    TextDrawLetterSize(PhoneTD[81], 0.170, 0.699);
+    TextDrawAlignment(PhoneTD[81], 1);
+    TextDrawColor(PhoneTD[81], -1);
+    TextDrawSetShadow(PhoneTD[81], 1);
+    TextDrawSetOutline(PhoneTD[81], 0);
+    TextDrawBackgroundColor(PhoneTD[81], 150);
+    TextDrawFont(PhoneTD[81], 1);
+    TextDrawSetProportional(PhoneTD[81], 1);
+
     return 1;
 }
 
 // ============================================================
-//  Phone_Destroy — huỷ toàn bộ TextDraw (chỉ khi đóng phone)
-// ============================================================
-stock Phone_Destroy(playerid)
-{
-    if(!PhoneBuilt[playerid]) return 1;
-
-    for(new i = 0; i < PHONE_TEXTDRAW_COUNT; i++)
-    {
-        if(Text_Player[playerid][i] != PlayerText:-1)
-            PlayerTextDrawDestroy(playerid, Text_Player[playerid][i]);
-        Text_Player[playerid][i] = PlayerText:-1;
-    }
-    PhoneBuilt[playerid] = false;
-    return 1;
-}
-
-// ============================================================
-//  Phone_Open / Phone_Close — gộp Build/Show, Hide/Destroy
+//  Phone_Open / Phone_Close
 // ============================================================
 stock Phone_Open(playerid)
 {
-    if(!PhoneBuilt[playerid]) Phone_Build(playerid);
-
     for(new i = 0; i < PHONE_TEXTDRAW_COUNT; i++)
-    {
-        if(Text_Player[playerid][i] != PlayerText:-1)
-            PlayerTextDrawShow(playerid, Text_Player[playerid][i]);
-    }
+        TextDrawShowForPlayer(playerid, PhoneTD[i]);
 
     PhoneOpen[playerid] = true;
     SetPVarInt(playerid, "DIENTHOAI_", 1);
@@ -960,16 +934,17 @@ stock Phone_Open(playerid)
 
 stock Phone_Close(playerid)
 {
-    // Hide trước khi destroy (tránh 1 frame nhấp nháy nếu destroy đột ngột)
     for(new i = 0; i < PHONE_TEXTDRAW_COUNT; i++)
-    {
-        if(Text_Player[playerid][i] != PlayerText:-1)
-            PlayerTextDrawHide(playerid, Text_Player[playerid][i]);
-    }
+        TextDrawHideForPlayer(playerid, PhoneTD[i]);
 
-    Phone_Destroy(playerid);
     PhoneOpen[playerid] = false;
     SetPVarInt(playerid, "DIENTHOAI_", 0);
+    return 1;
+}
+
+hook OnGameModeInit()
+{
+    Phone_CreateTD();
     return 1;
 }
 
@@ -979,8 +954,7 @@ stock Phone_Close(playerid)
 hook OnPlayerDisconnect(playerid, reason)
 {
     DeletePVar(playerid, "PHONE_LOADING");
-    Phone_Destroy(playerid);
-    PhoneOpen[playerid] = false;
+    if(PhoneOpen[playerid]) Phone_Close(playerid);
     return 1;
 }
 
@@ -1025,10 +999,7 @@ CMD:dienthoai(playerid, params[])
     }
 
     // ==== MỞ PHONE ====
-    // B1: Build 82 TD vào RAM (KHÔNG show)
-    if(!PhoneBuilt[playerid]) Phone_Build(playerid);
-
-    // B2: Animation phone_in + sound
+    // B1: Animation phone_in + sound
     ApplyAnimation(playerid, "PED", "phone_in", 4.1, false, false, false, false, 0);
     PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 
@@ -1200,14 +1171,13 @@ CMD:danhbacuatoi(playerid, params[])
 
 stock UpdatePhoneTime(playerid)
 {
-    if(GetPVarInt(playerid, "DIENTHOAI_") == 1 && PhoneBuilt[playerid])
+    if(GetPVarInt(playerid, "DIENTHOAI_") == 1 && PhoneOpen[playerid])
     {
         new hour, minute;
         gettime(hour, minute);
         new timeString[32];
         format(timeString, sizeof(timeString), "%02d:%02d", hour, minute);
-        if(IsValidPlayerTextDraw(playerid, Text_Player[playerid][81]))
-            PlayerTextDrawSetString(playerid, Text_Player[playerid][81], timeString);
+        TextDrawSetString(PhoneTD[81], timeString);
     }
     return 1;
 }
