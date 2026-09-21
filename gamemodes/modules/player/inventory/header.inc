@@ -1,4 +1,5 @@
 #define     MAX_INVENTORY_ITEMS         21
+new bool: InvTDOpen[MAX_PLAYERS];
 #define     MAX_ITEM_PER_PAGE           15
 #define     INVENTORY_TYPE_TEXTDRAW     0
 #define     INVENTORY_TYPE_DIALOG       1
@@ -13,7 +14,7 @@ enum E_DROPPED_ITEM {
     droppedAmount,
     droppedBy[MAX_PLAYER_NAME],
     Float:droppedX,
-    Float:droppedY, 
+    Float:droppedY,
     Float:droppedZ,
     droppedObject,
     Text3D:droppedLabel
@@ -72,3 +73,39 @@ new PlayerText: InvTD@OwnerName[MAX_PLAYERS] = {INVALID_PLAYER_TEXT_DRAW, ...};
 new PlayerText: InvTD@ItemInfo[MAX_PLAYERS] = {INVALID_PLAYER_TEXT_DRAW, ...};
 new PlayerText: InvTD@Page[MAX_PLAYERS] = {INVALID_PLAYER_TEXT_DRAW, ...};
 new Text:InvTD@Global[5]; */
+
+#define MAX_ITEM_NAME 30
+
+enum Inv_Data {
+    pVariable,
+    NameItem[128]
+};
+
+new const ItemInventory[][Inv_Data] = {
+    {pBanhMi, "Banh Mi"},
+    {pNuocLoc, "Nuoc Loc"},
+    //{pMedkit, "Medkit"},
+    {pTepCanSa, "Tep can sa"},
+    {pCanSa, "La can sa"},
+    {pPot, "Pot"},
+    {pCrack, "Crack"},
+    {pPaper, "Giay"},
+    {pPizza, "Pizza"},
+    {pBunRieu, "Bun rieu"},
+    {pPhoBo, "Bun bo"},
+    //{pBoombox, "BoomBox"},
+    {pRadio, "Radio"},
+    {pDice, "Xuc xac"},
+    {pCredits, "Credits"},
+    //{pTheDoiTen, "The doi ten"},
+    //{pMask, "Mat na"},
+    {pRope, "Day thung"},
+    {pCigar, "Xi ga"},
+    {pMoiCau, "Moi cau"},
+    {pHamburger, "Hamburger"},
+    {pCaPhe, "Ca phe"},
+    {pSuaBo, "Sua bo"},
+    {pThit, "Thit hun khoi"},
+    {pTraiCay, "Trai cay"},
+    {pNuocEp, "Nuoc ep"}
+};

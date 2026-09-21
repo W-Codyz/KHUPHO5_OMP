@@ -11,44 +11,6 @@
 #define DIALOG_DELETE_AMOUNT (11005) 
 #define DIALOG_WEAPON_OPTIONS (11006)
 
-#define MAX_ITEM_NAME 30
-
-// Dinh nghia struct cho inventory items
-enum Inv_Data {
-    pVariable,
-    NameItem[128]
-};
-
-// Dinh nghia danh sach item
-new const ItemInventory[][Inv_Data] = {
-    {pBanhMi, "Banh Mi"},
-    {pNuocLoc, "Nuoc Loc"},
-    //{pMedkit, "Medkit"},
-    {pTepCanSa, "Tep can sa"},
-    {pCanSa, "La can sa"},
-    {pPot, "Pot"},
-    {pCrack, "Crack"},
-    {pPaper, "Giay"},
-    {pPizza, "Pizza"},
-    {pBunRieu, "Bun rieu"},
-    {pPhoBo, "Bun bo"},
-    //{pBoombox, "BoomBox"},
-    {pRadio, "Radio"},
-    {pDice, "Xuc xac"},
-    {pCredits, "Credits"},
-    //{pTheDoiTen, "The doi ten"},
-    //{pMask, "Mat na"},
-    {pRope, "Day thung"},
-    {pCigar, "Xi ga"},
-    {pMoiCau, "Moi cau"},
-    {pHamburger, "Hamburger"},
-    {pCaPhe, "Ca phe"},
-    {pSuaBo, "Sua bo"},
-    {pThit, "Thit hun khoi"},
-    {pTraiCay, "Trai cay"},
-    {pNuocEp, "Nuoc ep"}
-};
-
 // Struct cho dropped items
 enum DroppedItemInfo {
     Float:dropX,
@@ -85,9 +47,14 @@ GetWeaponNameFromID(weaponid, name[], size) {
     return 1;
 }
 
-// Ham show inventory dialog
-ShowPlayerInventory(playerid) 
+// Ham show inventory dialog (hoac textdraw neu pInvType == INVENTORY_TYPE_TEXTDRAW)
+ShowPlayerInventory(playerid)
 {
+    if(PlayerInfo[playerid][pInvType] == INVENTORY_TYPE_TEXTDRAW) {
+        ShowInvTD(playerid);
+        return 1;
+    }
+
     new string[2048], title[64];
     format(title, sizeof(title), "Inventory cua %s", GetPlayerNameEx(playerid));
     new count;
@@ -343,6 +310,11 @@ PickupNearestItem(playerid) {
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
     if(newkeys & KEY_CTRL_BACK) {
         if(IsPlayerInAnyVehicle(playerid)) return 1;
+        // Toggle textdraw: nhan H lan 2 de dong
+        if(PlayerInfo[playerid][pInvType] == INVENTORY_TYPE_TEXTDRAW && InvTDOpen[playerid]) {
+            HideInvTD(playerid);
+            return 1;
+        }
         ShowPlayerInventory(playerid);
     }
     else if(newkeys & KEY_YES) {

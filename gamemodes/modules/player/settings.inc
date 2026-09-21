@@ -20,6 +20,13 @@ stock ShowPlayerSettings(playerid)
         default: hudSucKhoeStr = "{FF0000}Tat";
     }
 
+    // Tui do: 0 = Hien dai (textdraw) | 1 = Co dien (dialog)
+    new invTypeStr[24];
+    if(PlayerInfo[playerid][pInvType] == INVENTORY_TYPE_TEXTDRAW)
+        invTypeStr = "{00FF00}Hien dai";
+    else
+        invTypeStr = "{FFFF00}Co dien";
+
     format(dialogInfo, _,
     "{FFFFFF}Discord lien ket\t\t\t%s\n\
     {FFFFFF}Tro chuyen Family\t\t%s\n\
@@ -30,7 +37,8 @@ stock ShowPlayerSettings(playerid)
     {FFFFFF}Dien thoai\t\t\t%s\n\
     {FFFFFF}Kenh radio\t\t\t%s\n\
     {FFFFFF}HUD nhan vat\t\t\t%s\n\
-    {FFFFFF}HUD suc khoe\t\t\t%s\n",
+    {FFFFFF}HUD suc khoe\t\t\t%s\n\
+    {FFFFFF}Loai tui do\t\t\t%s\n",
     dccUsername,
     !gFam[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !gOoc[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
@@ -40,7 +48,8 @@ stock ShowPlayerSettings(playerid)
     !PhoneOnline[playerid] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     !GetPVarInt(playerid, "togRadio") ? ("{00FF00}Bat") : ("{FF0000}Tat"),
     PlayerInfo[playerid][pHUDInfo] ? ("{00FF00}Bat") : ("{FF0000}Tat"),
-    hudSucKhoeStr);
+    hudSucKhoeStr,
+    invTypeStr);
 
     ShowPlayerDialog(playerid, DIALOG_SETTING, DIALOG_STYLE_TABLIST, "{FFFFFF}Cai dat tai khoan", dialogInfo, "Chon", "Dong");
     return 1;
@@ -116,6 +125,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 HideAllHungerTextdraws(playerid);
                 UpdatePlayerHungerDisplay(playerid);
                 ShowHungerDisplay(playerid);
+            }
+            case 10: { // Tui do - toggle textdraw <-> dialog
+                if(PlayerInfo[playerid][pInvType] == INVENTORY_TYPE_TEXTDRAW) {
+                    PlayerInfo[playerid][pInvType] = INVENTORY_TYPE_DIALOG;
+                    SendClientMessageEx(playerid, COLOR_WHITE, "Tui do: {FFFF00}Co dien (dialog)");
+                }
+                else {
+                    PlayerInfo[playerid][pInvType] = INVENTORY_TYPE_TEXTDRAW;
+                    SendClientMessageEx(playerid, COLOR_WHITE, "Tui do: {00FF00}Hien dai (textdraw)");
+                }
             }
         }
 
