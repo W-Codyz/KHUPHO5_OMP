@@ -355,7 +355,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
                 return 1;
             }
             new string[512];
-            new name[512];
+            new name[1024];
             format(name, sizeof(name), "{ffffff} > Giao dich voi {FFFF00}%s", GetPlayerNameEx(GetPlayerTargetPlayer(playerid)));
             SetPVarString(playerid, "pInteractName", name);
             SetPVarInt(playerid, "pInteractID", GetPlayerTargetPlayer(playerid));

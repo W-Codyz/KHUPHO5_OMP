@@ -10527,7 +10527,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 	    }
 	}
-	else if(dialogid == INTERACTMAIN)
+	/* else if(dialogid == INTERACTMAIN)
 	{
 	    if(response)
 	    {
@@ -10563,7 +10563,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    DeletePVar(playerid, "pInteractName");
 		    DeletePVar(playerid, "pInteractID");
 		}
-	}
+	} */
 	/* else if(dialogid == INTERACTGIVE)
 	{
 	    if(response)
