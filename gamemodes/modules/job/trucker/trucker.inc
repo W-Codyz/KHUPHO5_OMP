@@ -403,7 +403,7 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
                         hangtrentay[playerid][c]  = 0;
                         LuongHang[playerid]       += 1;
                         SetPVarInt(playerid, "idloaihang", 0);
-                        ClearAnimations(playerid);
+                        ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.0, 0, 0, 0, 0, 0);
                         RemovePlayerAttachedObject(playerid, 6);
                         SetPlayerSpecialAction(playerid, 0);
 
@@ -514,7 +514,6 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         if(PlayerSellingCargo[playerid])            return 1;
 
         PlayerSellingCargo[playerid] = true;
-        ClearAnimations(playerid);
         ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.0, 0, 0, 0, 0, 0);
         RemovePlayerAttachedObject(playerid, 6);
         SetPlayerSpecialAction(playerid, 0);
@@ -629,7 +628,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             PlayerSellingCargo[playerid] = false;
             return 1;
         }
-        ClearAnimations(playerid);
         ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.0, 0, 0, 0, 0, 0);
         RemovePlayerAttachedObject(playerid, 6);
         SetPlayerSpecialAction(playerid, 0);

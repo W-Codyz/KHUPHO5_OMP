@@ -34992,8 +34992,6 @@
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="Trucker_Cleanup"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0Z"/>
-			<referrer name="_@yHOnDialogResponse@0Z"/>
 			<referrer name="Porter_LoadingFailed"/>
 			<referrer name="PorterLoadingFinish"/>
 			<referrer name="Porter_Stop"/>
@@ -94710,7 +94708,6 @@
 			<dependency name="operator*(Float:,_:)"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="Attach3DTextLabelToVehicle"/>
-			<dependency name="ClearAnimations"/>
 			<dependency name="Create3DTextLabel"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="EVF_CreateVehicle"/>
@@ -96595,7 +96592,6 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0Z"/>
 			<dependency name="operator*(Float:,_:)"/>
 			<dependency name="ApplyAnimation"/>
-			<dependency name="ClearAnimations"/>
 			<dependency name="CountCopsOnDuty"/>
 			<dependency name="DisablePlayerCheckpoint"/>
 			<dependency name="DiscordLog"/>
