@@ -7931,6 +7931,7 @@
 			<referrer name="OPBA_OnPlayerInteriorChange"/>
 			<referrer name="OnPlayerPressButton"/>
 			<referrer name="OnPlayerTakeDamage"/>
+			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="Iter_OnRconLoginAttempt"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
@@ -8831,7 +8832,6 @@
 			<referrer name="@yH_OnPlayerConnect@0E"/>
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
-			<referrer name="@yH_OnGameModeInit@0F"/>
 			<referrer name="@yH_OnPlayerConnect@0F"/>
 			<referrer name="@yH_OnPlayerDisconnect@0F"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
@@ -8874,6 +8874,7 @@
 			<referrer name="@yH_OnPlayerConnect@0N"/>
 			<referrer name="@yH_OnPlayerDisconnect@0N"/>
 			<referrer name="@yH_OnDialogResponse@0N"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
 			<referrer name="@yH_OnDialogResponse@0O"/>
 			<referrer name="_@yHOnDialogResponse@0O"/>
 			<referrer name="pc_cmd_guivitri"/>
@@ -9782,6 +9783,7 @@
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="IsNearAnyDoor"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:CAMOTD">
@@ -10118,6 +10120,7 @@
 			<referrer name="pc_cmd_ram"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="IsNearAnyDoor"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:DMPInfo">
@@ -10753,6 +10756,7 @@
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="IsNearAnyDoor"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:FamilyMOTD">
@@ -11196,6 +11200,7 @@
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="IsNearAnyDoor"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:HouseOffer">
@@ -11903,6 +11908,7 @@
 			<referrer name="OPBA_OnPlayerInteriorChange"/>
 			<referrer name="OnPlayerPressButton"/>
 			<referrer name="OnPlayerTakeDamage"/>
+			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="Iter_OnRconLoginAttempt"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
@@ -12848,7 +12854,6 @@
 			<referrer name="@yH_OnPlayerConnect@0E"/>
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
-			<referrer name="@yH_OnGameModeInit@0F"/>
 			<referrer name="@yH_OnPlayerConnect@0F"/>
 			<referrer name="@yH_OnPlayerDisconnect@0F"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
@@ -12875,6 +12880,7 @@
 			<referrer name="@yH_OnPlayerConnect@0N"/>
 			<referrer name="@yH_OnPlayerDisconnect@0N"/>
 			<referrer name="@yH_OnDialogResponse@0N"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
 			<referrer name="@yH_OnDialogResponse@0O"/>
 			<referrer name="@yH_OnDialogResponse@0P"/>
 			<referrer name="@yH_OnPlayerDisconnect@0P"/>
@@ -14007,7 +14013,6 @@
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_sellmyhouse"/>
 			<referrer name="pc_cmd_gotopveh"/>
-			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="pc_cmd_reloadpvehicles"/>
 			<referrer name="pc_cmd_unloadpvehicles"/>
 			<referrer name="pc_cmd_loadpvehicles"/>
@@ -14511,6 +14516,7 @@
 			<referrer name="pc_cmd_givexp"/>
 			<referrer name="pc_cmd_thegioi"/>
 			<referrer name="pc_cmd_laypos"/>
+			<referrer name="pc_cmd_codydevxin1212"/>
 			<referrer name="EVF_OnVehicleMod"/>
 			<referrer name="OnPlayerLeaveDynamicArea"/>
 			<referrer name="OPBA_OnPlayerUpdate"/>
@@ -14612,6 +14618,7 @@
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="IsNearAnyDoor"/>
 			<referrer name="pc_cmd_exit"/>
 			<referrer name="_@yHOnPlayerStateChange@0j"/>
 			<referrer name="pc_cmd_speedo"/>
@@ -14667,6 +14674,7 @@
 			<referrer name="CreatePokerGUI"/>
 		</member>
 		<member name="F:PlayerPorter">
+			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="OPBA_OnPlayerConnect"/>
 			<referrer name="pc_cmd_lamviec"/>
 			<referrer name="pc_cmd_dunglamviec"/>
@@ -14761,8 +14769,6 @@
 			<referrer name="OnQueryCreateVehicle"/>
 			<referrer name="GetPlayerVehicleCount"/>
 			<referrer name="CheckPlayerVehiclesForDesync"/>
-			<referrer name="LockPlayerVehicle"/>
-			<referrer name="UnLockPlayerVehicle"/>
 			<referrer name="UpdateCarRadars"/>
 			<referrer name="GivePlayerStoreItem"/>
 			<referrer name="DestroyPlayerVehicle"/>
@@ -19964,6 +19970,7 @@
 			<referrer name="DisablePlayerCP"/>
 		</member>
 		<member name="F:gPlayerCheckpointStatus">
+			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="CheckPointCheck"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="pc_cmd_accept"/>
@@ -20010,6 +20017,7 @@
 			<referrer name="CheckBossRange"/>
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
 			<referrer name="_@yHOnPlayerSpawn@0H"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="UpdateBar"/>
@@ -24551,15 +24559,6 @@
 			<dependency name="_@yHOnGameModeInit@0E"/>
 			<dependency name="true"/>
 		</member>
-		<member name="M:@yH_OnGameModeInit@0F" syntax="@yH_OnGameModeInit@0F()">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="O@A_"/>
-			<dependency name="O@V_"/>
-			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnGameModeInit@0F"/>
-			<dependency name="true"/>
-		</member>
 		<member name="M:@yH_OnGameModeInit@0H" syntax="@yH_OnGameModeInit@0H()">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -25620,6 +25619,24 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerKeyStateChange@0N"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="newkeys">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="oldkeys">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerKeyStateChange@0O" syntax="@yH_OnPlayerKeyStateChange@0O(&amp;playerid, &amp;newkeys, &amp;oldkeys)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerKeyStateChange@0O"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -28069,6 +28086,7 @@
 			<dependency name="pGangModerator"/>
 			<dependency name="pHeadValue"/>
 			<dependency name="pTogReports"/>
+			<dependency name="pc_cmd_pvlock"/>
 			<dependency name="random"/>
 			<dependency name="true"/>
 			<param name="playerid">
@@ -42636,7 +42654,6 @@
 			<referrer name="pc_cmd_deliver"/>
 			<referrer name="pc_cmd_lock"/>
 			<referrer name="pc_cmd_cnn"/>
-			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="pc_cmd_unlockveh"/>
 			<referrer name="pc_cmd_asellhouse"/>
 			<referrer name="pc_cmd_sms"/>
@@ -46451,6 +46468,7 @@
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0a"/>
 			<referrer name="PlayerEnterInterior"/>
+			<referrer name="IsNearAnyDoor"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The player to get the interior ID of
@@ -48130,8 +48148,6 @@
 		</member>
 		<member name="M:GetPlayerVehicle" syntax="GetPlayerVehicle(playerid, vehicleid)">
 			<stacksize value="2"/>
-			<referrer name="LockPlayerVehicle"/>
-			<referrer name="UnLockPlayerVehicle"/>
 			<referrer name="UpdateCarRadars"/>
 			<referrer name="UpdateSpeedCamerasForPlayer"/>
 			<referrer name="StopRefueling"/>
@@ -48152,6 +48168,7 @@
 			<referrer name="EVF_OnEnterExitModShop"/>
 			<referrer name="EVF_OnVehiclePaintjob"/>
 			<referrer name="EVF_OnVehicleRespray"/>
+			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="pvId"/>
@@ -48486,6 +48503,7 @@
 			<referrer name="SetPlayerCP"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="IsNearAnyDoor"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player to get the virtual world of
@@ -51608,6 +51626,7 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="pc_cmd_time"/>
+			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="OnPlayerCommandPerformed"/>
 			<referrer name="PorterAnimation"/>
 			<referrer name="_@yHOnDialogResponse@0e"/>
@@ -53242,6 +53261,7 @@
 			<dependency name="LoadPlants"/>
 			<dependency name="LoadPoints"/>
 			<dependency name="LoadRelayForLifeTeams"/>
+			<dependency name="LoadSafeZones"/>
 			<dependency name="LoadSpeedCameras"/>
 			<dependency name="LoadStreamerActors"/>
 			<dependency name="LoadStreamerDynamic3DTextLabels"/>
@@ -53268,6 +53288,7 @@
 			<dependency name="ShowPlayerMarkers"/>
 			<dependency name="SkinList"/>
 			<dependency name="Streamer_TickRate"/>
+			<dependency name="TextDrawSafeZone"/>
 			<dependency name="ToyList"/>
 			<dependency name="ToyList2"/>
 			<dependency name="UpdateSANewsBroadcast"/>
@@ -54868,6 +54889,7 @@
 		<member name="M:IsAtRestaurant" syntax="IsAtRestaurant(playerid)">
 			<stacksize value="5"/>
 			<referrer name="pc_cmd_muathucan"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0O"/>
 			<dependency name="Businesses"/>
 			<dependency name="InBusiness"/>
 			<dependency name="bType"/>
@@ -55063,6 +55085,48 @@
 				The IEEE754 floating point number (<c>Float:</c>) to check.
 			</param>
 			<library>y_utils - maths</library>    <returns>  An IEEE754 floating-point number is defined as Not-A-Number when all the exponent bits are set,  and the mantissa is non-zero.  The sign bit is ignored, so we first remove that and test the  result is <c>&gt; 0x7F800000</c>.  Because any signed number bigger than that must have all the  MSBs set, plus at least one more.  </returns> 
+		</member>
+		<member name="M:IsNearAnyDoor" syntax="IsNearAnyDoor(playerid)">
+			<stacksize value="8"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0O"/>
+			<dependency name="Businesses"/>
+			<dependency name="Businesses"/>
+			<dependency name="DDoorsInfo"/>
+			<dependency name="DDoorsInfo"/>
+			<dependency name="FamilyEntrance"/>
+			<dependency name="FamilyExit"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyVirtualWorld"/>
+			<dependency name="GetPlayerInterior"/>
+			<dependency name="GetPlayerVirtualWorld"/>
+			<dependency name="HouseInfo"/>
+			<dependency name="HouseInfo"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="bExtPos"/>
+			<dependency name="bIntPos"/>
+			<dependency name="bVW"/>
+			<dependency name="ddExteriorVW"/>
+			<dependency name="ddExteriorX"/>
+			<dependency name="ddExteriorY"/>
+			<dependency name="ddExteriorZ"/>
+			<dependency name="ddInteriorVW"/>
+			<dependency name="ddInteriorX"/>
+			<dependency name="ddInteriorY"/>
+			<dependency name="ddInteriorZ"/>
+			<dependency name="hExtIW"/>
+			<dependency name="hExtVW"/>
+			<dependency name="hExteriorX"/>
+			<dependency name="hExteriorY"/>
+			<dependency name="hExteriorZ"/>
+			<dependency name="hIntVW"/>
+			<dependency name="hInteriorX"/>
+			<dependency name="hInteriorY"/>
+			<dependency name="hInteriorZ"/>
+			<dependency name="pVW"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:IsNearHouseMailbox" syntax="IsNearHouseMailbox(playerid)">
 			<stacksize value="7"/>
@@ -55465,7 +55529,6 @@
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_sellmyhouse"/>
 			<referrer name="pc_cmd_gotopveh"/>
-			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="pc_cmd_listtoys"/>
 			<referrer name="pc_cmd_permaban"/>
 			<referrer name="pc_cmd_banaccount"/>
@@ -56149,6 +56212,7 @@
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="IsNearAnyDoor"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player
@@ -59985,7 +60049,7 @@
 		</member>
 		<member name="M:LoadSafeZones" syntax="LoadSafeZones()">
 			<stacksize value="403"/>
-			<referrer name="_@yHOnGameModeInit@0F"/>
+			<referrer name="InitiateGamemode"/>
 			<dependency name="operator!=(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
@@ -60337,16 +60401,13 @@
 			<dependency name="fishingactor"/>
 		</member>
 		<member name="M:LockPlayerVehicle" syntax="LockPlayerVehicle(ownerid, carid, type)">
-			<stacksize value="6"/>
+			<stacksize value="4"/>
 			<referrer name="LoadPlayerVehicles"/>
 			<referrer name="UpdatePlayerVehicleParkPosition"/>
 			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="EVF_OnVehicleSpawn"/>
 			<referrer name="OnDialogResponse"/>
-			<dependency name="GetPlayerVehicle"/>
 			<dependency name="LockStatus"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="pvId"/>
 			<dependency name="vehicle_lock_doors"/>
 			<param name="ownerid">
 			</param>
@@ -62543,7 +62604,6 @@
 			<referrer name="@yH_OnPlayerConnect@0E"/>
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
-			<referrer name="@yH_OnGameModeInit@0F"/>
 			<referrer name="@yH_OnPlayerConnect@0F"/>
 			<referrer name="@yH_OnPlayerDisconnect@0F"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
@@ -62570,6 +62630,7 @@
 			<referrer name="@yH_OnPlayerConnect@0N"/>
 			<referrer name="@yH_OnPlayerDisconnect@0N"/>
 			<referrer name="@yH_OnDialogResponse@0N"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
 			<referrer name="@yH_OnDialogResponse@0O"/>
 			<referrer name="@yH_OnDialogResponse@0P"/>
 			<referrer name="@yH_OnPlayerDisconnect@0P"/>
@@ -63471,6 +63532,7 @@
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerPos"/>
+			<dependency name="GetPlayerVehicle"/>
 			<dependency name="GetPlayerWeapon"/>
 			<dependency name="GetVehicleFuelCapacity"/>
 			<dependency name="GetVehicleModel"/>
@@ -63493,6 +63555,7 @@
 			<dependency name="IsPlayerInRangeOfVehicle"/>
 			<dependency name="IsVIPcar"/>
 			<dependency name="IsWeaponizedVehicle"/>
+			<dependency name="Iterator@Player"/>
 			<dependency name="J@"/>
 			<dependency name="JOB_PIZZABOY"/>
 			<dependency name="JOB_TAXIDRIVER"/>
@@ -63516,6 +63579,7 @@
 			<dependency name="_yT@NOPCheck"/>
 			<dependency name="arrGroupData"/>
 			<dependency name="arr_Engine"/>
+			<dependency name="cellmax"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="g_iGroupType"/>
@@ -76333,7 +76397,7 @@
 			</param>
 		</member>
 		<member name="M:RefreshBusinessPickup" syntax="RefreshBusinessPickup(i)">
-			<stacksize value="287"/>
+			<stacksize value="1439"/>
 			<referrer name="OnApproveName"/>
 			<referrer name="BusinessesLoadQueryFinish"/>
 			<referrer name="pc_cmd_entrancefee"/>
@@ -81442,7 +81506,6 @@
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_sellmyhouse"/>
 			<referrer name="pc_cmd_gotopveh"/>
-			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="pc_cmd_vehid"/>
 			<referrer name="pc_cmd_reloadpvehicles"/>
 			<referrer name="pc_cmd_unloadpvehicles"/>
@@ -88142,6 +88205,7 @@
 			<referrer name="pc_cmd_mods"/>
 			<referrer name="pc_cmd_createbackpack"/>
 			<referrer name="pc_cmd_starthunger"/>
+			<referrer name="pc_cmd_codydevxin1212"/>
 			<referrer name="pc_cmd_quitjob"/>
 			<referrer name="pc_cmd_lamviec"/>
 			<referrer name="pc_cmd_fare"/>
@@ -90455,7 +90519,7 @@
 		</member>
 		<member name="M:TextDrawSafeZone" syntax="TextDrawSafeZone()">
 			<stacksize value="7"/>
-			<referrer name="_@yHOnGameModeInit@0F"/>
+			<referrer name="InitiateGamemode"/>
 			<dependency name="TextDrawAlignment"/>
 			<dependency name="TextDrawBackgroundColor"/>
 			<dependency name="TextDrawBoxColor"/>
@@ -91364,12 +91428,9 @@
 			<library>y_utils - maths</library>      <returns>  An unsigned comparison between the two values.  </returns> 
 		</member>
 		<member name="M:UnLockPlayerVehicle" syntax="UnLockPlayerVehicle(ownerid, carid, type)">
-			<stacksize value="6"/>
+			<stacksize value="4"/>
 			<referrer name="pc_cmd_pvlock"/>
-			<dependency name="GetPlayerVehicle"/>
 			<dependency name="LockStatus"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="pvId"/>
 			<dependency name="vehicle_unlock_doors"/>
 			<param name="ownerid">
 			</param>
@@ -91817,7 +91878,7 @@
 		</member>
 		<member name="M:UpdateNameTag" syntax="UpdateNameTag(playerid)">
 			<attribute name="public"/>
-			<stacksize value="549"/>
+			<stacksize value="558"/>
 			<referrer name="ServerHeartbeat"/>
 			<dependency name="operator&lt;=(Float:,_:)"/>
 			<dependency name="CreatePlayerNameTag"/>
@@ -93719,7 +93780,6 @@
 			<referrer name="@yH_OnPlayerConnect@0E"/>
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
-			<referrer name="@yH_OnGameModeInit@0F"/>
 			<referrer name="@yH_OnPlayerConnect@0F"/>
 			<referrer name="@yH_OnPlayerDisconnect@0F"/>
 			<referrer name="@yH_OnPlayerUpdate@0F"/>
@@ -93746,6 +93806,7 @@
 			<referrer name="@yH_OnPlayerConnect@0N"/>
 			<referrer name="@yH_OnPlayerDisconnect@0N"/>
 			<referrer name="@yH_OnDialogResponse@0N"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
 			<referrer name="@yH_OnDialogResponse@0O"/>
 			<referrer name="@yH_OnDialogResponse@0P"/>
 			<referrer name="@yH_OnPlayerDisconnect@0P"/>
@@ -95027,14 +95088,6 @@
 			<dependency name="bSoThangCuoi"/>
 			<dependency name="bVatThe"/>
 			<dependency name="false"/>
-		</member>
-		<member name="M:_@yHOnGameModeInit@0F" syntax="_@yHOnGameModeInit@0F()">
-			<attribute name="public"/>
-			<stacksize value="3"/>
-			<referrer name="@yH_OnGameModeInit@0F"/>
-			<dependency name="LoadSafeZones"/>
-			<dependency name="TextDrawSafeZone"/>
-			<dependency name="__print"/>
 		</member>
 		<member name="M:_@yHOnGameModeInit@0H" syntax="_@yHOnGameModeInit@0H()">
 			<attribute name="public"/>
@@ -96379,6 +96432,20 @@
 			<param name="oldkeys">
 			</param>
 		</member>
+		<member name="M:_@yHOnPlayerKeyStateChange@0O" syntax="_@yHOnPlayerKeyStateChange@0O(playerid, newkeys, oldkeys)">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<referrer name="@yH_OnPlayerKeyStateChange@0O"/>
+			<dependency name="IsAtRestaurant"/>
+			<dependency name="IsNearAnyDoor"/>
+			<dependency name="pc_cmd_muathucan"/>
+			<param name="playerid">
+			</param>
+			<param name="newkeys">
+			</param>
+			<param name="oldkeys">
+			</param>
+		</member>
 		<member name="M:_@yHOnPlayerKeyStateChange@0Q" syntax="_@yHOnPlayerKeyStateChange@0Q(playerid, newkeys, oldkeys)">
 			<attribute name="public"/>
 			<stacksize value="74"/>
@@ -96868,6 +96935,7 @@
 			<dependency name="TDHide"/>
 			<dependency name="TDShow"/>
 			<dependency name="false"/>
+			<dependency name="gPlayerLogged"/>
 			<dependency name="szPosX"/>
 			<dependency name="szPosY"/>
 			<dependency name="szPosZ"/>
@@ -97363,7 +97431,6 @@
 			<referrer name="strexplode"/>
 			<referrer name="OnRuntimeError"/>
 			<referrer name="_@yHOnGameModeInit@0E"/>
-			<referrer name="_@yHOnGameModeInit@0F"/>
 			<referrer name="g_mysql_Init"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnQueryError"/>
@@ -109348,6 +109415,19 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_codydevxin1212" syntax="pc_cmd_codydevxin1212(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="6"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ShowTDN"/>
+			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_colorcar" syntax="pc_cmd_colorcar(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="70"/>
@@ -111254,6 +111334,7 @@
 			<dependency name="Phone_Close"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
+			<dependency name="PlayerPorter"/>
 			<dependency name="RemovePlayerAttachedObject"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetCameraBehindPlayer"/>
@@ -111264,6 +111345,7 @@
 			<dependency name="SetPlayerSpecialAction"/>
 			<dependency name="TogglePlayerControllable"/>
 			<dependency name="false"/>
+			<dependency name="gPlayerCheckpointStatus"/>
 			<dependency name="pPnumber"/>
 			<dependency name="pc_cmd_me"/>
 			<dependency name="takingselfie"/>
@@ -120346,6 +120428,7 @@
 		<member name="M:pc_cmd_muathucan" syntax="pc_cmd_muathucan(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="6"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0O"/>
 			<referrer name="_@yHOnDialogResponse@0O"/>
 			<dependency name="IsAtRestaurant"/>
 			<dependency name="SendClientMessageEx"/>
@@ -122622,22 +122705,17 @@
 		</member>
 		<member name="M:pc_cmd_pvlock" syntax="pc_cmd_pvlock(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="12"/>
-			<dependency name="FIXES_GameTextForPlayer"/>
+			<stacksize value="11"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<dependency name="GetVehiclePos"/>
-			<dependency name="IsPlayerConnected"/>
+			<dependency name="HienTextdraw"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="LockPlayerVehicle"/>
-			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="SendClientMessageEx"/>
 			<dependency name="UnLockPlayerVehicle"/>
-			<dependency name="pVehicleKeys"/>
-			<dependency name="pVehicleKeysFrom"/>
 			<dependency name="pvId"/>
-			<dependency name="pvLock"/>
 			<dependency name="pvLocked"/>
 			<param name="playerid">
 			</param>

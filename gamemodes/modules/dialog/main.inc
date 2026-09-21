@@ -12257,7 +12257,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 	else if (dialogid == DIALOG_STOREPRICES)
 	{
-		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingBusiness");
 		}
 		else {
@@ -12270,7 +12270,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 	else if (dialogid == DIALOG_BARPRICE)
 	{
-		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingBusiness");
 		}
 		else {
@@ -12282,11 +12282,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	else if(dialogid == DIALOG_SEXSHOP)
 	{
-	    if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+	    if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingBusiness");
 		}
 		else {
-			format(string, sizeof(string), "{FFFFFF}Nhap gia ban moi cho %s\n(Dat gia cho Item bang $0 se khong duoc ban)", Drinks[listitem]);
+			format(string, sizeof(string), "{FFFFFF}Nhap gia ban moi cho %s\n(Dat gia cho Item bang $0 se khong duoc ban)", SexItems[listitem]);
 		    ShowPlayerDialog(playerid, DIALOG_SEXSHOP2, DIALOG_STYLE_INPUT, "Chinh gia", string, "Dong y", "Huy bo");
 		    SetPVarInt(playerid, "EditingStoreItem", listitem);
 	    }
@@ -12294,7 +12294,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	else if (dialogid == DIALOG_RESTAURANT)
 	{
-		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5)
+		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || PlayerInfo[playerid][pBusinessRank] < 5)
 		{
 			DeletePVar(playerid, "EditingBusiness");
 		}
@@ -12308,7 +12308,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	else if (dialogid == DIALOG_SEXSHOP2)
 	{
 
-		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingStoreItem");
 			DeletePVar(playerid, "EditingBusiness");
 			return 1;
@@ -12320,8 +12320,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new iPrice = strval(inputtext), item = GetPVarInt(playerid, "EditingStoreItem");
 
 			if (iPrice < 0 || iPrice > 500000) {
-				format(string, sizeof(string), "{FF0000}Error: {DDDDDD}Gia vuot qua pham vi{FFFFFF}\n\nNhap gia ban moi cho %s", Drinks[item]);
-			    ShowPlayerDialog(playerid, DIALOG_STOREITEMPRICE, DIALOG_STYLE_INPUT, "Chinh gia", string, "Dong y", "Huy bo");
+				format(string, sizeof(string), "{FF0000}Error: {DDDDDD}Gia vuot qua pham vi{FFFFFF}\n\nNhap gia ban moi cho %s", SexItems[item]);
+			    ShowPlayerDialog(playerid, DIALOG_SEXSHOP2, DIALOG_STYLE_INPUT, "Chinh gia", string, "Dong y", "Huy bo");
 				return 1;
 			}
 
@@ -12331,8 +12331,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			format(string, sizeof(string), "%s %s (IP: %s) da thiet lap gia %s den %s trong %s ($%d)", GetBusinessRankName(PlayerInfo[playerid][pBusinessRank]), GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), SexItems[item], number_format(iPrice), Businesses[iBusiness][bName], iBusiness);
 			new szDialog[302];
-			for (new i = 0; i <= 13; i++) format(szDialog, sizeof(szDialog), "%s%s  ($%s)\n", szDialog, SexItems[i], number_format(Businesses[iBusiness][bItemPrices][i]));
-	        ShowPlayerDialog(playerid, DIALOG_BARPRICE, DIALOG_STYLE_LIST, "Chih gia cua hang", szDialog, "Dong y", "Huy bo");
+			for (new i = 0; i < sizeof(SexItems); i++) format(szDialog, sizeof(szDialog), "%s%s  ($%s)\n", szDialog, SexItems[i], number_format(Businesses[iBusiness][bItemPrices][i]));
+	        ShowPlayerDialog(playerid, DIALOG_SEXSHOP, DIALOG_STYLE_LIST, "Chinh gia cua hang", szDialog, "Dong y", "Huy bo");
 			Log("logs/business.log", string);
 	    }
 	    DeletePVar(playerid, "EditingStoreItem");
@@ -12340,7 +12340,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	else if (dialogid == DIALOG_RESTAURANT2)
 	{
-		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5)
+		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || PlayerInfo[playerid][pBusinessRank] < 5)
 		{
 			DeletePVar(playerid, "EditingStoreItem");
 			DeletePVar(playerid, "EditingBusiness");
@@ -12377,7 +12377,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     else if (dialogid == DIALOG_BARPRICE2)
 	{
 
-		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingStoreItem");
 			DeletePVar(playerid, "EditingBusiness");
 			return 1;
@@ -12390,7 +12390,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (iPrice < 0 || iPrice > 500000) {
 				format(string, sizeof(string), "{FF0000}Error: {DDDDDD}Gia vuot qua pham vi{FFFFFF}\n\nNhap gia ban moi cho %s", Drinks[item]);
-			    ShowPlayerDialog(playerid, DIALOG_STOREITEMPRICE, DIALOG_STYLE_INPUT, "Chinh gia", string, "Dong y", "Huy bo");
+			    ShowPlayerDialog(playerid, DIALOG_BARPRICE2, DIALOG_STYLE_INPUT, "Chinh gia", string, "Dong y", "Huy bo");
 				return 1;
 			}
 
@@ -12410,7 +12410,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	else if (dialogid == DIALOG_STOREITEMPRICE)
 	{
 
-		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingStoreItem");
 			DeletePVar(playerid, "EditingBusiness");
 			return 1;
@@ -12433,7 +12433,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			format(string, sizeof(string), "%s %s (IP: %s) da dat gia %s den $%s trong %s (%d)", GetBusinessRankName(PlayerInfo[playerid][pBusinessRank]), GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), StoreItems[item], number_format(iPrice), Businesses[iBusiness][bName], iBusiness);
 			new szDialog[912];
-			for (new i = 0; i <= sizeof(StoreItems); i++) format(szDialog, sizeof(szDialog), "%s%s  ($%s) (Gia co the ban: $%s)\n", szDialog, StoreItems[i], number_format(Businesses[iBusiness][bItemPrices][i]), number_format(floatround(StoreItemCost[i][ItemValue] * BUSINESS_ITEMS_COST)));
+			for (new i = 0; i < sizeof(StoreItems); i++) format(szDialog, sizeof(szDialog), "%s%s  ($%s) (Gia co the ban: $%s)\n", szDialog, StoreItems[i], number_format(Businesses[iBusiness][bItemPrices][i]), number_format(floatround(StoreItemCost[i][ItemValue] * BUSINESS_ITEMS_COST)));
 	        ShowPlayerDialog(playerid, DIALOG_STOREPRICES, DIALOG_STYLE_LIST, "Sua gia cua hang 24/7", szDialog, "Dong y", "Huy bo");
 			Log("logs/business.log", string);
 	    }
@@ -12444,7 +12444,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 	    new iBusiness = PlayerInfo[playerid][pBusiness];
 
-        if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+        if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingStoreItem");
 			DeletePVar(playerid, "EditingBusiness");
 			return 1;
@@ -12470,7 +12470,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	else if (dialogid == DIALOG_GUNPRICES)
 	{
-		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingBusiness");
 		}
 		else {
@@ -12482,7 +12482,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	else if(dialogid == DIALOG_GUNSHOPPRICE)
 	{
-		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || (GetPVarInt(playerid, "EditingBusiness") != InBusiness(playerid)) || PlayerInfo[playerid][pBusinessRank] != 5) {
+		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || PlayerInfo[playerid][pBusinessRank] < 5) {
 			DeletePVar(playerid, "EditingStoreItem");
 			DeletePVar(playerid, "EditingBusiness");
 			return 1;
@@ -12494,7 +12494,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new iPrice = strval(inputtext), item = GetPVarInt(playerid, "EditingStoreItem");
 
 			if (iPrice < 0 || iPrice > 500000) {
-				format(string, sizeof(string), "{FF0000}Error: {DDDDDD}Gia ra khoi pham vi{FFFFFF}\n\nNhap gia ban moi cho %s", StoreItems[item]);
+				format(string, sizeof(string), "{FF0000}Error: {DDDDDD}Gia ra khoi pham vi{FFFFFF}\n\nNhap gia ban moi cho %s", GetWeaponNameEx(Weapons[item][WeaponId]));
 			    ShowPlayerDialog(playerid, DIALOG_GUNSHOPPRICE, DIALOG_STYLE_INPUT, "Sua gia", string, "Dong y", "Huy bo");
 				return 1;
 			}
