@@ -1053,7 +1053,9 @@ CMD:selfie(playerid, params[])
 }
 
 stock ShowChuyenTienHihi(playerid) {
-    return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "{ffffff}Vui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
+    new str[512];
+    format(str, sizeof(str), "{FFD700}╔══ CHUYEN KHOAN ══╗{FFFFFF}\n{AAAAAA}So du hien tai: {00FF7F}$%s\n\n{FFFFFF}Nhap {00CFFF}so tai khoan{FFFFFF} nguoi nhan:", number_format(PlayerInfo[playerid][pAccount]));
+    return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", str, "Tiep tuc", "Thoat");
 }
 
 CMD:xemtiendt(playerid, params[])
@@ -1088,7 +1090,7 @@ CMD:sacombank(playerid, params[])
     format(str7, sizeof(str), "{f2f2f2}Hien tai ngan hang cho phep ban duoc su dung cac chuc nang sau:");
     format(str8, sizeof(str), "{1ac6ff}   1. Quan ly the va tai khoan.");
     format(str9, sizeof(str), "{1ac6ff}   2. Chuyen tien.");
-    format(str10, sizeof(str), "{1ac6ff}   3. Mo tai khoan thanh toan (500$).");
+    format(str10, sizeof(str), "{1ac6ff}   3. Mo tai khoan thanh toan ({FF6B6B}5,000${1ac6ff}).");
     format(str, sizeof(str), "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s", str1,str2,str3,str4,str5,str6,str7,str8,str9,str10);
     format(name, sizeof(name), "{0066ff}Vietcombank Pay");
     ShowPlayerDialog(playerid, DIALOG_SACOMBANK, DIALOG_STYLE_MSGBOX, name, str, "Dong y", "Huy Bo");
@@ -1134,8 +1136,8 @@ public STK_check(playerid) {
             SetPVarInt(playerid, "Offline", 1);
             SetPVarInt(playerid, "STK", stk);
             new string[129];
-            format(string, sizeof string, "Ten chu the\t\t\t\t%s\nSo tai khoan\t\t\t\t%d\nBan hay nhap so tien muon giao dich o ben duoi", namez,stk);
-            ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN1, DIALOG_STYLE_INPUT, "Chuyen tien", string, "Tuy chon", "Thoat");
+            format(string, sizeof string, "{FFD700}╔══ THONG TIN NGUOI NHAN ══╗{FFFFFF}\n{AAAAAA}Ten chu the  : {00CFFF}%s\n{AAAAAA}So tai khoan : {00CFFF}%d\n\n{FFD700}╚══════════════════════╝{FFFFFF}\n{FFFFFF}Nhap {00FF7F}so tien{FFFFFF} muon giao dich:", namez,stk);
+            ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN1, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", string, "Tiep tuc", "Thoat");
             return 1;
         }
     }

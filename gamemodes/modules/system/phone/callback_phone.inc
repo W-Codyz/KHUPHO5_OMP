@@ -150,7 +150,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(dialogid == DIALOG_SACOMBANK)
     {
         if(response){
-            ShowPlayerDialog(playerid, DIALOG_THEBANK, DIALOG_STYLE_LIST, "Ban muon lam gi?","Quan ly the va tai khoan\nChuyen tien\nMo tai khoan thanh toan\nNap tien dien thoai","Chon", "Dong");
+            ShowPlayerDialog(playerid, DIALOG_THEBANK, DIALOG_STYLE_LIST, "{FFD700}NGAN HANG - DICH VU",
+                "{00CFFF}[i] {ffffff}Quan ly the va tai khoan\n{00FF7F}[>] {ffffff}Chuyen tien\n{FF9900}[+] {ffffff}Mo tai khoan thanh toan {ffffff}",
+                "Chon", "Dong");
 		}
 	}
 
@@ -162,14 +164,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 pc_cmd_sacombank(playerid, "");
             if(listitem == 1){
                 if(PlayerInfo[playerid][pSoTaiKhoan] != 0){
-                	ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "Vui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
-                }else SendClientMessage(playerid, COLOR_YELLOW, "Ban chua mo tai khoan thanh toan , vui long mo tai khoan thanh toan de su dung chuc nang nay!");
+                	ShowChuyenTienHihi(playerid);
+                }else SendClientMessage(playerid, COLOR_YELLOW, "{FF6B6B}[!]{FFFFFF} Ban chua mo tai khoan thanh toan de su dung chuc nang nay.");
 			}
 			if(listitem == 2){
 			    if(PlayerInfo[playerid][pSoTaiKhoan] == 0)
 			    {
-	                if(PlayerInfo[playerid][pCash] > 500){
-	                    PlayerInfo[playerid][pCash] -= 500;
+	                if(PlayerInfo[playerid][pCash] >= 5000){
+	                    PlayerInfo[playerid][pCash] -= 5000;
 
 	                    new sotaikhoan;
 		    			sotaikhoan = 100000 + random(999999);
@@ -178,10 +180,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						format(string, sizeof(string), "UPDATE accounts SET `SoTaiKhoan`=%d WHERE `UserName` = '%e'", PlayerInfo[playerid][pSoTaiKhoan], GetPlayerNameEx(playerid));
 						mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
-		    			format(string,sizeof string,"Dang ky thanh cong the ngan hang\nSo tai khoan cua ban la: %d",sotaikhoan);
-		    			ShowPlayerDialog(playerid, DIALOG_NOTHING,DIALOG_STYLE_MSGBOX,"Dang ky",string,"Dong y","");
-	                }else SendClientMessage(playerid, COLOR_YELLOW, "Ban khong du 500$ de mo tai khoan ngan hang!");
-                }else SendClientMessage(playerid, COLOR_YELLOW, "Ban da kich hoat the ngan hang truoc do , khong the tiep tuc!");
+		    			format(string, sizeof string, "{00FF7F}[+]{FFFFFF} Dang ky thanh cong!\n{AAAAAA}So tai khoan: {00CFFF}%d\n{FFD700}[BANK]{FFFFFF} Phi mo tai khoan: {FF6B6B}$5,000", sotaikhoan);
+		    			ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "{FFD700}DANG KY THANH CONG", string, "Dong y", "");
+	                }else SendClientMessage(playerid, COLOR_YELLOW, "{FF6B6B}[!]{FFFFFF} Ban can co it nhat {FFFF00}$5,000{FFFFFF} de mo tai khoan ngan hang.");
+                }else SendClientMessage(playerid, COLOR_YELLOW, "{FF6B6B}[!]{FFFFFF} Ban da co tai khoan ngan hang roi.");
 			}
 		}
 	}
@@ -189,15 +191,23 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(dialogid == DIALOG_CHUYENTIEN)
     {
         if(response) {
-    		if(!IsNumeric(inputtext) || strval(inputtext) < 123) return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "Vui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
+    		if(!IsNumeric(inputtext) || strval(inputtext) < 123) {
+    		    new errstr[512];
+    		    format(errstr, sizeof(errstr), "{FFD700}=== CHUYEN KHOAN ==={FFFFFF}\n{AAAAAA}So du hien tai: {00FF7F}$%s\n\n{FF6B6B}[!] So tai khoan khong hop le!\n{FFFFFF}Vui long nhap lai {00CFFF}so tai khoan{FFFFFF} nguoi nhan:", number_format(PlayerInfo[playerid][pAccount]));
+    		    return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", errstr, "Tiep tuc", "Thoat");
+    		}
 			new check;
-			if(strval(inputtext) == PlayerInfo[playerid][pSoTaiKhoan]) return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "Ban khong the chuyen tien cho minh\nVui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
+			if(strval(inputtext) == PlayerInfo[playerid][pSoTaiKhoan]) {
+			    new errstr[512];
+			    format(errstr, sizeof(errstr), "{FFD700}=== CHUYEN KHOAN ==={FFFFFF}\n{AAAAAA}So du hien tai: {00FF7F}$%s\n\n{FF6B6B}[!] Ban khong the chuyen tien cho chinh minh!\n{FFFFFF}Nhap {00CFFF}so tai khoan{FFFFFF} nguoi khac:", number_format(PlayerInfo[playerid][pAccount]));
+			    return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", errstr, "Tiep tuc", "Thoat");
+			}
 			foreach(new i: Player)
 			{
 				if(PlayerInfo[i][pSoTaiKhoan] == strval(inputtext)) {
 					SetPVarInt(playerid, "NguoiNhan", i);
-					format(string, sizeof string, "Ten chu the\t\t\t\t%s\nSo tai khoan\t\t\t\t%d\nBan hay nhap so tien muon giao dich o ben duoi", GetPlayerNameEx(i),strval(inputtext));
-					ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN1, DIALOG_STYLE_INPUT, "Chuyen tien", string, "Tuy chon", "Thoat");
+					format(string, sizeof string, "{FFD700}=== THONG TIN NGUOI NHAN ==={FFFFFF}\n{AAAAAA}Ten chu the  : {00CFFF}%s\n{AAAAAA}So tai khoan : {00CFFF}%d\n\n{FFD700}=== GIAO DICH ==={FFFFFF}\n{FFFFFF}Nhap {00FF7F}so tien{FFFFFF} muon giao dich:", GetPlayerNameEx(i), strval(inputtext));
+					ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN1, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", string, "Tiep tuc", "Thoat");
 			   	    check = 1;
 				}
 			}
@@ -214,23 +224,48 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(dialogid == DIALOG_CHUYENTIEN2)
     {
         if(response) {
+    		new amount = GetPVarInt(playerid, "TienGD");
     		if(GetPVarInt(playerid, "Offline") == 1) {
 				format(string, sizeof(string), "SELECT `UserName`,`SoTaiKhoan`,`Bank` from accounts WHERE SoTaiKhoan = '%d'", GetPVarInt(playerid, "STK"));
 				mysql_tquery(MainPipeline, string, "UpdateTK", "d", playerid);
 				new nguoinhan[24];
 				GetPVarString(playerid,"_NguoiNhan",nguoinhan,24);
+				new stk = GetPVarInt(playerid, "STK");
 				DeletePVar(playerid,"Offline");
-				format(string, sizeof string, "[NGAN HANG] Ban da chuyen $%s vao tai khoan cua %s (STK: %d) ",number_format(GetPVarInt(playerid, "TienGD")),nguoinhan,GetPVarInt(playerid,"STK"));
-    		    SendClientMessage(playerid, COLOR_YELLOW2,string);
+				format(string, sizeof string, "{00FF7F}[>]{FFFFFF} Chuyen {00FF7F}$%s{FFFFFF} toi {00CFFF}%s (STK: %d){FFFFFF} | So du con: {FF6B6B}$%s", number_format(amount), nguoinhan, stk, number_format(PlayerInfo[playerid][pAccount]));
+    		    SendClientMessage(playerid, COLOR_YELLOW2, string);
+
+    		    new ip[32];
+    		    GetPlayerIp(playerid, ip, sizeof(ip));
+    		    format(string, sizeof string, "[CHUYEN KHOAN OFFLINE] %s (IP:%s) -> %s (STK:%d) | $%s", GetPlayerNameEx(playerid), ip, nguoinhan, stk, number_format(amount));
+    		    Log("logs/bank.log", string);
+
+    		    new DCC_Channel:channel = DCC_FindChannelById("1548216250415456376");
+    		    new nofi[520], title[128];
+    		    format(title, sizeof(title), "**%s (ID: %d) chuyen khoan qua dien thoai**", GetPlayerNameEx(playerid), playerid);
+    		    format(nofi, sizeof(nofi), ":bank: **SO TIEN: $%s** -> %s (STK: %d) | [OFFLINE]", number_format(amount), nguoinhan, stk);
+    		    DiscordLog(channel, title, nofi);
 				return 1;
     		}
     		new i = GetPVarInt(playerid, "NguoiNhan");
-    		PlayerInfo[playerid][pAccount] -= GetPVarInt(playerid, "TienGD");
-    		PlayerInfo[i][pAccount] += GetPVarInt(playerid, "TienGD");
-    		format(string, sizeof string, "[NGAN HANG] %s (STK: %d) da chuyen $%s vao tai khoan ngan hang cua ban", GetPlayerNameEx(playerid),PlayerInfo[playerid][pSoTaiKhoan],number_format(GetPVarInt(playerid, "TienGD")));
-    		SendClientMessage(i, COLOR_YELLOW2,string);
-    		format(string, sizeof string, "[NGAN HANG] Ban da chuyen $%s vao tai khoan cua %s (STK: %d) ",number_format(GetPVarInt(playerid, "TienGD")),GetPlayerNameEx(i),PlayerInfo[i][pSoTaiKhoan]);
-    		SendClientMessage(playerid, COLOR_YELLOW2,string);
+    		PlayerInfo[playerid][pAccount] -= amount;
+    		PlayerInfo[i][pAccount] += amount;
+    		format(string, sizeof string, "{00CFFF}[>]{FFFFFF} Nhan {00FF7F}$%s{FFFFFF} tu {00CFFF}%s (STK: %d)", number_format(amount), GetPlayerNameEx(playerid), PlayerInfo[playerid][pSoTaiKhoan]);
+    		SendClientMessage(i, COLOR_YELLOW2, string);
+    		format(string, sizeof string, "{00FF7F}[>]{FFFFFF} Chuyen {00FF7F}$%s{FFFFFF} toi {00CFFF}%s (STK: %d){FFFFFF} | So du con: {FF6B6B}$%s", number_format(amount), GetPlayerNameEx(i), PlayerInfo[i][pSoTaiKhoan], number_format(PlayerInfo[playerid][pAccount]));
+    		SendClientMessage(playerid, COLOR_YELLOW2, string);
+
+    		new ip[32], ipex[32];
+    		GetPlayerIp(playerid, ip, sizeof(ip));
+    		GetPlayerIp(i, ipex, sizeof(ipex));
+    		format(string, sizeof string, "[CHUYEN KHOAN ONLINE] %s (IP:%s) -> %s (IP:%s) | $%s", GetPlayerNameEx(playerid), ip, GetPlayerNameEx(i), ipex, number_format(amount));
+    		Log("logs/bank.log", string);
+
+    		new DCC_Channel:channel = DCC_FindChannelById("1548216250415456376");
+    		new nofi[520], title[128];
+    		format(title, sizeof(title), "**%s (ID: %d) chuyen khoan cho %s (ID: %d)**", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(i), i);
+    		format(nofi, sizeof(nofi), ":bank: **SO TIEN: $%s** | TK nguoi gui con: $%s", number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
+    		DiscordLog(channel, title, nofi);
     	}
 	}
 
@@ -244,14 +279,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(GetPVarInt(playerid, "Offline") == 1) {
 				new namez[24];
 				GetPVarString(playerid, "_NguoiNhan", namez, 24);
-				//new i = GetPVarInt(playerid, "NguoiNhan");
-				format(string, sizeof string, "Ten chu the\t\t\t\t%s\nSo tai khoan\t\t\t\t%d\nSo tien giao dich\t\t\t\t$%s\nPhi giao dich: $0\nSo tien du trong vi: %s",namez,GetPVarInt(playerid, "STK"),number_format(strval(inputtext)),number_format(PlayerInfo[playerid][pAccount]));
-				ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN2, DIALOG_STYLE_MSGBOX, "Xac nhan giao dich",string , "Xac nhan", "huy bo");
+				format(string, sizeof string, "{FFD700}=== XAC NHAN GIAO DICH ==={FFFFFF}\n{AAAAAA}Nguoi nhan    : {00CFFF}%s\n{AAAAAA}So tai khoan  : {00CFFF}%d\n{AAAAAA}So tien       : {00FF7F}$%s\n{AAAAAA}Phi giao dich : {FFFFFF}$0\n{AAAAAA}So du con lai : {FF6B6B}$%s\n{FFD700}╚══════════════════════╝", namez, GetPVarInt(playerid, "STK"), number_format(strval(inputtext)), number_format(PlayerInfo[playerid][pAccount] - strval(inputtext)));
+				ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN2, DIALOG_STYLE_MSGBOX, "{FFD700}XAC NHAN GIAO DICH", string, "Xac nhan", "Huy bo");
 		   	 	return 1;
 			}
 			new i = GetPVarInt(playerid, "NguoiNhan");
-			format(string, sizeof string, "Ten chu the\t\t\t\t%s\nSo tai khoan\t\t\t\t%d\nSo tien giao dich\t\t\t\t$%s\nPhi giao dich: $0\nSo tien du trong vi: %s", GetPlayerNameEx(i),PlayerInfo[i][pSoTaiKhoan],number_format(strval(inputtext)),number_format(PlayerInfo[playerid][pAccount]));
-			ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN2, DIALOG_STYLE_MSGBOX, "Xac nhan giao dich",string , "Xac nhan", "huy bo");
+			format(string, sizeof string, "{FFD700}=== XAC NHAN GIAO DICH ==={FFFFFF}\n{AAAAAA}Nguoi nhan    : {00CFFF}%s\n{AAAAAA}So tai khoan  : {00CFFF}%d\n{AAAAAA}So tien       : {00FF7F}$%s\n{AAAAAA}Phi giao dich : {FFFFFF}$0\n{AAAAAA}So du con lai : {FF6B6B}$%s\n{FFD700}╚══════════════════════╝", GetPlayerNameEx(i), PlayerInfo[i][pSoTaiKhoan], number_format(strval(inputtext)), number_format(PlayerInfo[playerid][pAccount] - strval(inputtext)));
+			ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN2, DIALOG_STYLE_MSGBOX, "{FFD700}XAC NHAN GIAO DICH", string, "Xac nhan", "Huy bo");
 		}
 		else {
 			DeletePVar(playerid,"Offline");

@@ -13528,6 +13528,7 @@
 			<referrer name="_@yHOnDialogResponse@0J"/>
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="pc_cmd_selfie"/>
+			<referrer name="ShowChuyenTienHihi"/>
 			<referrer name="pc_cmd_xemtiendt"/>
 			<referrer name="pc_cmd_sacombank"/>
 			<referrer name="pc_cmd_danhbacuatoi"/>
@@ -38785,6 +38786,8 @@
 			<tagname value="DCC_Channel"/>
 			<attribute name="native"/>
 			<referrer name="AntiVPN"/>
+			<referrer name="_@yHOnDialogResponse@0J"/>
+			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="pc_cmd_laypos"/>
 			<referrer name="Discord_Init"/>
 			<referrer name="_@yHOnDialogResponse@0f"/>
@@ -40866,6 +40869,8 @@
 			<stacksize value="335"/>
 			<referrer name="AntiVPN"/>
 			<referrer name="pc_cmd_taoboss"/>
+			<referrer name="_@yHOnDialogResponse@0J"/>
+			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="startpainter"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="NhanTienCanSa"/>
@@ -47104,6 +47109,7 @@
 			<referrer name="_@yHOnPlayerCommandText@08"/>
 			<referrer name="OPBA_OnPlayerConnect"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
+			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="OnProcessOrderCheck"/>
 			<referrer name="ReferralSecurity"/>
 			<referrer name="OnPlayerChangeWeapon"/>
@@ -61187,6 +61193,7 @@
 			<referrer name="pc_cmd_giverank"/>
 			<referrer name="pc_cmd_setdiv"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
+			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
 			<referrer name="HospitalSpawn_OnPlayerDeath"/>
@@ -87657,9 +87664,15 @@
 			</param>
 		</member>
 		<member name="M:ShowChuyenTienHihi" syntax="ShowChuyenTienHihi(playerid)">
-			<stacksize value="10"/>
+			<stacksize value="522"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
+			<referrer name="_@yHOnDialogResponse@0L"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="format"/>
+			<dependency name="number_format"/>
+			<dependency name="pAccount"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -94837,6 +94850,8 @@
 			<stacksize value="10150"/>
 			<referrer name="@yH_OnDialogResponse@0J"/>
 			<dependency name="ABroadCast"/>
+			<dependency name="DCC_FindChannelById"/>
+			<dependency name="DiscordLog"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerIp"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -94877,10 +94892,13 @@
 			<stacksize value="10150"/>
 			<referrer name="@yH_OnDialogResponse@0L"/>
 			<dependency name="CellTime"/>
+			<dependency name="DCC_FindChannelById"/>
 			<dependency name="DeletePVar"/>
+			<dependency name="DiscordLog"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarString"/>
 			<dependency name="GetPVarType"/>
+			<dependency name="GetPlayerIp"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameExt"/>
@@ -94889,6 +94907,7 @@
 			<dependency name="IsNumeric"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="Iterator@Player"/>
+			<dependency name="Log"/>
 			<dependency name="MainPipeline"/>
 			<dependency name="Mobile"/>
 			<dependency name="PhoneOnline"/>
@@ -94905,6 +94924,7 @@
 			<dependency name="SetPVarInt"/>
 			<dependency name="SetPlayerAttachedObject"/>
 			<dependency name="SetPlayerSpecialAction"/>
+			<dependency name="ShowChuyenTienHihi"/>
 			<dependency name="ShowOnlineCops"/>
 			<dependency name="ShowOnlineMedics"/>
 			<dependency name="ShowOnlineTaxiDrivers"/>
@@ -100668,6 +100688,7 @@
 			<referrer name="ShowBank"/>
 			<referrer name="pc_cmd_dangkybank"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
+			<referrer name="ShowChuyenTienHihi"/>
 			<referrer name="pc_cmd_xemtiendt"/>
 			<referrer name="pc_cmd_sacombank"/>
 			<referrer name="UpdateTK"/>
@@ -104571,6 +104592,7 @@
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="ShowBank"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
+			<referrer name="ShowChuyenTienHihi"/>
 			<referrer name="pc_cmd_xemtiendt"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
