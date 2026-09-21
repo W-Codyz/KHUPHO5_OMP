@@ -332,7 +332,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
             SetPVarString(playerid, "pInteractName", name);
             SetPVarInt(playerid, "pInteractID", GetPlayerTargetPlayer(playerid));
             
-            format(string, sizeof(string), "Dua tien\nCho vat pham\n");
+            format(string, sizeof(string), "Dua tien\nCho vat pham\nCho xem giay to\n");
             ShowPlayerDialog(playerid, INTERACTMAIN, DIALOG_STYLE_LIST, name, string, "Lua chon", "Huy bo");
             return 1;
         }
@@ -726,14 +726,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                     {
                         new string[2048] = "{ffffff}Item\tSo luong hien co\n";
                         new count = 0;
-                        
+
                         // Check inventory for items
-                        for(new i = 0; i < sizeof(ItemInventory); i++) 
+                        for(new i = 0; i < sizeof(ItemInventory); i++)
                         {
                             new variable = ItemInventory[i][pVariable];
                             if(PlayerInfo[playerid][variable] > 0) // Only show items player has
                             {
-                                format(string, sizeof(string), "%s%s\t%d\n", 
+                                format(string, sizeof(string), "%s%s\t%d\n",
                                     string,
                                     ItemInventory[i][NameItem],
                                     PlayerInfo[playerid][variable]
@@ -741,7 +741,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                                 count++;
                             }
                         }
-                        
+
                         if(count == 0) {
                             SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co gi de cho ca.");
                             DeletePVar(playerid, "pInteractName");
@@ -750,6 +750,48 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                         }
 
                         ShowPlayerDialog(playerid, INTERACTGIVE2, DIALOG_STYLE_TABLIST_HEADERS, name, string, "Lua chon", "Huy bo");
+                    }
+                    case 2: // Show ID
+                    {
+                        new giveplayerid = GetPVarInt(playerid, "pInteractID");
+
+                        if(!IsPlayerConnected(giveplayerid))
+                        {
+                            SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da mat ket noi.");
+                            DeletePVar(playerid, "pInteractName");
+                            DeletePVar(playerid, "pInteractID");
+                            return 1;
+                        }
+
+                        if(PlayerInfo[playerid][pIDCard] == 0)
+                        {
+                            SendClientMessageEx(playerid, COLOR_GREY, "Ban chua so huu Can cuoc cong dan!");
+                            DeletePVar(playerid, "pInteractName");
+                            DeletePVar(playerid, "pInteractID");
+                            return 1;
+                        }
+
+                        new text1[32], text2[32], text3[32], text4[32];
+                        if(PlayerInfo[playerid][pCarLic])      text1 = "{0EEF5D}Da so huu{FFFFFF}"; else text1 = "{C2A347}Chua so huu{FFFFFF}";
+                        if(PlayerInfo[playerid][pFlyLic])      text4 = "{0EEF5D}Da so huu{FFFFFF}"; else text4 = "{C2A347}Chua so huu{FFFFFF}";
+                        if(PlayerInfo[playerid][pBoatLic])     text2 = "{0EEF5D}Da so huu{FFFFFF}"; else text2 = "{C2A347}Chua so huu{FFFFFF}";
+                        if(PlayerInfo[playerid][pTaxiLicense]) text3 = "{0EEF5D}Da so huu{FFFFFF}"; else text3 = "{C2A347}Chua so huu{FFFFFF}";
+
+                        new dlgtitle[128], dlgbody[428];
+                        format(dlgtitle, sizeof(dlgtitle), "{FFFFFF}Thong tin cong dan cua %s", GetPlayerNameEx(playerid));
+                        format(dlgbody, sizeof(dlgbody),
+                            "{60F0DF}CONG DAN SAN ANDREAS\n\n{FFFFFF}ID Card: {A3F15F}%d\n{FFFFFF}Ho va ten: %s\n___________________________________\nGiay phep lai xe: %s\nGiay phep Taxi: %s\nGiay phep thuyen: %s\nGiay phep may bay: %s",
+                            PlayerInfo[playerid][pIDCard], GetPlayerNameEx(playerid), text1, text3, text2, text4);
+                        ShowPlayerDialog(giveplayerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, dlgtitle, dlgbody, "Dong", "");
+
+                        new string[128];
+                        format(string, sizeof(string), "* %s da cho ban xem can cuoc cong dan cua ho.", GetPlayerNameEx(playerid));
+                        SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
+                        format(string, sizeof(string), "* Ban da cho %s xem thong tin can cuoc cua ban.", GetPlayerNameEx(giveplayerid));
+                        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+
+                        DeletePVar(playerid, "pInteractName");
+                        DeletePVar(playerid, "pInteractID");
                     }
                 }
             }

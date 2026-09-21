@@ -7197,7 +7197,6 @@
 			<referrer name="pc_cmd_wt"/>
 			<referrer name="pc_cmd_dt"/>
 			<referrer name="pc_cmd_nrn"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_shakehand"/>
 			<referrer name="pc_cmd_music"/>
 			<referrer name="pc_cmd_dichvu"/>
@@ -7207,8 +7206,6 @@
 			<referrer name="pc_cmd_tie"/>
 			<referrer name="pc_cmd_untie"/>
 			<referrer name="pc_cmd_paintcar"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_hbadge"/>
 			<referrer name="pc_cmd_profile"/>
 			<referrer name="pc_cmd_setrent"/>
@@ -9093,7 +9090,6 @@
 			<referrer name="pc_cmd_apply"/>
 			<referrer name="pc_cmd_ar"/>
 			<referrer name="pc_cmd_leaveshop"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_music"/>
 			<referrer name="pc_cmd_dichvu"/>
 			<referrer name="pc_cmd_untie"/>
@@ -14401,7 +14397,6 @@
 			<referrer name="pc_cmd_wt"/>
 			<referrer name="pc_cmd_dt"/>
 			<referrer name="pc_cmd_nrn"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_train"/>
 			<referrer name="pc_cmd_shakehand"/>
 			<referrer name="pc_cmd_music"/>
@@ -14417,9 +14412,6 @@
 			<referrer name="pc_cmd_usesprunk"/>
 			<referrer name="pc_cmd_usecigar"/>
 			<referrer name="pc_cmd_paintcar"/>
-			<referrer name="pc_cmd_licenses"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_profile"/>
 			<referrer name="pc_cmd_ranks"/>
 			<referrer name="pc_cmd_pcb"/>
@@ -15674,7 +15666,6 @@
 			<referrer name="ShowStorageEquipDialog"/>
 			<referrer name="TransferStorage"/>
 			<referrer name="pc_cmd_safedeposit"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_usepot"/>
 			<referrer name="pc_cmd_usecrack"/>
 		</member>
@@ -17822,7 +17813,6 @@
 			<referrer name="pc_cmd_wt"/>
 			<referrer name="pc_cmd_dt"/>
 			<referrer name="pc_cmd_nrn"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_shakehand"/>
 			<referrer name="pc_cmd_music"/>
 			<referrer name="pc_cmd_dichvu"/>
@@ -17832,8 +17822,6 @@
 			<referrer name="pc_cmd_tie"/>
 			<referrer name="pc_cmd_untie"/>
 			<referrer name="pc_cmd_paintcar"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_hbadge"/>
 			<referrer name="pc_cmd_profile"/>
 			<referrer name="pc_cmd_setrent"/>
@@ -21131,7 +21119,6 @@
 		<member name="F:storagetype">
 			<referrer name="ShowStorageEquipDialog"/>
 			<referrer name="TransferStorage"/>
-			<referrer name="pc_cmd_lucsoat"/>
 		</member>
 		<member name="F:szAdvert">
 			<referrer name="AntiVPN_OnPlayerConnect"/>
@@ -46224,7 +46211,6 @@
 			<referrer name="pc_cmd_finishhelp"/>
 			<referrer name="pc_cmd_usesprunk"/>
 			<referrer name="pc_cmd_usecigar"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_getmats"/>
 			<referrer name="pc_cmd_pc"/>
 			<referrer name="pc_cmd_sc"/>
@@ -47910,7 +47896,6 @@
 			<referrer name="pc_cmd_setcredits"/>
 			<referrer name="pc_cmd_settotalcredits"/>
 			<referrer name="pc_cmd_nrn"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_shakehand"/>
 			<referrer name="pc_cmd_dichvu"/>
 			<referrer name="pc_cmd_yeucautrogiup"/>
@@ -47924,9 +47909,6 @@
 			<referrer name="pc_cmd_untie"/>
 			<referrer name="pc_cmd_usesprunk"/>
 			<referrer name="pc_cmd_usecigar"/>
-			<referrer name="pc_cmd_licenses"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_profile"/>
 			<referrer name="pc_cmd_ranks"/>
 			<referrer name="pc_cmd_evict"/>
@@ -50712,7 +50694,6 @@
 			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_fgetgun"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
@@ -55120,8 +55101,6 @@
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="pc_cmd_revokelicense"/>
 			<referrer name="pc_cmd_ram"/>
-			<referrer name="pc_cmd_take"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_tazer"/>
 			<referrer name="pc_cmd_vradar"/>
 			<referrer name="pc_cmd_radargun"/>
@@ -56416,15 +56395,12 @@
 			<referrer name="pc_cmd_setcredits"/>
 			<referrer name="pc_cmd_settotalcredits"/>
 			<referrer name="pc_cmd_nrn"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_shakehand"/>
 			<referrer name="pc_cmd_rhmute"/>
 			<referrer name="pc_cmd_rhmutereset"/>
 			<referrer name="pc_cmd_accepthelp"/>
 			<referrer name="pc_cmd_tie"/>
 			<referrer name="pc_cmd_untie"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_profile"/>
 			<referrer name="pc_cmd_evict"/>
 			<referrer name="pc_cmd_givehit"/>
@@ -72150,7 +72126,6 @@
 			<referrer name="pc_alias_tie"/>
 			<referrer name="pc_alias_untie"/>
 			<referrer name="pc_alias_usecigar"/>
-			<referrer name="pc_alias_choxemgiayphep"/>
 			<referrer name="pc_alias_pcb"/>
 			<referrer name="pc_alias_pb"/>
 			<referrer name="pc_alias_pickupbomb"/>
@@ -75489,8 +75464,6 @@
 			<referrer name="pc_cmd_mp3"/>
 			<referrer name="pc_cmd_rhmute"/>
 			<referrer name="pc_cmd_findnewb"/>
-			<referrer name="pc_cmd_licenses"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="pc_cmd_docarrest"/>
 			<referrer name="pc_cmd_arrest"/>
 			<referrer name="pc_cmd_locker"/>
@@ -75978,11 +75951,9 @@
 			<referrer name="pc_cmd_fstoregun"/>
 			<referrer name="pc_cmd_fgetgun"/>
 			<referrer name="pc_cmd_ram"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_tie"/>
 			<referrer name="pc_cmd_usesprunk"/>
 			<referrer name="pc_cmd_usecigar"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_lockhouse"/>
 			<referrer name="pc_cmd_pc"/>
 			<referrer name="pc_cmd_sc"/>
@@ -76097,11 +76068,8 @@
 			<referrer name="pc_cmd_propose"/>
 			<referrer name="pc_cmd_witness"/>
 			<referrer name="pc_cmd_sellcredits"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_tie"/>
 			<referrer name="pc_cmd_untie"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_sweep"/>
 			<referrer name="pc_cmd_cuff"/>
 			<referrer name="pc_cmd_uncuff"/>
@@ -78087,7 +78055,6 @@
 			<referrer name="pc_cmd_sprison"/>
 			<referrer name="pc_cmd_sjail"/>
 			<referrer name="pc_cmd_jail"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_drop"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
@@ -79272,7 +79239,6 @@
 			<referrer name="pc_cmd_wt"/>
 			<referrer name="pc_cmd_dt"/>
 			<referrer name="pc_cmd_nrn"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_shakehand"/>
 			<referrer name="pc_cmd_music"/>
 			<referrer name="pc_cmd_dichvu"/>
@@ -79282,8 +79248,6 @@
 			<referrer name="pc_cmd_tie"/>
 			<referrer name="pc_cmd_untie"/>
 			<referrer name="pc_cmd_paintcar"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_hbadge"/>
 			<referrer name="pc_cmd_profile"/>
 			<referrer name="pc_cmd_setrent"/>
@@ -81392,8 +81356,6 @@
 			<referrer name="pc_cmd_HTBshop"/>
 			<referrer name="pc_cmd_leaveshop"/>
 			<referrer name="pc_cmd_dichvu"/>
-			<referrer name="pc_cmd_licenses"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="pc_cmd_tazer"/>
 			<referrer name="pc_cmd_usepot"/>
 			<referrer name="pc_cmd_usecrack"/>
@@ -82392,7 +82354,6 @@
 			<referrer name="pc_cmd_wat"/>
 			<referrer name="pc_cmd_dat"/>
 			<referrer name="pc_cmd_nrn"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_train"/>
 			<referrer name="pc_cmd_shakehand"/>
 			<referrer name="pc_cmd_music"/>
@@ -82410,8 +82371,6 @@
 			<referrer name="pc_cmd_usesprunk"/>
 			<referrer name="pc_cmd_usecigar"/>
 			<referrer name="pc_cmd_paintcar"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_hbadge"/>
 			<referrer name="pc_cmd_profile"/>
 			<referrer name="pc_cmd_ranks"/>
@@ -95541,16 +95500,20 @@
 			<dependency name="number_format"/>
 			<dependency name="number_format"/>
 			<dependency name="pBanhMi"/>
+			<dependency name="pBoatLic"/>
 			<dependency name="pBoombox"/>
 			<dependency name="pBunRieu"/>
 			<dependency name="pCaPhe"/>
 			<dependency name="pCanSa"/>
+			<dependency name="pCarLic"/>
 			<dependency name="pCash"/>
 			<dependency name="pCigar"/>
 			<dependency name="pDice"/>
+			<dependency name="pFlyLic"/>
 			<dependency name="pGuns"/>
 			<dependency name="pHamburger"/>
 			<dependency name="pHospital"/>
+			<dependency name="pIDCard"/>
 			<dependency name="pMoiCau"/>
 			<dependency name="pNuocEp"/>
 			<dependency name="pNuocLoc"/>
@@ -95561,6 +95524,7 @@
 			<dependency name="pRadio"/>
 			<dependency name="pRope"/>
 			<dependency name="pSuaBo"/>
+			<dependency name="pTaxiLicense"/>
 			<dependency name="pTepCanSa"/>
 			<dependency name="pThit"/>
 			<dependency name="pTraiCay"/>
@@ -101632,7 +101596,6 @@
 			<referrer name="pc_cmd_setcredits"/>
 			<referrer name="pc_cmd_settotalcredits"/>
 			<referrer name="pc_cmd_nrn"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_shakehand"/>
 			<referrer name="pc_cmd_dichvu"/>
 			<referrer name="pc_cmd_yeucautrogiup"/>
@@ -101646,9 +101609,6 @@
 			<referrer name="pc_cmd_untie"/>
 			<referrer name="pc_cmd_usesprunk"/>
 			<referrer name="pc_cmd_usecigar"/>
-			<referrer name="pc_cmd_licenses"/>
-			<referrer name="pc_cmd_choxemgiayphep"/>
-			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_profile"/>
 			<referrer name="pc_cmd_ranks"/>
 			<referrer name="pc_cmd_myc4"/>
@@ -104911,11 +104871,6 @@
 			<dependency name="PC_RegAlias"/>
 		</member>
 		<member name="M:pc_alias_checkbelt" syntax="pc_alias_checkbelt()">
-			<attribute name="public"/>
-			<stacksize value="4"/>
-			<dependency name="PC_RegAlias"/>
-		</member>
-		<member name="M:pc_alias_choxemgiayphep" syntax="pc_alias_choxemgiayphep()">
 			<attribute name="public"/>
 			<stacksize value="4"/>
 			<dependency name="PC_RegAlias"/>
@@ -109786,33 +109741,6 @@
 			<dependency name="bZ"/>
 			<dependency name="format"/>
 			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:pc_cmd_choxemgiayphep" syntax="pc_cmd_choxemgiayphep(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="720"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="ProxDetectorS"/>
-			<dependency name="SSCANF__"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
-			<dependency name="format"/>
-			<dependency name="pBoatLic"/>
-			<dependency name="pCarLic"/>
-			<dependency name="pFlyLic"/>
-			<dependency name="pIDCard"/>
-			<dependency name="pTaxiLicense"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -119850,27 +119778,6 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:pc_cmd_licenses" syntax="pc_cmd_licenses(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="591"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="format"/>
-			<dependency name="pBoatLic"/>
-			<dependency name="pCarLic"/>
-			<dependency name="pFlyLic"/>
-			<dependency name="pIDCard"/>
-			<dependency name="pTaxiLicense"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
 		<member name="M:pc_cmd_lichsuhtb" syntax="pc_cmd_lichsuhtb(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="2475"/>
@@ -120541,48 +120448,6 @@
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="fVehSpeed"/>
 			<dependency name="pAdmin"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:pc_cmd_lucsoat" syntax="pc_cmd_lucsoat(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="238"/>
-			<dependency name="GetPVarInt"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetWeaponName"/>
-			<dependency name="IsACop"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="ProxDetector"/>
-			<dependency name="ProxDetectorS"/>
-			<dependency name="SSCANF__"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="StorageInfo"/>
-			<dependency name="StorageInfo"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
-			<dependency name="format"/>
-			<dependency name="pCDPlayer"/>
-			<dependency name="pCrack"/>
-			<dependency name="pGuns"/>
-			<dependency name="pHeroin"/>
-			<dependency name="pMats"/>
-			<dependency name="pOpiumSeeds"/>
-			<dependency name="pPhoneBook"/>
-			<dependency name="pPot"/>
-			<dependency name="pRawOpium"/>
-			<dependency name="pSyringes"/>
-			<dependency name="pWSeeds"/>
-			<dependency name="sCrack"/>
-			<dependency name="sMats"/>
-			<dependency name="sPot"/>
-			<dependency name="storagetype"/>
-			<dependency name="storagetype"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -129097,41 +128962,6 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:pc_cmd_take" syntax="pc_cmd_take(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="218"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="IsACop"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="ProxDetector"/>
-			<dependency name="ProxDetectorS"/>
-			<dependency name="ResetPlayerWeaponsEx"/>
-			<dependency name="SSCANF__"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
-			<dependency name="format"/>
-			<dependency name="pCrack"/>
-			<dependency name="pHeroin"/>
-			<dependency name="pMats"/>
-			<dependency name="pOpiumSeeds"/>
-			<dependency name="pPot"/>
-			<dependency name="pRadio"/>
-			<dependency name="pRadioFreq"/>
-			<dependency name="pRawOpium"/>
-			<dependency name="pSyringes"/>
-			<dependency name="pWSeeds"/>
-			<dependency name="strcmp"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
 		<member name="M:pc_cmd_takeadminweapons" syntax="pc_cmd_takeadminweapons(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="161"/>
@@ -133867,7 +133697,6 @@
 			<referrer name="pc_cmd_divorce"/>
 			<referrer name="pc_cmd_apply"/>
 			<referrer name="pc_cmd_editshop"/>
-			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_music"/>
 			<referrer name="pc_cmd_dichvu"/>
 			<referrer name="pc_cmd_getmats"/>
