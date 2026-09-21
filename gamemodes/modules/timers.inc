@@ -407,7 +407,7 @@ task MoneyUpdate[1000]()
 	{
 		if(gPlayerLogged{i})
 		{
-			if(IsSpawned[i] == 0) 
+			/* if(IsSpawned[i] == 0) 
 			{
 				SpawnKick[i]++;
 				if(SpawnKick[i] >= 120)
@@ -420,7 +420,7 @@ task MoneyUpdate[1000]()
 					Log("logs/spawnafk.log", string);
 					SetTimerEx("KickEx", 1000, false, "i", i);
 				}
-			}
+			} */
 			if(IsSpawned[i] > 0 && SpawnKick[i] > 0)
 			{
 				SpawnKick[i] = 0;

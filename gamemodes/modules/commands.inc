@@ -18292,7 +18292,7 @@ CMD:givekeys(playerid, params[])
     return 1;
 }
 
-alias:deliverpt("capcuu")
+/* alias:deliverpt("capcuu")
 CMD:deliverpt(playerid, params[])
 {
     if(IsAMedic(playerid))
@@ -18423,7 +18423,7 @@ CMD:deliverpt(playerid, params[])
         }
     }
     return 1;
-}
+} */
 
 CMD:loadpt(playerid, params[])
 {

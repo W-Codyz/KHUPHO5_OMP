@@ -2724,6 +2724,7 @@ public OnPlayerConnect(playerid) {
 
 public OnPlayerDisconnect(playerid, reason)
 {
+	HospitalSpawn_OnPlayerDisconnect(playerid);
 	DestroyPlayerNameTag(playerid);
 	
     if(!isnull(unbanip[playerid]))
@@ -3528,6 +3529,7 @@ public OnRconLoginAttempt(ip[], password[], success)
 public OnPlayerDeath(playerid, killerid, reason)
 {
     if(IsPlayerNPC(playerid)) return 1;
+	HospitalSpawn_OnPlayerDeath(playerid, killerid);
 	IsSpawned[playerid] = 0;
 	SpawnKick[playerid] = 0;
 	if(IsPlayerConnected(playerid) && IsPlayerConnected(killerid))
@@ -4040,6 +4042,7 @@ public OnPlayerSpawn(playerid)
 	}
 
 	SetPlayerTeam(playerid, NO_TEAM);
+	HospitalSpawn_OnPlayerSpawn(playerid);
 	SetPlayerSpawn(playerid);
 	SetPlayerWeapons(playerid);
 	SetPlayerToTeamColor(playerid);

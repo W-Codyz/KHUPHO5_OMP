@@ -6808,7 +6808,7 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="167">
+		<member name="C:__line" value="170">
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="LoadSafeZones"/>
@@ -6825,6 +6825,7 @@
 			<referrer name="pc_cmd_settepcansa"/>
 			<referrer name="pc_cmd_checktepcansa"/>
 			<referrer name="LoadLastResetInfo"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnDMWatchListLookup"/>
 			<referrer name="LoadTurfWars"/>
@@ -6944,7 +6945,6 @@
 			<referrer name="pc_cmd_checkrequestcount"/>
 			<referrer name="pc_cmd_checkbelt"/>
 			<referrer name="pc_cmd_givekeys"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_dmvrelease"/>
@@ -8399,6 +8399,12 @@
 			<referrer name="StopFishing"/>
 			<referrer name="CatchFish"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
+			<referrer name="hosp_StopRecovery"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalRecovery_Tick"/>
+			<referrer name="hosp_PostSpawnBed"/>
+			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="PaintballArenaUpdate"/>
 			<referrer name="EMSUpdate"/>
@@ -8911,6 +8917,10 @@
 			<referrer name="@yH_OnPlayerConnect@0U"/>
 			<referrer name="@yH_OnPlayerDisconnect@0U"/>
 			<referrer name="LoadPlayerZone"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalRecovery_Tick"/>
+			<referrer name="hosp_CompleteBedExit"/>
 			<referrer name="_yT@SkinDelay"/>
 			<referrer name="_yT@NOPCheck"/>
 			<referrer name="SyncUp"/>
@@ -9927,7 +9937,6 @@
 		</member>
 		<member name="F:Carrier">
 			<referrer name="ControlCam"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
@@ -13463,6 +13472,8 @@
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
+			<referrer name="_@yHOnPlayerUpdate@0F"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
@@ -13563,6 +13574,12 @@
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="pc_cmd_suckhoe"/>
 			<referrer name="pc_cmd_hungertype"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="hosp_PostSpawnBed"/>
+			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="SkinDelay"/>
 			<referrer name="NOPCheck"/>
 			<referrer name="AFKUpdate"/>
@@ -13997,7 +14014,6 @@
 			<referrer name="pc_cmd_bug"/>
 			<referrer name="pc_cmd_checkreportcount"/>
 			<referrer name="pc_cmd_checkrequestcount"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_dmvrelease"/>
@@ -15706,6 +15722,7 @@
 			<referrer name="OnPlayerText"/>
 		</member>
 		<member name="F:Tax">
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="DeliverCrate"/>
 			<referrer name="LoadForklift"/>
 			<referrer name="TaxSale"/>
@@ -15716,7 +15733,6 @@
 			<referrer name="pc_cmd_loadforklift"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_reward"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_heal"/>
 			<referrer name="pc_cmd_taxwithdraw"/>
 			<referrer name="pc_cmd_taxdeposit"/>
@@ -17514,7 +17530,6 @@
 			<referrer name="pc_cmd_checkrequestcount"/>
 			<referrer name="pc_cmd_checkbelt"/>
 			<referrer name="pc_cmd_givekeys"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_dmvrelease"/>
@@ -17859,6 +17874,9 @@
 			<referrer name="OnDMWatchListLookup"/>
 		</member>
 		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+			<referrer name="pc_cmd_deliverpt"/>
 		</member>
 		<member name="F:__file">
 		</member>
@@ -20118,6 +20136,54 @@
 			<referrer name="RotateWheel"/>
 			<referrer name="UpdateWheelTarget"/>
 		</member>
+		<member name="F:g_HospBedA">
+			<tagname value="Float"/>
+			<referrer name="hosp_StopRecovery"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+		</member>
+		<member name="F:g_HospBedPos">
+			<tagname value="Float"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+		</member>
+		<member name="F:g_HospBedX">
+			<tagname value="Float"/>
+			<referrer name="hosp_StopRecovery"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalRecovery_Tick"/>
+		</member>
+		<member name="F:g_HospBedY">
+			<tagname value="Float"/>
+			<referrer name="hosp_StopRecovery"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalRecovery_Tick"/>
+		</member>
+		<member name="F:g_HospBedZ">
+			<tagname value="Float"/>
+			<referrer name="hosp_StopRecovery"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalRecovery_Tick"/>
+		</member>
+		<member name="F:g_HospRecoveryTime">
+			<referrer name="hosp_StopRecovery"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="HospitalRecovery_Tick"/>
+		</member>
+		<member name="F:g_HospRecoveryTimer">
+			<referrer name="hosp_StopRecovery"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
+		</member>
+		<member name="F:g_HospTreatFailed">
+			<tagname value="bool"/>
+			<referrer name="hosp_StopRecovery"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+		</member>
 		<member name="F:g_PanelTextDrawCreated">
 			<tagname value="bool"/>
 			<referrer name="CreatePanelTextDraws"/>
@@ -20739,6 +20805,7 @@
 			<referrer name="OPBA_OnPlayerUpdate"/>
 		</member>
 		<member name="F:playerTabbed">
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="AFKUpdate"/>
 			<referrer name="playerTabbedLoop"/>
 			<referrer name="MoneyUpdate"/>
@@ -20752,7 +20819,6 @@
 			<referrer name="SprayWall"/>
 			<referrer name="pc_cmd_hhcheck"/>
 			<referrer name="pc_cmd_paused"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="OPBA_OnPlayerConnect"/>
 		</member>
@@ -22439,7 +22505,6 @@
 			<referrer name="pc_cmd_destroy"/>
 			<referrer name="pc_cmd_deletecdveh"/>
 			<referrer name="pc_cmd_warrantarrest"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_blowup"/>
 			<referrer name="pc_cmd_revive"/>
@@ -26267,6 +26332,8 @@
 			<referrer name="ProcessFoodPurchase"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0R"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerHeartbeatTwo"/>
@@ -29176,6 +29243,8 @@
 			<referrer name="ChatCayTimer"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
@@ -34959,6 +35028,7 @@
 			<referrer name="XuLyTimer"/>
 			<referrer name="ChatCayTimer"/>
 			<referrer name="LoadPlayerZone"/>
+			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="MoveEMSFollow"/>
@@ -38949,6 +39019,9 @@
 			<referrer name="CheBien"/>
 			<referrer name="OnLoadingCheBienFinish"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
 			<referrer name="SyncUp"/>
 			<referrer name="ProductionUpdate"/>
 			<referrer name="MoneyUpdate"/>
@@ -39051,7 +39124,6 @@
 			<referrer name="pc_cmd_siren"/>
 			<referrer name="pc_cmd_warrantarrest"/>
 			<referrer name="pc_cmd_adjourn"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_togchatreports"/>
 			<referrer name="pc_cmd_hospital"/>
 			<referrer name="pc_cmd_togvip"/>
@@ -44247,7 +44319,6 @@
 			<referrer name="pc_cmd_loadforklift"/>
 			<referrer name="pc_cmd_cgun"/>
 			<referrer name="pc_cmd_gate"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_getgift"/>
 			<referrer name="pc_cmd_movegate"/>
 			<referrer name="pc_cmd_setgatepass"/>
@@ -45325,6 +45396,11 @@
 			<referrer name="ChatCayTimer"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="HospitalRecovery_Tick"/>
+			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="SyncUp"/>
 			<referrer name="ProductionUpdate"/>
 			<referrer name="MoneyUpdate"/>
@@ -45494,7 +45570,6 @@
 			<referrer name="pc_cmd_vstorage"/>
 			<referrer name="pc_cmd_writecheck"/>
 			<referrer name="pc_cmd_bug"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_setmyname"/>
@@ -45731,6 +45806,7 @@
 			<referrer name="SendVIPMessage"/>
 			<referrer name="SendMessageTD"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="SyncUp"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="EMSUpdate"/>
@@ -45775,7 +45851,6 @@
 			<referrer name="pc_cmd_search"/>
 			<referrer name="pc_cmd_stopani"/>
 			<referrer name="pc_cmd_siren"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_togchatreports"/>
 			<referrer name="pc_cmd_viplocker"/>
 			<referrer name="pc_cmd_rc"/>
@@ -45971,6 +46046,7 @@
 			<referrer name="OPBA_IsPEnExCar"/>
 			<referrer name="OPBA_PlayerFalling"/>
 			<referrer name="_@yHOnPlayerUpdate@0@"/>
+			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="EMSUpdate"/>
 			<param name="playerid">
 				ID of the player of whom you want to get the animation index of
@@ -46538,7 +46614,6 @@
 			<stacksize value="21"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
-			<referrer name="MoneyUpdate"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="CheckBanEx"/>
 			<referrer name="AddBan"/>
@@ -46786,6 +46861,9 @@
 			<referrer name="_@yHOnDialogResponse@0S"/>
 			<referrer name="pc_cmd_testreset"/>
 			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="PaintballArenaUpdate"/>
 			<referrer name="ServerHeartbeat"/>
@@ -47036,7 +47114,6 @@
 			<referrer name="pc_cmd_carkeys"/>
 			<referrer name="pc_cmd_seatbelt"/>
 			<referrer name="pc_cmd_checkbelt"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_vmdc"/>
@@ -48207,6 +48284,7 @@
 			<referrer name="_@yHOnPlayerStateChange@0A"/>
 			<referrer name="SlapAntiSlap"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="NOPCheck"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="EMSUpdate"/>
@@ -48269,7 +48347,6 @@
 			<referrer name="pc_cmd_apark"/>
 			<referrer name="pc_cmd_seatbelt"/>
 			<referrer name="pc_cmd_checkbelt"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_vcheck"/>
 			<referrer name="pc_cmd_vehid"/>
 			<referrer name="pc_cmd_destroycar"/>
@@ -50386,6 +50463,7 @@
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="NhanTienCanSa"/>
 			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="PaintballArenaUpdate"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="OnPhoneNumberCheck"/>
@@ -50417,7 +50495,6 @@
 			<referrer name="pc_cmd_gwithdraw"/>
 			<referrer name="pc_cmd_gdonate"/>
 			<referrer name="pc_cmd_writecheck"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_fine"/>
 			<referrer name="pc_cmd_sfine"/>
 			<referrer name="pc_cmd_ofine"/>
@@ -52380,6 +52457,29 @@
 			</param>
 			    <returns>  The number of bytes written to memory.  </returns>  <remarks>  Generate some new code, very nicely :D.  </remarks> 
 		</member>
+		<member name="M:HospitalRecovery_Tick" syntax="HospitalRecovery_Tick(playerid)">
+			<attribute name="public"/>
+			<stacksize value="60"/>
+			<dependency name="ApplyAnimation"/>
+			<dependency name="ClearAnimations"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerAnimationIndex"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="OPBA_SetPlayerPos"/>
+			<dependency name="SetPlayerChatBubble"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="g_HospBedX"/>
+			<dependency name="g_HospBedY"/>
+			<dependency name="g_HospBedZ"/>
+			<dependency name="g_HospRecoveryTime"/>
+			<dependency name="hosp_StopRecovery"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:HospitalSpawn" syntax="HospitalSpawn(playerid)">
 			<stacksize value="196"/>
 			<referrer name="OtherTimerEx"/>
@@ -52417,6 +52517,63 @@
 			<dependency name="pJailTime"/>
 			<dependency name="pSHealth"/>
 			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:HospitalSpawn_OnPlayerDeath" syntax="HospitalSpawn_OnPlayerDeath(playerid, killerid)">
+			<stacksize value="137"/>
+			<referrer name="OPBA_OnPlayerDeath"/>
+			<dependency name="ABroadCast"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="Log"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ResetPlayerWeapons"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="format"/>
+			<dependency name="g_HospRecoveryTimer"/>
+			<dependency name="hosp_StopRecovery"/>
+			<dependency name="pNuoc"/>
+			<dependency name="pThucAn"/>
+			<param name="playerid">
+			</param>
+			<param name="killerid">
+			</param>
+		</member>
+		<member name="M:HospitalSpawn_OnPlayerDisconnect" syntax="HospitalSpawn_OnPlayerDisconnect(playerid)">
+			<stacksize value="136"/>
+			<referrer name="OPBA_OnPlayerDisconnect"/>
+			<dependency name="ABroadCast"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="KillEMSQueue"/>
+			<dependency name="Log"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ResetPlayerWeapons"/>
+			<dependency name="format"/>
+			<dependency name="g_HospRecoveryTimer"/>
+			<dependency name="hosp_StopRecovery"/>
+			<dependency name="pGuns"/>
+			<dependency name="pHospital"/>
+			<dependency name="pNuoc"/>
+			<dependency name="pThucAn"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:HospitalSpawn_OnPlayerSpawn" syntax="HospitalSpawn_OnPlayerSpawn(playerid)">
+			<stacksize value="7"/>
+			<referrer name="OPBA_OnPlayerSpawn"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="false"/>
+			<dependency name="pHospital"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -54508,6 +54665,7 @@
 			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="pc_cmd_online"/>
 			<referrer name="ShowOnlineMedics"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="ShowPlayerBeaconForMedics"/>
 			<referrer name="HidePlayerBeaconForMedics"/>
 			<referrer name="BackupClear"/>
@@ -54518,7 +54676,6 @@
 			<referrer name="pc_cmd_destroyplant"/>
 			<referrer name="pc_cmd_backup"/>
 			<referrer name="pc_cmd_backupall"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_m"/>
@@ -54723,9 +54880,9 @@
 		</member>
 		<member name="M:IsAnAmbulance" syntax="IsAnAmbulance(carid)">
 			<stacksize value="3"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="pc_cmd_getvials"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_heal"/>
 			<dependency name="DynVeh"/>
@@ -54828,7 +54985,6 @@
 		<member name="M:IsAtDeliverPatientPoint" syntax="IsAtDeliverPatientPoint(playerid)">
 			<stacksize value="7"/>
 			<referrer name="pc_cmd_buycure"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<param name="playerid">
@@ -55406,6 +55562,11 @@
 			<referrer name="SucKhoe"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalRecovery_Tick"/>
+			<referrer name="hosp_CompleteBedExit"/>
+			<referrer name="hosp_PostSpawnBed"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerHeartbeatTwo"/>
@@ -55519,7 +55680,6 @@
 			<referrer name="pc_cmd_checkreportcount"/>
 			<referrer name="pc_cmd_checkrequestcount"/>
 			<referrer name="pc_cmd_givekeys"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_dmvrelease"/>
@@ -56018,6 +56178,8 @@
 			<referrer name="IsPlayerAtFishingSpot"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0S"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerHeartbeatTwo"/>
@@ -56095,7 +56257,6 @@
 			<referrer name="pc_cmd_editcarspawn"/>
 			<referrer name="pc_cmd_entrancefee"/>
 			<referrer name="pc_cmd_editcarprice"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_dmvrelease"/>
 			<referrer name="pc_cmd_dmvmenu"/>
 			<referrer name="pc_cmd_vticket"/>
@@ -59239,6 +59400,8 @@
 			<attribute name="public"/>
 			<stacksize value="5"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="SendEMSQueue"/>
@@ -59247,7 +59410,6 @@
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_dm"/>
 			<referrer name="pc_cmd_sdm"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_revive"/>
 			<referrer name="pc_cmd_revivenear"/>
 			<referrer name="pc_cmd_forcedeath"/>
@@ -59314,6 +59476,7 @@
 			<referrer name="StopFishing"/>
 			<referrer name="CatchFish"/>
 			<referrer name="_@yHOnPlayerDisconnect@0T"/>
+			<referrer name="hosp_StopRecovery"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="LeavePokerTable"/>
 			<referrer name="MoveEMSFollow"/>
@@ -60444,6 +60607,8 @@
 			<referrer name="pc_cmd_setdiv"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="SyncUp"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeatTwo"/>
@@ -61726,7 +61891,6 @@
 			<dependency name="GetPVarType"/>
 			<dependency name="GetPlayer3DZone"/>
 			<dependency name="GetPlayerInterior"/>
-			<dependency name="GetPlayerIpEx"/>
 			<dependency name="GetPlayerMoney"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerPing"/>
@@ -63202,6 +63366,7 @@
 			<dependency name="GivePlayerCash"/>
 			<dependency name="GoChase"/>
 			<dependency name="GotHit"/>
+			<dependency name="HospitalSpawn_OnPlayerDeath"/>
 			<dependency name="HungerPlayerInfo"/>
 			<dependency name="InsidePlane"/>
 			<dependency name="IsAHelicopter"/>
@@ -63349,6 +63514,7 @@
 			<dependency name="HideHungerGamesTextdraw"/>
 			<dependency name="HideTradeToysGUI"/>
 			<dependency name="HireCar"/>
+			<dependency name="HospitalSpawn_OnPlayerDisconnect"/>
 			<dependency name="HungerBackpackInfo"/>
 			<dependency name="HungerBackpackInfo"/>
 			<dependency name="HungerPlayerInfo"/>
@@ -63657,6 +63823,7 @@
 			<dependency name="GetPVarType"/>
 			<dependency name="GetVehiclePos"/>
 			<dependency name="GivePlayerValidWeapon"/>
+			<dependency name="HospitalSpawn_OnPlayerSpawn"/>
 			<dependency name="InsidePlane"/>
 			<dependency name="IsPlayerNPC"/>
 			<dependency name="IsSpawned"/>
@@ -64119,6 +64286,9 @@
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0R"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="SyncUp"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
@@ -64179,7 +64349,6 @@
 			<referrer name="pc_cmd_apark"/>
 			<referrer name="pc_cmd_warrantarrest"/>
 			<referrer name="pc_cmd_sentence"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_dynamicgift"/>
 			<referrer name="pc_cmd_rc"/>
 			<referrer name="pc_cmd_gotomapicon"/>
@@ -65696,7 +65865,6 @@
 			<dependency name="pbWeapons"/>
 			<dependency name="pc_cmd_call"/>
 			<dependency name="pc_cmd_nrn"/>
-			<dependency name="pc_cmd_pay"/>
 			<dependency name="pkrActive"/>
 			<dependency name="pkrActiveBet"/>
 			<dependency name="pkrActivePlayers"/>
@@ -71544,6 +71712,7 @@
 			<referrer name="pc_alias_taoroulette"/>
 			<referrer name="pc_alias_xoaroulette"/>
 			<referrer name="pc_alias_listsz"/>
+			<referrer name="pc_alias_deliverpt"/>
 			<referrer name="pc_alias_jointable"/>
 			<referrer name="pc_alias_leavetable"/>
 			<referrer name="pc_alias_placetable"/>
@@ -71594,7 +71763,6 @@
 			<referrer name="pc_alias_seatbelt"/>
 			<referrer name="pc_alias_checkbelt"/>
 			<referrer name="pc_alias_givekeys"/>
-			<referrer name="pc_alias_deliverpt"/>
 			<referrer name="pc_alias_sellmycar"/>
 			<referrer name="pc_alias_sellmyhouse"/>
 			<referrer name="pc_alias_unloadpvehicles"/>
@@ -74061,6 +74229,7 @@
 			<attribute name="public"/>
 			<stacksize value="12"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="SetPlayerFirstSpawn"/>
 			<referrer name="SendEMSQueue"/>
@@ -74076,7 +74245,6 @@
 			<referrer name="pc_cmd_sdm"/>
 			<referrer name="pc_cmd_deliver"/>
 			<referrer name="pc_cmd_warrantarrest"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_goindoor"/>
 			<referrer name="pc_cmd_gotodoor"/>
 			<referrer name="pc_cmd_goinhouse"/>
@@ -77104,6 +77272,7 @@
 		<member name="M:RemovePlayerFromVehicle" syntax="RemovePlayerFromVehicle(playerid, force)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="ExecuteNOPAction"/>
 			<referrer name="ac_RemovePlayerFromVehicle"/>
@@ -77524,6 +77693,10 @@
 		<member name="M:ResetPlayerWeapons" syntax="ResetPlayerWeapons(playerid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="hosp_PostSpawnBed"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="RemovePlayerWeaponEx"/>
@@ -78389,6 +78562,7 @@
 			<referrer name="pc_cmd_settepcansa"/>
 			<referrer name="pc_cmd_checktepcansa"/>
 			<referrer name="LoadLastResetInfo"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnDMWatchListLookup"/>
 			<referrer name="LoadTurfWars"/>
@@ -78508,7 +78682,6 @@
 			<referrer name="pc_cmd_checkrequestcount"/>
 			<referrer name="pc_cmd_checkbelt"/>
 			<referrer name="pc_cmd_givekeys"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_dmvrelease"/>
@@ -81022,6 +81195,8 @@
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="pc_cmd_suckhoe"/>
 			<referrer name="pc_cmd_hungertype"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="hosp_CompleteBedExit"/>
 			<referrer name="SyncUp"/>
 			<referrer name="ProductionUpdate"/>
 			<referrer name="playerTabbedLoop"/>
@@ -81488,7 +81663,6 @@
 			<referrer name="pc_cmd_seatbelt"/>
 			<referrer name="pc_cmd_checkbelt"/>
 			<referrer name="pc_cmd_givekeys"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_dmvrelease"/>
@@ -82421,6 +82595,7 @@
 		</member>
 		<member name="M:SendGroupMessage" syntax="SendGroupMessage(iGroupType, color, string[], allegiance)">
 			<stacksize value="8"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="SetVehicleEngine"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="SyncTime"/>
@@ -82435,7 +82610,6 @@
 			<referrer name="pc_cmd_ordercrates"/>
 			<referrer name="pc_cmd_warrant"/>
 			<referrer name="pc_cmd_warrantarrest"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_getpt"/>
 			<referrer name="pc_cmd_revokelicense"/>
 			<referrer name="pc_cmd_dichvu"/>
@@ -83728,6 +83902,7 @@
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
+			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0_"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="TDA_DIALOG_USEBANHMI"/>
@@ -83952,6 +84127,9 @@
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="CheBien"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="SyncUp"/>
 			<referrer name="SaveAccountsUpdate"/>
 			<referrer name="MoneyUpdate"/>
@@ -84081,7 +84259,6 @@
 			<referrer name="pc_cmd_judgefine"/>
 			<referrer name="pc_cmd_changeuserpin"/>
 			<referrer name="pc_cmd_writecheck"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_dmvrelease"/>
 			<referrer name="pc_cmd_sellmycar"/>
@@ -84585,7 +84762,6 @@
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="pc_cmd_hhcheck"/>
 			<referrer name="pc_cmd_watch"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_sc"/>
 			<referrer name="pc_cmd_watchtv"/>
 			<referrer name="pc_cmd_cameraangle"/>
@@ -84619,7 +84795,6 @@
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="pc_cmd_hhcheck"/>
 			<referrer name="pc_cmd_watch"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_sc"/>
 			<referrer name="pc_cmd_watchtv"/>
 			<referrer name="pc_cmd_cameraangle"/>
@@ -84647,6 +84822,7 @@
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
+			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="pc_cmd_s"/>
 			<referrer name="pc_cmd_l"/>
@@ -84782,6 +84958,8 @@
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_selfie"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
 			<referrer name="SyncUp"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
@@ -84912,6 +85090,8 @@
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_CompleteBedExit"/>
 			<referrer name="SyncUp"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="EMSUpdate"/>
@@ -84954,7 +85134,6 @@
 			<referrer name="pc_cmd_dm"/>
 			<referrer name="pc_cmd_sdm"/>
 			<referrer name="pc_cmd_jarrest"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_revive"/>
 			<referrer name="pc_cmd_revivenear"/>
@@ -85003,6 +85182,7 @@
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="SetPlayerFirstSpawn"/>
@@ -85816,6 +85996,7 @@
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="g_mysql_AccountAuthCheck"/>
@@ -85858,7 +86039,6 @@
 			<referrer name="pc_cmd_gotodv"/>
 			<referrer name="pc_cmd_warrantarrest"/>
 			<referrer name="pc_cmd_sentence"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_hospital"/>
 			<referrer name="pc_cmd_travel"/>
 			<referrer name="pc_cmd_gotomapicon"/>
@@ -86268,6 +86448,9 @@
 			<referrer name="ChatCayTimer"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="HospitalRecovery_Tick"/>
+			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="AuctionLoadQuery"/>
@@ -89115,6 +89298,7 @@
 		<member name="M:Streamer_UpdateEx" syntax="Streamer_UpdateEx(playerid, x, y, z, worldid, interiorid, type, compensatedtime, freezeplayer)">
 			<attribute name="native"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="MoveEMSFollow"/>
 			<referrer name="SendEMSQueue"/>
 			<referrer name="Player_StreamPrep"/>
@@ -89127,7 +89311,6 @@
 			<referrer name="pc_cmd_sendto"/>
 			<referrer name="pc_cmd_dm"/>
 			<referrer name="pc_cmd_sdm"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_shopbusiness"/>
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="pc_cmd_prison"/>
@@ -91020,6 +91203,9 @@
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="LoadPlayerZone"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="hosp_ConfirmBedPos"/>
+			<referrer name="hosp_CompleteBedExit"/>
 			<referrer name="SyncUp"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="PaintballArenaUpdate"/>
@@ -96362,6 +96548,7 @@
 			<dependency name="IsACop"/>
 			<dependency name="IsAMedic"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="SafeZoneInfo"/>
 			<dependency name="SafeZoneInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -96370,6 +96557,7 @@
 			<dependency name="SetTimerEx"/>
 			<dependency name="TogglePlayerControllable"/>
 			<dependency name="format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pTazer"/>
 			<dependency name="szPosX"/>
 			<dependency name="szPosY"/>
@@ -96684,7 +96872,7 @@
 		</member>
 		<member name="M:_@yHOnPlayerKeyStateChange@0e" syntax="_@yHOnPlayerKeyStateChange@0e(playerid, newkeys, oldkeys)">
 			<attribute name="public"/>
-			<stacksize value="1056"/>
+			<stacksize value="1568"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -96925,6 +97113,7 @@
 			<dependency name="EnterSafeZones"/>
 			<dependency name="IsACop"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="SafeZoneInfo"/>
 			<dependency name="SafeZoneInfo"/>
 			<dependency name="SetPlayerArmedWeapon"/>
@@ -96932,6 +97121,7 @@
 			<dependency name="TDShow"/>
 			<dependency name="false"/>
 			<dependency name="gPlayerLogged"/>
+			<dependency name="pAdmin"/>
 			<dependency name="szPosX"/>
 			<dependency name="szPosY"/>
 			<dependency name="szPosZ"/>
@@ -100091,6 +100281,10 @@
 			<referrer name="pc_cmd_chatgo"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
 			<referrer name="pc_cmd_suckhoe"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="HospitalRecovery_Tick"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="SyncUp"/>
 			<referrer name="ProductionUpdate"/>
 			<referrer name="MoneyUpdate"/>
@@ -100645,7 +100839,6 @@
 			<referrer name="pc_cmd_seatbelt"/>
 			<referrer name="pc_cmd_checkbelt"/>
 			<referrer name="pc_cmd_givekeys"/>
-			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_dmvrelease"/>
@@ -102495,6 +102688,102 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 			<library>y_utils - conversions</library>  <param name="string">String to convert to a number.</param>  <returns>  value of the passed hex string.  </returns>  <remarks>  Now stops on invalid characters.  </remarks> 
+		</member>
+		<member name="M:hosp_CompleteBedExit" syntax="hosp_CompleteBedExit(playerid)">
+			<attribute name="public"/>
+			<stacksize value="6"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerHealth"/>
+			<dependency name="TogglePlayerControllable"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:hosp_ConfirmBedPos" syntax="hosp_ConfirmBedPos(playerid)">
+			<attribute name="public"/>
+			<stacksize value="12"/>
+			<dependency name="ApplyAnimation"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="OPBA_SetPlayerPos"/>
+			<dependency name="SetPlayerFacingAngle"/>
+			<dependency name="TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="g_HospBedA"/>
+			<dependency name="g_HospBedX"/>
+			<dependency name="g_HospBedY"/>
+			<dependency name="g_HospBedZ"/>
+			<dependency name="g_HospRecoveryTimer"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:hosp_PlacePatientInBed" syntax="hosp_PlacePatientInBed(patientid, treatFailed)">
+			<stacksize value="13"/>
+			<referrer name="pc_cmd_deliverpt"/>
+			<referrer name="hosp_PostSpawnBed"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="OPBA_SetPlayerPos"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Player_StreamPrep"/>
+			<dependency name="RemovePlayerFromVehicle"/>
+			<dependency name="SetLoading"/>
+			<dependency name="SetPlayerFacingAngle"/>
+			<dependency name="SetPlayerHealth"/>
+			<dependency name="SetPlayerInterior"/>
+			<dependency name="SetPlayerVirtualWorld"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="Streamer_UpdateEx"/>
+			<dependency name="TogglePlayerControllable"/>
+			<dependency name="false"/>
+			<dependency name="g_HospBedA"/>
+			<dependency name="g_HospBedPos"/>
+			<dependency name="g_HospBedX"/>
+			<dependency name="g_HospBedY"/>
+			<dependency name="g_HospBedZ"/>
+			<dependency name="g_HospRecoveryTime"/>
+			<dependency name="g_HospRecoveryTimer"/>
+			<dependency name="g_HospTreatFailed"/>
+			<dependency name="pInt"/>
+			<dependency name="pVW"/>
+			<dependency name="random"/>
+			<dependency name="true"/>
+			<param name="patientid">
+			</param>
+			<param name="treatFailed">
+				<paraminfo>bool </paraminfo>
+			</param>
+		</member>
+		<member name="M:hosp_PostSpawnBed" syntax="hosp_PostSpawnBed(playerid)">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ResetPlayerWeapons"/>
+			<dependency name="false"/>
+			<dependency name="hosp_PlacePatientInBed"/>
+			<dependency name="pGuns"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:hosp_StopRecovery" syntax="hosp_StopRecovery(playerid)">
+			<stacksize value="3"/>
+			<referrer name="HospitalRecovery_Tick"/>
+			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
+			<referrer name="HospitalSpawn_OnPlayerDeath"/>
+			<dependency name="KillTimer"/>
+			<dependency name="false"/>
+			<dependency name="g_HospBedA"/>
+			<dependency name="g_HospBedX"/>
+			<dependency name="g_HospBedY"/>
+			<dependency name="g_HospBedZ"/>
+			<dependency name="g_HospRecoveryTime"/>
+			<dependency name="g_HospRecoveryTimer"/>
+			<dependency name="g_HospTreatFailed"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:hungerGames" syntax="hungerGames()">
 			<attribute name="public"/>
@@ -110583,44 +110872,34 @@
 		</member>
 		<member name="M:pc_cmd_deliverpt" syntax="pc_cmd_deliverpt(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="188"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="Carrier"/>
+			<stacksize value="158"/>
 			<dependency name="DeletePVar"/>
-			<dependency name="GetDynamicObjectPos"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarType"/>
-			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="IsAMedic"/>
 			<dependency name="IsAnAmbulance"/>
-			<dependency name="IsAtDeliverPatientPoint"/>
-			<dependency name="IsPlayerConnected"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="KillEMSQueue"/>
-			<dependency name="OPBA_SetPlayerPos"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="Player_StreamPrep"/>
+			<dependency name="ResetPlayerWeapons"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SendGroupMessage"/>
 			<dependency name="SetPVarInt"/>
-			<dependency name="SetPlayerCameraLookAt"/>
-			<dependency name="SetPlayerCameraPos"/>
-			<dependency name="SetPlayerHealth"/>
-			<dependency name="SetPlayerVirtualWorld"/>
-			<dependency name="Streamer_UpdateEx"/>
 			<dependency name="Tax"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="format"/>
-			<dependency name="pHydration"/>
+			<dependency name="hosp_PlacePatientInBed"/>
+			<dependency name="pNuoc"/>
 			<dependency name="pPatientsDelivered"/>
-			<dependency name="pVW"/>
+			<dependency name="pThucAn"/>
 			<dependency name="playerTabbed"/>
+			<dependency name="random"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -121599,7 +121878,6 @@
 		<member name="M:pc_cmd_pay" syntax="pc_cmd_pay(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="78"/>
-			<referrer name="OnDialogResponse"/>
 			<dependency name="DiscordLog"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -132081,6 +132359,8 @@
 			<referrer name="pc_cmd_testta"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="hosp_PlacePatientInBed"/>
+			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="Group_QueryFinish"/>

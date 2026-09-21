@@ -100,6 +100,9 @@
 #include "./modules/player/inventory/header"
 #include "./modules/player/mission/header"
 #include "./modules/player/suckhoe"
+
+//==============HOSPITAL============//
+#include "./modules/system/hospital_spawn"
 //#include "./modules/player/phone"
 
 #include "./modules/timers"
