@@ -10,14 +10,8 @@ stock ShowMainMenuTextdraws(playerid)
     if(g_PlayerTextDrawShown[playerid])
         return 0;
 
-    if(!g_PanelTextDrawCreated[playerid])
-        CreatePanelTextDraws(playerid);
-
     for(new i = 0; i < 80; i++)
-    {
-        if(Panel_TextDraw[playerid][i] != PlayerText:INVALID_TEXT_DRAW)
-            PlayerTextDrawShow(playerid, Panel_TextDraw[playerid][i]);
-    }
+        TextDrawShowForPlayer(playerid, PanelTD[i]);
 
     SelectTextDraw(playerid, 0xff78bcf0);
     PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
@@ -33,15 +27,10 @@ stock HideMainMenuTextdraws(playerid)
         return 0;
 
     for(new i = 0; i < 80; i++)
-    {
-        if(Panel_TextDraw[playerid][i] != PlayerText:INVALID_TEXT_DRAW)
-            PlayerTextDrawHide(playerid, Panel_TextDraw[playerid][i]);
-    }
+        TextDrawHideForPlayer(playerid, PanelTD[i]);
 
     CancelSelectTextDraw(playerid);
     PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-
-    DestroyPanelTextDraws(playerid);
 
     g_PlayerTextDrawShown[playerid] = false;
     g_PlayerInTextDrawMode[playerid] = false;
@@ -57,41 +46,37 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
             HideMainMenuTextdraws(playerid);
             return 1;
         }
+        return 0;
     }
-    return 0;
-}
 
-hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
-{
     if(!g_PlayerInTextDrawMode[playerid])
         return 0;
 
-    // Guard: các slot này bắt buộc phải tồn tại (chúng ta đang click vào chúng)
-    if(playertextid == Panel_TextDraw[playerid][5])
+    if(clickedid == PanelTD[5])            // Dien thoai
     {
         HideMainMenuTextdraws(playerid);
         PC_EmulateCommand(playerid, "/dienthoai");
         SetPVarInt(playerid, "DelayPhone", 1);
         return 1;
     }
-    else if(playertextid == Panel_TextDraw[playerid][10])
+    else if(clickedid == PanelTD[10])      // Close
     {
         HideMainMenuTextdraws(playerid);
         return 1;
     }
-    else if(playertextid == Panel_TextDraw[playerid][20])
+    else if(clickedid == PanelTD[20])      // Tui do (top row)
     {
         HideMainMenuTextdraws(playerid);
         PC_EmulateCommand(playerid, "/tuido");
         return 1;
     }
-    else if(playertextid == Panel_TextDraw[playerid][18])
+    else if(clickedid == PanelTD[18])      // Chinh xe
     {
         HideMainMenuTextdraws(playerid);
         PC_EmulateCommand(playerid, "/chinhxe");
         return 1;
     }
-    else if(playertextid == Panel_TextDraw[playerid][16])
+    else if(clickedid == PanelTD[16])      // Hanh dong
     {
         HideMainMenuTextdraws(playerid);
         ShowPlayerDialog(playerid, DIALOG_EMOTE, DIALOG_STYLE_LIST, "Hanh dong",
@@ -99,19 +84,19 @@ hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
             "Chon", "Huy");
         return 1;
     }
-    else if(playertextid == Panel_TextDraw[playerid][14])
+    else if(clickedid == PanelTD[14])      // Tim duong
     {
         HideMainMenuTextdraws(playerid);
         PC_EmulateCommand(playerid, "/timduong");
         return 1;
     }
-    else if(playertextid == Panel_TextDraw[playerid][13])
+    else if(clickedid == PanelTD[13])      // Tui do (bottom row)
     {
         HideMainMenuTextdraws(playerid);
         PC_EmulateCommand(playerid, "/tuido");
         return 1;
     }
-    else if(playertextid == Panel_TextDraw[playerid][12])
+    else if(clickedid == PanelTD[12])      // Tim viec lam
     {
         HideMainMenuTextdraws(playerid);
         PC_EmulateCommand(playerid, "/timvieclam");
@@ -149,18 +134,6 @@ hook OnPlayerConnect(playerid)
 {
     g_PlayerTextDrawShown[playerid]   = false;
     g_PlayerInTextDrawMode[playerid]  = false;
-    // Không tạo TD ở đây nữa — xem ui_panel.inc
-    return 1;
-}
-
-hook OnPlayerDisconnect(playerid, reason)
-{
-    // Dọn dẹp để chắc chắn — dù SA-MP tự free, vẫn tốt để state consistent
-    if(g_PanelTextDrawCreated[playerid])
-        DestroyPanelTextDraws(playerid);
-
-    g_PlayerTextDrawShown[playerid]  = false;
-    g_PlayerInTextDrawMode[playerid] = false;
     return 1;
 }
 
