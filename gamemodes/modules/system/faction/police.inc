@@ -1,3 +1,5 @@
+#include <YSI\YSI_Coding\y_hooks>
+
 #define DIALOG_POLICE_INSPECT   (11100)
 #define DIALOG_POLICE_TAKE_AMT  (11101)
 #define DIALOG_POLICE_TAKE_WEP  (11102)
