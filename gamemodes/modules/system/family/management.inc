@@ -19,9 +19,12 @@
 #define DIALOG_GANGS_SAFE_SETPOS 5358
 #define DIALOG_GANGS_SAFE_UPGRADE 5359
 #define DIALOG_GANGS_BANK       5360
+#define DIALOG_GANGS_MOTD       5361
+#define DIALOG_GANGS_MOTD_INPUT 5362
 
 // Per-player state cho management dialogs
 new g_fmSelectedPlayer[MAX_PLAYERS] = {-1, ...}; // Player đang được chọn để xử lý
+new g_fmMotdSlot[MAX_PLAYERS];                   // Slot MOTD đang chỉnh (0-2)
 
 // ---------------------------------------------------------------------------
 // LỆNH /gangs (rank 5+)
@@ -37,7 +40,7 @@ CMD:gangs(playerid, params[])
 
     ShowPlayerDialog(playerid, DIALOG_GANGS_MAIN, DIALOG_STYLE_LIST,
         "Quan Ly Gang",
-        "Thong tin gang\nQuan ly thanh vien\nKet sac\nNgan hang gang",
+        "Thong tin gang\nCai dat MOTD\nQuan ly thanh vien\nKet sac\nLich su ket sac",
         "Chon", "Dong");
     return 1;
 }
@@ -59,7 +62,13 @@ static stock FM_ShowGangInfo(playerid, famid)
         if(TurfData[t][twOwnerGang] == famid)
         {
             new tline[32];
-            format(tline, sizeof(tline), "  Turf #%d (%.0f,%.0f)\n", t+1, TurfData[t][twPosX], TurfData[t][twPosY]);
+            new float:X, float:Y, float:Z;
+            X = TurfData[t][twPosX];
+            Y = TurfData[t][twPosY];
+            Z = TurfData[t][twPosZ];
+            new zone[MAX_ZONE_NAME];
+			Get3DZone(X, Y, Z, zone, sizeof(zone));
+            format(tline, sizeof(tline), "  Turf #%d (%s)\n", t+1, zone);
             strcat(turfList, tline, sizeof(turfList));
         }
     }
@@ -67,7 +76,13 @@ static stock FM_ShowGangInfo(playerid, famid)
 
     new str[512];
     format(str, sizeof(str),
-        "Ten gang:      %s\nLevel ket:     %d / %d\nFame:          %d\nSo thanh vien: %d / %d (Online: %d)\nTien bank:     $%d\n\nTurf dang so huu:\n%s",
+        "{FFD700}===== %s =====\n\n\
+{AAAAAA}   Level ket:   {FFFF00}%d{AAAAAA}/%d\n\
+{AAAAAA}   Fame:        {FF8800}%d\n\
+{AAAAAA}   Thanh vien:  {FFFFFF}%d{AAAAAA}/%d  {44FF44}(Online: %d)\n\
+{AAAAAA}   Tien bank:   {FFFFFF}$%d\n\n\
+{FFD700}--- Turf dang so huu ---\n\
+{FFFFFF}%s",
         FamilyInfo[famid][FamilyName],
         lv, MAX_SAFE_LEVEL,
         FamilyInfo[famid][FamilyFame],
@@ -81,18 +96,20 @@ static stock FM_ShowGangInfo(playerid, famid)
 static stock FM_ShowMemberList(playerid, famid)
 {
     new list[1024]; list[0] = 0;
+
+    new memberCount = 0;
     foreach(new i : Player)
     {
         if(PlayerInfo[i][pFMember] != famid) continue;
         new pname[MAX_PLAYER_NAME];
         GetPlayerName(i, pname, sizeof(pname));
-        new line[56];
-        format(line, sizeof(line), "[Online] %s (Rank %d)\n", pname, PlayerInfo[i][pRank]);
+        new line[80];
+        format(line, sizeof(line), "{44FF44}[Online] {FFFFFF}%s  {FFFF00}(Rank %d)\n", pname, PlayerInfo[i][pRank]);
         strcat(list, line, sizeof(list));
+        memberCount++;
     }
 
-    // TODO: Nếu cần thêm thành viên offline, query database ở đây
-    if(strlen(list) == 0) format(list, sizeof(list), "(Khong co thanh vien online)");
+    if(memberCount == 0) strcat(list, "{AAAAAA}(Khong co thanh vien online)\n", sizeof(list));
 
     ShowPlayerDialog(playerid, DIALOG_GANGS_MEMBERS, DIALOG_STYLE_LIST, "Danh Sach Thanh Vien (Online)", list, "Chon", "Quay Lai");
 }
@@ -110,6 +127,22 @@ static stock FM_GetGangMemberByIdx(famid, idx)
     return -1;
 }
 
+static stock FM_ShowMotdMenu(playerid, famid)
+{
+    new list[512];
+    for(new i = 0; i < 3; i++)
+    {
+        new line[160];
+        if(strlen(FamilyMOTD[famid][i]) > 0)
+            format(line, sizeof(line), "{AAAAAA}[%d] {FFFFFF}%s\n", i + 1, FamilyMOTD[famid][i]);
+        else
+            format(line, sizeof(line), "{AAAAAA}[%d] {888888}(Chua co noi dung)\n", i + 1);
+        strcat(list, line, sizeof(list));
+    }
+    ShowPlayerDialog(playerid, DIALOG_GANGS_MOTD, DIALOG_STYLE_LIST,
+        "Cai Dat MOTD Gang", list, "Chinh sua", "Quay Lai");
+}
+
 static stock FM_ShowMemberActions(playerid, targetid)
 {
     if(targetid == -1 || !IsPlayerConnected(targetid)) return;
@@ -120,7 +153,7 @@ static stock FM_ShowMemberActions(playerid, targetid)
 
     ShowPlayerDialog(playerid, DIALOG_GANGS_MEMBER_ACT, DIALOG_STYLE_LIST,
         title,
-        "Nang rank\nHa rank\nKick khoi gang",
+        "{44FF44}Nang rank\n{FFAA00}Ha rank\n{FF4444}Kick khoi gang",
         "Chon", "Huy");
 }
 
@@ -143,20 +176,31 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             switch(listitem)
             {
                 case 0: FM_ShowGangInfo(playerid, fam);
-                case 1: FM_ShowMemberList(playerid, fam);
-                case 2: // Két sắt sub-menu
+                case 1: // Cài đặt MOTD (rank 4+)
                 {
-                    ShowPlayerDialog(playerid, DIALOG_GANGS_SAFE, DIALOG_STYLE_LIST,
-                        "Ket Sac Gang",
-                        "Dat vi tri ket ve vi tri hien tai\nNang cap ket sac",
-                        "Chon", "Quay Lai");
+                    if(rank < 4)
+                        return SendClientMessageEx(playerid, COLOR_RED, "Can rank 4+ de cai dat MOTD."), 1;
+                    FM_ShowMotdMenu(playerid, fam);
                 }
-                case 3: // Bank → mở dialog bank (dùng dialog của assets.inc)
+                case 2: FM_ShowMemberList(playerid, fam);
+                case 3: // Két sắt sub-menu
                 {
-                    ShowPlayerDialog(playerid, DIALOG_BANK_MAIN, DIALOG_STYLE_LIST,
-                        "Ngan Hang Gang",
-                        "Xem so du\nNap tien vao bank\nRut tien khoi bank (rank 5+)",
-                        "Chon", "Dong");
+                    new lv_s = FamilyInfo[fam][FamilyLevel];
+                    new safeList[256];
+                    format(safeList, sizeof(safeList),
+                        "{FFD700}[ Di chuyen ket ]{AAAAAA}  Cooldown: 3 ngay\n\
+{44FF44}[ Nang cap Level %d > %d ]{AAAAAA}  Chi phi: $%d + %d VL",
+                        lv_s, lv_s + 1,
+                        FA_GetUpgradeCostCash(lv_s + 1),
+                        FA_GetUpgradeCostMats(lv_s + 1));
+                    ShowPlayerDialog(playerid, DIALOG_GANGS_SAFE, DIALOG_STYLE_LIST,
+                        "Ket Sac Gang", safeList, "Chon", "Quay Lai");
+                }
+                case 4: // Lịch sử két sắt (rank 5+ → gọi FA_ShowLogs)
+                {
+                    if(rank < 5)
+                        return SendClientMessageEx(playerid, COLOR_RED, "Can rank 5+ de xem lich su ket sac."), 1;
+                    FA_ShowLogs(playerid, fam);
                 }
             }
             return 1;
@@ -172,7 +216,7 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 // Quay lại main menu
                 ShowPlayerDialog(playerid, DIALOG_GANGS_MAIN, DIALOG_STYLE_LIST,
                     "Quan Ly Gang",
-                    "Thong tin gang\nQuan ly thanh vien\nKet sac\nNgan hang gang",
+                    "Thong tin gang\nCai dat MOTD\nQuan ly thanh vien\nKet sac\nLich su ket sac",
                     "Chon", "Dong");
                 return 1;
             }
@@ -271,7 +315,7 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 ShowPlayerDialog(playerid, DIALOG_GANGS_MAIN, DIALOG_STYLE_LIST,
                     "Quan Ly Gang",
-                    "Thong tin gang\nQuan ly thanh vien\nKet sac\nNgan hang gang",
+                    "Thong tin gang\nCai dat MOTD\nQuan ly thanh vien\nKet sac\nLich su ket sac",
                     "Chon", "Dong");
                 return 1;
             }
@@ -279,19 +323,33 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 case 0: // Đặt vị trí két về vị trí hiện tại
                 {
+                    // Kiểm tra cooldown 3 ngày
+                    new elapsed = gettime() - g_safeCooldown[fam];
+                    if(g_safeCooldown[fam] != 0 && elapsed < SAFE_MOVE_COOLDOWN)
+                    {
+                        new dLeft = (SAFE_MOVE_COOLDOWN - elapsed) / 86400;
+                        new hLeft = ((SAFE_MOVE_COOLDOWN - elapsed) % 86400) / 3600;
+                        new cdStr[96];
+                        format(cdStr, sizeof(cdStr), "Ket sac chi duoc doi vi tri sau %d ngay %d gio nua.", dLeft, hLeft);
+                        return SendClientMessageEx(playerid, COLOR_RED, cdStr), 1;
+                    }
+
                     new Float:px, Float:py, Float:pz;
                     GetPlayerPos(playerid, px, py, pz);
                     FamilyInfo[fam][FamilySafe][0] = px;
                     FamilyInfo[fam][FamilySafe][1] = py;
                     FamilyInfo[fam][FamilySafe][2] = pz;
 
-                    // Hủy pickup cũ và tạo mới
-                    if(FamilyInfo[fam][FamilyPickup] != -1)
-                        DestroyPickup(FamilyInfo[fam][FamilyPickup]);
-                    FamilyInfo[fam][FamilyPickup] = CreatePickup(1239, 23, px, py, pz, -1);
+                    // Xóa pickup cũ và tạo mới
+                    if(FamilyInfo[fam][FamilyPickup] != 0)
+                        DestroyDynamicPickup(FamilyInfo[fam][FamilyPickup]);
+                    FamilyInfo[fam][FamilyPickup] = CreateDynamicPickup(1239, 23, px, py, pz, -1);
 
+                    g_safeCooldown[fam] = gettime();
                     SaveFamily(fam);
-                    SendClientMessageEx(playerid, COLOR_GREEN, "Da cap nhat vi tri ket sac gang.");
+                    SaveFamilyExt(fam);
+                    FA_UpdateSafeLabel(fam);
+                    SendClientMessageEx(playerid, COLOR_GREEN, "Da cap nhat vi tri ket sac gang. Dung /glocker tai day de mo ket. Cooldown: 3 ngay.");
                 }
                 case 1: // Nâng cấp két
                 {
@@ -300,10 +358,20 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(nextLv > MAX_SAFE_LEVEL)
                         return SendClientMessageEx(playerid, COLOR_RED, "Ket sac da dat cap do toi da."), 1;
 
-                    new str[256];
+                    new str[512];
                     format(str, sizeof(str),
-                        "Nang cap ket sac len Level %d?\n\nChi phi:\n  Tien mat (tren nguoi): $%d\n  Vat lieu (tren nguoi): %d\n\nKhi nang cap:\n  Tien max: $%d\n  Hang max: %d\n  VL max: %d\n  Slot VK: %d\n  Thanh vien max: %d",
-                        nextLv,
+                        "{FFD700}===== Nang Cap Ket Sac =====\n\n\
+{AAAAAA}   Level hien tai:  {FFFF00}%d  {AAAAAA}->  {44FF44}%d\n\n\
+{FFD700}--- Chi phi ---\n\
+{AAAAAA}   Tien mat:        {FF6B6B}$%d\n\
+{AAAAAA}   Vat lieu:        {FF6B6B}%d\n\n\
+{FFD700}--- Sau khi nang cap ---\n\
+{AAAAAA}   Tien max:        {FFFFFF}$%d\n\
+{AAAAAA}   Hang max:        {FFFFFF}%d\n\
+{AAAAAA}   VL max:          {FFFFFF}%d\n\
+{AAAAAA}   Slot vu khi:     {FFFFFF}%d\n\
+{AAAAAA}   Thanh vien max:  {FFFFFF}%d",
+                        lv, nextLv,
                         FA_GetUpgradeCostCash(nextLv),
                         FA_GetUpgradeCostMats(nextLv),
                         FA_GetMaxCash(nextLv),
@@ -322,6 +390,48 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
             if(!response) return 1;
             FA_UpgradeSafe(playerid, fam);
+            return 1;
+        }
+
+        // ---- MOTD ----
+        case DIALOG_GANGS_MOTD:
+        {
+            if(!response)
+            {
+                ShowPlayerDialog(playerid, DIALOG_GANGS_MAIN, DIALOG_STYLE_LIST,
+                    "Quan Ly Gang",
+                    "Thong tin gang\nCai dat MOTD\nQuan ly thanh vien\nKet sac\nLich su ket sac",
+                    "Chon", "Dong");
+                return 1;
+            }
+            if(listitem < 0 || listitem > 2) return 1;
+            g_fmMotdSlot[playerid] = listitem;
+            new title[32];
+            format(title, sizeof(title), "Chinh Sua MOTD Slot %d", listitem + 1);
+            new cur[128];
+            format(cur, sizeof(cur), "%s", FamilyMOTD[fam][listitem]);
+            ShowPlayerDialog(playerid, DIALOG_GANGS_MOTD_INPUT, DIALOG_STYLE_INPUT,
+                title, "{ffffff}Nhap noi dung MOTD (de trong de xoa):", "Luu", "Huy");
+            #pragma unused cur
+            return 1;
+        }
+
+        case DIALOG_GANGS_MOTD_INPUT:
+        {
+            if(!response)
+            {
+                FM_ShowMotdMenu(playerid, fam);
+                return 1;
+            }
+            new slot = g_fmMotdSlot[playerid];
+            if(strlen(inputtext) > 128)
+                return SendClientMessageEx(playerid, COLOR_RED, "MOTD toi da 128 ky tu."), 1;
+            strmid(FamilyMOTD[fam][slot], inputtext, 0, strlen(inputtext), 128);
+            SaveFamily(fam);
+            new str[64];
+            format(str, sizeof(str), "Da cap nhat MOTD slot %d.", slot + 1);
+            SendClientMessageEx(playerid, COLOR_GREEN, str);
+            FM_ShowMotdMenu(playerid, fam);
             return 1;
         }
     }

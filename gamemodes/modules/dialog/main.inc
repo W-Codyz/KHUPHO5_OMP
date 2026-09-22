@@ -17715,9 +17715,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 	} */
 
-	// [Family System] – Turf Wars / Két sắt / Quản lý gang
+	// [Family System] – Turf Wars / Két sắt / Quản lý gang / Admin
 	if(TW_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
 	if(FA_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
 	if(FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
+	if(FAdmin_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
 	return 1;
 }

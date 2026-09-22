@@ -36081,6 +36081,10 @@ CMD:adjustrankname(playerid, params[])
 	return 1;
 }
 
+// [OLD] CMD:fcreate và CMD:fdelete đã được chuyển sang
+// gamemodes/modules/system/family/admin.inc (dialog-based)
+// Giữ lại để tham khảo.
+/*
 CMD:fcreate(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] > 3 || PlayerInfo[playerid][pGangModerator] >= 1)
@@ -36149,6 +36153,7 @@ CMD:fdelete(playerid, params[])
 	}
 	return 1;
 }
+*/
 
 CMD:ram(playerid, params[])
 {
