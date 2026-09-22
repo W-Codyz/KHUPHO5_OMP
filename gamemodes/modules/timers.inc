@@ -826,9 +826,16 @@ task EMSUpdate[5000]()
 
 					if(!GetPVarInt(i, "StreamPrep") && !IsPlayerInRangeOfPoint(i, 3.0, GetPVarFloat(i,"MedicX"), GetPVarFloat(i,"MedicY"), GetPVarFloat(i,"MedicZ")) && !GetPVarInt(i, "OnStretcher"))
 	    			{
-      			        SendClientMessageEx(i, COLOR_WHITE, "Ban da bi bat tinh, ban se duoc dua ve benh vien de dieu tri.");
+      			        SendClientMessageEx(i, COLOR_WHITE, "Ban da bi bat tinh, ban se duoc dua ve benh vien de dieu tri. Hoa don y te: $15,000.");
+						GivePlayerCash(i, -HOSP_FAIL_FEE);
+						Tax += HOSP_FAIL_FEE;
+						ResetPlayerWeapons(i);
+						for(new w = 0; w < 12; w++) PlayerInfo[i][pGuns][w] = 0;
+						PlayerInfo[i][pThucAn] = 50;
+						PlayerInfo[i][pNuoc] = 50;
 	        			KillEMSQueue(i);
-						SpawnPlayer(i);
+						hosp_PlacePatientInBed(i, true);
+						continue;
 	    			}
 					SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~/chapnhan chet hoac /dichvu capcuu");
 					new string[256];
@@ -840,9 +847,12 @@ task EMSUpdate[5000]()
 					if(GetPlayerAnimationIndex(i) != 1537) ClearAnimations(i), ApplyAnimation(i, "SWEET", "Sweet_injuredloop", 4.0, false, true, true, true, 0, 1);
 	    			if(!GetPVarInt(i, "StreamPrep") && !IsPlayerInRangeOfPoint(i, 3.0, GetPVarFloat(i,"MedicX"), GetPVarFloat(i,"MedicY"), GetPVarFloat(i,"MedicZ")) && !GetPVarInt(i, "OnStretcher"))
 	    			{
-	        			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh, ban duoc dua den benh vien da dieu tri.");
+	        			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh, ban duoc dua den benh vien da dieu tri. Hoa don y te: $3,000.");
+						GivePlayerCash(i, -HOSP_SUCCESS_FEE);
+						Tax += HOSP_SUCCESS_FEE;
 	        			KillEMSQueue(i);
-						SpawnPlayer(i);
+						hosp_PlacePatientInBed(i, false);
+						continue;
 	    			}
 					SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~Dang doi EMS den...");
 					new string[256];
@@ -856,10 +866,13 @@ task EMSUpdate[5000]()
 	    			    SetPVarInt(i, "EMSWarns", GetPVarInt(i, "EMSWarns")+1);
 	    			    if(GetPVarInt(i, "EMSWarns") == 2)
 	    			    {
-		        			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh, ban ngay lap tuc duoc dua den benh vien de dieu tri.");
+		        			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh, ban ngay lap tuc duoc dua den benh vien de dieu tri. Hoa don y te: $3,000.");
+							GivePlayerCash(i, -HOSP_SUCCESS_FEE);
+							Tax += HOSP_SUCCESS_FEE;
 		        			KillEMSQueue(i);
-							SpawnPlayer(i);
 							DeletePVar(i, "EMSWarns");
+							hosp_PlacePatientInBed(i, false);
+							continue;
 						}
 	    			}
 					SendMessageTD(i, 5200, "~g~Dich vu~n~~w~Dang cho dieu tri...");
@@ -878,9 +891,16 @@ task EMSUpdate[5000]()
 						}
 						else
 						{
-		    				SendClientMessageEx(i, COLOR_WHITE, "Ban bi bat tinh va khong duoc ho tro, ngay lap tuc duoc dua den nha xac de lay noi tang dem ban.");
+		    				SendClientMessageEx(i, COLOR_WHITE, "Ban bi bat tinh va khong duoc ho tro, ngay lap tuc duoc dua den benh vien. Hoa don y te: $15,000.");
+							GivePlayerCash(i, -HOSP_FAIL_FEE);
+							Tax += HOSP_FAIL_FEE;
+							ResetPlayerWeapons(i);
+							for(new ww = 0; ww < 12; ww++) PlayerInfo[i][pGuns][ww] = 0;
+							PlayerInfo[i][pThucAn] = 50;
+							PlayerInfo[i][pNuoc] = 50;
 	        				KillEMSQueue(i);
-							SpawnPlayer(i);
+							hosp_PlacePatientInBed(i, true);
+							continue;
 						}
 					}
 					else
@@ -888,10 +908,17 @@ task EMSUpdate[5000]()
 					    SetPVarInt(i, "EMSWarnst", GetPVarInt(i, "EMSWarnst")+1);
 	    			    if(GetPVarInt(i, "EMSWarnst") == 2)
 	    			    {
-			    			SendClientMessageEx(i, COLOR_WHITE, "Ban roi ra khoi chiec xe, ngay lap tuc duoc dua den nha xac de lay noi tang dem ban.");
+			    			SendClientMessageEx(i, COLOR_WHITE, "Ban roi ra khoi chiec xe, ngay lap tuc duoc dua den benh vien. Hoa don y te: $15,000.");
+							GivePlayerCash(i, -HOSP_FAIL_FEE);
+							Tax += HOSP_FAIL_FEE;
+							ResetPlayerWeapons(i);
+							for(new ww2 = 0; ww2 < 12; ww2++) PlayerInfo[i][pGuns][ww2] = 0;
+							PlayerInfo[i][pThucAn] = 50;
+							PlayerInfo[i][pNuoc] = 50;
 		        			KillEMSQueue(i);
-							SpawnPlayer(i);
 							DeletePVar(i, "EMSWarnst");
+							hosp_PlacePatientInBed(i, true);
+							continue;
 						}
 					}
 				}
@@ -899,9 +926,15 @@ task EMSUpdate[5000]()
 				GetPlayerHealth(i, health);
 				if(health <= 5)
 				{
-	    			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh, ngay lap tuc duoc dua den benh vien de dieu tri.");
+	    			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh vi mat mau, ngay lap tuc duoc dua den benh vien. Hoa don y te: $15,000.");
+					GivePlayerCash(i, -HOSP_FAIL_FEE);
+					Tax += HOSP_FAIL_FEE;
+					ResetPlayerWeapons(i);
+					for(new ww3 = 0; ww3 < 12; ww3++) PlayerInfo[i][pGuns][ww3] = 0;
+					PlayerInfo[i][pThucAn] = 50;
+					PlayerInfo[i][pNuoc] = 50;
 	    			KillEMSQueue(i);
-					SpawnPlayer(i);
+					hosp_PlacePatientInBed(i, true);
 				}
 	        }
 	    }
@@ -1562,7 +1595,7 @@ task ServerHeartbeatTwo[1000]() {
 		{
 		    GivePlayerValidWeapon( i, 46, 9 );
 		}
-		if(GetPlayerState(i) == PLAYER_STATE_ONFOOT) for(new h = 0; h < sizeof(FamilyInfo); h++)
+		/* if(GetPlayerState(i) == PLAYER_STATE_ONFOOT) for(new h = 0; h < sizeof(FamilyInfo); h++)
 		{
 			if(IsPlayerInRangeOfPoint(i, 2.0, FamilyInfo[h][FamilySafe][0], FamilyInfo[h][FamilySafe][1], FamilyInfo[h][FamilySafe][2]) && GetPlayerVirtualWorld(i) == FamilyInfo[h][FamilySafeVW] && GetPlayerInterior(i) == FamilyInfo[h][FamilySafeInt])
 			{
@@ -1571,7 +1604,7 @@ task ServerHeartbeatTwo[1000]() {
 					GameTextForPlayer(i, "~y~gang safe~w~~n~Su dung ~r~/safehelp~w~ de biet them thong tin", 5000, 3);
 				}
 			}
-		}
+		} */
 
 		for(new h = 0; h < sizeof(Points); h++)
 		{
