@@ -3549,6 +3549,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			ABroadCast(COLOR_YELLOW,string,2);
 	    }
 	}
+	/* [OLD TURF SYSTEM - TWADMINMENU through TWEDITFCOLORSMENU dialogs removed]
 	if(dialogid == TWADMINMENU) // Turf Wars System
 	{
 	    if(response == 1)
@@ -3761,6 +3762,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	        TurfWarsEditFColorsSelection(playerid);
 	    }
 	}
+	*/ // end OLD TURF SYSTEM dialogs
+
 	if(dialogid == RTONEMENU) // Ringtone Menu
 	{
 		if(response == 1)
@@ -5551,7 +5554,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if(special == 1 && itemid == 2) // Pot Special "Selling"
 				{
-					ExtortionTurfsWarsZone(PotOffer[playerid], 1, PotPrice[playerid]);
+					//ExtortionTurfsWarsZone(PotOffer[playerid], 1, PotPrice[playerid]); // [OLD TURF SYSTEM]
 
 					if(PlayerInfo[PotOffer[playerid]][pDoubleEXP] > 0)
 					{
@@ -5580,7 +5583,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if(special == 1 && itemid == 3) // Crack Special "Selling"
 				{
-					ExtortionTurfsWarsZone(CrackOffer[playerid], 1, CrackPrice[playerid]);
+					//ExtortionTurfsWarsZone(CrackOffer[playerid], 1, CrackPrice[playerid]); // [OLD TURF SYSTEM]
 
 					if(PlayerInfo[CrackOffer[playerid]][pDoubleEXP] > 0)
 					{
@@ -17706,10 +17709,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(isnull(PlayerInfo[playerid][pDiscordID]))
 		{
 			SendClientMessageEx(playerid, COLOR_GREY, "* Ban chua lien ket tai khoan in-game voi Discord nen bi kick khoi may chu!");
-			ShowPlayerDialog(playerid, DIALOG_DISCORD_VERIFY, DIALOG_STYLE_MSGBOX, "{FFFFFF}Lien ket tai khoan Discord", 
+			ShowPlayerDialog(playerid, DIALOG_DISCORD_VERIFY, DIALOG_STYLE_MSGBOX, "{FFFFFF}Lien ket tai khoan Discord",
             "{FFFFFF}Tai khoan in-game cua ban chua duoc lien ket voi Discord\nvui long truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} tai Discord\ncua {FF6666}GTA-HTB Roleplay{FFFFFF} de tien hanh lien ket.\n\nSau khi truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} go lenh [/xacminh {E7D727}%i{FFFFFF}] de bat dau viec lien ket.\nDiscord: dsc.gg/gtahtb", "Xac nhan", "", PlayerInfo[playerid][pDiscordCode]);
 			SetTimerEx("KickEx", 1000, 0, "i", playerid);
 		}
 	} */
+
+	// [Family System] – Turf Wars / Két sắt / Quản lý gang
+	if(TW_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
+	if(FA_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
+	if(FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
 	return 1;
 }

@@ -69,6 +69,11 @@
 
 #include "./modules/misc/msg"
 
+//==============FAMILY SYSTEM============//
+#include "./modules/system/family/assets"
+#include "./modules/system/family/turfwars"
+#include "./modules/system/family/management"
+
 //==============SYSTEM============//
 #include "./modules/system/ruatho"
 #include "./modules/system/safezone"
@@ -162,6 +167,13 @@ public OnGameModeInit()
 	print("Hoan tat cau hinh plugin, chuan bi tai gamemode...");
 	g_mysql_Init();
 	Discord_Init();
+	// Family
+	FamilyAssets_InitMySQL();
+	FamilyAssets_Load();
+	TurfWars_InitMySQL();
+	TurfWars_Load();
+	TurfSupplyPoints_InitMySQL();
+	TurfSupplyPoints_Load();
 	return 1;
 }
 

@@ -633,6 +633,7 @@ task MoneyUpdate[1000]()
 	}
 }*/
 
+/* [OLD SYSTEM - thay bằng TurfWarsNewUpdate trong system/family/turfwars.inc]
 // Timer Name: TurfWarsUpdate()
 // TickRate: 1 secs.
 task TurfWarsUpdate[1000]()
@@ -664,6 +665,7 @@ task TurfWarsUpdate[1000]()
 	    }
 	}
 }
+*/ // end TurfWarsUpdate
 
 // Timer Name: PaintballArenaUpdate()
 // TickRate: 1 secs.

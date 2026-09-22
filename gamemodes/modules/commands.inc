@@ -2064,6 +2064,7 @@ CMD:curevirus(playerid, params[])
 }
 #endif
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:turfinfo(playerid, params[])
 {
     if(GetPlayerTurfWarsZone(playerid) != -1) {
@@ -2113,6 +2114,7 @@ CMD:turfinfo(playerid, params[])
     }
     return 1;
 }
+*/ // end CMD:turfinfo
 
 CMD:unlockarenas(playerid, params[])
 {
@@ -2258,7 +2260,7 @@ CMD:savetwpos(playerid, params[])
                     SendClientMessageEx(playerid, COLOR_WHITE, string);
                     SetPVarInt(playerid, "EditingTurfsStage", -1);
 
-                    DestroyTurfWarsZone(tw);
+                    //DestroyTurfWarsZone(tw); // [OLD SYSTEM]
 
                     tminx = GetPVarFloat(playerid, "EditingTurfsMinX");
                     tminy = GetPVarFloat(playerid, "EditingTurfsMinY");
@@ -2275,7 +2277,7 @@ CMD:savetwpos(playerid, params[])
                     SetPVarFloat(playerid, "EditingTurfsMaxX", 0.0);
                     SetPVarFloat(playerid, "EditingTurfsMaxY", 0.0);
 
-                    CreateTurfWarsZone(1,tw);
+                    //CreateTurfWarsZone(1,tw); // [OLD SYSTEM]
                     ShowPlayerDialog(playerid,TWEDITTURFSMENU,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Menu:","Edit Dimensions...\nEdit Owners...\nEdit Vulnerable Time...\nEdit Locked...\nEdit Perks...\nReset War...\nDestroy Turf","Select","Back");
                 }
             }
@@ -2696,7 +2698,7 @@ CMD:savecfgs(playerid, params[])
         return 1;
     }
     SendClientMessageEx(playerid, COLOR_WHITE, "* Saving CFG Files..");
-    SaveTurfWars();
+    //SaveTurfWars(); // [OLD SYSTEM]
     SaveFamilies();
     SendClientMessageEx(playerid, COLOR_WHITE, "* Done");
     return 1;
@@ -9920,7 +9922,7 @@ CMD:accept(playerid, params[])
 	                    GetPlayerName(playerid, sendername, sizeof(sendername));
 	                    format(szMessage, sizeof(szMessage), "* %s da mua cua ban %d fireworks, $%d da duoc them vao tai khoan.",sendername,GetPVarInt(playerid, "SyringesCount"),GetPVarInt(playerid, "SyringesPrice"));
 	                    SendClientMessageEx(GetPVarInt(playerid, "SyringesOffer"), COLOR_LIGHTBLUE, szMessage);
-	                    ExtortionTurfsWarsZone(GetPVarInt(playerid, "SyringesOffer"), 5, GetPVarInt(playerid, "SyringesPrice"));
+	                    //ExtortionTurfsWarsZone( // [OLD SYSTEM]  //(GetPVarInt(playerid, "SyringesOffer"), 5, GetPVarInt(playerid, "SyringesPrice"));
 	                    PlayerInfo[GetPVarInt(playerid, "SyringesOffer")][pSyringes] -= GetPVarInt(playerid, "SyringesCount");
 	                    PlayerInfo[playerid][pSyringes] += GetPVarInt(playerid, "SyringesCount");
 
@@ -9965,7 +9967,7 @@ CMD:accept(playerid, params[])
 	                    GetPlayerName(playerid, sendername, sizeof(sendername));
 	                    format(szMessage, sizeof(szMessage), "* %s has bought your %d rim kits, $%d was added to your money.",sendername,GetPVarInt(playerid, "RimCount"),GetPVarInt(playerid, "RimPrice"));
 	                    SendClientMessageEx(GetPVarInt(playerid, "RimOffer"), COLOR_LIGHTBLUE, szMessage);
-	                    //ExtortionTurfsWarsZone(GetPVarInt(playerid, "RimOffer"), 5, GetPVarInt(playerid, "RimPrice"));
+	                    ////ExtortionTurfsWarsZone( // [OLD SYSTEM]  //(GetPVarInt(playerid, "RimOffer"), 5, GetPVarInt(playerid, "RimPrice"));
 	                    PlayerInfo[GetPVarInt(playerid, "RimOffer")][pRimMod] -= GetPVarInt(playerid, "RimCount");
 	                    PlayerInfo[playerid][pRimMod] += GetPVarInt(playerid, "RimCount");
 
@@ -10202,7 +10204,7 @@ CMD:accept(playerid, params[])
 	                    GetPlayerName(playerid, sendername, sizeof(sendername));
 	                    format(szMessage, sizeof(szMessage), "* %s has bought your %d milligrams of heroin, $%d was added to your money.",sendername,GetPVarInt(playerid, "HeroinCount"),GetPVarInt(playerid, "HeroinPrice"));
 	                    SendClientMessageEx(GetPVarInt(playerid, "HeroinOffer"), COLOR_LIGHTBLUE, szMessage);
-	                    ExtortionTurfsWarsZone(GetPVarInt(playerid, "HeroinOffer"), 5, GetPVarInt(playerid, "HeroinPrice"));
+	                    //ExtortionTurfsWarsZone( // [OLD SYSTEM]  //(GetPVarInt(playerid, "HeroinOffer"), 5, GetPVarInt(playerid, "HeroinPrice"));
 	                    PlayerInfo[GetPVarInt(playerid, "HeroinOffer")][pHeroin] -= GetPVarInt(playerid, "HeroinCount");
 	                    PlayerInfo[playerid][pHeroin] += GetPVarInt(playerid, "HeroinCount");
 
@@ -10250,7 +10252,7 @@ CMD:accept(playerid, params[])
 	                    GetPlayerName(playerid, sendername, sizeof(sendername));
 	                    format(szMessage, sizeof(szMessage), "* %s has bought your %d milligrams of raw opium, $%d was added to your money.",sendername,GetPVarInt(playerid, "RawOpiumCount"),GetPVarInt(playerid, "RawOpiumPrice"));
 	                    SendClientMessageEx(GetPVarInt(playerid, "RawOpiumOffer"), COLOR_LIGHTBLUE, szMessage);
-	                    ExtortionTurfsWarsZone(GetPVarInt(playerid, "RawOpiumOffer"), 5, GetPVarInt(playerid, "RawOpiumPrice"));
+	                    //ExtortionTurfsWarsZone( // [OLD SYSTEM]  //(GetPVarInt(playerid, "RawOpiumOffer"), 5, GetPVarInt(playerid, "RawOpiumPrice"));
 	                    PlayerInfo[GetPVarInt(playerid, "RawOpiumOffer")][pRawOpium] -= GetPVarInt(playerid, "RawOpiumCount");
 	                    PlayerInfo[playerid][pRawOpium] += GetPVarInt(playerid, "RawOpiumCount");
 
@@ -10298,7 +10300,7 @@ CMD:accept(playerid, params[])
 	                    GetPlayerName(playerid, sendername, sizeof(sendername));
 	                    format(szMessage, sizeof(szMessage), "* %s has bought your %d fireworks, $%d was added to your money.",sendername,GetPVarInt(playerid, "FireworkCount"),GetPVarInt(playerid, "FireworkPrice"));
 	                    SendClientMessageEx(GetPVarInt(playerid, "FireworkOffer"), COLOR_LIGHTBLUE, szMessage);
-	                    ExtortionTurfsWarsZone(GetPVarInt(playerid, "FireworkOffer"), 5, GetPVarInt(playerid, "FireworkPrice"));
+	                    //ExtortionTurfsWarsZone( // [OLD SYSTEM]  //(GetPVarInt(playerid, "FireworkOffer"), 5, GetPVarInt(playerid, "FireworkPrice"));
 	                    PlayerInfo[GetPVarInt(playerid, "FireworkOffer")][pFirework] -= GetPVarInt(playerid, "FireworkCount");
 	                    PlayerInfo[playerid][pFirework] += GetPVarInt(playerid, "FireworkCount");
 
@@ -11806,6 +11808,7 @@ CMD:destroycars(playerid, params[])
     return 1;
 }
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:turfs(playerid, params[])
 {
     if(turfWarsRadar[playerid] == 0) {
@@ -11818,7 +11821,9 @@ CMD:turfs(playerid, params[])
     }
     return 1;
 }
+*/ // end CMD:turfs
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:shutdown(playerid, params[])
 {
     if(IsACop(playerid)) {
@@ -11876,14 +11881,18 @@ CMD:shutdown(playerid, params[])
     }
 	return 1;
 }
+*/ // end CMD:shutdown
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:pclaim(playerid, params[]) // Add a 30 second wait timer to prevent spam.
 {
 	g_mysql_Check_Store(playerid);
 	return 1;
 }
+*/ // end CMD:pclaim
 
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:claim(playerid, params[])
 {
 	if(servernumber == 2)
@@ -11998,6 +12007,7 @@ CMD:claim(playerid, params[])
     }
     return 1;
 }
+*/ // end CMD:claim
 
 alias:scores("diemarena")
 CMD:scores(playerid, params[])
@@ -13960,6 +13970,7 @@ CMD:vipnum(playerid, params[])
 	return 1;
 }
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:safebalance(playerid, params[]) {
 	if(PlayerInfo[playerid][pFMember] < INVALID_FAMILY_ID) {
 		if(FamilyInfo[PlayerInfo[playerid][pFMember]][FamilyUSafe] < 1) {
@@ -13985,7 +13996,9 @@ CMD:safebalance(playerid, params[]) {
 	else SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong o trong family.");
 	return 1;
 }
+*/ // end CMD:safebalance
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:safehelp(playerid, params[])
 {
     SendClientMessageEx(playerid, COLOR_GREEN, "_______________________________________________");
@@ -13993,6 +14006,7 @@ CMD:safehelp(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, "SAFE: /safebalance /safedeposit /safewithdraw /fstoregun /fgetgun.");
 	return 1;
 }
+*/ // end CMD:safehelp
 
 CMD:shopplate(playerid, params[])
 {
@@ -35226,6 +35240,7 @@ CMD:families(playerid, params[])
 	return 1;
 }
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:fbalance(playerid, params[])
 {
 	if(!IsPlayerInRangeOfPoint(playerid, 15.0, 2308.7346, -11.0134, 26.7422))
@@ -35249,7 +35264,9 @@ CMD:fbalance(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_YELLOW, string);
 	return 1;
 }
+*/ // end CMD:fbalance
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:fdeposit(playerid, params[])
 {
 	if(!IsPlayerInRangeOfPoint(playerid, 15.0, 2308.7346, -11.0134, 26.7422))
@@ -35300,7 +35317,9 @@ CMD:fdeposit(playerid, params[])
 	Log(file, string);
 	return 1;
 }
+*/ // end CMD:fdeposit
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:fwithdraw(playerid, params[])
 {
 	if(!IsPlayerInRangeOfPoint(playerid, 15.0, 2308.7346, -11.0134, 26.7422))
@@ -35349,7 +35368,9 @@ CMD:fwithdraw(playerid, params[])
 	Log(file, string);
 	return 1;
 }
+*/ // end CMD:fwithdraw
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:fstoregun(playerid, params[])
 {
 	if(GetPVarInt(playerid, "IsInArena") >= 0) return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lam dieu nay trong dau truong!");
@@ -35494,7 +35515,9 @@ CMD:fstoregun(playerid, params[])
 	}
 	return 1;
 }
+*/ // end CMD:fstoregun
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:fgetgun(playerid, params[])
 {
 	new string[128], slot;
@@ -35617,7 +35640,9 @@ CMD:fgetgun(playerid, params[])
 		return SendClientMessageEx(playerid, COLOR_GRAD1, "You're not at your family safe.");
 	}
 }
+*/ // end CMD:fgetgun
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:safedeposit(playerid, params[]) // TransferStorage(playerid, storageid, fromplayerid, fromstorageid, itemid, amount, price, special)
 {
 	new family;
@@ -35635,7 +35660,7 @@ CMD:safedeposit(playerid, params[]) // TransferStorage(playerid, storageid, from
 		SendClientMessageEx(playerid, COLOR_GREY, "ItemIDs: (1) Cash - (2) Pot - (3) Crack - (4) Materials - (5) Heroin");
 		return 1;
 	}
-	/*if(sscanf(params, "ddd", itemid, storageid, amount))
+	if(sscanf(params, "ddd", itemid, storageid, amount))
 	{
 		SendClientMessageEx(playerid, COLOR_WHITE, "SU DUNG: /safedeposit [itemid] [storageid] [amount]");
 		SendClientMessageEx(playerid, COLOR_GREY, "ItemIDs: (1) Cash - (2) Pot - (3) Crack - (4) Materials");
@@ -35654,12 +35679,12 @@ CMD:safedeposit(playerid, params[]) // TransferStorage(playerid, storageid, from
 		SendClientMessageEx(playerid, COLOR_GREY, "ItemIDs: (1) Cash - (2) Pot - (3) Crack - (4) Materials");
 		SendClientMessageEx(playerid, COLOR_GREY, "StorageIDs: (0) Pocket - (1) Equipped Storage Device");
 		return 1;
-	}*/
+	}
 
 	if(amount < 1) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't deposit less than 1.");
 
 	// Find the storageid of the storagedevice.
-	/*if(storageid == 1) {
+	if(storageid == 1) {
 		new bool:itemEquipped = false;
 		for(new i = 0; i < 3; i++)
 		{
@@ -35671,7 +35696,7 @@ CMD:safedeposit(playerid, params[]) // TransferStorage(playerid, storageid, from
 		if(itemEquipped == false) return SendClientMessageEx(playerid, COLOR_WHITE, "You don't have a storage device equipped!");
 	}
 
-	if(amount < 1) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't deposit less than 1.");*/
+	if(amount < 1) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't deposit less than 1.");
 	if(IsPlayerInRangeOfPoint(playerid, 3.0, FamilyInfo[family][FamilySafe][0], FamilyInfo[family][FamilySafe][1], FamilyInfo[family][FamilySafe][2]) && GetPlayerVirtualWorld(playerid) == FamilyInfo[family][FamilySafeVW] && GetPlayerInterior(playerid) == FamilyInfo[family][FamilySafeInt])
 	{
 		new file[32], month, day, year;
@@ -35775,7 +35800,9 @@ CMD:safedeposit(playerid, params[]) // TransferStorage(playerid, storageid, from
 	}
 	return 1;
 }
+*/ // end CMD:safedeposit
 
+/* [OLD SYSTEM - replaced by system/family/turfwars.inc or assets.inc]
 CMD:safewithdraw(playerid, params[]) // TransferStorage(playerid, storageid, fromplayerid, fromstorageid, itemid, amount, price, special)
 {
 	new family;
@@ -35860,6 +35887,7 @@ CMD:safewithdraw(playerid, params[]) // TransferStorage(playerid, storageid, fro
 	}
 	return 1;
 }
+*/ // end CMD:safewithdraw
 
 CMD:adjust(playerid, params[])
 {

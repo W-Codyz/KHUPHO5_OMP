@@ -547,7 +547,14 @@ enum fInfo
 	gt_Bold,
 	gt_FontColor,
 	gt_BackColor,
-	gt_SPUsed
+	gt_SPUsed,
+	// === Trường mở rộng – family system mới (system/family/*.inc) ===
+	FamilyLevel,            // Level két sắt (1-8)
+	FamilyFame,             // Độ nổi tiếng (fame)
+	FamilyCansa,            // Cần sa loại mới trong két
+	FamilyTepCansa,         // Tép cần sa trong két
+	FamilyNewGuns[26],      // 26 slot vũ khí két (thay thế FamilyGuns[10] cũ)
+	FamilyNewGunAmmo[26]    // Đạn tương ứng cho mỗi slot
 };
 
 enum fPoint

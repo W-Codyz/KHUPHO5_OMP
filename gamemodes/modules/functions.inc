@@ -2881,8 +2881,8 @@ public InitiateGamemode()
 	
 	/*---[Miscs]---*/
 	NGGShop = CreateDynamicPolygon(shop_vertices);
-	InitTurfWars();
-	LoadTurfWars();
+	//InitTurfWars(); // [OLD SYSTEM]
+	//LoadTurfWars(); // [OLD SYSTEM]
 	InitPaintballArenas();
 	LoadPaintballArenas();
 	InitEventPoints();
@@ -8357,6 +8357,7 @@ stock ShowAdMuteFine(playerid)
 	ShowPlayerDialog(playerid,ADMUTE,DIALOG_STYLE_LIST,"Quang cao Unmute - Chon hinh phat cua ban:",string,"Lua chon","Huy bo");
 }
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock TurfWarsEditTurfsSelection(playerid)
 {
 	new string[2048];
@@ -8380,7 +8381,9 @@ stock TurfWarsEditTurfsSelection(playerid)
 	}
 	ShowPlayerDialog(playerid,TWEDITTURFSSELECTION,DIALOG_STYLE_LIST,"Turf Wars - Edit Turfs Selection Menu:",string,"Chon","Quay lai");
 }
+*/ // end TurfWarsEditTurfsSelection
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock TurfWarsEditFColorsSelection(playerid)
 {
 	new string[1024];
@@ -8390,6 +8393,7 @@ stock TurfWarsEditFColorsSelection(playerid)
 	}
 	ShowPlayerDialog(playerid,TWEDITFCOLORSSELECTION,DIALOG_STYLE_LIST,"Turf Wars - Edit Family Colors Selection:",string,"Chon","Quay lai");
 }
+*/ // end TurfWarsEditFColorsSelection
 
 stock PaintballEditMenu(playerid)
 {
@@ -11902,7 +11906,7 @@ public SyncTime()
 
 		if(tmphour == 0) CountCitizens();
 
-		for (new x = 0; x < MAX_POINTS; x++)
+		/* for (new x = 0; x < MAX_POINTS; x++)
 		{
 			Points[x][Announced] = 0;
 			if (Points[x][Vulnerable] > 0)
@@ -11918,10 +11922,11 @@ public SyncTime()
 				ReadyToCapture(x);
 				Points[x][Announced] = 1;
 			}
-		}
+		} */
 		Misc_Save();
 		FMemberCounter(); // Family member counter (requested by game affairs to track gang activity)
 
+		/* [OLD SYSTEM - twVulnerable thay bằng twSupplyDeadline trong turfwars.inc]
 		for(new i = 0; i < MAX_TURFS; i++)
 		{
 			if(TurfWars[i][twVulnerable] > 0)
@@ -11937,6 +11942,7 @@ public SyncTime()
 				}
 			}
 		}
+		*/ // end twVulnerable block
 
 		for(new i = 1; i < MAX_FAMILY; i++)
 		{
@@ -12167,6 +12173,7 @@ stock UpdatePoints()
 	}
 }	
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock SaveTurfWars()
 {
 
@@ -12193,7 +12200,9 @@ stock SaveTurfWars()
 	}
 	return 0;
 }
+*/ // end SaveTurfWars
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock LoadTurfWars() {
 
 	if(!fexist("turfwars.cfg"))
@@ -12220,6 +12229,7 @@ stock LoadTurfWars() {
 	printf("[LoadTurfWars] %i turfs loaded.", iIndex);
 	return fclose(fHandle);
 }
+*/ // end LoadTurfWars
 
 stock LoadPaintballArenas() {
 
@@ -12709,6 +12719,7 @@ stock RehashDynamicMapIcons()
 	LoadDynamicMapIcons();
 }
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock InitTurfWars()
 {
 	for(new i = 0; i < MAX_TURFS; i++)
@@ -12727,7 +12738,9 @@ stock InitTurfWars()
 	}
 	return 1;
 }
+*/ // end InitTurfWars
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock CreateTurfWarsZone(forcesync, zone)
 {
 
@@ -12742,7 +12755,9 @@ stock CreateTurfWarsZone(forcesync, zone)
 
 	SaveTurfWars();
 }
+*/ // end CreateTurfWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock ResetTurfWarsZone(forcesync, zone)
 {
 	TurfWars[zone][twActive] = 0;
@@ -12757,7 +12772,9 @@ stock ResetTurfWarsZone(forcesync, zone)
 
 	SaveTurfWars();
 }
+*/ // end ResetTurfWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock SetOwnerTurfWarsZone(forcesync, zone, ownerid)
 {
 	TurfWars[zone][twOwnerId] = ownerid;
@@ -12768,7 +12785,9 @@ stock SetOwnerTurfWarsZone(forcesync, zone, ownerid)
 
 	SaveTurfWars();
 }
+*/ // end SetOwnerTurfWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock DestroyTurfWarsZone(zone)
 {
 	TurfWars[zone][twActive] = 0;
@@ -12801,7 +12820,9 @@ stock DestroyTurfWarsZone(zone)
 	SaveTurfWars();
 
 }
+*/ // end DestroyTurfWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock GetPlayerTurfWarsZone(playerid)
 {
 	for(new i = 0; i < MAX_TURFS; i++) {
@@ -12811,7 +12832,9 @@ stock GetPlayerTurfWarsZone(playerid)
 	}
 	return -1;
 }
+*/ // end GetPlayerTurfWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock ShutdownTurfWarsZone(zone)
 {
 	new string[128];
@@ -12835,7 +12858,9 @@ stock ShutdownTurfWarsZone(zone)
 
 	SaveTurfWars();
 }
+*/ // end ShutdownTurfWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock TakeoverTurfWarsZone(familyid, zone)
 {
 	new string[128];
@@ -12857,7 +12882,9 @@ stock TakeoverTurfWarsZone(familyid, zone)
 
 	SyncTurfWarsRadarToAll();
 }
+*/ // end TakeoverTurfWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock CaptureTurfWarsZone(familyid, zone)
 {
 	new string[128];
@@ -12880,7 +12907,9 @@ stock CaptureTurfWarsZone(familyid, zone)
 
 	SaveTurfWars();
 }
+*/ // end CaptureTurfWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock ExtortionTurfsWarsZone(playerid, type, money)
 {
     if(GetPlayerTurfWarsZone(playerid) != -1)
@@ -12974,7 +13003,9 @@ stock ExtortionTurfsWarsZone(playerid, type, money)
 	}
 	return 1;
 }
+*/ // end ExtortionTurfsWarsZone
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock ShowTurfWarsRadar(playerid)
 {
 	if(turfWarsRadar[playerid] == 1) { return 1; }
@@ -12982,7 +13013,9 @@ stock ShowTurfWarsRadar(playerid)
 	SyncTurfWarsRadar(playerid);
     return 1;
 }
+*/ // end ShowTurfWarsRadar
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock HideTurfWarsRadar(playerid)
 {
 	if(turfWarsRadar[playerid] == 0) { return 1; }
@@ -12994,7 +13027,9 @@ stock HideTurfWarsRadar(playerid)
 	turfWarsRadar[playerid] = 0;
 	return 1;
 }
+*/ // end HideTurfWarsRadar
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock SyncTurfWarsRadarToAll()
 {
 	foreach(new i: Player)
@@ -13002,7 +13037,9 @@ stock SyncTurfWarsRadarToAll()
 	    SyncTurfWarsRadar(i);
 	}
 }
+*/ // end SyncTurfWarsRadarToAll
 
+/* [OLD TURF SYSTEM - replaced by system/family/turfwars.inc]
 stock SyncTurfWarsRadar(playerid)
 {
 	if(turfWarsRadar[playerid] == 0) { return 1; }
@@ -13157,6 +13194,7 @@ stock SyncTurfWarsRadar(playerid)
 	}
 	return 1;
 }
+*/ // end SyncTurfWarsRadar
 
 stock InitEventPoints()
 {

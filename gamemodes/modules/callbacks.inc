@@ -3900,7 +3900,9 @@ public OnPlayerDeath(playerid, killerid, reason)
 	SetPlayerColor(playerid,TEAM_HIT_COLOR);
 	if(IsValidDynamic3DTextLabel(RFLTeamN3D[playerid])) {
 		DestroyDynamic3DTextLabel(RFLTeamN3D[playerid]);
-	}	
+	}
+	// [Family System] Kill notification + hủy supply run
+	TW_OnPlayerDeath(playerid, killerid, reason);
 	return 1;
 }
 
@@ -4730,7 +4732,8 @@ public OnPlayerEnterCheckpoint(playerid)
 		DisablePlayerCheckpoint(playerid);
 		return 1;
 	}
-
+	// [Family System] Giao hàng supply run
+	TW_OnPlayerEnterCheckpoint(playerid);
 	return 1;
 }
 
@@ -6480,5 +6483,13 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 			SendClientMessage(playerid, COLOR_WHITE, "Ban da dung chinh sua GATE.");
 		}
 	}
+	return 1;
+}
+
+public OnPlayerPickUpPickup(playerid, pickupid)
+{
+	// [Family System] két sắt gang + supply run pickup
+	if(TW_OnPlayerPickUpPickup(playerid, pickupid)) return 1;
+	if(FA_OnPlayerPickUpPickup(playerid, pickupid)) return 1;
 	return 1;
 }
