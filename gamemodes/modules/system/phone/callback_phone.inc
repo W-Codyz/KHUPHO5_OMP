@@ -279,12 +279,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(GetPVarInt(playerid, "Offline") == 1) {
 				new namez[24];
 				GetPVarString(playerid, "_NguoiNhan", namez, 24);
-				format(string, sizeof string, "{FFD700}=== XAC NHAN GIAO DICH ==={FFFFFF}\n{AAAAAA}Nguoi nhan    : {00CFFF}%s\n{AAAAAA}So tai khoan  : {00CFFF}%d\n{AAAAAA}So tien       : {00FF7F}$%s\n{AAAAAA}Phi giao dich : {FFFFFF}$0\n{AAAAAA}So du con lai : {FF6B6B}$%s\n{FFD700}╚══════════════════════╝", namez, GetPVarInt(playerid, "STK"), number_format(strval(inputtext)), number_format(PlayerInfo[playerid][pAccount] - strval(inputtext)));
+				format(string, sizeof string, "{FFD700}=== XAC NHAN GIAO DICH ==={FFFFFF}\n{AAAAAA}Nguoi nhan    : {00CFFF}%s\n{AAAAAA}So tai khoan  : {00CFFF}%d\n{AAAAAA}So tien       : {00FF7F}$%s\n{AAAAAA}Phi giao dich : {FFFFFF}$0\n{AAAAAA}So du con lai : {FF6B6B}$%s\n{FFD700}===============", namez, GetPVarInt(playerid, "STK"), number_format(strval(inputtext)), number_format(PlayerInfo[playerid][pAccount] - strval(inputtext)));
 				ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN2, DIALOG_STYLE_MSGBOX, "{FFD700}XAC NHAN GIAO DICH", string, "Xac nhan", "Huy bo");
 		   	 	return 1;
 			}
 			new i = GetPVarInt(playerid, "NguoiNhan");
-			format(string, sizeof string, "{FFD700}=== XAC NHAN GIAO DICH ==={FFFFFF}\n{AAAAAA}Nguoi nhan    : {00CFFF}%s\n{AAAAAA}So tai khoan  : {00CFFF}%d\n{AAAAAA}So tien       : {00FF7F}$%s\n{AAAAAA}Phi giao dich : {FFFFFF}$0\n{AAAAAA}So du con lai : {FF6B6B}$%s\n{FFD700}╚══════════════════════╝", GetPlayerNameEx(i), PlayerInfo[i][pSoTaiKhoan], number_format(strval(inputtext)), number_format(PlayerInfo[playerid][pAccount] - strval(inputtext)));
+			format(string, sizeof string, "{FFD700}=== XAC NHAN GIAO DICH ==={FFFFFF}\n{AAAAAA}Nguoi nhan    : {00CFFF}%s\n{AAAAAA}So tai khoan  : {00CFFF}%d\n{AAAAAA}So tien       : {00FF7F}$%s\n{AAAAAA}Phi giao dich : {FFFFFF}$0\n{AAAAAA}So du con lai : {FF6B6B}$%s\n{FFD700}===============", GetPlayerNameEx(i), PlayerInfo[i][pSoTaiKhoan], number_format(strval(inputtext)), number_format(PlayerInfo[playerid][pAccount] - strval(inputtext)));
 			ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN2, DIALOG_STYLE_MSGBOX, "{FFD700}XAC NHAN GIAO DICH", string, "Xac nhan", "Huy bo");
 		}
 		else {

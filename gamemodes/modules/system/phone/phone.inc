@@ -1054,7 +1054,7 @@ CMD:selfie(playerid, params[])
 
 stock ShowChuyenTienHihi(playerid) {
     new str[512];
-    format(str, sizeof(str), "{FFD700}╔══ CHUYEN KHOAN ══╗{FFFFFF}\n{AAAAAA}So du hien tai: {00FF7F}$%s\n\n{FFFFFF}Nhap {00CFFF}so tai khoan{FFFFFF} nguoi nhan:", number_format(PlayerInfo[playerid][pAccount]));
+    format(str, sizeof(str), "{FFD700}=== CHUYEN KHOAN ===\n{AAAAAA}So du hien tai: {00FF7F}$%s\n\n{FFFFFF}Nhap {00CFFF}so tai khoan{FFFFFF} nguoi nhan:", number_format(PlayerInfo[playerid][pAccount]));
     return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", str, "Tiep tuc", "Thoat");
 }
 
@@ -1135,8 +1135,8 @@ public STK_check(playerid) {
             SetPVarString(playerid, "_NguoiNhan", namez);
             SetPVarInt(playerid, "Offline", 1);
             SetPVarInt(playerid, "STK", stk);
-            new string[129];
-            format(string, sizeof string, "{FFD700}╔══ THONG TIN NGUOI NHAN ══╗{FFFFFF}\n{AAAAAA}Ten chu the  : {00CFFF}%s\n{AAAAAA}So tai khoan : {00CFFF}%d\n\n{FFD700}╚══════════════════════╝{FFFFFF}\n{FFFFFF}Nhap {00FF7F}so tien{FFFFFF} muon giao dich:", namez,stk);
+            new string[1024];
+            format(string, sizeof string, "{FFD700}=== THONG TIN NGUOI NHAN ==={FFFFFF}\n{AAAAAA}Ten chu the  : {00CFFF}%s\n{AAAAAA}So tai khoan : {00CFFF}%d\n\n{FFD700}================={FFFFFF}\n{FFFFFF}Nhap so tien muon giao dich:", namez,stk);
             ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN1, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", string, "Tiep tuc", "Thoat");
             return 1;
         }
