@@ -285,6 +285,7 @@ public ShowInvTD(playerid)
     PlayerTextDrawShow(playerid, iTD_pstr[playerid][1]);
 
     PopulateInvTDSlots(playerid);
+    PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
     SelectTextDraw(playerid, 0xFFFFFF88);
     return 1;
 }
@@ -310,6 +311,7 @@ public HideInvTD(playerid)
 
     DestroyInvTDPlayer(playerid);
     g_InvTDCreated[playerid] = false;
+    PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
     CancelSelectTextDraw(playerid);
     return 1;
 }
@@ -319,6 +321,7 @@ stock RefreshInvTD(playerid)
     if(!InvTDOpen[playerid] || !g_InvTDCreated[playerid]) return 0;
     BuildInvTDSlotMap(playerid);
     PopulateInvTDSlots(playerid);
+    PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
     return 1;
 }
 
@@ -382,6 +385,7 @@ hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
             if(itemIdx == -1) return 1;
             CancelSelectTextDraw(playerid);
             ShowItemOptions(playerid, itemIdx);
+            PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
             return 1;
         }
     }

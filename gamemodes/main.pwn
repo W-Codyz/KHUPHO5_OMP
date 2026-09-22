@@ -73,6 +73,7 @@
 #include "./modules/system/family/assets"
 #include "./modules/system/family/turfwars"
 #include "./modules/system/family/management"
+#include "./modules/system/family/admin"
 
 //==============SYSTEM============//
 #include "./modules/system/ruatho"
@@ -104,6 +105,7 @@
 //==============PLAYER============//
 #include "./modules/player/rentcar/header"
 #include "./modules/player/inventory/header"
+#include "./modules/system/faction/police"
 #include "./modules/player/mission/header"
 #include "./modules/player/suckhoe"
 
