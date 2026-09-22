@@ -20,7 +20,7 @@
 // ---------------------------------------------------------------------------
 // HẰNG SỐ
 // ---------------------------------------------------------------------------
-#define TURF_WAR_TIME               60     // Thời gian 1 ván war (giây)
+#define TURF_WAR_TIME               600     // Thời gian 1 ván war (giây)
 #define TURF_SUPPLY_MAX             50      // Số lần giao hàng để hoàn thành
 #define TURF_SUPPLY_COST            25000   // Chi phí mua 1 lô hàng
 #define TURF_SUPPLY_REWARD          35000   // Thưởng khi giao thành công
@@ -714,18 +714,14 @@ stock TW_OnPlayerDeath(playerid, killerid, reason)
     if(kFam == INVALID_FAMILY_ID || vFam == INVALID_FAMILY_ID) return;
     if(kFam == vFam) return;
 
-    new kTag[8], vTag[8], kName[MAX_PLAYER_NAME], vName[MAX_PLAYER_NAME];
+    new kName[MAX_PLAYER_NAME], vName[MAX_PLAYER_NAME];
     GetPlayerName(killerid, kName, sizeof(kName));
     GetPlayerName(playerid, vName, sizeof(vName));
-    TW_FamilyColorTag(kFam, kTag, sizeof(kTag));
-    TW_FamilyColorTag(vFam, vTag, sizeof(vTag));
 
     new str[192];
-    format(str, sizeof(str), "%s[%s] %s {FFFFFF}da ha guc %s[%s] %s",
-        kTag, FamilyInfo[kFam][FamilyName], kName,
-        vTag, FamilyInfo[vFam][FamilyName], vName);
+    format(str, sizeof(str), "{FFD700}[Tin tuc]{FFFFFF} %s da ha guc %s.", kName, vName);
 
-    // Chỉ gửi cho thành viên 2 gang liên quan
+    // Gửi cho thành viên 2 gang liên quan đang online
     foreach(new i : Player)
     {
         new iFam = PlayerInfo[i][pFMember];

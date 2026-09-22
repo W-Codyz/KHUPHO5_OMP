@@ -10804,7 +10804,6 @@
 			<referrer name="TW_FamilyColorTag"/>
 			<referrer name="TW_StartWar"/>
 			<referrer name="TW_EndWar"/>
-			<referrer name="TW_OnPlayerDeath"/>
 			<referrer name="TW_ShowTurfList"/>
 			<referrer name="pc_cmd_testturf"/>
 			<referrer name="TW_OnDialogResponse"/>
@@ -91704,7 +91703,6 @@
 		</member>
 		<member name="M:TW_FamilyColorTag" syntax="TW_FamilyColorTag(familyid, out[], size)">
 			<stacksize value="5"/>
-			<referrer name="TW_OnPlayerDeath"/>
 			<dependency name="FamilyColor"/>
 			<dependency name="FamilyInfo"/>
 			<dependency name="format"/>
@@ -91829,18 +91827,14 @@
 			<dependency name="twTimeLeft"/>
 		</member>
 		<member name="M:TW_OnPlayerDeath" syntax="TW_OnPlayerDeath(playerid, killerid, reason)">
-			<stacksize value="269"/>
+			<stacksize value="250"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
-			<dependency name="FamilyInfo"/>
-			<dependency name="FamilyInfo"/>
-			<dependency name="FamilyName"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="TW_CancelSupply"/>
-			<dependency name="TW_FamilyColorTag"/>
 			<dependency name="cellmax"/>
 			<dependency name="format"/>
 			<dependency name="pFMember"/>
