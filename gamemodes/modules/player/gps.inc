@@ -60,6 +60,7 @@ CMD:timvieclam(playerid, params[])
    Cau Ca\n\
    Lumberjack\n\
    Tho Sua Dien\n\
+   Tho Khai Thac\n\
    Can Sa", "Chon", "Dong");
 }
 
@@ -298,7 +299,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
        		    gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
 				return 1;
 			}
-			if(listitem == 8) // Can sa
+			if(listitem == 8) // Tho Khai Thac
+			{
+			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+          		SetPlayerCP(playerid, 584.901367, 867.991882, -42.497318, 3.0);
+       		    gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+				return 1;
+			}
+			if(listitem == 9) // Can sa
 			{
 			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
 				ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");

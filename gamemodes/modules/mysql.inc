@@ -411,6 +411,11 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "ConstructSkill", szResult, MainPipeline); PlayerInfo[extraid][pConstructSkill] = strval(szResult);
 					cache_get_field_content(row,  "CraftSkill", szResult, MainPipeline); PlayerInfo[extraid][pCraftSkill] = strval(szResult);
 					cache_get_field_content(row,  "FishSkill", szResult, MainPipeline); PlayerInfo[extraid][pFishSkill] = strval(szResult);
+					cache_get_field_content(row,  "MinSat", szResult, MainPipeline); PlayerInfo[extraid][pMinSat] = strval(szResult);
+					cache_get_field_content(row,  "MinDong", szResult, MainPipeline); PlayerInfo[extraid][pMinDong] = strval(szResult);
+					cache_get_field_content(row,  "MinBac", szResult, MainPipeline); PlayerInfo[extraid][pMinBac] = strval(szResult);
+					cache_get_field_content(row,  "MinVang", szResult, MainPipeline); PlayerInfo[extraid][pMinVang] = strval(szResult);
+					cache_get_field_content(row,  "MinKimCuong", szResult, MainPipeline); PlayerInfo[extraid][pMinKimCuong] = strval(szResult);
 					cache_get_field_content(row,  "FightingStyle", szResult, MainPipeline); PlayerInfo[extraid][pFightStyle] = strval(szResult);
 					cache_get_field_content(row,  "PhoneNr", szResult, MainPipeline); PlayerInfo[extraid][pPnumber] = strval(szResult);
 					cache_get_field_content(row,  "Apartment", szResult, MainPipeline); PlayerInfo[extraid][pPhousekey] = strval(szResult);
@@ -2981,6 +2986,11 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "ConstructSkill", PlayerInfo[playerid][pConstructSkill]); 
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "CraftSkill", PlayerInfo[playerid][pCraftSkill]); 
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishSkill", PlayerInfo[playerid][pFishSkill]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinSat", PlayerInfo[playerid][pMinSat]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinDong", PlayerInfo[playerid][pMinDong]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinBac", PlayerInfo[playerid][pMinBac]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinVang", PlayerInfo[playerid][pMinVang]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinKimCuong", PlayerInfo[playerid][pMinKimCuong]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "CheckCash", PlayerInfo[playerid][pCheckCash]);
 
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Checks", PlayerInfo[playerid][pChecks]);

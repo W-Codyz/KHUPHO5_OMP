@@ -93,6 +93,7 @@
 
 //==============JOB============//
 #include "./modules/job/header"
+#include "./modules/job/miner/header"
 #include "./modules/job/trucker/header"
 #include "./modules/job/porter/header"
 #include "./modules/job/pizzaboy/header"
@@ -136,6 +137,8 @@
 #include "./modules/job/pizzaboy/pizzaboy"
 #include "./modules/job/construction/construction"
 #include "./modules/job/electric/electric"
+#include "./modules/job/miner/miner"
+#include "./modules/job/miner/craft"
 //#include "./modules/job/side_job/fisher/fisher"
 #include "./modules/job/side_job/sweeper/sweeper"
 

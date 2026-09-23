@@ -7,7 +7,8 @@ enum _:MAX_JOB_TYPE
     JOB_PIZZABOY, // 4
     JOB_CONSTRUCTION, // 5
     JOB_CRAFTER, // 6
-    JOB_ELECTRIC // 7
+    JOB_ELECTRIC, // 7
+    JOB_MINER    // 8
 };
 
 enum E_JOB_INFO
@@ -67,7 +68,11 @@ new JobHelp[MAX_JOB_TYPE][1028] =
     {"{F5F52F}Tho sua dien{FFFFFF} la mot cong viec doc dao tai {FF6666}GTA-HTB Roleplay{FFFFFF}\n\
         ban se dam nhan vai tro bao tri va sua chua he thong dien trong\nthanh pho. Cong viec yeu cau \
         su tap trung va kha nang quan sat\nde xu ly cac su co dien .\n\n\n\
-        {3F7EAB}Cau lenh co san: /takekit /egroup /xemday /dunglamviec"}
+        {3F7EAB}Cau lenh co san: /takekit /egroup /xemday /dunglamviec"},
+    {"{F5F52F}Tho Khai Thac{FFFFFF} la mot cong viec doc dao tai {FF6666}GTA-HTB Roleplay{FFFFFF}\n\
+        ban se khai thac da quy trong khu mo, rua sach de thu hoach khoang san va ban lai.\n\
+        Cong viec yeu cau su kien nhan va kha nang quan ly van chuyen hang hoa.\n\n\n\
+        {3F7EAB}Cau lenh co san: /layda /dunglamviec"}
 };
 
 new JobInfo[MAX_JOB_TYPE][E_JOB_INFO] =
@@ -79,7 +84,8 @@ new JobInfo[MAX_JOB_TYPE][E_JOB_INFO] =
     {"Pizza Boy", 1, 155, 0, 0, -1715.8992, 1366.7646, 7.1875, 45.4883},
     {"Tho xay dung", 1, 27, 0, 0, -2071.5452, 227.5330, 36.1192, 88.0978},
     {"Tho thu cong", 1, 6, 0, 0, -2120.1162, -14.2599, 35.3203, 88.2260},
-    {"Tho sua dien", 1, 16, 0, 0, -2520.9807, -624.4470, 132.7828, 358.126220}
+    {"Tho sua dien", 1, 16, 0, 0, -2520.9807, -624.4470, 132.7828, 358.126220},
+    {"Tho Khai Thac", 1, 27, 0, 0, 584.901367, 867.991882, -42.497318, 267.125885}
 };
 
 new SideJobInfo[][E_SIDEJOB_INFO] = {

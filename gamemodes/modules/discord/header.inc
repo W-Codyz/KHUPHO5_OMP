@@ -42,6 +42,7 @@ new DCC_Channel:dclog_Lumber;
 new DCC_Channel:dclog_Painter;
 new DCC_Channel:dclog_Taxi;
 new DCC_Channel:dclog_Electric;
+new DCC_Channel:dclog_Miner;
 
 
 stock discord_messHack(const str[])

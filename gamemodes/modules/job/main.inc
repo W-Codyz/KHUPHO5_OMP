@@ -31,8 +31,16 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
             {
                 if(IsPlayerInRangeOfPoint(playerid, 2.5, JobInfo[i][jobPosX], JobInfo[i][jobPosY], JobInfo[i][jobPosZ]) && !IsPlayerInAnyVehicle(playerid))
                 {
+                    // Neu da la miner: hien thi menu NPC
+                    if(i == JOB_MINER && (PlayerInfo[playerid][pJob] == JOB_MINER || PlayerInfo[playerid][pJob2] == JOB_MINER))
+                    {
+                        ShowPlayerDialog(playerid, DIALOG_MINER_NPC, DIALOG_STYLE_LIST,
+                            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tho Khai Thac",
+                            "Bat dau lam viec\nNgung lam viec\nHuong dan",
+                            "Chon", "Huy");
+                    }
                     // Neu da la electric: hien thi menu NPC thay vi hop thoai xin viec
-                    if(i == JOB_ELECTRIC && (PlayerInfo[playerid][pJob] == JOB_ELECTRIC || PlayerInfo[playerid][pJob2] == JOB_ELECTRIC))
+                    else if(i == JOB_ELECTRIC && (PlayerInfo[playerid][pJob] == JOB_ELECTRIC || PlayerInfo[playerid][pJob2] == JOB_ELECTRIC))
                     {
                         ShowPlayerDialog(playerid, DIALOG_ELECTRIC_MENU, DIALOG_STYLE_LIST,
                             "{F5D000}GTA-HTB Roleplay {FFFFFF}- Cong Viec Sua Dien",
@@ -339,6 +347,10 @@ CMD:lamviec(playerid, params[])
     {
         SendHintMessage(playerid, "Tho sua dien: den NPC tai diem xuat phat va nhan {46BE00}[Y]{FFFFFF} de mo menu.");
     }
+    else if(PlayerInfo[playerid][pJob] == JOB_MINER || PlayerInfo[playerid][pJob2] == JOB_MINER)
+    {
+        SendHintMessage(playerid, "Tho khai thac: den NPC tai khu mo va nhan {46BE00}[Y]{FFFFFF} de mo menu.");
+    }
     else {
         SendClientMessage(playerid, COLOR_GREY, "Cong viec cua ban khong the su dung lenh nay, go \"/jobhelp\" de biet them chi tiet.");
     }
@@ -393,6 +405,16 @@ CMD:dunglamviec(playerid, params[])
         }
         else {
             SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec Sua Dien.");
+        }
+    }
+    else if(PlayerInfo[playerid][pJob] == JOB_MINER || PlayerInfo[playerid][pJob2] == JOB_MINER)
+    {
+        if(PlayerWorking[playerid] == JOB_MINER)
+        {
+            Miner_Stop(playerid);
+        }
+        else {
+            SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec Khai Thac.");
         }
     }
     else if(PlayerInfo[playerid][pJob] == JOB_CONSTRUCTION || PlayerInfo[playerid][pJob2] == JOB_CONSTRUCTION)
