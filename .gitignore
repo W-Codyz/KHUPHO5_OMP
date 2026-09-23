@@ -3,5 +3,8 @@ gamemodes/main.amx
 scriptfiles/serverConfig.ini
 logs/
 scriptfiles/serverConfig.ini
+scriptfiles/truckConfig.ini
+scriptfiles/fishing_reset.dat
 /scriptfiles/anims
 filterscripts/n_anims.amx
+.claude

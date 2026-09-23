@@ -88,6 +88,7 @@ stock hosp_StopRecovery(playerid)
     g_HospBedY[playerid]         = 0.0;
     g_HospBedZ[playerid]         = 0.0;
     g_HospBedA[playerid]         = 0.0;
+    DeletePVar(playerid, "KhongHackWeaponInv");
 }
 
 // Dat benh nhan vao giuong — dung cho ca rescue va post-spawn
@@ -116,6 +117,9 @@ stock hosp_PlacePatientInBed(patientid, bool:treatFailed)
     SetPlayerPos(patientid, g_HospBedX[patientid], g_HospBedY[patientid], g_HospBedZ[patientid]);
     SetPlayerFacingAngle(patientid, g_HospBedA[patientid]);
     Streamer_UpdateEx(patientid, g_HospBedX[patientid], g_HospBedY[patientid], g_HospBedZ[patientid]);
+
+    // Tat anti-weapon check trong thoi gian nam vien de tranh false positive
+    SetPVarInt(patientid, "KhongHackWeaponInv", 1);
 
     // Freeze ngay lap tuc truoc khi StreamPrep bat dau
     TogglePlayerControllable(patientid, false);
