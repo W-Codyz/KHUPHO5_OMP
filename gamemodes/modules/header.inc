@@ -246,6 +246,7 @@ native WP_Hash(buffer[], len, const str[]);
 #define 		CHECKPOINT_SWEEPER 					13
 #define			CHECKPOINT_TAXI						14	
 #define			CHECKPOINT_CONSTRUCTION				15
+#define			CHECKPOINT_ELECTRIC					16
 			/*  ---------------- COLORS ----------------- */
     				/* ===[Ignore the tab space]=== */
 

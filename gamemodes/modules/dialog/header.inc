@@ -287,6 +287,15 @@
 #define			MDC_REPORTS					(3243)
 #define			MDC_SHOWREPORTS				(3244)
 
+// Electric Job
+#define     DIALOG_ELECTRIC_MENU        (5376)
+#define     DIALOG_ELECTRIC_GNAME       (5377)
+#define     DIALOG_ELECTRIC_INVITE      (5378)
+#define     DIALOG_ELECTRIC_KICK        (5379)
+#define     DIALOG_ELECTRIC_JOIN        (5380)
+#define     DIALOG_ELECTRIC_FIX         (5381)
+#define     DIALOG_ELECTRIC_COLORS      (5382)
+
 #define 		DIALOG_LISTGROUPS 			(3250)
 #define 		DIALOG_EDITGROUP 			(3251)
 #define 		DIALOG_GROUP_NAME 			(3252)

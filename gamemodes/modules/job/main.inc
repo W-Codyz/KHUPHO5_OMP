@@ -31,8 +31,16 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
             {
                 if(IsPlayerInRangeOfPoint(playerid, 2.5, JobInfo[i][jobPosX], JobInfo[i][jobPosY], JobInfo[i][jobPosZ]) && !IsPlayerInAnyVehicle(playerid))
                 {
+                    // Neu da la electric: hien thi menu NPC thay vi hop thoai xin viec
+                    if(i == JOB_ELECTRIC && (PlayerInfo[playerid][pJob] == JOB_ELECTRIC || PlayerInfo[playerid][pJob2] == JOB_ELECTRIC))
+                    {
+                        ShowPlayerDialog(playerid, DIALOG_ELECTRIC_MENU, DIALOG_STYLE_LIST,
+                            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Cong Viec Sua Dien",
+                            "Tao nhom moi\nMoi nguoi vao nhom\nDuoi nguoi khoi nhom\nTham gia nhom\nBat dau lam viec\nNgung lam viec\nXem mau day dien",
+                            "Chon", "Huy");
+                    }
                     // Neu da la trucker: hien thi menu NPC thay vi hop thoai xin viec
-                    if(i == JOB_TRUCKER && (PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER))
+                    else if(i == JOB_TRUCKER && (PlayerInfo[playerid][pJob] == JOB_TRUCKER || PlayerInfo[playerid][pJob2] == JOB_TRUCKER))
                     {
                         ShowPlayerDialog(playerid, DIALOG_TRUCKERNPC, DIALOG_STYLE_LIST,
                             "{D5A30A}Van Chuyen Hang Hoa",
@@ -327,6 +335,10 @@ CMD:lamviec(playerid, params[])
             SendClientMessageEx(playerid, COLOR_WHITE, "Hay len xe Mule/Yankee tai Ben Cang SF de bat dau lam viec.");
         }
     }
+    else if(PlayerInfo[playerid][pJob] == JOB_ELECTRIC || PlayerInfo[playerid][pJob2] == JOB_ELECTRIC)
+    {
+        SendHintMessage(playerid, "Tho sua dien: den NPC tai diem xuat phat va nhan {46BE00}[Y]{FFFFFF} de mo menu.");
+    }
     else {
         SendClientMessage(playerid, COLOR_GREY, "Cong viec cua ban khong the su dung lenh nay, go \"/jobhelp\" de biet them chi tiet.");
     }
@@ -371,6 +383,16 @@ CMD:dunglamviec(playerid, params[])
     {
         if(PlayerWorking[playerid] == JOB_TAXIDRIVER) {
             PC_EmulateCommand(playerid, "/fare");
+        }
+    }
+    else if(PlayerInfo[playerid][pJob] == JOB_ELECTRIC || PlayerInfo[playerid][pJob2] == JOB_ELECTRIC)
+    {
+        if(PlayerWorking[playerid] == JOB_ELECTRIC)
+        {
+            Electric_Stop(playerid);
+        }
+        else {
+            SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec Sua Dien.");
         }
     }
     else if(PlayerInfo[playerid][pJob] == JOB_CONSTRUCTION || PlayerInfo[playerid][pJob2] == JOB_CONSTRUCTION)

@@ -17720,5 +17720,40 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(FA_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
 	if(FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
 	if(FAdmin_OnDialogResponse(playerid, dialogid, response, listitem, inputtext)) return 1;
+
+	// ── Electric Job ──────────────────────────────────────────
+	if(dialogid == DIALOG_ELECTRIC_MENU)
+	{
+		Electric_OnMenuResponse(playerid, response, listitem);
+		return 1;
+	}
+	if(dialogid == DIALOG_ELECTRIC_GNAME)
+	{
+		Electric_OnGroupNameResponse(playerid, response, inputtext);
+		return 1;
+	}
+	if(dialogid == DIALOG_ELECTRIC_INVITE)
+	{
+		Electric_OnInviteResponse(playerid, response, inputtext);
+		return 1;
+	}
+	if(dialogid == DIALOG_ELECTRIC_KICK)
+	{
+		Electric_OnKickResponse(playerid, response, inputtext);
+		return 1;
+	}
+	if(dialogid == DIALOG_ELECTRIC_JOIN)
+	{
+		Electric_OnJoinResponse(playerid, response, inputtext);
+		return 1;
+	}
+	if(dialogid == DIALOG_ELECTRIC_FIX)
+	{
+		if(response) Electric_OnFixResponse(playerid, inputtext);
+		return 1;
+	}
+	if(dialogid == DIALOG_ELECTRIC_COLORS) return 1;
+	// ──────────────────────────────────────────────────────────
+
 	return 1;
 }
