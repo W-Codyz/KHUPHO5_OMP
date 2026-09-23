@@ -72,7 +72,7 @@ stock Trucker_ShowInstructions(playerid)
     SendClientMessageEx(playerid, COLOR_TRUCKER,
         "|---------- HUONG DAN TRUCKER -----------|");
     SendClientMessageEx(playerid, COLOR_WHITE,
-        "1. {FFFF00}1. {FFFFFF}Lay xe o NPC cong viec{FFFFFF} tai San Fierro Docks (diem vang).");
+        "{FFFF00}1. {FFFFFF}Lay xe o NPC cong viec{FFFFFF} tai San Fierro Docks (diem vang).");
     SendClientMessageEx(playerid, COLOR_WHITE,
         " {FFFF00}2. {FFFFFF}Di bo den diem LAY HANG{FFFFFF} (diem xanh, Bam [Y] de mo bang mua).");
     SendClientMessageEx(playerid, COLOR_WHITE,
@@ -802,6 +802,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Loi: khong the tao xe. Thu lai sau.");
                     return 1;
                 }
+                LockStatus{vid} = 0;
 
                 SetVehicleHealth(vid, 999.0);
                 PutPlayerInVehicle(playerid, vid, 0);

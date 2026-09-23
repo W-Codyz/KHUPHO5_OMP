@@ -132,6 +132,7 @@ stock CreatePlayerRentalCar(playerid, modelid, time, Float:x, Float:y, Float:z, 
             CarRentalInfo[playerid][i][rcPosZ] = z;
             CarRentalInfo[playerid][i][rcAngle] = angle;
             CarRentalInfo[playerid][i][rcId] = CreateVehicle(modelid, x, y, z, angle, random(128), random(128), -1);
+            LockStatus{CarRentalInfo[playerid][i][rcId]} = 0;
 
             cache_delete(cacheid);
             return 1;
@@ -175,6 +176,7 @@ stock SpawnRentalCar(playerid, slotid)
     }
 
     CarRentalInfo[playerid][slotid][rcId] = CreateVehicle(CarRentalInfo[playerid][slotid][rcModel], CarRentalInfo[playerid][slotid][rcPosX], CarRentalInfo[playerid][slotid][rcPosY], CarRentalInfo[playerid][slotid][rcPosZ], CarRentalInfo[playerid][slotid][rcAngle], random(128), random(128), -1);
+    LockStatus{CarRentalInfo[playerid][slotid][rcId]} = 0;
     return 1;
 }
 
