@@ -811,7 +811,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                 
                 if(giveplayerid == INVALID_PLAYER_ID || !IsPlayerConnected(giveplayerid))
                     return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi nhan khong hop le hoac da ngat ket noi.");
-                    
+
                 if(amount < 1)
                     return SendClientMessageEx(playerid, COLOR_GREY, "So tien khong hop le. Vui long nhap so tien lon hon 0.");
                     
@@ -830,14 +830,19 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                 format(string, sizeof(string), "%s da dua ban $%s.", GetPlayerNameEx(playerid), number_format(amount));
                 SendClientMessageEx(giveplayerid, COLOR_GREEN, string);
                 
+                // ProxDetectorWrap
+                new proxstring[128];
+                format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s dua mot so tien cho %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+                ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+
                 // Animation
                 ApplyAnimation(playerid, "DEALER", "shop_pay", 4.0, 0, 0, 0, 0, 0, 1);
-                
+
                 // Log
                 new ip[32], ipex[32];
                 GetPlayerIp(playerid, ip, sizeof(ip));
                 GetPlayerIp(giveplayerid, ipex, sizeof(ipex));
-                format(string, sizeof(string), "%s(IP:%s) da dua $%s cho %s(IP:%s)", 
+                format(string, sizeof(string), "%s(IP:%s) da dua $%s cho %s(IP:%s)",
                     GetPlayerNameEx(playerid), ip, number_format(amount), GetPlayerNameEx(giveplayerid), ipex);
                 Log("logs/pay.log", string);
 
@@ -895,7 +900,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
                 if(!IsPlayerConnected(giveplayerid))
                     return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da mat ket noi.");
-                    
+
                 if(amount <= 0)
                     return SendClientMessageEx(playerid, COLOR_GREY, "So luong khong hop le.");
                     
@@ -916,10 +921,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                     GetPlayerNameEx(playerid), amount, ItemInventory[itemid][NameItem]);
                 SendClientMessageEx(giveplayerid, COLOR_GREEN, string);
 
-                format(string, sizeof(string), "* %s da cho %s %d %s.", 
-                    GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), amount, ItemInventory[itemid][NameItem]);
-                // Hiển thị text cho người chơi xung quanh
-                ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                format(string, sizeof(string), "{FF8000}* {C2A2DA}%s dua %s cho %s.",
+                    GetPlayerNameEx(playerid), ItemInventory[itemid][NameItem], GetPlayerNameEx(giveplayerid));
+                ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
                 // Animation
                 ApplyAnimation(playerid, "DEALER", "shop_pay", 4.0, 0, 0, 0, 0, 0, 1);
