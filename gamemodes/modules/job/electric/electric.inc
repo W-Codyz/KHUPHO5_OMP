@@ -208,6 +208,23 @@ public Electric_FixFinish(playerid)
     new index = GetPVarInt(playerid, "EJ_FixIndex");
     if(index < 0 || index >= ELECTRIC_MAX_POINTS) return 1;
 
+    // Kiem tra khoang cach - neu di xa thi that bai
+    if(!IsPlayerInRangeOfPoint(playerid, 3.0, sElectricPoints[index][0], sElectricPoints[index][1], sElectricPoints[index][2]))
+    {
+        ClearAnimations(playerid);
+        gElectricFixed[playerid][index] = false;
+        SetPlayerAttachedObject(playerid, ELECTRIC_KIT_SLOT, 19921, 6, 0.0, 0.0, 0.0, 87.2, -0.1, -86.9, 1.0, 1.0, 1.0);
+        SetPVarInt(playerid, "EJ_HasKit", 1);
+        {
+            new string[128];
+            format(string, sizeof(string), "{FF8000}* {C2A2DA}%s roi xa diem sua dien, that bai!", GetPlayerNameEx(playerid));
+            ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+        }
+        ShowTDN(playerid, NOTIFICATION_ERROR, "Ban da roi xa! Sua dien that bai, hay thu lai.");
+        return 1;
+    }
+
+    ClearAnimations(playerid);
     new pay = 2000 + random(1001);
     if (PlayerElectricJob[playerid][E_EJ_PartnerID] != INVALID_PLAYER_ID) pay += 500; // thưởng thêm khi có partner
     GivePlayerCash(playerid, pay);
@@ -300,7 +317,7 @@ stock Electric_OnFixResponse(playerid, inputtext[])
        !strcmp(ans3, sElectricAnswers[index][2], true))
     {
         // Dung - bat dau loading sua dien 10 giay
-        ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 0, 0, 0, 0, 5000, 1);
+        ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 10000, 1);
         PlayerPlaySound(playerid, 32000, 0.0, 0.0, 0.0);
 
         gElectricFixed[playerid][index] = true;

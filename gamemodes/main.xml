@@ -8725,6 +8725,7 @@
 			<referrer name="Electric_IsNumeric"/>
 			<referrer name="Electric_ResetVars"/>
 			<referrer name="Electric_Stop"/>
+			<referrer name="Electric_FixFinish"/>
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="_@yHOnPlayerDisconnect@0d"/>
 			<referrer name="_@yHOnVehicleSpawn@0d"/>
@@ -20135,6 +20136,7 @@
 		<member name="F:gElectricFixed">
 			<tagname value="bool"/>
 			<referrer name="Electric_ResetVars"/>
+			<referrer name="Electric_FixFinish"/>
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="_@yHOnPlayerEnterDynamicCP@0d"/>
 		</member>
@@ -21417,6 +21419,7 @@
 		</member>
 		<member name="F:sElectricPoints">
 			<tagname value="Float"/>
+			<referrer name="Electric_FixFinish"/>
 			<referrer name="Electric_OnMenuResponse"/>
 		</member>
 		<member name="F:sasd1A">
@@ -36091,6 +36094,7 @@
 			<referrer name="Construction_Stop"/>
 			<referrer name="Construction_LoadingFailed"/>
 			<referrer name="ConstructionLoader"/>
+			<referrer name="Electric_FixFinish"/>
 			<referrer name="WakeUpElectric"/>
 			<referrer name="OnPlayerUseBanhMi"/>
 			<referrer name="OnPlayerUseNuocLoc"/>
@@ -43570,6 +43574,7 @@
 		<member name="M:Electric_FixFinish" syntax="Electric_FixFinish(playerid)">
 			<attribute name="public"/>
 			<stacksize value="548"/>
+			<dependency name="ClearAnimations"/>
 			<dependency name="CreateDynamicRaceCP"/>
 			<dependency name="DestroyDynamicCP"/>
 			<dependency name="DestroyDynamicMapIcon"/>
@@ -43584,6 +43589,7 @@
 			<dependency name="GetRequiredXP"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="GivePlayerXP"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="PlayerElectricJob"/>
 			<dependency name="PlayerElectricJob"/>
 			<dependency name="PlayerInfo"/>
@@ -43592,12 +43598,17 @@
 			<dependency name="ProxDetectorWrap"/>
 			<dependency name="RandomMinMax"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="SetPlayerAttachedObject"/>
 			<dependency name="ShowTDN"/>
 			<dependency name="dclog_Electric"/>
+			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="gElectricCP"/>
 			<dependency name="gElectricCP"/>
 			<dependency name="gElectricFinish"/>
+			<dependency name="gElectricFixed"/>
+			<dependency name="gElectricFixed"/>
 			<dependency name="gElectricIcon"/>
 			<dependency name="gElectricIcon"/>
 			<dependency name="number_format"/>
@@ -43606,6 +43617,8 @@
 			<dependency name="pLevel"/>
 			<dependency name="pXP"/>
 			<dependency name="random"/>
+			<dependency name="sElectricPoints"/>
+			<dependency name="sElectricPoints"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -58735,6 +58748,7 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0b"/>
 			<referrer name="ConstructionLoader"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
+			<referrer name="Electric_FixFinish"/>
 			<referrer name="pc_cmd_takekit"/>
 			<referrer name="Electric_OnInviteResponse"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0e"/>
@@ -86518,6 +86532,7 @@
 			<referrer name="pc_cmd_laybanh"/>
 			<referrer name="Construction_Start"/>
 			<referrer name="Electric_ShowFixDialog"/>
+			<referrer name="Electric_FixFinish"/>
 			<referrer name="pc_cmd_takekit"/>
 			<referrer name="Electric_OnInviteResponse"/>
 			<referrer name="_@yHOnDialogResponse@0f"/>
@@ -86739,6 +86754,7 @@
 			<referrer name="_@yHOnDialogResponse@0_"/>
 			<referrer name="PorterAnimation"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
+			<referrer name="Electric_FixFinish"/>
 			<referrer name="pc_cmd_takekit"/>
 			<referrer name="TDA_DIALOG_USEBANHMI"/>
 			<referrer name="TDA_DIALOG_USENUOCLOC"/>
