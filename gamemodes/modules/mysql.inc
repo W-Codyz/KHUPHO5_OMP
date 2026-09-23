@@ -5790,8 +5790,7 @@ public OnSetName(index, extraid)
 					if(DDoorsInfo[i][ddType] == 1 && DDoorsInfo[i][ddOwner] == GetPlayerSQLId(extraid))
 					{
 						strcat((DDoorsInfo[i][ddOwnerName][0] = 0, DDoorsInfo[i][ddOwnerName]), tmpName, 42);
-						DestroyDynamicPickup(DDoorsInfo[i][ddPickupID]);
-						if(IsValidDynamic3DTextLabel(DDoorsInfo[i][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[i][ddTextID]);
+						DestroyDynamicDoorObjects(i);
 						CreateDynamicDoor(i);
 						SaveDynamicDoor(i);
 					}
@@ -5883,8 +5882,7 @@ public OnApproveName(index, extraid)
 				if(DDoorsInfo[i][ddType] == 1 && DDoorsInfo[i][ddOwner] == GetPlayerSQLId(extraid))
 				{
 					strcat((DDoorsInfo[i][ddOwnerName][0] = 0, DDoorsInfo[i][ddOwnerName]), newname, 42);
-					DestroyDynamicPickup(DDoorsInfo[i][ddPickupID]);
-					if(IsValidDynamic3DTextLabel(DDoorsInfo[i][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[i][ddTextID]);
+					DestroyDynamicDoorObjects(i);
 					CreateDynamicDoor(i);
 					SaveDynamicDoor(i);
 				}
@@ -6181,8 +6179,7 @@ public OnSetDDOwner(playerid, doorid)
 			format(string, sizeof(string), "Successfully set the owner to %s.", playername);
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 
-			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+			DestroyDynamicDoorObjects(doorid);
 			CreateDynamicDoor(doorid);
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s da chinh sua door ID %d's owner to %s (SQL ID: %d).", GetPlayerNameEx(playerid), doorid, playername, id);
