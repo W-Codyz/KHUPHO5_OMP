@@ -12657,6 +12657,14 @@ stock CreateDynamicDoor(doorid)
 	}
 }
 
+stock DestroyDynamicDoorObjects(doorid)
+{
+	DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
+	DestroyDynamicPickup(DDoorsInfo[doorid][ddInteriorPickupID]);
+	if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+	if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddInteriorTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddInteriorTextID]);
+}
+
 stock LoadEventPoints() {
 
 	if(!fexist("eventpoints.cfg"))
