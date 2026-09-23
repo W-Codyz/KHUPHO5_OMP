@@ -498,8 +498,8 @@ hook OnPlayerUpdate(playerid)
             PlayerTextDrawSetString(playerid, SpeedoDrpTD[playerid][2], speed);
 
             new Float:FuelBar;
-            FuelBar = fFuel * 1.5/100;
-            PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][0], FuelBar, -35.0);
+            FuelBar = fFuel * -35.0/100;
+            PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][0], 1.5, FuelBar);
             PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][0]);
 
             new Float:HealthBar;
