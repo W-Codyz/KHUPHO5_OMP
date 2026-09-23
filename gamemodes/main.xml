@@ -43589,6 +43589,7 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
+			<dependency name="ProxDetectorWrap"/>
 			<dependency name="RandomMinMax"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="ShowTDN"/>
@@ -43639,6 +43640,7 @@
 			<dependency name="PlayerElectricJob"/>
 			<dependency name="PlayerElectricJob"/>
 			<dependency name="PlayerPlaySound"/>
+			<dependency name="ProxDetectorWrap"/>
 			<dependency name="RemovePlayerAttachedObject"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageEx"/>
@@ -43799,6 +43801,7 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerWorking"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="ProxDetectorWrap"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="ShowTDN"/>
 			<dependency name="dclog_Electric"/>
@@ -43888,27 +43891,32 @@
 			</param>
 		</member>
 		<member name="M:Electric_Stop" syntax="Electric_Stop(playerid)">
-			<stacksize value="7"/>
+			<stacksize value="162"/>
 			<referrer name="pc_cmd_dunglamviec"/>
 			<referrer name="Electric_OnMenuResponse"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="EVF_DestroyVehicle"/>
-			<dependency name="E_EJ_LeaderID"/>
 			<dependency name="E_EJ_Locked"/>
 			<dependency name="E_EJ_PartnerID"/>
 			<dependency name="E_EJ_VehicleID"/>
 			<dependency name="E_EJ_Working"/>
 			<dependency name="Electric_ResetVars"/>
 			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
 			<dependency name="IsValidVehicle"/>
 			<dependency name="PlayerElectricJob"/>
 			<dependency name="PlayerElectricJob"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
+			<dependency name="ProxDetectorWrap"/>
 			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetPlayerSkin"/>
 			<dependency name="ShowTDN"/>
 			<dependency name="false"/>
+			<dependency name="format"/>
 			<dependency name="pModel"/>
 			<param name="playerid">
 			</param>
@@ -49808,8 +49816,10 @@
 			<referrer name="PorterAnimation"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="ConstructionLoader"/>
+			<referrer name="Electric_Stop"/>
 			<referrer name="Electric_FixFinish"/>
 			<referrer name="Electric_OnFixResponse"/>
+			<referrer name="_@yHOnPlayerEnterDynamicCP@0d"/>
 			<referrer name="_@yHOnPlayerEnterDynRaceCP@0d"/>
 			<referrer name="pc_cmd_egroup"/>
 			<referrer name="Electric_OnMenuResponse"/>
@@ -58239,6 +58249,7 @@
 			<referrer name="TRUCKER_WELCOME_MSG"/>
 			<referrer name="_@yHOnDialogResponse@0_"/>
 			<referrer name="pc_cmd_kiemtrahang"/>
+			<referrer name="Electric_Stop"/>
 			<referrer name="ElectricStandUp"/>
 			<referrer name="_@yHOnVehicleSpawn@0d"/>
 			<referrer name="pc_cmd_egroup"/>
@@ -77912,6 +77923,11 @@
 			<referrer name="pc_cmd_dangkybank"/>
 			<referrer name="pc_cmd_me"/>
 			<referrer name="pc_cmd_do"/>
+			<referrer name="Electric_Stop"/>
+			<referrer name="Electric_FixFinish"/>
+			<referrer name="Electric_OnFixResponse"/>
+			<referrer name="_@yHOnPlayerEnterDynamicCP@0d"/>
+			<referrer name="Electric_OnMenuResponse"/>
 			<dependency name="ProxDetector"/>
 			<dependency name="format"/>
 			<dependency name="strlen"/>
@@ -84381,6 +84397,7 @@
 			<referrer name="Construction_Start"/>
 			<referrer name="ConstructionLoader"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
+			<referrer name="Electric_Stop"/>
 			<referrer name="Electric_FixFinish"/>
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="_@yHOnPlayerDisconnect@0d"/>
@@ -99334,15 +99351,19 @@
 		</member>
 		<member name="M:_@yHOnPlayerEnterDynamicCP@0d" syntax="_@yHOnPlayerEnterDynamicCP@0d(playerid, checkpointid)">
 			<attribute name="public"/>
-			<stacksize value="6"/>
+			<stacksize value="161"/>
 			<referrer name="@yH_OnPlayerEnterDynamicCP@0d"/>
 			<dependency name="E_EJ_Working"/>
 			<dependency name="Electric_ShowFixDialog"/>
 			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerState"/>
 			<dependency name="PlayerElectricJob"/>
+			<dependency name="ProxDetectorWrap"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="ShowTDN"/>
+			<dependency name="format"/>
 			<dependency name="gElectricCP"/>
 			<dependency name="gElectricFixed"/>
 			<param name="playerid">
@@ -104366,9 +104387,11 @@
 			<referrer name="PorterAnimation"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="ConstructionLoader"/>
+			<referrer name="Electric_Stop"/>
 			<referrer name="Electric_ShowFixDialog"/>
 			<referrer name="Electric_FixFinish"/>
 			<referrer name="Electric_OnFixResponse"/>
+			<referrer name="_@yHOnPlayerEnterDynamicCP@0d"/>
 			<referrer name="_@yHOnPlayerEnterDynRaceCP@0d"/>
 			<referrer name="pc_cmd_egroup"/>
 			<referrer name="Electric_OnMenuResponse"/>

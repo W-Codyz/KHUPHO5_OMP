@@ -137,19 +137,24 @@ stock Electric_Stop(playerid)
 {
     if(!IsElectricanWorking(playerid)) return 0;
 
-    new partner = PlayerElectricJob[playerid][E_EJ_PartnerID];
-    if(partner != INVALID_PLAYER_ID && PlayerElectricJob[playerid][E_EJ_LeaderID] == playerid)
+    // Destroy xe cong tac truoc
+    new vid = PlayerElectricJob[playerid][E_EJ_VehicleID];
+    if(IsValidVehicle(vid))
     {
-        PlayerElectricJob[partner][E_EJ_VehicleID] = PlayerElectricJob[playerid][E_EJ_VehicleID];
-        PlayerElectricJob[partner][E_EJ_Locked]    = PlayerElectricJob[playerid][E_EJ_Locked];
-        PlayerElectricJob[partner][E_EJ_PartnerID] = INVALID_PLAYER_ID;
-        PlayerElectricJob[playerid][E_EJ_VehicleID]= INVALID_VEHICLE_ID;
-        PlayerElectricJob[playerid][E_EJ_Locked]   = false;
+        DestroyVehicle(vid);
     }
-    else if(IsValidVehicle(PlayerElectricJob[playerid][E_EJ_VehicleID]))
+    PlayerElectricJob[playerid][E_EJ_VehicleID] = INVALID_VEHICLE_ID;
+    PlayerElectricJob[playerid][E_EJ_Locked]    = false;
+
+    // Thong bao partner neu co
+    new partner = PlayerElectricJob[playerid][E_EJ_PartnerID];
+    if(partner != INVALID_PLAYER_ID && IsPlayerConnected(partner))
     {
-        DestroyVehicle(PlayerElectricJob[playerid][E_EJ_VehicleID]);
-        PlayerElectricJob[playerid][E_EJ_VehicleID] = INVALID_VEHICLE_ID;
+        PlayerElectricJob[partner][E_EJ_VehicleID] = INVALID_VEHICLE_ID;
+        PlayerElectricJob[partner][E_EJ_Locked]    = false;
+        PlayerElectricJob[partner][E_EJ_PartnerID] = INVALID_PLAYER_ID;
+        SendClientMessageEx(partner, COLOR_RED,
+            "[Sua Dien] %s da roi nhom, xe cong tac bi thu hoi.", GetPlayerNameEx(playerid));
     }
 
     if(GetPVarInt(playerid, "EJ_HasKit"))
@@ -159,6 +164,11 @@ stock Electric_Stop(playerid)
     }
 
     SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
+    {
+        new string[128];
+        format(string, sizeof(string), "{FF8000}* {C2A2DA}%s da ngung lam viec Sua Dien.", GetPlayerNameEx(playerid));
+        ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
     Electric_ResetVars(playerid);
     ShowTDN(playerid, NOTIFICATION_INFO, "Ban da ngung lam viec Sua Dien.");
     return 1;
@@ -206,6 +216,11 @@ public Electric_FixFinish(playerid)
     new msg[128];
     format(msg, sizeof(msg), "Sua dien thanh cong! Ban nhan duoc {3BFF6F}$%d{ffffff} o lan sua dien nay.", pay);
     SendClientMessageEx(playerid, COLOR_WHITE, msg);
+    {
+        new string[128];
+        format(string, sizeof(string), "{FF8000}* {C2A2DA}%s sua dien thanh cong!", GetPlayerNameEx(playerid));
+        ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
     ShowTDN(playerid, NOTIFICATION_SUCCESS, "Sua dien thanh cong!");
 
     // XP
@@ -292,6 +307,11 @@ stock Electric_OnFixResponse(playerid, inputtext[])
         RemovePlayerAttachedObject(playerid, ELECTRIC_KIT_SLOT);
         DeletePVar(playerid, "EJ_HasKit");
 
+        {
+            new string[128];
+            format(string, sizeof(string), "{FF8000}* {C2A2DA}%s dang sua dien...", GetPlayerNameEx(playerid));
+            ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+        }
         ShowTDN(playerid, NOTIFICATION_INFO, "Dap an dung! Dang sua dien...");
         SetLoading(playerid, 10000, "Dang sua dien...", "Electric_FixFinish");
     }
@@ -300,6 +320,11 @@ stock Electric_OnFixResponse(playerid, inputtext[])
         // Sai - nga xuong va mat mau (freeze=1 giu nguoi choi nam xuong den khi dung day)
         ApplyAnimation(playerid, "PED", "BIKE_fall_off", 4.1, 0, 1, 1, 1, 0);
         PlayerPlaySound(playerid, 6402, 0.0, 0.0, 0.0);
+        {
+            new string[128];
+            format(string, sizeof(string), "{FF8000}* {C2A2DA}%s bi dien giat!", GetPlayerNameEx(playerid));
+            ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+        }
 
         new Float:damage = float(10 + random(11)); // 10-20 HP
         new Float:health;
@@ -441,6 +466,11 @@ hook OnPlayerEnterDynamicCP(playerid, STREAMER_TAG_CP:checkpointid)
 
     for(new i = 0; i < ELECTRIC_MAX_POINTS; i++) {
         if(!gElectricFixed[playerid][i] && checkpointid == gElectricCP[playerid][i]) {
+            {
+                new string[128];
+                format(string, sizeof(string), "{FF8000}* {C2A2DA}%s dang kiem tra su co dien...", GetPlayerNameEx(playerid));
+                ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            }
             Electric_ShowFixDialog(playerid, i);
             break;
         }
@@ -631,6 +661,11 @@ stock Electric_OnMenuResponse(playerid, response, listitem)
             PlayerWorking[playerid] = JOB_ELECTRIC;
             Electric_SetSkin(playerid);
             PutPlayerInVehicle(playerid, vehid, 0);
+            {
+                new string[128];
+                format(string, sizeof(string), "{FF8000}* {C2A2DA}%s bat dau lam viec Sua Dien!", GetPlayerNameEx(playerid));
+                ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            }
 
             if(partner != INVALID_PLAYER_ID)
             {
@@ -639,6 +674,11 @@ stock Electric_OnMenuResponse(playerid, response, listitem)
                 PlayerWorking[partner] = JOB_ELECTRIC;
                 Electric_SetSkin(partner);
                 PutPlayerInVehicle(partner, vehid, 1);
+                {
+                    new string[128];
+                    format(string, sizeof(string), "{FF8000}* {C2A2DA}%s bat dau lam viec Sua Dien!", GetPlayerNameEx(partner));
+                    ProxDetectorWrap(partner, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+                }
 
                 for(new i = 0; i < ELECTRIC_MAX_POINTS; i++) {
                     gElectricCP[partner][i]   = CreateDynamicCP(sElectricPoints[i][0], sElectricPoints[i][1], sElectricPoints[i][2], 2.0, 0, 0, partner, 25.0);
