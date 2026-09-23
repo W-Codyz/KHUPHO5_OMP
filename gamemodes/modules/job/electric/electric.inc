@@ -208,16 +208,37 @@ public Electric_FixFinish(playerid)
     SendClientMessageEx(playerid, COLOR_WHITE, msg);
     ShowTDN(playerid, NOTIFICATION_SUCCESS, "Sua dien thanh cong!");
 
+    // XP
+    new rand_xp;
+    if(DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) {
+        rand_xp = Random(PlayerInfo[playerid][pLevel] * XP_RATE - 5, PlayerInfo[playerid][pLevel] * XP_RATE - 2);
+        GivePlayerXP(playerid, rand_xp * 2);
+        SendClientMessageEx(playerid, COLOR_YELLOW,
+            "Kinh nghiem nhan vat: +%d XP (%s/%s) (DOUBLE XP)",
+            rand_xp * 2,
+            number_format(PlayerInfo[playerid][pXP]),
+            number_format(GetRequiredXP(playerid)));
+        rand_xp *= 2;
+    } else {
+        rand_xp = Random(PlayerInfo[playerid][pLevel] * XP_RATE - 5, PlayerInfo[playerid][pLevel] * XP_RATE - 2);
+        GivePlayerXP(playerid, rand_xp);
+        SendClientMessageEx(playerid, COLOR_YELLOW,
+            "Kinh nghiem nhan vat: +%d XP (%s/%s)",
+            rand_xp,
+            number_format(PlayerInfo[playerid][pXP]),
+            number_format(GetRequiredXP(playerid)));
+    }
+
     PlayerElectricJob[playerid][E_EJ_FixCount]++;
 
     // Discord log
     {
         new etitle[128], estr[256];
-        format(etitle, sizeof(etitle), "%s (ID: %d) - Sua dien diem #%d", GetPlayerNameEx(playerid), playerid, index + 1);
-        format(estr, sizeof(estr), ":wrench: **SUA DIEN THANH CONG**\n:map: **Diem #%d**\n:moneybag: **Tien nhan: $%d**\n:clipboard: **Tien do: %d/%d diem**\n:busts_in_silhouette: **Nhom: %s**",
-            index + 1, pay,
-            PlayerElectricJob[playerid][E_EJ_FixCount], ELECTRIC_MAX_POINTS,
-            PlayerElectricJob[playerid][E_EJ_GroupName]);
+        format(etitle, sizeof(etitle), "%s (ID: %d) - Sửa điện | Vị trí (#%d)", GetPlayerNameEx(playerid), playerid, index + 1);
+        format(estr, sizeof(estr), ":wrench: **SỬA ĐIỆN THÀNH CÔNG**\n:map: **Vị trí #%d/%d**\n:moneybag: **Tiền nhận: $%d**\n:star: **XP nhận: +%d%s**\n:clipboard: **Tiến độ: %d/%d điểm**",
+            index + 1, ELECTRIC_MAX_POINTS, pay,
+            rand_xp, (DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) ? " [2X]" : "",
+            PlayerElectricJob[playerid][E_EJ_FixCount], ELECTRIC_MAX_POINTS);
         DiscordLog(dclog_Electric, etitle, estr);
     }
 

@@ -107,6 +107,7 @@
 #include "./modules/player/inventory/header"
 #include "./modules/system/faction/police"
 #include "./modules/player/mission/header"
+//	#include "./modules/player/loading_circle"
 #include "./modules/player/suckhoe"
 
 //==============HOSPITAL============//
@@ -134,6 +135,7 @@
 #include "./modules/job/porter/porter"
 #include "./modules/job/pizzaboy/pizzaboy"
 #include "./modules/job/construction/construction"
+#include "./modules/job/electric/electric"
 //#include "./modules/job/side_job/fisher/fisher"
 #include "./modules/job/side_job/sweeper/sweeper"
 

@@ -299,9 +299,9 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 
         // Discord log
         new title[64];
-        format(title, sizeof(title), "%s (ID: %d) - Lanh luong Trucker", GetPlayerNameEx(playerid), playerid);
+        format(title, sizeof(title), "%s (ID: %d) - Lãnh lương Trucker", GetPlayerNameEx(playerid), playerid);
         DiscordLog(dclog_Trucker, title,
-            ":moneybag: **Tien lanh: $%s**\n:package: **Kien da giao: %d**\n:star: **XP nhan: +%d%s**\n:briefcase: **Trucker Skill: %d**",
+            ":moneybag: **Tiền lãnh: $%s**\n:package: **Kiện đã giao: %d**\n:star: **XP nhận: +%d%s**\n:briefcase: **Trucker Skill: %d**",
             number_format(salary), TruckerDeliveries[playerid],
             xp_give, (DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) ? " [2X]" : "",
             PlayerInfo[playerid][pTruckSkill]);
@@ -427,8 +427,8 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
                         }
                         else if(LuongHang[playerid] == 5) {
                             new dtitle[128], dstr[256];
-                            format(dtitle, sizeof(dtitle), "%s (ID: %d) - Chat du 5 kien hang", GetPlayerNameEx(playerid), playerid);
-                            format(dstr, sizeof(dstr), ":truck: **XE DAY HANG (5/5)**\n:package: **Kien cuoi: %s**\n**Tong hang tren xe:**\n- Thuc An: %d | Vat Lieu: %d | Quan Ao: %d | Hang Cam: %d\n:arrow_right: **San sang giao hang!**",
+                            format(dtitle, sizeof(dtitle), "%s (ID: %d) - Chất đủ 5 kiện hàng", GetPlayerNameEx(playerid), playerid);
+                            format(dstr, sizeof(dstr), ":truck: **XE ĐẦY HÀNG (5/5)**\n:package: **Kiện cuối: %s**\n**Tổng hàng trên xe:**\n- Thực Ăn: %d | Vật Liệu: %d | Quần Áo: %d | Hàng Cấm: %d\n:arrow_right: **Sẵn sàng giao hàng!**",
                                 loaiName,
                                 hangtrenxe[playerid][0], hangtrenxe[playerid][1],
                                 hangtrenxe[playerid][2], hangtrenxe[playerid][3]);
@@ -506,8 +506,8 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 
             // Discord log
             new title[128], str[256];
-            format(title, sizeof(title), "%s (ID: %d) - Mua hang cam", GetPlayerNameEx(playerid), playerid);
-            format(str, sizeof(str), ":red_circle: **MUA HANG CAM**\n:money_with_wings: **Gia mua: $%s**\n:cop: **Canh sat on-duty: %d**\n:package: **Ton kho khu vuc: %d/5**\n:truck: **Hang tren xe: %d/5**",
+            format(title, sizeof(title), "%s (ID: %d) - Mua hàng cấm", GetPlayerNameEx(playerid), playerid);
+            format(str, sizeof(str), ":red_circle: **MUA HÀNG CẤM**\n:money_with_wings: **Giá mua: $%s**\n:cop: **Cảnh sát on-duty: %d**\n:package: **Tồn kho khu vực: %d/5**\n:truck: **Hàng trên xe: %d/5**",
                 number_format(giatruck[3]), CountCopsOnDuty(),
                 IllegalAreaInfo[i][buyStock], LuongHang[playerid]);
             DiscordLog(dclog_Trucker, title, str);
@@ -557,13 +557,13 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 
         // Discord log
         new title[128], str[256];
-        format(title, sizeof(title), "%s (ID: %d) - Ban hang cam", GetPlayerNameEx(playerid), playerid);
+        format(title, sizeof(title), "%s (ID: %d) - Bán hàng cấm", GetPlayerNameEx(playerid), playerid);
         if(PlayerInfo[playerid][pConnectHours] >= 2 && PlayerInfo[playerid][pWRestricted] <= 0) {
-            format(str, sizeof(str), ":red_circle: **BAN HANG CAM THANH CONG**\n:money_with_wings: **Nhan: $%s**\n:gun: **Vu khi: %s (x50)**\n:truck: **Lan giao thu: %d**\n:dollar: **Tong tich luy: $%s** (chua lanh)",
+            format(str, sizeof(str), ":red_circle: **BÁN HÀNG CẤM THÀNH CÔNG**\n:money_with_wings: **Nhận: $%s**\n:gun: **Vũ khí: %s (x50)**\n:truck: **Lần giao thứ: %d**\n:dollar: **Tổng tích lũy: $%s** (chưa lãnh)",
                 number_format(price), GetWeaponName(randomWeapon),
                 TruckerDeliveries[playerid], number_format(lanhluong[playerid]));
         } else {
-            format(str, sizeof(str), ":red_circle: **BAN HANG CAM THANH CONG**\n:money_with_wings: **Nhan: $%s**\n:no_entry_sign: **Khong nhan vu khi** (chua du gio/bi han che)\n:truck: **Lan giao thu: %d**\n:dollar: **Tong tich luy: $%s** (chua lanh)",
+            format(str, sizeof(str), ":red_circle: **BÁN HÀNG CẤM THÀNH CÔNG**\n:money_with_wings: **Nhận: $%s**\n:no_entry_sign: **Không nhận vũ khí** (chưa đủ giờ/bị hạn chế)\n:truck: **Lần giao thứ: %d**\n:dollar: **Tổng tích lũy: $%s** (chưa lãnh)",
                 number_format(price), TruckerDeliveries[playerid], number_format(lanhluong[playerid]));
         }
         DiscordLog(dclog_Trucker, title, str);
@@ -680,8 +680,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 default: loaiNameStr = "Khac";
             }
             new dtitle[128], dstr[256];
-            format(dtitle, sizeof(dtitle), "%s (ID: %d) - Giao hang Trucker", GetPlayerNameEx(playerid), playerid);
-            format(dstr, sizeof(dstr), ":handshake: **GIAO HANG THANH CONG**\n:package: **Loai hang: %s**\n:moneybag: **Gia thu mua: $%s**\n:truck: **Lan giao thu: %d**\n:dollar: **Tong tich luy: $%s** (chua lanh)",
+            format(dtitle, sizeof(dtitle), "%s (ID: %d) - Giao hàng Trucker", GetPlayerNameEx(playerid), playerid);
+            format(dstr, sizeof(dstr), ":handshake: **GIAO HÀNG THÀNH CÔNG**\n:package: **Loại hàng: %s**\n:moneybag: **Giá thu mua: $%s**\n:truck: **Lần giao thứ: %d**\n:dollar: **Tổng tích lũy: $%s** (chưa lãnh)",
                 loaiNameStr, number_format(earn),
                 TruckerDeliveries[playerid], number_format(lanhluong[playerid]));
             DiscordLog(dclog_Trucker, dtitle, dstr);
