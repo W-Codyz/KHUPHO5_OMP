@@ -258,3 +258,48 @@ CMD:baotri(playerid, params[])
     }
     return 1;
 }
+
+//HELP CMD
+CMD:mole1(playerid){
+	pc_cmd_mole(playerid,"Ban muon kiem tien $?, ban that nghiep, (/map >> tim viec lam) se giup ban co 1 cong viec tot");
+	return 1;
+}
+CMD:mole2(playerid){
+	pc_cmd_mole(playerid,"Ban muon tro chuyen cung moi nguoi? (/map >> tim duong) 24/7 mua 1 radio lien lac de noi chuyen");
+	return 1;
+}
+
+CMD:mole3(playerid){
+	pc_cmd_mole(playerid,"Ban gap kho khan?, dung lo hay (/baocao) de goi ho tro vien ra ho tro ban bat cu luc nao");
+	return 1;
+}
+
+CMD:mole4(playerid){
+	pc_cmd_mole(playerid,"Ban muon kiem tien ?, khong lam cung co an => /map -> tim duong -> Song Bai");
+	return 1;
+}
+
+CMD:1(playerid){
+	pc_cmd_m(playerid,"Yeu Cau Xe Phia Truoc Tap Vao Le Now !!");
+	return 1;
+}
+
+CMD:2(playerid){
+	pc_cmd_m(playerid,"Yeu cau tat ca gio hai tay len dau (( /handsup )) bo sung xuong !");
+	return 1;
+}
+
+CMD:3(playerid){
+	pc_cmd_m(playerid,"Yeu Cau Anh Gio Tay Đau Hang (( /Handsup )) Va Hop Tac Now. Anh Co 5s De Lam Viec Do");
+	return 1;
+}
+
+CMD:4(playerid){
+	pc_cmd_m(playerid,"Yeu cau nguoi khong phan su khong duoc di theo khong chung toi se no sung");
+	return 1;
+}
+
+CMD:5(playerid){
+	pc_cmd_m(playerid,"Yeu Cau Ai Khong Phan Su Di Ra Khoi Khu Vuc Neu Khong Chung Toi Se Dung Bien Phap Manh Anh Co 5s Đe Lam Viec Do");
+	return 1;
+}
