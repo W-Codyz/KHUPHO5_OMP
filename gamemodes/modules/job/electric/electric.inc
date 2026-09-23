@@ -198,7 +198,7 @@ public Electric_FixFinish(playerid)
     new index = GetPVarInt(playerid, "EJ_FixIndex");
     if(index < 0 || index >= ELECTRIC_MAX_POINTS) return 1;
 
-    new pay = 1500 + random(1001);
+    new pay = 2000 + random(1001);
     if (PlayerElectricJob[playerid][E_EJ_PartnerID] != INVALID_PLAYER_ID) pay += 500; // thưởng thêm khi có partner
     GivePlayerCash(playerid, pay);
     PlayerPlaySound(playerid, 32000, 0.0, 0.0, 0.0);
@@ -620,12 +620,12 @@ stock Electric_OnGroupNameResponse(playerid, response, inputtext[])
     if(isnull(inputtext))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_GNAME, DIALOG_STYLE_INPUT,
             "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tao Nhom",
-            "{FF4444}Khong duoc de trong!\n\nNhap ten nhom (toi thieu 7 ky tu, khong phai toan so):", "Tao", "Huy");
+            "{FF4444}Khong duoc de trong!\n\nNhap ten nhom (toi thieu 64 ky tu, khong phai toan so):", "Tao", "Huy");
 
     if(Electric_IsNumeric(inputtext))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_GNAME, DIALOG_STYLE_INPUT,
             "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tao Nhom",
-            "{FF4444}Khong duoc nhap toan so!\n\nNhap ten nhom (toi thieu 7 ky tu):", "Tao", "Huy");
+            "{FF4444}Khong duoc nhap toan so!\n\nNhap ten nhom (toi thieu 64 ky tu):", "Tao", "Huy");
 
     if(strlen(inputtext) < 7)
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_GNAME, DIALOG_STYLE_INPUT,
