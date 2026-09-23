@@ -114,13 +114,6 @@ stock FA_AddFame(familyid, amount)
 
 stock FamilyAssets_InitMySQL()
 {
-    // Thêm cột mới (lỗi 1060 nếu cột đã tồn tại là harmless, server tiếp tục bình thường)
-    mysql_tquery(MainPipeline, "ALTER TABLE `families` ADD COLUMN `level` INT DEFAULT 1", "", "");
-    mysql_tquery(MainPipeline, "ALTER TABLE `families` ADD COLUMN `fame` INT DEFAULT 0", "", "");
-    mysql_tquery(MainPipeline, "ALTER TABLE `families` ADD COLUMN `cansa` INT DEFAULT 0", "", "");
-    mysql_tquery(MainPipeline, "ALTER TABLE `families` ADD COLUMN `tepcansa` INT DEFAULT 0", "", "");
-    mysql_tquery(MainPipeline, "ALTER TABLE `families` ADD COLUMN `safe_cooldown` INT DEFAULT 0", "", "");
-
     // Bảng gun slots mới (26 slot, kèm ammo)
     mysql_tquery(MainPipeline,
         "CREATE TABLE IF NOT EXISTS `family_guns_v2` (\
