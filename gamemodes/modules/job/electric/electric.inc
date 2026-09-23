@@ -225,7 +225,7 @@ public Electric_FixFinish(playerid)
     }
 
     ClearAnimations(playerid);
-    new pay = 2000 + random(1001);
+    new pay = 2500 + random(1001);
     if (PlayerElectricJob[playerid][E_EJ_PartnerID] != INVALID_PLAYER_ID) pay += 500; // thưởng thêm khi có partner
     GivePlayerCash(playerid, pay);
     PlayerPlaySound(playerid, 32000, 0.0, 0.0, 0.0);
