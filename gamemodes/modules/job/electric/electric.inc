@@ -210,6 +210,17 @@ public Electric_FixFinish(playerid)
 
     PlayerElectricJob[playerid][E_EJ_FixCount]++;
 
+    // Discord log
+    {
+        new etitle[128], estr[256];
+        format(etitle, sizeof(etitle), "%s (ID: %d) - Sua dien diem #%d", GetPlayerNameEx(playerid), playerid, index + 1);
+        format(estr, sizeof(estr), ":wrench: **SUA DIEN THANH CONG**\n:map: **Diem #%d**\n:moneybag: **Tien nhan: $%d**\n:clipboard: **Tien do: %d/%d diem**\n:busts_in_silhouette: **Nhom: %s**",
+            index + 1, pay,
+            PlayerElectricJob[playerid][E_EJ_FixCount], ELECTRIC_MAX_POINTS,
+            PlayerElectricJob[playerid][E_EJ_GroupName]);
+        DiscordLog(dclog_Electric, etitle, estr);
+    }
+
     if(DestroyDynamicCP(gElectricCP[playerid][index]))
         gElectricCP[playerid][index] = STREAMER_TAG_CP:INVALID_STREAMER_ID;
     if(DestroyDynamicMapIcon(gElectricIcon[playerid][index]))
@@ -277,6 +288,18 @@ stock Electric_OnFixResponse(playerid, inputtext[])
         new dmgMsg[64];
         format(dmgMsg, sizeof(dmgMsg), "Chap dien! Ban bi dien giat va mat {FF4545}%.0f {FFFFFF}HP!", damage);
         SendClientMessageEx(playerid, COLOR_WHITE, dmgMsg);
+
+        // Discord log
+        {
+            new etitle[128], estr[256];
+            format(etitle, sizeof(etitle), "%s (ID: %d) - Bi dien giat diem #%d", GetPlayerNameEx(playerid), playerid, index + 1);
+            format(estr, sizeof(estr), ":zap: **DIEN GIAT**\n:map: **Diem #%d**\n:drop_of_blood: **HP mat: %.0f**\n:clipboard: **Da sua: %d/%d diem**\n:busts_in_silhouette: **Nhom: %s**",
+                index + 1, damage,
+                PlayerElectricJob[playerid][E_EJ_FixCount], ELECTRIC_MAX_POINTS,
+                PlayerElectricJob[playerid][E_EJ_GroupName]);
+            DiscordLog(dclog_Electric, etitle, estr);
+        }
+
         SetTimerEx("ElectricStandUp", 2500, false, "i", playerid);
     }
     return 1;
@@ -426,8 +449,23 @@ hook OnPlayerEnterDynRaceCP(playerid, STREAMER_TAG_RACE_CP:checkpointid)
             DeletePVar(playerid, "EJ_HasKit");
         }
         SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
+
+        // Luu truoc khi reset
+        new savedGroupName[64], savedFixCount;
+        savedFixCount = PlayerElectricJob[playerid][E_EJ_FixCount];
+        format(savedGroupName, sizeof(savedGroupName), "%s", PlayerElectricJob[playerid][E_EJ_GroupName]);
+
         Electric_ResetVars(playerid);
         ShowTDN(playerid, NOTIFICATION_SUCCESS, "Cong viec Sua Dien hoan thanh!");
+
+        // Discord log
+        {
+            new etitle[128], estr[256];
+            format(etitle, sizeof(etitle), "%s (ID: %d) - Hoan thanh Sua Dien", GetPlayerNameEx(playerid), playerid);
+            format(estr, sizeof(estr), ":trophy: **HOAN THANH CONG VIEC SUA DIEN**\n**Nhom:** %s\n**Da sua:** %d/%d diem\n:white_check_mark: **Cong viec ket thuc, ve diem xuat phat!**",
+                savedGroupName, savedFixCount, ELECTRIC_MAX_POINTS);
+            DiscordLog(dclog_Electric, etitle, estr);
+        }
     }
     return 1;
 }
@@ -595,6 +633,23 @@ stock Electric_OnMenuResponse(playerid, response, listitem)
 
             SendClientMessageEx(playerid, COLOR_YELLOW,
                 "Cong viec Sua Dien bat dau! Lay bo cong cu bang /takekit roi den cac diem do tren ban do.");
+
+            // Discord log
+            {
+                new etitle[128], estr[256];
+                format(etitle, sizeof(etitle), "%s (ID: %d) - Bat dau Sua Dien", GetPlayerNameEx(playerid), playerid);
+                if(partner != INVALID_PLAYER_ID) {
+                    format(estr, sizeof(estr), ":zap: **BAT DAU CONG VIEC SUA DIEN**\n**Nhom:** %s\n**Leader:** %s\n**Partner:** %s (ID: %d)\n**Diem can sua:** %d",
+                        PlayerElectricJob[playerid][E_EJ_GroupName],
+                        GetPlayerNameEx(playerid), GetPlayerNameEx(partner), partner,
+                        ELECTRIC_MAX_POINTS);
+                } else {
+                    format(estr, sizeof(estr), ":zap: **BAT DAU CONG VIEC SUA DIEN**\n**Nhom:** %s\n**Leader:** %s\n**Partner:** (khong co)\n**Diem can sua:** %d",
+                        PlayerElectricJob[playerid][E_EJ_GroupName],
+                        GetPlayerNameEx(playerid), ELECTRIC_MAX_POINTS);
+                }
+                DiscordLog(dclog_Electric, etitle, estr);
+            }
         }
         case 5: // Ngung lam viec
         {

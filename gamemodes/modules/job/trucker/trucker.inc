@@ -301,8 +301,10 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         new title[64];
         format(title, sizeof(title), "%s (ID: %d) - Lanh luong Trucker", GetPlayerNameEx(playerid), playerid);
         DiscordLog(dclog_Trucker, title,
-            "**Tien lanh: $%s**\n**%d kien da giao**",
-            number_format(salary), TruckerDeliveries[playerid]);
+            ":moneybag: **Tien lanh: $%s**\n:package: **Kien da giao: %d**\n:star: **XP nhan: +%d%s**\n:briefcase: **Trucker Skill: %d**",
+            number_format(salary), TruckerDeliveries[playerid],
+            xp_give, (DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) ? " [2X]" : "",
+            PlayerInfo[playerid][pTruckSkill]);
 
         Trucker_Cleanup(playerid);
         return 1;
@@ -423,6 +425,15 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
                             SendClientMessageEx(playerid, COLOR_WHITE,
                                 "Hint: Dung {FFFF00}/diemgiaohang{FFFFFF} de xem va danh dau diem ban hang gan nhat.");
                         }
+                        else if(LuongHang[playerid] == 5) {
+                            new dtitle[128], dstr[256];
+                            format(dtitle, sizeof(dtitle), "%s (ID: %d) - Chat du 5 kien hang", GetPlayerNameEx(playerid), playerid);
+                            format(dstr, sizeof(dstr), ":truck: **XE DAY HANG (5/5)**\n:package: **Kien cuoi: %s**\n**Tong hang tren xe:**\n- Thuc An: %d | Vat Lieu: %d | Quan Ao: %d | Hang Cam: %d\n:arrow_right: **San sang giao hang!**",
+                                loaiName,
+                                hangtrenxe[playerid][0], hangtrenxe[playerid][1],
+                                hangtrenxe[playerid][2], hangtrenxe[playerid][3]);
+                            DiscordLog(dclog_Trucker, dtitle, dstr);
+                        }
                         loaded = true;
                         break;
                     }
@@ -495,8 +506,10 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 
             // Discord log
             new title[128], str[256];
-            format(title, sizeof(title), "**%s (ID: %d) - MUA HANG CAM**", GetPlayerNameEx(playerid), playerid);
-            format(str, sizeof(str), ":bell: **MUA HANG CAM**\n:money_with_wings: **GIA: $%s**", number_format(giatruck[3]));
+            format(title, sizeof(title), "%s (ID: %d) - Mua hang cam", GetPlayerNameEx(playerid), playerid);
+            format(str, sizeof(str), ":red_circle: **MUA HANG CAM**\n:money_with_wings: **Gia mua: $%s**\n:cop: **Canh sat on-duty: %d**\n:package: **Ton kho khu vuc: %d/5**\n:truck: **Hang tren xe: %d/5**",
+                number_format(giatruck[3]), CountCopsOnDuty(),
+                IllegalAreaInfo[i][buyStock], LuongHang[playerid]);
             DiscordLog(dclog_Trucker, title, str);
             return 1;
         }
@@ -544,9 +557,15 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 
         // Discord log
         new title[128], str[256];
-        format(title, sizeof(title), "**%s (ID: %d) - BAN HANG CAM**", GetPlayerNameEx(playerid), playerid);
-        format(str, sizeof(str), ":bell: **BAN HANG CAM THANH CONG**\n:money_with_wings: **NHAN: $%s**\n:gun: **%s**",
-            number_format(price), GetWeaponName(randomWeapon));
+        format(title, sizeof(title), "%s (ID: %d) - Ban hang cam", GetPlayerNameEx(playerid), playerid);
+        if(PlayerInfo[playerid][pConnectHours] >= 2 && PlayerInfo[playerid][pWRestricted] <= 0) {
+            format(str, sizeof(str), ":red_circle: **BAN HANG CAM THANH CONG**\n:money_with_wings: **Nhan: $%s**\n:gun: **Vu khi: %s (x50)**\n:truck: **Lan giao thu: %d**\n:dollar: **Tong tich luy: $%s** (chua lanh)",
+                number_format(price), GetWeaponName(randomWeapon),
+                TruckerDeliveries[playerid], number_format(lanhluong[playerid]));
+        } else {
+            format(str, sizeof(str), ":red_circle: **BAN HANG CAM THANH CONG**\n:money_with_wings: **Nhan: $%s**\n:no_entry_sign: **Khong nhan vu khi** (chua du gio/bi han che)\n:truck: **Lan giao thu: %d**\n:dollar: **Tong tich luy: $%s** (chua lanh)",
+                number_format(price), TruckerDeliveries[playerid], number_format(lanhluong[playerid]));
+        }
         DiscordLog(dclog_Trucker, title, str);
         return 1;
     }
@@ -650,6 +669,23 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             "{D5A30A}[Trucker] Giao hang thanh cong! Tich luy {5BFF89}+$%s{D5A30A} (chua lanh).",
             number_format(earn));
         ShowTDN(playerid, NOTIFICATION_SUCCESS, "Giao hang thanh cong!");
+
+        // Discord log
+        {
+            new loaiNameStr[24];
+            switch(loai) {
+                case 1: loaiNameStr = "Thuc An";
+                case 2: loaiNameStr = "Vat Lieu";
+                case 3: loaiNameStr = "Quan Ao";
+                default: loaiNameStr = "Khac";
+            }
+            new dtitle[128], dstr[256];
+            format(dtitle, sizeof(dtitle), "%s (ID: %d) - Giao hang Trucker", GetPlayerNameEx(playerid), playerid);
+            format(dstr, sizeof(dstr), ":handshake: **GIAO HANG THANH CONG**\n:package: **Loai hang: %s**\n:moneybag: **Gia thu mua: $%s**\n:truck: **Lan giao thu: %d**\n:dollar: **Tong tich luy: $%s** (chua lanh)",
+                loaiNameStr, number_format(earn),
+                TruckerDeliveries[playerid], number_format(lanhluong[playerid]));
+            DiscordLog(dclog_Trucker, dtitle, dstr);
+        }
 
         if(LuongHang[playerid] > 0) {
             SendClientMessageEx(playerid, COLOR_WHITE,
