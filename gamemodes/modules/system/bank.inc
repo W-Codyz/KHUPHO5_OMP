@@ -21,15 +21,11 @@ CMD:bank(playerid, params[]) {
 stock ShowBank(playerid) {
     if(PlayerInfo[playerid][pSoTaiKhoan] > 0)
     {
-		new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], str5[1280], str6[1280], str7[1280], name[1280];
-		format(str1, sizeof(str), "{FFD700}===== HE THONG NGAN HANG ====={FFFFFF}");
-	    format(str2, sizeof(str), "{AAAAAA}   So tai khoan : {00CFFF}%d", PlayerInfo[playerid][pSoTaiKhoan]);
-	    format(str3, sizeof(str), "{AAAAAA}   So du : {00FF7F}$%s  {AAAAAA}| Tien mat : {00FF7F}$%s", number_format(PlayerInfo[playerid][pAccount]), number_format(PlayerInfo[playerid][pCash]));
-	    format(str4, sizeof(str), "{FFD700}========== GIAO DICH =========={ffffff}");
+		new str[2460], str5[1280], str6[1280], str7[1280], name[1280];
 	    format(str5, sizeof(str), "{00FF7F}[+] {ffffff}Gui tien vao ngan hang");
 	    format(str6, sizeof(str), "{FF6B6B}[-] {ffffff}Rut tien tu ngan hang");
 	    format(str7, sizeof(str), "{00CFFF}[>] {ffffff}Chuyen khoan");
-	    format(str, sizeof(str), "%s\n\n%s\n%s\n\n%s\n\n%s\n%s\n%s", str1,str2,str3,str4,str5,str6,str7);
+	    format(str, sizeof(str), "%s\n%s\n%s", str5,str6,str7);
 	    format(name, sizeof(name), "{FFD700}NGAN HANG");
 		ShowPlayerDialog(playerid, DIALOG_BANK, DIALOG_STYLE_LIST, name, str, "Chon", "");
 	}else SendClientMessageEx(playerid, COLOR_YELLOW, "{FF6B6B}[!]{FFFFFF} Ban chua co tai khoan ngan hang. Su dung {FFFF00}/dangkybank{FFFFFF} de dang ky.");
@@ -72,18 +68,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	    {
 	        if(listitem == 0)
 	        {
-	        }
-	        if(listitem == 1)
-	        {
-	        }
-	        if(listitem == 2)
-	        {
-	        }
-	        if(listitem == 3)
-	        {
-	        }
-	        if(listitem == 4)
-	        {
 	            new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], str5[1280], name[1280];
 				format(str1, sizeof(str), "{FFD700}===== NGAN HANG - GUI TIEN ====={FFFFFF}");
 			    format(str2, sizeof(str), "{AAAAAA}   So tai khoan : {00CFFF}%d", PlayerInfo[playerid][pSoTaiKhoan]);
@@ -94,7 +78,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			    format(name, sizeof(name), "{FFD700}GUI TIEN");
 				ShowPlayerDialog(playerid, DIALOG_GUITIEN, DIALOG_STYLE_INPUT, name, str, "Xac nhan", "Huy");
 	        }
-			if(listitem == 5)
+			if(listitem == 1)
    			{
 	            new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], str5[1280], name[1280];
 				format(str1, sizeof(str), "{FFD700}===== NGAN HANG - RUT TIEN ====={FFFFFF}");
@@ -106,7 +90,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			    format(name, sizeof(name), "{FFD700}RUT TIEN");
 				ShowPlayerDialog(playerid, DIALOG_RUTTIEN, DIALOG_STYLE_INPUT, name, str, "Xac nhan", "Huy");
 			}
-			if(listitem == 6)
+			if(listitem == 2)
 			{
 			    /*new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], str5[1280], name[1280];
 				format(str1, sizeof(str), "{b32d00}HE THONG NGAN HANG - THONG TIN{FFFFFF}", GetPlayerNameEx(playerid));
@@ -176,8 +160,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
             new DCC_Channel:channel = DCC_FindChannelById("1548216250415456376");
             new nofi[520], title[128];
-            format(title, sizeof(title), "**%s (ID: %d) chuyen khoan cho %s (ID: %d)**", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
-            format(nofi, sizeof(nofi), ":bank: **SO TIEN CHUYEN: $%s** | TK nguoi gui con: $%s", number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
+            format(title, sizeof(title), "**%s (ID: %d) chuyển khoản cho %s (ID: %d)**", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+            format(nofi, sizeof(nofi), ":bank: **Số tiền chuyển: $%s** | Tài khoản người gửi còn: $%s", number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
             DiscordLog(channel, title, nofi);
             return 1;
         }
@@ -217,8 +201,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 			new DCC_Channel:channel = DCC_FindChannelById("1548216250415456376");
 			new nofi[520], title[128];
-			format(title, sizeof(title), "**%s (ID: %d) rut tien ngan hang**", GetPlayerNameEx(playerid), playerid);
-			format(nofi, sizeof(nofi), ":arrow_down: **SO TIEN RUT: $%s** | So du con: $%s", number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
+			format(title, sizeof(title), "**%s (ID: %d) rút tiền ngân hàng**", GetPlayerNameEx(playerid), playerid);
+			format(nofi, sizeof(nofi), ":arrow_down: **Số tiền rút: $%s** | Số dư còn lại: $%s", number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
 			DiscordLog(channel, title, nofi);
 		}
 	}
@@ -260,8 +244,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
 			new DCC_Channel:channel = DCC_FindChannelById("1548216250415456376");
 			new nofi[520], title[128];
-			format(title, sizeof(title), "**%s (ID: %d) gui tien vao ngan hang**", GetPlayerNameEx(playerid), playerid);
-			format(nofi, sizeof(nofi), ":arrow_up: **SO TIEN GUI: $%s** | So du moi: $%s", number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
+			format(title, sizeof(title), "**%s (ID: %d) gửi tiền vào ngân hàng**", GetPlayerNameEx(playerid), playerid);
+			format(nofi, sizeof(nofi), ":arrow_up: **Số tiền gửi: $%s** | Số dư mới: $%s", number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
 			DiscordLog(channel, title, nofi);
 		}
 	}
