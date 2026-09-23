@@ -27813,8 +27813,7 @@ CMD:ddname(playerid, params[]) {
 		strcat((DDoorsInfo[iDoorID][ddDescription][0] = 0, DDoorsInfo[iDoorID][ddDescription]), szName, 128);
 		SendClientMessageEx(playerid, COLOR_WHITE, "You have successfully changed the name of this door.");
 
-		DestroyDynamicPickup(DDoorsInfo[iDoorID][ddPickupID]);
-		if(IsValidDynamic3DTextLabel(DDoorsInfo[iDoorID][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[iDoorID][ddTextID]);
+		DestroyDynamicDoorObjects(iDoorID);
 		CreateDynamicDoor(iDoorID);
 		SaveDynamicDoor(iDoorID);
 
@@ -27841,8 +27840,7 @@ CMD:ddowner(playerid, params[])
 			DDoorsInfo[doorid][ddOwner] = GetPlayerSQLId(giveplayerid);
 			SendClientMessageEx(playerid, COLOR_WHITE, "You have successfully changed the owner of this door.");
 
-			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+			DestroyDynamicDoorObjects(doorid);
 			CreateDynamicDoor(doorid);
 			SaveDynamicDoor(doorid);
 
@@ -27979,6 +27977,8 @@ CMD:ddedit(playerid, params[])
 			GetPlayerFacingAngle(playerid, DDoorsInfo[doorid][ddInteriorA]);
 			DDoorsInfo[doorid][ddInteriorInt] = GetPlayerInterior(playerid);
 			DDoorsInfo[doorid][ddInteriorVW] = GetPlayerVirtualWorld(playerid);
+			DestroyDynamicDoorObjects(doorid);
+			CreateDynamicDoor(doorid);
 			SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the interior!");
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Interior.", GetPlayerNameEx(playerid), doorid);
@@ -28026,8 +28026,7 @@ CMD:ddedit(playerid, params[])
 			DDoorsInfo[doorid][ddExteriorVW] = GetPlayerVirtualWorld(playerid);
 			DDoorsInfo[doorid][ddExteriorInt] = GetPlayerInterior(playerid);
 			SendClientMessageEx(playerid, COLOR_WHITE, "You have changed the exterior!");
-			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+			DestroyDynamicDoorObjects(doorid);
 			CreateDynamicDoor(doorid);
 			SaveDynamicDoor(doorid);
 			format(string, sizeof(string), "%s has edited DoorID %d's Exterior.", GetPlayerNameEx(playerid), doorid);
@@ -28045,8 +28044,7 @@ CMD:ddedit(playerid, params[])
 				{
 					if(DDoorsInfo[doorid][ddOwner] != -1 && strcmp(DDoorsInfo[doorid][ddOwnerName], "Nobody", false) != 0)
 					{
-						DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-						if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+						DestroyDynamicDoorObjects(doorid);
 						CreateDynamicDoor(doorid);
 					}
 					else SendClientMessageEx(playerid, COLOR_GREY, "Use /ddowner to update the owner of this door.");
@@ -28057,8 +28055,7 @@ CMD:ddedit(playerid, params[])
 					{
 						DDoorsInfo[doorid][ddOwner] = -1;
 						strcat((DDoorsInfo[doorid][ddOwnerName][0] = 0, DDoorsInfo[doorid][ddOwnerName]), arrGroupData[DDoorsInfo[doorid][ddFaction]][g_szGroupName], 42);
-						DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-						if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+						DestroyDynamicDoorObjects(doorid);
 						CreateDynamicDoor(doorid);
 					}
 					else SendClientMessageEx(playerid, COLOR_GREY, "Use /ddedit faction to update the owner of this door.");
@@ -28069,8 +28066,7 @@ CMD:ddedit(playerid, params[])
 					{
 						DDoorsInfo[doorid][ddOwner] = -1;
 						strcat((DDoorsInfo[doorid][ddOwnerName][0] = 0, DDoorsInfo[doorid][ddOwnerName]), FamilyInfo[DDoorsInfo[doorid][ddFamily]][FamilyName], 42);
-						DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-						if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+						DestroyDynamicDoorObjects(doorid);
 						CreateDynamicDoor(doorid);
 					}
 					else SendClientMessageEx(playerid, COLOR_GREY, "Use /ddedit family to update the owner of this door.");
@@ -28078,8 +28074,7 @@ CMD:ddedit(playerid, params[])
 				default:
 				{
 					strcat((DDoorsInfo[doorid][ddOwnerName][0] = 0, DDoorsInfo[doorid][ddOwnerName]), "Nobody", 42);
-					DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-					if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+					DestroyDynamicDoorObjects(doorid);
 					CreateDynamicDoor(doorid);
 				}
 			}
@@ -28175,8 +28170,7 @@ CMD:ddedit(playerid, params[])
 			if(DDoorsInfo[doorid][ddType] == 3)
 			{
 				strcat((DDoorsInfo[doorid][ddOwnerName][0] = 0, DDoorsInfo[doorid][ddOwnerName]), FamilyInfo[DDoorsInfo[doorid][ddFamily]][FamilyName], 42);
-				DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-				if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+				DestroyDynamicDoorObjects(doorid);
 				CreateDynamicDoor(doorid);
 			}
 			else
@@ -28200,8 +28194,7 @@ CMD:ddedit(playerid, params[])
 			if(DDoorsInfo[doorid][ddType] == 2)
 			{
 				strcat((DDoorsInfo[doorid][ddOwnerName][0] = 0, DDoorsInfo[doorid][ddOwnerName]), arrGroupData[DDoorsInfo[doorid][ddFaction]][g_szGroupName], 42);
-				DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-				if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+				DestroyDynamicDoorObjects(doorid);
 				CreateDynamicDoor(doorid);
 			}
 			else
@@ -28258,8 +28251,7 @@ CMD:ddedit(playerid, params[])
 			format(string, sizeof(string), "You have changed the Color to %d.", amount);
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 
-			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+			DestroyDynamicDoorObjects(doorid);
 			CreateDynamicDoor(doorid);
 
 			SaveDynamicDoor(doorid);
@@ -28274,8 +28266,7 @@ CMD:ddedit(playerid, params[])
 			format(string, sizeof(string), "You have changed the PickupModel to %d.", amount);
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 
-			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-			if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+			DestroyDynamicDoorObjects(doorid);
 			CreateDynamicDoor(doorid);
 
 			SaveDynamicDoor(doorid);
@@ -28290,8 +28281,7 @@ CMD:ddedit(playerid, params[])
 				SendClientMessageEx(playerid, COLOR_WHITE, string);
 				return 1;
 			}
-			DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
-			DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);
+			DestroyDynamicDoorObjects(doorid);
 			DDoorsInfo[doorid][ddDescription] = 0;
 			DDoorsInfo[doorid][ddCustomInterior] = 0;
 			DDoorsInfo[doorid][ddExteriorVW] = 0;
