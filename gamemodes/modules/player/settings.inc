@@ -12,11 +12,12 @@ stock ShowPlayerSettings(playerid)
         format(dccUsername, sizeof(dccUsername), "{00FF00}#%s", dccUsername);
     }
 
-    // HUD Suc khoe: 0 = Tat | 1 = Hien dai | 2 = Don gian
+    // HUD Suc khoe: 0 = Tat | 1 = Hien dai | 2 = Don gian | 3 = Vong tron
     new hudSucKhoeStr[24];
     switch(PlayerInfo[playerid][pTypeHunger]) {
         case 1: hudSucKhoeStr = "{00FF00}Hien dai";
         case 2: hudSucKhoeStr = "{FFFF00}Don gian";
+        //case 3: hudSucKhoeStr = "{00BFFF}Vong tron";
         default: hudSucKhoeStr = "{FF0000}Tat";
     }
 

@@ -40,6 +40,9 @@ stock HideAllHungerTextdraws(playerid) {
     PlayerTextDrawHide(playerid, Hunger[playerid]);
     PlayerTextDrawHide(playerid, Value_Hunger[playerid]);
     PlayerTextDrawHide(playerid, Value_Thrist[playerid]);
+
+    /* // --- Circle (Vong tron) ---
+    HideCircleHungerTextdraws(playerid); */
 }
 
 stock ShowHungerDisplay(playerid) {
@@ -63,6 +66,9 @@ stock ShowHungerDisplay(playerid) {
         PlayerTextDrawShow(playerid, Value_Hunger[playerid]);
         PlayerTextDrawShow(playerid, Value_Thrist[playerid]);
     }
+    /* else if (type == 3) {
+        // ----- VONG TRON -----  circles shown inside UpdatePlayerHungerDisplay
+    } */
     else {
         // ----- TAT -----
         HideAllHungerTextdraws(playerid);
@@ -81,6 +87,11 @@ stock UpdatePlayerHungerDisplay(playerid) {
         UpdatePlayerHealthBar(playerid, true,  hungerValue);
         UpdatePlayerHealthBar(playerid, false, thirstValue);
     }
+    /* else if (type == 3) {
+        // Circle (Vong tron)
+        ShowCircleHunger(playerid, floatround(hungerValue));
+        ShowCircleThrist(playerid, floatround(thirstValue));
+    } */
     else {
         // Simple text
         new hungerStr[8], thirstStr[8];
@@ -347,16 +358,17 @@ CMD:suckhoe(playerid, params[]) {
     return 1;
 }
 
-// Cycle 0 -> 1 -> 2 -> 0
+// Cycle 0 -> 1 -> 2 -> 3 -> 0
 CMD:hungertype(playerid, params[]) {
     new type = PlayerInfo[playerid][pTypeHunger];
-    type = (type + 1) % 3;
+    type = (type + 1) % 4;
     PlayerInfo[playerid][pTypeHunger] = type;
 
     switch(type) {
         case 0: SendClientMessageEx(playerid, COLOR_WHITE, "HUD Suc khoe: {FF0000}Tat");
         case 1: SendClientMessageEx(playerid, COLOR_WHITE, "HUD Suc khoe: {00FF00}Hien dai");
         case 2: SendClientMessageEx(playerid, COLOR_WHITE, "HUD Suc khoe: {FFFF00}Don gian");
+        //case 3: SendClientMessageEx(playerid, COLOR_WHITE, "HUD Suc khoe: {00BFFF}Vong tron");
     }
 
     HideAllHungerTextdraws(playerid);
@@ -367,6 +379,7 @@ CMD:hungertype(playerid, params[]) {
 
 hook OnPlayerDisconnect(playerid, reason) {
     HideAllHungerTextdraws(playerid);
+    //DestroyCircleHungerTextdraws(playerid);
     return 1;
 }
 
