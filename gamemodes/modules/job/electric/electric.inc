@@ -230,6 +230,16 @@ public Electric_FixFinish(playerid)
     GivePlayerCash(playerid, pay);
     PlayerPlaySound(playerid, 32000, 0.0, 0.0, 0.0);
 
+    // 30% co hoi nhan duoc dong tu day dien
+    if(random(10) < 3)
+    {
+        new dongAmount = 1 + random(3);
+        PlayerInfo[playerid][pMinDong] += dongAmount;
+        new dongMsg[64];
+        format(dongMsg, sizeof(dongMsg), "Chuc mung!! Ban nhat duoc {FF8C00}%d dong{ffffff} tu day dien!", dongAmount);
+        SendClientMessageEx(playerid, COLOR_WHITE, dongMsg);
+    }
+
     new msg[128];
     format(msg, sizeof(msg), "Sua dien thanh cong! Ban nhan duoc {3BFF6F}$%d{ffffff} o lan sua dien nay.", pay);
     SendClientMessageEx(playerid, COLOR_WHITE, msg);
