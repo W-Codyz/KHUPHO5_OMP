@@ -371,7 +371,7 @@ public LoadStreamerDynamic3DTextLabels()
     CreateDynamic3DTextLabel("Air Vehicle Spawn\nZone", COLOR_YELLOW, 326.2754,1887.7212,17.6566, 10.0);
 
 	// Paintball Arena
- 	CreateDynamic3DTextLabel("Phong tap ban arena\n\nSu dung /thamgiaarena de vao phong",COLOR_YELLOW,1294.5062,-1445.0599,0.4403+0.5,6.0);
+ 	CreateDynamic3DTextLabel("Phong tap ban arena\n\nSu dung /thamgiaarena de vao phong",COLOR_YELLOW, -1492.395507, 920.093566, 7.187500+0.5,6.0);
 
 	// SANews Broadcast
 	SANews3DText = CreateDynamic3DTextLabel(string,COLOR_LIGHTBLUE,632.7400,-14.2350,1108.2181,8.0);

@@ -2631,7 +2631,7 @@ CMD:joinarena(playerid, params[])
             ShowPlayerDialog(playerid,PBMAINMENU,DIALOG_STYLE_LIST,"Paintball Arena - Main Menu:","Choose an Arena\nPaintball Tokens\nAdmin Menu","Select","Leave");
             return 1;
         }
-        if(IsPlayerInRangeOfPoint(playerid,10.0,1294.5062,-1445.0599,0.4403)) {
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, -1492.395507, 920.093566, 7.187500)) {
             ShowPlayerDialog(playerid,PBMAINMENU,DIALOG_STYLE_LIST,"Paintball Arena - Main Menu:","Choose an Arena\nPaintball Tokens\nAdmin Menu","Select","Leave");
         }
         else {
