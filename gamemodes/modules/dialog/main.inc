@@ -8200,7 +8200,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		if(response)
 		{
-			if(GetPlayerCash(playerid) >= 50000)
+			if(GetPlayerCash(playerid) >= 15000)
 			{
 				if(listitem == 0)
 				{
@@ -8210,12 +8210,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
     				if(PlayerInfo[playerid][pDonateRank] >= 1)
 				    {
-				    	GivePlayerCash(playerid, -40000);
-        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia 20 phan tram khi mua hang. Thay vi phai tra $50000, Ban tra $40000.");
+				    	GivePlayerCash(playerid, -10000);
+        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia 20 phan tram khi mua hang. Thay vi phai tra $15000, Ban tra $10000.");
 					}
 					else
 					{
-						GivePlayerCash(playerid, -50000);
+						GivePlayerCash(playerid, -15000);
 					}
 				}
 				if(listitem == 1)
@@ -8226,12 +8226,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
  					if(PlayerInfo[playerid][pDonateRank] >= 1)
 				    {
-				    	GivePlayerCash(playerid, -40000);
-        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia 20 phan tram khi mua hang. Thay vi phai tra $50000, Ban tra $40000.");
+				    	GivePlayerCash(playerid, -10000);
+        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia khi mua hang. Thay vi phai tra $15000, Ban tra $10000.");
 					}
 					else
 					{
-						GivePlayerCash(playerid, -50000);
+						GivePlayerCash(playerid, -15000);
 					}
 				}
 				if(listitem == 2)
@@ -8242,14 +8242,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
     				if(PlayerInfo[playerid][pDonateRank] >= 1)
 				    {
-				    	GivePlayerCash(playerid, -40000);
-        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia 20 phan tram khi mua hang. Thay vi phai tra $50000, Ban tra $40000.");
+				    	GivePlayerCash(playerid, -10000);
+        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia khi mua hang. Thay vi phai tra $15000, Ban tra $10000.");
 					}
 					else
 					{
-						GivePlayerCash(playerid, -50000);
+						GivePlayerCash(playerid, -15000);
 					}
-				}
 				if(listitem == 3)
 				{
    					PlayerInfo[playerid][pFightStyle] = FIGHT_STYLE_KUNGFU;
@@ -8258,12 +8257,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
  					if(PlayerInfo[playerid][pDonateRank] >= 1)
 				    {
-				    	GivePlayerCash(playerid, -40000);
-        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia 20 phan tram khi mua hang. Thay vi phai tra $50000, Ban tra $40000.");
+				    	GivePlayerCash(playerid, -10000);
+        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia khi mua hang. Thay vi phai tra $15000, Ban tra $10000.");
 					}
 					else
 					{
-						GivePlayerCash(playerid, -50000);
+						GivePlayerCash(playerid, -15000);
 					}
 				}
 				if(listitem == 4)
@@ -8274,12 +8273,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
     				if(PlayerInfo[playerid][pDonateRank] >= 1)
 				    {
-				    	GivePlayerCash(playerid, -40000);
-        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia 20 phan tram khi mua hang. Thay vi phai tra $50000, Ban tra $40000.");
+				    	GivePlayerCash(playerid, -10000);
+        				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc giam gia khi mua hang. Thay vi phai tra $15000, Ban tra $10000.");
 					}
 					else
 					{
-						GivePlayerCash(playerid, -50000);
+						GivePlayerCash(playerid, -15000);
 					}
 				}
 			}
