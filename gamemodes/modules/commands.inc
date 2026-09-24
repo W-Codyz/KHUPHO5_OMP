@@ -7028,7 +7028,7 @@ CMD:goto(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GRAD3, "Locations 3: countygen,cracklab,gym,rodeo,flint,idlewood,fbi,island,demorgan,doc,icprison,oocprison");
 			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 4: garagesm,garagemed,garagelg,garagexlg");
 			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 5: int1, int2, int3, bm, taxi, int247, intbank, intcansa, intsanews, intcityhall, intcityhalltang2");
-			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 6: inthos, intpd, bv,boss,pizza,trucker,bocvac,xaydung,cauca,lumber,thodien");
+			SendClientMessageEx(playerid, COLOR_GRAD4, "Locations 6: inthos, intpd, bv, boss, pizza, trucker, bocvac, xaydung, cauca, lumber, thodien, miner");
 			return 1;
 		}
 		if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING)
@@ -8176,6 +8176,26 @@ CMD:goto(playerid, params[])
 			else
 			{
 				SetPlayerPos(playerid, -2067.846191, 218.435958, 35.805294);
+			}
+			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
+			SetPlayerInterior(playerid, 0);
+			PlayerInfo[playerid][pInt] = 0;
+			SetPlayerVirtualWorld(playerid, 0);
+			PlayerInfo[playerid][pVW] = 0;
+		}
+		else if(strcmp(params,"miner",true) == 0)
+		{
+			if (GetPlayerState(playerid) == 2)
+			{
+				new tmpcar = GetPlayerVehicleID(playerid);
+				SetVehiclePos(tmpcar, 606.125061, 867.853027, -40.163208);
+				LinkVehicleToInterior(tmpcar, 0);
+				SetVehicleVirtualWorld(tmpcar, 0);
+				fVehSpeed[playerid] = 0.0;
+			}
+			else
+			{
+				SetPlayerPos(playerid, 606.125061, 867.853027, -40.163208);
 			}
 			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da duoc dich chuyen!");
 			SetPlayerInterior(playerid, 0);
@@ -29790,7 +29810,7 @@ CMD:spec(playerid, params[])
 
 CMD:pr(playerid, params[])
 {
-	if(PlayerInfo[playerid][pRadio] == 1)
+	if(PlayerInfo[playerid][pRadio] >= 1)
 	{
 		if(isnull(params))
 		{
