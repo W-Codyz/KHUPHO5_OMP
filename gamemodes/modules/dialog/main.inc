@@ -6253,7 +6253,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			GetVehiclePos(PlayerVehicleInfo[playerid][listitem][pvId], carPos[0], carPos[1], carPos[2]);
 			if(CheckPointCheck(playerid))
 			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "Hay dam bao rang ban da xoa cac diem checkpoint truoc do.");
+				SendClientMessageEx(playerid, COLOR_WHITE, "Hay dam bao rang ban da xoa cac diem checkpoint truoc do.(/kcp)");
 			}
 			else
 			{
@@ -6327,7 +6327,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(CheckPointCheck(playerid))
 			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "Hay dam bao rang ban da xoa cac diem checkpoint truoc do.");
+				SendClientMessageEx(playerid, COLOR_WHITE, "Hay dam bao rang ban da xoa cac diem checkpoint truoc do.(/kcp)");
 			}
 			else
 			{
