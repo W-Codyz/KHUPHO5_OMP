@@ -38765,17 +38765,18 @@ CMD:nrn(playerid, params[])
 	return 1;
 }*/
 
+alias:train("hocvo")
 CMD:train(playerid, params[])
 {
 	if(IsPlayerInRangeOfPoint(playerid, 3.0, 757.3734,5.7227,1000.7012) || IsPlayerInRangeOfPoint(playerid, 3.0, 758.43,-78.0,1000.65))
 	{
 		if(PlayerInfo[playerid][pDonateRank] >= 1)
 		{
-			ShowPlayerDialog(playerid, FIGHTMENU, DIALOG_STYLE_LIST, "Hoc vo", "Boxing		$40000\nElbow		$40000\nKneehead	$40000\nKung-Fu	$40000\nGrabKick	$40000\nNormal", "Learn", "Cancel");
+			ShowPlayerDialog(playerid, FIGHTMENU, DIALOG_STYLE_LIST, "Hoc vo", "Boxing		$10000\nElbow		$10000\nKneehead	$10000\nKung-Fu	$10000\nGrabKick	$10000\nBinh thuong", "Hoc", "Huy");
 		}
 		else
 		{
-			ShowPlayerDialog(playerid, FIGHTMENU, DIALOG_STYLE_LIST, "Hoc vo", "Boxing		$50000\nElbow		$50000\nKneehead	$50000\nKung-Fu	$50000\nGrabKick	$50000\nNormal", "Learn", "Cancel");
+			ShowPlayerDialog(playerid, FIGHTMENU, DIALOG_STYLE_LIST, "Hoc vo", "Boxing		$15000\nElbow		$15000\nKneehead	$15000\nKung-Fu	$15000\nGrabKick	$15000\nBinh thuong", "Hoc", "Huy");
 		}
 	}
 	else
