@@ -20343,6 +20343,9 @@ CMD:giveweapon(playerid, params[])
 		return 1;
 	}
 
+	new iGroupID = PlayerInfo[playerid][pMember];
+    if(0 <= iGroupID < MAX_GROUPS) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the vut vu khi khi dang la thanh vien to chuc.");
+
 	new string[128], giveplayerid, weapon[64];
 	if(sscanf(params, "us[64]", giveplayerid, weapon))
 	{
