@@ -14741,8 +14741,20 @@ stock LoadPlayerVehicleMods(playerid, playervehicleid)
 
 		if(PlayerVehicleInfo[playerid][playervehicleid][pvPaintJob] != -1)
 		{
-			 ChangeVehiclePaintjob(PlayerVehicleInfo[playerid][playervehicleid][pvId], PlayerVehicleInfo[playerid][playervehicleid][pvPaintJob]);
-			 ChangeVehicleColours(PlayerVehicleInfo[playerid][playervehicleid][pvId], PlayerVehicleInfo[playerid][playervehicleid][pvColor1], PlayerVehicleInfo[playerid][playervehicleid][pvColor2]);
+			// Only apply paint job on vehicle models that support it; calling ChangeVehiclePaintjob
+			// on unsupported models crashes the GTA:SA client.
+			new _pjModel = GetVehicleModel(PlayerVehicleInfo[playerid][playervehicleid][pvId]);
+			switch(_pjModel) {
+				case 402,405,411,415,429,439,451,466,467,474,475,477,491,492,496,
+				     504,507,516,517,526,527,529,533,534,535,536,540,542,545,547,
+				     550,551,555,558,559,560,561,562,565,566,567,575,576,580,585: {
+					ChangeVehiclePaintjob(PlayerVehicleInfo[playerid][playervehicleid][pvId], PlayerVehicleInfo[playerid][playervehicleid][pvPaintJob]);
+					ChangeVehicleColours(PlayerVehicleInfo[playerid][playervehicleid][pvId], PlayerVehicleInfo[playerid][playervehicleid][pvColor1], PlayerVehicleInfo[playerid][playervehicleid][pvColor2]);
+				}
+				default: {
+					PlayerVehicleInfo[playerid][playervehicleid][pvPaintJob] = -1;
+				}
+			}
 		}
 		for(new m = 0; m < MAX_MODS; m++)
 		{
