@@ -11322,7 +11322,7 @@ stock DynVeh_Spawn(iDvSlotID)
 	new string[128];
 	format(string, sizeof(string), "Co gang de tao DV Slot ID %d", iDvSlotID);
 	Log("logs/dvspawn.log", string);
-	new tmpdv = INVALID_VEHICLE_ID;
+	new tmpdv = -1;
 	if(DynVehicleInfo[iDvSlotID][gv_iSpawnedID] != INVALID_VEHICLE_ID)
 	{
 		tmpdv = DynVeh[DynVehicleInfo[iDvSlotID][gv_iSpawnedID]];

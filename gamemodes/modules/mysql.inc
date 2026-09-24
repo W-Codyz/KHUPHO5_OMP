@@ -6967,7 +6967,7 @@ public DynVeh_QueryFinish(iType, iExtraID) {
 				
 				if(400 < DynVehicleInfo[sqlid][gv_iModel] < 612) {
 					if(!IsWeaponizedVehicle(DynVehicleInfo[sqlid][gv_iModel])) {
-						DynVeh_Spawn(iIndex);
+						DynVeh_Spawn(sqlid);
 						//printf("[DynVeh] Loaded Dynamic Vehicle %i.", iIndex);
 						for(i = 0; i != MAX_DV_OBJECTS; i++)
 						{
