@@ -8249,6 +8249,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						GivePlayerCash(playerid, -15000);
 					}
+				}
 				if(listitem == 3)
 				{
    					PlayerInfo[playerid][pFightStyle] = FIGHT_STYLE_KUNGFU;

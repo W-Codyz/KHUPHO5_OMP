@@ -233,7 +233,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
  			if(listitem == 17)// -1492.1313,920.1057,7.1875
 			{
 				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCP(playerid, -1552.6379,1061.9465,7.1875, 3.0);
+				SetPlayerCP(playerid, -2269.259277, -155.654510, 35.320312, 3.0);
                 gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
                 return 1;
 			}
