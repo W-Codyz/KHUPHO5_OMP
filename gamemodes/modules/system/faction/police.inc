@@ -195,6 +195,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(amount <= 0 || amount > available) amount = available;
 
             PlayerInfo[targetid][variable] -= amount;
+            g_mysql_SaveAccount(targetid);
 
             new string[256];
             format(string, sizeof(string), "* %s da tich thu %d %s cua %s.",

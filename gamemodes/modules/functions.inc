@@ -11416,6 +11416,11 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
   	{
   		case ITEM_CELLPHONE:
 		{
+			if(PlayerInfo[playerid][pPnumber] != 0)
+			{
+				Businesses[business][bInventory] += StoreItemCost[item][ItemValue];
+				return SendClientMessageEx(playerid, COLOR_GRAD4, "Ban da co dien thoai roi.");
+			}
 			new randphone = 99999 + random(900000);
 			new query[128];
 			SetPVarInt(playerid, "WantedPh", randphone);
@@ -11489,6 +11494,11 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
 		}
   		case ITEM_RADIO:
 		{
+			if(PlayerInfo[playerid][pRadio] != 0)
+			{
+				Businesses[business][bInventory] += StoreItemCost[item][ItemValue];
+				return SendClientMessageEx(playerid, COLOR_GRAD4, "Ban da co radio roi.");
+			}
 			PlayerInfo[playerid][pRadio] = 1;
 			PlayerInfo[playerid][pRadioFreq] = 0;
 			SendClientMessageEx(playerid, COLOR_GRAD4, "Ban da mua radio lien lac.");
