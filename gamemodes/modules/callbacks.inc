@@ -6397,11 +6397,15 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 {
 	if((PlayerInfo[playerid][pAdmin] >= 1 || PlayerInfo[playerid][pSMod] >= 2) && source == CLICK_SOURCE_SCOREBOARD)
 	{
-		new szString[5], string[MAX_PLAYER_NAME+82];
+		/* new szString[5], string[MAX_PLAYER_NAME+82];
 		format(szString, sizeof(szString), "%i", clickedplayerid);
 		format(string, sizeof(string), "Ban co muon cung cap cho %s mot lan doi ten mien phi?", GetPlayerNameEx(clickedplayerid));
 		SetPVarString(playerid, "nrn", szString);
-		ShowPlayerDialog(playerid, DIALOG_NRNCONFIRM, DIALOG_STYLE_MSGBOX, "Xac nhan dieu nay", string, "Dong y", "Khong");
+		ShowPlayerDialog(playerid, DIALOG_NRNCONFIRM, DIALOG_STYLE_MSGBOX, "Xac nhan dieu nay", string, "Dong y", "Khong"); */
+		
+		new szString[5];
+		format(szString, sizeof(szString), "%i", clickedplayerid);
+		pc_cmd_spec(playerid, szString);
 	} 
 	return true;
 }
