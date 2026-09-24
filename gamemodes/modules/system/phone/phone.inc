@@ -1270,7 +1270,7 @@ stock ShowOnlineTaxiDrivers(playerid)
 {
     new string[2048], count = 0;
     string[0] = 0;
-    strcat(string, "Ten\tSo dien thoai\n");
+    strcat(string, "Ten\tLoai\tSo dien thoai\n");
 
     new oldTotal = GetPVarInt(playerid, "TotalPhones");
     for(new i = 0; i < oldTotal; i++)
@@ -1283,7 +1283,7 @@ stock ShowOnlineTaxiDrivers(playerid)
 
     foreach(new i: Player)
     {
-        if(IsATaxiDriver(i) && TransportDuty[i] > 0)
+        if(TransportDuty[i] > 0 && (IsATaxiDriver(i) || PlayerInfo[i][pJob] == JOB_TAXIDRIVER || PlayerInfo[i][pJob2] == JOB_TAXIDRIVER || PlayerInfo[i][pTaxiLicense] == 1))
         {
             if(PlayerInfo[i][pPnumber] == 0) continue;
             new varname[32];
@@ -1291,7 +1291,7 @@ stock ShowOnlineTaxiDrivers(playerid)
             SetPVarInt(playerid, varname, PlayerInfo[i][pPnumber]);
 
             new tempstr[128];
-            format(tempstr, sizeof(tempstr), "%s\t%d\n", GetPlayerNameEx(i), PlayerInfo[i][pPnumber]);
+            format(tempstr, sizeof(tempstr), "%s\t%s\t%d\n", GetPlayerNameEx(i), TransportDuty[i] == 1 ? "Taxi" : "Bus", PlayerInfo[i][pPnumber]);
             strcat(string, tempstr);
             count++;
         }
@@ -1300,10 +1300,10 @@ stock ShowOnlineTaxiDrivers(playerid)
 
     if(count == 0)
     {
-        SendClientMessageEx(playerid, COLOR_GREY, "Khong co tai xe taxi nao dang lam nhiem vu hoac ho chua so huu dien thoai.");
+        SendClientMessageEx(playerid, COLOR_GREY, "Khong co tai xe Taxi/Bus nao dang lam nhiem vu hoac ho chua so huu dien thoai.");
         return 0;
     }
-    ShowPlayerDialog(playerid, DIALOG_LIST_TAXI, DIALOG_STYLE_TABLIST_HEADERS, "Danh sach Tai xe taxi dang lam nhiem vu", string, "Goi", "Huy");
+    ShowPlayerDialog(playerid, DIALOG_LIST_TAXI, DIALOG_STYLE_TABLIST_HEADERS, "Danh sach Tai xe Taxi/Bus dang lam nhiem vu", string, "Goi", "Huy");
     return 1;
 }
 

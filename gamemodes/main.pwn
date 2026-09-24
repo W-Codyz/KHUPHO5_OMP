@@ -56,6 +56,14 @@
 #include "./modules/dialog/header"
 #include "./modules/actor/header"
 
+//==============JOB HEADER============//
+#include "./modules/job/header"
+#include "./modules/job/miner/header"
+#include "./modules/job/trucker/header"
+#include "./modules/job/porter/header"
+#include "./modules/job/pizzaboy/header"
+#include "./modules/job/construction/header"
+
 //==============ANTI CHECK============//
 #include "./modules/anti/Teleport"
 #include "./modules/anti/Main.pwn"
@@ -91,13 +99,7 @@
 #include "./modules/system/food"
 #include "./modules/system/sendlocation"
 
-//==============JOB============//
-#include "./modules/job/header"
-#include "./modules/job/miner/header"
-#include "./modules/job/trucker/header"
-#include "./modules/job/porter/header"
-#include "./modules/job/pizzaboy/header"
-#include "./modules/job/construction/header"
+//==============JOB MAIN============//
 #include "./modules/job/painter/main"
 #include "./modules/job/cansa/main"
 #include "./modules/job/fishing/main"
