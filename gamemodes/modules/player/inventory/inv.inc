@@ -165,8 +165,10 @@ ShowItemOptions(playerid, itemid) {
         quantity
     );
     
+    new options[64] = "Su dung\nVut";
+    if(PlayerInfo[playerid][pAdmin] > 1) strcat(options, "\nXoa", sizeof(options));
     ShowPlayerDialog(playerid, DIALOG_ITEM_OPTIONS, DIALOG_STYLE_LIST, "Tuy chon item",
-        "Su dung\nVut\nXoa", "Chon", "Quay lai");
+        options, "Chon", "Quay lai");
         
     SelectedItem[playerid] = itemid;
     return 1;
@@ -511,16 +513,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                     );
                     ShowPlayerDialog(playerid, DIALOG_DROP_AMOUNT, DIALOG_STYLE_INPUT, "Vut item", string, "Vut", "Huy");
                 }
-                case 2: { // Xóa
+                case 2: { // Xóa (admin only)
+                    if(PlayerInfo[playerid][pAdmin] <= 1) return 1;
                     if(GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0) {
                         SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                         return 1;
                     }
-                    
-                    if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban khong the lam dieu nay tren xe.");
-                    
                     new string[128];
-                    format(string, sizeof(string), "Ban dang co: %d %s\nNhap so luong muon xoa:", 
+                    format(string, sizeof(string), "Ban dang co: %d %s\nNhap so luong muon xoa:",
                         PlayerInfo[playerid][variable],
                         ItemInventory[SelectedItem[playerid]][NameItem]
                     );
@@ -551,9 +551,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                         SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                         return 1;
                     }
-                    
+
                     if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban khong the lam dieu nay tren xe.");
-                    
+
+                    new iGroupID = PlayerInfo[playerid][pMember];
+                    if(0 <= iGroupID < MAX_GROUPS) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the vut vu khi khi dang la thanh vien to chuc.");
+
                     DropPlayerWeapon(playerid, weaponid, ammo);
                     ShowPlayerInventory(playerid);
                 }
