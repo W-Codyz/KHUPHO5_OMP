@@ -152,7 +152,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0)
                         return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                     ClearAnimations(playerid);
-                    ApplyAnimation(playerid, "SHOP", "SHP_HandsUp_Scr", 4.1, 0, 0, 0, 1, 0);
+                    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_HANDSUP);
                 }
                 case 1:
                 {
@@ -183,7 +183,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     ApplyAnimation(playerid, "DEALER", "DEALER_IDLE", 4.1, 1, 0, 0, 0, 0, 1);
                 }
                 case 5: PC_EmulateCommand(playerid, "/hanhdong");
-                case 6: ClearAnimations(playerid);
+                case 6: 
+                {
+                    ClearAnimations(playerid);
+                    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+                }
             }
         }
     }
