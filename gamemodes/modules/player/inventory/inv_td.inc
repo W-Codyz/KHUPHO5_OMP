@@ -1,6 +1,7 @@
 #include <YSI\YSI_Coding\y_hooks>
 
 #define INVTD_MAX_SLOTS 28
+#define INV_WEAPON_OFFSET 1000 // InvTDSlot >= offset => weapon (slot = val - offset)
 
 new Text:        iTD_g   [2];
 new Text:        iTD_bar [INVTD_MAX_SLOTS]; // global — vị trí cố định, tiết kiệm per-player TD
@@ -42,6 +43,27 @@ static GetInvItemModel(itemVariable)
     if(itemVariable == pThit)      return 2806;
     if(itemVariable == pTraiCay)   return 19574;
     if(itemVariable == pNuocEp)    return 19563;
+    return 2663;
+}
+
+static GetWeaponModel(weaponid)
+{
+    switch(weaponid)
+    {
+        case 1:  return 331; case 2:  return 333; case 3:  return 334;
+        case 4:  return 335; case 5:  return 336; case 6:  return 337;
+        case 7:  return 338; case 8:  return 339; case 9:  return 341;
+        case 16: return 342; case 17: return 343; case 18: return 344;
+        case 22: return 346; case 23: return 347; case 24: return 348;
+        case 25: return 349; case 26: return 350; case 27: return 351;
+        case 28: return 352; case 29: return 353; case 30: return 355;
+        case 31: return 356; case 32: return 372; case 33: return 357;
+        case 34: return 358; case 35: return 359; case 36: return 360;
+        case 37: return 361; case 38: return 362; case 39: return 363;
+        case 40: return 364; case 41: return 365; case 42: return 366;
+        case 43: return 367; case 44: return 368; case 45: return 369;
+        case 46: return 371;
+    }
     return 2663;
 }
 
@@ -222,6 +244,14 @@ static BuildInvTDSlotMap(playerid)
         if(PlayerInfo[playerid][ItemInventory[i][pVariable]] > 0)
             InvTDSlot[playerid][slot++] = i;
     }
+    // Add weapons — same pGuns filter as dialog inventory
+    new myweapons[13][2];
+    for(new i = 0; i < 13 && slot < INVTD_MAX_SLOTS; i++)
+    {
+        GetPlayerWeaponData(playerid, i, myweapons[i][0], myweapons[i][1]);
+        if(myweapons[i][0] > 0 && PlayerInfo[playerid][pGuns][i] == myweapons[i][0])
+            InvTDSlot[playerid][slot++] = INV_WEAPON_OFFSET + i;
+    }
 }
 
 static PopulateInvTDSlots(playerid)
@@ -230,19 +260,37 @@ static PopulateInvTDSlots(playerid)
     new count = 0;
     for(new i = 0; i < INVTD_MAX_SLOTS; i++)
     {
-        new itemIdx = InvTDSlot[playerid][i];
-        if(itemIdx != -1)
+        new slotVal = InvTDSlot[playerid][i];
+        if(slotVal != -1)
         {
-            new qty = PlayerInfo[playerid][ItemInventory[itemIdx][pVariable]];
             count++;
-            PlayerTextDrawSetPreviewModel(playerid, iTD_mdl[playerid][i],
-                GetInvItemModel(_:ItemInventory[itemIdx][pVariable]));
-            PlayerTextDrawShow(playerid, iTD_mdl[playerid][i]);
-            PlayerTextDrawSetString(playerid, iTD_name[playerid][i], ItemInventory[itemIdx][NameItem]);
-            PlayerTextDrawShow(playerid, iTD_name[playerid][i]);
-            format(str, sizeof(str), "%dx", qty);
-            PlayerTextDrawSetString(playerid, iTD_qty[playerid][i], str);
-            PlayerTextDrawShow(playerid, iTD_qty[playerid][i]);
+            if(slotVal >= INV_WEAPON_OFFSET)
+            {
+                new wslot = slotVal - INV_WEAPON_OFFSET;
+                new weaponid, ammo;
+                GetPlayerWeaponData(playerid, wslot, weaponid, ammo);
+                new weaponname[32];
+                GetWeaponName(weaponid, weaponname, sizeof(weaponname));
+                PlayerTextDrawSetPreviewModel(playerid, iTD_mdl[playerid][i], GetWeaponModel(weaponid));
+                PlayerTextDrawShow(playerid, iTD_mdl[playerid][i]);
+                PlayerTextDrawSetString(playerid, iTD_name[playerid][i], weaponname);
+                PlayerTextDrawShow(playerid, iTD_name[playerid][i]);
+                format(str, sizeof(str), "%dx", ammo);
+                PlayerTextDrawSetString(playerid, iTD_qty[playerid][i], str);
+                PlayerTextDrawShow(playerid, iTD_qty[playerid][i]);
+            }
+            else
+            {
+                new qty = PlayerInfo[playerid][ItemInventory[slotVal][pVariable]];
+                PlayerTextDrawSetPreviewModel(playerid, iTD_mdl[playerid][i],
+                    GetInvItemModel(_:ItemInventory[slotVal][pVariable]));
+                PlayerTextDrawShow(playerid, iTD_mdl[playerid][i]);
+                PlayerTextDrawSetString(playerid, iTD_name[playerid][i], ItemInventory[slotVal][NameItem]);
+                PlayerTextDrawShow(playerid, iTD_name[playerid][i]);
+                format(str, sizeof(str), "%dx", qty);
+                PlayerTextDrawSetString(playerid, iTD_qty[playerid][i], str);
+                PlayerTextDrawShow(playerid, iTD_qty[playerid][i]);
+            }
             PlayerTextDrawColor(playerid, iTD_box[playerid][i], 135);
         }
         else
@@ -381,11 +429,20 @@ hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
     {
         if(playertextid == iTD_box[playerid][i])
         {
-            new itemIdx = InvTDSlot[playerid][i];
-            if(itemIdx == -1) return 1;
-            CancelSelectTextDraw(playerid);
-            ShowItemOptions(playerid, itemIdx);
-            PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+            new slotVal = InvTDSlot[playerid][i];
+            if(slotVal == -1) return 1;
+            HideInvTD(playerid); // set InvTDOpen=false truoc CancelSelectTextDraw, tranh double-sound
+            if(slotVal >= INV_WEAPON_OFFSET)
+            {
+                new wslot = slotVal - INV_WEAPON_OFFSET;
+                new weaponid, ammo;
+                GetPlayerWeaponData(playerid, wslot, weaponid, ammo);
+                ShowWeaponOptions(playerid, weaponid, ammo);
+            }
+            else
+            {
+                ShowItemOptions(playerid, slotVal);
+            }
             return 1;
         }
     }
