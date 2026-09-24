@@ -308,8 +308,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
             if (listitem == 0)
             {
-                new stringb[128];
-                format(stringb, sizeof stringb, "{ffffff}Hien tai bang dang co %d tep can sa \n1 tep can sa/%d$", PlayerInfo[playerid][pTepCanSa], number_format(MONEY_SELL_CANSA));
+                new stringb[1024];
+                format(stringb, sizeof stringb, "{ffffff}Hien tai bang dang co %d tep can sa \n1 tep can sa/350$", PlayerInfo[playerid][pTepCanSa]);
                 ShowPlayerDialog(playerid, DIALOG_BANCANSA, DIALOG_STYLE_INPUT,"{ffff00}GTAHTB{ffffff} - Ban Can Sa", stringb, "Ban", "Thoat");
             }
             if (listitem == 1)
