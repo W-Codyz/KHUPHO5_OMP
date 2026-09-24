@@ -148,16 +148,16 @@ Discord_Init()
 
     //old server
     renameChannel = DCC_FindChannelById("");
-	banChannel = DCC_FindChannelById("");
+	banChannel = DCC_FindChannelById("1548216250415456376");
     ruathoChannel = DCC_FindChannelById("");
-	creditChannel = DCC_FindChannelById("");
+	creditChannel = DCC_FindChannelById("1548216250415456376");
 	logChannel = DCC_FindChannelById("");
 	logDCChannel = DCC_FindChannelById("");
-	givegunChannel = DCC_FindChannelById("");
-	moneyChannel = DCC_FindChannelById("");
+	givegunChannel = DCC_FindChannelById("1548216250415456376");
+	moneyChannel = DCC_FindChannelById("1548216250415456376");
 	weaponChannel = DCC_FindChannelById("");
-	giveChannel = DCC_FindChannelById("");
-	antiChannel = DCC_FindChannelById("1548216250415456376");
+	giveChannel = DCC_FindChannelById("1548216250415456376");
+	antiChannel = DCC_FindChannelById("1548013006141661205");
     
 }
 
