@@ -15638,7 +15638,7 @@ CMD:dvrespawn(playerid, params[])
 		iGroupID = PlayerInfo[playerid][pMember],
 	    iFamilyID = PlayerInfo[playerid][pFMember];
 
-    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 1 || PlayerInfo[playerid][pGangModerator] >= 1)
+    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 1 || PlayerInfo[playerid][pGangModerator] >= 1 || PlayerInfo[playerid][pLeader] != 0)
     {
 		if((0 <= iGroupID <= MAX_GROUPS))
 		{
