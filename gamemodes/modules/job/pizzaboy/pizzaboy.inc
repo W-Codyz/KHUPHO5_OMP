@@ -57,7 +57,10 @@ CMD:laybanh(playerid, params[]) {
 		SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_TPPIZZARUNTIMER);
 		SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_PIZZATIMER);
 
-		SendClientMessageEx(playerid, COLOR_WHITE, "Ban co don hang giao den cho {B2F663}%s{FFFFFF}. Ban co %d giay de giao no!", StripUnderscore(HouseInfo[rand][hOwnerName]), iDist / 10);
+		new ownerDisplay[MAX_PLAYER_NAME + 1];
+		if(!strlen(HouseInfo[rand][hOwnerName])) ownerDisplay = "nguoi an danh";
+		else format(ownerDisplay, sizeof(ownerDisplay), "%s", StripUnderscore(HouseInfo[rand][hOwnerName]));
+		SendClientMessageEx(playerid, COLOR_WHITE, "Ban co don hang giao den cho {B2F663}%s{FFFFFF}. Ban co %d giay de giao no!", ownerDisplay, iDist / 10);
 
 		SetPlayerCP(playerid, HouseInfo[rand][hExteriorX], HouseInfo[rand][hExteriorY], HouseInfo[rand][hExteriorZ], 5);
 	}
@@ -82,11 +85,11 @@ hook OnPlayerEnterCheckpoint(playerid)
 		new payment;
         switch(GetJobLevel(playerid, JOB_PIZZABOY))
         {
-			case 1: payment = 5000;
-			case 2: payment = 5500;
-			case 3: payment = 6000;
-			case 4: payment = 6500;
-			case 5: payment = 7000;
+			case 1: payment = 2000;
+			case 2: payment = 2500;
+			case 3: payment = 3000;
+			case 4: payment = 3500;
+			case 5: payment = 4000;
         }
 		new timeBonus = GetPVarInt(playerid, "pizzaTimer") * 10;
 		if(timeBonus > 1000) timeBonus = 1000;
