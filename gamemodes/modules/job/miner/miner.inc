@@ -202,7 +202,6 @@ Miner_Stop(playerid)
     }
     if(gMinerWashTimer[playerid] != -1)
     {
-        KillTimer(gMinerWashTimer[playerid]);
         gMinerWashTimer[playerid] = -1;
     }
 
@@ -879,7 +878,8 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         if(PlayerMinerData[playerid][MP_HasStone])
         {
             ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 10000, 1);
-            gMinerWashTimer[playerid] = SetTimerEx("Miner_WashFinish", 10000, false, "d", playerid);
+            gMinerWashTimer[playerid] = 1;
+            SetLoading(playerid, 10000, "Dang rua khoang san...", "Miner_WashFinish");
             new string[128];
             format(string, sizeof(string), "{FF8000}* {C2A2DA}%s dang rua khoang san.", GetPlayerNameEx(playerid));
             ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
