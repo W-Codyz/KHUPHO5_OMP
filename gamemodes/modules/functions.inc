@@ -5973,6 +5973,13 @@ public RadarCooldown(playerid)
    return 1;
 }
 
+forward ClearVehLockCD(playerid);
+public ClearVehLockCD(playerid)
+{
+    DeletePVar(playerid, "VehLockCD");
+    return 1;
+}
+
 forward CopGetUp(playerid);
 public CopGetUp(playerid)
 {

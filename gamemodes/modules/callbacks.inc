@@ -4771,9 +4771,9 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 		// Di bo: ALT = KEY_WALK (1024), toggle khoa/mo xe gan nhat
 		pc_cmd_pvlock(playerid,"");
 	}
-	if(PRESSED(KEY_FIRE) && IsPlayerInAnyVehicle(playerid))
+	if(PRESSED(KEY_FIRE) && IsPlayerInAnyVehicle(playerid) && GetPlayerVehicleSeat(playerid) == 0)
 	{
-		// Trong xe: ALT = KEY_FIRE (4), toggle khoa/mo xe dang ngoi
+		// Trong xe: ALT = KEY_FIRE (4), chi nguoi lai (seat 0) moi khoa/mo duoc
 		new Float:vx, Float:vy, Float:vz;
 		for(new d = 0; d < MAX_PLAYERVEHICLES; d++)
 		{
@@ -4788,9 +4788,16 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 			}
 			else
 			{
+				if(GetPVarInt(playerid, "VehLockCD") != 0)
+				{
+					SendClientMessageEx(playerid, COLOR_GREY, "Ban phai doi 5 giay truoc khi mo khoa xe tu trong xe.");
+					break;
+				}
 				HienTextdraw(playerid,"~g~MO KHOA!");
 				PlayerVehicleInfo[playerid][d][pvLocked] = 0;
 				UnLockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], 1);
+				SetPVarInt(playerid, "VehLockCD", 1);
+				SetTimerEx("ClearVehLockCD", 5000, false, "i", playerid);
 			}
 			foreach(new pi : Player)
 			{
