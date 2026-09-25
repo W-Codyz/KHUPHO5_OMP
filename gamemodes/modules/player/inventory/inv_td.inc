@@ -43,7 +43,21 @@ static GetInvItemModel(itemVariable)
     if(itemVariable == pThit)      return 2806;
     if(itemVariable == pTraiCay)   return 19574;
     if(itemVariable == pNuocEp)    return 19563;
+    if(itemVariable == pMinSat)    return 3930;
+    if(itemVariable == pMinDong)   return 3930;
+    if(itemVariable == pMinBac)    return 3930;
+    if(itemVariable == pMinVang)   return 3930;
+    if(itemVariable == pMinKimCuong) return 3930;
     return 2663;
+}
+
+static GetInvItemModelColor(itemVariable)
+{
+    if(itemVariable == pMinBac)      return -1329275137;
+    if(itemVariable == pMinDong)     return -626712321;
+    if(itemVariable == pMinVang)     return -65281;
+    if(itemVariable == pMinKimCuong) return 16777215;
+    return -1;
 }
 
 static GetWeaponModel(weaponid)
@@ -282,8 +296,9 @@ static PopulateInvTDSlots(playerid)
             else
             {
                 new qty = PlayerInfo[playerid][ItemInventory[slotVal][pVariable]];
-                PlayerTextDrawSetPreviewModel(playerid, iTD_mdl[playerid][i],
-                    GetInvItemModel(_:ItemInventory[slotVal][pVariable]));
+                new itemVar = _:ItemInventory[slotVal][pVariable];
+                PlayerTextDrawSetPreviewModel(playerid, iTD_mdl[playerid][i], GetInvItemModel(itemVar));
+                PlayerTextDrawColor(playerid, iTD_mdl[playerid][i], GetInvItemModelColor(itemVar));
                 PlayerTextDrawShow(playerid, iTD_mdl[playerid][i]);
                 PlayerTextDrawSetString(playerid, iTD_name[playerid][i], ItemInventory[slotVal][NameItem]);
                 PlayerTextDrawShow(playerid, iTD_name[playerid][i]);

@@ -107,5 +107,11 @@ new const ItemInventory[][Inv_Data] = {
     {pSuaBo, "Sua bo"},
     {pThit, "Thit hun khoi"},
     {pTraiCay, "Trai cay"},
-    {pNuocEp, "Nuoc ep"}
+    {pNuocEp, "Nuoc ep"},
+    // Khoang san
+    {pMinSat, "Sat"},
+    {pMinDong, "Dong"},
+    {pMinBac, "Bac"},
+    {pMinVang, "Vang"},
+    {pMinKimCuong, "Kim Cuong"}
 };
