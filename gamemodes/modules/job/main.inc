@@ -39,6 +39,14 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
                             "Bat dau lam viec\nNgung lam viec\nHuong dan",
                             "Chon", "Huy");
                     }
+                    // Neu da la lumber: hien thi menu NPC
+                    else if(i == JOB_LUMBER && (PlayerInfo[playerid][pJob] == JOB_LUMBER || PlayerInfo[playerid][pJob2] == JOB_LUMBER))
+                    {
+                        ShowPlayerDialog(playerid, DIALOG_LUMBER_NPC, DIALOG_STYLE_LIST,
+                            "{0f8d47}GTA-HTB Roleplay {FFFFFF}- Lumberjack",
+                            "Bat dau lam viec\nNgung lam viec\nHuong dan",
+                            "Chon", "Huy");
+                    }
                     // Neu da la electric: hien thi menu NPC thay vi hop thoai xin viec
                     else if(i == JOB_ELECTRIC && (PlayerInfo[playerid][pJob] == JOB_ELECTRIC || PlayerInfo[playerid][pJob2] == JOB_ELECTRIC))
                     {
@@ -351,6 +359,10 @@ CMD:lamviec(playerid, params[])
     {
         SendHintMessage(playerid, "Tho khai thac: den NPC tai khu mo va nhan {46BE00}[Y]{FFFFFF} de mo menu.");
     }
+    else if(PlayerInfo[playerid][pJob] == JOB_LUMBER || PlayerInfo[playerid][pJob2] == JOB_LUMBER)
+    {
+        SendHintMessage(playerid, "Lumberjack: den NPC tai bai go va nhan {46BE00}[Y]{FFFFFF} de mo menu.");
+    }
     else {
         SendClientMessage(playerid, COLOR_GREY, "Cong viec cua ban khong the su dung lenh nay, go \"/jobhelp\" de biet them chi tiet.");
     }
@@ -415,6 +427,16 @@ CMD:dunglamviec(playerid, params[])
         }
         else {
             SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec Khai Thac.");
+        }
+    }
+    else if(PlayerInfo[playerid][pJob] == JOB_LUMBER || PlayerInfo[playerid][pJob2] == JOB_LUMBER)
+    {
+        if(PlayerWorking[playerid] == JOB_LUMBER)
+        {
+            Lumber_Stop(playerid);
+        }
+        else {
+            SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec Lumberjack.");
         }
     }
     else if(PlayerInfo[playerid][pJob] == JOB_CONSTRUCTION || PlayerInfo[playerid][pJob2] == JOB_CONSTRUCTION)
