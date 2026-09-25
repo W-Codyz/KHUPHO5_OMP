@@ -1,444 +1,608 @@
-#include <YSI\YSI_Coding\y_hooks>
-#define DIALOG_MENU_LUMBER (9005)
-#define DIALOG_MENU_WOODSELL (9006)
-#define DIALOG_MENU_WOODSELL1 (9007)
-#define DIALOG_MENU_WOODSELL2 (9008)
-#define DIALOG_MENU_WOODSELL3 (9009)
-#define DIALOG_MENU_LUMBERMEM (9015)
+// ============================================================
+//  Lumber Job - GTA-HTB Roleplay Created by Codyz
+// ============================================================
 
-const WoodSell1 = 1500;
-const WoodSell2 = 2500;
-const WoodSell3 = 4000;
-#define GOTHO 30
-new ChatCayTime[MAX_PLAYERS];
-new XuLyTime[MAX_PLAYERS];
-new lXuLyTimer[MAX_PLAYERS];
-new lChatCayTimer[MAX_PLAYERS];
-new DangCamKhucGo[MAX_PLAYERS];
-new Float:chatcaypos_pos[GOTHO][] = {
-    {-586.5910, -67.6849, 65.1055},
-    {-598.7264, -62.6084, 63.5321},
-    {-595.4039, -57.6008, 64.0453},
-    {-588.1226, -57.7902, 64.6371},
-    {-602.3700, -52.8173, 63.5130},
-    {-610.7908, -52.6962, 62.8075},
-    {-616.3765, -60.2545, 62.9431},
-    {-626.4560, -68.5381, 64.5750},
-    {-623.5648, -76.1417, 64.6829},
-    {-616.7187, -83.3847, 64.2409},
-    {-608.1622, -86.6179, 64.0397},
-    {-603.2106, -94.6078, 64.6535},
-    {-611.3782, -97.4317, 64.8887},
-    {-620.4033, -91.6125, 65.1022},
-    {-588.1523, -90.0992, 64.9138},
-    {-579.3025, -77.6503, 64.8380},
-    {-579.9860, -70.0960, 64.8515},
-    {-580.4525, -61.3451, 64.9347},
-    {-581.1863, -55.4273, 65.0097},
-    {-580.3475, -44.2026, 65.0613},
-    {-569.9053, -42.1805, 64.6419},
-    {-565.5383, -36.9702, 64.4907},
-    {-565.5189, -28.6861, 63.9583},
-    {-557.3141, -26.9681, 63.6383},
-    {-554.7582, -14.4269, 63.1836},
-    {-543.4727, -18.1107, 62.9540},
-    {-533.2223, -24.5771, 61.2050},
-    {-523.7198, -35.2411, 61.4957},
-    {-521.1165, -51.2911, 61.9243},
-    {-535.5420, -51.0299, 62.8781}
+#include <YSI\YSI_Coding\y_hooks>
+
+// Vi tri log tren xe (offset: x, y, z, rx, ry, rz)
+static const Float:gLumberLogPosOnVeh[LUMBER_MAX_VEH_LOGS][6] = {
+    {-0.07150, -1.22530, 0.24970, -0.20800, 0.00000, 0.00000},
+    {-0.07150, -1.74530, 0.24970, -0.20800, 0.00000, 0.00000},
+    {-0.07150, -1.22530, 0.76970, -0.20800, 0.00000, 0.00000},
+    {-0.07150, -1.84930, 0.76970, -0.20800, 0.00000, 0.00000},
+    {-0.07150, -1.53730, 1.18570, -0.20800, 0.00000, 0.00000}
 };
 
-randomtree()
+// --- Forwards ---
+forward Lumber_ChopFinish(playerid);
+forward Lumber_RespawnTree(treeIndex);
+
+// ============================================================
+//  HELPER
+// ============================================================
+
+static stock Lumber_FindNearestTree(playerid)
 {
-	new 
-		Tree_Object_ID[] = {708,691,616};
-    new modelid = Tree_Object_ID[random(sizeof Tree_Object_ID)];
-    return modelid;
+    for(new i = 0; i < LUMBER_MAX_TREES; i++)
+    {
+        if(!gLumberTreeActive[i] || gLumberTreeOccupied[i]) continue;
+        if(IsPlayerInRangeOfPoint(playerid, 4.0, gLumberTreeX[i], gLumberTreeY[i], gLumberTreeZ[i]))
+            return i;
+    }
+    return -1;
 }
-enum WoodInfo {
-    wObject,
-    wTextLabel,
-    wStatus
-}
-new WoodLumber[GOTHO][WoodInfo];
-hook OnPlayerDisconnect(playerid, reason)
+
+static stock Lumber_SpawnTreeAt(index, Float:x, Float:y, Float:z)
 {
-    if (lXuLyTimer[playerid])
-        KillTimer(lXuLyTimer[playerid]);
-    if (lChatCayTimer[playerid])
-        KillTimer(lChatCayTimer[playerid]);
+    gLumberTreeX[index] = x;
+    gLumberTreeY[index] = y;
+    gLumberTreeZ[index] = z;
+    gLumberTreeObj[index] = CreateDynamicObject(LUMBER_TREE_MODEL, x, y, z - 0.5, 0.0, 0.0, float(random(360)));
+    gLumberTreeActive[index] = true;
+    gLumberTreeOccupied[index] = false;
+    gLumberTreePlayer[index] = -1;
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+
+Lumber_Init()
+{
+    new count = 0, attempts = 0;
+    new Float:x, Float:y, Float:z;
+
+    for(new i = 0; i < LUMBER_MAX_TREES; i++)
+    {
+        gLumberTreeActive[i]   = false;
+        gLumberTreeOccupied[i] = false;
+        gLumberTreePlayer[i]   = -1;
+        gLumberTreeObj[i]      = -1;
+    }
+    for(new v = 0; v < MAX_VEHICLES; v++)
+    {
+        gLumberVehLogCount[v] = 0;
+        for(new s = 0; s < LUMBER_MAX_VEH_LOGS; s++)
+            gLumberVehLogObj[v][s] = -1;
+    }
+
+    // Spawn cay: chia deu vao 2 zone
+    new zone1Range = 15, zone2Range = LUMBER_MAX_TREES - 15;
+    new rangeX1 = floatround((LUMBER_ZONE1_MAXX - LUMBER_ZONE1_MINX) * 100.0);
+    new rangeY1 = floatround((LUMBER_ZONE1_MAXY - LUMBER_ZONE1_MINY) * 100.0);
+    new rangeX2 = floatround((LUMBER_ZONE2_MAXX - LUMBER_ZONE2_MINX) * 100.0);
+    new rangeY2 = floatround((LUMBER_ZONE2_MAXY - LUMBER_ZONE2_MINY) * 100.0);
+
+    while(count < zone1Range && attempts < 10000)
+    {
+        attempts++;
+        x = LUMBER_ZONE1_MINX + float(random(rangeX1)) / 100.0;
+        y = LUMBER_ZONE1_MINY + float(random(rangeY1)) / 100.0;
+        if(!CA_FindZ_For2DCoord(x, y, z)) continue;
+        Lumber_SpawnTreeAt(count, x, y, z);
+        count++;
+    }
+    attempts = 0;
+    while(count < LUMBER_MAX_TREES && attempts < 10000)
+    {
+        attempts++;
+        x = LUMBER_ZONE2_MINX + float(random(rangeX2)) / 100.0;
+        y = LUMBER_ZONE2_MINY + float(random(rangeY2)) / 100.0;
+        if(!CA_FindZ_For2DCoord(x, y, z)) continue;
+        Lumber_SpawnTreeAt(count, x, y, z);
+        count++;
+    }
+
+    printf("[Lumber] %d/%d trees spawned.", count, LUMBER_MAX_TREES);
+
+    // NPC ban / doi go (NPC cong viec duoc tao boi Job_Init)
+    CreateDynamicActor(22, LUMBER_SELL_X, LUMBER_SELL_Y, LUMBER_SELL_Z, LUMBER_SELL_A, true);
+    CreateDynamic3DTextLabel(
+        "{F5F52F}Thu Mua Go\n{FFFFFF}Nhan {5FBC52}[Y]{FFFFFF} de ban/doi go tho",
+        -1, LUMBER_SELL_X, LUMBER_SELL_Y, LUMBER_SELL_Z + 0.3, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+
     return 1;
 }
+
+// ============================================================
+//  START / STOP
+// ============================================================
+
+Lumber_Start(playerid)
+{
+    if(PlayerLumberData[playerid][LP_Working])
+    {
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban dang lam viec roi.");
+        return 1;
+    }
+
+    PlayerLumberData[playerid][LP_Working]    = true;
+    PlayerLumberData[playerid][LP_VehicleID]  = INVALID_VEHICLE_ID;
+    PlayerLumberData[playerid][LP_HasLog]     = false;
+    PlayerLumberData[playerid][LP_AttackTree] = -1;
+    PlayerLumberData[playerid][LP_ChopTimer]  = -1;
+    PlayerWorking[playerid]                   = JOB_LUMBER;
+    SetPlayerSkin(playerid, JobInfo[JOB_LUMBER][jobSkin]);
+
+    new vehicleid = CreateVehicle(478, LUMBER_VEH_X, LUMBER_VEH_Y, LUMBER_VEH_Z, LUMBER_VEH_A, -1, -1, -1);
+    if(vehicleid == INVALID_VEHICLE_ID)
+    {
+        ShowTDN(playerid, NOTIFICATION_ERROR, "Loi: Khong the tao xe. Thu lai sau.");
+        PlayerLumberData[playerid][LP_Working] = false;
+        PlayerWorking[playerid] = 0;
+        return 1;
+    }
+    LockStatus{vehicleid} = 0;
+    SetVehicleHealth(vehicleid, 999.0);
+    PutPlayerInVehicle(playerid, vehicleid, 0);
+
+    PlayerLumberData[playerid][LP_VehicleID] = vehicleid;
+    gLumberVehLogCount[vehicleid] = 0;
+    for(new s = 0; s < LUMBER_MAX_VEH_LOGS; s++) gLumberVehLogObj[vehicleid][s] = -1;
+
+    new labelStr[128];
+    format(labelStr, sizeof(labelStr), "{5DBC52}Lumberjack\n{FFFFFF}Chu xe: {5DBC52}%s", GetPlayerNameEx(playerid));
+    gLumberVehLabel[playerid] = Create3DTextLabel(labelStr, 0x5DBC52FF, 0.0, 0.0, 0.0, 12.0, 0);
+    Attach3DTextLabelToVehicle(gLumberVehLabel[playerid], vehicleid, 0.0, 0.0, 0.0);
+
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[Lumberjack] {ffffff}Bat dau lam viec. Lai xe Flatbed den khu rung de chat cay.");
+    return 1;
+}
+
+Lumber_Stop(playerid)
+{
+    if(!PlayerLumberData[playerid][LP_Working]) return SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec.");
+
+    if(PlayerLumberData[playerid][LP_ChopTimer] != -1)
+    {
+        KillTimer(PlayerLumberData[playerid][LP_ChopTimer]);
+        PlayerLumberData[playerid][LP_ChopTimer] = -1;
+    }
+
+    new attackTree = PlayerLumberData[playerid][LP_AttackTree];
+    if(attackTree >= 0 && attackTree < LUMBER_MAX_TREES)
+    {
+        gLumberTreeOccupied[attackTree] = false;
+        gLumberTreePlayer[attackTree]   = -1;
+    }
+
+    if(PlayerLumberData[playerid][LP_HasLog])
+    {
+        RemovePlayerAttachedObject(playerid, LUMBER_LOG_CARRY_SLOT);
+        PlayerLumberData[playerid][LP_HasLog] = false;
+    }
+
+    new vehicleid = PlayerLumberData[playerid][LP_VehicleID];
+    if(vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid))
+    {
+        for(new s = 0; s < gLumberVehLogCount[vehicleid]; s++)
+        {
+            if(gLumberVehLogObj[vehicleid][s] != -1)
+            {
+                DestroyDynamicObject(gLumberVehLogObj[vehicleid][s]);
+                gLumberVehLogObj[vehicleid][s] = -1;
+            }
+        }
+        gLumberVehLogCount[vehicleid] = 0;
+        DestroyVehicle(vehicleid);
+    }
+
+    if(gLumberVehLabel[playerid] != Text3D:0)
+    {
+        Delete3DTextLabel(gLumberVehLabel[playerid]);
+        gLumberVehLabel[playerid] = Text3D:0;
+    }
+
+    RemovePlayerAttachedObject(playerid, LUMBER_TOOL_SLOT);
+    StopLoading(playerid);
+    ClearAnimations(playerid);
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+
+    PlayerLumberData[playerid][LP_Working]    = false;
+    PlayerLumberData[playerid][LP_VehicleID]  = INVALID_VEHICLE_ID;
+    PlayerLumberData[playerid][LP_AttackTree] = -1;
+    PlayerWorking[playerid]                   = 0;
+    SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
+
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[Lumberjack] {ffffff}Ban da ngung lam viec.");
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Da ngung lam viec.");
+    return 1;
+}
+
+// ============================================================
+//  CHOPPING
+// ============================================================
+
+static stock Lumber_StartChop(playerid, treeIndex)
+{
+    gLumberTreeOccupied[treeIndex] = true;
+    gLumberTreePlayer[treeIndex]   = playerid;
+    PlayerLumberData[playerid][LP_AttackTree] = treeIndex;
+
+    ApplyAnimation(playerid, "CHAINSAW", "WEAPON_csaw", 4.1, 1, 0, 0, 1, 0, 1);
+    SetPlayerAttachedObject(playerid, LUMBER_TOOL_SLOT, 341, 6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
+    SetLoading(playerid, LUMBER_CHOP_TIME, "Dang chat cay...", "Lumber_ChopFinish");
+
+    new string[128];
+    format(string, sizeof(string), "{FF8000}* {C2A2DA}%s dang chat cay.", GetPlayerNameEx(playerid));
+    ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    return 1;
+}
+
+public Lumber_ChopFinish(playerid)
+{
+    new treeIndex = PlayerLumberData[playerid][LP_AttackTree];
+    PlayerLumberData[playerid][LP_AttackTree] = -1;
+
+    if(treeIndex < 0 || treeIndex >= LUMBER_MAX_TREES) return 1;
+
+    gLumberTreeOccupied[treeIndex] = false;
+    gLumberTreePlayer[treeIndex]   = -1;
+
+    RemovePlayerAttachedObject(playerid, LUMBER_TOOL_SLOT);
+
+    if(!IsPlayerInRangeOfPoint(playerid, 6.0, gLumberTreeX[treeIndex], gLumberTreeY[treeIndex], gLumberTreeZ[treeIndex]))
+    {
+        ClearAnimations(playerid);
+        ShowTDN(playerid, NOTIFICATION_ERROR, "Chat cay that bai vi ban di qua xa.");
+        SendClientMessageEx(playerid, COLOR_RED, "{5DBC52}[Lumberjack] {ffffff}Ban da di chuyen qua xa, chat cay that bai.");
+        return 1;
+    }
+
+    // Xoa cay, dat timer respawn
+    if(gLumberTreeObj[treeIndex] != -1)
+    {
+        DestroyDynamicObject(gLumberTreeObj[treeIndex]);
+        gLumberTreeObj[treeIndex] = -1;
+    }
+    gLumberTreeActive[treeIndex] = false;
+    SetTimerEx("Lumber_RespawnTree", LUMBER_RESPAWN_TIME, false, "d", treeIndex);
+
+    // Player cam khuc go
+    PlayerLumberData[playerid][LP_HasLog] = true;
+    SetPlayerAttachedObject(playerid, LUMBER_LOG_CARRY_SLOT, LUMBER_LOG_MODEL, 1,  0.1539, 0.5870, 0.0000, 0.0000, 84.7999, 0.0000, 0.8460, 0.4109, 0.4190, 0xFFFFFFFF, 0xFFFFFFFF);
+    ApplyAnimation(playerid, "CARRY", "LIFTUP", 4.0, 0, 0, 0, 0, 0);
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[Lumberjack] {ffffff}Chat cay thanh cong! Den sat xe Flatbed nhan {FFFF00}[Y]{FFFFFF} de dat go len xe.");
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Chat cay thanh cong.");
+
+    new rand_xp = 0;
+    if(DoubleXP) {
+        rand_xp = Random(PlayerInfo[playerid][pLevel] * XP_RATE - 7, PlayerInfo[playerid][pLevel] * XP_RATE - 4);
+        SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem nhan vat: +%d XP (%s/%s) (DOUBLE XP)", rand_xp*2, number_format(PlayerInfo[playerid][pXP]+rand_xp*2), number_format(GetRequiredXP(playerid)));
+        GivePlayerXP(playerid, rand_xp*2);
+    }
+    else if(PlayerInfo[playerid][pDoubleEXP] > 0 && !DoubleXP) {
+        rand_xp = Random(PlayerInfo[playerid][pLevel] * XP_RATE - 7, PlayerInfo[playerid][pLevel] * XP_RATE - 4);
+        SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem nhan vat: +%d XP (%s/%s) (DOUBLE XP)", rand_xp*2, number_format(PlayerInfo[playerid][pXP]+rand_xp*2), number_format(GetRequiredXP(playerid)));
+        GivePlayerXP(playerid, rand_xp*2);
+    }
+    else {
+        rand_xp = Random(PlayerInfo[playerid][pLevel] * XP_RATE - 7, PlayerInfo[playerid][pLevel] * XP_RATE - 4);
+        SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem nhan vat: +%d XP (%s/%s)", rand_xp, number_format(PlayerInfo[playerid][pXP]+rand_xp), number_format(GetRequiredXP(playerid)));
+        GivePlayerXP(playerid, rand_xp);
+    }
+
+    new string[128];
+    format(string, sizeof(string), "{FF8000}* {C2A2DA}%s da chat duoc mot khuc go.", GetPlayerNameEx(playerid));
+    ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    return 1;
+}
+
+public Lumber_RespawnTree(treeIndex)
+{
+    if(treeIndex < 0 || treeIndex >= LUMBER_MAX_TREES) return 1;
+    gLumberTreeObj[treeIndex] = CreateDynamicObject(LUMBER_TREE_MODEL,
+        gLumberTreeX[treeIndex], gLumberTreeY[treeIndex], gLumberTreeZ[treeIndex] - 0.5,
+        0.0, 0.0, float(random(360)));
+    gLumberTreeActive[treeIndex] = true;
+    return 1;
+}
+
+// ============================================================
+//  DAT GO LEN XE
+// ============================================================
+
+static stock Lumber_DepositToVehicle(playerid)
+{
+    new vehicleid = PlayerLumberData[playerid][LP_VehicleID];
+    if(vehicleid == INVALID_VEHICLE_ID || !IsValidVehicle(vehicleid))
+    {
+        ShowTDN(playerid, NOTIFICATION_ERROR, "Khong tim thay xe cua ban.");
+        return 0;
+    }
+    if(gLumberVehLogCount[vehicleid] >= LUMBER_MAX_VEH_LOGS)
+    {
+        SendClientMessageEx(playerid, COLOR_YELLOW, "{5DBC52}[Lumberjack] {ffffff}Xe cua ban da day go. Hay lai den NPC de ban hoac doi go tho.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Xe day go.");
+        return 0;
+    }
+
+    new slot = gLumberVehLogCount[vehicleid];
+    gLumberVehLogObj[vehicleid][slot] = CreateDynamicObject(LUMBER_VEH_LOG_MODEL, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    AttachDynamicObjectToVehicle(gLumberVehLogObj[vehicleid][slot], vehicleid,
+        gLumberLogPosOnVeh[slot][0], gLumberLogPosOnVeh[slot][1], gLumberLogPosOnVeh[slot][2],
+        gLumberLogPosOnVeh[slot][3], gLumberLogPosOnVeh[slot][4], gLumberLogPosOnVeh[slot][5]);
+    gLumberVehLogCount[vehicleid]++;
+
+    RemovePlayerAttachedObject(playerid, LUMBER_LOG_CARRY_SLOT);
+    PlayerLumberData[playerid][LP_HasLog] = false;
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[Lumberjack] {ffffff}Da dat go len xe (%d/%d).",
+        gLumberVehLogCount[vehicleid], LUMBER_MAX_VEH_LOGS);
+    if(gLumberVehLogCount[vehicleid] >= LUMBER_MAX_VEH_LOGS)
+        ShowTDN(playerid, NOTIFICATION_SUCCESS, "Xe day go. Lai den NPC ban/doi go.");
+    return 1;
+}
+
+// ============================================================
+//  BAN / DOI GO
+// ============================================================
+
+static stock Lumber_OpenSellDialog(playerid)
+{
+    if(!PlayerLumberData[playerid][LP_HasLog])
+    {
+        SendClientMessageEx(playerid, COLOR_YELLOW, "{5DBC52}[Lumberjack] {ffffff}Can cam theo 1 khuc go. Dung {FFFF00}/laygo{ffffff} lay go tu xe truoc.");
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Cam theo go de ban/doi.");
+        return 0;
+    }
+
+    ShowPlayerDialog(playerid, DIALOG_LUMBER_SELL, DIALOG_STYLE_LIST,
+        "{F5D000}Thu Mua Go",
+        "{FFFFFF}Ban go ($1500)\n{C2A2DA}Doi go tho (1~2 go tho)",
+        "Chon", "Huy");
+    return 1;
+}
+
+static stock Lumber_SellLog(playerid)
+{
+    RemovePlayerAttachedObject(playerid, LUMBER_LOG_CARRY_SLOT);
+    PlayerLumberData[playerid][LP_HasLog] = false;
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+
+    GivePlayerCash(playerid, LUMBER_LOG_PRICE);
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[Lumberjack] {ffffff}Ban 1 khuc go, nhan ${00FF7F}%d.", LUMBER_LOG_PRICE);
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban go thanh cong!");
+
+    new pname[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, pname, sizeof(pname));
+    DiscordLog(dclog_Lumber, "BAN GO", "**%s (ID: %d)** bán 1 khúc gỗ. **Tiền: $%s**",
+        pname, playerid, number_format(LUMBER_LOG_PRICE));
+    return 1;
+}
+
+static stock Lumber_ConvertToRaw(playerid)
+{
+    RemovePlayerAttachedObject(playerid, LUMBER_LOG_CARRY_SLOT);
+    PlayerLumberData[playerid][LP_HasLog] = false;
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+
+    new amount = 1 + random(2); // 1 hoac 2
+    PlayerInfo[playerid][pGoThuong] += amount;
+
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[Lumberjack] {ffffff}Doi 1 khuc go duoc {FFFF00}%d go tho{ffffff}.", amount);
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Doi go tho thanh cong!");
+
+    new pname[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, pname, sizeof(pname));
+    DiscordLog(dclog_Lumber, "DOI GO THO", "**%s (ID: %d)** đổi 1 khúc → %d gỗ thô. Tổng: %d",
+        pname, playerid, amount, PlayerInfo[playerid][pGoThuong]);
+    return 1;
+}
+
+// ============================================================
+//  HOOKS
+// ============================================================
+
 hook OnPlayerConnect(playerid)
 {
-    DangCamKhucGo[playerid] = 0;
+    PlayerLumberData[playerid][LP_Working]    = false;
+    PlayerLumberData[playerid][LP_HasLog]     = false;
+    PlayerLumberData[playerid][LP_VehicleID]  = INVALID_VEHICLE_ID;
+    PlayerLumberData[playerid][LP_AttackTree] = -1;
+    PlayerLumberData[playerid][LP_ChopTimer]  = -1;
+    gLumberVehLabel[playerid]                 = Text3D:0;
     return 1;
 }
-hook OnGameModeInit()
+
+hook OnPlayerDisconnect(playerid, reason)
 {
-    new string[64];
-    CreateActor(22, -543.9225,-79.9980,62.9417, 180);
-    CreateDynamic3DTextLabel("<Minh Man - Quan ly bai go>\nAn 'Y' de tuong tac", -1, -543.9225,-79.9980,62.9417+1.3,5.0);
-    CreateActor(299, -911.7522,-490.6188,25.9609,319.7426);
-    CreateDynamic3DTextLabel("<Tien Ngo - Thu mua go>\nAn 'Y' de tuong tac", -1, -911.7522,-490.6188,25.9609+1.3,5.0);
-    CreateDynamicPickup(1274, 1, -547.7433,-181.8307,78.4063, 0);
-    CreateDynamic3DTextLabel("<Xu ly go>\nAn 'Y' de xu ly go", -1, -547.7433,-181.8307,78.4063,10.0);
-
-    for (new i = 0; i < GOTHO; i++)
-    {
-        WoodLumber[i][wStatus] = 0;
-        WoodLumber[i][wObject] = CreateDynamicObject(randomtree(), chatcaypos_pos[i][0], chatcaypos_pos[i][1], chatcaypos_pos[i][2]-1, 0, 0, 0);
-        format(string, sizeof(string), "Cay go #%d\n'Dam vao cay' hoac 'LMB' de chat cay", i);
-        WoodLumber[i][wTextLabel] = CreateDynamic3DTextLabel(string, -1, chatcaypos_pos[i][0], chatcaypos_pos[i][1], chatcaypos_pos[i][2], 3.0, _, _, 0, 0, 0, _, 20.0);
-    }
+    if(PlayerLumberData[playerid][LP_Working])
+        Lumber_Stop(playerid);
     return 1;
 }
-hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
-    if(newkeys & KEY_YES) {
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, -543.9225,-79.9980,62.9417))
-        {
-            ShowPlayerDialog(playerid, DIALOG_MENU_LUMBER, DIALOG_STYLE_MSGBOX, "Quan ly bai go", "{ffffff}Ban co chac chan muon mua 1 cay riu voi gia 15.000$ khong ? \n{ff0000}Mot cay riu se co do ben la: 20{ffffff}", "Chon", "Dong");
-            return 1;
-        }
-        if(IsPlayerInRangeOfPoint(playerid, 10.0, -547.7433,-181.8307,78.4063))
-        {
-            if (DangCamKhucGo[playerid] == 0)
-            {
-                SendClientMessage(playerid, COLOR_GREY, "Ban can phai chat mot khuc go sau do moi co the xu ly.");
-                ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co go de xu ly.");
-                return 1;
-            }
-            if (PlayerInfo[playerid][pGoThuong]+PlayerInfo[playerid][pGoXin]+PlayerInfo[playerid][pGoHiem] >= 20)
-            {
-                SendClientMessage(playerid, COLOR_GREY, "Tui cua ban da day khong the xu ly them go, hay mang den CHECKPOINT de ban.");
-                ShowTDN(playerid, NOTIFICATION_WARNING, "Tui cua ban da day.");
-                DangCamKhucGo[playerid] = 0;
-                ClearAnimations(playerid);
-                SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-                RemovePlayerAttachedObject(playerid, 9);
-                SetPlayerCheckpoint(playerid,  -911.7522,-490.6188,25.9609, 3.0);
-                CP[playerid] = 252000;
-                return 1;
-            }
-            if (XuLyTime[playerid] > 0)
-                return 0;
-            XuLyTime[playerid] = 20;
-            lXuLyTimer[playerid] = SetTimerEx("XuLyTimer", 1000, 0, "i", playerid);
-            return 1;
-        }
-        if(IsPlayerInRangeOfPoint(playerid, 5.0,  -911.7522,-490.6188,25.9609))
-        {
-            new str[128];
-            format(str, sizeof(str), "{00ff00}$%d {ffffff}Go thuong: {ffff00}%d\n{00ff00}$%d {ffffff}Go xin: {ff00ff}%d\n{00ff00}$%d {ffffff}Go hiem: {ff0000}%d", WoodSell1, PlayerInfo[playerid][pGoThuong], WoodSell2, PlayerInfo[playerid][pGoXin], WoodSell3, PlayerInfo[playerid][pGoHiem]);
-            ShowPlayerDialog(playerid, DIALOG_MENU_WOODSELL, DIALOG_STYLE_LIST, "Thu mua go", str, ">", "X");
-            return 1;
-        }
-    }
-    if(newkeys & KEY_FIRE) {
-        for(new i = 0; i < GOTHO; i++)
-        {
-            if (IsPlayerInRangeOfPoint(playerid, 3.0, chatcaypos_pos[i][0], chatcaypos_pos[i][1], chatcaypos_pos[i][2]))
-            {
-                if (WoodLumber[i][wStatus] == 0)
-                {
-                    if (ChatCayTime[playerid])
-                        return 0;
-                    if (PlayerCuffed[playerid] >= 1 || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "Injured"))
-                        return 0;
-                    if (PlayerInfo[playerid][pAxe] <= 0)
-                    {
-                        SendClientMessage(playerid, COLOR_GREY, "Ban chua mua riu hoac riu cua ban da bi hong, hay mua riu moi.");
-                        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban chua mua riu hoac riu da bi hong.");
-                        SetPlayerCheckpoint(playerid, -543.9225,-79.9980,62.9417, 3.0);
-                        CP[playerid] = 252000;
-                        return 1;
-                    }
-                    if (PlayerInfo[playerid][pGoThuong]+PlayerInfo[playerid][pGoXin]+PlayerInfo[playerid][pGoHiem] >= 20)
-                    {
-                        SendClientMessage(playerid, COLOR_GREY, "Tui cua ban da day khong the xu ly them go, hay mang den CHECKPOINT de ban.");
-                        ShowTDN(playerid, NOTIFICATION_WARNING, "Tui cua ban da day.");
-                        DangCamKhucGo[playerid] = 0;
-                        ClearAnimations(playerid);
-                        SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-                        RemovePlayerAttachedObject(playerid, 9);
-                        SetPlayerCheckpoint(playerid,  -911.7522,-490.6188,25.9609, 3.0);
-                        CP[playerid] = 252000;
-                        return 1;
-                    }
 
-                    if (DangCamKhucGo[playerid])
-                    {
-                        SendClientMessage(playerid, COLOR_GREY, "Hay mang khuc go den CHECKPOINT de xu ly go.");
-                        ShowTDN(playerid, NOTIFICATION_INFO, "Hay mang khuc go di xu ly.");
-                        SetPlayerCheckpoint(playerid,  -547.7433,-181.8307,78.4063, 3.0);
-                        CP[playerid] = 252000;
-                        return 1;
-                    }
-                    WoodLumber[i][wStatus] = 1;
-                    lChatCayTimer[playerid] = SetTimerEx("ChatCayTimer", 1000, 0, "ii", playerid, i);
-                    ChatCayTime[playerid] = 20;
-                    return 1;
-                }
+// Lumber_Init() is called explicitly in main.pwn OnGameModeInit after CA_Init()
+
+hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
+{
+    if(!PRESSED(KEY_YES)) return 1;
+    if(IsPlayerInAnyVehicle(playerid)) return 1;
+
+    // --- NPC ban / doi go ---
+    if(IsPlayerInRangeOfPoint(playerid, 3.0, LUMBER_SELL_X, LUMBER_SELL_Y, LUMBER_SELL_Z))
+    {
+        Lumber_OpenSellDialog(playerid);
+        return 1;
+    }
+
+    // --- Dat go len xe ---
+    if(PlayerLumberData[playerid][LP_HasLog])
+    {
+        new vehicleid = PlayerLumberData[playerid][LP_VehicleID];
+        if(vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid))
+        {
+            new Float:vx, Float:vy, Float:vz;
+            GetVehiclePos(vehicleid, vx, vy, vz);
+            if(IsPlayerInRangeOfPoint(playerid, 5.0, vx, vy, vz))
+            {
+                Lumber_DepositToVehicle(playerid);
+                return 1;
             }
         }
+        return 1;
     }
-    return 0;
+
+    // --- Chat cay ---
+    if(!IsLoadingActive(playerid) && PlayerLumberData[playerid][LP_Working])
+    {
+        new vehicleid2 = PlayerLumberData[playerid][LP_VehicleID];
+        if(vehicleid2 != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid2) && gLumberVehLogCount[vehicleid2] >= LUMBER_MAX_VEH_LOGS)
+        {
+            SendClientMessageEx(playerid, COLOR_YELLOW, "{5DBC52}[Lumberjack] {ffffff}Xe cua ban da day go. Lai den NPC ban hoac /laygo de lay go ra.");
+            ShowTDN(playerid, NOTIFICATION_WARNING, "Xe day go.");
+            return 1;
+        }
+        new tree = Lumber_FindNearestTree(playerid);
+        if(tree != -1)
+        {
+            Lumber_StartChop(playerid, tree);
+            return 1;
+        }
+    }
+
+    return 1;
 }
+
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-    if(dialogid == DIALOG_MENU_LUMBERMEM)
+    if(dialogid == DIALOG_LUMBER_GPS)
     {
-        if (response)
+        if(!response) return 1;
+        switch(listitem)
         {
-            switch(listitem)
+            case 0:
             {
-                case 0:
-                {
-                    SetPlayerCheckpoint(playerid, -596.1323,-83.0602,64.0670, 3.0);
-                    CP[playerid] = 252000;
-                    SendClientMessage(playerid, COLOR_GREY, "Hay di đen CHECKPOINT de chat cay.");
-                    ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de chat cay.");
-                }
-                case 1:
-                {
-                    SendClientMessage(playerid, COLOR_GREY, "Hay di đen CHECKPOINT de mua riu.");
-                    ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de mua riu.");
-                    SetPlayerCheckpoint(playerid, -543.9225,-79.9980,62.9417, 3.0);
-                    CP[playerid] = 252000;
-                }
-                case 2:
-                {
-                    SetPlayerCheckpoint(playerid,  -911.7522,-490.6188,25.9609, 3.0);
-                    CP[playerid] = 252000;
-                    SendClientMessage(playerid, COLOR_GREY, "Hay di đen CHECKPOINT de ban go.");
-                    ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de ban go.");
-                }
+                PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+                SetPlayerCP(playerid, LUMBER_NPC_X, LUMBER_NPC_Y, LUMBER_NPC_Z, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[GPS] {ffffff}Dang dan duong den NPC nhan viec Lumberjack.");
+            }
+            case 1:
+            {
+                PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+                SetPlayerCP(playerid, LUMBER_SELL_X, LUMBER_SELL_Y, LUMBER_SELL_Z, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[GPS] {ffffff}Dang dan duong den NPC thu mua go.");
+            }
+            case 2:
+            {
+                PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+                SetPlayerCP(playerid, -676.235839, -127.256149, 60.928993, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[GPS] {ffffff}Dang dan duong den khu rung.");
             }
         }
         return 1;
     }
-    if(dialogid == DIALOG_MENU_LUMBER)
+
+    if(dialogid == DIALOG_LUMBER_NPC)
     {
-        if (response)
+        if(!response) return 1;
+        switch(listitem)
         {
-            if (PlayerInfo[playerid][pAxe] > 0)
+            case 0: Lumber_Start(playerid);
+            case 1: Lumber_Stop(playerid);
+            case 2:
             {
-                SendClientMessage(playerid, COLOR_GREY, "Ban da co 'riu chat cay' roi, hay xai den khi bi hong moi co the mua them.");
-                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban da co riu chat cay.");
-                return 1;
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "[================================================================================]");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "[Lumberjack] Buoc 1: Chat cay trong khu rung (nhan [Y] gan cay), dat go len xe Flatbed (toi da %d khuc).", LUMBER_MAX_VEH_LOGS);
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "[Lumberjack] Buoc 2: Lai xe den NPC Thu Mua Go, nhan [Y] de ban go (1500$/khuc) hoac doi go tho vao tui.");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "[Lumberjack] Meo: /laygo de lay 1 khuc go ra khoi xe; /chatgo de xem trang thai.");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "[================================================================================]");
             }
-            if (PlayerInfo[playerid][pCash] < 15000)
-            {
-                SendClientMessage(playerid, COLOR_GREY, "Ban khong co du tien de mua 'riu chat cay'.");
-                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co du tien.");
-                return 1;
-            }
-            GivePlayerCash(playerid, -15000);
-            SendClientMessage(playerid, COLOR_GREY, "Ban da mua thanh cong 'riu chat cay' voi 15.000$, do ben 20.");
-            ShowTDN(playerid, NOTIFICATION_SUCCESS, "Ban da mua thanh cong.");
-            PlayerInfo[playerid][pAxe] = 20;
-            SetPlayerCheckpoint(playerid, -596.1323,-83.0602,64.0670, 3.0);
-            CP[playerid] = 252000;
-            SendClientMessage(playerid, COLOR_GREY, "Hay di đen CHECKPOINT de chat cay.");
-            ShowTDN(playerid, NOTIFICATION_INFO, "Hay di den CHECKPOINT de chat cay.");
         }
         return 1;
     }
-    if(dialogid == DIALOG_MENU_WOODSELL)
+
+    if(dialogid == DIALOG_LUMBER_SELL)
     {
-        new str[128];
-        if (response)
+        if(!response) return 1;
+        switch(listitem)
         {
-            switch(listitem)
-            {
-                case 0:
-                {
-                    format(str, sizeof(str), "{ffffff}So luong ban co: {ff0000}%d{ffffff}\n > Nhap vao day so luong muon ban", PlayerInfo[playerid][pGoThuong]);
-                    ShowPlayerDialog(playerid, DIALOG_MENU_WOODSELL1, DIALOG_STYLE_INPUT, "Go thuong", str, ">", "X");
-                }
-                case 1:
-                {
-                    format(str, sizeof(str), "{ffffff}So luong ban co: {ff0000}%d{ffffff}\n > Nhap vao day so luong muon ban", PlayerInfo[playerid][pGoXin]);
-                    ShowPlayerDialog(playerid, DIALOG_MENU_WOODSELL2, DIALOG_STYLE_INPUT, "Go xin", str, ">", "X");
-                }
-                case 2:
-                {
-                    format(str, sizeof(str), "{ffffff}So luong ban co: {ff0000}%d{ffffff}\n > Nhap vao day so luong muon ban", PlayerInfo[playerid][pGoHiem]);
-                    ShowPlayerDialog(playerid, DIALOG_MENU_WOODSELL3, DIALOG_STYLE_INPUT, "Go hiem", str, ">", "X");
-                }
-            }
+            case 0: Lumber_SellLog(playerid);
+            case 1: Lumber_ConvertToRaw(playerid);
         }
-    }
-    if(dialogid == DIALOG_MENU_WOODSELL1)
-    {
-        if (response)
-        {
-            new amount = strval(inputtext), str[128];
-            if (amount <= 0 || amount > 100)
-            {
-                SendClientMessage(playerid, COLOR_GREY, "Vui long nhap so luong hop le!");
-                ShowTDN(playerid, NOTIFICATION_WARNING, "Vui long nhap so luong hop le!");
-                return 1;
-            }
-            if (amount > PlayerInfo[playerid][pGoThuong])
-            {
-                SendClientMessage(playerid, COLOR_GREY, "Ban khong co du so luong go de ban!");
-                ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong co du so luong go de ban!");
-                return 1;
-            }
-            format(str, sizeof(str), "Ban da ban %d go va nhan duoc $%d.", amount, amount*WoodSell1);
-            SendClientMessage(playerid, -1, str);
-            ShowTDN(playerid, NOTIFICATION_SUCCESS, str);
-            PlayerInfo[playerid][pGoThuong] -= amount;
-            GivePlayerCash(playerid, amount*WoodSell1);
-            new title[64];
-            format(title, sizeof(title), "%s (ID: %d) - Bán gỗ", GetPlayerNameEx(playerid), playerid);
-            DiscordLog(dclog_Lumber, title, "**Loại gỗ: Gỗ thường**\n**Số lượng: %d**\n**Tiền nhận được: $%d**", amount, amount*WoodSell1);
-        }
-    }
-    if(dialogid == DIALOG_MENU_WOODSELL2)
-    {
-        if (response)
-        {
-            new amount = strval(inputtext), str[128];
-            if (amount <= 0 || amount > 100)
-                return SendClientMessage(playerid, COLOR_GREY, "Vui long nhap so luong hop le!");
-            if (amount > PlayerInfo[playerid][pGoXin])
-                return SendClientMessage(playerid, COLOR_GREY, "Ban khong co du so luong go de ban!");
-            format(str, sizeof(str), "Ban da ban %d go va nhan duoc $%d.", amount, amount*WoodSell2);
-            PlayerInfo[playerid][pGoXin] -= amount;
-            SendClientMessage(playerid, -1, str);
-            GivePlayerCash(playerid, amount*WoodSell2);
-            new title[64];
-            format(title, sizeof(title), "%s (ID: %d) - Bán gỗ", GetPlayerNameEx(playerid), playerid);
-            DiscordLog(dclog_Lumber, title, "**Loại gỗ: Gỗ xịn**\n**Số lượng: %d**\n**Tiền nhận được: $%d**", amount, amount*WoodSell2);
-        }
-    }
-    if(dialogid == DIALOG_MENU_WOODSELL3)
-    {
-        if (response)
-        {
-            new amount = strval(inputtext), str[128];
-            if (amount <= 0 || amount > 100)
-                return SendClientMessage(playerid, COLOR_GREY, "Vui long nhap so luong hop le!");
-            if (amount > PlayerInfo[playerid][pGoHiem])
-                return SendClientMessage(playerid, COLOR_GREY, "Ban khong co du so luong go de ban!");
-            format(str, sizeof(str), "Ban da ban %d go va nhan duoc $%d.", amount, amount*WoodSell3);
-            SendClientMessage(playerid, -1, str);
-            GivePlayerCash(playerid, amount*WoodSell3);
-            PlayerInfo[playerid][pGoHiem] -= amount;
-            new title[64];
-            format(title, sizeof(title), "%s (ID: %d) - án gỗ", GetPlayerNameEx(playerid), playerid);
-            DiscordLog(dclog_Lumber, title, "**Loại gỗ: Gỗ quý**\n**Số lượng: %d**\n**Tiền nhận được: $%d**", amount, amount*WoodSell3);
-        }
-    }
-    return 0;
-}
-forward ResetWood(index);
-public ResetWood(index)
-{
-    new string[64];
-    WoodLumber[index][wStatus] = 0;
-    WoodLumber[index][wObject] = CreateDynamicObject(randomtree(), chatcaypos_pos[index][0], chatcaypos_pos[index][1], chatcaypos_pos[index][2]-1, 0, 0, 0);
-    format(string, sizeof(string), "Cay go #%d\n'Dam vao cay' hoac 'LMB' de chat cay", index);
-    WoodLumber[index][wTextLabel] = CreateDynamic3DTextLabel(string, -1, chatcaypos_pos[index][0], chatcaypos_pos[index][1], chatcaypos_pos[index][2], 3.0, _, _, 0, 0, 0, _, 20.0);
-    printf("Cay go #%d respawned", index);
-    return 1;
-}
-forward XuLyTimer(playerid);
-public XuLyTimer(playerid)
-{
-    if (XuLyTime[playerid] > 0)
-    {
-        new str[64];
-        ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 1, 0, 0, 1, 0);
-        format(str, sizeof(str), "~w~Ban dang xu ly go~n~Vui long doi: ~r~%d", XuLyTime[playerid]);
-        GameTextForPlayer(playerid, str, 1000, 5);
-        lXuLyTimer[playerid] = SetTimerEx("XuLyTimer", 1000, 0, "i", playerid);
-        XuLyTime[playerid]--;
-    }
-    else
-    {
-        new LoaiGo, str[128], gostr[32];
-        switch(random(100))
-        {
-            case 0..70:
-            {
-                LoaiGo = 1;
-                format(gostr, sizeof(gostr), "Go thuong");
-                PlayerInfo[playerid][pGoThuong]++;
-            }
-            case 71..90:
-            {
-                LoaiGo = 2;
-                format(gostr, sizeof(gostr), "Go xin");
-                PlayerInfo[playerid][pGoXin]++;
-            }
-            case 91..100:
-            {
-                LoaiGo = 3;
-                format(gostr, sizeof(gostr), "Go hiem");
-                PlayerInfo[playerid][pGoHiem]++;
-            }
-        }
-        DangCamKhucGo[playerid] = 0;
-        ClearAnimations(playerid);
-        SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-        RemovePlayerAttachedObject(playerid, 9);
-        format(str, sizeof(str), "Ban da nhan duoc 1 %s.", gostr);
-        SendClientMessage(playerid, -1, str);
-        ClearAnimations(playerid);
+        return 1;
     }
     return 1;
 }
-forward ChatCayTimer(playerid, index);
-public ChatCayTimer(playerid, index)
+
+// ============================================================
+//  COMMANDS
+// ============================================================
+
+CMD:laygo(playerid, params[])
 {
-    if(PlayerCuffed[playerid] >= 1 || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "Injured"))
-        return 0;
-    if (ChatCayTime[playerid] > 0)
+    if(!PlayerLumberData[playerid][LP_Working])
+        return SendClientMessageEx(playerid, COLOR_GREY, "[Lumberjack] Ban phai dang lam viec de dung lenh nay.");
+
+    if(IsPlayerInAnyVehicle(playerid))
+        return SendClientMessageEx(playerid, COLOR_GREY, "[Lumberjack] Ra khoi xe truoc khi lay go.");
+
+    if(PlayerLumberData[playerid][LP_HasLog])
+        return SendClientMessageEx(playerid, COLOR_GREY, "[Lumberjack] Ban dang cam go roi. Dat len xe truoc.");
+
+    new vehicleid = PlayerLumberData[playerid][LP_VehicleID];
+    if(vehicleid == INVALID_VEHICLE_ID || !IsValidVehicle(vehicleid))
+        return SendClientMessageEx(playerid, COLOR_GREY, "[Lumberjack] Khong tim thay xe.");
+
+    new Float:vx, Float:vy, Float:vz;
+    GetVehiclePos(vehicleid, vx, vy, vz);
+    if(!IsPlayerInRangeOfPoint(playerid, 5.0, vx, vy, vz))
     {
-        new str[64];
-        ChatCayTime[playerid]--;
-        format(str, sizeof(str), "~w~Ban dang chat cay~n~Vui long doi: ~r~%d", ChatCayTime[playerid]);
-        GameTextForPlayer(playerid, str, 1000, 5);
-        lChatCayTimer[playerid] = SetTimerEx("ChatCayTimer", 1000, 0, "ii", playerid, index);
-        ApplyAnimation(playerid, "SWORD", "SWORD_4", 4.1, 0, 1, 1, 1, 0, 1);
-        SetPlayerAttachedObject(playerid, 9, 341, 6,0, 0.0,0.0,0.00, 0.00, 0.00,1, 1, 1);
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Ban phai o gan xe de lay go.");
+        return 1;
     }
-    else
+
+    if(gLumberVehLogCount[vehicleid] <= 0)
     {
-        new str[128], rand = Random(0, 2);
-        SendClientMessage(playerid, COLOR_GREY, "Ban da chat cay thanh cong va nhan duoc 1 go tho.");
-        format(str, sizeof(str), "Riu cua ban da bi giam %d do ben.", rand);
-        SendClientMessage(playerid, COLOR_GREY, str);
-        PlayerInfo[playerid][pAxe] -= rand;
-        format(str, sizeof(str), "Do ben hien tai: %d/20", PlayerInfo[playerid][pAxe]);
-        SendClientMessage(playerid, COLOR_GREY, str);
-        if(IsValidDynamicObject(WoodLumber[index][wObject])) {
-            DestroyDynamicObject(WoodLumber[index][wObject]);
-        }
-        if(IsValidDynamic3DTextLabel(WoodLumber[index][wTextLabel])) {
-            DestroyDynamic3DTextLabel(WoodLumber[index][wTextLabel]);
-        }
-        RemovePlayerAttachedObject(playerid, 9);
-        WoodLumber[index][wStatus] = 2;
-        SetTimerEx("ResetWood", 600000, 0, "i", index);
-        ClearAnimations(playerid);
-        DangCamKhucGo[playerid] = 1;
-        ApplyAnimation(playerid, "carry", "liftup", 1, 0, 1, 1, 0, 1000);
-        SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
-        SetPlayerAttachedObject(playerid, 9, 1463, 1,0.052999, 0.592999,0.0,0.00, 90.00, 0.00,1.45, 0.451, 0.66);
-        SendClientMessage(playerid, COLOR_GREY, "Hay mang khuc go den CHECKPOINT de xu ly go.");
-        SetPlayerCheckpoint(playerid,  -547.7433,-181.8307,78.4063, 3.0);
-        CP[playerid] = 252000;
+        ShowTDN(playerid, NOTIFICATION_WARNING, "Xe khong co go.");
+        return 1;
     }
+
+    gLumberVehLogCount[vehicleid]--;
+    new slot = gLumberVehLogCount[vehicleid];
+    if(gLumberVehLogObj[vehicleid][slot] != -1)
+    {
+        DestroyDynamicObject(gLumberVehLogObj[vehicleid][slot]);
+        gLumberVehLogObj[vehicleid][slot] = -1;
+    }
+
+    PlayerLumberData[playerid][LP_HasLog] = true;
+    SetPlayerAttachedObject(playerid, LUMBER_LOG_CARRY_SLOT, LUMBER_LOG_MODEL, 1,  0.1539, 0.5870, 0.0000, 0.0000, 84.7999, 0.0000, 0.8460, 0.4109, 0.4190, 0xFFFFFFFF, 0xFFFFFFFF);
+    ApplyAnimation(playerid, "CARRY", "LIFTUP", 4.0, 0, 0, 0, 0, 0);
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[Lumberjack] {ffffff}Lay 1 khuc go ra khoi xe (%d con lai). Den NPC nhan {FFFF00}[Y]{FFFFFF} de ban hoac doi.",
+        gLumberVehLogCount[vehicleid]);
     return 1;
 }
+
+alias:vitrilumber("lumber_gps")
+CMD:vitrilumber(playerid, params[])
+{
+    ShowPlayerDialog(playerid, DIALOG_LUMBER_GPS, DIALOG_STYLE_LIST,
+        "{0f8d47}Lumberjack {FFFFFF}- Tim Duong",
+        "{FFFF00}NPC Nhan Viec\n{5DBC52}NPC Thu Mua Go\n{87CEEB}Khu Rung",
+        "Di den", "Huy");
+    return 1;
+}
+
 CMD:chatgo(playerid, params[])
 {
-    new str[64];
-    format(str, sizeof(str), "JOB CHAT GO | DO BEN RIU: %d", PlayerInfo[playerid][pAxe]);
-    ShowPlayerDialog(playerid, DIALOG_MENU_LUMBERMEM, DIALOG_STYLE_LIST, str, "Chat go\nMua riu\nBan go", "Chon", "Dong");   
+    if(!PlayerLumberData[playerid][LP_Working])
+        return SendClientMessageEx(playerid, COLOR_GREY, "[Lumberjack] Ban chua bat dau lam viec.");
+
+    new vehicleid = PlayerLumberData[playerid][LP_VehicleID];
+    new logOnVeh = (vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid)) ? gLumberVehLogCount[vehicleid] : 0;
+
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{5DBC52}[Lumberjack] {ffffff}Go tren xe: {FFFF00}%d/%d{ffffff} | Go tho (tui): {FFFF00}%d{ffffff} | Dang cam go: %s",
+        logOnVeh, LUMBER_MAX_VEH_LOGS,
+        PlayerInfo[playerid][pGoThuong],
+        PlayerLumberData[playerid][LP_HasLog] ? "{00FF00}Co" : "{FF0000}Khong");
     return 1;
 }

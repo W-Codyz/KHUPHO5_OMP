@@ -2939,6 +2939,7 @@ public InitiateGamemode()
 	printf("[Job] Loading Job Actor...");
 	Job_Init();
 	Miner_Init();
+	Lumber_Init();
 	
     // Textdraws
     print("[Textdraws] Loading Textdraws...");

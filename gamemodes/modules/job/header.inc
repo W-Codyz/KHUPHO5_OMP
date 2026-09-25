@@ -8,7 +8,8 @@ enum _:MAX_JOB_TYPE
     JOB_CONSTRUCTION, // 5
     JOB_CRAFTER, // 6
     JOB_ELECTRIC, // 7
-    JOB_MINER    // 8
+    JOB_MINER,   // 8
+    JOB_LUMBER   // 9
 };
 
 enum E_JOB_INFO
@@ -72,7 +73,12 @@ new JobHelp[MAX_JOB_TYPE][1028] =
     {"{F5F52F}Tho Khai Thac{FFFFFF} la mot cong viec doc dao tai {FF6666}GTA-HTB Roleplay{FFFFFF}\n\
         ban se khai thac da quy trong khu mo, rua sach de thu hoach khoang san va ban lai.\n\
         Cong viec yeu cau su kien nhan va kha nang quan ly van chuyen hang hoa.\n\n\n\
-        {3F7EAB}Cau lenh co san: /layda /dunglamviec"}
+        {3F7EAB}Cau lenh co san: /layda /dunglamviec"},
+    {"{0f8d47}Chat Go{FFFFFF} la mot cong viec tai {FF6666}GTA-HTB Roleplay{FFFFFF} cho phep ban\n\
+        khai thac go tu khu rung, dat go len xe va ban cho thuong lai.\n\
+        Mo tat ca cac loai cay trong 2 khu vuc rung, moi khuc go ban hoac giu lai de lam viec khac.\n\
+        Co the doi go tho de luu vao tui va ban sau.\n\n\n\
+        {3F7EAB}Cau lenh co san: /laygo /chatgo /dunglamviec"}
 };
 
 new JobInfo[MAX_JOB_TYPE][E_JOB_INFO] =
@@ -85,7 +91,8 @@ new JobInfo[MAX_JOB_TYPE][E_JOB_INFO] =
     {"Tho xay dung", 1, 27, 0, 0, -2071.5452, 227.5330, 36.1192, 88.0978},
     {"Tho thu cong", 1, 6, 0, 0, -2120.1162, -14.2599, 35.3203, 88.2260},
     {"Tho sua dien", 1, 16, 0, 0, -2520.9807, -624.4470, 132.7828, 358.126220},
-    {"Tho Khai Thac", 1, 27, 0, 0, 584.901367, 867.991882, -42.497318, 267.125885}
+    {"Tho Khai Thac", 1, 27, 0, 0, 584.901367, 867.991882, -42.497318, 267.125885},
+    {"Lumberjack", 1, 291, 0, 0, -758.966003, -130.437088, 65.813842, 9.329421}
 };
 
 new SideJobInfo[][E_SIDEJOB_INFO] = {
