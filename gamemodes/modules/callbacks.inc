@@ -4768,7 +4768,37 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 	
 	if(PRESSED(KEY_WALK))
 	{
+		// Di bo: ALT = KEY_WALK (1024), toggle khoa/mo xe gan nhat
 		pc_cmd_pvlock(playerid,"");
+	}
+	if(PRESSED(KEY_FIRE) && IsPlayerInAnyVehicle(playerid))
+	{
+		// Trong xe: ALT = KEY_FIRE (4), toggle khoa/mo xe dang ngoi
+		new Float:vx, Float:vy, Float:vz;
+		for(new d = 0; d < MAX_PLAYERVEHICLES; d++)
+		{
+			if(PlayerVehicleInfo[playerid][d][pvId] == INVALID_PLAYER_VEHICLE_ID) continue;
+			GetVehiclePos(PlayerVehicleInfo[playerid][d][pvId], vx, vy, vz);
+			if(!IsPlayerInRangeOfPoint(playerid, 5.0, vx, vy, vz)) continue;
+			if(PlayerVehicleInfo[playerid][d][pvLocked] == 0)
+			{
+				HienTextdraw(playerid,"~r~DA KHOA!");
+				PlayerVehicleInfo[playerid][d][pvLocked] = 1;
+				LockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], 1);
+			}
+			else
+			{
+				HienTextdraw(playerid,"~g~MO KHOA!");
+				PlayerVehicleInfo[playerid][d][pvLocked] = 0;
+				UnLockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], 1);
+			}
+			foreach(new pi : Player)
+			{
+				if(IsPlayerInRangeOfPoint(pi, 10.0, vx, vy, vz))
+					PlayerPlaySound(pi, 24600, vx, vy, vz);
+			}
+			break;
+		}
 	}
 
 	if(newkeys & KEY_SECONDARY_ATTACK)
