@@ -49680,7 +49680,7 @@ CMD:givexp(playerid, params[])
 
 new PlayerCountTheGioi[MAX_PLAYERS];
 CMD:thegioi(playerid, params[])  {
-    if(!isnull(params)) {
+    /* if(!isnull(params)) {
 
         new szMessage[128];
         if (PlayerCountTheGioi[playerid] > 0)
@@ -49702,7 +49702,8 @@ CMD:thegioi(playerid, params[])  {
         PlayerCountTheGioi[playerid] = 30;
         SendClientMessageToAllEx(COLOR_LIGHTBLUE, szMessage);
     }
-    else SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: (/thegioi [noi dung]");
+    else SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: (/thegioi [noi dung]"); */
+	SendClientMessageEx(playerid, COLOR_GREY, "{FF9900}Loi: {33CCFF}Tinh nang khong kha dung. Hay mua radio va [/tanso 1] de chat voi moi nguoi.");
 	return 1;
 }
 task CountTheGioiChat[1000]()
