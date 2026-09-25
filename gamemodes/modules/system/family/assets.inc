@@ -22,7 +22,7 @@
 #define MAX_SAFE_LEVEL          8
 #define SAFE_LEVEL_CASH_BASE    500000
 #define SAFE_LEVEL_GOODS_BASE   10
-#define SAFE_LEVEL_MATS_FACTOR  1000    // level * 1000 * 10
+#define SAFE_LEVEL_MATS_FACTOR  15000    // level * 1000 * 10
 #define SAFE_LEVEL_GUN_BASE     2       // 3*level + 2
 #define SAFE_LEVEL_MEM_FACTOR   5       // 5*level
 #define SAFE_MOVE_COOLDOWN      259200  // 3 ngày (giây)
