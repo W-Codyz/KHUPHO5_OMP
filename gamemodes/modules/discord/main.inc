@@ -123,7 +123,7 @@ Discord_Init()
     dcRole_Verified = DCC_FindRoleById("1544225805565952030");
     dcRole_Admin = DCC_FindRoleById("1544259847841644554");
     dcRole_Police = DCC_FindRoleById("1548255570371551312");
-    dcRole_Medic = DCC_FindRoleById("1548255570371551312");
+    dcRole_Medic = DCC_FindRoleById("1548255508077613186");
     dc_Verify = DCC_FindChannelById("1544221791369560155");
 
     ccChannel = DCC_FindChannelById("1548216250415456376");
