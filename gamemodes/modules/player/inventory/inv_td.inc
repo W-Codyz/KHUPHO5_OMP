@@ -48,6 +48,7 @@ static GetInvItemModel(itemVariable)
     if(itemVariable == pMinBac)    return 3930;
     if(itemVariable == pMinVang)   return 3930;
     if(itemVariable == pMinKimCuong) return 3930;
+    if(itemVariable == pGoThuong)    return 19632;
     return 2663;
 }
 
