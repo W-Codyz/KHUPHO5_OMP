@@ -556,7 +556,7 @@ static stock Miner_SellType(playerid, listitem)
     }
 
     new income = amount * price;
-    GivePlayerMoney(playerid, income);
+    GivePlayerCash(playerid, income);
 
     switch(listitem)
     {
@@ -597,7 +597,7 @@ static stock Miner_SellAll(playerid)
 
     if(total <= 0) return 0;
 
-    GivePlayerMoney(playerid, total);
+    GivePlayerCash(playerid, total);
     PlayerInfo[playerid][pMinSat]      = 0;
     PlayerInfo[playerid][pMinDong]     = 0;
     PlayerInfo[playerid][pMinBac]      = 0;
