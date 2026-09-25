@@ -19283,19 +19283,21 @@ CMD:pvlock(playerid, params[])
             if(PlayerVehicleInfo[playerid][d][pvLocked] == 0)
 			{
                 HienTextdraw(playerid,"~r~DA KHOA!");
-                PlayerPlaySound(playerid, 24600, 0.0, 0.0, 0.0);
                 PlayerVehicleInfo[playerid][d][pvLocked] = 1;
                 LockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], 1);
-                return 1;
             }
             else
 			{
                 HienTextdraw(playerid,"~g~MO KHOA!");
-                PlayerPlaySound(playerid, 24600, 0.0, 0.0, 0.0);
                 PlayerVehicleInfo[playerid][d][pvLocked] = 0;
                 UnLockPlayerVehicle(playerid, PlayerVehicleInfo[playerid][d][pvId], 1);
-                return 1;
             }
+            foreach(new i : Player)
+            {
+                if(IsPlayerInRangeOfPoint(i, 10.0, x, y, z))
+                    PlayerPlaySound(i, 24600, x, y, z);
+            }
+            return 1;
         }
     }
     return 1;
