@@ -961,5 +961,52 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         Miner_SellType(playerid, listitem);
         return 1;
     }
+
+    if(dialogid == DIALOG_MINER_GPS)
+    {
+        if(!response) return 1;
+        switch(listitem)
+        {
+            case 0:
+            {
+                PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+                SetPlayerCP(playerid, 584.901367, 867.991882, -42.497318, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{d4a017}[GPS] {ffffff}Dang dan duong den NPC nhan viec Khai Thac.");
+            }
+            case 1:
+            {
+                PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+                SetPlayerCP(playerid, MINER_WASH_X, MINER_WASH_Y, MINER_WASH_Z, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{d4a017}[GPS] {ffffff}Dang dan duong den Tram Rua Khoang San.");
+            }
+            case 2:
+            {
+                PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+                SetPlayerCP(playerid, MINER_SELL_X, MINER_SELL_Y, MINER_SELL_Z, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{d4a017}[GPS] {ffffff}Dang dan duong den NPC ban khoang san.");
+            }
+            case 3:
+            {
+                PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
+                SetPlayerCP(playerid, 625.0, 870.0, -42.5, 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{d4a017}[GPS] {ffffff}Dang dan duong den khu khai thac khoang san.");
+            }
+        }
+        return 1;
+    }
+    return 1;
+}
+
+alias:vitriminer("miner_gps")
+CMD:vitriminer(playerid, params[])
+{
+    ShowPlayerDialog(playerid, DIALOG_MINER_GPS, DIALOG_STYLE_LIST,
+        "{d4a017}Khai Thac {FFFFFF}- Tim Duong",
+        "{FFFF00}NPC Nhan Viec\n{87CEEB}Tram Rua Khoang San\n{5DBC52}NPC Ban Khoang San\n{FF8C00}Khu Khai Thac",
+        "Di den", "Huy");
     return 1;
 }

@@ -39,7 +39,7 @@ stock ShowGPSMainDialog(playerid)
 {
     return ShowPlayerDialog(playerid, DIALOG_MAP_TPHAT, DIALOG_STYLE_LIST,
         "{ffff00}GPS{ffffff} - Ban muon di dau?",
-        "Tim duong\nTim viec lam\nVi tri can sa",
+        "Tim duong\nTim viec lam\nVi tri can sa\nVi tri khoang san\nVi tri Lumerjack ",
         "Chon", "Huy");
 }
 
@@ -99,6 +99,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					"{ffff00}GTAHTB{ffffff} - Can Sa",
 					"Tim duong can sa\nXem can sa",
 					"Chon", "Thoat");
+				case 3: PC_EmulateCommand(playerid, "/vitriminer");
+				case 4: PC_EmulateCommand(playerid, "/vitrilumber");
 			}
 		}
 	}
@@ -288,7 +290,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(listitem == 6) //lumber
 			{
 			    PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-          		SetPlayerCP(playerid, -543.9225,-79.9980,62.9417, 3.0);
+          		SetPlayerCP(playerid, -758.966003,-130.437088,65.813842, 3.0);
        		    gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
 				return 1;
 			}

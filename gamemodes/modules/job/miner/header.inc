@@ -38,6 +38,7 @@ new gMinerPrice[5] = {350, 2500, 7500, 25000, 75000};
 #define DIALOG_MINER_CRAFT      5385
 #define DIALOG_MINER_CRAFT_MELEE 5386
 #define DIALOG_MINER_CRAFT_GUN  5387
+#define DIALOG_MINER_GPS        5388
 
 // Trang thai player
 enum E_MINER_PLAYER
