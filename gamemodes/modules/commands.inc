@@ -12016,6 +12016,23 @@ CMD:fixvehall(playerid, params[])
 }
 
 
+CMD:refuelveh(playerid, params[])
+{
+    if(IsPlayerConnected(playerid)) {
+        if(PlayerInfo[playerid][pAdmin] < 4) {
+            SendUnAuth(playerid);
+            return 1;
+        }
+        if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_RED, "Ban phai ngoi trong xe de su dung lenh nay.");
+        new vehicleid = GetPlayerVehicleID(playerid);
+        if(!IsRefuelableVehicle(vehicleid)) return SendClientMessageEx(playerid, COLOR_RED, "Chiec xe nay khong can nhien lieu.");
+        VehicleFuel[vehicleid] = 100.0;
+        SendClientMessageEx(playerid, COLOR_GREY, "   Xe da duoc do day xang!");
+    }
+    return 1;
+}
+
+
 CMD:destroycars(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] < 4) {
