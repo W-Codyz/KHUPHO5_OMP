@@ -272,7 +272,7 @@ stock UpdatePlayerHealthBar(playerid, bool:isHunger, Float:value) {
 
 CMD:testta(playerid, params[])
 {
-    if(PlayerInfo[playerid][pAdmin] >= 99999)
+    if(PlayerInfo[playerid][pAdmin] >= 1337)
     {
         PlayerInfo[playerid][pThucAn] = 50 + random(50);
         PlayerInfo[playerid][pNuoc]   = 50 + random(50);
