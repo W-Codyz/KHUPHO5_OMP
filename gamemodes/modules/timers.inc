@@ -542,7 +542,7 @@ task MoneyUpdate[1000]()
 					else pSSHealth[i] = hp + 35.0;
 				}*/
 				ResetPlayerMoney(i);
-				GivePlayerCash(i, PlayerInfo[i][pCash]);
+				GivePlayerMoney(i, PlayerInfo[i][pCash]);
 			}
 
 			if(IsValidTextDraw(GPS[i]))
