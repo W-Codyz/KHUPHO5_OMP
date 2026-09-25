@@ -4344,7 +4344,7 @@ public OnFilterScriptInit()
     SetDynamicObjectMaterial(c_Object[95], 1, 0, "INVALID", "INVALID", 0xFFFFFFFF);
     c_Object[96] = CreateDynamicObject(19174, 907.0280, -1457.0837, 2754.9841, 0.0000, 180.0000, 0.0000); //SAMPPicture3
     //SetDynamicObjectMaterialText(c_Object[96], "y", 0, 90, "Wingdings", 25, 1, 0xFF000000, 0x0, 0);
-	SetDynamicObjectMaterialText(c_Object[93], 0, "Los Santos", 90, "Times New Roman", 25, 1, 0xFFA5A9A7, 0x0, 1);
+	SetDynamicObjectMaterialText(c_Object[93], 0, "San Ferrio", 90, "Times New Roman", 25, 1, 0xFFA5A9A7, 0x0, 1);
 	SetDynamicObjectMaterialText(c_Object[95], 0, "y", 90, "Wingdings", 25, 1, 0xFF000000, 0x0, 0);
 	SetDynamicObjectMaterialText(c_Object[96], 0, "y", 90, "Wingdings", 25, 1, 0xFF000000, 0x0, 0);
     SetDynamicObjectMaterial(c_Object[96], 1, 0, "INVALID", "INVALID", 0xFFFFFFFF);
@@ -4422,7 +4422,7 @@ public OnFilterScriptInit()
     c_Object[132] = CreateDynamicObject(1569, 927.4956, -1459.2479, 2753.2839, 0.0000, 0.0000, -48.7999); //ADAM_V_DOOR
     c_Object[133] = CreateDynamicObject(19174, 918.8895, -1462.8747, 2756.3559, 0.0000, 0.0000, 0.0000); //SAMPPicture3
     //SetDynamicObjectMaterialText(c_Object[133], "i", 0, 90, "Webdings", 70, 1, 0xFFA5A9A7, 0x0, 1);
-	SetDynamicObjectMaterialText(c_Object[129], 0, "Los Santos", 90, "Times New Roman", 25, 1, 0xFFA5A9A7, 0x0, 1);
+	SetDynamicObjectMaterialText(c_Object[129], 0, "San Ferrio", 90, "Times New Roman", 25, 1, 0xFFA5A9A7, 0x0, 1);
 	SetDynamicObjectMaterialText(c_Object[130], 0, "Cityhall", 90, "Times New Roman", 40, 1, 0xFFA5A9A7, 0x0, 1);
 	SetDynamicObjectMaterialText(c_Object[133], 0, "i", 90, "Webdings", 70, 1, 0xFFA5A9A7, 0x0, 1);
     SetDynamicObjectMaterial(c_Object[133], 1, 0, "INVALID", "INVALID", 0xFFFFFFFF);
@@ -5565,10 +5565,10 @@ public OnFilterScriptInit()
     c_Object[725] = CreateDynamicObject(11721, 902.9525, -1457.0749, 2760.5214, 0.0000, 0.0000, 0.0000); //Radiator1
     SetDynamicObjectMaterial(c_Object[725], 1, 14704, "lahss2_2int2", "HS_radiator2", 0xFFFFFFFF);
     c_Object[726] = CreateDynamicObject(19174, 901.1901, -1465.8580, 2762.9018, 0.0000, 0.0000, 90.0000); //SAMPPicture3
-    SetDynamicObjectMaterialText(c_Object[726], 0, "Besprechungsraum", 90, "Arial Black", 14, 0, 0xFF000000, 0x0, 1);
+    SetDynamicObjectMaterialText(c_Object[726], 0, "Office Room", 90, "Arial Black", 14, 0, 0xFF000000, 0x0, 1);
     SetDynamicObjectMaterial(c_Object[726], 1, 0, "INVALID", "INVALID", 0xFFFFFFFF);
     c_Object[727] = CreateDynamicObject(19174, 901.1901, -1465.8580, 2762.7216, 0.0000, 0.0000, 90.0000); //SAMPPicture3
-    SetDynamicObjectMaterialText(c_Object[727], 0, "nur für Befugte!", 90, "Arial Black", 14, 0, 0xFF000000, 0x0, 1);
+    SetDynamicObjectMaterialText(c_Object[727], 0, "Room 1", 90, "Arial Black", 14, 0, 0xFF000000, 0x0, 1);
     SetDynamicObjectMaterial(c_Object[727], 1, 0, "INVALID", "INVALID", 0xFFFFFFFF);
     c_Object[728] = CreateDynamicObject(19464, 938.6441, -1469.6035, 2757.5200, 0.0000, 0.0000, 0.0000); //wall104
     SetDynamicObjectMaterial(c_Object[728], 0, 14650, "ab_trukstpc", "mp_CJ_WOOD5", 0xFFFFFFFF);
@@ -6282,7 +6282,7 @@ public OnFilterScriptInit()
     SetDynamicObjectMaterialText(g_Object[351], 0, "News Agency", 90, "Arial", 30, 1, 0xFFFFFFFF, 0x0, 1);
     SetDynamicObjectMaterial(g_Object[351], 1, 0, "INVALID", "INVALID", 0xFFFFFFFF);
     g_Object[352] = CreateDynamicObject(19175, 801.5980, -1337.2763, 711.6405, 0.0000, 0.0000, -90.0000); //SAMPPicture4
-    SetDynamicObjectMaterialText(g_Object[352], 0, "Los Santos", 130, "Arial", 30, 1, 0xFFFFFFFF, 0x0, 1);
+    SetDynamicObjectMaterialText(g_Object[352], 0, "San Ferrio", 130, "Arial", 30, 1, 0xFFFFFFFF, 0x0, 1);
     SetDynamicObjectMaterial(g_Object[352], 1, 0, "INVALID", "INVALID", 0xFFFFFFFF);
     g_Object[353] = CreateDynamicObject(19175, 801.6181, -1337.3065, 711.6005, 0.0000, 0.0000, -90.0000); //SAMPPicture4
     SetDynamicObjectMaterialText(g_Object[353], 0, "__________", 130, "Arial", 30, 1, 0xFFFFFFFF, 0x0, 1);
@@ -10432,7 +10432,311 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(2515, 1315.270996, 758.267395, 111.490341, 0.000000, 0.000000, -90.000000, -1, -1, -1, 300.00, 300.00);
 	tmpobjid = CreateDynamicObject(18766, 1315.344482, 762.319885, 108.870246, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00);
 
+	//exterior SFPD
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.441650, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.451660, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.461669, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.471679, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.481689, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.491699, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.501708, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.511718, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.521728, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1605.571411, 716.531738, 21.281858, 0.000000, 0.000000, 89.999923, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Tru So Canh Sat", 110, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.981567, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.971557, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.961547, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.951538, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.941528, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.931518, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.921508, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.911499, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	tmpobjid = CreateDynamicObject(19481, -1622.681640, 687.901489, 7.764007, 0.000000, 0.000000, -90.000061, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Nha Xe Canh Sat", 90, "Ariel", 20, 1, 0x00000000, 0x00000000, 0);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	tmpobjid = CreateDynamicObject(1247, -1605.533569, 712.463562, 19.072340, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -1585.100097, 717.100463, 9.874349, 0.000000, -10.700001, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1247, -1604.752929, 712.463562, 18.852334, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1247, -1604.072387, 712.463562, 18.462329, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1247, -1606.303955, 712.463562, 18.862335, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1247, -1607.044677, 712.463562, 18.462329, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -1625.646484, 718.052795, 16.129907, 0.000000, 3.599998, 0.000000, -1, -1, -1, 300.00, 300.00); 
+
     
+	//exterior SFFD
+	tmpobjid = CreateDynamicObject(19481, -2616.633056, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.613037, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.593017, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.572998, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.552978, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.532958, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2636.681884, 568.619628, 40.777187, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}+", 90, "Ariel", 199, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.512939, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.492919, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.472900, 599.080078, 40.242675, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}Benh Vien", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2636.671875, 568.619628, 40.777187, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}+", 90, "Ariel", 199, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2636.661865, 568.619628, 40.777187, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}+", 90, "Ariel", 199, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2636.651855, 568.619628, 40.777187, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}+", 90, "Ariel", 199, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2636.641845, 568.619628, 40.777187, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}+", 90, "Ariel", 199, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.661621, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.641601, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.621582, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.601562, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.581542, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.561523, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.541503, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.521484, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.501464, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2616.481445, 655.060668, 40.190246, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{800000}GTAHTB.ONLINE", 70, "Ariel", 25, 1, 0x00000000, 0x00000000, 1);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	tmpobjid = CreateDynamicObject(3660, -2546.521484, 580.096191, 15.995822, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2587.343017, 579.526062, 16.005823, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2590.973876, 580.066528, 16.015823, 0.000000, 0.000000, 360.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2622.453613, 580.216674, 16.005823, 0.000000, 0.000000, 360.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2688.515380, 579.255981, 16.035823, 0.000000, 0.000000, 540.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2708.126464, 579.255981, 16.205827, 0.000000, 0.000000, 540.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2727.765136, 579.255981, 16.185827, 0.000000, 0.000000, 540.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2642.094238, 580.216674, 15.995822, 0.000000, 0.000000, 360.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2614.426025, 668.799621, 28.440061, 17.199998, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2614.426025, 661.081298, 25.918621, 18.700000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2614.426025, 653.503723, 23.353710, 18.700000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2614.426025, 645.935302, 20.792011, 18.700000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2614.426025, 638.348083, 18.223897, 18.700000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2614.497802, 612.461303, 16.885808, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2614.426025, 668.799621, 28.440061, 17.199998, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2614.497802, 604.481506, 16.885808, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2599.416748, 604.481506, 16.885808, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1597, -2599.416748, 612.221435, 16.885808, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2599.359619, 663.404907, 29.342332, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2599.359619, 644.205322, 29.342332, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2599.359619, 627.634948, 29.332332, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2589.159179, 618.944030, 29.332332, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2570.079101, 618.944030, 29.332332, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2550.859619, 618.944030, 29.332332, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2547.177490, 618.944030, 29.332332, 0.000000, 0.000000, 360.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2538.558105, 628.874938, 29.332332, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2538.558105, 648.214294, 29.332332, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2594.648193, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1360, -2596.208740, 583.949768, 14.226216, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2590.669433, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2586.639160, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2582.618164, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2578.637451, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2553.486572, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2549.376464, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2545.265625, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2541.165771, 581.907043, 14.232195, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2556.129638, 581.809936, 14.206270, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2538.597900, 581.809936, 14.206270, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(8650, -2659.430908, 617.333068, 13.498865, 360.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(8650, -2628.938720, 617.128479, 13.498863, 360.000000, 0.000000, 89.200012, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(8650, -2627.804931, 599.780273, 13.501884, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(8650, -2658.284179, 599.780273, 13.501884, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2619.275878, 615.860900, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2625.867187, 615.860900, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2630.965332, 616.011047, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2635.905273, 616.121154, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2640.846679, 616.181152, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2646.007812, 616.211120, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2653.327880, 616.221252, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2658.468017, 616.221252, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2663.608398, 616.221252, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2668.898193, 616.221252, 14.227710, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2619.275146, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2625.765625, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2630.905761, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2635.965820, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2640.715820, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2645.907226, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2653.199462, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2658.329589, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2663.601074, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2668.941650, 600.899230, 14.225625, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2672.154296, 616.299316, 14.195791, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2672.154296, 600.759521, 14.195791, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(6965, -2649.573242, 607.948852, 12.073095, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(6965, -2618.131347, 607.948852, 16.393117, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(6965, -2673.335693, 607.948852, 16.393117, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(9833, -2650.055664, 607.919433, 18.283617, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2621.534179, 599.108581, 16.006978, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2636.791748, 599.108581, 16.006978, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2648.016845, 599.108581, 16.006978, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3660, -2664.875244, 599.108581, 16.006978, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+
+	//coffee truoc biz 247
+	tmpobjid = CreateDynamicObject(19353, -2437.343017, 721.740173, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2437.343017, 724.940124, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2448.395751, 721.739379, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2445.416992, 721.740173, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2442.716308, 721.740173, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2440.125244, 721.740173, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2440.125244, 724.940734, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2442.716308, 724.940856, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2445.416992, 724.940612, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2448.395751, 724.940063, 37.492420, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2437.343017, 721.740173, 34.072391, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2437.343017, 724.940124, 34.072437, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2440.125244, 721.740173, 34.072429, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2440.125244, 724.940734, 34.072414, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2448.395751, 721.739379, 34.072456, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2448.395751, 724.940063, 34.072433, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2442.716308, 721.740173, 34.072418, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2442.716308, 724.940856, 34.072410, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2445.416992, 721.740173, 34.072414, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19353, -2445.416992, 724.940612, 34.072410, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "walp45S", 0x00000000);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.931823, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.921813, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.911804, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.901794, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.891784, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.881774, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.871765, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.861755, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	tmpobjid = CreateDynamicObject(19481, -2442.661621, 752.851745, 40.065616, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFD230}Tap Hoa", 120, "Ariel", 20, 1, 0x00000000, 0x00000000, 1);
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	tmpobjid = CreateDynamicObject(2755, -2436.184082, 722.007873, 35.752342, 0.000000, 0.000000, 450.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2755, -2437.421386, 720.778991, 35.752342, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2755, -2440.149414, 720.778991, 35.752342, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2755, -2442.888916, 720.778991, 35.752342, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2755, -2445.609375, 720.778991, 35.752342, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2755, -2448.330322, 720.778991, 35.752342, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2755, -2449.542968, 722.039001, 35.752342, 0.000000, 0.000000, 450.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2755, -2449.542968, 724.758972, 35.752342, 0.000000, 0.000000, 450.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2755, -2436.184082, 724.738281, 35.752342, 0.000000, 0.000000, 450.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1257, -2445.287109, 717.400451, 35.419643, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1257, -2440.588378, 717.400451, 35.419643, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(640, -2442.855224, 721.250122, 34.858322, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(638, -2448.101318, 721.256530, 34.848766, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(638, -2437.619873, 721.256530, 34.848766, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2439.594482, 721.484191, 34.906250, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2446.195800, 721.484191, 34.906250, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1723, -2436.843994, 724.771240, 34.015625, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1723, -2439.544921, 722.741088, 34.015625, 0.000000, 0.000000, 450.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1723, -2441.604980, 724.771240, 34.015625, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1723, -2446.245605, 724.771240, 34.015625, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1723, -2444.184814, 722.741088, 34.015625, 0.000000, 0.000000, 450.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1723, -2448.896240, 722.741088, 34.015625, 0.000000, 0.000000, 450.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2635, -2438.234619, 723.226684, 34.580272, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2635, -2438.234619, 724.276672, 34.580272, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2635, -2442.896240, 724.276672, 34.580272, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2635, -2442.895019, 723.226684, 34.580272, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2635, -2447.596191, 723.226684, 34.580272, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2635, -2447.597656, 724.276672, 34.580272, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1360, -2440.573974, 723.746154, 34.925128, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1360, -2445.214599, 723.746154, 34.925128, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2435.350097, 723.574096, 34.798183, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1364, -2450.354003, 723.611938, 34.803733, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2450.262695, 721.036437, 34.788406, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2450.262695, 726.116882, 34.788406, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2435.521972, 726.116882, 34.788406, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1361, -2435.593261, 721.036437, 34.788406, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3811, -2448.670654, 720.440490, 34.559204, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3811, -2446.329345, 720.440490, 34.559204, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3811, -2443.988525, 720.440490, 34.559204, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3811, -2441.647216, 720.440490, 34.559204, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3811, -2439.306396, 720.440490, 34.559204, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3811, -2436.965332, 720.440490, 34.559204, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3802, -2435.774658, 720.367370, 36.569763, 0.000000, 0.000000, -45.199913, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3802, -2449.952392, 720.381958, 36.586742, 0.000000, 0.000000, -135.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3802, -2436.190429, 726.314208, 36.570129, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(3802, -2449.553710, 726.314208, 36.570129, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(19893, -2437.925781, 724.210937, 35.017192, 0.000000, 0.000000, 97.899902, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(19893, -2438.502685, 723.261108, 35.017192, 0.000000, 0.000000, -79.600067, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(19893, -2442.597656, 723.230651, 34.989311, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(19893, -2443.177734, 724.290771, 34.989311, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(19893, -2447.297607, 724.272338, 34.997493, 0.000000, 0.000000, 100.399948, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(19893, -2447.843505, 723.246887, 34.997493, 0.000000, 0.000000, -77.200096, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1546, -2447.324218, 724.654724, 35.092987, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2647, -2447.699218, 722.851379, 35.153305, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1546, -2443.083251, 723.904724, 35.092987, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1546, -2442.702880, 723.594543, 35.092987, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1546, -2438.381591, 722.874328, 35.092987, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(2647, -2438.177246, 724.661865, 35.153305, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(16779, -2438.225830, 723.765319, 37.403526, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(16779, -2442.887207, 723.765319, 37.393501, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(16779, -2447.609619, 723.765319, 37.383533, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(13667, -2442.885253, 764.458312, 40.780036, -178.300003, 0.000000, -100.000022, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1360, -2437.627685, 717.026428, 34.945533, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(1360, -2448.258789, 717.026428, 34.945533, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+
+
 	for(new i, Float: fPlayerPos[3]; i < MAX_PLAYERS; i++)
 	{
 	    if(GetPlayerVirtualWorld(i) != 0 || GetPlayerInterior(i) != 0)
@@ -10614,6 +10918,40 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 5418, 2112.939, -1797.089, 19.335, 0.250);
     RemoveBuildingForPlayer(playerid, 5530, 2112.939, -1797.089, 19.335, 0.250);
 
+	//miner
+	RemoveBuildingForPlayer(playerid, 16481, 389.0391, 839.5000, 26.8906, 0.25);
+	RemoveBuildingForPlayer(playerid, 16301, 419.0703, 814.7422, 18.4766, 0.25);
+	RemoveBuildingForPlayer(playerid, 16314, 485.0703, 809.4766, -2.7656, 0.25);
+	RemoveBuildingForPlayer(playerid, 16081, 522.1563, 815.9453, 11.6797, 0.25);
+	RemoveBuildingForPlayer(playerid, 16446, 537.7344, 839.3984, -37.9844, 0.25);
+	RemoveBuildingForPlayer(playerid, 16082, 569.3281, 825.7969, -26.7734, 0.25);
+	RemoveBuildingForPlayer(playerid, 16312, 589.5156, 828.7891, -32.8672, 0.25);
+	RemoveBuildingForPlayer(playerid, 16078, 662.8125, 833.6875, -39.3672, 0.25);
+	RemoveBuildingForPlayer(playerid, 16080, 600.6328, 829.3594, -35.7344, 0.25);
+	RemoveBuildingForPlayer(playerid, 16083, 602.2578, 829.7188, -41.8281, 0.25);
+	RemoveBuildingForPlayer(playerid, 16079, 625.9141, 838.4141, -35.3359, 0.25);
+	RemoveBuildingForPlayer(playerid, 16071, 674.7734, 854.5156, -39.3672, 0.25);
+	RemoveBuildingForPlayer(playerid, 3214, 676.5859, 827.3281, -35.3672, 0.25);
+	RemoveBuildingForPlayer(playerid, 3214, 687.6250, 847.1094, -35.3828, 0.25);
+	RemoveBuildingForPlayer(playerid, 16075, 568.5234, 916.3438, -35.3359, 0.25);
+	RemoveBuildingForPlayer(playerid, 16309, 566.6484, 874.4844, -39.5313, 0.25);
+	RemoveBuildingForPlayer(playerid, 16311, 585.8438, 869.6328, -39.3672, 0.25);
+	RemoveBuildingForPlayer(playerid, 16073, 610.1641, 908.4766, -39.3672, 0.25);
+	RemoveBuildingForPlayer(playerid, 16074, 605.0859, 902.1563, -39.3672, 0.25);
+	RemoveBuildingForPlayer(playerid, 16076, 623.3047, 893.7734, -39.7656, 0.25);
+	RemoveBuildingForPlayer(playerid, 3398, 620.8359, 884.2422, -29.5156, 0.25);
+	RemoveBuildingForPlayer(playerid, 16072, 640.3125, 874.7891, -35.3359, 0.25);
 
+	//lumber
+	RemoveBuildingForPlayer(playerid, 785, -654.4922, -200.0703, 62.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 785, -629.1016, -108.5625, 61.8281, 0.25);
+	RemoveBuildingForPlayer(playerid, 785, -588.0391, -30.1953, 60.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 785, -875.0703, -200.3750, 62.6484, 0.25);
+	RemoveBuildingForPlayer(playerid, 694, -616.1719, -156.0547, 74.4453, 0.25);
+	RemoveBuildingForPlayer(playerid, 791, -629.1016, -108.5625, 61.8281, 0.25);
+	RemoveBuildingForPlayer(playerid, 791, -588.0391, -30.1953, 60.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 693, -715.8281, -227.9922, 64.3594, 0.25);
+	RemoveBuildingForPlayer(playerid, 791, -654.4922, -200.0703, 62.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 791, -875.0703, -200.3750, 62.6484, 0.25);
 	return 1;
 }
