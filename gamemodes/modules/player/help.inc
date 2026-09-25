@@ -33,7 +33,7 @@ stock ShowHelpCommand(playerid, listitem)
 		case 5:
 		{
 			new iGroupID = PlayerInfo[playerid][pMember];
-			if(iGroupID == INVALID_GROUP_ID || PlayerInfo[playerid][pFMember] == INVALID_FAMILY_ID)
+			if(iGroupID == INVALID_GROUP_ID && PlayerInfo[playerid][pFMember] == INVALID_FAMILY_ID)
 				return SendClientMessage(playerid, COLOR_GREY, "Ban khong o trong Faction/Family nao.");
 
 			if (PlayerInfo[playerid][pFMember] != INVALID_FAMILY_ID)
