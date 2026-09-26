@@ -25,6 +25,7 @@ new DCC_Role:dcRole_Admin;
 // Admin Log
 new DCC_Channel:dclog_Money;
 new DCC_Channel:dclog_Setvip;
+new DCC_Channel:dclog_AdminCmd;
 
 // Player Log
 new DCC_Channel:dclog_Join;

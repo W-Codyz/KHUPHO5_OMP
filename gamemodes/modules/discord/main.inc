@@ -129,6 +129,7 @@ Discord_Init()
     ccChannel = DCC_FindChannelById("1548216250415456376");
     dclog_Money = DCC_FindChannelById("1548216250415456376");
     dclog_Setvip = DCC_FindChannelById("1548216250415456376");
+    dclog_AdminCmd = DCC_FindChannelById("1548216250415456376");
 
     dclog_Join = DCC_FindChannelById("1544235359196684319");
     dclog_Pay = DCC_FindChannelById("1548216250415456376");

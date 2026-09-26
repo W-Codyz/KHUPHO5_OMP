@@ -6271,15 +6271,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
             PlayerVehicleInfo[giveplayerid][listitem][pvMods][m] = 0;
 		}
-		format(string, sizeof(string), "AdmCmd: Admin %s da xoa %s's xe (VehModel:%d)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), model);
+		new reason[64], bcast[1024];
+		GetPVarString(playerid, "vehcheck_reason", reason, sizeof(reason));
+		DeletePVar(playerid, "vehcheck_reason");
+		format(bcast, sizeof(bcast), "{FF8000}[ADMIN XOA XE] {FFFF00}%s (ID:%d){FFFFFF} xoa xe {00FF00}(Model:%d){FFFFFF} cua {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, model, GetPlayerNameEx(giveplayerid), giveplayerid);
+		foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, bcast);
+		format(bcast, sizeof(bcast), "  {FFFFFF}>> Ly do: {FFFF00}%s", reason);
+		foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, bcast);
+		format(string, sizeof(string), "[REMOVEPVEHICLE] Admin: %s | Player: %s | Model: %d | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), model, reason);
   		Log("logs/admin.log", string);
-  		ABroadCast(COLOR_YELLOW, string, 4);
-
-  		format(string, sizeof(string), "* Admin %s da xoa mot trong nhung chiec xe cua ban.", GetPlayerNameEx(playerid));
-		SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
-
-  		format(string, sizeof(string), "* Ban da bi xoa xe %s's .", GetPlayerNameEx(giveplayerid));
-		SendClientMessageEx(playerid, COLOR_YELLOW, string);
+		DiscordLog(dclog_AdminCmd, "/removepvehicle", "**%s** đã xóa xe (Model: **%d**) của **%s** | Lý do: **%s**", GetPlayerNameEx(playerid), model, GetPlayerNameEx(giveplayerid), reason);
 
 	}
 	if(dialogid == TRACKCAR && response) {
@@ -17702,42 +17703,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		PayDay(playerid);
 		PlayerInfo[playerid][pPayDayCode] = 0;
 		PlayerInfo[playerid][pPayDayTime] = 0;
-	}
-
-	if(dialogid == DIALOG_CITYHALL)
-	{
-		if(!response) return 1;
-
-		switch(listitem)
-		{
-			case 0:
-			{
-				if(PlayerInfo[playerid][pIDCard] != 0)
-					return SendClientMessage(playerid, COLOR_GREY, "Ban da phat hanh Can cuoc cong dan roi.");
-			
-				ShowPlayerDialog(playerid, DIALOG_REGIDCARD, DIALOG_STYLE_MSGBOX, "{FFFFFF}William Cody > Can cuoc cong dan", "{FFFFFF}Xin chao ban, toi la {5BC5F3}Charlotte Evans{FFFFFF} nhan vien cua Toa thi chinh San Fierro.\n\
-						Can cuoc cong dan la mot loai giay to chung minh danh tinh ban than cua ban,\nday la mot loai giay to vo cung quan trong khong the thieu neu sinh song tai\nthanh pho nay. De phat hanh Can cuoc cong dan ban can mat khoan phi la {FF3131}$500{FFFFFF}.\n\n\
-							Ban co chac chan muon phat hanh khong?", "Co", "Khong");
-			}
-			default: SendClientMessage(playerid, COLOR_GREY, "Muc nay khong co san!");
-		}
-	}
-
-	if(dialogid == DIALOG_REGIDCARD)
-	{
-		if(!response)
-			return ShowCityHallDialog(playerid);
-
-		if(GetPlayerCash(playerid) < 500)
-			return SendClientMessage(playerid, COLOR_GREY, "Ban khong du tien de phat hanh Can cuoc cong dan.");
-		
-		if(PlayerInfo[playerid][pIDCard] != 0)
-			return SendClientMessage(playerid, COLOR_GREY, "Ban da phat hanh Can cuoc cong dan roi.");
-
-		CreateIDCard(playerid);
-		SendClientMessage(playerid, COLOR_WHITE, "Ban da phat hanh thanh cong Can cuoc cong dan!");
-		GivePlayerCash(playerid, -500);
-		UpdateNewbieMission(playerid, 0);
 	}
 
 	/* if(dialogid == DIALOG_DISCORD_VERIFY)

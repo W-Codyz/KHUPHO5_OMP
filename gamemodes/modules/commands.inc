@@ -17031,9 +17031,9 @@ CMD:removepvehicle(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
-		new giveplayerid;
-		if(sscanf(params, "u", giveplayerid)) {
-			SendHelpMessage(playerid, "/removepvehicle [player]");
+		new giveplayerid, reason[64];
+		if(sscanf(params, "us[64]", giveplayerid, reason)) {
+			SendHelpMessage(playerid, "/removepvehicle [player] [reason]");
 			return 1;
 		}
 		new vstring[1024];
@@ -17054,6 +17054,7 @@ CMD:removepvehicle(playerid, params[])
 		}
 		new string[64];
 		SetPVarInt(playerid, "vehcheck_giveplayerid", giveplayerid);
+		SetPVarString(playerid, "vehcheck_reason", reason);
 		format(string, sizeof(string), "%s's Vehicle List", GetPlayerNameEx(giveplayerid));
 		ShowPlayerDialog(playerid, ADMIN_VEHCHECK, DIALOG_STYLE_LIST, string, vstring, "Delete Car", "Cancel");
 	}
@@ -19397,9 +19398,9 @@ alias:createpvehicle("setcar")
 CMD:createpvehicle(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
-		new iColors[2], iTargetID, iModelID;
+		new iColors[2], iTargetID, iModelID, reason[64];
 
-		if(sscanf(params, "uiii", iTargetID, iModelID, iColors[0], iColors[1])) SendHelpMessage(playerid, "/createpvehicle [player] [model] [color 1] [color 2]");
+		if(sscanf(params, "uiiis[64]", iTargetID, iModelID, iColors[0], iColors[1], reason)) SendHelpMessage(playerid, "/createpvehicle [player] [model] [color 1] [color 2] [reason]");
 		else if(!(400 <= iModelID <= 611)) SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid model specified (model IDs start at 400, and end at 611).");
 		else if(IsATrain(iModelID)) SendClientMessageEx(playerid, COLOR_GREY, "Trains cannot be spawned during runtime.");
 		else if(!(0 <= iColors[0] <= 255 && 0 <= iColors[1] <= 255)) SendClientMessageEx(playerid, COLOR_GRAD2, "Invalid color specified (IDs start at 0, and end at 255).");
@@ -19407,16 +19408,19 @@ CMD:createpvehicle(playerid, params[]) {
 		else if(!vehicleSpawnCountCheck(iTargetID)) SendClientMessageEx(playerid, COLOR_GREY, "That person has too many vehicles spawned - they must store one first.");
 		else
 		{
-			new Float: arr_fPlayerPos[4], szMessage[84];
+			new Float: arr_fPlayerPos[4], szMessage[1024];
 
 			GetPlayerPos(iTargetID, arr_fPlayerPos[0], arr_fPlayerPos[1], arr_fPlayerPos[2]);
 			GetPlayerFacingAngle(iTargetID, arr_fPlayerPos[3]);
 			CreatePlayerVehicle(iTargetID, GetPlayerFreeVehicleId(iTargetID), iModelID, arr_fPlayerPos[0], arr_fPlayerPos[1], arr_fPlayerPos[2], arr_fPlayerPos[3], iColors[0], iColors[1], 2000000, GetPlayerVirtualWorld(iTargetID), GetPlayerInterior(iTargetID));
 
-			format(szMessage, sizeof(szMessage), "You have successfully created a %s for %s.", VehicleName[iModelID - 400], GetPlayerNameEx(iTargetID));
-			SendClientMessageEx(playerid, COLOR_WHITE, szMessage);
-			format(szMessage, sizeof(szMessage), "%s created a %s (%i) for %s.", GetPlayerNameEx(playerid), VehicleName[iModelID - 400], iModelID, GetPlayerNameEx(iTargetID));
+			format(szMessage, sizeof(szMessage), "{FF8000}[ADMIN TAO XE] {FFFF00}%s (ID:%d){FFFFFF} tao xe {00FF00}%s{FFFFFF} cho {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, VehicleName[iModelID - 400], GetPlayerNameEx(iTargetID), iTargetID);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, szMessage);
+			format(szMessage, sizeof(szMessage), "  {FFFFFF}>> Ly do: {FFFF00}%s", reason);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, szMessage);
+			format(szMessage, sizeof(szMessage), "[CREATEPVEHICLE] Admin: %s | Player: %s | Model: %s (%d) | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(iTargetID), VehicleName[iModelID - 400], iModelID, reason);
 			Log("logs/playervehicle.log", szMessage);
+			DiscordLog(dclog_AdminCmd, "/createpvehicle", "**%s** đã tạo xe **%s** cho **%s** | Lý do: **%s**", GetPlayerNameEx(playerid), VehicleName[iModelID - 400], GetPlayerNameEx(iTargetID), reason);
 		}
 	}
 	else SendClientMessageEx(playerid, COLOR_GREY, " You are not allowed to use this command.");
@@ -23043,10 +23047,10 @@ CMD:setvip(playerid, params[])
 {
 	if (PlayerInfo[playerid][pAdmin] >= 1337 || PlayerInfo[playerid][pShopTech] >= 1)
 	{
-		new string[128], giveplayerid, level, months, orderid[32];
-		if(sscanf(params, "udds[32]", giveplayerid, level, months, orderid))
+		new string[1024], giveplayerid, level, months, orderid[32], reason[64];
+		if(sscanf(params, "udds[32]s[64]", giveplayerid, level, months, orderid, reason))
 		{
-			SendHelpMessage(playerid, "/setvip [player] [level] [months] [orderID]");
+			SendHelpMessage(playerid, "/setvip [player] [level] [months] [orderID] [reason]");
 			SendClientMessageEx(playerid, COLOR_GRAD3, "Available Levels: |0| None |1| Bronze |2| Silver |4| Platinum |5| Moderator");
 			return 1;
 		}
@@ -23075,66 +23079,57 @@ CMD:setvip(playerid, params[])
 				GetPlayerIp(giveplayerid, playerip, sizeof(playerip));
 				if(level == 0)
 				{
-					if (PlayerInfo[playerid][pAdmin] < 1337)
-					{
-						format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to None (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-						SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
-					}
-					format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to None (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-					ABroadCast(COLOR_LIGHTRED,string, 1337);
+					format(string, sizeof(string), "{FF8000}[ADMIN VIP] {FFFF00}%s (ID:%d){FFFFFF} dat VIP {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "  {FFFFFF}>> VIP: {FF4444}None{FFFFFF} | Ly do: {FFFF00}%s", reason);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
 					format(string, sizeof(string), "Your VIP level has been set to None by Admin %s.", GetPlayerNameEx(playerid));
 					SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
 					PlayerInfo[giveplayerid][pTokens] = 0;
 
-					format(string, sizeof(string), "AdmCmd: %s has set %s's (IP:%s) VIP level to None (%d) (order #%s)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, level, orderid);
+					format(string, sizeof(string), "[SETVIP] Admin: %s | Player: %s (IP:%s) | VIP: None | Order: %s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, orderid, reason);
 					Log("logs/setvip.log", string);
-					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã điều chỉnh VIP của **%s** thành ***None***", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã đặt VIP của **%s** thành **None** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), reason);
 					return 1;
 				}
 				if(level == 1)
 				{
-					if (PlayerInfo[playerid][pAdmin] < 1337)
-					{
-						format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Bronze (%d)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level, orderid);
-						SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
-					}
 					if(PlayerInfo[giveplayerid][pVIPM] == 0)
 					{
 						PlayerInfo[giveplayerid][pVIPM] = VIPM;
 						VIPM++;
 					}
 					PlayerInfo[giveplayerid][pVIPExpire] = gettime()+2592000*months;
-					format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Bronze (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-					ABroadCast(COLOR_LIGHTRED,string, 1337);
-					format(string, sizeof(string), "Your VIP level has been set to Bronze by Admin %s.", GetPlayerNameEx(playerid));
+					format(string, sizeof(string), "{FF8000}[ADMIN VIP] {FFFF00}%s (ID:%d){FFFFFF} dat VIP {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "  {FFFFFF}>> VIP: {CD7F32}Bronze{FFFFFF} (%d thang) | Ly do: {FFFF00}%s", months, reason);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "Your VIP level has been set to Bronze (%d months) by Admin %s.", months, GetPlayerNameEx(playerid));
 					SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
 
-					format(string, sizeof(string), "AdmCmd: %s has set %s's (IP:%s) VIP level to Bronze (%d) (order #%s)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, level, orderid);
+					format(string, sizeof(string), "[SETVIP] Admin: %s | Player: %s (IP:%s) | VIP: Bronze (%d months) | Order: %s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, months, orderid, reason);
 					Log("logs/setvip.log", string);
-					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã điều chỉnh VIP của **%s** thành ***Bronze VIP (%i tháng)***", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months);
+					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã đặt VIP của **%s** thành **Bronze VIP (%d tháng)** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months, reason);
 					return 1;
 				}
 				if(level == 2)
 				{
-					if (PlayerInfo[playerid][pAdmin] < 1337)
-					{
-						format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Silver (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-						SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
-					}
 					if(PlayerInfo[giveplayerid][pVIPM] == 0)
 					{
 						PlayerInfo[giveplayerid][pVIPM] = VIPM;
 						VIPM++;
 					}
 					PlayerInfo[giveplayerid][pVIPExpire] = gettime()+2592000*months;
-					format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Silver (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-					ABroadCast(COLOR_LIGHTRED,string, 1337);
-					format(string, sizeof(string), "Your VIP level has been set to Silver by Admin %s.", GetPlayerNameEx(playerid));
+					format(string, sizeof(string), "{FF8000}[ADMIN VIP] {FFFF00}%s (ID:%d){FFFFFF} dat VIP {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "  {FFFFFF}>> VIP: {C0C0C0}Silver{FFFFFF} (%d thang) | Ly do: {FFFF00}%s", months, reason);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "Your VIP level has been set to Silver (%d months) by Admin %s.", months, GetPlayerNameEx(playerid));
 					SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
 
-					format(string, sizeof(string), "AdmCmd: %s has set %s's (IP:%s) VIP level to Silver (%d) (order #%s)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, level, orderid);
+					format(string, sizeof(string), "[SETVIP] Admin: %s | Player: %s (IP:%s) | VIP: Silver (%d months) | Order: %s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, months, orderid, reason);
 					Log("logs/setvip.log", string);
-					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã điều chỉnh VIP của **%s** thành ***Silver VIP (%i tháng)***", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months);
+					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã đặt VIP của **%s** thành **Silver VIP (%d tháng)** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months, reason);
 					return 1;
 				}
 				if(level == 3)
@@ -23157,58 +23152,56 @@ CMD:setvip(playerid, params[])
 							VIPM++;
 						}
 						PlayerInfo[giveplayerid][pVIPExpire] = gettime()+2592000*months;
-						format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Gold (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-						ABroadCast(COLOR_LIGHTRED,string, 1337);
-						format(string, sizeof(string), "Your VIP level has been set to Gold by Admin %s.", GetPlayerNameEx(playerid));
+						format(string, sizeof(string), "{FF8000}[ADMIN VIP] {FFFF00}%s (ID:%d){FFFFFF} dat VIP {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+						foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+						format(string, sizeof(string), "  {FFFFFF}>> VIP: {FFD700}Gold{FFFFFF} (%d thang) | Ly do: {FFFF00}%s", months, reason);
+						foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+						format(string, sizeof(string), "Your VIP level has been set to Gold (%d months) by Admin %s.", months, GetPlayerNameEx(playerid));
 						SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
-						format(string, sizeof(string), "AdmCmd: %s has set %s's (IP:%s) VIP level to Gold (%d) (order #%s)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, level, orderid);
+						format(string, sizeof(string), "[SETVIP] Admin: %s | Player: %s (IP:%s) | VIP: Gold (%d months) | Order: %s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, months, orderid, reason);
 						Log("logs/setvip.log", string);
-						DiscordLog(dclog_Setvip, "/setvip", "**%s** đã điều chỉnh VIP của **%s** thành ***Gold VIP (%i tháng)***", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months);
+						DiscordLog(dclog_Setvip, "/setvip", "**%s** đã đặt VIP của **%s** thành **Gold VIP (%d tháng)** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months, reason);
 						return 1;
 					}
 				}
 				if(level == 4)
 				{
-					if (PlayerInfo[giveplayerid][pAdmin] < 1337)
-					{
-						format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Platinum (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-						SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
-					}
 					if(PlayerInfo[giveplayerid][pVIPM] == 0)
 					{
 					   	PlayerInfo[giveplayerid][pVIPM] = VIPM;
 						VIPM++;
 					}
-					format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Platinum (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-					ABroadCast(COLOR_LIGHTRED,string, 1337);
-					format(string, sizeof(string), "Your VIP level has been set to Platinum by Admin %s.", GetPlayerNameEx(playerid));
+					PlayerInfo[giveplayerid][pVIPExpire] = gettime()+2592000*months;
+					format(string, sizeof(string), "{FF8000}[ADMIN VIP] {FFFF00}%s (ID:%d){FFFFFF} dat VIP {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "  {FFFFFF}>> VIP: {E5E4E2}Platinum{FFFFFF} (%d thang) | Ly do: {FFFF00}%s", months, reason);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "Your VIP level has been set to Platinum (%d months) by Admin %s.", months, GetPlayerNameEx(playerid));
 					SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
 
-					format(string, sizeof(string), "AdmCmd: %s has set %s's (IP:%s) VIP level to Platinum (%d) (order #%s)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, level, orderid);
+					format(string, sizeof(string), "[SETVIP] Admin: %s | Player: %s (IP:%s) | VIP: Platinum (%d months) | Order: %s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, months, orderid, reason);
 					Log("logs/setvip.log", string);
-					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã điều chỉnh VIP của **%s** thành ***Platinum VIP (%i tháng)***", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months);
+					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã đặt VIP của **%s** thành **Platinum VIP (%d tháng)** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months, reason);
 					return 1;
 				}
 				if(level == 5)
 				{
-					if (PlayerInfo[playerid][pAdmin] < 1337)
-					{
-						format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Moderator (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-						SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
-					}
 					if(PlayerInfo[giveplayerid][pVIPM] == 0)
 					{
 					    PlayerInfo[giveplayerid][pVIPM] = VIPM;
 						VIPM++;
 					}
-					format(string, sizeof(string), "AdmCmd: %s has set %s's VIP level to Moderator (%d).", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), level);
-					ABroadCast(COLOR_LIGHTRED,string, 1337);
-					format(string, sizeof(string), "Your VIP level has been set to Moderator by Admin %s.", GetPlayerNameEx(playerid));
+					PlayerInfo[giveplayerid][pVIPExpire] = gettime()+2592000*months;
+					format(string, sizeof(string), "{FF8000}[ADMIN VIP] {FFFF00}%s (ID:%d){FFFFFF} dat VIP {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "  {FFFFFF}>> VIP: {9B59B6}Moderator{FFFFFF} (%d thang) | Ly do: {FFFF00}%s", months, reason);
+					foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+					format(string, sizeof(string), "Your VIP level has been set to Moderator (%d months) by Admin %s.", months, GetPlayerNameEx(playerid));
 					SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
 
-					format(string, sizeof(string), "AdmCmd: %s has set %s's (IP:%s) VIP level to Moderator (%d) (order #%s)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, level, orderid);
+					format(string, sizeof(string), "[SETVIP] Admin: %s | Player: %s (IP:%s) | VIP: Moderator (%d months) | Order: %s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), playerip, months, orderid, reason);
 					Log("logs/setvip.log", string);
-					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã điều chỉnh VIP của **%s** thành ***Moderator VIP (%i tháng)***", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months);
+					DiscordLog(dclog_Setvip, "/setvip", "**%s** đã đặt VIP của **%s** thành **Moderator VIP (%d tháng)** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), months, reason);
 					return 1;
 				}
 			}
@@ -30591,10 +30584,10 @@ CMD:setstat(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
 
-		new string[128], giveplayerid, statcode, amount;
-		if(sscanf(params, "udd", giveplayerid, statcode, amount))
+		new string[1024], bcast[1024], giveplayerid, statcode, amount, reason[64];
+		if(sscanf(params, "udds[64]", giveplayerid, statcode, amount, reason))
 		{
-			SendHelpMessage(playerid, "/setstat [player] [statcode] [amount]");
+			SendHelpMessage(playerid, "/setstat [player] [statcode] [amount] [reason]");
 			SendClientMessageEx(playerid, COLOR_GRAD4, "|1 Level |2 ArmorUpgrade |3 UpgradePoints |4 Model |5 BankAccount |6 PhoneNumber |7 RespectPoints |8 House1 |9 House2");
 			SendClientMessageEx(playerid, COLOR_GRAD2, "|11 FMember |12 Trucker |13 Materials |14 Pot |15 Crack |16 Fishing |17 Job |18 Rank |19 Packages |20 Insurance");
 			SendClientMessageEx(playerid, COLOR_GRAD2, "|21 Warnings |22 Screwdriver |23 Gender |24 NMute |25 AdMute |26 Faction |27 Restricted Weapon Time |28 Gang Warns");
@@ -30877,9 +30870,14 @@ CMD:setstat(playerid, params[])
 			}
 
 
-			format(string, sizeof(string), "%s by %s", string, GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "%s by %s | Reason: %s", string, GetPlayerNameEx(playerid), reason);
 			Log("logs/stats.log", string);
 			SendClientMessageEx(playerid, COLOR_GRAD1, string);
+			format(bcast, sizeof(bcast), "{FF8000}[ADMIN SETSTAT] {FFFF00}%s (ID:%d){FFFFFF} chinh stat {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, bcast);
+			format(bcast, sizeof(bcast), "  {FFFFFF}>> Code:{00FF00}%d{FFFFFF}->{00FF00}%d {FFFFFF}| Ly do: {FFFF00}%s", statcode, amount, reason);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, bcast);
+			DiscordLog(dclog_AdminCmd, "/setstat", "**%s** đã chỉnh stat của **%s** | Code: **%d** -> **%d** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), statcode, amount, reason);
 
 		}
 	}
@@ -32384,17 +32382,19 @@ CMD:setmoney(playerid, params[])
 {
 	if (PlayerInfo[playerid][pAdmin] >= 1338)
 	{
-		new string[128], giveplayerid, money;
-		if(sscanf(params, "ud", giveplayerid, money)) return SendHelpMessage(playerid, "/setmoney [player] [money]");
+		new string[1024], giveplayerid, money, reason[64];
+		if(sscanf(params, "uds[64]", giveplayerid, money, reason)) return SendHelpMessage(playerid, "/setmoney [player] [money] [reason]");
 		if(IsPlayerConnected(giveplayerid))
 		{
 			ResetPlayerCash(giveplayerid);
 			GivePlayerCash(giveplayerid, money);
-			format(string, sizeof(string), "Ban da dieu chinh tien cua %s's thanh $%d !",GetPlayerNameEx(giveplayerid),money);
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
-			format(string, sizeof(string), "%s da dieu chinh tien %s's thanh $%d (/setmoney)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid),money);
+			format(string, sizeof(string), "{FF8000}[ADMIN SET TIEN] {FFFF00}%s (ID:%d){FFFFFF} dat tien {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+			format(string, sizeof(string), "  {FFFFFF}>> So tien: {00FF00}$%s {FFFFFF}| Ly do: {FFFF00}%s", number_format(money), reason);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+			format(string, sizeof(string), "[SETMONEY] Admin: %s | Player: %s | Money: $%s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), number_format(money), reason);
 			Log("logs/stats.log", string);
-			DiscordLog(dclog_Money, "/setmoney", "**%s** đã điều chỉnh số tiền của **%s** thành ***$%s***", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), number_format(money));
+			DiscordLog(dclog_Money, "/setmoney", "**%s** đã SET tiền của **%s** thành **$%s** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), number_format(money), reason);
 		}
 	}
 	else
@@ -32519,18 +32519,20 @@ CMD:givemoney(playerid, params[])
 {
 	if (PlayerInfo[playerid][pAdmin] >= 4)
 	{
-		new string[128], giveplayerid, money;
-		if(sscanf(params, "ud", giveplayerid, money)) return SendHelpMessage(playerid, "/givemoney [player] [money]");
+		new string[1024], giveplayerid, money, reason[64];
+		if(sscanf(params, "uds[64]", giveplayerid, money, reason)) return SendHelpMessage(playerid, "/givemoney [player] [money] [reason]");
 
 		if(money < 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "You cannot give less than $1!");
 		if(IsPlayerConnected(giveplayerid))
 		{
 			GivePlayerCash(giveplayerid, money);
-			format(string, sizeof(string), "Ban da cho %s $%s !",GetPlayerNameEx(giveplayerid), number_format(money));
-			SendClientMessageEx(playerid, COLOR_WHITE, string);
-			format(string, sizeof(string), "%s has given %s $%s (/givemoney)", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), number_format(money));
+			format(string, sizeof(string), "{FF8000}[ADMIN CHO TIEN] {FFFF00}%s (ID:%d){FFFFFF} cho {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(giveplayerid), giveplayerid);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+			format(string, sizeof(string), "  {FFFFFF}>> So tien: {00FF00}$%s {FFFFFF}| Ly do: {FFFF00}%s", number_format(money), reason);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, string);
+			format(string, sizeof(string), "[GIVEMONEY] Admin: %s | Player: %s | Money: $%s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), number_format(money), reason);
 			Log("logs/stats.log", string);
-			DiscordLog(dclog_Money, "/givemoney", "**%s** đã cho **%s** số tiền ***$%s***", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), number_format(money));
+			DiscordLog(dclog_Money, "/givemoney", "**%s** đã cho **%s** số tiền **$%s** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), number_format(money), reason);
 		}
 	}
 	else
@@ -33664,7 +33666,7 @@ CMD:rto(playerid, params[])
 {
 	if (PlayerInfo[playerid][pAdmin] >= 3)
 	{
-		new string[512], giveplayerid, reason[64];
+		new string[1024], giveplayerid, reason[64];
 		if(sscanf(params, "us[64]", giveplayerid, reason)) return SendHelpMessage(playerid, "/rto [Nguoi choi] [Ly do]");
 
 		if(IsPlayerConnected(giveplayerid))
@@ -38242,10 +38244,10 @@ CMD:setcredits(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 99999 && PlayerInfo[playerid][pShopTech] != 3)
 	    return 0;
 
-	new szMessage[128], Player, Amount;
+	new szMessage[1024], Player, Amount, reason[64];
 
-	if(sscanf(params, "ud", Player, Amount))
-		return SendHelpMessage(playerid, "/setcredits [Player] [Amount]");
+	if(sscanf(params, "uds[64]", Player, Amount, reason))
+		return SendHelpMessage(playerid, "/setcredits [Player] [Amount] [Reason]");
 
 	if(!IsPlayerConnected(Player))
 	    return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi khong hop le.");
@@ -38254,13 +38256,15 @@ CMD:setcredits(playerid, params[])
 
 	format(szMessage, sizeof(szMessage), "UPDATE `accounts` SET `Credits`=%d WHERE `id` = %d", PlayerInfo[Player][pCredits], GetPlayerSQLId(Player));
 	mysql_function_query(MainPipeline, szMessage, false, "OnQueryFinish", "ii", SENDDATA_THREAD, Player);
-	print(szMessage);
 
-	format(szMessage, sizeof(szMessage), "[SETCREDITS] [So tien: %d] [Nguoi su dung: %s(%i)] [IP: %s] [Credits: %s] [Admin: %s] [IP: %s]",Amount,GetPlayerNameEx(Player), GetPlayerSQLId(Player), GetPlayerIpEx(Player), number_format(PlayerInfo[Player][pCredits]), GetPlayerNameEx(playerid), GetPlayerIpEx(playerid));
+	format(szMessage, sizeof(szMessage), "[SETCREDITS] Admin: %s | Player: %s (%d) | IP: %s | Credits: %s | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(Player), GetPlayerSQLId(Player), GetPlayerIpEx(Player), number_format(PlayerInfo[Player][pCredits]), reason);
 	Log("logs/credits.log", szMessage), print(szMessage);
 
-	format(szMessage, sizeof(szMessage), "Ban da cho %s's credits thanh %s.", GetPlayerNameEx(Player), number_format(PlayerInfo[Player][pCredits]));
-	SendClientMessageEx(playerid, COLOR_CYAN, szMessage);
+	format(szMessage, sizeof(szMessage), "{FF8000}[ADMIN SET CREDITS] {FFFF00}%s (ID:%d){FFFFFF} dat credits {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(Player), Player);
+	foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, szMessage);
+	format(szMessage, sizeof(szMessage), "  {FFFFFF}>> Credits: {00FF00}%s {FFFFFF}| Ly do: {FFFF00}%s", number_format(PlayerInfo[Player][pCredits]), reason);
+	foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, szMessage);
+	DiscordLog(dclog_AdminCmd, "/setcredits", "**%s** đã set credits của **%s** thành **%s** | Lý do: **%s**", GetPlayerNameEx(playerid), GetPlayerNameEx(Player), number_format(PlayerInfo[Player][pCredits]), reason);
 	return 1;
 }
 
