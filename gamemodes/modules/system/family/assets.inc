@@ -566,7 +566,7 @@ stock FA_ShowLogs(playerid, famid)
     g_faLogOffset[playerid] = 0;
     new q[192];
     mysql_format(MainPipeline, q, sizeof(q),
-        "SELECT `player_name`,`action_type`,`item_type`,`amount`,`timestamp` \
+        "SELECT `player_name`,`action_type`,`item_type`,`amount`,`gun_id`,`timestamp` \
          FROM `family_safe_logs` WHERE `family_id`=%d ORDER BY `id` DESC LIMIT 20",
         famid);
     mysql_tquery(MainPipeline, q, "FA_OnLoadLogs", "i", playerid);
@@ -587,28 +587,34 @@ public FA_OnLoadLogs(playerid)
     new content[1024]; content[0] = 0;
     for(new i = 0; i < rows; i++)
     {
-        new pname[25], atype[12], itype[22], amt;
+        new pname[25], atype[12], itype[22], amt, gunId;
         cache_get_value_name(i, "player_name", pname, sizeof(pname));
         cache_get_value_name(i, "action_type", atype, sizeof(atype));
         cache_get_value_name(i, "item_type",   itype, sizeof(itype));
         cache_get_value_name_int(i, "amount",  amt);
+        cache_get_value_name_int(i, "gun_id",  gunId);
 
         new actionStr[32];
         if(atype[0] == 'd') format(actionStr, sizeof(actionStr), "{00FF7F}[+] Gui vao");
         else                format(actionStr, sizeof(actionStr), "{FF6B6B}[-] Rut ra");
 
-        new itemStr[20];
+        new itemStr[32];
         if(!strcmp(itype, "cash",     true)) format(itemStr, sizeof(itemStr), "Tien mat");
         else if(!strcmp(itype, "pot", true)) format(itemStr, sizeof(itemStr), "Can sa");
         else if(!strcmp(itype, "crack",true)) format(itemStr, sizeof(itemStr), "Crack");
         else if(!strcmp(itype, "cansa",true)) format(itemStr, sizeof(itemStr), "Can sa moi");
         else if(!strcmp(itype, "tepcansa",true)) format(itemStr, sizeof(itemStr), "Tep can sa");
         else if(!strcmp(itype, "mats",true)) format(itemStr, sizeof(itemStr), "Vat lieu");
-        else if(!strcmp(itype, "gun", true)) format(itemStr, sizeof(itemStr), "Vu khi");
+        else if(!strcmp(itype, "gun", true))
+        {
+            new wname[24];
+            GetWeaponName(gunId, wname, sizeof(wname));
+            format(itemStr, sizeof(itemStr), "%s", wname);
+        }
         else format(itemStr, sizeof(itemStr), "%s", itype);
 
         new line[128];
-        format(line, sizeof(line), "%s {AAAAAA}%s  {FFFFFF}%s: {FFFF00}%d\n",
+        format(line, sizeof(line), "%s {AAAAAA}%s  {FFFFFF}%s: {FFFF00}%d dan\n",
             actionStr, itemStr, pname, amt);
         strcat(content, line, sizeof(content));
     }
