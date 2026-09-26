@@ -150,6 +150,7 @@
 //#include "./modules/player/inventory/inventory"
 //#include "./modules/player/inventory/drop"
 #include "./modules/player/inventory/inv_td"
+#include "./modules/player/card/card"
 #include "./modules/player/inventory/inv"
 #include "./modules/player/mission/newbie"
 

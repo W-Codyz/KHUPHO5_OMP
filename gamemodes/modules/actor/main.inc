@@ -35,7 +35,7 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
             {
                 switch(i)
                 {
-                    case ACTOR_CITYHALL: ShowCityHallDialog(playerid);
+                    case ACTOR_CITYHALL: SendClientMessageEx(playerid, COLOR_GREY, "Can cuoc cong dan hien duoc cap tai {6DB0E5}Don Canh Sat{FFFFFF}.");
                     case ACTOR_CARLICENSE: ShowLicenseDialog(playerid, 0);
                     case ACTOR_TAXILICENSE: ShowLicenseDialog(playerid, 1);
                     case ACTOR_NEWBIEMISSION: ShowNewbieMission(playerid);
