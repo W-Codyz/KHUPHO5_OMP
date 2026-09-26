@@ -85,6 +85,8 @@ stock ShowMainStats(playerid,targetid)
 		GetPlayerArmour(targetid, armor);
 		new zone[MAX_ZONE_NAME];
 		GetPlayer3DZone(targetid, zone, sizeof(zone));
+		new pnumber[20];
+		if(PlayerInfo[targetid][pPnumber] == 0) pnumber = "Khong co"; else format(pnumber, sizeof(pnumber), "%d", PlayerInfo[targetid][pPnumber]);
 
   		SetPVarInt(playerid, "ShowStats", targetid);
 		format(header, sizeof(header), "Thong tin Nhan Vat > %s", GetPlayerNameEx(targetid));
@@ -93,6 +95,7 @@ stock ShowMainStats(playerid,targetid)
 		{FFFFFF}Cap do:\t%d\n\
 		Gioi tinh:\t%s\n\
 		Ngay sinh:\t%s\n\
+		So dien thoai:\t%s\n\
 		Vi tri hien tai:\t%s\n\
 		Hon nhan:\t%s\n\
 		Mau:\t%d%%\n\
@@ -113,6 +116,7 @@ stock ShowMainStats(playerid,targetid)
 		PlayerInfo[targetid][pLevel],
 		sext,
 		PlayerInfo[targetid][pBirthDate],
+		pnumber,
 		zone,
 		PlayerInfo[targetid][pMarriedName],
 		floatround(health),
