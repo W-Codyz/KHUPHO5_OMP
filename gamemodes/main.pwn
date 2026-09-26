@@ -34,6 +34,7 @@
 #include <YSI\YSI_Game\y_vehicledata>
 
 #include <strlib>
+#include <string>
 #include <GPS>
 #include <wave-gps>
 #include <memory>
@@ -63,6 +64,7 @@
 #include "./modules/job/porter/header"
 #include "./modules/job/pizzaboy/header"
 #include "./modules/job/construction/header"
+#include "./modules/job/lumber/header"
 
 //==============ANTI CHECK============//
 #include "./modules/anti/Teleport"

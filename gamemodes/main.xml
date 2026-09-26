@@ -1165,6 +1165,21 @@
 				<tagname value="Float"/>
 			</member>
 		</member>
+		<member name="T:E_LUMBER_PLAYER" value="5">
+			<tagname value="E_LUMBER_PLAYER"/>
+			<member name="C:LP_VehicleID" value="0">
+			</member>
+			<member name="C:LP_Working" value="1">
+				<tagname value="bool"/>
+			</member>
+			<member name="C:LP_HasLog" value="2">
+				<tagname value="bool"/>
+			</member>
+			<member name="C:LP_AttackTree" value="3">
+			</member>
+			<member name="C:LP_ChopTimer" value="4">
+			</member>
+		</member>
 		<member name="T:E_MINER_PLAYER" value="5">
 			<tagname value="E_MINER_PLAYER"/>
 			<member name="C:MP_VehicleID" value="0">
@@ -1712,7 +1727,7 @@
 			<referrer name="_@FIGHT_STYLE"/>
 			<library>omp_player</library> 
 		</member>
-		<member name="T:MAX_JOB_TYPE" value="9">
+		<member name="T:MAX_JOB_TYPE" value="10">
 			<member name="C:JOB_NONE" value="0">
 			</member>
 			<member name="C:JOB_TAXIDRIVER" value="1">
@@ -1730,6 +1745,8 @@
 			<member name="C:JOB_ELECTRIC" value="7">
 			</member>
 			<member name="C:JOB_MINER" value="8">
+			</member>
+			<member name="C:JOB_LUMBER" value="9">
 			</member>
 			<referrer name="Job_Init"/>
 			<referrer name="Job_KeyState"/>
@@ -2021,6 +2038,26 @@
 			</member>
 			<referrer name="_@WEAPON_SLOT"/>
 			<library>open.mp</library>  <summary>Weapon Slots</summary> 
+		</member>
+		<member name="T:MeleeWeaponInfo" value="39">
+			<tagname value="MeleeWeaponInfo"/>
+			<member name="C:mwName" value="0">
+				<size value="32"/>
+			</member>
+			<member name="C:mwWeaponID" value="32">
+			</member>
+			<member name="C:mwMaterialCost" value="33">
+			</member>
+			<member name="C:mwIronCost" value="34">
+			</member>
+			<member name="C:mwWoodCost" value="35">
+			</member>
+			<member name="C:mwCraftTime" value="36">
+			</member>
+			<member name="C:mwLevelRequired" value="37">
+			</member>
+			<member name="C:mwXPGain" value="38">
+			</member>
 		</member>
 		<member name="T:Opcode" value="139">
 			<tagname value="Opcode"/>
@@ -2490,6 +2527,28 @@
 			<member name="C:pObjectSpawned" value="11">
 			</member>
 		</member>
+		<member name="T:RangedWeaponInfo" value="40">
+			<tagname value="RangedWeaponInfo"/>
+			<member name="C:rwName" value="0">
+				<size value="32"/>
+			</member>
+			<member name="C:rwWeaponID" value="32">
+			</member>
+			<member name="C:rwMaterialCost" value="33">
+			</member>
+			<member name="C:rwIronCost" value="34">
+			</member>
+			<member name="C:rwBronzeCost" value="35">
+			</member>
+			<member name="C:rwGoldCost" value="36">
+			</member>
+			<member name="C:rwCraftTime" value="37">
+			</member>
+			<member name="C:rwLevelRequired" value="38">
+			</member>
+			<member name="C:rwXPGain" value="39">
+			</member>
+		</member>
 		<member name="T:SAZONE_MAIN" value="34">
 			<tagname value="SAZONE_MAIN"/>
 			<member name="C:SAZONE_NAME" value="0">
@@ -2613,15 +2672,6 @@
 			<member name="C:WeaponMats" value="1">
 			</member>
 			<member name="C:WeaponMinLevel" value="2">
-			</member>
-		</member>
-		<member name="T:WoodInfo" value="3">
-			<tagname value="WoodInfo"/>
-			<member name="C:wObject" value="0">
-			</member>
-			<member name="C:wTextLabel" value="1">
-			</member>
-			<member name="C:wStatus" value="2">
 			</member>
 		</member>
 		<member name="T:__BULLET_HIT_TYPE" value="5">
@@ -6417,18 +6467,6 @@
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<library>omp_vehicle</library> 
 		</member>
-		<member name="C:WoodSell1" value="1500">
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-		</member>
-		<member name="C:WoodSell2" value="2500">
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-		</member>
-		<member name="C:WoodSell3" value="4000">
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-		</member>
 		<member name="C:YSI_g_c20s" value="-538976289">
 			<referrer name="Cell_HasSpaceByte"/>
 			<library>y_cell</library> 
@@ -6932,7 +6970,7 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="191">
+		<member name="C:__line" value="195">
 			<referrer name="pc_cmd_testturf"/>
 			<referrer name="pc_cmd_switchgang"/>
 			<referrer name="TaiBanRoulette"/>
@@ -7402,7 +7440,14 @@
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="pc_cmd_egroup"/>
 			<referrer name="pc_cmd_chinhgiaminer"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_craftkit"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_vitrichetao"/>
 			<referrer name="pc_cmd_anetstats"/>
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="pc_cmd_editgps"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:__local0_offset" value="-4">
@@ -7989,6 +8034,7 @@
 			<referrer name="pc_cmd_cnn"/>
 			<referrer name="pc_cmd_vticket"/>
 			<referrer name="pc_cmd_vcheck"/>
+			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="pc_cmd_unloadpvehicles"/>
 			<referrer name="pc_cmd_loadpvehicles"/>
 			<referrer name="pc_cmd_ip"/>
@@ -8528,6 +8574,15 @@
 			<referrer name="StartFishing"/>
 			<referrer name="StopFishing"/>
 			<referrer name="CatchFish"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
+			<referrer name="_@yHOnPlayerConnect@0T"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
 			<referrer name="hosp_StopRecovery"/>
 			<referrer name="hosp_PlacePatientInBed"/>
@@ -8770,7 +8825,9 @@
 			<referrer name="Miner_WashFinish"/>
 			<referrer name="_@yHOnPlayerConnect@0e"/>
 			<referrer name="pc_cmd_testminerfill"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StopCrafting"/>
+			<referrer name="_@yHOnPlayerDisconnect@0f"/>
 			<referrer name="_@yHOnPlayerStateChange@0g"/>
 			<referrer name="HideInvTD"/>
 			<referrer name="_@yHOnPlayerConnect@0i"/>
@@ -9060,11 +9117,17 @@
 			<referrer name="@yH_OnDialogResponse@0S"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0S"/>
 			<referrer name="@yH_OnPlayerSpawn@0S"/>
-			<referrer name="@yH_OnPlayerDisconnect@0T"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_RespawnTree"/>
 			<referrer name="@yH_OnPlayerConnect@0T"/>
-			<referrer name="@yH_OnGameModeInit@0T"/>
+			<referrer name="@yH_OnPlayerDisconnect@0T"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0T"/>
 			<referrer name="@yH_OnDialogResponse@0T"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="@yH_OnDialogResponse@0U"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
 			<referrer name="@yH_OnPlayerConnect@0V"/>
@@ -9364,7 +9427,13 @@
 			<referrer name="pc_cmd_layda"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
 			<referrer name="@yH_OnDialogResponse@0e"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_huychetao"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
+			<referrer name="@yH_OnPlayerDisconnect@0f"/>
+			<referrer name="_@yHOnPlayerDisconnect@0f"/>
+			<referrer name="@yH_OnGameModeInit@0f"/>
 			<referrer name="@yH_OnPlayerDisconnect@0g"/>
 			<referrer name="@yH_OnPlayerStateChange@0g"/>
 			<referrer name="@yH_OnPlayerExitVehicle@0g"/>
@@ -9388,6 +9457,8 @@
 			<referrer name="@yH_OnPlayerConnect@0l"/>
 			<referrer name="CreatePlayerNameTag"/>
 			<referrer name="@yH_OnDialogResponse@0m"/>
+			<referrer name="@yH_OnGameModeInit@0n"/>
+			<referrer name="pc_cmd_editgps"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
 			<referrer name="PrepareLoginSpawn"/>
 			<referrer name="OnPlayerLoad"/>
@@ -10012,11 +10083,9 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
+			<referrer name="pc_cmd_vitrichetao"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
 		</member>
 		<member name="F:CRC_EVFExit">
@@ -10137,10 +10206,6 @@
 			<referrer name="pc_cmd_call"/>
 			<referrer name="pc_cmd_hangup"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
-		</member>
-		<member name="F:ChatCayTime">
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="ChatCayTimer"/>
 		</member>
 		<member name="F:ChosenSkin">
 			<referrer name="AntiVPN_OnPlayerConnect"/>
@@ -10326,12 +10391,6 @@
 			<tagname value="Float"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
-		<member name="F:DangCamKhucGo">
-			<referrer name="_@yHOnPlayerConnect@0T"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
-		</member>
 		<member name="F:DeckTextdrw">
 			<referrer name="PokerPulse"/>
 		</member>
@@ -10362,6 +10421,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:DoubleXP">
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="Misc_Save"/>
 			<referrer name="Misc_Load"/>
 			<referrer name="pc_cmd_doublexp"/>
@@ -12074,6 +12134,7 @@
 			<referrer name="pc_cmd_cnn"/>
 			<referrer name="pc_cmd_vticket"/>
 			<referrer name="pc_cmd_vcheck"/>
+			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="pc_cmd_unloadpvehicles"/>
 			<referrer name="pc_cmd_loadpvehicles"/>
 			<referrer name="pc_cmd_ip"/>
@@ -12277,6 +12338,7 @@
 			<referrer name="ShowJobHelp"/>
 		</member>
 		<member name="F:JobInfo">
+			<referrer name="Lumber_Start"/>
 			<referrer name="Job_Init"/>
 			<referrer name="Job_KeyState"/>
 			<referrer name="GetJobName"/>
@@ -12419,6 +12481,7 @@
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:LockStatus">
+			<referrer name="Lumber_Start"/>
 			<referrer name="Vehicle_ResetData"/>
 			<referrer name="LockPlayerVehicle"/>
 			<referrer name="UnLockPlayerVehicle"/>
@@ -12510,6 +12573,9 @@
 			<referrer name="_@yHOnDialogResponse@0D"/>
 			<referrer name="pc_cmd_dsadmin"/>
 			<referrer name="pc_cmd_dsadvisor"/>
+			<referrer name="QueryHPerfList"/>
+			<referrer name="QueryHPerfGetSelected"/>
+			<referrer name="QueryHPerfDetail"/>
 			<referrer name="FamilyAssets_InitMySQL"/>
 			<referrer name="FamilyAssets_Load"/>
 			<referrer name="SaveFamilyExt"/>
@@ -12929,6 +12995,12 @@
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
+		<member name="F:MeleeWeapons">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="pc_cmd_chetaocanchien"/>
+		</member>
 		<member name="F:MessageTD">
 			<tagname value="PlayerText"/>
 			<referrer name="DestroyMessageTD"/>
@@ -13155,9 +13227,8 @@
 			<referrer name="@yH_OnDialogResponse@0S"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0S"/>
 			<referrer name="@yH_OnPlayerSpawn@0S"/>
-			<referrer name="@yH_OnPlayerDisconnect@0T"/>
 			<referrer name="@yH_OnPlayerConnect@0T"/>
-			<referrer name="@yH_OnGameModeInit@0T"/>
+			<referrer name="@yH_OnPlayerDisconnect@0T"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0T"/>
 			<referrer name="@yH_OnDialogResponse@0T"/>
 			<referrer name="@yH_OnDialogResponse@0U"/>
@@ -13195,6 +13266,8 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
 			<referrer name="@yH_OnDialogResponse@0e"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
+			<referrer name="@yH_OnPlayerDisconnect@0f"/>
+			<referrer name="@yH_OnGameModeInit@0f"/>
 			<referrer name="@yH_OnPlayerDisconnect@0g"/>
 			<referrer name="@yH_OnPlayerStateChange@0g"/>
 			<referrer name="@yH_OnPlayerExitVehicle@0g"/>
@@ -13211,6 +13284,7 @@
 			<referrer name="@yH_OnDialogResponse@0k"/>
 			<referrer name="@yH_OnPlayerConnect@0l"/>
 			<referrer name="@yH_OnDialogResponse@0m"/>
+			<referrer name="@yH_OnGameModeInit@0n"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0o"/>
 			<referrer name="@yH_OnPlayerConnect@0o"/>
@@ -13505,15 +13579,57 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:PlayerCountTheGioi">
-			<referrer name="pc_cmd_thegioi"/>
 			<referrer name="CountTheGioiChat"/>
+		</member>
+		<member name="F:PlayerCrafting">
+			<tagname value="bool"/>
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+			<referrer name="pc_cmd_chetaocanchien"/>
+			<referrer name="pc_cmd_chetaovukhi"/>
+			<referrer name="pc_cmd_huychetao"/>
+			<referrer name="_@yHOnPlayerDisconnect@0f"/>
+		</member>
+		<member name="F:PlayerCraftingBronzeCost">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+		</member>
+		<member name="F:PlayerCraftingGoldCost">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+		</member>
+		<member name="F:PlayerCraftingIronCost">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+		</member>
+		<member name="F:PlayerCraftingItemID">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+		</member>
+		<member name="F:PlayerCraftingMaterialsCost">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+		</member>
+		<member name="F:PlayerCraftingType">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+		</member>
+		<member name="F:PlayerCraftingWoodCost">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
 		</member>
 		<member name="F:PlayerCuffed">
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnDialogResponse@0N"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ReleasePlayer"/>
@@ -13730,8 +13846,10 @@
 			<referrer name="pc_cmd_checkbosshp"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
+			<referrer name="_@yHOnDialogResponse@0D"/>
 			<referrer name="pc_cmd_dsadmin"/>
 			<referrer name="pc_cmd_dsadvisor"/>
+			<referrer name="pc_cmd_checkad"/>
 			<referrer name="pc_cmd_kickallbaotri"/>
 			<referrer name="pc_cmd_baotri"/>
 			<referrer name="ShopTechBroadCast"/>
@@ -13875,10 +13993,9 @@
 			<referrer name="pc_cmd_testcauca"/>
 			<referrer name="pc_cmd_testcc1"/>
 			<referrer name="pc_cmd_testcc2"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_ConvertToRaw"/>
 			<referrer name="pc_cmd_chatgo"/>
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
@@ -14209,6 +14326,7 @@
 			<referrer name="pc_cmd_repaircar"/>
 			<referrer name="pc_cmd_fixveh"/>
 			<referrer name="pc_cmd_fixvehall"/>
+			<referrer name="pc_cmd_refuelveh"/>
 			<referrer name="pc_cmd_destroycars"/>
 			<referrer name="pc_cmd_announcem"/>
 			<referrer name="pc_cmd_dm"/>
@@ -14833,7 +14951,6 @@
 			<referrer name="pc_cmd_togdynamicgift"/>
 			<referrer name="pc_cmd_fireworknear"/>
 			<referrer name="pc_cmd_givexp"/>
-			<referrer name="pc_cmd_thegioi"/>
 			<referrer name="pc_cmd_laypos"/>
 			<referrer name="pc_cmd_codydevxin1212"/>
 			<referrer name="EVF_OnVehicleMod"/>
@@ -14903,11 +15020,18 @@
 			<referrer name="pc_cmd_testminermin"/>
 			<referrer name="pc_cmd_testminerstop"/>
 			<referrer name="pc_cmd_chinhgiaminer"/>
-			<referrer name="Miner_ShowCraftMelee"/>
-			<referrer name="Miner_ShowCraftGun"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
-			<referrer name="pc_cmd_chebien"/>
+			<referrer name="GetPlayerCraftingLevel"/>
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="pc_cmd_testcraft"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_craftkit"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_trogiupchetao"/>
+			<referrer name="pc_cmd_thongkechetao"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 			<referrer name="BuildInvTDSlotMap"/>
 			<referrer name="PopulateInvTDSlots"/>
@@ -14953,6 +15077,7 @@
 			<referrer name="ShowSecondaryStats"/>
 			<referrer name="pc_cmd_anetstats"/>
 			<referrer name="pc_cmd_quickstats"/>
+			<referrer name="pc_cmd_editgps"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="ShowHelpCommand"/>
 			<referrer name="pc_cmd_jobhelp"/>
@@ -14990,6 +15115,21 @@
 			<referrer name="_@yHOnPlayerDisconnect@0P"/>
 			<referrer name="_@yHOnPlayerConnect@0P"/>
 		</member>
+		<member name="F:PlayerLumberData">
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="Lumber_OpenSellDialog"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
+			<referrer name="_@yHOnPlayerConnect@0T"/>
+			<referrer name="_@yHOnPlayerDisconnect@0T"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<referrer name="pc_cmd_laygo"/>
+			<referrer name="pc_cmd_chatgo"/>
+		</member>
 		<member name="F:PlayerMinerData">
 			<referrer name="Miner_Start"/>
 			<referrer name="Miner_Stop"/>
@@ -15004,7 +15144,6 @@
 			<referrer name="pc_cmd_testminerstones"/>
 			<referrer name="pc_cmd_layda"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="pc_cmd_chebien"/>
 		</member>
 		<member name="F:PlayerNameTag">
 			<tagname value="Text3D"/>
@@ -15182,11 +15321,14 @@
 			<referrer name="EVF_OnVehicleRespray"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:PlayerWorking">
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="pc_cmd_quitjob"/>
@@ -15484,6 +15626,12 @@
 			<referrer name="pc_cmd_setlapcount"/>
 			<referrer name="pc_cmd_eventstats"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
+		</member>
+		<member name="F:RangedWeapons">
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="pc_cmd_chetaovukhi"/>
 		</member>
 		<member name="F:RapidAmount">
 			<referrer name="h_AntiRapid"/>
@@ -16661,6 +16809,7 @@
 			<referrer name="ResetVariables"/>
 			<referrer name="pc_cmd_car"/>
 			<referrer name="pc_cmd_refuel"/>
+			<referrer name="pc_cmd_refuelveh"/>
 			<referrer name="pc_cmd_createcdveh"/>
 			<referrer name="pc_cmd_veh"/>
 			<referrer name="pc_cmd_rcabuse"/>
@@ -16782,12 +16931,6 @@
 		<member name="F:WeatherCalling">
 			<referrer name="SyncTime"/>
 		</member>
-		<member name="F:WoodLumber">
-			<referrer name="_@yHOnGameModeInit@0T"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="ResetWood"/>
-			<referrer name="ChatCayTimer"/>
-		</member>
 		<member name="F:WristWatch">
 			<tagname value="Text"/>
 			<referrer name="MoneyUpdate"/>
@@ -16796,10 +16939,6 @@
 		</member>
 		<member name="F:XMASGifts">
 			<referrer name="pc_cmd_xmas"/>
-		</member>
-		<member name="F:XuLyTime">
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="XuLyTimer"/>
 		</member>
 		<member name="F:YSIM_VERMAX">
 			<library>y_core</library>  <remarks>  The property name used for some short code.  </remarks> 
@@ -17658,6 +17797,8 @@
 		<member name="F:__file">
 		</member>
 		<member name="F:__file">
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="pc_cmd_editgps"/>
 		</member>
 		<member name="F:__file">
 			<referrer name="pc_cmd_anetstats"/>
@@ -17731,6 +17872,11 @@
 		<member name="F:__file">
 		</member>
 		<member name="F:__file">
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_craftkit"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_vitrichetao"/>
 		</member>
 		<member name="F:__file">
 		</member>
@@ -18356,18 +18502,6 @@
 		<member name="F:__file">
 		</member>
 		<member name="F:__file">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
-		</member>
-		<member name="F:__file">
 			<referrer name="pc_cmd_guivitri"/>
 		</member>
 		<member name="F:__file">
@@ -18504,6 +18638,22 @@
 		</member>
 		<member name="F:__file">
 			<referrer name="pc_cmd_testturf"/>
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -19554,12 +19704,6 @@
 			<referrer name="pc_cmd_chances"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
-		<member name="F:chatcaypos_pos">
-			<tagname value="Float"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="ResetWood"/>
-		</member>
 		<member name="F:checkHackPlayer">
 			<referrer name="startAntiCheat"/>
 			<referrer name="_@yHOnPlayerDisconnect@01"/>
@@ -19690,7 +19834,8 @@
 		</member>
 		<member name="F:dclog_Lumber">
 			<tagname value="DCC_Channel"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
 			<referrer name="Discord_Init"/>
 		</member>
 		<member name="F:dclog_Miner">
@@ -19699,8 +19844,6 @@
 			<referrer name="Miner_WashFinish"/>
 			<referrer name="Miner_SellType"/>
 			<referrer name="Miner_SellAll"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
 		</member>
 		<member name="F:dclog_Money">
 			<tagname value="DCC_Channel"/>
@@ -20314,6 +20457,14 @@
 			<referrer name="OnObjectMoved"/>
 			<referrer name="LoadStreamerDynamicObjects"/>
 		</member>
+		<member name="F:gGPSTimDuongCount">
+			<referrer name="SaveGPSTimDuong"/>
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="ShowGPSManage"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+		</member>
 		<member name="F:gHdr">
 			<referrer name="CodeScanAddSwitchTarget"/>
 			<referrer name="CodeScanInit"/>
@@ -20395,6 +20546,21 @@
 			<referrer name="LoadModelSelectionMenu"/>
 			<referrer name="mS_ShowPlayerMPs"/>
 		</member>
+		<member name="F:gJobName">
+			<referrer name="ShowGPSTimViecLam"/>
+		</member>
+		<member name="F:gJobX">
+			<tagname value="Float"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+		</member>
+		<member name="F:gJobY">
+			<tagname value="Float"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+		</member>
+		<member name="F:gJobZ">
+			<tagname value="Float"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+		</member>
 		<member name="F:gLastCar">
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_oldcar"/>
@@ -20412,8 +20578,98 @@
 			<referrer name="mS_ShowPlayerMPs"/>
 			<referrer name="ShowModelSelectionMenu"/>
 		</member>
+		<member name="F:gLumberLogPosOnVeh">
+			<tagname value="Float"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+		</member>
+		<member name="F:gLumberTreeActive">
+			<tagname value="bool"/>
+			<referrer name="Lumber_FindNearestTree"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_RespawnTree"/>
+		</member>
+		<member name="F:gLumberTreeObj">
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_RespawnTree"/>
+		</member>
+		<member name="F:gLumberTreeOccupied">
+			<tagname value="bool"/>
+			<referrer name="Lumber_FindNearestTree"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
+		</member>
+		<member name="F:gLumberTreePlayer">
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
+		</member>
+		<member name="F:gLumberTreeX">
+			<tagname value="Float"/>
+			<referrer name="Lumber_FindNearestTree"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_RespawnTree"/>
+		</member>
+		<member name="F:gLumberTreeY">
+			<tagname value="Float"/>
+			<referrer name="Lumber_FindNearestTree"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_RespawnTree"/>
+		</member>
+		<member name="F:gLumberTreeZ">
+			<tagname value="Float"/>
+			<referrer name="Lumber_FindNearestTree"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_RespawnTree"/>
+		</member>
+		<member name="F:gLumberVehLabel">
+			<tagname value="Text3D"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="_@yHOnPlayerConnect@0T"/>
+		</member>
+		<member name="F:gLumberVehLogCount">
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<referrer name="pc_cmd_laygo"/>
+			<referrer name="pc_cmd_chatgo"/>
+		</member>
+		<member name="F:gLumberVehLogObj">
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="pc_cmd_laygo"/>
+		</member>
 		<member name="F:gMainZones">
 			<referrer name="GetPlayerMainZone"/>
+		</member>
+		<member name="F:gMeleeWeaponCraftLabel">
+			<tagname value="Text3D"/>
+			<referrer name="_@yHOnGameModeInit@0f"/>
+		</member>
+		<member name="F:gMeleeWeaponCraftPickup">
+			<referrer name="_@yHOnGameModeInit@0f"/>
+		</member>
+		<member name="F:gMeleeWeaponCraftPos">
+			<tagname value="Float"/>
+			<referrer name="IsPlayerAtCraftingLocation"/>
+			<referrer name="pc_cmd_vitrichetao"/>
+			<referrer name="_@yHOnGameModeInit@0f"/>
 		</member>
 		<member name="F:gMinerPrice">
 			<referrer name="MinerPrice_Save"/>
@@ -20569,6 +20825,7 @@
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_OnDialogResponse"/>
 			<referrer name="pc_cmd_dienthoai"/>
+			<referrer name="_@yHOnDialogResponse@0T"/>
 			<referrer name="CheckPointCheck"/>
 			<referrer name="pc_cmd_killcheckpoint"/>
 			<referrer name="pc_cmd_accept"/>
@@ -20591,6 +20848,7 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0a"/>
 			<referrer name="Construction_Start"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
+			<referrer name="_@yHOnDialogResponse@0e"/>
 			<referrer name="_@yHOnPlayerExitVehicle@0g"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="_@yHOnDialogResponse@0g"/>
@@ -20678,6 +20936,19 @@
 			<referrer name="pc_cmd_togpr"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
+		<member name="F:gRangedWeaponCraftLabel">
+			<tagname value="Text3D"/>
+			<referrer name="_@yHOnGameModeInit@0f"/>
+		</member>
+		<member name="F:gRangedWeaponCraftPickup">
+			<referrer name="_@yHOnGameModeInit@0f"/>
+		</member>
+		<member name="F:gRangedWeaponCraftPos">
+			<tagname value="Float"/>
+			<referrer name="IsPlayerAtCraftingLocation"/>
+			<referrer name="pc_cmd_vitrichetao"/>
+			<referrer name="_@yHOnGameModeInit@0f"/>
+		</member>
 		<member name="F:gRelocateRequired">
 			<tagname value="bool"/>
 			<referrer name="CodeScanMatcherInit_"/>
@@ -20707,6 +20978,41 @@
 		<member name="F:gSelectionItemsTag">
 			<referrer name="mS_ShowPlayerMPs"/>
 			<referrer name="OnPlayerClickPlayerTextDraw"/>
+		</member>
+		<member name="F:gTimDuongName">
+			<referrer name="SaveGPSTimDuong"/>
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="ShowGPSManage"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+		</member>
+		<member name="F:gTimDuongX">
+			<tagname value="Float"/>
+			<referrer name="SaveGPSTimDuong"/>
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="ShowGPSManage"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+		</member>
+		<member name="F:gTimDuongY">
+			<tagname value="Float"/>
+			<referrer name="SaveGPSTimDuong"/>
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="ShowGPSManage"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+		</member>
+		<member name="F:gTimDuongZ">
+			<tagname value="Float"/>
+			<referrer name="SaveGPSTimDuong"/>
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="ShowGPSManage"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
 		</member>
 		<member name="F:gToggleElectric">
 			<referrer name="_@yHOnGameModeInit@0d"/>
@@ -21299,19 +21605,9 @@
 		</member>
 		<member name="F:iterstart@VehiclePassenger">
 		</member>
-		<member name="F:lChatCayTimer">
-			<referrer name="_@yHOnPlayerDisconnect@0T"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="ChatCayTimer"/>
-		</member>
 		<member name="F:lX">
 			<tagname value="Float"/>
 			<referrer name="pc_cmd_selfie"/>
-		</member>
-		<member name="F:lXuLyTimer">
-			<referrer name="_@yHOnPlayerDisconnect@0T"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="XuLyTimer"/>
 		</member>
 		<member name="F:lY">
 			<tagname value="Float"/>
@@ -21497,7 +21793,6 @@
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 		</member>
 		<member name="F:pTazer">
-			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="pc_cmd_uninvite"/>
 			<referrer name="OnPlayerChangeWeapon"/>
@@ -21638,14 +21933,6 @@
 			<referrer name="SendRuaThoLogDC"/>
 			<referrer name="Discord_Init"/>
 		</member>
-		<member name="F:sCraftGun">
-			<referrer name="Miner_ShowCraftGun"/>
-			<referrer name="Miner_DoCraftGun"/>
-		</member>
-		<member name="F:sCraftMelee">
-			<referrer name="Miner_ShowCraftMelee"/>
-			<referrer name="Miner_DoCraftMelee"/>
-		</member>
 		<member name="F:sElectricAnswers">
 			<referrer name="Electric_OnFixResponse"/>
 		</member>
@@ -21656,14 +21943,6 @@
 			<tagname value="Float"/>
 			<referrer name="Electric_FixFinish"/>
 			<referrer name="Electric_OnMenuResponse"/>
-		</member>
-		<member name="F:sGunNames">
-			<referrer name="Miner_ShowCraftGun"/>
-			<referrer name="Miner_DoCraftGun"/>
-		</member>
-		<member name="F:sMeleeNames">
-			<referrer name="Miner_ShowCraftMelee"/>
-			<referrer name="Miner_DoCraftMelee"/>
 		</member>
 		<member name="F:sasd1A">
 			<referrer name="CloseSASD1"/>
@@ -22200,8 +22479,6 @@
 			<referrer name="CreateWazePointer"/>
 			<referrer name="easeOutSine"/>
 			<referrer name="SlapAntiSlap"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
-			<referrer name="ResetWood"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="ServerMicrobeat"/>
@@ -22508,6 +22785,9 @@
 			<referrer name="pc_cmd_selfie"/>
 			<referrer name="ThungRacCreate"/>
 			<referrer name="GetRandomFishSize"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_RespawnTree"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="SyncUp"/>
@@ -22643,7 +22923,7 @@
 			<referrer name="ThungRacCreate"/>
 			<referrer name="_@yHOnGameModeInit@0R"/>
 			<referrer name="GetRandomFishSize"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
+			<referrer name="Lumber_Init"/>
 			<referrer name="OnLoadPayNSpray"/>
 			<referrer name="OnLoadFamilies"/>
 			<referrer name="OnLoadHouse"/>
@@ -22729,6 +23009,7 @@
 			<referrer name="Job_Init"/>
 			<referrer name="Miner_Init"/>
 			<referrer name="pc_cmd_testminerwash"/>
+			<referrer name="_@yHOnGameModeInit@0f"/>
 			<referrer name="GetDistanceRoute"/>
 			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="CreateInvTDGlobal"/>
@@ -22766,6 +23047,7 @@
 			<referrer name="OnPlayerUpdateAction"/>
 			<referrer name="GetRandomFishSize"/>
 			<referrer name="CatchFish"/>
+			<referrer name="Lumber_Init"/>
 			<referrer name="UpdatePlayerHealthBar"/>
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="SetPlayerToFacePos"/>
@@ -22860,6 +23142,7 @@
 			<referrer name="pc_cmd_selfie"/>
 			<referrer name="NhanTienCanSa"/>
 			<referrer name="GetRandomFishSize"/>
+			<referrer name="Lumber_Init"/>
 			<referrer name="UpdatePlayerHealthBar"/>
 			<referrer name="GetPointDistanceToPoint"/>
 			<referrer name="SetPlayerPosObjectOffset"/>
@@ -23209,9 +23492,6 @@
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="NhanTienCanSa"/>
 			<referrer name="Load_FishingShop"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
-			<referrer name="ResetWood"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
 			<referrer name="SucKhoe"/>
 			<referrer name="pc_cmd_suckhoe"/>
@@ -23622,6 +23902,7 @@
 			<referrer name="pc_cmd_refuel"/>
 			<referrer name="pc_cmd_heal"/>
 			<referrer name="OnPlayerTakeDamage"/>
+			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="PlayerCompassUpdate"/>
 			<dependency name="floatcmp"/>
 			<param name="__oper1">
@@ -23712,6 +23993,7 @@
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="OnPlayerEditAttachedObject"/>
 			<referrer name="OnPlayerTakeDamage"/>
+			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="pc_cmd_laybanh"/>
 			<referrer name="PickupNearestItem"/>
@@ -25578,15 +25860,6 @@
 			<dependency name="_@yHOnGameModeInit@0R"/>
 			<dependency name="true"/>
 		</member>
-		<member name="M:@yH_OnGameModeInit@0T" syntax="@yH_OnGameModeInit@0T()">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="O@A_"/>
-			<dependency name="O@V_"/>
-			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnGameModeInit@0T"/>
-			<dependency name="true"/>
-		</member>
 		<member name="M:@yH_OnGameModeInit@0_" syntax="@yH_OnGameModeInit@0_()">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -25605,6 +25878,15 @@
 			<dependency name="_@yHOnGameModeInit@0d"/>
 			<dependency name="true"/>
 		</member>
+		<member name="M:@yH_OnGameModeInit@0f" syntax="@yH_OnGameModeInit@0f()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@0f"/>
+			<dependency name="true"/>
+		</member>
 		<member name="M:@yH_OnGameModeInit@0i" syntax="@yH_OnGameModeInit@0i()">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -25612,6 +25894,15 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnGameModeInit@0i"/>
+			<dependency name="true"/>
+		</member>
+		<member name="M:@yH_OnGameModeInit@0n" syntax="@yH_OnGameModeInit@0n()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@0n"/>
 			<dependency name="true"/>
 		</member>
 		<member name="M:@yH_OnGameModeInit@0o" syntax="@yH_OnGameModeInit@0o()">
@@ -26383,6 +26674,21 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerDisconnect@0e"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="reason">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerDisconnect@0f" syntax="@yH_OnPlayerDisconnect@0f(&amp;playerid, &amp;reason)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerDisconnect@0f"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -29150,14 +29456,17 @@
 			<dependency name="GetPlayerState"/>
 			<dependency name="GetPlayerTargetPlayer"/>
 			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="GetPlayerVehicleSeat"/>
 			<dependency name="GetPlayerVirtualWorld"/>
 			<dependency name="GetPlayerWeapon"/>
 			<dependency name="GetVehicleModel"/>
 			<dependency name="GetVehicleParamsEx"/>
+			<dependency name="GetVehiclePos"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="GoChase"/>
 			<dependency name="GotHit"/>
 			<dependency name="HideTradeToysGUI"/>
+			<dependency name="HienTextdraw"/>
 			<dependency name="InsideTradeToys"/>
 			<dependency name="IsAHitman"/>
 			<dependency name="IsKeyJustDown"/>
@@ -29170,6 +29479,7 @@
 			<dependency name="Iterator@Player"/>
 			<dependency name="Job_KeyState"/>
 			<dependency name="KillTimer"/>
+			<dependency name="LockPlayerVehicle"/>
 			<dependency name="Log"/>
 			<dependency name="OPBA_SetPlayerPos"/>
 			<dependency name="OPBA_TogglePlayerSpectating"/>
@@ -29179,6 +29489,8 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="ProxDetector"/>
 			<dependency name="ProxDetectorS"/>
@@ -29202,6 +29514,7 @@
 			<dependency name="Streamer_UpdateEx"/>
 			<dependency name="TacklePlayer"/>
 			<dependency name="TogglePlayerControllable"/>
+			<dependency name="UnLockPlayerVehicle"/>
 			<dependency name="VEHICLE_PARAMS_OFF"/>
 			<dependency name="VEHICLE_PARAMS_ON"/>
 			<dependency name="VEHICLE_PARAMS_UNSET"/>
@@ -29231,6 +29544,8 @@
 			<dependency name="pHeadValue"/>
 			<dependency name="pTogReports"/>
 			<dependency name="pc_cmd_pvlock"/>
+			<dependency name="pvId"/>
+			<dependency name="pvLocked"/>
 			<dependency name="random"/>
 			<dependency name="true"/>
 			<param name="playerid">
@@ -30616,8 +30931,9 @@
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="CheBien"/>
 			<referrer name="StartFishing"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="hosp_ConfirmBedPos"/>
@@ -30672,6 +30988,7 @@
 			<referrer name="Miner_StartWash"/>
 			<referrer name="pc_cmd_layda"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="StartCrafting"/>
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="PickupNearestItem"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
@@ -33303,6 +33620,7 @@
 		<member name="M:Attach3DTextLabelToVehicle" syntax="Attach3DTextLabelToVehicle(textid, parentid, offsetX, offsetY, offsetZ)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="Lumber_Start"/>
 			<referrer name="_@yHOnDialogResponse@0_"/>
 			<referrer name="Electric_OnMenuResponse"/>
 			<referrer name="Miner_Start"/>
@@ -33704,13 +34022,15 @@
 			</param>
 		</member>
 		<member name="M:BuildInvTDSlotMap" syntax="BuildInvTDSlotMap(playerid)">
-			<stacksize value="3"/>
+			<stacksize value="47"/>
 			<referrer name="ShowInvTD"/>
 			<referrer name="RefreshInvTD"/>
+			<dependency name="GetPlayerWeaponData"/>
 			<dependency name="InvTDSlot"/>
 			<dependency name="InvTDSlot"/>
 			<dependency name="ItemInventory"/>
 			<dependency name="PlayerInfo"/>
+			<dependency name="pGuns"/>
 			<dependency name="pVariable"/>
 			<param name="playerid">
 			</param>
@@ -34130,6 +34450,7 @@
 		</member>
 		<member name="M:CA_FindZ_For2DCoord" syntax="CA_FindZ_For2DCoord(x, y, &amp;z)">
 			<stacksize value="11"/>
+			<referrer name="Lumber_Init"/>
 			<referrer name="OnPlayerClickMap"/>
 			<referrer name="Miner_Init"/>
 			<dependency name="CA_RayCastLine"/>
@@ -35544,7 +35865,6 @@
 			<referrer name="PokerExit"/>
 			<referrer name="HideModelSelectionMenu"/>
 			<referrer name="HideInvTD"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0i"/>
 			<param name="playerid">
 				The ID of the player that should be the textdraw selection disabled
 			</param>
@@ -36018,45 +36338,6 @@
 			</param>
 			<library>omp_vehicle</library>  <summary>Change a vehicle's paintjob (for plain colours see <a href="#ChangeVehicleColor">ChangeVehicleColor</a>).</summary>      <seealso name="ChangeVehicleColours" />  <seealso name="OnVehiclePaintjob" />  <remarks>  <b>Known Bugs:</b><br />  This function calls <a href="#OnVehicleRespray">OnVehicleRespray</a>.<br />  Vehicles change their colour to white anymore when a paintjob is removed.  </remarks>  <returns>This function always returns <b><c>1</c></b> (success), even if the vehicle passed is not  created.</returns> 
 		</member>
-		<member name="M:ChatCayTimer" syntax="ChatCayTimer(playerid, index)">
-			<attribute name="public"/>
-			<stacksize value="146"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="ApplyAnimation"/>
-			<dependency name="CP"/>
-			<dependency name="ChatCayTime"/>
-			<dependency name="ClearAnimations"/>
-			<dependency name="DangCamKhucGo"/>
-			<dependency name="DestroyDynamic3DTextLabel"/>
-			<dependency name="DestroyDynamicObject"/>
-			<dependency name="FIXES_GameTextForPlayer"/>
-			<dependency name="GetPVarInt"/>
-			<dependency name="IsValidDynamic3DTextLabel"/>
-			<dependency name="IsValidDynamicObject"/>
-			<dependency name="PlayerCuffed"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="RandomMinMax"/>
-			<dependency name="RemovePlayerAttachedObject"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SetPlayerAttachedObject"/>
-			<dependency name="SetPlayerCheckpoint"/>
-			<dependency name="SetPlayerSpecialAction"/>
-			<dependency name="SetTimerEx"/>
-			<dependency name="WoodLumber"/>
-			<dependency name="WoodLumber"/>
-			<dependency name="format"/>
-			<dependency name="lChatCayTimer"/>
-			<dependency name="pAxe"/>
-			<dependency name="pJailTime"/>
-			<dependency name="wObject"/>
-			<dependency name="wStatus"/>
-			<dependency name="wTextLabel"/>
-			<param name="playerid">
-			</param>
-			<param name="index">
-			</param>
-		</member>
 		<member name="M:CheBien" syntax="CheBien(playerid)">
 			<attribute name="public"/>
 			<stacksize value="141"/>
@@ -36398,9 +36679,8 @@
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="StopFishing"/>
 			<referrer name="CatchFish"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="LoadPlayerZone"/>
 			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="EMSUpdate"/>
@@ -36447,6 +36727,8 @@
 			<referrer name="Miner_Stop"/>
 			<referrer name="Miner_MineFinish"/>
 			<referrer name="Miner_WashFinish"/>
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StopCrafting"/>
 			<referrer name="OnPlayerUseBanhMi"/>
 			<referrer name="OnPlayerUseNuocLoc"/>
 			<referrer name="OnPlayerUsePizza"/>
@@ -36710,6 +36992,13 @@
 			<dependency name="TogglePlayerControllable"/>
 			<dependency name="false"/>
 			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ClearVehLockCD" syntax="ClearVehLockCD(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="DeletePVar"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -38069,6 +38358,7 @@
 			<attribute name="native"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_taoroulette"/>
+			<referrer name="Lumber_Start"/>
 			<referrer name="PlacePokerTable"/>
 			<referrer name="CreatePaintballArenaHill"/>
 			<referrer name="DropFlagPaintballArena"/>
@@ -38187,8 +38477,7 @@
 			<referrer name="_@yHOnGameModeInit@0R"/>
 			<referrer name="Load_Fishing"/>
 			<referrer name="Load_FishingShop"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
-			<referrer name="ResetWood"/>
+			<referrer name="Lumber_Init"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnLoadPayNSpray"/>
 			<referrer name="OnLoadFamilies"/>
@@ -38242,6 +38531,7 @@
 			<referrer name="pc_cmd_fare"/>
 			<referrer name="_@yHOnGameModeInit@0_"/>
 			<referrer name="Miner_Init"/>
+			<referrer name="_@yHOnGameModeInit@0f"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="text">
 				<paraminfo> [] </paraminfo>
@@ -38282,6 +38572,7 @@
 		</member>
 		<member name="M:CreateDynamicActor" syntax="CreateDynamicActor(modelid, x, y, z, r, invulnerable, health, worldid, interiorid, playerid, streamdistance, areaid, priority)">
 			<attribute name="native"/>
+			<referrer name="Lumber_Init"/>
 			<referrer name="LoadStreamerActors"/>
 			<referrer name="Job_Init"/>
 			<referrer name="Miner_Init"/>
@@ -38468,8 +38759,9 @@
 			<referrer name="EditVehicle"/>
 			<referrer name="EditVehicleObject"/>
 			<referrer name="ThungRacCreate"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
-			<referrer name="ResetWood"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_RespawnTree"/>
+			<referrer name="Lumber_DepositToVehicle"/>
 			<referrer name="SyncUp"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="PlantsLoadQuery"/>
@@ -38608,7 +38900,6 @@
 			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="Load_Fishing"/>
 			<referrer name="Load_FishingShop"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
 			<referrer name="OnLoadPayNSpray"/>
 			<referrer name="OnLoadFamilies"/>
 			<referrer name="OnLoadPayNSprays"/>
@@ -38634,6 +38925,7 @@
 			<referrer name="LoadStreamerDynamic3DTextLabels"/>
 			<referrer name="_@yHOnGameModeInit@0_"/>
 			<referrer name="Miner_Init"/>
+			<referrer name="_@yHOnGameModeInit@0f"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="modelid">
 			</param>
@@ -40447,6 +40739,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="Lumber_Stop"/>
 			<referrer name="DestroyPokerTable"/>
 			<referrer name="ResetPaintballArena"/>
 			<referrer name="ResetPaintballArenaHill"/>
@@ -40580,6 +40873,7 @@
 			<referrer name="LoadForklift"/>
 			<referrer name="HelpTimer"/>
 			<referrer name="RadarCooldown"/>
+			<referrer name="ClearVehLockCD"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
 			<referrer name="AttemptPurify"/>
 			<referrer name="HeroinEffect"/>
@@ -40707,6 +41001,7 @@
 			<referrer name="_@yHOnPlayerDisconnect@0d"/>
 			<referrer name="_@yHOnPlayerEnterDynRaceCP@0d"/>
 			<referrer name="pc_cmd_egroup"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0i"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
@@ -40870,7 +41165,6 @@
 			<referrer name="pc_cmd_xoasz"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="OnPlayerMocRac"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="Group_DisbandGroup"/>
 			<referrer name="RehashPayNSpray"/>
@@ -41010,7 +41304,9 @@
 			<referrer name="EVF_DestroyVehicle"/>
 			<referrer name="OnPlayerEditDynamicObject"/>
 			<referrer name="OnPlayerMocRac"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="SyncUp"/>
 			<referrer name="DestroyPokerTable"/>
 			<referrer name="DestroyPlant"/>
@@ -41875,7 +42171,8 @@
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="NhanTienCanSa"/>
 			<referrer name="_@yHOnDialogResponse@0S"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
 			<referrer name="pc_cmd_pay"/>
 			<referrer name="pc_cmd_setvip"/>
 			<referrer name="pc_cmd_setmoney"/>
@@ -41894,8 +42191,6 @@
 			<referrer name="Miner_WashFinish"/>
 			<referrer name="Miner_SellType"/>
 			<referrer name="Miner_SellAll"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<dependency name="DCC_CreateEmbed"/>
@@ -42853,6 +43148,7 @@
 		<member name="M:EVF_AttachObjectToVehicle" syntax="EVF_AttachObjectToVehicle(objectid, vehicleid, OffsetX, OffsetY, OffsetZ, RotX, RotY, RotZ)">
 			<stacksize value="11"/>
 			<referrer name="OnPlayerEditDynamicObject"/>
+			<referrer name="Lumber_DepositToVehicle"/>
 			<referrer name="LoadForklift"/>
 			<referrer name="DynVeh_Spawn"/>
 			<referrer name="pc_cmd_unloadcrate"/>
@@ -42929,6 +43225,7 @@
 			<referrer name="EVF_AddStaticVehicle"/>
 			<referrer name="EVF_AddStaticVehicleEx"/>
 			<referrer name="SafeCreateVehicle"/>
+			<referrer name="Lumber_Start"/>
 			<referrer name="BusinessesLoadQueryFinish"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
 			<referrer name="DynVeh_Spawn"/>
@@ -43027,6 +43324,7 @@
 		<member name="M:EVF_DestroyVehicle" syntax="EVF_DestroyVehicle(vehicleid)">
 			<stacksize value="9"/>
 			<referrer name="SafeRemoveVehicle"/>
+			<referrer name="Lumber_Stop"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="rccam"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
@@ -43730,6 +44028,7 @@
 			<referrer name="EVF_CreateVehicle"/>
 			<referrer name="OnPlayerWeaponShot"/>
 			<referrer name="ChongNoXe"/>
+			<referrer name="Lumber_Start"/>
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="Vehicle_Armor"/>
 			<referrer name="DynVeh_Spawn"/>
@@ -43990,6 +44289,7 @@
 			<dependency name="number_format"/>
 			<dependency name="pDoubleEXP"/>
 			<dependency name="pLevel"/>
+			<dependency name="pMinDong"/>
 			<dependency name="pXP"/>
 			<dependency name="random"/>
 			<dependency name="sElectricPoints"/>
@@ -45241,8 +45541,6 @@
 			<referrer name="CheBien"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="CatchFish"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="ProductionUpdate"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="EMSUpdate"/>
@@ -46191,6 +46489,7 @@
 			<referrer name="pc_cmd_announcetakeoff"/>
 			<referrer name="pc_cmd_houseinvite"/>
 			<referrer name="pc_cmd_diemgiaohang"/>
+			<referrer name="ShowGPSTimDuong"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="operator&gt;=(Float:,Float:)"/>
 			<dependency name="operator&lt;=(Float:,Float:)"/>
@@ -47373,7 +47672,13 @@
 			<dependency name="pCrack"/>
 			<dependency name="pCredits"/>
 			<dependency name="pDice"/>
+			<dependency name="pGoThuong"/>
 			<dependency name="pHamburger"/>
+			<dependency name="pMinBac"/>
+			<dependency name="pMinDong"/>
+			<dependency name="pMinKimCuong"/>
+			<dependency name="pMinSat"/>
+			<dependency name="pMinVang"/>
 			<dependency name="pMoiCau"/>
 			<dependency name="pNuocEp"/>
 			<dependency name="pNuocLoc"/>
@@ -47387,6 +47692,16 @@
 			<dependency name="pTepCanSa"/>
 			<dependency name="pThit"/>
 			<dependency name="pTraiCay"/>
+			<param name="itemVariable">
+			</param>
+		</member>
+		<member name="M:GetInvItemModelColor" syntax="GetInvItemModelColor(itemVariable)">
+			<stacksize value="1"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<dependency name="pMinBac"/>
+			<dependency name="pMinDong"/>
+			<dependency name="pMinKimCuong"/>
+			<dependency name="pMinVang"/>
 			<param name="itemVariable">
 			</param>
 		</member>
@@ -48045,6 +48360,7 @@
 			<referrer name="OnPlayerLeaveDynamicArea"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
+			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerExitVehicle"/>
@@ -48076,6 +48392,10 @@
 			<referrer name="_@yHOnPlayerUpdate@0@"/>
 			<referrer name="CheckPlayerRemoteJacking"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
+			<referrer name="_@yHOnDialogResponse@0D"/>
+			<referrer name="QueryHPerfList"/>
+			<referrer name="QueryHPerfGetSelected"/>
+			<referrer name="QueryHPerfDetail"/>
 			<referrer name="SendNewFamilyMessage"/>
 			<referrer name="SendFamedMessage"/>
 			<referrer name="SendDutyAdvisorMessage"/>
@@ -48100,8 +48420,6 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="CheBien"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="UpdateDoiBung"/>
@@ -48442,6 +48760,7 @@
 			<referrer name="Electric_OnMenuResponse"/>
 			<referrer name="Electric_OnGroupNameResponse"/>
 			<referrer name="Electric_OnJoinResponse"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0i"/>
 			<referrer name="PickupNearestItem"/>
@@ -48469,6 +48788,7 @@
 		<member name="M:GetPVarString" syntax="GetPVarString(playerid, pvar[], output[], len)">
 			<attribute name="native"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
+			<referrer name="QueryHPerfDetail"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="ShowMemberManageDialog"/>
 			<referrer name="OnOfflineRankUpdate"/>
@@ -48924,6 +49244,19 @@
 				<paraminfo>Float &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:GetPlayerCraftingLevel" syntax="GetPlayerCraftingLevel(playerid)">
+			<stacksize value="3"/>
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_thongkechetao"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="pCraftSkill"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:GetPlayerDistanceFromPoint" syntax="GetPlayerDistanceFromPoint(playerid, x, y, z)">
 			<tagname value="Float"/>
 			<attribute name="native"/>
@@ -48944,6 +49277,7 @@
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="pc_cmd_diemgiaohang"/>
 			<referrer name="pc_cmd_laybanh"/>
+			<referrer name="ShowGPSTimDuong"/>
 			<param name="playerid">
 				The ID of the player to calculate the distance from
 			</param>
@@ -49446,8 +49780,6 @@
 			<attribute name="native"/>
 			<referrer name="UpdateHudUI"/>
 			<referrer name="MoneyUpdate"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
 			<param name="playerid">
 				The ID of the player to get the money of
 			</param>
@@ -49480,6 +49812,8 @@
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="ProcessFoodPurchase"/>
 			<referrer name="pc_cmd_guivitri"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
 			<referrer name="AddReportToken"/>
 			<referrer name="AddCAReportToken"/>
 			<referrer name="AddCallToken"/>
@@ -49515,8 +49849,6 @@
 			<referrer name="Miner_WashFinish"/>
 			<referrer name="Miner_SellType"/>
 			<referrer name="Miner_SellAll"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
@@ -49603,7 +49935,9 @@
 			<referrer name="CatchFish"/>
 			<referrer name="_@yHOnDialogResponse@0S"/>
 			<referrer name="pc_cmd_testreset"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="pc_cmd_take"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
@@ -50181,7 +50515,6 @@
 			<referrer name="pc_cmd_spraytag"/>
 			<referrer name="pc_cmd_tagperm"/>
 			<referrer name="pc_cmd_fireworknear"/>
-			<referrer name="pc_cmd_thegioi"/>
 			<referrer name="EVF_OnVehicleMod"/>
 			<referrer name="OnPlayerPressButton"/>
 			<referrer name="OnPlayerModelSelection"/>
@@ -50199,7 +50532,6 @@
 			<referrer name="OPBA_OnPlayerExitVehicle"/>
 			<referrer name="OnPlayerCommandReceived"/>
 			<referrer name="OnPlayerText"/>
-			<referrer name="OnPlayerClickPlayer"/>
 			<referrer name="EVF_OnPlayerEditDynamicObject"/>
 			<referrer name="PrepTradeToysGUI"/>
 			<referrer name="pc_cmd_fare"/>
@@ -50228,6 +50560,10 @@
 			<referrer name="Miner_WashFinish"/>
 			<referrer name="pc_cmd_chinhgiaminer"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_craftkit"/>
+			<referrer name="pc_cmd_checkcraft"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="PopulateInvTDSlots"/>
@@ -50545,6 +50881,9 @@
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="PickupNearestItem"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="PlayerCompassUpdate"/>
@@ -51094,6 +51433,7 @@
 			<referrer name="pc_cmd_gotojet"/>
 			<referrer name="pc_cmd_repaircar"/>
 			<referrer name="pc_cmd_fixveh"/>
+			<referrer name="pc_cmd_refuelveh"/>
 			<referrer name="pc_cmd_dvsiren"/>
 			<referrer name="pc_cmd_dvpark"/>
 			<referrer name="pc_cmd_gotodv"/>
@@ -51167,6 +51507,7 @@
 			<referrer name="OnPlayerKeyStateChange"/>
 			<referrer name="IsVehicleOccupiedEx"/>
 			<referrer name="pc_cmd_lock"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<param name="playerid">
 				The ID of the player you want to get the seat of
 			</param>
@@ -51366,6 +51707,9 @@
 			<referrer name="OnPlayerChangeWeapon"/>
 			<referrer name="pc_cmd_myguns"/>
 			<referrer name="pc_cmd_listguns"/>
+			<referrer name="BuildInvTDSlotMap"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0i"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<param name="playerid">
@@ -51781,6 +52125,7 @@
 		</member>
 		<member name="M:GetRequiredXP" syntax="GetRequiredXP(playerid)">
 			<stacksize value="1"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="GivePlayerXP"/>
 			<referrer name="PorterAnimation"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
@@ -51889,6 +52234,15 @@
 			<dependency name="pHelper"/>
 			<dependency name="pSMod"/>
 			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:GetSuccessRateByLevel" syntax="GetSuccessRateByLevel(level)">
+			<stacksize value="2"/>
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_thongkechetao"/>
+			<param name="level">
 			</param>
 		</member>
 		<member name="M:GetSupplyState" syntax="GetSupplyState(stateid)">
@@ -52650,6 +53004,8 @@
 			<referrer name="OnVehicleSpawn"/>
 			<referrer name="OPBA_AirbrakeTeleport"/>
 			<referrer name="OPBA_PutPlayerInVehicle"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="IsPlayerInRangeOfVehicle"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
 			<referrer name="ParkVehicle"/>
@@ -52678,6 +53034,7 @@
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnVehicleDeath"/>
 			<referrer name="OPBA_OnPlayerSpawn"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0_"/>
 			<referrer name="pc_cmd_xemhang"/>
 			<referrer name="pc_cmd_kiemtrahang"/>
@@ -52887,6 +53244,12 @@
 			</param>
 			<library>omp_vehicle</library>  <summary>Get the rotation of a vehicle on the z axis (yaw).</summary>      <seealso name="GetVehicleRotationQuat" />  <seealso name="GetVehicleRotation" />  <seealso name="SetVehicleZAngle" />  <seealso name="GetVehiclePos" />  <seealso name="GetPlayerFacingAngle" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the vehicle does not exist.  </returns> 
 		</member>
+		<member name="M:GetWeaponModel" syntax="GetWeaponModel(weaponid)">
+			<stacksize value="1"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<param name="weaponid">
+			</param>
+		</member>
 		<member name="M:GetWeaponName" syntax="GetWeaponName(weaponid, weapon[], len)">
 			<attribute name="native"/>
 			<referrer name="hackWeapon"/>
@@ -52911,6 +53274,7 @@
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0_"/>
+			<referrer name="PopulateInvTDSlots"/>
 			<referrer name="GetWeaponNameFromID"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="ShowWeaponOptions"/>
@@ -53234,7 +53598,7 @@
 			<referrer name="startpainter"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="NhanTienCanSa"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="Lumber_SellLog"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="PaintballArenaUpdate"/>
 			<referrer name="EMSUpdate"/>
@@ -53310,6 +53674,8 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="ConstructionLoader"/>
 			<referrer name="Electric_FixFinish"/>
+			<referrer name="Miner_SellType"/>
+			<referrer name="Miner_SellAll"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
@@ -53399,10 +53765,6 @@
 			<attribute name="native"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="GivePlayerCash"/>
-			<referrer name="Miner_SellType"/>
-			<referrer name="Miner_SellAll"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
 			<param name="playerid">
 				The ID of the player to give money to or take money from
 			</param>
@@ -53512,6 +53874,7 @@
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0_"/>
+			<referrer name="OnPlayerCraftingComplete"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="GetPVarType"/>
@@ -53538,8 +53901,6 @@
 			<referrer name="GivePlayerValidWeapon"/>
 			<referrer name="ac_GivePlayerWeapon"/>
 			<referrer name="pc_cmd_openbackpack"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
 			<referrer name="PickupNearestItem"/>
 			<param name="playerid">
 				The ID of the player to give a weapon to
@@ -53554,6 +53915,7 @@
 		</member>
 		<member name="M:GivePlayerXP" syntax="GivePlayerXP(playerid, amount)">
 			<stacksize value="384"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="ClaimShopItems"/>
 			<referrer name="pc_cmd_givexp"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0_"/>
@@ -54273,6 +54635,7 @@
 			<attribute name="public"/>
 			<stacksize value="7"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0i"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0i"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0j"/>
 			<dependency name="CancelSelectTextDraw"/>
 			<dependency name="DestroyInvTDPlayer"/>
@@ -54497,6 +54860,7 @@
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="pc_cmd_time"/>
 			<referrer name="pc_cmd_pvlock"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnPlayerCommandPerformed"/>
 			<referrer name="PorterAnimation"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
@@ -56205,6 +56569,7 @@
 			<dependency name="LoadTextDraws"/>
 			<dependency name="LoadTxtLabels"/>
 			<dependency name="Load_Fishing"/>
+			<dependency name="Lumber_Init"/>
 			<dependency name="MAXCRATES"/>
 			<dependency name="Miner_Init"/>
 			<dependency name="Misc_Load"/>
@@ -57987,6 +58352,7 @@
 		<member name="M:IsLoadingActive" syntax="IsLoadingActive(playerid)">
 			<stacksize value="1"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
 			<referrer name="Porter_Stop"/>
 			<referrer name="Construction_Stop"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
@@ -58237,6 +58603,21 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
+		<member name="M:IsPlayerAtCraftingLocation" syntax="IsPlayerAtCraftingLocation(playerid, type)">
+			<stacksize value="7"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="pc_cmd_chetaocanchien"/>
+			<referrer name="pc_cmd_chetaovukhi"/>
+			<dependency name="CRAFT_TYPE_MELEE"/>
+			<dependency name="CRAFT_TYPE_RANGED"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="gMeleeWeaponCraftPos"/>
+			<dependency name="gRangedWeaponCraftPos"/>
+			<param name="playerid">
+			</param>
+			<param name="type">
+			</param>
+		</member>
 		<member name="M:IsPlayerAtFishingSpot" syntax="IsPlayerAtFishingSpot(playerid)">
 			<stacksize value="11"/>
 			<referrer name="StartFishing"/>
@@ -58435,6 +58816,7 @@
 			<referrer name="pc_cmd_lastshot"/>
 			<referrer name="pc_cmd_fixveh"/>
 			<referrer name="pc_cmd_fixvehall"/>
+			<referrer name="pc_cmd_refuelveh"/>
 			<referrer name="pc_cmd_dm"/>
 			<referrer name="pc_cmd_sdm"/>
 			<referrer name="pc_cmd_present"/>
@@ -58669,6 +59051,10 @@
 			<referrer name="pc_cmd_egroup"/>
 			<referrer name="Electric_OnInviteResponse"/>
 			<referrer name="Electric_OnJoinResponse"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_craftkit"/>
+			<referrer name="pc_cmd_checkcraft"/>
 			<referrer name="ShowInvTD"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="ShowMainStats"/>
@@ -58738,6 +59124,8 @@
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0N"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
@@ -58766,6 +59154,7 @@
 			<referrer name="pc_cmd_join"/>
 			<referrer name="pc_cmd_repaircar"/>
 			<referrer name="pc_cmd_fixveh"/>
+			<referrer name="pc_cmd_refuelveh"/>
 			<referrer name="pc_cmd_search"/>
 			<referrer name="pc_cmd_useheroin"/>
 			<referrer name="pc_cmd_dvpark"/>
@@ -58968,7 +59357,10 @@
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="IsPlayerAtFishingSpot"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0S"/>
+			<referrer name="Lumber_FindNearestTree"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="EMSUpdate"/>
@@ -59158,6 +59550,7 @@
 			<referrer name="Miner_MineFinish"/>
 			<referrer name="pc_cmd_layda"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="IsPlayerAtCraftingLocation"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="PlayerEnterInterior"/>
@@ -59389,6 +59782,7 @@
 			<referrer name="SetVehicleEngine"/>
 			<referrer name="pc_cmd_car"/>
 			<referrer name="pc_cmd_refuel"/>
+			<referrer name="pc_cmd_refuelveh"/>
 			<dependency name="GetVehicleModel"/>
 			<param name="vehicleid">
 			</param>
@@ -59599,7 +59993,6 @@
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="pc_cmd_xoasz"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="ReloadHousePickup"/>
@@ -59659,7 +60052,6 @@
 			<referrer name="EditVehicleObject"/>
 			<referrer name="EVF_DestroyVehicle"/>
 			<referrer name="EVF_AttachObjectToVehicle"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="SyncUp"/>
 			<referrer name="DestroyPokerTable"/>
 			<referrer name="DestroyPlant"/>
@@ -59803,6 +60195,11 @@
 			<referrer name="Iter_OnPlayerStateChange"/>
 			<referrer name="OnPlayerKeyStateChange"/>
 			<referrer name="OnVehicleSpawn"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<referrer name="pc_cmd_laygo"/>
+			<referrer name="pc_cmd_chatgo"/>
 			<referrer name="_@yHOnPlayerDisconnect@0Y"/>
 			<referrer name="_@yHOnPlayerDeath@0Y"/>
 			<referrer name="Trucker_Cleanup"/>
@@ -60310,7 +60707,7 @@
 			<referrer name="_@yHOnGameModeInit@0Q"/>
 			<referrer name="_@yHOnGameModeInit@0R"/>
 			<referrer name="Load_FishingShop"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
+			<referrer name="_@yHOnGameModeInit@0f"/>
 			<dependency name="operator*(_no_itertag:,_:)"/>
 			<dependency name="CallRemoteFunction"/>
 			<dependency name="CreateActor"/>
@@ -61833,6 +62230,7 @@
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="JOB_ELECTRIC"/>
+			<dependency name="JOB_LUMBER"/>
 			<dependency name="JOB_MINER"/>
 			<dependency name="JOB_TRUCKER"/>
 			<dependency name="JobHelp"/>
@@ -62275,7 +62673,7 @@
 			<referrer name="SetupDailyReset"/>
 			<referrer name="StopFishing"/>
 			<referrer name="CatchFish"/>
-			<referrer name="_@yHOnPlayerDisconnect@0T"/>
+			<referrer name="Lumber_Stop"/>
 			<referrer name="hosp_StopRecovery"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="LeavePokerTable"/>
@@ -62693,6 +63091,26 @@
 			<dependency name="vForkObject"/>
 			<param name="playerid">
 			</param>
+		</member>
+		<member name="M:LoadGPSTimDuong" syntax="LoadGPSTimDuong()">
+			<stacksize value="203"/>
+			<referrer name="_@yHOnGameModeInit@0n"/>
+			<referrer name="pc_cmd_editgps"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SaveGPSTimDuong"/>
+			<dependency name="YSI_FOpen__"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="fclose"/>
+			<dependency name="fexist"/>
+			<dependency name="fread"/>
+			<dependency name="gGPSTimDuongCount"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongX"/>
+			<dependency name="gTimDuongY"/>
+			<dependency name="gTimDuongZ"/>
+			<dependency name="io_read"/>
 		</member>
 		<member name="M:LoadGangTags" syntax="LoadGangTags()">
 			<stacksize value="138"/>
@@ -63343,6 +63761,7 @@
 			<referrer name="UpdatePlayerVehicleParkPosition"/>
 			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="EVF_OnVehicleSpawn"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="LockStatus"/>
 			<dependency name="vehicle_lock_doors"/>
@@ -63720,6 +64139,296 @@
 			<dependency name="number_format"/>
 			<dependency name="pLottoNr"/>
 			<param name="number">
+			</param>
+		</member>
+		<member name="M:Lumber_ChopFinish" syntax="Lumber_ChopFinish(playerid)">
+			<attribute name="public"/>
+			<stacksize value="142"/>
+			<dependency name="ApplyAnimation"/>
+			<dependency name="ClearAnimations"/>
+			<dependency name="DestroyDynamicObject"/>
+			<dependency name="DoubleXP"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetRequiredXP"/>
+			<dependency name="GivePlayerXP"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="LP_AttackTree"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="ProxDetectorWrap"/>
+			<dependency name="RandomMinMax"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="SetPlayerSpecialAction"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="ShowTDN"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="gLumberTreeActive"/>
+			<dependency name="gLumberTreeObj"/>
+			<dependency name="gLumberTreeOccupied"/>
+			<dependency name="gLumberTreePlayer"/>
+			<dependency name="gLumberTreeX"/>
+			<dependency name="gLumberTreeY"/>
+			<dependency name="gLumberTreeZ"/>
+			<dependency name="number_format"/>
+			<dependency name="pDoubleEXP"/>
+			<dependency name="pLevel"/>
+			<dependency name="pXP"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Lumber_ConvertToRaw" syntax="Lumber_ConvertToRaw(playerid)">
+			<stacksize value="35"/>
+			<referrer name="_@yHOnDialogResponse@0T"/>
+			<dependency name="DiscordLog"/>
+			<dependency name="GetPlayerName"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerSpecialAction"/>
+			<dependency name="ShowTDN"/>
+			<dependency name="dclog_Lumber"/>
+			<dependency name="false"/>
+			<dependency name="pGoThuong"/>
+			<dependency name="random"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Lumber_DepositToVehicle" syntax="Lumber_DepositToVehicle(playerid)">
+			<stacksize value="18"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<dependency name="CreateDynamicObject"/>
+			<dependency name="EVF_AttachObjectToVehicle"/>
+			<dependency name="IsValidVehicle"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="LP_VehicleID"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerSpecialAction"/>
+			<dependency name="ShowTDN"/>
+			<dependency name="false"/>
+			<dependency name="gLumberLogPosOnVeh"/>
+			<dependency name="gLumberLogPosOnVeh"/>
+			<dependency name="gLumberVehLogCount"/>
+			<dependency name="gLumberVehLogObj"/>
+			<dependency name="gLumberVehLogObj"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Lumber_FindNearestTree" syntax="Lumber_FindNearestTree(playerid)">
+			<stacksize value="8"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="gLumberTreeActive"/>
+			<dependency name="gLumberTreeOccupied"/>
+			<dependency name="gLumberTreeX"/>
+			<dependency name="gLumberTreeY"/>
+			<dependency name="gLumberTreeZ"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Lumber_Init" syntax="Lumber_Init()">
+			<stacksize value="28"/>
+			<referrer name="InitiateGamemode"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator/(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
+			<dependency name="CA_FindZ_For2DCoord"/>
+			<dependency name="CreateDynamic3DTextLabel"/>
+			<dependency name="CreateDynamicActor"/>
+			<dependency name="Lumber_SpawnTreeAt"/>
+			<dependency name="__printf"/>
+			<dependency name="false"/>
+			<dependency name="float"/>
+			<dependency name="floatround"/>
+			<dependency name="gLumberTreeActive"/>
+			<dependency name="gLumberTreeObj"/>
+			<dependency name="gLumberTreeOccupied"/>
+			<dependency name="gLumberTreePlayer"/>
+			<dependency name="gLumberVehLogCount"/>
+			<dependency name="gLumberVehLogObj"/>
+			<dependency name="gLumberVehLogObj"/>
+			<dependency name="random"/>
+			<dependency name="true"/>
+		</member>
+		<member name="M:Lumber_OpenSellDialog" syntax="Lumber_OpenSellDialog(playerid)">
+			<stacksize value="10"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="ShowTDN"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Lumber_RespawnTree" syntax="Lumber_RespawnTree(treeIndex)">
+			<attribute name="public"/>
+			<stacksize value="16"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="CreateDynamicObject"/>
+			<dependency name="float"/>
+			<dependency name="gLumberTreeActive"/>
+			<dependency name="gLumberTreeObj"/>
+			<dependency name="gLumberTreeX"/>
+			<dependency name="gLumberTreeY"/>
+			<dependency name="gLumberTreeZ"/>
+			<dependency name="random"/>
+			<dependency name="true"/>
+			<param name="treeIndex">
+			</param>
+		</member>
+		<member name="M:Lumber_SellLog" syntax="Lumber_SellLog(playerid)">
+			<stacksize value="33"/>
+			<referrer name="_@yHOnDialogResponse@0T"/>
+			<dependency name="DiscordLog"/>
+			<dependency name="GetPlayerName"/>
+			<dependency name="GivePlayerCash"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerSpecialAction"/>
+			<dependency name="ShowTDN"/>
+			<dependency name="dclog_Lumber"/>
+			<dependency name="false"/>
+			<dependency name="number_format"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Lumber_SpawnTreeAt" syntax="Lumber_SpawnTreeAt(index, x, y, z)">
+			<stacksize value="16"/>
+			<referrer name="Lumber_Init"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="CreateDynamicObject"/>
+			<dependency name="false"/>
+			<dependency name="float"/>
+			<dependency name="gLumberTreeActive"/>
+			<dependency name="gLumberTreeObj"/>
+			<dependency name="gLumberTreeOccupied"/>
+			<dependency name="gLumberTreePlayer"/>
+			<dependency name="gLumberTreeX"/>
+			<dependency name="gLumberTreeY"/>
+			<dependency name="gLumberTreeZ"/>
+			<dependency name="random"/>
+			<dependency name="true"/>
+			<param name="index">
+			</param>
+			<param name="x">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="y">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="z">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:Lumber_Start" syntax="Lumber_Start(playerid)">
+			<stacksize value="139"/>
+			<referrer name="_@yHOnDialogResponse@0T"/>
+			<dependency name="Attach3DTextLabelToVehicle"/>
+			<dependency name="Create3DTextLabel"/>
+			<dependency name="EVF_CreateVehicle"/>
+			<dependency name="EVF_SetVehicleHealth"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="JOB_LUMBER"/>
+			<dependency name="JobInfo"/>
+			<dependency name="JobInfo"/>
+			<dependency name="LP_AttackTree"/>
+			<dependency name="LP_ChopTimer"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="LP_VehicleID"/>
+			<dependency name="LP_Working"/>
+			<dependency name="LockStatus"/>
+			<dependency name="OPBA_PutPlayerInVehicle"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerWorking"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerSkin"/>
+			<dependency name="ShowTDN"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="gLumberVehLabel"/>
+			<dependency name="gLumberVehLogCount"/>
+			<dependency name="gLumberVehLogObj"/>
+			<dependency name="gLumberVehLogObj"/>
+			<dependency name="jobSkin"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:Lumber_StartChop" syntax="Lumber_StartChop(playerid, treeIndex)">
+			<stacksize value="140"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<dependency name="ApplyAnimation"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="LP_AttackTree"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="ProxDetectorWrap"/>
+			<dependency name="SetLoading"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="format"/>
+			<dependency name="gLumberTreeOccupied"/>
+			<dependency name="gLumberTreePlayer"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="treeIndex">
+			</param>
+		</member>
+		<member name="M:Lumber_Stop" syntax="Lumber_Stop(playerid)">
+			<stacksize value="8"/>
+			<referrer name="_@yHOnPlayerDisconnect@0T"/>
+			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="pc_cmd_dunglamviec"/>
+			<dependency name="ClearAnimations"/>
+			<dependency name="Delete3DTextLabel"/>
+			<dependency name="DestroyDynamicObject"/>
+			<dependency name="EVF_DestroyVehicle"/>
+			<dependency name="IsValidVehicle"/>
+			<dependency name="KillTimer"/>
+			<dependency name="LP_AttackTree"/>
+			<dependency name="LP_ChopTimer"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="LP_VehicleID"/>
+			<dependency name="LP_Working"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerWorking"/>
+			<dependency name="RemovePlayerAttachedObject"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerSkin"/>
+			<dependency name="SetPlayerSpecialAction"/>
+			<dependency name="ShowTDN"/>
+			<dependency name="StopLoading"/>
+			<dependency name="false"/>
+			<dependency name="gLumberTreeOccupied"/>
+			<dependency name="gLumberTreePlayer"/>
+			<dependency name="gLumberVehLabel"/>
+			<dependency name="gLumberVehLogCount"/>
+			<dependency name="gLumberVehLogObj"/>
+			<dependency name="gLumberVehLogObj"/>
+			<dependency name="pModel"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:LuuBanRoulette" syntax="LuuBanRoulette()">
@@ -64557,58 +65266,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:Miner_DoCraftGun" syntax="Miner_DoCraftGun(playerid, listitem)">
-			<stacksize value="39"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
-			<dependency name="DiscordLog"/>
-			<dependency name="GetPlayerMoney"/>
-			<dependency name="GetPlayerName"/>
-			<dependency name="GivePlayerMoney"/>
-			<dependency name="GivePlayerWeapon"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="ShowTDN"/>
-			<dependency name="dclog_Miner"/>
-			<dependency name="pMinBac"/>
-			<dependency name="pMinDong"/>
-			<dependency name="pMinKimCuong"/>
-			<dependency name="pMinVang"/>
-			<dependency name="sCraftGun"/>
-			<dependency name="sCraftGun"/>
-			<dependency name="sGunNames"/>
-			<dependency name="sGunNames"/>
-			<param name="playerid">
-			</param>
-			<param name="listitem">
-			</param>
-		</member>
-		<member name="M:Miner_DoCraftMelee" syntax="Miner_DoCraftMelee(playerid, listitem)">
-			<stacksize value="39"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
-			<dependency name="DiscordLog"/>
-			<dependency name="GetPlayerMoney"/>
-			<dependency name="GetPlayerName"/>
-			<dependency name="GivePlayerMoney"/>
-			<dependency name="GivePlayerWeapon"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="ShowTDN"/>
-			<dependency name="dclog_Miner"/>
-			<dependency name="pMinBac"/>
-			<dependency name="pMinDong"/>
-			<dependency name="pMinSat"/>
-			<dependency name="pMinVang"/>
-			<dependency name="sCraftMelee"/>
-			<dependency name="sCraftMelee"/>
-			<dependency name="sMeleeNames"/>
-			<dependency name="sMeleeNames"/>
-			<param name="playerid">
-			</param>
-			<param name="listitem">
-			</param>
-		</member>
 		<member name="M:Miner_FindNearestRock" syntax="Miner_FindNearestRock(playerid)">
 			<stacksize value="8"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
@@ -64739,7 +65396,7 @@
 			<referrer name="Miner_SellType"/>
 			<dependency name="DiscordLog"/>
 			<dependency name="GetPlayerName"/>
-			<dependency name="GivePlayerMoney"/>
+			<dependency name="GivePlayerCash"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -64762,7 +65419,7 @@
 			<referrer name="_@yHOnDialogResponse@0e"/>
 			<dependency name="DiscordLog"/>
 			<dependency name="GetPlayerName"/>
-			<dependency name="GivePlayerMoney"/>
+			<dependency name="GivePlayerCash"/>
 			<dependency name="Miner_OpenSellDialog"/>
 			<dependency name="Miner_SellAll"/>
 			<dependency name="PlayerInfo"/>
@@ -64782,52 +65439,6 @@
 			<param name="playerid">
 			</param>
 			<param name="listitem">
-			</param>
-		</member>
-		<member name="M:Miner_ShowCraftGun" syntax="Miner_ShowCraftGun(playerid)">
-			<stacksize value="656"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="format"/>
-			<dependency name="pMinBac"/>
-			<dependency name="pMinDong"/>
-			<dependency name="pMinKimCuong"/>
-			<dependency name="pMinVang"/>
-			<dependency name="sCraftGun"/>
-			<dependency name="sCraftGun"/>
-			<dependency name="sGunNames"/>
-			<dependency name="sGunNames"/>
-			<dependency name="strcat"/>
-			<dependency name="strdel"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:Miner_ShowCraftMain" syntax="Miner_ShowCraftMain(playerid)">
-			<stacksize value="10"/>
-			<referrer name="pc_cmd_chebien"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:Miner_ShowCraftMelee" syntax="Miner_ShowCraftMelee(playerid)">
-			<stacksize value="656"/>
-			<referrer name="_@yHOnDialogResponse@0f"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="format"/>
-			<dependency name="pMinBac"/>
-			<dependency name="pMinDong"/>
-			<dependency name="pMinSat"/>
-			<dependency name="pMinVang"/>
-			<dependency name="sCraftMelee"/>
-			<dependency name="sCraftMelee"/>
-			<dependency name="sMeleeNames"/>
-			<dependency name="sMeleeNames"/>
-			<dependency name="strcat"/>
-			<dependency name="strdel"/>
-			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:Miner_Start" syntax="Miner_Start(playerid)">
@@ -66054,9 +66665,8 @@
 			<referrer name="@yH_OnDialogResponse@0S"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0S"/>
 			<referrer name="@yH_OnPlayerSpawn@0S"/>
-			<referrer name="@yH_OnPlayerDisconnect@0T"/>
 			<referrer name="@yH_OnPlayerConnect@0T"/>
-			<referrer name="@yH_OnGameModeInit@0T"/>
+			<referrer name="@yH_OnPlayerDisconnect@0T"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0T"/>
 			<referrer name="@yH_OnDialogResponse@0T"/>
 			<referrer name="@yH_OnDialogResponse@0U"/>
@@ -66094,6 +66704,8 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
 			<referrer name="@yH_OnDialogResponse@0e"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
+			<referrer name="@yH_OnPlayerDisconnect@0f"/>
+			<referrer name="@yH_OnGameModeInit@0f"/>
 			<referrer name="@yH_OnPlayerDisconnect@0g"/>
 			<referrer name="@yH_OnPlayerStateChange@0g"/>
 			<referrer name="@yH_OnPlayerExitVehicle@0g"/>
@@ -66110,6 +66722,7 @@
 			<referrer name="@yH_OnDialogResponse@0k"/>
 			<referrer name="@yH_OnPlayerConnect@0l"/>
 			<referrer name="@yH_OnDialogResponse@0m"/>
+			<referrer name="@yH_OnGameModeInit@0n"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0o"/>
 			<referrer name="@yH_OnPlayerConnect@0o"/>
@@ -66332,6 +66945,8 @@
 			<attribute name="public"/>
 			<stacksize value="298"/>
 			<dependency name="Float:operator=(_:)"/>
+			<dependency name="operator&gt;=(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="ABroadCast"/>
 			<dependency name="BFText"/>
 			<dependency name="CarRadars"/>
@@ -66344,6 +66959,7 @@
 			<dependency name="EMSCallTime"/>
 			<dependency name="FIXES_GameTextForPlayer"/>
 			<dependency name="GetChased"/>
+			<dependency name="GetPVarFloat"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarType"/>
 			<dependency name="GetPlayerInterior"/>
@@ -67152,6 +67768,7 @@
 			<attribute name="public"/>
 			<stacksize value="9"/>
 			<referrer name="SafePutPlayerInVehicle"/>
+			<referrer name="Lumber_Start"/>
 			<referrer name="ParkVehicle"/>
 			<referrer name="ac_PutPlayerInVehicle"/>
 			<referrer name="pc_cmd_apark"/>
@@ -70689,15 +71306,12 @@
 		</member>
 		<member name="M:OnPlayerClickPlayer" syntax="OnPlayerClickPlayer(playerid, clickedplayerid, source)">
 			<attribute name="public"/>
-			<stacksize value="143"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
+			<stacksize value="11"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="SetPVarString"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pSMod"/>
+			<dependency name="pc_cmd_spec"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				The ID of the player that clicked on a player on the scoreboard
@@ -70933,6 +71547,43 @@
 				The ID of the player that connected
 			</param>
 			<summary>This callback is called when a player connects to the server.</summary>    <seealso name="OnPlayerDisconnect" />  <seealso name="OnIncomingConnection" />  <seealso name="OnPlayerFinishedDownloading" />  <remarks>This callback can also be called by NPC.</remarks>  <returns>  <b><c>0</c></b> - Will prevent other filterscripts from receiving this callback.<br />  <b><c>1</c></b> - Indicates that this callback will be passed to the next filterscript.<br />  It is always called first in filterscripts.  </returns> <p/> <library>sscanf</library>  <remarks>  Called when a player connects.  Actually increments an internal count so that  if a script ends and <c>OnPlayerDisconnect</c> is called then <c>sscanf</c>  still knows that the player is really connected.  Also stores their name  internally.  </remarks> 
+		</member>
+		<member name="M:OnPlayerCraftingComplete" syntax="OnPlayerCraftingComplete(playerid)">
+			<attribute name="public"/>
+			<stacksize value="139"/>
+			<dependency name="CRAFT_TYPE_MELEE"/>
+			<dependency name="CRAFT_TYPE_RANGED"/>
+			<dependency name="ClearAnimations"/>
+			<dependency name="GetPlayerCraftingLevel"/>
+			<dependency name="GetSuccessRateByLevel"/>
+			<dependency name="GivePlayerValidWeapon"/>
+			<dependency name="MeleeWeapons"/>
+			<dependency name="MeleeWeapons"/>
+			<dependency name="PlayerCrafting"/>
+			<dependency name="PlayerCraftingBronzeCost"/>
+			<dependency name="PlayerCraftingGoldCost"/>
+			<dependency name="PlayerCraftingIronCost"/>
+			<dependency name="PlayerCraftingItemID"/>
+			<dependency name="PlayerCraftingMaterialsCost"/>
+			<dependency name="PlayerCraftingType"/>
+			<dependency name="PlayerCraftingWoodCost"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="RangedWeapons"/>
+			<dependency name="RangedWeapons"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="mwName"/>
+			<dependency name="mwWeaponID"/>
+			<dependency name="mwXPGain"/>
+			<dependency name="pCraftSkill"/>
+			<dependency name="random"/>
+			<dependency name="rwName"/>
+			<dependency name="rwWeaponID"/>
+			<dependency name="rwXPGain"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:OnPlayerDeath" syntax="OnPlayerDeath(playerid, killerid, reason)">
 			<attribute name="public"/>
@@ -74703,6 +75354,7 @@
 			<referrer name="pc_alias_taoroulette"/>
 			<referrer name="pc_alias_xoaroulette"/>
 			<referrer name="pc_alias_listsz"/>
+			<referrer name="pc_alias_vitrilumber"/>
 			<referrer name="pc_alias_take"/>
 			<referrer name="pc_alias_choxemgiayphep"/>
 			<referrer name="pc_alias_deliverpt"/>
@@ -74804,6 +75456,7 @@
 			<referrer name="pc_alias_togglehealthcare"/>
 			<referrer name="pc_alias_buytoys"/>
 			<referrer name="pc_alias_toyhelp"/>
+			<referrer name="pc_alias_train"/>
 			<referrer name="pc_alias_dichvu"/>
 			<referrer name="pc_alias_accepthelp"/>
 			<referrer name="pc_alias_finishhelp"/>
@@ -74835,6 +75488,7 @@
 			<referrer name="pc_alias_ataxi"/>
 			<referrer name="pc_alias_xemhang"/>
 			<referrer name="pc_alias_kiemtrahang"/>
+			<referrer name="pc_alias_vitriminer"/>
 			<referrer name="pc_alias_caidat"/>
 			<referrer name="pc_alias_nextpaycheck"/>
 			<referrer name="pc_alias_stats"/>
@@ -76003,6 +76657,7 @@
 			<referrer name="HideMainMenuTextdraws"/>
 			<referrer name="ProcessFoodPurchase"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
+			<referrer name="_@yHOnDialogResponse@0T"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="GlobalPlaySound"/>
 			<referrer name="PokerDealHands"/>
@@ -76056,12 +76711,12 @@
 			<referrer name="_@yHOnPlayerEnterVehicle@0Y"/>
 			<referrer name="Electric_FixFinish"/>
 			<referrer name="Electric_OnFixResponse"/>
+			<referrer name="_@yHOnDialogResponse@0e"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="ShowInvTD"/>
 			<referrer name="HideInvTD"/>
 			<referrer name="RefreshInvTD"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0i"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
@@ -77533,12 +78188,16 @@
 			<library>amx_assembly dynamic_call</library>
 		</member>
 		<member name="M:PopulateInvTDSlots" syntax="PopulateInvTDSlots(playerid)">
-			<stacksize value="65"/>
+			<stacksize value="76"/>
 			<referrer name="ShowInvTD"/>
 			<referrer name="RefreshInvTD"/>
 			<dependency name="GetInvItemModel"/>
+			<dependency name="GetInvItemModelColor"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerWeaponData"/>
+			<dependency name="GetWeaponModel"/>
+			<dependency name="GetWeaponName"/>
 			<dependency name="InvTDSlot"/>
 			<dependency name="ItemInventory"/>
 			<dependency name="ItemInventory"/>
@@ -77967,6 +78626,9 @@
 			<referrer name="_@yHOnDialogResponse@0D"/>
 			<referrer name="pc_cmd_dsadmin"/>
 			<referrer name="pc_cmd_dsadvisor"/>
+			<referrer name="pc_cmd_checkad"/>
+			<referrer name="QueryHPerfList"/>
+			<referrer name="QueryHPerfDetail"/>
 			<referrer name="FA_OpenSafeDialog"/>
 			<referrer name="FA_ShowSafeView"/>
 			<referrer name="FA_ShowItemList"/>
@@ -78035,9 +78697,8 @@
 			<referrer name="ShowBuyFishingRod"/>
 			<referrer name="ShowBuyBait"/>
 			<referrer name="ShowConfirmBuyBait"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-			<referrer name="pc_cmd_chatgo"/>
+			<referrer name="Lumber_OpenSellDialog"/>
+			<referrer name="pc_cmd_vitrilumber"/>
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_licenses"/>
@@ -78200,7 +78861,6 @@
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
-			<referrer name="OnPlayerClickPlayer"/>
 			<referrer name="ShowCityHallDialog"/>
 			<referrer name="ShowLicenseDialog"/>
 			<referrer name="ShowCarExam"/>
@@ -78219,9 +78879,13 @@
 			<referrer name="Electric_OnJoinResponse"/>
 			<referrer name="Electric_ShowColorsDialog"/>
 			<referrer name="Miner_OpenSellDialog"/>
-			<referrer name="Miner_ShowCraftMain"/>
-			<referrer name="Miner_ShowCraftMelee"/>
-			<referrer name="Miner_ShowCraftGun"/>
+			<referrer name="pc_cmd_vitriminer"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_chetaocanchien"/>
+			<referrer name="pc_cmd_chetaovukhi"/>
+			<referrer name="pc_cmd_thongkechetao"/>
+			<referrer name="pc_cmd_huongdanchetao"/>
 			<referrer name="_@yHOnPlayerStateChange@0g"/>
 			<referrer name="ShowDialogRentCar"/>
 			<referrer name="pc_cmd_xethue"/>
@@ -78241,7 +78905,10 @@
 			<referrer name="pc_cmd_netstats"/>
 			<referrer name="pc_cmd_anetstats"/>
 			<referrer name="ShowGPSMainDialog"/>
-			<referrer name="pc_cmd_timvieclam"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="ShowGPSTimViecLam"/>
+			<referrer name="ShowGPSManage"/>
+			<referrer name="pc_cmd_editgps"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="ShowJobHelp"/>
 			<referrer name="pc_cmd_cmds"/>
@@ -78839,6 +79506,8 @@
 		<member name="M:ProxDetectorWrap" syntax="ProxDetectorWrap(playerid, string[], width, wrap_radius, col1, col2, col3, col4, col5)">
 			<stacksize value="268"/>
 			<referrer name="pc_cmd_dangkybank"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="pc_cmd_me"/>
 			<referrer name="pc_cmd_do"/>
 			<referrer name="Electric_Stop"/>
@@ -78948,6 +79617,49 @@
 			<param name="userid">
 			</param>
 			<param name="type">
+			</param>
+		</member>
+		<member name="M:QueryHPerfDetail" syntax="QueryHPerfDetail(playerid)">
+			<attribute name="public"/>
+			<stacksize value="2263"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPVarString"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="cache_get_data"/>
+			<dependency name="cache_get_field_content"/>
+			<dependency name="format"/>
+			<dependency name="strval"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:QueryHPerfGetSelected" syntax="QueryHPerfGetSelected(playerid)">
+			<attribute name="public"/>
+			<stacksize value="708"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="SetPVarString"/>
+			<dependency name="cache_get_data"/>
+			<dependency name="cache_get_field_content"/>
+			<dependency name="format"/>
+			<dependency name="mysql_tquery"/>
+			<dependency name="strval"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:QueryHPerfList" syntax="QueryHPerfList(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4247"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="cache_get_data"/>
+			<dependency name="cache_get_field_content"/>
+			<dependency name="format"/>
+			<dependency name="strlen"/>
+			<dependency name="strval"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:QueryTokenFinish" syntax="QueryTokenFinish(playerid, type)">
@@ -79137,7 +79849,7 @@
 			<referrer name="startpainter"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
 			<referrer name="StartFishing"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="EndLotto"/>
 			<referrer name="SetPlayerJoinCamera"/>
@@ -80278,9 +80990,11 @@
 			<referrer name="startpainter"/>
 			<referrer name="StopFishing"/>
 			<referrer name="CatchFish"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
 			<referrer name="SkinDelay"/>
 			<referrer name="ShowEditMenu"/>
 			<referrer name="player_remove_vip_toys"/>
@@ -80949,26 +81663,6 @@
 			<dependency name="EVF_VehicleProperty"/>
 			<dependency name="EVF_VehicleTrailerID"/>
 			<param name="vehicleid">
-			</param>
-		</member>
-		<member name="M:ResetWood" syntax="ResetWood(index)">
-			<attribute name="public"/>
-			<stacksize value="81"/>
-			<dependency name="operator-(Float:,_:)"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="CreateDynamic3DTextLabel"/>
-			<dependency name="CreateDynamicObject"/>
-			<dependency name="WoodLumber"/>
-			<dependency name="WoodLumber"/>
-			<dependency name="__printf"/>
-			<dependency name="chatcaypos_pos"/>
-			<dependency name="chatcaypos_pos"/>
-			<dependency name="format"/>
-			<dependency name="randomtree"/>
-			<dependency name="wObject"/>
-			<dependency name="wStatus"/>
-			<dependency name="wTextLabel"/>
-			<param name="index">
 			</param>
 		</member>
 		<member name="M:ResolveJITAddress" syntax="ResolveJITAddress(addr)">
@@ -82063,7 +82757,14 @@
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="pc_cmd_egroup"/>
 			<referrer name="pc_cmd_chinhgiaminer"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_craftkit"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_vitrichetao"/>
 			<referrer name="pc_cmd_anetstats"/>
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="pc_cmd_editgps"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="file">
 				<paraminfo> [] </paraminfo>
@@ -82689,6 +83390,23 @@
 			<dependency name="mysql_tquery"/>
 			<param name="familyid">
 			</param>
+		</member>
+		<member name="M:SaveGPSTimDuong" syntax="SaveGPSTimDuong()">
+			<stacksize value="203"/>
+			<referrer name="LoadGPSTimDuong"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+			<dependency name="YSI_FOpen__"/>
+			<dependency name="fclose"/>
+			<dependency name="format"/>
+			<dependency name="fwrite"/>
+			<dependency name="gGPSTimDuongCount"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongX"/>
+			<dependency name="gTimDuongY"/>
+			<dependency name="gTimDuongZ"/>
+			<dependency name="io_write"/>
 		</member>
 		<member name="M:SaveGangTag" syntax="SaveGangTag(gangtag)">
 			<stacksize value="274"/>
@@ -83983,10 +84701,6 @@
 			<referrer name="pc_cmd_testcauca"/>
 			<referrer name="pc_cmd_testcc1"/>
 			<referrer name="pc_cmd_testcc2"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
 			<referrer name="pc_cmd_licenses"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="OnQueryFinish"/>
@@ -84097,7 +84811,6 @@
 			<referrer name="pc_cmd_buyhotdog"/>
 			<referrer name="pc_cmd_givesprize"/>
 			<referrer name="pc_cmd_givexp"/>
-			<referrer name="pc_cmd_thegioi"/>
 			<referrer name="pc_cmd_laypos"/>
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="OnPlayerEditAttachedObject"/>
@@ -84129,7 +84842,6 @@
 			<referrer name="UpdateNewbieMission"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="PayDay"/>
-			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="ShowHelpCommand"/>
 			<referrer name="pc_cmd_help"/>
 			<referrer name="pc_cmd_jobhelp"/>
@@ -84162,6 +84874,8 @@
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
+			<referrer name="pc_cmd_checkad"/>
+			<referrer name="QueryHPerfList"/>
 			<referrer name="pc_cmd_kickallbaotri"/>
 			<referrer name="pc_cmd_baotri"/>
 			<referrer name="ShopTechBroadCast"/>
@@ -84260,6 +84974,17 @@
 			<referrer name="pc_cmd_settepcansa"/>
 			<referrer name="pc_cmd_checktepcansa"/>
 			<referrer name="CatchFish"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="Lumber_OpenSellDialog"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
+			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="pc_cmd_laygo"/>
+			<referrer name="pc_cmd_chatgo"/>
 			<referrer name="pc_cmd_take"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_lucsoat"/>
@@ -84601,6 +85326,7 @@
 			<referrer name="pc_cmd_gotopaynspray"/>
 			<referrer name="pc_cmd_fixveh"/>
 			<referrer name="pc_cmd_fixvehall"/>
+			<referrer name="pc_cmd_refuelveh"/>
 			<referrer name="pc_cmd_destroycars"/>
 			<referrer name="pc_cmd_scores"/>
 			<referrer name="pc_cmd_announcem"/>
@@ -85356,9 +86082,19 @@
 			<referrer name="pc_cmd_chinhgiaminer"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
 			<referrer name="_@yHOnDialogResponse@0e"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
-			<referrer name="pc_cmd_chebien"/>
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="StopCrafting"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_craftkit"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_trogiupchetao"/>
+			<referrer name="pc_cmd_chetaocanchien"/>
+			<referrer name="pc_cmd_chetaovukhi"/>
+			<referrer name="pc_cmd_huychetao"/>
+			<referrer name="pc_cmd_vitrichetao"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="ParkRentedVehicle"/>
@@ -85387,6 +86123,8 @@
 			<referrer name="pc_cmd_stats"/>
 			<referrer name="pc_cmd_anetstats"/>
 			<referrer name="pc_cmd_quickstats"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="ShowHelpCommand"/>
 			<referrer name="pc_cmd_jobhelp"/>
 			<referrer name="OnPlayerLoad"/>
@@ -85490,7 +86228,6 @@
 			<referrer name="pc_cmd_ban"/>
 			<referrer name="pc_cmd_nmute"/>
 			<referrer name="pc_cmd_admute"/>
-			<referrer name="pc_cmd_thegioi"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
@@ -86979,11 +87716,14 @@
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
+			<referrer name="Lumber_StartChop"/>
 			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0a"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0c"/>
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="Miner_StartMine"/>
+			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="StartCrafting"/>
 			<referrer name="TDA_DIALOG_USEBANHMI"/>
 			<referrer name="TDA_DIALOG_USENUOCLOC"/>
 			<referrer name="TDA_DIALOG_USEPIZZA"/>
@@ -87169,6 +87909,7 @@
 			<referrer name="_@yHOnPlayerCommandText@08"/>
 			<referrer name="_@yHOnPlayerConnect@0@"/>
 			<referrer name="_@yHOnPlayerUpdate@0@"/>
+			<referrer name="_@yHOnDialogResponse@0D"/>
 			<referrer name="SendMessageTD"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="OnSelectMember"/>
@@ -87473,6 +88214,8 @@
 			<referrer name="Electric_FixFinish"/>
 			<referrer name="pc_cmd_takekit"/>
 			<referrer name="Electric_OnInviteResponse"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
 			<referrer name="ShowWeaponOptions"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0j"/>
@@ -87502,6 +88245,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
+			<referrer name="QueryHPerfGetSelected"/>
 			<referrer name="OnSelectMember"/>
 			<referrer name="pc_cmd_ouninvite"/>
 			<referrer name="STK_check"/>
@@ -87539,7 +88283,6 @@
 			<referrer name="pc_cmd_rflchangename"/>
 			<referrer name="pc_cmd_givesprize"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
-			<referrer name="OnPlayerClickPlayer"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0j"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
@@ -87677,7 +88420,9 @@
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="startpainter"/>
 			<referrer name="StartFishing"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="SkinDelay"/>
 			<referrer name="ShowEditMenu"/>
 			<referrer name="PickupFlagPaintballArena"/>
@@ -87769,6 +88514,7 @@
 			<stacksize value="9"/>
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0T"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="SetAllCopCheckpoint"/>
 			<referrer name="WateringStation"/>
@@ -87796,6 +88542,7 @@
 			<referrer name="Porter_Start"/>
 			<referrer name="pc_cmd_laybanh"/>
 			<referrer name="Construction_Start"/>
+			<referrer name="_@yHOnDialogResponse@0e"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="_@yHOnDialogResponse@0h"/>
@@ -87936,9 +88683,7 @@
 			<referrer name="startpainter"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="pc_cmd_vitrichetao"/>
 			<referrer name="SetPlayerCP"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
 			<param name="playerid">
@@ -88679,6 +89424,8 @@
 			<referrer name="_@yHOnPlayerDisconnect@0Q"/>
 			<referrer name="_@yHOnDialogResponse@0Q"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
 			<referrer name="SkinDelay"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="SkinQueryFinish"/>
@@ -88892,9 +89639,13 @@
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@0L"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="_@yHOnDialogResponse@0N"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="StopaniTimer"/>
 			<referrer name="CuffTacklee"/>
@@ -89528,9 +90279,7 @@
 			<referrer name="antiteleportcansa"/>
 			<referrer name="SetupDailyReset"/>
 			<referrer name="StartFishing"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="hosp_PlacePatientInBed"/>
@@ -89654,7 +90403,6 @@
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="Miner_MineFinish"/>
 			<referrer name="Miner_StartWash"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
 			<referrer name="PayDay"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
@@ -90604,6 +91352,52 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:ShowGPSManage" syntax="ShowGPSManage(playerid)">
+			<stacksize value="3195"/>
+			<referrer name="pc_cmd_editgps"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="format"/>
+			<dependency name="gGPSTimDuongCount"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongX"/>
+			<dependency name="gTimDuongY"/>
+			<dependency name="gTimDuongZ"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowGPSTimDuong" syntax="ShowGPSTimDuong(playerid)">
+			<stacksize value="4271"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
+			<dependency name="Get3DZone"/>
+			<dependency name="GetPlayerDistanceFromPoint"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="floatround"/>
+			<dependency name="format"/>
+			<dependency name="gGPSTimDuongCount"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongX"/>
+			<dependency name="gTimDuongY"/>
+			<dependency name="gTimDuongZ"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:ShowGPSTimViecLam" syntax="ShowGPSTimViecLam(playerid)">
+			<stacksize value="1090"/>
+			<referrer name="pc_cmd_timvieclam"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="format"/>
+			<dependency name="gJobName"/>
+			<dependency name="gJobName"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:ShowHelpCommand" syntax="ShowHelpCommand(playerid, listitem)">
 			<stacksize value="9"/>
 			<referrer name="OnDialogResponse"/>
@@ -90707,8 +91501,49 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:ShowItemDetailInfo" syntax="ShowItemDetailInfo(playerid, craftType, itemid)">
+			<stacksize value="535"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
+			<dependency name="CRAFT_TYPE_MELEE"/>
+			<dependency name="CRAFT_TYPE_RANGED"/>
+			<dependency name="GetPlayerCraftingLevel"/>
+			<dependency name="GetSuccessRateByLevel"/>
+			<dependency name="MeleeWeapons"/>
+			<dependency name="MeleeWeapons"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="RangedWeapons"/>
+			<dependency name="RangedWeapons"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="format"/>
+			<dependency name="mwCraftTime"/>
+			<dependency name="mwIronCost"/>
+			<dependency name="mwLevelRequired"/>
+			<dependency name="mwMaterialCost"/>
+			<dependency name="mwName"/>
+			<dependency name="mwWoodCost"/>
+			<dependency name="pGoThuong"/>
+			<dependency name="pMats"/>
+			<dependency name="pMinDong"/>
+			<dependency name="pMinSat"/>
+			<dependency name="pMinVang"/>
+			<dependency name="rwBronzeCost"/>
+			<dependency name="rwCraftTime"/>
+			<dependency name="rwGoldCost"/>
+			<dependency name="rwIronCost"/>
+			<dependency name="rwLevelRequired"/>
+			<dependency name="rwMaterialCost"/>
+			<dependency name="rwName"/>
+			<param name="playerid">
+			</param>
+			<param name="craftType">
+			</param>
+			<param name="itemid">
+			</param>
+		</member>
 		<member name="M:ShowItemOptions" syntax="ShowItemOptions(playerid, itemid)">
-			<stacksize value="268"/>
+			<stacksize value="332"/>
 			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0i"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<dependency name="ItemInventory"/>
@@ -90718,7 +91553,9 @@
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="SelectedItem"/>
 			<dependency name="format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pVariable"/>
+			<dependency name="strcat"/>
 			<param name="playerid">
 			</param>
 			<param name="itemid">
@@ -90785,7 +91622,7 @@
 			</param>
 		</member>
 		<member name="M:ShowMainStats" syntax="ShowMainStats(playerid, targetid)">
-			<stacksize value="1884"/>
+			<stacksize value="1905"/>
 			<referrer name="pc_cmd_check"/>
 			<referrer name="pc_cmd_stats"/>
 			<referrer name="OnDialogResponse"/>
@@ -90844,6 +91681,7 @@
 			<dependency name="pMarriedName"/>
 			<dependency name="pMember"/>
 			<dependency name="pNation"/>
+			<dependency name="pPnumber"/>
 			<dependency name="pRank"/>
 			<dependency name="pSex"/>
 			<dependency name="pXP"/>
@@ -91097,13 +91935,14 @@
 			</param>
 		</member>
 		<member name="M:ShowOnlineTaxiDrivers" syntax="ShowOnlineTaxiDrivers(playerid)">
-			<stacksize value="2219"/>
+			<stacksize value="2220"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="IsATaxiDriver"/>
 			<dependency name="Iterator@Player"/>
+			<dependency name="JOB_TAXIDRIVER"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
@@ -91112,7 +91951,10 @@
 			<dependency name="TransportDuty"/>
 			<dependency name="cellmax"/>
 			<dependency name="format"/>
+			<dependency name="pJob"/>
+			<dependency name="pJob2"/>
 			<dependency name="pPnumber"/>
+			<dependency name="pTaxiLicense"/>
 			<dependency name="strcat"/>
 			<param name="playerid">
 			</param>
@@ -91502,8 +92344,15 @@
 			<referrer name="ShowBuyFishingRod"/>
 			<referrer name="ShowConfirmBuyBait"/>
 			<referrer name="ProcessBuyFishingRod"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_Stop"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_DepositToVehicle"/>
+			<referrer name="Lumber_OpenSellDialog"/>
+			<referrer name="Lumber_SellLog"/>
+			<referrer name="Lumber_ConvertToRaw"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
+			<referrer name="pc_cmd_laygo"/>
 			<referrer name="pc_cmd_testta"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
@@ -91570,8 +92419,6 @@
 			<referrer name="Miner_SellAll"/>
 			<referrer name="pc_cmd_layda"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="Miner_DoCraftMelee"/>
-			<referrer name="Miner_DoCraftGun"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="OnPlayerUseBanhMi"/>
@@ -91641,6 +92488,7 @@
 		</member>
 		<member name="M:ShowWeaponOptions" syntax="ShowWeaponOptions(playerid, weaponid, ammo)">
 			<stacksize value="298"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0i"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<dependency name="GetWeaponName"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
@@ -91980,6 +92828,57 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:StartCrafting" syntax="StartCrafting(playerid, type, itemid)">
+			<stacksize value="148"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
+			<dependency name="ApplyAnimation"/>
+			<dependency name="CRAFT_TYPE_MELEE"/>
+			<dependency name="CRAFT_TYPE_RANGED"/>
+			<dependency name="GetPlayerCraftingLevel"/>
+			<dependency name="IsPlayerAtCraftingLocation"/>
+			<dependency name="MeleeWeapons"/>
+			<dependency name="MeleeWeapons"/>
+			<dependency name="PlayerCrafting"/>
+			<dependency name="PlayerCraftingBronzeCost"/>
+			<dependency name="PlayerCraftingGoldCost"/>
+			<dependency name="PlayerCraftingIronCost"/>
+			<dependency name="PlayerCraftingItemID"/>
+			<dependency name="PlayerCraftingMaterialsCost"/>
+			<dependency name="PlayerCraftingType"/>
+			<dependency name="PlayerCraftingWoodCost"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="RangedWeapons"/>
+			<dependency name="RangedWeapons"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetLoading"/>
+			<dependency name="format"/>
+			<dependency name="mwCraftTime"/>
+			<dependency name="mwIronCost"/>
+			<dependency name="mwLevelRequired"/>
+			<dependency name="mwMaterialCost"/>
+			<dependency name="mwName"/>
+			<dependency name="mwWoodCost"/>
+			<dependency name="pGoThuong"/>
+			<dependency name="pMats"/>
+			<dependency name="pMinDong"/>
+			<dependency name="pMinSat"/>
+			<dependency name="pMinVang"/>
+			<dependency name="rwBronzeCost"/>
+			<dependency name="rwCraftTime"/>
+			<dependency name="rwGoldCost"/>
+			<dependency name="rwIronCost"/>
+			<dependency name="rwLevelRequired"/>
+			<dependency name="rwMaterialCost"/>
+			<dependency name="rwName"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="type">
+			</param>
+			<param name="itemid">
+			</param>
+		</member>
 		<member name="M:StartFishing" syntax="StartFishing(playerid)">
 			<stacksize value="139"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0S"/>
@@ -92136,6 +93035,36 @@
 			<param name="buttonid">
 			</param>
 		</member>
+		<member name="M:StopCrafting" syntax="StopCrafting(playerid, refundResources)">
+			<stacksize value="6"/>
+			<referrer name="pc_cmd_huychetao"/>
+			<referrer name="_@yHOnPlayerDisconnect@0f"/>
+			<dependency name="CRAFT_TYPE_RANGED"/>
+			<dependency name="ClearAnimations"/>
+			<dependency name="PlayerCrafting"/>
+			<dependency name="PlayerCraftingBronzeCost"/>
+			<dependency name="PlayerCraftingGoldCost"/>
+			<dependency name="PlayerCraftingIronCost"/>
+			<dependency name="PlayerCraftingItemID"/>
+			<dependency name="PlayerCraftingMaterialsCost"/>
+			<dependency name="PlayerCraftingType"/>
+			<dependency name="PlayerCraftingWoodCost"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="StopLoading"/>
+			<dependency name="false"/>
+			<dependency name="pGoThuong"/>
+			<dependency name="pMats"/>
+			<dependency name="pMinDong"/>
+			<dependency name="pMinSat"/>
+			<dependency name="pMinVang"/>
+			<param name="playerid">
+			</param>
+			<param name="refundResources">
+				<paraminfo>bool </paraminfo>
+			</param>
+		</member>
 		<member name="M:StopFishing" syntax="StopFishing(playerid)">
 			<stacksize value="6"/>
 			<referrer name="StartFishing"/>
@@ -92162,9 +93091,11 @@
 			<referrer name="TienTrinhHaiCanSa"/>
 			<referrer name="_@yHOnPlayerDisconnect@0R"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
+			<referrer name="Lumber_Stop"/>
 			<referrer name="Porter_Stop"/>
 			<referrer name="Construction_Stop"/>
 			<referrer name="Miner_Stop"/>
+			<referrer name="StopCrafting"/>
 			<referrer name="SetLoading"/>
 			<dependency name="Animator_Destroy"/>
 			<dependency name="EOS"/>
@@ -92608,6 +93539,7 @@
 		</member>
 		<member name="M:SuccesMsg" syntax="SuccesMsg(playerid, string[])">
 			<stacksize value="6"/>
+			<referrer name="pc_cmd_testcraft"/>
 			<dependency name="ShowTDN"/>
 			<param name="playerid">
 			</param>
@@ -95375,6 +96307,7 @@
 		<member name="M:UnLockPlayerVehicle" syntax="UnLockPlayerVehicle(ownerid, carid, type)">
 			<stacksize value="4"/>
 			<referrer name="pc_cmd_pvlock"/>
+			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<dependency name="LockStatus"/>
 			<dependency name="vehicle_unlock_doors"/>
 			<param name="ownerid">
@@ -97013,29 +97946,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:XuLyTimer" syntax="XuLyTimer(playerid)">
-			<attribute name="public"/>
-			<stacksize value="167"/>
-			<dependency name="ApplyAnimation"/>
-			<dependency name="ClearAnimations"/>
-			<dependency name="DangCamKhucGo"/>
-			<dependency name="FIXES_GameTextForPlayer"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="RemovePlayerAttachedObject"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SetPlayerSpecialAction"/>
-			<dependency name="SetTimerEx"/>
-			<dependency name="XuLyTime"/>
-			<dependency name="format"/>
-			<dependency name="lXuLyTimer"/>
-			<dependency name="pGoHiem"/>
-			<dependency name="pGoThuong"/>
-			<dependency name="pGoXin"/>
-			<dependency name="random"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:Y3A_OnCodeInit" syntax="Y3A_OnCodeInit()">
 			<attribute name="public"/>
 			<stacksize value="3"/>
@@ -97151,6 +98061,8 @@
 			<referrer name="TruckPrice_Load"/>
 			<referrer name="MinerPrice_Save"/>
 			<referrer name="MinerPrice_Load"/>
+			<referrer name="SaveGPSTimDuong"/>
+			<referrer name="LoadGPSTimDuong"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="YSI_gsBuggedFOpen"/>
 			<dependency name="fclose"/>
@@ -97774,9 +98686,8 @@
 			<referrer name="@yH_OnDialogResponse@0S"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0S"/>
 			<referrer name="@yH_OnPlayerSpawn@0S"/>
-			<referrer name="@yH_OnPlayerDisconnect@0T"/>
 			<referrer name="@yH_OnPlayerConnect@0T"/>
-			<referrer name="@yH_OnGameModeInit@0T"/>
+			<referrer name="@yH_OnPlayerDisconnect@0T"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0T"/>
 			<referrer name="@yH_OnDialogResponse@0T"/>
 			<referrer name="@yH_OnDialogResponse@0U"/>
@@ -97814,6 +98725,8 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0e"/>
 			<referrer name="@yH_OnDialogResponse@0e"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
+			<referrer name="@yH_OnPlayerDisconnect@0f"/>
+			<referrer name="@yH_OnGameModeInit@0f"/>
 			<referrer name="@yH_OnPlayerDisconnect@0g"/>
 			<referrer name="@yH_OnPlayerStateChange@0g"/>
 			<referrer name="@yH_OnPlayerExitVehicle@0g"/>
@@ -97830,6 +98743,7 @@
 			<referrer name="@yH_OnDialogResponse@0k"/>
 			<referrer name="@yH_OnPlayerConnect@0l"/>
 			<referrer name="@yH_OnDialogResponse@0m"/>
+			<referrer name="@yH_OnGameModeInit@0n"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0o"/>
 			<referrer name="@yH_OnPlayerConnect@0o"/>
@@ -98041,11 +98955,14 @@
 			<attribute name="public"/>
 			<stacksize value="1420"/>
 			<referrer name="@yH_OnDialogResponse@0D"/>
+			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarString"/>
 			<dependency name="KickAdminOff"/>
 			<dependency name="KickAdvisorOff"/>
 			<dependency name="MainPipeline"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SetPVarInt"/>
 			<dependency name="SetPVarString"/>
 			<dependency name="cache_delete"/>
 			<dependency name="cache_get_field_content"/>
@@ -98053,6 +98970,9 @@
 			<dependency name="cache_num_rows"/>
 			<dependency name="format"/>
 			<dependency name="mysql_query"/>
+			<dependency name="mysql_tquery"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pHelper"/>
 			<param name="playerid">
 			</param>
 			<param name="dialogid">
@@ -98358,6 +99278,7 @@
 			<dependency name="PlayerCuffed"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerSpecialAction"/>
 			<dependency name="pHospital"/>
 			<param name="playerid">
 			</param>
@@ -98475,7 +99396,7 @@
 		</member>
 		<member name="M:_@yHOnDialogResponse@0R" syntax="_@yHOnDialogResponse@0R(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="201"/>
+			<stacksize value="1034"/>
 			<referrer name="@yH_OnDialogResponse@0R"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="CP"/>
@@ -98502,7 +99423,6 @@
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="inputcansa"/>
-			<dependency name="number_format"/>
 			<dependency name="pCanSa"/>
 			<dependency name="pCrack"/>
 			<dependency name="pPot"/>
@@ -98568,29 +99488,16 @@
 		</member>
 		<member name="M:_@yHOnDialogResponse@0T" syntax="_@yHOnDialogResponse@0T(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="201"/>
+			<stacksize value="8"/>
 			<referrer name="@yH_OnDialogResponse@0T"/>
-			<dependency name="CP"/>
-			<dependency name="DiscordLog"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GivePlayerCash"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SetPlayerCheckpoint"/>
-			<dependency name="ShowTDN"/>
-			<dependency name="WoodSell1"/>
-			<dependency name="WoodSell2"/>
-			<dependency name="WoodSell3"/>
-			<dependency name="dclog_Lumber"/>
-			<dependency name="format"/>
-			<dependency name="pAxe"/>
-			<dependency name="pCash"/>
-			<dependency name="pGoHiem"/>
-			<dependency name="pGoThuong"/>
-			<dependency name="pGoXin"/>
-			<dependency name="strval"/>
+			<dependency name="Lumber_ConvertToRaw"/>
+			<dependency name="Lumber_SellLog"/>
+			<dependency name="Lumber_Start"/>
+			<dependency name="Lumber_Stop"/>
+			<dependency name="PlayerPlaySound"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerCP"/>
+			<dependency name="gPlayerCheckpointStatus"/>
 			<param name="playerid">
 			</param>
 			<param name="dialogid">
@@ -98624,6 +99531,7 @@
 			<dependency name="SetPVarInt"/>
 			<dependency name="ShowPoliceInspect"/>
 			<dependency name="format"/>
+			<dependency name="g_mysql_SaveAccount"/>
 			<dependency name="pGuns"/>
 			<dependency name="pVariable"/>
 			<dependency name="strval"/>
@@ -98799,7 +99707,10 @@
 			<dependency name="Miner_SellType"/>
 			<dependency name="Miner_Start"/>
 			<dependency name="Miner_Stop"/>
+			<dependency name="PlayerPlaySound"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerCP"/>
+			<dependency name="gPlayerCheckpointStatus"/>
 			<param name="playerid">
 			</param>
 			<param name="dialogid">
@@ -98814,13 +99725,18 @@
 		</member>
 		<member name="M:_@yHOnDialogResponse@0f" syntax="_@yHOnDialogResponse@0f(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="5"/>
+			<stacksize value="12"/>
 			<referrer name="@yH_OnDialogResponse@0f"/>
-			<dependency name="Miner_DoCraftGun"/>
-			<dependency name="Miner_DoCraftMelee"/>
-			<dependency name="Miner_ShowCraftGun"/>
-			<dependency name="Miner_ShowCraftMain"/>
-			<dependency name="Miner_ShowCraftMelee"/>
+			<dependency name="CRAFT_TYPE_MELEE"/>
+			<dependency name="CRAFT_TYPE_RANGED"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="ShowItemDetailInfo"/>
+			<dependency name="StartCrafting"/>
+			<dependency name="gettime"/>
+			<dependency name="pc_cmd_chetaocanchien"/>
+			<dependency name="pc_cmd_chetaovukhi"/>
 			<param name="playerid">
 			</param>
 			<param name="dialogid">
@@ -98966,6 +99882,7 @@
 			<dependency name="format"/>
 			<dependency name="number_format"/>
 			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pBanhMi"/>
 			<dependency name="pBoatLic"/>
 			<dependency name="pBoombox"/>
@@ -98981,6 +99898,7 @@
 			<dependency name="pHamburger"/>
 			<dependency name="pHospital"/>
 			<dependency name="pIDCard"/>
+			<dependency name="pMember"/>
 			<dependency name="pMoiCau"/>
 			<dependency name="pNuocEp"/>
 			<dependency name="pNuocLoc"/>
@@ -99090,20 +100008,36 @@
 			<stacksize value="266"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
 			<dependency name="CP"/>
+			<dependency name="GetPlayerPos"/>
 			<dependency name="PC_EmulateCommand"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="SendClientMessage"/>
+			<dependency name="SaveGPSTimDuong"/>
+			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetPlayerCP"/>
 			<dependency name="SetPlayerCheckpoint"/>
+			<dependency name="ShowGPSManage"/>
+			<dependency name="ShowGPSTimDuong"/>
 			<dependency name="format"/>
+			<dependency name="gGPSTimDuongCount"/>
+			<dependency name="gJobX"/>
+			<dependency name="gJobY"/>
+			<dependency name="gJobZ"/>
 			<dependency name="gPlayerCheckpointStatus"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongX"/>
+			<dependency name="gTimDuongY"/>
+			<dependency name="gTimDuongZ"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pCanSa"/>
 			<dependency name="pCrack"/>
 			<dependency name="pPot"/>
 			<dependency name="pTepCanSa"/>
+			<dependency name="strcopy"/>
+			<dependency name="strlen"/>
 			<param name="playerid">
 			</param>
 			<param name="dialogid">
@@ -99191,27 +100125,6 @@
 			<dependency name="giaocansa_pos"/>
 			<dependency name="giaocansa_pos"/>
 		</member>
-		<member name="M:_@yHOnGameModeInit@0T" syntax="_@yHOnGameModeInit@0T()">
-			<attribute name="public"/>
-			<stacksize value="82"/>
-			<referrer name="@yH_OnGameModeInit@0T"/>
-			<dependency name="operator-(Float:,_:)"/>
-			<dependency name="operator+(Float:,Float:)"/>
-			<dependency name="Float:operator=(_:)"/>
-			<dependency name="CreateDynamic3DTextLabel"/>
-			<dependency name="CreateDynamicObject"/>
-			<dependency name="CreateDynamicPickup"/>
-			<dependency name="Iter_CreateActor"/>
-			<dependency name="WoodLumber"/>
-			<dependency name="WoodLumber"/>
-			<dependency name="chatcaypos_pos"/>
-			<dependency name="chatcaypos_pos"/>
-			<dependency name="format"/>
-			<dependency name="randomtree"/>
-			<dependency name="wObject"/>
-			<dependency name="wStatus"/>
-			<dependency name="wTextLabel"/>
-		</member>
 		<member name="M:_@yHOnGameModeInit@0_" syntax="_@yHOnGameModeInit@0_()">
 			<attribute name="public"/>
 			<stacksize value="170"/>
@@ -99242,11 +100155,32 @@
 			<referrer name="@yH_OnGameModeInit@0d"/>
 			<dependency name="gToggleElectric"/>
 		</member>
+		<member name="M:_@yHOnGameModeInit@0f" syntax="_@yHOnGameModeInit@0f()">
+			<attribute name="public"/>
+			<stacksize value="17"/>
+			<referrer name="@yH_OnGameModeInit@0f"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="CreateDynamic3DTextLabel"/>
+			<dependency name="CreateDynamicPickup"/>
+			<dependency name="Iter_CreateActor"/>
+			<dependency name="gMeleeWeaponCraftLabel"/>
+			<dependency name="gMeleeWeaponCraftPickup"/>
+			<dependency name="gMeleeWeaponCraftPos"/>
+			<dependency name="gRangedWeaponCraftLabel"/>
+			<dependency name="gRangedWeaponCraftPickup"/>
+			<dependency name="gRangedWeaponCraftPos"/>
+		</member>
 		<member name="M:_@yHOnGameModeInit@0i" syntax="_@yHOnGameModeInit@0i()">
 			<attribute name="public"/>
 			<stacksize value="3"/>
 			<referrer name="@yH_OnGameModeInit@0i"/>
 			<dependency name="CreateInvTDGlobal"/>
+		</member>
+		<member name="M:_@yHOnGameModeInit@0n" syntax="_@yHOnGameModeInit@0n()">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<referrer name="@yH_OnGameModeInit@0n"/>
+			<dependency name="LoadGPSTimDuong"/>
 		</member>
 		<member name="M:_@yHOnGameModeInit@0o" syntax="_@yHOnGameModeInit@0o()">
 			<attribute name="public"/>
@@ -99274,13 +100208,14 @@
 		</member>
 		<member name="M:_@yHOnPlayerClickPlayerTextDraw@0i" syntax="_@yHOnPlayerClickPlayerTextDraw@0i(playerid, playertextid)">
 			<attribute name="public"/>
-			<stacksize value="9"/>
+			<stacksize value="11"/>
 			<referrer name="@yH_OnPlayerClickPlayerTextDraw@0i"/>
-			<dependency name="CancelSelectTextDraw"/>
+			<dependency name="GetPlayerWeaponData"/>
+			<dependency name="HideInvTD"/>
 			<dependency name="InvTDOpen"/>
 			<dependency name="InvTDSlot"/>
-			<dependency name="PlayerPlaySound"/>
 			<dependency name="ShowItemOptions"/>
+			<dependency name="ShowWeaponOptions"/>
 			<dependency name="iTD_box"/>
 			<param name="playerid">
 			</param>
@@ -99529,7 +100464,15 @@
 			<attribute name="public"/>
 			<stacksize value="1"/>
 			<referrer name="@yH_OnPlayerConnect@0T"/>
-			<dependency name="DangCamKhucGo"/>
+			<dependency name="LP_AttackTree"/>
+			<dependency name="LP_ChopTimer"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="LP_VehicleID"/>
+			<dependency name="LP_Working"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="false"/>
+			<dependency name="gLumberVehLabel"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -100026,11 +100969,11 @@
 		</member>
 		<member name="M:_@yHOnPlayerDisconnect@0T" syntax="_@yHOnPlayerDisconnect@0T(playerid, reason)">
 			<attribute name="public"/>
-			<stacksize value="3"/>
+			<stacksize value="4"/>
 			<referrer name="@yH_OnPlayerDisconnect@0T"/>
-			<dependency name="KillTimer"/>
-			<dependency name="lChatCayTimer"/>
-			<dependency name="lXuLyTimer"/>
+			<dependency name="LP_Working"/>
+			<dependency name="Lumber_Stop"/>
+			<dependency name="PlayerLumberData"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
@@ -100107,6 +101050,19 @@
 			<dependency name="MP_Working"/>
 			<dependency name="Miner_Stop"/>
 			<dependency name="PlayerMinerData"/>
+			<param name="playerid">
+			</param>
+			<param name="reason">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerDisconnect@0f" syntax="_@yHOnPlayerDisconnect@0f(playerid, reason)">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<referrer name="@yH_OnPlayerDisconnect@0f"/>
+			<dependency name="PlayerCrafting"/>
+			<dependency name="StopCrafting"/>
+			<dependency name="false"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
@@ -100590,7 +101546,6 @@
 			<dependency name="TogglePlayerControllable"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
-			<dependency name="pTazer"/>
 			<dependency name="szPosX"/>
 			<dependency name="szPosY"/>
 			<dependency name="szPosZ"/>
@@ -100736,41 +101691,24 @@
 		</member>
 		<member name="M:_@yHOnPlayerKeyStateChange@0T" syntax="_@yHOnPlayerKeyStateChange@0T(playerid, newkeys, oldkeys)">
 			<attribute name="public"/>
-			<stacksize value="142"/>
+			<stacksize value="11"/>
 			<referrer name="@yH_OnPlayerKeyStateChange@0T"/>
-			<dependency name="CP"/>
-			<dependency name="ChatCayTime"/>
-			<dependency name="ClearAnimations"/>
-			<dependency name="DangCamKhucGo"/>
-			<dependency name="GetPVarInt"/>
+			<dependency name="GetVehiclePos"/>
+			<dependency name="IsLoadingActive"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
-			<dependency name="PlayerCuffed"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="RemovePlayerAttachedObject"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SetPlayerCheckpoint"/>
-			<dependency name="SetPlayerSpecialAction"/>
-			<dependency name="SetTimerEx"/>
+			<dependency name="IsValidVehicle"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="LP_VehicleID"/>
+			<dependency name="LP_Working"/>
+			<dependency name="Lumber_DepositToVehicle"/>
+			<dependency name="Lumber_FindNearestTree"/>
+			<dependency name="Lumber_OpenSellDialog"/>
+			<dependency name="Lumber_StartChop"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="SendClientMessageEx"/>
 			<dependency name="ShowTDN"/>
-			<dependency name="WoodLumber"/>
-			<dependency name="WoodLumber"/>
-			<dependency name="WoodSell1"/>
-			<dependency name="WoodSell2"/>
-			<dependency name="WoodSell3"/>
-			<dependency name="XuLyTime"/>
-			<dependency name="chatcaypos_pos"/>
-			<dependency name="chatcaypos_pos"/>
-			<dependency name="format"/>
-			<dependency name="lChatCayTimer"/>
-			<dependency name="lXuLyTimer"/>
-			<dependency name="pAxe"/>
-			<dependency name="pGoHiem"/>
-			<dependency name="pGoThuong"/>
-			<dependency name="pGoXin"/>
-			<dependency name="pJailTime"/>
-			<dependency name="wStatus"/>
+			<dependency name="gLumberVehLogCount"/>
 			<param name="playerid">
 			</param>
 			<param name="newkeys">
@@ -100923,9 +101861,8 @@
 			<dependency name="PlayerMinerData"/>
 			<dependency name="ProxDetectorWrap"/>
 			<dependency name="SendClientMessageEx"/>
-			<dependency name="SetTimerEx"/>
+			<dependency name="SetLoading"/>
 			<dependency name="ShowTDN"/>
-			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="gMinerVehStoneCount"/>
 			<dependency name="gMinerWashTimer"/>
@@ -101773,7 +102710,7 @@
 			<referrer name="LoadLastResetInfo"/>
 			<referrer name="CheckAndResetIfNeeded"/>
 			<referrer name="ResetAllPlayersFishingCount"/>
-			<referrer name="ResetWood"/>
+			<referrer name="Lumber_Init"/>
 			<referrer name="g_mysql_Init"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnQueryError"/>
@@ -102290,6 +103227,9 @@
 		</member>
 		<member name="M:cache_get_data" syntax="cache_get_data(&amp;rows, &amp;fields, connectionHandle)">
 			<stacksize value="3"/>
+			<referrer name="QueryHPerfList"/>
+			<referrer name="QueryHPerfGetSelected"/>
+			<referrer name="QueryHPerfDetail"/>
 			<referrer name="OnSelectMember"/>
 			<referrer name="OnLoadMemberList"/>
 			<referrer name="OnQueryFinish"/>
@@ -102392,6 +103332,9 @@
 			<referrer name="_@yHOnDialogResponse@0D"/>
 			<referrer name="pc_cmd_dsadmin"/>
 			<referrer name="pc_cmd_dsadvisor"/>
+			<referrer name="QueryHPerfList"/>
+			<referrer name="QueryHPerfGetSelected"/>
+			<referrer name="QueryHPerfDetail"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="OnSelectMember"/>
 			<referrer name="OnLoadMemberList"/>
@@ -103669,6 +104612,8 @@
 			<referrer name="TruckPrice_Load"/>
 			<referrer name="MinerPrice_Save"/>
 			<referrer name="MinerPrice_Load"/>
+			<referrer name="SaveGPSTimDuong"/>
+			<referrer name="LoadGPSTimDuong"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="handle">
 				<paraminfo>File </paraminfo>
@@ -103717,6 +104662,7 @@
 			<referrer name="Log"/>
 			<referrer name="LoadElevatorStuff"/>
 			<referrer name="FMemberCounter"/>
+			<referrer name="LoadGPSTimDuong"/>
 			<param name="filename">
 				<paraminfo> [] </paraminfo>
 				The name of the file
@@ -103800,6 +104746,9 @@
 			<referrer name="GetVehicleMaxSpeed"/>
 			<referrer name="GetRandomFishSize"/>
 			<referrer name="CatchFish"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_RespawnTree"/>
 			<referrer name="Firework"/>
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="Miner_Init"/>
@@ -104002,6 +104951,7 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="NhanTienCanSa"/>
 			<referrer name="CatchFish"/>
+			<referrer name="Lumber_Init"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
 			<referrer name="SucKhoe"/>
 			<referrer name="pc_cmd_suckhoe"/>
@@ -104041,6 +104991,7 @@
 			<referrer name="pc_cmd_nextpaycheck"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="pc_cmd_quickstats"/>
+			<referrer name="ShowGPSTimDuong"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="GetVehicleSpeed"/>
 			<referrer name="OnDialogResponse"/>
@@ -104295,6 +105246,9 @@
 			<referrer name="_@yHOnDialogResponse@0D"/>
 			<referrer name="pc_cmd_dsadmin"/>
 			<referrer name="pc_cmd_dsadvisor"/>
+			<referrer name="QueryHPerfList"/>
+			<referrer name="QueryHPerfGetSelected"/>
+			<referrer name="QueryHPerfDetail"/>
 			<referrer name="SendNewFamilyMessage"/>
 			<referrer name="RadioBroadCast"/>
 			<referrer name="FA_NotifyGang"/>
@@ -104435,13 +105389,9 @@
 			<referrer name="pc_cmd_resetinfo"/>
 			<referrer name="pc_cmd_xemca"/>
 			<referrer name="pc_cmd_testcancau"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
-			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
-			<referrer name="ResetWood"/>
-			<referrer name="XuLyTimer"/>
-			<referrer name="ChatCayTimer"/>
-			<referrer name="pc_cmd_chatgo"/>
+			<referrer name="Lumber_Start"/>
+			<referrer name="Lumber_StartChop"/>
+			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="pc_cmd_take"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
@@ -105433,7 +106383,6 @@
 			<referrer name="pc_cmd_tagedit"/>
 			<referrer name="pc_cmd_dgedit"/>
 			<referrer name="pc_cmd_fireworknear"/>
-			<referrer name="pc_cmd_thegioi"/>
 			<referrer name="pc_cmd_laypos"/>
 			<referrer name="EVF_OnVehicleSpawn"/>
 			<referrer name="EVF_OnVehicleMod"/>
@@ -105482,6 +106431,7 @@
 			<referrer name="pc_cmd_checkgiahang"/>
 			<referrer name="pc_cmd_giahang"/>
 			<referrer name="PorterAnimation"/>
+			<referrer name="pc_cmd_laybanh"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0b"/>
 			<referrer name="ConstructionLoader"/>
 			<referrer name="Electric_Stop"/>
@@ -105505,8 +106455,18 @@
 			<referrer name="Miner_SellAll"/>
 			<referrer name="pc_cmd_testminerfill"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
-			<referrer name="Miner_ShowCraftMelee"/>
-			<referrer name="Miner_ShowCraftGun"/>
+			<referrer name="OnPlayerCraftingComplete"/>
+			<referrer name="StartCrafting"/>
+			<referrer name="ShowItemDetailInfo"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_setcraftlevel"/>
+			<referrer name="pc_cmd_craftkit"/>
+			<referrer name="pc_cmd_checkcraft"/>
+			<referrer name="pc_cmd_chetaocanchien"/>
+			<referrer name="pc_cmd_chetaovukhi"/>
+			<referrer name="pc_cmd_vitrichetao"/>
+			<referrer name="pc_cmd_thongkechetao"/>
+			<referrer name="pc_cmd_huongdanchetao"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="ShowDialogRentCar"/>
@@ -105533,6 +106493,11 @@
 			<referrer name="pc_cmd_netstats"/>
 			<referrer name="pc_cmd_anetstats"/>
 			<referrer name="pc_cmd_quickstats"/>
+			<referrer name="SaveGPSTimDuong"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="ShowGPSTimViecLam"/>
+			<referrer name="ShowGPSManage"/>
+			<referrer name="pc_cmd_editgps"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="ShowJobHelp"/>
 			<referrer name="OnPlayerLoad"/>
@@ -105601,6 +106566,7 @@
 			<referrer name="LoadElevatorStuff"/>
 			<referrer name="TruckPrice_Load"/>
 			<referrer name="MinerPrice_Load"/>
+			<referrer name="LoadGPSTimDuong"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="handle">
 				<paraminfo>File </paraminfo>
@@ -105755,6 +106721,7 @@
 			<referrer name="FMemberCounter"/>
 			<referrer name="TruckPrice_Save"/>
 			<referrer name="MinerPrice_Save"/>
+			<referrer name="SaveGPSTimDuong"/>
 			<param name="handle">
 				<paraminfo>File </paraminfo>
 				The handle of the file to write to (returned by <a href="#fopen">fopen</a>)
@@ -106018,6 +106985,7 @@
 		</member>
 		<member name="M:g_mysql_SaveAccount" syntax="g_mysql_SaveAccount(playerid)">
 			<stacksize value="2184"/>
+			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="OnPlayerStatsUpdate"/>
 			<referrer name="pc_cmd_buycure"/>
 			<referrer name="OnDialogResponse"/>
@@ -106726,6 +107694,7 @@
 			<referrer name="DiscordLog"/>
 			<referrer name="SendDiscordConnect"/>
 			<referrer name="SendDiscordDisconnect"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="hour">
@@ -107951,6 +108920,8 @@
 			<attribute name="native"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
+			<referrer name="_@yHOnDialogResponse@0D"/>
+			<referrer name="QueryHPerfGetSelected"/>
 			<referrer name="FamilyAssets_InitMySQL"/>
 			<referrer name="FamilyAssets_Load"/>
 			<referrer name="SaveFamilyExt"/>
@@ -108327,13 +109298,14 @@
 			<referrer name="ShowChuyenTienHihi"/>
 			<referrer name="pc_cmd_xemtiendt"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
-			<referrer name="_@yHOnDialogResponse@0R"/>
 			<referrer name="ShowFishingShop"/>
 			<referrer name="ShowBuyFishingRod"/>
 			<referrer name="ShowBuyBait"/>
 			<referrer name="ShowConfirmBuyBait"/>
 			<referrer name="ProcessBuyFishingRod"/>
 			<referrer name="ProcessBuyBait"/>
+			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="Lumber_SellLog"/>
 			<referrer name="SyncUp"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnLoadPayNSpray"/>
@@ -109136,6 +110108,11 @@
 			<stacksize value="4"/>
 			<dependency name="PC_RegAlias"/>
 		</member>
+		<member name="M:pc_alias_train" syntax="pc_alias_train()">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="PC_RegAlias"/>
+		</member>
 		<member name="M:pc_alias_unloadpvehicles" syntax="pc_alias_unloadpvehicles()">
 			<attribute name="public"/>
 			<stacksize value="4"/>
@@ -109152,6 +110129,16 @@
 			<dependency name="PC_RegAlias"/>
 		</member>
 		<member name="M:pc_alias_usecigar" syntax="pc_alias_usecigar()">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="PC_RegAlias"/>
+		</member>
+		<member name="M:pc_alias_vitrilumber" syntax="pc_alias_vitrilumber()">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="PC_RegAlias"/>
+		</member>
+		<member name="M:pc_alias_vitriminer" syntax="pc_alias_vitriminer()">
 			<attribute name="public"/>
 			<stacksize value="4"/>
 			<dependency name="PC_RegAlias"/>
@@ -113215,29 +114202,17 @@
 		</member>
 		<member name="M:pc_cmd_chatgo" syntax="pc_cmd_chatgo(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="74"/>
+			<stacksize value="12"/>
+			<dependency name="IsValidVehicle"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="LP_VehicleID"/>
+			<dependency name="LP_Working"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="format"/>
-			<dependency name="pAxe"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:pc_cmd_chebien" syntax="pc_cmd_chebien(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="6"/>
-			<dependency name="JOB_MINER"/>
-			<dependency name="MP_Working"/>
-			<dependency name="Miner_ShowCraftMain"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerMinerData"/>
+			<dependency name="PlayerLumberData"/>
 			<dependency name="SendClientMessageEx"/>
-			<dependency name="pJob"/>
-			<dependency name="pJob2"/>
+			<dependency name="gLumberVehLogCount"/>
+			<dependency name="pGoThuong"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -113255,6 +114230,20 @@
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_checkad" syntax="pc_cmd_checkad(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pHelper"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -113312,6 +114301,35 @@
 			<dependency name="conboss"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_checkcraft" syntax="pc_cmd_checkcraft(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="545"/>
+			<dependency name="GetPlayerCraftingLevel"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetSuccessRateByLevel"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pCraftSkill"/>
+			<dependency name="pGoThuong"/>
+			<dependency name="pMats"/>
+			<dependency name="pMinDong"/>
+			<dependency name="pMinSat"/>
+			<dependency name="pMinVang"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -113512,6 +114530,46 @@
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_chetaocanchien" syntax="pc_cmd_chetaocanchien(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1034"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
+			<dependency name="CRAFT_TYPE_MELEE"/>
+			<dependency name="IsPlayerAtCraftingLocation"/>
+			<dependency name="MeleeWeapons"/>
+			<dependency name="MeleeWeapons"/>
+			<dependency name="PlayerCrafting"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="format"/>
+			<dependency name="mwLevelRequired"/>
+			<dependency name="mwName"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_chetaovukhi" syntax="pc_cmd_chetaovukhi(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1034"/>
+			<referrer name="_@yHOnDialogResponse@0f"/>
+			<dependency name="CRAFT_TYPE_RANGED"/>
+			<dependency name="IsPlayerAtCraftingLocation"/>
+			<dependency name="PlayerCrafting"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="RangedWeapons"/>
+			<dependency name="RangedWeapons"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="format"/>
+			<dependency name="rwLevelRequired"/>
+			<dependency name="rwName"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -114099,6 +115157,31 @@
 			<dependency name="false"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pTogReports"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_craftkit" syntax="pc_cmd_craftkit(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="161"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pGoThuong"/>
+			<dependency name="pMats"/>
+			<dependency name="pMinDong"/>
+			<dependency name="pMinSat"/>
+			<dependency name="pMinVang"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -116628,11 +117711,13 @@
 			<dependency name="GetPVarType"/>
 			<dependency name="JOB_CONSTRUCTION"/>
 			<dependency name="JOB_ELECTRIC"/>
+			<dependency name="JOB_LUMBER"/>
 			<dependency name="JOB_MINER"/>
 			<dependency name="JOB_NONE"/>
 			<dependency name="JOB_PIZZABOY"/>
 			<dependency name="JOB_PORTER"/>
 			<dependency name="JOB_TAXIDRIVER"/>
+			<dependency name="Lumber_Stop"/>
 			<dependency name="Miner_Stop"/>
 			<dependency name="PC_EmulateCommand"/>
 			<dependency name="PlayerInfo"/>
@@ -116891,6 +117976,7 @@
 			<dependency name="pFMember"/>
 			<dependency name="pFactionModerator"/>
 			<dependency name="pGangModerator"/>
+			<dependency name="pLeader"/>
 			<dependency name="pMember"/>
 			<param name="playerid">
 			</param>
@@ -117234,6 +118320,35 @@
 			<dependency name="bExtPos"/>
 			<dependency name="bName"/>
 			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="strcmp"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_editgps" syntax="pc_cmd_editgps(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="152"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="LoadGPSTimDuong"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SaveGPSTimDuong"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="ShowGPSManage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="gGPSTimDuongCount"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongName"/>
+			<dependency name="gTimDuongX"/>
+			<dependency name="gTimDuongY"/>
+			<dependency name="gTimDuongZ"/>
 			<dependency name="pAdmin"/>
 			<dependency name="strcmp"/>
 			<dependency name="true"/>
@@ -119371,6 +120486,7 @@
 			<dependency name="loaihang"/>
 			<dependency name="number_format"/>
 			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pDonateRank"/>
 			<dependency name="strcat"/>
 			<param name="playerid">
@@ -119971,7 +121087,7 @@
 		</member>
 		<member name="M:pc_cmd_giveweapon" syntax="pc_cmd_giveweapon(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="251"/>
+			<stacksize value="252"/>
 			<dependency name="operator&lt;(Float:,_:)"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerHealth"/>
@@ -122080,6 +123196,17 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_huongdanchetao" syntax="pc_cmd_huongdanchetao(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="2058"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="format"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_huybaocao" syntax="pc_cmd_huybaocao(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="7"/>
@@ -122093,6 +123220,19 @@
 			<dependency name="Reports"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="TimeToExpire"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_huychetao" syntax="pc_cmd_huychetao(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="6"/>
+			<dependency name="PlayerCrafting"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="StopCrafting"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -123220,6 +124360,7 @@
 			<dependency name="GetPVarType"/>
 			<dependency name="JOB_CONSTRUCTION"/>
 			<dependency name="JOB_ELECTRIC"/>
+			<dependency name="JOB_LUMBER"/>
 			<dependency name="JOB_MINER"/>
 			<dependency name="JOB_NONE"/>
 			<dependency name="JOB_PIZZABOY"/>
@@ -123268,7 +124409,7 @@
 		</member>
 		<member name="M:pc_cmd_laybanh" syntax="pc_cmd_laybanh(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="140"/>
+			<stacksize value="164"/>
 			<dependency name="operator&gt;(Float:,Float:)"/>
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="operator&lt;(Float:,_:)"/>
@@ -123292,6 +124433,7 @@
 			<dependency name="StripUnderscore"/>
 			<dependency name="false"/>
 			<dependency name="floatround"/>
+			<dependency name="format"/>
 			<dependency name="hExteriorX"/>
 			<dependency name="hExteriorY"/>
 			<dependency name="hExteriorZ"/>
@@ -123300,6 +124442,7 @@
 			<dependency name="pJob"/>
 			<dependency name="pJob2"/>
 			<dependency name="random"/>
+			<dependency name="strlen"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -123327,6 +124470,34 @@
 			<dependency name="gMinerVehStoneCount"/>
 			<dependency name="gMinerVehStoneObj"/>
 			<dependency name="gMinerVehStoneObj"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_laygo" syntax="pc_cmd_laygo(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="22"/>
+			<dependency name="ApplyAnimation"/>
+			<dependency name="DestroyDynamicObject"/>
+			<dependency name="GetVehiclePos"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="IsValidVehicle"/>
+			<dependency name="LP_HasLog"/>
+			<dependency name="LP_VehicleID"/>
+			<dependency name="LP_Working"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerAttachedObject"/>
+			<dependency name="SetPlayerSpecialAction"/>
+			<dependency name="ShowTDN"/>
+			<dependency name="gLumberVehLogCount"/>
+			<dependency name="gLumberVehLogObj"/>
+			<dependency name="gLumberVehLogObj"/>
 			<dependency name="true"/>
 			<param name="playerid">
 			</param>
@@ -127270,16 +128441,18 @@
 		</member>
 		<member name="M:pc_cmd_pvlock" syntax="pc_cmd_pvlock(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="11"/>
+			<stacksize value="12"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<dependency name="GetVehiclePos"/>
 			<dependency name="HienTextdraw"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="Iterator@Player"/>
 			<dependency name="LockPlayerVehicle"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="UnLockPlayerVehicle"/>
+			<dependency name="cellmax"/>
 			<dependency name="pvId"/>
 			<dependency name="pvLocked"/>
 			<param name="playerid">
@@ -127837,6 +129010,23 @@
 			<dependency name="VehicleFuel"/>
 			<dependency name="bStatus"/>
 			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_refuelveh" syntax="pc_cmd_refuelveh(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="7"/>
+			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
+			<dependency name="IsRefuelableVehicle"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="VehicleFuel"/>
+			<dependency name="pAdmin"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -130098,6 +131288,55 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_setcraftlevel" syntax="pc_cmd_setcraftlevel(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="163"/>
+			<dependency name="GetPlayerCraftingLevel"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pCraftSkill"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_setcraftmaterial" syntax="pc_cmd_setcraftmaterial(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="194"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pGoThuong"/>
+			<dependency name="pMats"/>
+			<dependency name="pMinDong"/>
+			<dependency name="pMinSat"/>
+			<dependency name="pMinVang"/>
+			<dependency name="strcmp"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_setcredits" syntax="pc_cmd_setcredits(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="240"/>
@@ -131987,6 +133226,7 @@
 		<member name="M:pc_cmd_spec" syntax="pc_cmd_spec(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="186"/>
+			<referrer name="OnPlayerClickPlayer"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarType"/>
@@ -133112,6 +134352,20 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_testcraft" syntax="pc_cmd_testcraft(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SuccesMsg"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pCraftSkill"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_testloading" syntax="pc_cmd_testloading(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="7"/>
@@ -133338,17 +134592,8 @@
 		</member>
 		<member name="M:pc_cmd_thegioi" syntax="pc_cmd_thegioi(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="160"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="PlayerCountTheGioi"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="SendClientMessage"/>
+			<stacksize value="6"/>
 			<dependency name="SendClientMessageEx"/>
-			<dependency name="SendClientMessageToAllEx"/>
-			<dependency name="format"/>
-			<dependency name="pAdmin"/>
-			<dependency name="pSMod"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -133363,6 +134608,22 @@
 			<dependency name="SendClientMessage"/>
 			<dependency name="SetCameraBehindPlayer"/>
 			<dependency name="false"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_thongkechetao" syntax="pc_cmd_thongkechetao(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="525"/>
+			<dependency name="GetPlayerCraftingLevel"/>
+			<dependency name="GetSuccessRateByLevel"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="format"/>
+			<dependency name="pCraftSkill"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -133458,8 +134719,8 @@
 		</member>
 		<member name="M:pc_cmd_timvieclam" syntax="pc_cmd_timvieclam(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="10"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
+			<stacksize value="4"/>
+			<dependency name="ShowGPSTimViecLam"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -134240,6 +135501,18 @@
 			<dependency name="pCredits"/>
 			<dependency name="pDonateRank"/>
 			<dependency name="pTrickortreat"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_trogiupchetao" syntax="pc_cmd_trogiupchetao(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="6"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="pAdmin"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -135420,6 +136693,44 @@
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetPVarInt"/>
 			<dependency name="ShopClosed"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_vitrichetao" syntax="pc_cmd_vitrichetao(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="136"/>
+			<dependency name="CP"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerCheckpoint"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="gMeleeWeaponCraftPos"/>
+			<dependency name="gRangedWeaponCraftPos"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_vitrilumber" syntax="pc_cmd_vitrilumber(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_vitriminer" syntax="pc_cmd_vitriminer(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -136640,8 +137951,10 @@
 			<referrer name="DecreaseFishingRodDurability"/>
 			<referrer name="GetRandomFishType"/>
 			<referrer name="GetRandomFishSize"/>
-			<referrer name="randomtree"/>
-			<referrer name="XuLyTimer"/>
+			<referrer name="Lumber_SpawnTreeAt"/>
+			<referrer name="Lumber_Init"/>
+			<referrer name="Lumber_RespawnTree"/>
+			<referrer name="Lumber_ConvertToRaw"/>
 			<referrer name="pc_cmd_testta"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
@@ -136710,6 +138023,7 @@
 			<referrer name="Miner_Init"/>
 			<referrer name="Miner_RespawnStone"/>
 			<referrer name="Miner_WashFinish"/>
+			<referrer name="OnPlayerCraftingComplete"/>
 			<referrer name="CreateGarbageObject"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="CreatePlayerRentalCar"/>
@@ -136733,12 +138047,6 @@
 				The range of values (from <b><c>0</c></b> to <b><c>max-1</c></b>) that can be returned
 			</param>
 			<library>core</library>  <summary>Get a pseudo-random number.</summary>    <remarks>Using a value smaller than <b><c>1</c></b> gives weird values.</remarks>  <remarks>The standard random number generator of pawn is likely a linear congruential pseudo-random  number generator with a range and a period of 2^31.  Linear congruential pseudo-random number generators  suffer from serial correlation (especially in the low bits) and it is unsuitable for applications  that require high-quality random numbers.</remarks>  <returns>A random number ranging from <b><c>0</c></b> to <b><c>max-1</c></b>.</returns> 
-		</member>
-		<member name="M:randomtree" syntax="randomtree()">
-			<stacksize value="7"/>
-			<referrer name="_@yHOnGameModeInit@0T"/>
-			<referrer name="ResetWood"/>
-			<dependency name="random"/>
 		</member>
 		<member name="M:rawMemcpy" syntax="rawMemcpy(dest, src, numbytes)">
 			<stacksize value="7"/>
@@ -137544,12 +138852,14 @@
 			<referrer name="pc_cmd_giahang"/>
 			<referrer name="Miner_WashFinish"/>
 			<referrer name="Miner_OpenSellDialog"/>
-			<referrer name="Miner_ShowCraftMelee"/>
-			<referrer name="Miner_ShowCraftGun"/>
 			<referrer name="pc_cmd_xethue"/>
+			<referrer name="ShowItemOptions"/>
 			<referrer name="ShowNewbieMission"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="PayDay"/>
+			<referrer name="ShowGPSTimDuong"/>
+			<referrer name="ShowGPSTimViecLam"/>
+			<referrer name="ShowGPSManage"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="dest">
@@ -137735,6 +139045,8 @@
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="pc_cmd_egroup"/>
 			<referrer name="MinerPrice_Load"/>
+			<referrer name="pc_cmd_setcraftmaterial"/>
+			<referrer name="pc_cmd_editgps"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="string1">
 				<paraminfo> [] </paraminfo>
@@ -137755,6 +139067,7 @@
 		</member>
 		<member name="M:strcopy" syntax="strcopy(__dest[], __source[], __maxlength)">
 			<stacksize value="5"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
 			<dependency name="EOS"/>
 			<dependency name="strcat"/>
 			<param name="__dest">
@@ -137801,8 +139114,6 @@
 			<referrer name="pc_cmd_vstorage"/>
 			<referrer name="pc_cmd_setautoreply"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
-			<referrer name="Miner_ShowCraftMelee"/>
-			<referrer name="Miner_ShowCraftGun"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 				The string to delete part of
@@ -138125,6 +139436,7 @@
 			<referrer name="NDP_CalculateListitemsPerPage"/>
 			<referrer name="NDP_ProcessDialogResponse"/>
 			<referrer name="substr"/>
+			<referrer name="QueryHPerfList"/>
 			<referrer name="FM_ShowGangInfo"/>
 			<referrer name="FM_ShowMotdMenu"/>
 			<referrer name="FM_OnDialogResponse"/>
@@ -138199,8 +139511,10 @@
 			<referrer name="pc_cmd_offermenu"/>
 			<referrer name="IsPlayerDiscordVerified"/>
 			<referrer name="TruckPrice_Load"/>
+			<referrer name="pc_cmd_laybanh"/>
 			<referrer name="Electric_OnGroupNameResponse"/>
 			<referrer name="MinerPrice_Load"/>
+			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
@@ -138531,6 +139845,9 @@
 			<referrer name="ScriptInit_PurgeTemporaries"/>
 			<referrer name="IPToInt"/>
 			<referrer name="Prev_FetchListitemData"/>
+			<referrer name="QueryHPerfList"/>
+			<referrer name="QueryHPerfGetSelected"/>
+			<referrer name="QueryHPerfDetail"/>
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
@@ -138540,7 +139857,6 @@
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnDialogResponse@0O"/>
 			<referrer name="_@yHOnDialogResponse@0R"/>
-			<referrer name="_@yHOnDialogResponse@0T"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnLoadPayNSpray"/>
