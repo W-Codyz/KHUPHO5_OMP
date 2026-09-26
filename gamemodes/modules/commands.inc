@@ -8306,14 +8306,14 @@ CMD:sendto(playerid, params[])
 			SendClientMessageEx(playerid, COLOR_GRAD3, "Locations 3: countygen,cracklab,gym,rodeo,flint,idlewood,fbi,island,demorgan,doc,icprison,oocprison");
 			return 1;
 		}
-		if(PlayerInfo[giveplayerid][pAdmin] >= PlayerInfo[playerid][pAdmin])
-		{
-			SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the su dung dieu nay voi mot quan tri vien.");
-			return 1;
-		}
 		if (!IsPlayerConnected(giveplayerid))
 		{
 			SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le");
+			return 1;
+		}
+		if(PlayerInfo[giveplayerid][pAdmin] >= PlayerInfo[playerid][pAdmin])
+		{
+			SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the su dung dieu nay voi mot quan tri vien.");
 			return 1;
 		}
 		if(GetPlayerState(giveplayerid) == PLAYER_STATE_SPECTATING)
@@ -13770,7 +13770,7 @@ CMD:killzz(playerid, params[])
 {
 	if(!IsPlayerConnected(playerid)) return SendClientMessageEx (playerid, COLOR_GRAD2, "Ban khong the tu tu vao thoi diem nay.");
 	else if(HungerPlayerInfo[playerid][hgInEvent] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong the tu tu khi dang trong su kien Hunger Games!");
-    else if(GetPVarInt( playerid, "EventToken" ) == 1 || PlayerInfo[playerid][pBeingSentenced] != 0 || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0 || PlayerInfo[playerid][pJailTime] != 0) return SendClientMessageEx (playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao thoi diem nay.");
+    else if(GetPVarInt( playerid, "EventToken" ) == 1 || PlayerInfo[playerid][pBeingSentenced] != 0 || GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0 || PlayerInfo[playerid][pJailTime] != 0 || g_HospRecoveryTimer[playerid] != -1) return SendClientMessageEx (playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao thoi diem nay.");
 	else
 	{
 		if(GetPVarInt(playerid, "EventToken") >= 1 || GetPVarInt(playerid, "IsInArena") >= 0)
@@ -36170,12 +36170,15 @@ CMD:adjust(playerid, params[])
 	if(PlayerInfo[playerid][pRank] >= 5)
 	{
 		new choice[32], opstring[100];
-		if(sscanf(params, "s[32]S[100]", choice, opstring))
+		opstring[0] = EOS;
+		if(sscanf(params, "s[32]", choice))
 		{
 			SendHelpMessage(playerid, "/adjust [name]");
 			SendClientMessageEx(playerid, COLOR_WHITE, "Ten co san : Name, Safe");
 			return 1;
 		}
+		new iSp = strfind(params, " ", false);
+		if(iSp != -1) strmid(opstring, params, iSp + 1, strlen(params), sizeof(opstring));
 
 		if(strcmp(choice,"name",true) == 0)
 		{
