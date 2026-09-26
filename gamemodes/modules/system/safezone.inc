@@ -443,7 +443,7 @@ hook OnPlayerUpdate(playerid)
         {
             inAnyZone = true;
 
-            if(!IsACop(playerid) || PlayerInfo[playerid][pAdmin] < 2)
+            if(!IsACop(playerid) && PlayerInfo[playerid][pAdmin] < 2)
             {
                 SetPlayerArmedWeapon(playerid, 0);
             }
@@ -520,7 +520,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
         {
             if(weaponid != 0)
             {
-                if(!IsACop(playerid) || PlayerInfo[playerid][pAdmin] < 2)
+                if(!IsACop(playerid) && PlayerInfo[playerid][pAdmin] < 2)
                 {
                     GameTextForPlayer(playerid, "~r~SAFEZONE", 2000, 3);
                     TogglePlayerControllable(playerid, 0);
@@ -553,7 +553,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
             }
             else
             {
-                if(!IsACop(playerid) || PlayerInfo[playerid][pAdmin] < 2)
+                if(!IsACop(playerid) && PlayerInfo[playerid][pAdmin] < 2)
                 {
                     new Float:php, Float:ahp;
                     GetPlayerHealth(damagedid, php);
@@ -580,7 +580,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
                 SafeZoneInfo[Sz][szPosY],
                 SafeZoneInfo[Sz][szPosZ]))
             {
-                if((!IsACop(playerid) && pTazer{playerid} == 0) || !IsAMedic(playerid))
+                if(!IsACop(playerid) && !IsAMedic(playerid))
                 {
                     new Float:php, Float:ahp;
                     GetPlayerHealth(damagedid, php);
