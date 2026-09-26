@@ -1084,7 +1084,7 @@ CMD:checkgiahang(playerid, params[])
 // VIP Platinum: xem gia thu mua cao nhat
 CMD:giahang(playerid, params[])
 {
-    if(PlayerInfo[playerid][pDonateRank] < 4) return 1;
+    if(PlayerInfo[playerid][pDonateRank] < 4 || PlayerInfo[playerid][pAdmin] < 99999) return 1;
 
     new highPrices[4];
     for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
