@@ -7294,14 +7294,14 @@ CMD:goto(playerid, params[])
 			if (GetPlayerState(playerid) == 2)
 			{
 				new tmpcar = GetPlayerVehicleID(playerid);
-				SetVehiclePos(tmpcar,2795.8694,-1619.4038,10.9219);
+				SetVehiclePos(tmpcar,1523.093505, -1474.203125, 9.500000);
 				LinkVehicleToInterior(tmpcar, 0);
 				SetVehicleVirtualWorld(tmpcar, 0);
 				fVehSpeed[playerid] = 0.0;
 			}
 			else
 			{
-				SetPlayerPos(playerid, 2795.8694,-1619.4038,10.9219);
+				SetPlayerPos(playerid, 1523.093505, -1474.203125, 9.500000);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
 			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
