@@ -42,20 +42,23 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart){
         SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti cheating minigun, neu co hack that hay tat giup tuiiii...!");
         SetTimerEx("KickEx", 2000, 0, "i", playerid);
     }
-	new Float: ax, Float: ay, Float: az;
-	GetPlayerPos(playerid, ax,ay,az);
-	if ((GetPlayerDistanceFromPoint(playerid, ax, ay, az) > 10 && weaponid == 0) || GetPlayerDistanceFromPoint(playerid, ax,ay,az) > 400)
+	new Float: bx, Float: by, Float: bz;
+	GetPlayerPos(damagedid, bx, by, bz);
+	new Float: fistDist = GetPlayerDistanceFromPoint(playerid, bx, by, bz);
+	if ((fistDist > 5.0 && weaponid == 0) || fistDist > 400.0)
 	{
         new szMess[256];
         RemovePlayerWeapon(playerid, 38);
         format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Distance.", GetPlayerNameEx(playerid));
         //ABroadCast(COLOR_YELLOW, szMess, 2);
 		discord_messHack(szMess);
-        SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti hack distance, neu co hack that hay tat giup tuiiii...!");
+        SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti hack, neu co hack that hay tat giup tuiiii...!");
         SetTimerEx("KickEx", 2000, 0, "i", playerid);
 	}
 	if (amount > 30 && weaponid != 25 && weaponid != 26 && weaponid != 27 && weaponid != 24 && weaponid != 34)
 	{
+		// Fist: cho phep neu dang danh gan (da qua check distance o tren) va dame <= 100 (knockout hop le)
+		if (weaponid == 0 && fistDist <= 5.0 && amount <= 100.0) return 1;
         new szMess[256];
         RemovePlayerWeapon(playerid, 38);
         format(szMess, sizeof(szMess), "%s da bi kick vi su dung hack Dame.", GetPlayerNameEx(playerid));

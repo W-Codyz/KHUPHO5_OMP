@@ -66,7 +66,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid)
 
 	Anti_killall_1(playerid, amount);
 	Anti_killall_2(playerid, amount);
-	Anti_killall_3(playerid, amount, weaponid);
+	Anti_killall_3(playerid, damagedid, amount, weaponid);
 	Anti_killall_4(playerid, damagedid);
 	Anti_killall_5(playerid, weaponid);
 	Anti_killall_6(playerid, amount, weaponid);
@@ -133,22 +133,25 @@ public Anti_killall_2(playerid, Float:amount)
 	return 1;
 }
 
-forward Anti_killall_3(playerid, Float:amount, weaponid);
-public Anti_killall_3(playerid, Float:amount, weaponid)  
+forward Anti_killall_3(playerid, damagedid, Float:amount, weaponid);
+public Anti_killall_3(playerid, damagedid, Float:amount, weaponid)
 {
 	/*
 		Nếu người dùng, dùng tay không mà gây dmg trên 10dmg nếu không học võ.
 		> Kick
 	*/
 
-	if(weaponid == 0 && amount > 10 && PlayerInfo[playerid][pFightStyle] == 0) {
-		new String[128];
-        format( String, sizeof( String ), "[ANTI-CHEAT] Nguoi choi %s, da bi kick ra khoi may chu do su dung (Kill All [3]).", GetPlayerNameEx(playerid));
-        discord_messHack(String);
-		ABroadCast( COLOR_LIGHTRED, String, 2 );
-		Log("logs/AntiHackBynDP.log", String);
-		Kick(playerid);
-		return 1;
+	if(weaponid == 0 && PlayerInfo[playerid][pFightStyle] == 0) {
+		new Float:fistDist3 = GetDistanceBetweenPlayers(playerid, damagedid);
+		if(amount > 100 || fistDist3 > 5.0) {
+			new String[128];
+	        format( String, sizeof( String ), "[ANTI-CHEAT] Nguoi choi %s, da bi kick ra khoi may chu do su dung (Kill All [3]).", GetPlayerNameEx(playerid));
+	        discord_messHack(String);
+			ABroadCast( COLOR_LIGHTRED, String, 2 );
+			Log("logs/AntiHackBynDP.log", String);
+			Kick(playerid);
+			return 1;
+		}
 	}
 	return 1;
 }
