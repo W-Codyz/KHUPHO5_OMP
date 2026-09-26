@@ -21,9 +21,10 @@
 #define MINER_WASH_Z        -42.497318
 
 // Vi tri NPC ban khoang san
-#define MINER_SELL_X        816.580688
-#define MINER_SELL_Y        856.946105
-#define MINER_SELL_Z        12.789062
+#define MINER_SELL_X        1218.229003
+#define MINER_SELL_Y        -1655.291259
+#define MINER_SELL_Z        11.951199
+#define MINER_SELL_ANGLE    271.522644
 
 // Model
 #define MINER_STONE_MODEL   3930

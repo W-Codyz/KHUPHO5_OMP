@@ -129,7 +129,7 @@ Miner_Init()
     printf("[Miner] %d/%d rocks spawned (%d attempts).", count, MINER_MAX_STONES, attempts);
 
     // Sell NPC + label
-    gMinerSellNPC = CreateDynamicActor(49, MINER_SELL_X, MINER_SELL_Y, MINER_SELL_Z, 202.849380, true);
+    gMinerSellNPC = CreateDynamicActor(49, MINER_SELL_X, MINER_SELL_Y, MINER_SELL_Z, MINER_SELL_ANGLE, true);
     CreateDynamic3DTextLabel(
         "{F5F52F}Nguoi Mua Khoang San\n{FFFFFF}Nhan {5FBC52}[Y]{FFFFFF} de ban khoang san",
         -1, MINER_SELL_X, MINER_SELL_Y, MINER_SELL_Z + 0.3, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
@@ -984,7 +984,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             case 2:
             {
                 PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-                SetPlayerCP(playerid, MINER_SELL_X, MINER_SELL_Y, MINER_SELL_Z, 3.0);
+                SetPlayerCP(playerid, -1581.417480, 947.800170, 7.187500, 3.0);
                 gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
                 SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{d4a017}[GPS] {ffffff}Dang dan duong den NPC ban khoang san.");
             }
