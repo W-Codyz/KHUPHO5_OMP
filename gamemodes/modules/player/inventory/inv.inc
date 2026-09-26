@@ -754,7 +754,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
                         ShowPlayerDialog(playerid, INTERACTGIVE2, DIALOG_STYLE_TABLIST_HEADERS, name, string, "Lua chon", "Huy bo");
                     }
-                    case 2: // Show ID
+                    case 2: // Show ID Card
                     {
                         new giveplayerid = GetPVarInt(playerid, "pInteractID");
 
@@ -774,24 +774,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                             return 1;
                         }
 
-                        new text1[32], text2[32], text3[32], text4[32];
-                        if(PlayerInfo[playerid][pCarLic])      text1 = "{0EEF5D}Da so huu{FFFFFF}"; else text1 = "{C2A347}Chua so huu{FFFFFF}";
-                        if(PlayerInfo[playerid][pFlyLic])      text4 = "{0EEF5D}Da so huu{FFFFFF}"; else text4 = "{C2A347}Chua so huu{FFFFFF}";
-                        if(PlayerInfo[playerid][pBoatLic])     text2 = "{0EEF5D}Da so huu{FFFFFF}"; else text2 = "{C2A347}Chua so huu{FFFFFF}";
-                        if(PlayerInfo[playerid][pTaxiLicense]) text3 = "{0EEF5D}Da so huu{FFFFFF}"; else text3 = "{C2A347}Chua so huu{FFFFFF}";
+                        new proxstring[128];
+                        format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s dua giay to tuy than ra cho %s xem.", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+                        ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
-                        new dlgtitle[128], dlgbody[428];
-                        format(dlgtitle, sizeof(dlgtitle), "{FFFFFF}Thong tin cong dan cua %s", GetPlayerNameEx(playerid));
-                        format(dlgbody, sizeof(dlgbody),
-                            "{60F0DF}CONG DAN SAN ANDREAS\n\n{FFFFFF}ID Card: {A3F15F}%d\n{FFFFFF}Ho va ten: %s\n___________________________________\nGiay phep lai xe: %s\nGiay phep Taxi: %s\nGiay phep thuyen: %s\nGiay phep may bay: %s",
-                            PlayerInfo[playerid][pIDCard], GetPlayerNameEx(playerid), text1, text3, text2, text4);
-                        ShowPlayerDialog(giveplayerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, dlgtitle, dlgbody, "Dong", "");
-
-                        new string[128];
-                        format(string, sizeof(string), "* %s da cho ban xem can cuoc cong dan cua ho.", GetPlayerNameEx(playerid));
-                        SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
-                        format(string, sizeof(string), "* Ban da cho %s xem thong tin can cuoc cua ban.", GetPlayerNameEx(giveplayerid));
-                        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+                        new dlgbody[128];
+                        format(dlgbody, sizeof(dlgbody), "{FFFFFF}%s muon cho ban xem giay to tuy than cua ho.\n{FFFF00}Ban co muon xem khong?", GetPlayerNameEx(playerid));
+                        SetPVarInt(giveplayerid, "pCardViewFrom", playerid);
+                        ShowPlayerDialog(giveplayerid, DIALOG_CARD_VIEW_REQUEST, DIALOG_STYLE_MSGBOX, "{FFFFFF}Kiem tra giay to", dlgbody, "Xem ngay", "Tu choi");
 
                         DeletePVar(playerid, "pInteractName");
                         DeletePVar(playerid, "pInteractID");

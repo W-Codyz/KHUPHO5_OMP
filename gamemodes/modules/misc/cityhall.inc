@@ -16,9 +16,3 @@ CreateIDCard(playerid)
     UpdatePlayerInteger(playerid, "IDCard", rand_id);
     return 1;
 }
-
-ShowCityHallDialog(playerid)
-{
-    ShowPlayerDialog(playerid, DIALOG_CITYHALL, DIALOG_STYLE_LIST, "{FFFFFF}W_Cody", "Lam the can cuoc cong dan", "Chon", "Dong");
-    return 1;
-}
