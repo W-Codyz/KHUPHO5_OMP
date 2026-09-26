@@ -134,6 +134,8 @@ Miner_Init()
         "{F5F52F}Nguoi Mua Khoang San\n{FFFFFF}Nhan {5FBC52}[Y]{FFFFFF} de ban khoang san",
         -1, MINER_SELL_X, MINER_SELL_Y, MINER_SELL_Z + 0.3, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
 
+    CreateDynamic3DTextLabel("<Ong Nam>\nMua khoang san gia' cao dayyy!!", -1, MINER_SELL_X, MINER_SELL_Y, MINER_SELL_Z+0.8,5.0);
+
     // Wash station label + pickup
     CreateDynamic3DTextLabel(
         "{00CFFF}Tram Rua Khoang San\n{FFFFFF}Nhan {5FBC52}[Y]{FFFFFF} khi co da tren xe",
