@@ -9842,118 +9842,45 @@ stock SetPlayerSpawn(playerid)
   				return 1;
 			}
 			#endif
-			SendClientMessageEx( playerid, TEAM_CYAN_COLOR, "Truoc khi ban xuat vien, nhan vien benh vien se tich thu toan bo vu khi cua ban." );
+
+			// Apply death penalties
 			PlayerInfo[playerid][pDuty] = 0;
 			PlayerInfo[playerid][pVW] = 0;
 			PlayerInfo[playerid][pInt] = 0;
-			//PlayerInfo[playerid][pHunger] = 50;
 			PlayerInfo[playerid][pThucAn] = 50;
 			PlayerInfo[playerid][pNuoc] = 50;
-
-			//Tazer & Cuff reset
 			PlayerInfo[playerid][pHasCuff] = 0;
 			PlayerInfo[playerid][pHasTazer] = 0;
 
-			// decrease fitness by 8
-			if (PlayerInfo[playerid][pFitness] >= 6)
+			if(PlayerInfo[playerid][pFitness] >= 6)
 				PlayerInfo[playerid][pFitness] -= 6;
 			else
 				PlayerInfo[playerid][pFitness] = 0;
 
 			SetPlayerVirtualWorld(playerid, 0);
-			/*new cut = deathcost; //PlayerInfo[playerid][pLevel]*deathcost;
-			GivePlayerCash(playerid, -cut); GetPlayerDistanceFromPoint(iPlayerTwo, fPlayerPos[0], fPlayerPos[1], fPlayerPos[2]);
-			format(string, sizeof(string), "Your hospital bill comes to $%d. Have a nice day!", cut);
-			SendClientMessageEx(playerid, TEAM_CYAN_COLOR, string);*/
-			ResetPlayerWeapons(playerid);
 
-			if( GetPVarInt( playerid, "EventToken" ) == 1 )
-			{
-				//SendClientMessageEx( playerid, COLOR_WHITE, "As you've just come from an event, your weapons have been refunded." );
-			}
-			else
-			{
+			if(GetPVarInt(playerid, "EventToken") != 1)
 				ResetPlayerWeaponsEx(playerid);
-			}
 
-			SetPVarInt(playerid, "MedicBill", 1);
-			SetPlayerInterior(playerid, 0);
-			new string[70+MAX_PLAYER_NAME];
-
-			if(PlayerInfo[playerid][pInsurance] == 5 || PlayerInfo[playerid][pInsurance] == 0) 
+			// Notify police if wanted
+			if(PlayerInfo[playerid][pInsurance] == 5 || PlayerInfo[playerid][pInsurance] == 0)
 			{
 				if(PlayerInfo[playerid][pWantedLevel] >= 1)
 				{
+					new string[70+MAX_PLAYER_NAME];
 					SendClientMessageEx(playerid, COLOR_YELLOW, " Canh sat da duoc thong bao rang ban dang bi truy na va ho dang tren duong toi.");
 					format(string, sizeof(string), "San Fierro Medical Center da bao cao doi tuong truy na %s dang o day.", GetPlayerNameEx(playerid));
 					SendGroupMessage(1, DEPTRADIO, string);
 				}
-
-				SetPlayerCameraPos(playerid,-2571.2766,558.7813,68.1754);
-				SetPlayerCameraLookAt(playerid,-2619.2883,596.2850,49.0966);
-				SetPlayerPos(playerid, -2653.6685,626.6485,4.8930);
-				PlayerInfo[playerid][pHospital] = 5;
 			}
-			
-			TogglePlayerControllable(playerid, false);
-			SetPlayerHealth(playerid, 0.5);
-			if(PlayerInfo[playerid][pHealthCare] == 0)
-			{
-			    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong co tieu chuan de cham soc suc khoe tot hon, su dung /chamsocsuckhoe de mua goi cham soc suc khoe khi vao vien.");
-				SetPVarInt(playerid, "HospitalTimer", 35);
-			}
-			else if(PlayerInfo[playerid][pHealthCare] == 1)
-			{
-			    if(PlayerInfo[playerid][pCredits] >= ShopItems[18][sItemPrice])
-			    {
-			        GivePlayerCredits(playerid, -ShopItems[18][sItemPrice], 1);
-			        printf("Price18: %d", 1);
-			    	SetPVarInt(playerid, "HealthCareActive", 1);
 
-                    AmountSold[18]++;
-                    AmountMade[18] += ShopItems[18][sItemPrice];
-			    	//ShopItems[18][sSold]++;
-					//ShopItems[18][sMade] += ShopItems[18][sItemPrice];
-					new szQuery[128];
-				 	format(szQuery, sizeof(szQuery), "UPDATE `sales` SET `TotalSold18` = '%d', `AmountMade18` = '%d' WHERE `Month` > NOW() - INTERVAL 1 MONTH", AmountSold[18], AmountMade[18]);
-					mysql_function_query(MainPipeline, szQuery, false, "OnQueryFinish", "i", SENDDATA_THREAD);
-
-					format(string, sizeof(string), "[HC] [User: %s(%i)][IP: %s][Credits: %s][Binh thuong][Gia: %s]", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid), number_format(PlayerInfo[playerid][pCredits]), number_format(ShopItems[18][sItemPrice]));
-					Log("logs/credits.log", string), print(string);
-				}
-				else
-				{
-				    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong du credits de mua goi cham soc suc khoe binh thuong.");
-				}
-			    SetPVarInt(playerid, "HospitalTimer", 35);
-			}
-			else
-			{
-			    if(PlayerInfo[playerid][pCredits] >= ShopItems[19][sItemPrice])
-			    {
-			        GivePlayerCredits(playerid, -ShopItems[19][sItemPrice], 1);
-			        printf("Price19: %d", 2);
-			    	SetPVarInt(playerid, "HospitalTimer", 5);
-			    	SetPVarInt(playerid, "HealthCareActive", 1);
-                    AmountSold[19]++;
-					AmountMade[19] += ShopItems[19][sItemPrice];
-			    	//ShopItems[19][sSold]++;
-					//ShopItems[19][sMade] += ShopItems[19][sItemPrice];
-					new szQuery[128];
-					format(szQuery, sizeof(szQuery), "UPDATE `sales` SET `TotalSold19` = '%d', `AmountMade19` = '%d' WHERE `Month` > NOW() - INTERVAL 1 MONTH", AmountSold[19], AmountMade[19]);
-					mysql_function_query(MainPipeline, szQuery, false, "OnQueryFinish", "i", SENDDATA_THREAD);
-
-			    	format(string, sizeof(string), "[HC] [User: %s(%i)][IP: %s][Credits: %s][Nang cao][Gia: %s]", GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), GetPlayerIpEx(playerid), number_format(PlayerInfo[playerid][pCredits]), number_format(ShopItems[19][sItemPrice]));
-					Log("logs/credits.log", string), print(string);
-				}
-				else
-				{
-				    SetPVarInt(playerid, "HospitalTimer", 35);
-				    SendClientMessageEx(playerid, COLOR_CYAN, "Ban khong du credits de mua goi cham soc suc khoe nang cao.");
-				}
-			}
-			SetTimerEx("OtherTimerEx", 1000, false, "ii", playerid, TYPE_HOSPITALTIMER);
-			return 1;
+			// Clear flag and redirect to hospital bed system (hospital_spawn.inc)
+			// hosp_PostSpawnBed fires 100ms after OnPlayerSpawn finishes,
+			// overriding SetPlayerSpawn position and SetPlayerWeapons.
+			PlayerInfo[playerid][pHospital] = 0;
+			DeletePVar(playerid, "MedicBill");
+			SetTimerEx("hosp_PostSpawnBed", 100, false, "i", playerid);
+			// Fall through to pHospital==0 block for initial spawn position
 		}
 		if(PlayerInfo[playerid][pHospital] == 0)
 		{

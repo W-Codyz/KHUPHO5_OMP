@@ -3698,6 +3698,19 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 	if(GetPVarInt(playerid, "Injured") == 1)
 	{
+		// If the saved injury position is in the void, the player is stuck in a death loop.
+		// Manually clear EMS vars (do NOT call KillEMSQueue — it sets MedicBill=1 which
+		// conflicts with HospitalSpawn_OnPlayerDeath/_HospDMDeath already being set).
+		if(GetPVarFloat(playerid, "MedicZ") < -50.0)
+		{
+			DeletePVar(playerid, "Injured");
+			DeletePVar(playerid, "EMSAttempt");
+			DeletePVar(playerid, "MedicCall");
+			DeletePVar(playerid, "EMSWarns");
+			ResetPlayerWeaponsEx(playerid);
+			SpawnPlayer(playerid);
+			return 1;
+		}
 		foreach(new i: Player)
 		{
 			if(EMSAccepted[i] == playerid)
@@ -3723,13 +3736,17 @@ public OnPlayerDeath(playerid, killerid, reason)
 				new Float:mX, Float:mY, Float:mZ;
 				GetPlayerPos(playerid, mX, mY, mZ);
 
-				SetPVarFloat(playerid, "MedicX", mX);
-				SetPVarFloat(playerid, "MedicY", mY);
-				SetPVarFloat(playerid, "MedicZ", mZ);
-				SetPVarInt(playerid, "MedicVW", GetPlayerVirtualWorld(playerid));
-				SetPVarInt(playerid, "MedicInt", GetPlayerInterior(playerid));
+				// Skip injured system if player fell into void (map bug) to prevent death loop
+				if(mZ >= -50.0)
+				{
+					SetPVarFloat(playerid, "MedicX", mX);
+					SetPVarFloat(playerid, "MedicY", mY);
+					SetPVarFloat(playerid, "MedicZ", mZ);
+					SetPVarInt(playerid, "MedicVW", GetPlayerVirtualWorld(playerid));
+					SetPVarInt(playerid, "MedicInt", GetPlayerInterior(playerid));
 
-				SetPVarInt(playerid, "Injured", 1);
+					SetPVarInt(playerid, "Injured", 1);
+				}
 			}
 		}
 	}
