@@ -727,14 +727,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iRadioAccess] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iRadioAccess] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iRadioAccess] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iRadioAccess] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iRadioAccess];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da thiet lap cap bac toi thieu vao radio (/r) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da thiet lap cap bac toi thieu vao radio (/r) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iRadioAccess], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iRadioAccess]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 		case DIALOG_GROUP_DEPTRADIOACC: {
@@ -742,14 +745,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iDeptRadioAccess] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iDeptRadioAccess] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iDeptRadioAccess] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iDeptRadioAccess] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iDeptRadioAccess];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu su dung dept radio (/dept) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu su dung dept radio (/dept) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iDeptRadioAccess], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iDeptRadioAccess]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 		case DIALOG_GROUP_INTRADIOACC: {
@@ -757,14 +763,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iIntRadioAccess] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iIntRadioAccess] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iIntRadioAccess] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iIntRadioAccess] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iIntRadioAccess];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu cho int radio (/int) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu cho int radio (/int) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iIntRadioAccess], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iIntRadioAccess]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 		case DIALOG_GROUP_BUGACC: {
@@ -772,14 +781,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iBugAccess] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iBugAccess] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iBugAccess] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iBugAccess] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iBugAccess];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de xem bug (/bug) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de xem bug (/bug) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iBugAccess], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iBugAccess]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 		case DIALOG_GROUP_GOVACC: {
@@ -787,14 +799,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iGovAccess] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iGovAccess] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iGovAccess] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iGovAccess] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iGovAccess];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da thiet lap cap bac toi thieu de thong bao cho chinh phu (/gov) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da thiet lap cap bac toi thieu de thong bao cho chinh phu (/gov) den %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iGovAccess], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iGovAccess]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 		case DIALOG_GROUP_FREENC: {
@@ -802,14 +817,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iFreeNameChange] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iFreeNameChange] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iFreeNameChange] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iFreeNameChange] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iFreeNameChange];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu duoc mien phi doi ten %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu duoc mien phi doi ten %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iFreeNameChange], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iFreeNameChange]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 
@@ -818,14 +836,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iSpikeStrips] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iSpikeStrips] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iSpikeStrips] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iSpikeStrips] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iSpikeStrips];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat spikes (/deployspikes) deb %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat spikes (/deployspikes) deb %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iSpikeStrips], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iSpikeStrips]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 
@@ -834,14 +855,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iBarricades] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iBarricades] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iBarricades] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iBarricades] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iBarricades];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat cades (/deploycades) to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat cades (/deploycades) to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iBarricades], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iBarricades]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 
@@ -850,14 +874,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iCones] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iCones] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iCones] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iCones] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iCones];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat cones (/deploycone) to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat cones (/deploycone) to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iCones], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iCones]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 
@@ -866,14 +893,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iFlares] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iFlares] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iFlares] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iFlares] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iFlares];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat flares (/deployflares) to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat flares (/deployflares) to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iFlares], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iFlares]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 
@@ -882,14 +912,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iBarrels] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iBarrels] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iBarrels] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iBarrels] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iBarrels];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat barrels (/deploybarrel) to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da chinh sua cap bac toi thieu de dat barrels (/deploybarrel) to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iBarrels], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iBarrels]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 		case DIALOG_GROUP_CRATE: {
@@ -897,14 +930,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				iGroupID = GetPVarInt(playerid, "Group_EditID");
 
-			if(response) switch(listitem) {
-				case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iCrateIsland] = INVALID_RANK;
-				default: arrGroupData[iGroupID][g_iCrateIsland] = listitem;
+			if(response) {
+				switch(listitem) {
+					case MAX_GROUP_RANKS: arrGroupData[iGroupID][g_iCrateIsland] = INVALID_RANK;
+					default: arrGroupData[iGroupID][g_iCrateIsland] = listitem;
+				}
+				new szRN[GROUP_MAX_RANK_LEN] = "None";
+				new iAcc = arrGroupData[iGroupID][g_iCrateIsland];
+				if(iAcc < MAX_GROUP_RANKS) format(szRN, GROUP_MAX_RANK_LEN, "%s", arrGroupRanks[iGroupID][iAcc]);
+				format(string, sizeof(string), "%s da sua rank toi thieu cho Crate Island Control to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), iAcc, szRN, iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
+				Log("logs/editgroup.log", string);
 			}
-
-			format(string, sizeof(string), "%s da sua rank toi thieu cho Crate Island Control to %d (%s) trong nhom %d (%s)", GetPlayerNameEx(playerid), arrGroupData[iGroupID][g_iCrateIsland], arrGroupRanks[iGroupID][arrGroupData[iGroupID][g_iCrateIsland]], iGroupID+1, arrGroupData[iGroupID][g_szGroupName]);
-			Log("logs/editgroup.log", string);
-
 			return Group_DisplayDialog(playerid, iGroupID);
 		}
 		case DIALOG_GROUP_DUTYCOL: {
