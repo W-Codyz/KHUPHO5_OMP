@@ -1009,7 +1009,7 @@ Ban co muon lay ra khong?",
                 {
                     // Lấy trực tiếp
                     new ammo = FamilyInfo[fam][FamilyNewGunAmmo][slotIdx];
-                    GivePlayerWeapon(playerid, wid, ammo);
+                    GivePlayerValidWeapon(playerid, wid, ammo);
                     FamilyInfo[fam][FamilyNewGuns][slotIdx]    = 0;
                     FamilyInfo[fam][FamilyNewGunAmmo][slotIdx] = 0;
                     FA_SaveGunSlot(fam, slotIdx);
@@ -1067,7 +1067,7 @@ Ban co muon lay ra khong?",
             new ammo = FamilyInfo[fam][FamilyNewGunAmmo][safeSlot];
             if(wid == 0) return 1;
 
-            GivePlayerWeapon(playerid, wid, ammo);
+            GivePlayerValidWeapon(playerid, wid, ammo);
             FamilyInfo[fam][FamilyNewGuns][safeSlot]    = 0;
             FamilyInfo[fam][FamilyNewGunAmmo][safeSlot] = 0;
             FA_SaveGunSlot(fam, safeSlot);
