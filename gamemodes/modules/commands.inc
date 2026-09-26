@@ -35070,7 +35070,16 @@ CMD:ch(playerid, params[])
 alias:getlicense("muagiayphep")
 CMD:getlicense(playerid, params[])
 {
-	if (!IsPlayerInRangeOfPoint(playerid,3.0,  918.758728, -1463.715820, 2754.338867)) { return 1; }
+	if (!IsPlayerInRangeOfPoint(playerid, 5.0, 918.758728, -1463.715820, 2754.338867))
+	{
+		/* new Float:x, Float:y, Float:z;
+		GetPlayerPos(playerid, x, y, z);
+		new dbg[128];
+		format(dbg, sizeof(dbg), "[DEBUG] Pos: %.2f, %.2f, %.2f | Interior: %d", x, y, z, GetPlayerInterior(playerid));
+		SendClientMessageEx(playerid, COLOR_GREY, dbg); */
+		SendClientMessageEx(playerid, COLOR_GREY, "Ban phai dung tai City Hall de su dung lenh nay.");
+		return 1;
+	}
 	if (PlayerInfo[playerid][pWantedLevel] > 0) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "Ban da co mot lenh bat giu - mua lai giay phep deu bi cam.");
 	ShowPlayerDialog(playerid, DIALOG_LICENSE_BUY, DIALOG_STYLE_LIST, "Chon loai giay phep ban muon mua.", "Giay phep lai xe ($5,000)\r\nGiay phep lai thuyen ($5,000)\r\nGiay phep lai may bay ($25,000)\r\nGiay phep lai taxi ($35,000)", "Mua", "Huy bo");
 	return 1;
