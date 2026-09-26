@@ -94,6 +94,10 @@ stock hosp_StopRecovery(playerid)
 // Dat benh nhan vao giuong — dung cho ca rescue va post-spawn
 stock hosp_PlacePatientInBed(patientid, bool:treatFailed)
 {
+    // Kill timer cu truoc khi tao timer moi, tranh orphaned timer gay spam va tele 0/0/0
+    if(g_HospRecoveryTimer[patientid] != -1)
+        hosp_StopRecovery(patientid);
+
     new bedIdx = random(HOSP_BED_COUNT);
 
     g_HospBedX[patientid] = g_HospBedPos[bedIdx][0];
@@ -252,8 +256,13 @@ public HospitalRecovery_Tick(playerid)
         return;
     }
 
+    // Safety: neu timer nay la orphaned (hosp_StopRecovery da duoc goi boi timer khac),
+    // thi g_HospRecoveryTimer da bi set -1 → thoat de tranh tele 0/0/0 va spam message.
+    if(g_HospRecoveryTimer[playerid] == -1) return;
+
     // Anti-teleport: keo ve giuong neu bi dich chuyen ra ngoai
-    if(!IsPlayerInRangeOfPoint(playerid, HOSP_BED_SNAP_DIST,
+    if(g_HospBedX[playerid] != 0.0 &&
+        !IsPlayerInRangeOfPoint(playerid, HOSP_BED_SNAP_DIST,
         g_HospBedX[playerid], g_HospBedY[playerid], g_HospBedZ[playerid]))
     {
         SetPlayerPos(playerid, g_HospBedX[playerid], g_HospBedY[playerid], g_HospBedZ[playerid]);
