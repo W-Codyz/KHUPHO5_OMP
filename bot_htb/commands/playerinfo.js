@@ -59,12 +59,12 @@ module.exports = {
 
             // Query thông tin người chơi
             const [results] = await connection.execute(
-                `SELECT 
-                    RegiDate, LastLogin, Username, Money, Bank, 
+                `SELECT
+                    RegiDate, LastLogin, Username, Money, Bank,
                     pHealth, pArmor, Model, PhoneNr, DiscordID, DiscordCode,
-                    Level, Sex, Age, ConnectedTime, Online
-                FROM accounts 
-                WHERE Username = ? 
+                    Level, Sex, Age, ConnectedTime, PayDay, BirthDate, Online
+                FROM accounts
+                WHERE Username = ?
                 LIMIT 1`,
                 [username]
             );
@@ -108,11 +108,11 @@ module.exports = {
             const genderEmoji = player.Sex === 2 ? '👩' : '👨';
             const genderText = player.Sex === 2 ? 'Nữ' : 'Nam';
 
-            // Format thời gian chơi (ConnectedTime tính bằng giây)
-            const totalMinutes = Math.floor(player.ConnectedTime / 60);
-            const hours = Math.floor(totalMinutes / 60);
-            const minutes = totalMinutes % 60;
+            // ConnectedTime = pConnectHours (số giờ), PayDay = pConnectSeconds (0-3599s)
+            const hours = player.ConnectedTime || 0;
+            const minutes = Math.floor((player.PayDay || 0) / 60);
             const playTime = `${hours} giờ ${minutes} phút`;
+            const birthDate = player.BirthDate && player.BirthDate !== '00-00-0000' ? player.BirthDate : 'Chưa có thông tin';
 
             // Xử lý trạng thái online
             const onlineStatus = player.Online === 1 ? '🟢 Đang online' : '🔴 Đang offline';
@@ -128,6 +128,7 @@ module.exports = {
                     `**🎂 Tuổi:** ${player.Age}`,
                     `**⭐ Level:** ${player.Level}`,
                     `**⏱️ Thời gian chơi:** ${playTime}`,
+                    `**🎂 Ngày sinh:** ${birthDate}`,
                     `**📅 Ngày tạo:** ${formatDate(player.RegiDate)}`,
                     `**🕐 Đăng nhập cuối:** ${formatDate(player.LastLogin)}`,
                     `**💵 Tiền mặt:** $${formatMoney(player.Money)}`,

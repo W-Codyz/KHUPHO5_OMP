@@ -28,11 +28,12 @@ module.exports = {
             const connection = await pool.getConnection();
 
             const query = `
-                SELECT 
+                SELECT
                     Username,
                     LastLogin,
                     RegiDate,
                     ConnectedTime,
+                    PayDay,
                     Sex,
                     Age,
                     BirthDate,
@@ -41,8 +42,8 @@ module.exports = {
                     pArmor,
                     DiscordID,
                     Online,
-                    Model 
-                FROM accounts 
+                    Model
+                FROM accounts
                 WHERE Username = ?
             `;
 
@@ -89,10 +90,9 @@ module.exports = {
             // Xử lý trạng thái online (sửa lỗi thiếu cột Online)
             const onlineStatus = player.Online === 1 ? '🟢 Đang online' : '🔴 Đang offline';
 
-            // Format thời gian chơi (ConnectedTime tính bằng giây)
-            const totalMinutes = Math.floor(player.ConnectedTime / 60);
-            const hours = Math.floor(totalMinutes / 60);
-            const minutes = totalMinutes % 60;
+            // ConnectedTime = pConnectHours (số giờ), PayDay = pConnectSeconds (0-3599s)
+            const hours = player.ConnectedTime || 0;
+            const minutes = Math.floor((player.PayDay || 0) / 60);
             const playTime = `${hours} giờ ${minutes} phút`;
 
             // Tính phần trăm máu và giáp
@@ -137,7 +137,7 @@ module.exports = {
                         name: '⏰ Thời gian',
                         value: [
                             `**Thời gian chơi:** ⌛ ${playTime}`,
-                            `**Ngày sinh:** 📅 ${player.BirthDate ? new Date(player.BirthDate).toLocaleDateString('vi-VN') : 'Chưa có thông tin'}`,
+                            `**Ngày sinh:** 📅 ${player.BirthDate && player.BirthDate !== '00-00-0000' ? player.BirthDate : 'Chưa có thông tin'}`,
                         ].join('\n'),
                         inline: true
                     },

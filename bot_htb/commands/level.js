@@ -58,9 +58,9 @@ module.exports = {
                 const name = player.Username.padEnd(18);
                 const level = `${player.Level}`.padStart(3).padEnd(9);
                 
-                // ConnectedTime tính bằng giây, chuyển sang giờ
-                const hours = (player.ConnectedTime && player.ConnectedTime > 0) 
-                    ? Math.floor(player.ConnectedTime / 3600).toLocaleString().padStart(6)
+                // ConnectedTime = pConnectHours (số giờ đã chơi)
+                const hours = (player.ConnectedTime && player.ConnectedTime > 0)
+                    ? player.ConnectedTime.toLocaleString().padStart(6)
                     : "0".padStart(6);
 
                 description += `${stt} ${name}${level}${hours}\n`;
