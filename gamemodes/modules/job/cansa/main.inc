@@ -2,7 +2,7 @@
 
 new dangchebien[MAX_PLAYERS];
 new inputcansa[MAX_PLAYERS];
-#define MONEY_SELL_CANSA 350 // money sell 1 tep can sa
+#define MONEY_SELL_CANSA 650 // money sell 1 tep can sa
 #define THUNGRAC 21
 #define GIAOCANSA 10
 #define INVALID_FLOAT -1.0
@@ -309,7 +309,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if (listitem == 0)
             {
                 new stringb[1024];
-                format(stringb, sizeof stringb, "{ffffff}Hien tai bang dang co %d tep can sa \n1 tep can sa/350$", PlayerInfo[playerid][pTepCanSa]);
+                format(stringb, sizeof stringb, "{ffffff}Hien tai bang dang co %d tep can sa \n1 tep can sa/650$", PlayerInfo[playerid][pTepCanSa]);
                 ShowPlayerDialog(playerid, DIALOG_BANCANSA, DIALOG_STYLE_INPUT,"{ffff00}GTAHTB{ffffff} - Ban Can Sa", stringb, "Ban", "Thoat");
             }
             if (listitem == 1)
