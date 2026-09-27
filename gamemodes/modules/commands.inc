@@ -4857,7 +4857,7 @@ CMD:impound(playerid, params[]) {
 						format(szMessage, sizeof(szMessage),"* Ban da tich thu %s's %s.",GetPlayerNameEx(iTargetOwner), VehicleName[PlayerVehicleInfo[iTargetOwner][iVehIndex][pvModelId] - 400]);
 						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, szMessage);
 
-						format(szMessage, sizeof(szMessage), "Xe %s cua ban da bi giam giu. Vui long toi DMV de nop tien phat va lay lai xe.", VehicleName[PlayerVehicleInfo[iTargetOwner][iVehIndex][pvModelId] - 400]);
+						format(szMessage, sizeof(szMessage), "Xe %s cua ban da bi giam giu. Vui long toi don canh sat de nop tien phat va lay lai xe.", VehicleName[PlayerVehicleInfo[iTargetOwner][iVehIndex][pvModelId] - 400]);
 						SendClientMessageEx(iTargetOwner, COLOR_LIGHTBLUE, szMessage);
 
 						format(szMessage, sizeof(szMessage), "HQ: %s da tich thu %s's %s ($%s ve phat thanh toan).", GetPlayerNameEx(playerid), GetPlayerNameEx(iTargetOwner), VehicleName[PlayerVehicleInfo[iTargetOwner][iVehIndex][pvModelId] - 400], number_format(PlayerVehicleInfo[iTargetOwner][iVehIndex][pvTicket]));
@@ -4936,7 +4936,7 @@ CMD:aimpound(playerid, params[]) {
 				format(szMessage, sizeof(szMessage),"* Ban da tich thu xe %s's %s.",GetPlayerNameEx(iTargetOwner), VehicleName[PlayerVehicleInfo[iTargetOwner][iVehIndex][pvModelId] - 400]);
 				SendClientMessageEx(playerid, COLOR_LIGHTBLUE, szMessage);
 
-				format(szMessage, sizeof(szMessage), "Xe %s cua ban da bi giam giu boi mot admin. Vui long toi DMV de nop tien phat va lay lai xe.", VehicleName[PlayerVehicleInfo[iTargetOwner][iVehIndex][pvModelId] - 400]);
+				format(szMessage, sizeof(szMessage), "Xe %s cua ban da bi giam giu boi mot admin. Vui long toi don canh sat de nop tien phat va lay lai xe.", VehicleName[PlayerVehicleInfo[iTargetOwner][iVehIndex][pvModelId] - 400]);
 				SendClientMessageEx(iTargetOwner, COLOR_LIGHTBLUE, szMessage);
 
 			}
@@ -17023,7 +17023,7 @@ CMD:vstorage(playerid, params[])
 		if(vstring[0] == '\n') strdel(vstring, 0, 1);
 		ShowPlayerDialog(playerid, VEHICLESTORAGE, DIALOG_STYLE_LIST, "Xe cua toi", vstring, "Chinh xe", "Huy bo");
 	}
-	else { return SendClientMessageEx(playerid, COLOR_GRAD2, "Chiec xe nay da bi thu boi so canh sat, vui long toi DMV de lam thu tuc lay xe ra."); }
+	else { return SendClientMessageEx(playerid, COLOR_GRAD2, "Chiec xe nay da bi thu boi so canh sat, vui long toi don canh sat de lam thu tuc lay xe ra."); }
 	return 1;
 }
 
@@ -18869,7 +18869,7 @@ CMD:dmvrelease(playerid, params[]) {
 CMD:dmvmenu(playerid, params[])
 {
 	new vstring[1024], icount, icountz = GetPlayerVehicleSlots(playerid);
-	if(!IsPlayerInRangeOfPoint(playerid, 3.0, -2024.1606, -107.2681, 1041.6584)) 
+	if(!IsPlayerInRangeOfPoint(playerid, 3.0, 1321.647094, 733.484375, 111.320312)) 
 		return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong o trong Trung tam giay phep (DMV Menu).");
 	
 	if(PlayerInfo[playerid][pCarLic] == 0) 
@@ -35094,18 +35094,18 @@ CMD:ch(playerid, params[])
 alias:getlicense("muagiayphep")
 CMD:getlicense(playerid, params[])
 {
-	if (!IsPlayerInRangeOfPoint(playerid, 5.0, 918.758728, -1463.715820, 2754.338867))
+	if (!IsPlayerInRangeOfPoint(playerid, 5.0, 1321.650146, 745.385375, 111.320312))
 	{
 		/* new Float:x, Float:y, Float:z;
 		GetPlayerPos(playerid, x, y, z);
 		new dbg[128];
 		format(dbg, sizeof(dbg), "[DEBUG] Pos: %.2f, %.2f, %.2f | Interior: %d", x, y, z, GetPlayerInterior(playerid));
 		SendClientMessageEx(playerid, COLOR_GREY, dbg); */
-		SendClientMessageEx(playerid, COLOR_GREY, "Ban phai dung tai City Hall de su dung lenh nay.");
+		SendClientMessageEx(playerid, COLOR_GREY, "Ban phai dung tai Tru so canh sat de su dung lenh nay.");
 		return 1;
 	}
 	if (PlayerInfo[playerid][pWantedLevel] > 0) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "Ban da co mot lenh bat giu - mua lai giay phep deu bi cam.");
-	ShowPlayerDialog(playerid, DIALOG_LICENSE_BUY, DIALOG_STYLE_LIST, "Chon loai giay phep ban muon mua.", "Giay phep lai xe ($5,000)\r\nGiay phep lai thuyen ($5,000)\r\nGiay phep lai may bay ($25,000)\r\nGiay phep lai taxi ($35,000)", "Mua", "Huy bo");
+	ShowPlayerDialog(playerid, DIALOG_LICENSE_BUY, DIALOG_STYLE_LIST, "Chon loai giay phep ban muon mua.", "Giay phep lai thuyen ($5,000)\r\nGiay phep lai may bay ($25,000)\r\nGiay phep lai taxi ($35,000)\r\nGiay phep mang sung ($50,000)", "Mua", "Huy bo");
 	return 1;
 }
 
