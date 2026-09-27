@@ -158,18 +158,27 @@ DropPlayerWeapon(playerid, weaponid, ammo) {
 ShowItemOptions(playerid, itemid) {
     new variable = ItemInventory[itemid][pVariable];
     new quantity = PlayerInfo[playerid][variable];
-    
+
     new string[256];
+
+    if(variable == pIDCard) {
+        format(string, sizeof(string), "Item: %s\n\nChon hanh dong:", ItemInventory[itemid][NameItem]);
+        ShowPlayerDialog(playerid, DIALOG_ITEM_OPTIONS, DIALOG_STYLE_LIST, "Tuy chon item",
+            "Xem giay to\nCho xem giay to", "Chon", "Quay lai");
+        SelectedItem[playerid] = itemid;
+        return 1;
+    }
+
     format(string, sizeof(string), "Item: %s\nSo luong: %d\n\nChon hanh dong:",
         ItemInventory[itemid][NameItem],
         quantity
     );
-    
+
     new options[64] = "Su dung\nVut";
     if(PlayerInfo[playerid][pAdmin] > 1) strcat(options, "\nXoa", sizeof(options));
     ShowPlayerDialog(playerid, DIALOG_ITEM_OPTIONS, DIALOG_STYLE_LIST, "Tuy chon item",
         options, "Chon", "Quay lai");
-        
+
     SelectedItem[playerid] = itemid;
     return 1;
 }
@@ -492,18 +501,26 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                                 SendClientMessage(playerid, COLOR_GREY, "Goi y: /timduong va tim den vi tri cau ca");
                             }
                         }
-                        
+
+                        case pIDCard: {
+                            pc_cmd_licenses(playerid, "");
+                        }
+
                         default: {
                             SendClientMessage(playerid, COLOR_RED, "Khong the su dung item nay!");
                         }
                     }
                 }
-                case 1: { // Vứt
+                case 1: { // Vứt / Cho xem giay to (pIDCard)
+                    if(variable == pIDCard) {
+                        pc_cmd_choxemgiayphep(playerid, "");
+                        return 1;
+                    }
                     if(GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0) {
                         SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                         return 1;
                     }
-                    
+
                     if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban khong the lam dieu nay tren xe.");
                     
                     new string[128];

@@ -360,17 +360,28 @@ CMD:lucsoat(playerid, params[])
 
 CMD:licenses(playerid, params[])
 {
-	if(PlayerInfo[playerid][pIDCard] == 0) 
+	if(PlayerInfo[playerid][pIDCard] == 0)
 		return SendClientMessage(playerid, COLOR_GREY, "Ban chua so huu Can cuoc cong dan!");
 
-	new string[428], text1[32], text2[32], text3[32], text4[32];
-	if(PlayerInfo[playerid][pCarLic]) { text1 = "{0EEF5D}Da so huu{FFFFFF}"; } else { text1 = "{C2A347}Chua so huu{FFFFFF}"; }
-	if(PlayerInfo[playerid][pFlyLic]) { text4 = "{0EEF5D}Da so huu{FFFFFF}"; } else { text4 = "{C2A347}Chua so huu{FFFFFF}"; }
-	if(PlayerInfo[playerid][pBoatLic]) { text2 = "{0EEF5D}Da so huu{FFFFFF}"; } else { text2 = "{C2A347}Chua so huu{FFFFFF}"; }
-	if(PlayerInfo[playerid][pTaxiLicense]) { text3 = "{0EEF5D}Da so huu{FFFFFF}"; } else { text3 = "{C2A347}Chua so huu{FFFFFF}"; }
+	ShowCardTD(playerid, playerid);
 
-	format(string, _, "{FFFFFF}ID Card: {A3F15F}%d\n{FFFFFF}Ho va ten: %s\n___________________________________\nGiay phep lai xe: %s\nGiay phep Taxi: %s\nGiay phep thuyen: %s\nGiay phep may bay: %s", PlayerInfo[playerid][pIDCard], GetPlayerNameEx(playerid), text1, text3, text2, text4);
-	ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Thong tin cong dan", string, "Dong", "");
+	new licStr[144];
+	new flyStr[32], boatStr[32], taxiStr[32], gunStr[32];
+
+	if(PlayerInfo[playerid][pFlyLic])      flyStr  = "{0EEF5D}Da so huu"; else flyStr  = "{C2A347}Chua so huu";
+	if(PlayerInfo[playerid][pBoatLic])     boatStr = "{0EEF5D}Da so huu"; else boatStr = "{C2A347}Chua so huu";
+	if(PlayerInfo[playerid][pTaxiLicense]) taxiStr = "{0EEF5D}Da so huu"; else taxiStr = "{C2A347}Chua so huu";
+	if(PlayerInfo[playerid][pGunLic])      gunStr  = "{0EEF5D}Da so huu"; else gunStr  = "{C2A347}Chua so huu";
+	//if(PlayerInfo[playerid][pFishLic])     fishStr = "{0EEF5D}Da so huu"; else fishStr = "{C2A347}Chua so huu";
+
+	SendClientMessageEx(playerid, COLOR_WHITE, "{FFFF00}[ Giay to khac ]");
+
+	format(licStr, sizeof(licStr), "{FFFFFF}Giay phep May bay: %s{FFFFFF}  |  {FFFFFF}Giay phep Thuyen: %s", flyStr, boatStr);
+	SendClientMessageEx(playerid, COLOR_WHITE, licStr);
+
+	format(licStr, sizeof(licStr), "{FFFFFF}Giay phep Taxi: %s{FFFFFF}  |  {FFFFFF}Giay phep Sung: %s", taxiStr, gunStr);
+	SendClientMessageEx(playerid, COLOR_WHITE, licStr);
+
 	return 1;
 }
 
