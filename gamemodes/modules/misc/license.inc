@@ -12,24 +12,26 @@ enum E_CAR_EXAM
     cexam_CorrectAnswer
 };
 
-static const Float:DrivingCheckpoint[17][3] = {
-    {-1990.1835, 543.6481, 35.0156},
-    {-2008.3058, 472.5847, 35.0156},
-    {-2009.8352, 216.1990, 27.5391},
-    {-2009.6008, -50.5634, 35.1650},
-    {-2146.3672, -68.1673, 35.1719},
-    {-2338.1194, -68.0654, 35.1641},
-    {-2413.2891, -67.5774, 35.2106},
-    {-2418.6011, 77.2842, 35.0156},
-    {-2388.4937, 331.9492, 35.0156},
-    {-2316.9705, 431.3434, 34.9070},
-    {-2382.8403, 552.1824, 24.9008},
-    {-2383.8459, 654.8113, 35.0156},
-    {-2384.5872, 804.9805, 35.0284},
-    {-2219.6182, 806.6862, 49.2980},
-    {-2007.7246, 805.2345, 45.4473},
-    {-2007.4810, 606.5001, 35.0156},
-    {-1941.6078, 576.7798, 35.1719}
+static const Float:DrivingCheckpoint[19][3] = {
+    {-1570.033813, 661.503051, 7.187500},
+    {-1575.252929, 732.588867, 7.206319},
+    {-1713.913818, 688.007141, 24.742170},
+    {-1920.399414, 605.449645, 35.015625},
+    {-2027.866943, 565.938720, 35.015625},
+    {-2161.993652, 565.687011, 35.015625},
+    {-2238.416503, 507.969268, 35.015625},
+    {-2379.279541, 521.041137, 28.041351},
+    {-2543.584960, 565.939025, 14.460937},
+    {-2751.185058, 608.981384, 24.017543},
+    {-2750.653808, 891.841552, 66.187164},
+    {-2711.916015, 1099.200683, 45.647693},
+    {-2453.592041, 1226.969970, 35.050312},
+    {-2432.239257, 1373.091186, 7.039062},
+    {-2024.658691, 1284.951049, 7.039062},
+    {-1708.303588, 1286.323974, 7.046842},
+    {-1610.385009, 1165.744018, 7.039062},
+    {-1562.586059, 892.366882, 7.039062},
+    {-1568.925659, 662.053100, 7.187500}
 };
 
 static const DrivingTheory[MAX_CAR_EXAM][E_CAR_EXAM] =
@@ -62,13 +64,13 @@ static const DrivingTheory[MAX_CAR_EXAM][E_CAR_EXAM] =
     "D. Dung xe va nghi ngoi", 1},
 
     {"Khi dang di chuyen va xe bi hu hong, ban can lam gi?", "A. Tiep tuc chay ma khong quan tam",
-    "B. Dung xe va di bo", "C. Tang toc den cham sua xe", "D. Di chuyen xe vao le duong va goi cuu ho", 3}
+    "B. Dung xe va di bo", "C. Tang toc den tram sua xe", "D. Di chuyen xe vao le duong va goi cuu ho", 3}
 };
 
 new const Float:CarExamSpawn[2][4] =
 {
-    {-1927.8352, 574.0799, 34.8263, 88.8340},
-    {-1927.8687, 579.1791, 34.8243, 88.8340}
+    {-1576.632080, 673.534301, 6.844708, 169.846954},
+    {-1582.242553, 673.802856, 6.844011, 169.846954}
 };
 
 static PlayerExamList[MAX_PLAYERS][MAX_CAR_EXAM];
@@ -77,6 +79,7 @@ static PlayerExamCurrent[MAX_PLAYERS];
 static PlayerExamStep[MAX_PLAYERS];
 static PlayerExamCheckpoint[MAX_PLAYERS];
 static PlayerExamCar[MAX_PLAYERS];
+static Text3D:PlayerExamCarLabel[MAX_PLAYERS];
 
 // type 0: car license
 // type 1: taxi license
@@ -84,9 +87,9 @@ stock ShowLicenseDialog(playerid, type)
 {
     if(type == 0)
     {
-        ShowPlayerDialog(playerid, DIALOG_LICENSE_CAR, DIALOG_STYLE_MSGBOX, "{FFFFFF}William Brown", "{FFFFFF}Xin chao ban, toi ten {6D9BC0}William Brown{FFFFFF} la nhan vien cua Trung tam cap giay phep.\n\
+        ShowPlayerDialog(playerid, DIALOG_LICENSE_CAR, DIALOG_STYLE_MSGBOX, "{FFFFFF}Sep Liem", "{FFFFFF}Xin chao ban, toi ten {6D9BC0}Liem{FFFFFF} la nhan vien cua Trung tam cap giay phep.\n\
                 Toi la nguoi co quyen han quyet dinh viec cap giay phep lai xe cho ban, nhung\nde co the nhan giay phep lai xe ban can phai thuc hien viec thi {68FA47}ly thuyet {FFFFFF}va{68FA47} thuc\nhanh{FFFFFF} de chung minh ban du dieu kien de dieu khien phuong tien giao thong.\n\
-                    Ban se tieu ton {F04040}$700{FFFFFF} cho viec nay.\n\n\n{7D78FF}Ban co muon thuc hien khong?", "Co", "Khong");
+                    Ban se tieu ton {F04040}$10,000{FFFFFF} cho viec nay.\n\n\n{7D78FF}Ban co muon thuc hien khong?", "Co", "Khong");
     }
     else if(type == 1)
     {
@@ -128,6 +131,7 @@ hook OnPlayerConnect(playerid)
     PlayerExamCorrect[playerid] = 0;
     PlayerExamCurrent[playerid] = 0;
     PlayerExamCheckpoint[playerid] = 0;
+    PlayerExamCarLabel[playerid] = Text3D:INVALID_3DTEXT_ID;
     for(new i; i < MAX_CAR_EXAM; i++)
     {
         PlayerExamList[playerid][i] = 0;
@@ -137,6 +141,10 @@ hook OnPlayerConnect(playerid)
 
 hook OnPlayerDisconnect(playerid)
 {
+    if(PlayerExamCarLabel[playerid] != Text3D:INVALID_3DTEXT_ID) {
+        Delete3DTextLabel(PlayerExamCarLabel[playerid]);
+        PlayerExamCarLabel[playerid] = Text3D:INVALID_3DTEXT_ID;
+    }
     if(IsValidVehicle(PlayerExamCar[playerid]))
     {
         DestroyVehicle(PlayerExamCar[playerid]);
@@ -182,11 +190,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         if(gPlayerCheckpointStatus[playerid] != CHECKPOINT_NONE || IsPlayerCheckpointActive(playerid))
             return SendClientMessage(playerid, COLOR_GREY, "Ban dang co mot diem danh dau tren mini-map, hay xoa no.");
 
-        if(GetPlayerCash(playerid) < 700)
+        if(GetPlayerCash(playerid) < 10000)
             return SendClientMessage(playerid, COLOR_GREY, "Ban khong du tien de tra phi thi giay phep lai xe.");
-            
-        GivePlayerCash(playerid, -700);
-        SendClientMessage(playerid, COLOR_WHITE, "Ban da tra {F04E4E}$700{FFFFFF} de thi giay phep lai xe.");
+
+        GivePlayerCash(playerid, -10000);
+        SendClientMessage(playerid, COLOR_WHITE, "Ban da tra {F04E4E}$10,000{FFFFFF} de thi giay phep lai xe.");
 
         PlayerExamStep[playerid] = 1;
         PlayerExamCorrect[playerid] = 0;
@@ -271,6 +279,14 @@ hook OnPlayerEnterCheckpoint(playerid)
         SendClientMessage(playerid, COLOR_WHITE, "Duoc roi, chuc ban may man trong phan thi thuc hanh nay!");
         PlayerExamCar[playerid] = CreateVehicle(410, CarExamSpawn[rCar][0], CarExamSpawn[rCar][1], CarExamSpawn[rCar][2], CarExamSpawn[rCar][3], 1, 1, 120);
         SetVehicleNumberPlate(PlayerExamCar[playerid], "CLA %03d", playerid);
+        SetVehicleParamsEx(PlayerExamCar[playerid], VEHICLE_PARAMS_OFF, VEHICLE_PARAMS_OFF, VEHICLE_PARAMS_OFF, VEHICLE_PARAMS_OFF, VEHICLE_PARAMS_OFF, VEHICLE_PARAMS_OFF, VEHICLE_PARAMS_OFF);
+        VehicleFuel[PlayerExamCar[playerid]] = GetVehicleFuelCapacity(PlayerExamCar[playerid]);
+
+        new labelStr[128];
+        format(labelStr, sizeof(labelStr), "{FFF34F}Thi Bang Lai Xe\n{FFFFFF}Thi sinh: {FFF34F}%s", GetPlayerNameEx(playerid));
+        PlayerExamCarLabel[playerid] = Create3DTextLabel(labelStr, 0xFFF34FFF, 0.0, 0.0, 0.5, 12.0, 0);
+        Attach3DTextLabelToVehicle(PlayerExamCarLabel[playerid], PlayerExamCar[playerid], 0.0, 0.0, 0.5);
+
         PutPlayerInVehicle(playerid, PlayerExamCar[playerid], 0);
         PlayerExamCheckpoint[playerid] = 1;
         SetPlayerExamCheckpoint(playerid);
@@ -286,7 +302,11 @@ hook OnPlayerEnterRaceCheckpoint(playerid)
             if(GetPlayerVehicleID(playerid) != PlayerExamCar[playerid])
                 return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai ngoi tren chiec xe ma ban da duoc cap de thi lai xe.");
 
-            if(PlayerExamCheckpoint[playerid] == 17) {
+            if(PlayerExamCheckpoint[playerid] == 19) {
+                if(PlayerExamCarLabel[playerid] != Text3D:INVALID_3DTEXT_ID) {
+                    Delete3DTextLabel(PlayerExamCarLabel[playerid]);
+                    PlayerExamCarLabel[playerid] = Text3D:INVALID_3DTEXT_ID;
+                }
                 DestroyVehicle(PlayerExamCar[playerid]);
                 PlayerExamCar[playerid] = 0;
                 PlayerExamStep[playerid] = 0;
@@ -295,8 +315,8 @@ hook OnPlayerEnterRaceCheckpoint(playerid)
                 PlayerExamCheckpoint[playerid] = 0;
                 PlayerExamStep[playerid] = 0;
                 DisablePlayerRaceCP(playerid);
-                GameTextForPlayer(playerid, "~y~PASS THE~n~DRIVING TEST", 5000, 0);
-                SendClientMessage(playerid, COLOR_WHITE, "{FFF34F}CHUC MUNG!{FFFFFF} Ban da hoan thanh phan thi thuc hanh xuat sac!");
+                HienTextdraw(playerid, "~y~CHUC MUNG~n~DA THI DAUGIAY PHEP LAI XE");
+                SendClientMessage(playerid, COLOR_WHITE, "{FFF34F}CHUC MUNG!{FFFFFF} Ban da hoan thanh phan thi thuc hanh xuat sac va nhan duoc giay phep lai xe!");
                 PlayerPlaySound(playerid, 31205);
                 PlayerInfo[playerid][pCarLic] = 1;
                 UpdatePlayerInteger(playerid, "CarLic", 1);
@@ -318,6 +338,10 @@ hook OnVehicleDeath(vehicleid)
     {
         if(vehicleid == PlayerExamCar[playerid])
         {
+            if(PlayerExamCarLabel[playerid] != Text3D:INVALID_3DTEXT_ID) {
+                Delete3DTextLabel(PlayerExamCarLabel[playerid]);
+                PlayerExamCarLabel[playerid] = Text3D:INVALID_3DTEXT_ID;
+            }
             DestroyVehicle(PlayerExamCar[playerid]);
             PlayerExamCar[playerid] = 0;
             PlayerExamStep[playerid] = 0;
@@ -337,7 +361,11 @@ hook OnPlayerDeath(playerid, killerid, reason)
 {
     if(PlayerExamStep[playerid] > 0 && PlayerExamCheckpoint[playerid] > 0)
     {
-        if(IsValidVehicle(PlayerExamCar[playerid])) 
+        if(PlayerExamCarLabel[playerid] != Text3D:INVALID_3DTEXT_ID) {
+            Delete3DTextLabel(PlayerExamCarLabel[playerid]);
+            PlayerExamCarLabel[playerid] = Text3D:INVALID_3DTEXT_ID;
+        }
+        if(IsValidVehicle(PlayerExamCar[playerid]))
             DestroyVehicle(PlayerExamCar[playerid]);
 
         PlayerExamCar[playerid] = 0;

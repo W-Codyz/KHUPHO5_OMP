@@ -26,7 +26,7 @@ new ActorInfo[MAX_SERVER_ACTORS][E_ACTOR_INFO] =
     // City Hall
     {76, "Charlotte Evans", 2, 5, 1.0, 2.0, 3.0, 4.0},
     // License
-    {17, "William Brown", 3, 3, 1.0, 2.0, 3.0, 4.0},
+    {295, "Can Bo Ghi Danh", 0, 1, 1324.036010, 735.908386, 111.320312, 97.589454},
     // Taxi License
     {187, "James Carter", 3, 3, 1.0, 2.0, 3.0, 4.0},
     // Newbie Mission

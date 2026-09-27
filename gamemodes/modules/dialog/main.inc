@@ -8371,21 +8371,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			case 0:
 			{
-			    if(PlayerInfo[playerid][pCarLic] == 0)
-			    {
-			        if(GetPlayerCash(playerid) < 5000)
-			        {
-			            SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du kinh phi de mua giay phep lai xe.");
-			            return 1;
-			        }
-					GivePlayerCash(playerid,-5000);
-					PlayerInfo[playerid][pCarLic] = 1;
-					SendClientMessageEx(playerid, COLOR_GREY, "Ban da co bang lai xe thanh cong.");
-				}
-				else SendClientMessageEx(playerid, COLOR_GREY, "Ban da co giay  phep lai xe.");
-			}
-			case 1:
-			{
 			    if(PlayerInfo[playerid][pBoatLic] == 0)
 			    {
 			        if(GetPlayerCash(playerid) < 5000)
@@ -8399,7 +8384,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else SendClientMessageEx(playerid, COLOR_GREY, "Ban da so huu giay phep lai thuyen.");
 			}
-			case 2:
+			case 1:
 			{
 			    if(PlayerInfo[playerid][pFlyLic] == 0)
 			    {
@@ -8418,7 +8403,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
                 else SendClientMessageEx(playerid, COLOR_GREY, "Ban da so huu bang lai may bay.");
 			}
-			case 3:
+			case 2:
 			{
 			    if(PlayerInfo[playerid][pTaxiLicense] == 0)
 			    {
@@ -8432,6 +8417,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SendClientMessageEx(playerid, COLOR_GREY, "Ban da mua giay phep lai xe taxi thanh cong.");
 				}
                 else SendClientMessageEx(playerid, COLOR_GREY, "Ban da so huu bang lai taxi.");
+			}
+			case 3:
+			{
+			    if(PlayerInfo[playerid][pGunLic] == 0)
+			    {
+			        if(GetPlayerCash(playerid) < 50000)
+			        {
+			            SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien de mua giay phep mang sung.");
+			            return 1;
+			        }
+					GivePlayerCash(playerid,-50000);
+					PlayerInfo[playerid][pGunLic] = 1;
+					SendClientMessageEx(playerid, COLOR_GREY, "Ban da mua giay phep mang sung thanh cong.");
+				}
+                else SendClientMessageEx(playerid, COLOR_GREY, "Ban da so huu giay phep mang sung.");
 			}
 		}
 	}

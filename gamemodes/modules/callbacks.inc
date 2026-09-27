@@ -5715,7 +5715,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					SendClientMessageEx(playerid, COLOR_GREY, string);
 					if(PlayerVehicleInfo[i][v][pvTicket] != 0)
 					{
-						format(string, sizeof(string),"Chiec xe nay co $%d tien phat chua thanh toan. Ban phai tra tien ve tai DMV canh Cityhall.", PlayerVehicleInfo[i][v][pvTicket]);
+						format(string, sizeof(string),"Chiec xe nay co $%d tien phat chua thanh toan. Ban phai tra tien ve tai don canh sat.", PlayerVehicleInfo[i][v][pvTicket]);
 						SendClientMessageEx(playerid, COLOR_GREY, string);
 						SendClientMessageEx(playerid, COLOR_GREY, "Neu ban khong tra tien phat xe trong thoi gian som, tien phat xe se tang va co the bi thu giu phuong tien.");
 					}
