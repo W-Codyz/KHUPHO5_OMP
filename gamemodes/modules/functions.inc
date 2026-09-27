@@ -13821,9 +13821,7 @@ stock LeavePaintballArena(playerid, arenaid)
   		SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
 		SetPlayerPos(playerid, GetPVarFloat(playerid, "pbOldX"), GetPVarFloat(playerid, "pbOldY"), GetPVarFloat(playerid, "pbOldZ"));
 		SetPlayerHealth(playerid, GetPVarFloat(playerid, "pbOldHealth"));
-		if(GetPVarFloat(playerid, "pbOldArmor") > 0) {
-			SetPlayerArmor(playerid, GetPVarFloat(playerid, "pbOldArmor"));
-		}
+		SetPlayerArmor(playerid, GetPVarFloat(playerid, "pbOldArmor"));
 		SetPlayerVirtualWorld(playerid, GetPVarInt(playerid, "pbOldVW"));
 		SetPlayerInterior(playerid, GetPVarInt(playerid, "pbOldInt"));
 		PlayerInfo[playerid][pVW] = GetPVarInt(playerid, "pbOldVW");

@@ -3208,11 +3208,11 @@ public OnPlayerDisconnect(playerid, reason)
 		if(GetPVarInt(playerid, "IsInArena") >= 0)
 		{
 			LeavePaintballArena(playerid, GetPVarInt(playerid, "IsInArena"));
-			PlayerInfo[playerid][pInt] = GetPVarInt(playerid, "pbOldInt");
-			PlayerInfo[playerid][pVW] = GetPVarInt(playerid, "pbOldVW");
-			PlayerInfo[playerid][pPos_x] = GetPVarFloat(playerid, "pbOldX");
-			PlayerInfo[playerid][pPos_y] = GetPVarFloat(playerid, "pbOldY");
-			PlayerInfo[playerid][pPos_z] = GetPVarFloat(playerid, "pbOldZ");
+			PlayerInfo[playerid][pInt] = 0;
+			PlayerInfo[playerid][pVW] = 0;
+			PlayerInfo[playerid][pPos_x] = -1492.395507;
+			PlayerInfo[playerid][pPos_y] = 920.093566;
+			PlayerInfo[playerid][pPos_z] = 7.187500;
 			PlayerInfo[playerid][pHealth] = GetPVarFloat(playerid, "pbOldHealth");
 			PlayerInfo[playerid][pArmor] = GetPVarFloat(playerid, "pbOldArmor");
 			SetPlayerHealth(playerid,GetPVarFloat(playerid, "pbOldHealth"));
