@@ -272,7 +272,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(dialogid == DIALOG_CHUYENTIEN1)
     {
         if(response) {
-   			if(!IsNumeric(inputtext) || strval(inputtext) < 1 || strval(inputtext) > 1000000) return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "Chuyen tien", "Vui long nhap so tai khoan de tiep tuc giao dich", "Tuy chon", "Thoat");
+   			if(!IsNumeric(inputtext) || strval(inputtext) < 1) {
+   				new errstr[512];
+   				if(GetPVarInt(playerid, "Offline") == 1) {
+   					new namez[24];
+   					GetPVarString(playerid, "_NguoiNhan", namez, 24);
+   					format(errstr, sizeof errstr, "{FFD700}=== THONG TIN NGUOI NHAN ==={FFFFFF}\n{AAAAAA}Ten chu the  : {00CFFF}%s\n{AAAAAA}So tai khoan : {00CFFF}%d\n\n{FF6B6B}[!] So tien khong hop le!\n{FFFFFF}Nhap lai {00FF7F}so tien{FFFFFF} muon giao dich:", namez, GetPVarInt(playerid, "STK"));
+   				} else {
+   					new i = GetPVarInt(playerid, "NguoiNhan");
+   					format(errstr, sizeof errstr, "{FFD700}=== THONG TIN NGUOI NHAN ==={FFFFFF}\n{AAAAAA}Ten chu the  : {00CFFF}%s\n{AAAAAA}So tai khoan : {00CFFF}%d\n\n{FF6B6B}[!] So tien khong hop le!\n{FFFFFF}Nhap lai {00FF7F}so tien{FFFFFF} muon giao dich:", GetPlayerNameEx(i), PlayerInfo[i][pSoTaiKhoan]);
+   				}
+   				return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN1, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", errstr, "Tiep tuc", "Thoat");
+   			}
 			if(PlayerInfo[playerid][pAccount] < strval(inputtext)) return SendClientMessageEx(playerid, COLOR_GREY,"Ban khong du tien trong vi khong the tiep tuc giao dich.");
 			SetPVarInt(playerid, "TienGD", strval(inputtext));
 
