@@ -176,6 +176,7 @@ Miner_Start(playerid)
         return 1;
     }
     LockStatus{vehicleid} = 0;
+    VehicleFuel[vehicleid] = 100.0;
     SetVehicleHealth(vehicleid, 999.0);
     PutPlayerInVehicle(playerid, vehicleid, 0);
 

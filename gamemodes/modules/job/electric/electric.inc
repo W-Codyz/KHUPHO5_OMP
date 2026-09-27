@@ -674,6 +674,7 @@ stock Electric_OnMenuResponse(playerid, response, listitem)
 
             new partner = PlayerElectricJob[playerid][E_EJ_PartnerID];
             new vehid = CreateVehicle(552, -2532.0229, -601.6449, 132.2643, 177.5118, 1, 1, 60000);
+            VehicleFuel[vehid] = 100.0;
             SetVehicleHealth(vehid, 2000.0);
 
             new lblText[128];

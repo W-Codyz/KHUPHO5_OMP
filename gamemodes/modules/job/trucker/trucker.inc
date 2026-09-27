@@ -839,7 +839,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return 1;
                 }
                 LockStatus{vid} = 0;
-
+                VehicleFuel[vid] = 100.0;
                 SetVehicleHealth(vid, 999.0);
                 PutPlayerInVehicle(playerid, vid, 0);
                 SetPlayerSkin(playerid, JobInfo[JOB_TRUCKER][jobSkin]);
