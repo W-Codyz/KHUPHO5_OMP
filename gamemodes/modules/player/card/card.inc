@@ -509,11 +509,11 @@ static CreateCardTDPlayer(playerid)
     PlayerTextDrawSetSelectable(playerid, g_CardNavPrev[playerid], 1);
 
     // Hien thi so luong giay to (vi du: "So luong: 1/2")
-    g_TotalLicense_TD[playerid] = CreatePlayerTextDraw(playerid, 292.000, 145.000, "So luong: 1/1");
+    g_TotalLicense_TD[playerid] = CreatePlayerTextDraw(playerid, 305.000, 145.000, "So luong: 1/1");
     PlayerTextDrawLetterSize(playerid, g_TotalLicense_TD[playerid], 0.210, 0.899);
     PlayerTextDrawAlignment(playerid, g_TotalLicense_TD[playerid], 2);
     PlayerTextDrawColor(playerid, g_TotalLicense_TD[playerid], -1);
-    PlayerTextDrawSetShadow(playerid, g_TotalLicense_TD[playerid], 0);
+    PlayerTextDrawSetShadow(playerid, g_TotalLicense_TD[playerid], 1);
     PlayerTextDrawSetOutline(playerid, g_TotalLicense_TD[playerid], 0);
     PlayerTextDrawBackgroundColor(playerid, g_TotalLicense_TD[playerid], 150);
     PlayerTextDrawFont(playerid, g_TotalLicense_TD[playerid], 1);
