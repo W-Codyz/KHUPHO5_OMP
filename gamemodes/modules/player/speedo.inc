@@ -503,7 +503,11 @@ hook OnPlayerUpdate(playerid)
             PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][0]);
 
             new Float:HealthBar;
-            HealthBar = fDamage * 35.5/1000;
+            new Float:fMaxHealth = 1000.0;
+            if(DynVeh[vehid] != -1 && vehid == DynVehicleInfo[DynVeh[vehid]][gv_iSpawnedID])
+                fMaxHealth = DynVehicleInfo[DynVeh[vehid]][gv_fMaxHealth];
+            if(fDamage > fMaxHealth) fDamage = fMaxHealth;
+            HealthBar = fDamage * 35.5 / fMaxHealth;
             PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][3], HealthBar, -2.0);
             PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][3]);
 
