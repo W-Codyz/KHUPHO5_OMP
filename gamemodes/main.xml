@@ -10524,6 +10524,7 @@
 			<referrer name="OnUnoccupiedVehicleUpdate"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:DynVehicleInfo">
@@ -10572,6 +10573,7 @@
 			<referrer name="OnUnoccupiedVehicleUpdate"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:EMSAccepted">
@@ -15070,6 +15072,7 @@
 			<referrer name="PopulateCardTab"/>
 			<referrer name="ShowCardTD"/>
 			<referrer name="pc_cmd_capcccd"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="ShowItemOptions"/>
@@ -23276,6 +23279,7 @@
 			<referrer name="Miner_Init"/>
 			<referrer name="_@yHOnPlayerStateChange@0g"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
+			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -24037,6 +24041,7 @@
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="pc_cmd_laybanh"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="floatcmp"/>
 			<param name="__oper1">
@@ -80004,6 +80009,7 @@
 			<referrer name="pc_cmd_dangkybank"/>
 			<referrer name="Lumber_StartChop"/>
 			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="pc_cmd_me"/>
 			<referrer name="pc_cmd_do"/>
 			<referrer name="Electric_Stop"/>
@@ -88442,6 +88448,7 @@
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
+			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
@@ -100425,15 +100432,21 @@
 		</member>
 		<member name="M:_@yHOnDialogResponse@0j" syntax="_@yHOnDialogResponse@0j(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="33"/>
+			<stacksize value="305"/>
 			<referrer name="@yH_OnDialogResponse@0j"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="ShowCardTD"/>
+			<dependency name="format"/>
+			<dependency name="pBoatLic"/>
+			<dependency name="pFlyLic"/>
+			<dependency name="pGunLic"/>
+			<dependency name="pTaxiLicense"/>
 			<param name="playerid">
 			</param>
 			<param name="dialogid">
@@ -102823,13 +102836,17 @@
 		</member>
 		<member name="M:_@yHOnPlayerUpdate@0p" syntax="_@yHOnPlayerUpdate@0p(playerid)">
 			<attribute name="public"/>
-			<stacksize value="32"/>
+			<stacksize value="33"/>
 			<referrer name="@yH_OnPlayerUpdate@0p"/>
 			<dependency name="operator/(Float:,_:)"/>
+			<dependency name="operator/(Float:,Float:)"/>
 			<dependency name="operator*(Float:,Float:)"/>
 			<dependency name="Float:operator=(_:)"/>
+			<dependency name="operator&gt;(Float:,Float:)"/>
 			<dependency name="operator&gt;(Float:,_:)"/>
 			<dependency name="operator&lt;(Float:,_:)"/>
+			<dependency name="DynVeh"/>
+			<dependency name="DynVehicleInfo"/>
 			<dependency name="GetPlayerState"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleHealth"/>
@@ -102848,6 +102865,8 @@
 			<dependency name="VehicleFuel"/>
 			<dependency name="format"/>
 			<dependency name="gPlayerLogged"/>
+			<dependency name="gv_fMaxHealth"/>
+			<dependency name="gv_iSpawnedID"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -107160,6 +107179,7 @@
 			<referrer name="ShowCardTab"/>
 			<referrer name="ShowCardTD"/>
 			<referrer name="pc_cmd_capcccd"/>
+			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="ShowWeaponOptions"/>
 			<referrer name="DropPlayerWeapon"/>
@@ -115367,24 +115387,21 @@
 		</member>
 		<member name="M:pc_cmd_choxemgiayphep" syntax="pc_cmd_choxemgiayphep(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="697"/>
+			<stacksize value="267"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="ProxDetectorS"/>
+			<dependency name="ProxDetectorWrap"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarInt"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="format"/>
-			<dependency name="pBoatLic"/>
-			<dependency name="pCarLic"/>
-			<dependency name="pFlyLic"/>
 			<dependency name="pIDCard"/>
-			<dependency name="pTaxiLicense"/>
 			<param name="playerid">
 			</param>
 			<param name="params">

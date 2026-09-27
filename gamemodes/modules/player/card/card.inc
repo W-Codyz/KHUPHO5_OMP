@@ -942,6 +942,26 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da mat ket noi."), 1;
 
         ShowCardTD(playerid, ownerid);
+
+        // Giay to khong co textdraw - hien thi tren chatlog
+        new licStr[144];
+        new flyStr[32], boatStr[32], taxiStr[32], gunStr[32];
+
+        if(PlayerInfo[ownerid][pFlyLic])      flyStr  = "{0EEF5D}Da so huu";  else flyStr  = "{C2A347}Chua so huu";
+        if(PlayerInfo[ownerid][pBoatLic])     boatStr = "{0EEF5D}Da so huu";  else boatStr = "{C2A347}Chua so huu";
+        if(PlayerInfo[ownerid][pTaxiLicense]) taxiStr = "{0EEF5D}Da so huu";  else taxiStr = "{C2A347}Chua so huu";
+        if(PlayerInfo[ownerid][pGunLic])      gunStr  = "{0EEF5D}Da so huu";  else gunStr  = "{C2A347}Chua so huu";
+        //if(PlayerInfo[ownerid][pFishLic])     fishStr = "{0EEF5D}Da so huu";  else fishStr = "{C2A347}Chua so huu";
+
+        format(licStr, sizeof(licStr), "{FFFF00}[ Giay to khac cua %s ]", GetPlayerNameEx(ownerid));
+        SendClientMessageEx(playerid, COLOR_WHITE, licStr);
+
+        format(licStr, sizeof(licStr), "{FFFFFF}Giay phep May bay: %s{FFFFFF}  |  {FFFFFF}Giay phep Thuyen: %s", flyStr, boatStr);
+        SendClientMessageEx(playerid, COLOR_WHITE, licStr);
+
+        format(licStr, sizeof(licStr), "{FFFFFF}Giay phep Taxi: %s{FFFFFF}  |  {FFFFFF}Giay phep Sung: %s", taxiStr, gunStr);
+        SendClientMessageEx(playerid, COLOR_WHITE, licStr);
+
         return 1;
     }
     return 1;

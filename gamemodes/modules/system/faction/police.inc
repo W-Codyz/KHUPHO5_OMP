@@ -377,46 +377,30 @@ CMD:licenses(playerid, params[])
 alias:choxemgiayphep("showid")
 CMD:choxemgiayphep(playerid, params[])
 {
-	if(PlayerInfo[playerid][pIDCard] == 0) 
+	if(PlayerInfo[playerid][pIDCard] == 0)
 		return SendClientMessage(playerid, COLOR_GREY, "Ban chua so huu Can cuoc cong dan!");
 
-	new string[428], giveplayerid;
+	new giveplayerid;
 	if(sscanf(params, "u", giveplayerid)) return SendHelpMessage(playerid, "/choxemgiayphep [player]");
 
-	if(IsPlayerConnected(giveplayerid))
-	{
-		if (ProxDetectorS(8.0, playerid, giveplayerid))
-		{
-			if(giveplayerid == playerid) 
-				return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the hien giay phep cho chinh ban - su dung /licenses.");
-			
-			new text1[32], text2[32], text3[32], text4[32];
-			if(PlayerInfo[playerid][pCarLic]) { text1 = "{0EEF5D}Da so huu{FFFFFF}"; } else { text1 = "{C2A347}Chua so huu{FFFFFF}"; }
-			if(PlayerInfo[playerid][pFlyLic]) { text4 = "{0EEF5D}Da so huu{FFFFFF}"; } else { text4 = "{C2A347}Chua so huu{FFFFFF}"; }
-			if(PlayerInfo[playerid][pBoatLic]) { text2 = "{0EEF5D}Da so huu{FFFFFF}"; } else { text2 = "{C2A347}Chua so huu{FFFFFF}"; }
-			if(PlayerInfo[playerid][pTaxiLicense]) { text3 = "{0EEF5D}Da so huu{FFFFFF}"; } else { text3 = "{C2A347}Chua so huu{FFFFFF}"; }
+	if(!IsPlayerConnected(giveplayerid))
+		return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi khong hop le.");
 
-			new title[128];
-			format(title, _, "{FFFFFF}Thong tin cong dan cua %s", GetPlayerNameEx(playerid));
-			format(string, _, "{60F0DF}CONG DAN SAN ANDREAS\n\n{FFFFFF}ID Card: {A3F15F}%d\n{FFFFFF}Ho va ten: %s\n___________________________________\nGiay phep lai xe: %s\nGiay phep Taxi: %s\nGiay phep thuyen: %s\nGiay phep may bay: %s", PlayerInfo[playerid][pIDCard], GetPlayerNameEx(playerid), text1, text3, text2, text4);
-			ShowPlayerDialog(giveplayerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, title, string, "Dong", "");
-			
-			format(string, sizeof(string), "* %s da cho ban xem can cuoc cong dan cua ho.", GetPlayerNameEx(playerid));
-			SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
-			format(string, sizeof(string), "* Ban da cho %s xem thong tin can cuoc cua ban.", GetPlayerNameEx(giveplayerid));
-			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
-		}
-		else
-		{
-			SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi do khong gan ban.");
-			return 1;
-		}
+	if(giveplayerid == playerid)
+		return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the hien giay phep cho chinh ban - su dung /licenses.");
 
-	}
-	else
-	{
-		SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi khong hop le.");
-		return 1;
-	}
+	if(!ProxDetectorS(8.0, playerid, giveplayerid))
+		return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi do khong gan ban.");
+
+	new proxstring[128];
+	format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s dua giay to tuy than ra cho %s xem.", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid));
+	ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+
+	new dlgbody[128];
+	format(dlgbody, sizeof(dlgbody), "{FFFFFF}%s muon cho ban xem giay to tuy than cua ho.\n{FFFF00}Ban co muon xem khong?", GetPlayerNameEx(playerid));
+	SetPVarInt(giveplayerid, "pCardViewFrom", playerid);
+	ShowPlayerDialog(giveplayerid, DIALOG_CARD_VIEW_REQUEST, DIALOG_STYLE_MSGBOX, "{FFFFFF}Kiem tra giay to", dlgbody, "Xem ngay", "Tu choi");
+
+	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da gui yeu cau cho %s xem giay to cua ban.", GetPlayerNameEx(giveplayerid));
 	return 1;
 }
