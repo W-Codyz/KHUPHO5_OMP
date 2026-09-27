@@ -62,7 +62,7 @@ module.exports = {
 
             // -------------------- THỰC HIỆN QUERY (CÓ TIMEOUT) --------------------
             const queryPromise = connection.execute(
-                'SELECT Username, Level FROM accounts WHERE Online = 1 ORDER BY Username ASC'
+                'SELECT Username, Level FROM accounts WHERE Online = 1 ORDER BY Level DESC'
             );
             
             const timeoutPromise = new Promise((_, reject) => 
@@ -84,20 +84,31 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed] });
             }
 
+            let description = '```\n' +
+                '#  Người chơi          Level\n' +
+                '══════════════════════════════\n';
+
             const maxDisplay = 25;
-            let playerList = rows.slice(0, maxDisplay).map((player, index) => {
-                return `${index + 1}. **${player.Username}** (Lv.${player.Level})`;
-            }).join('\n');
+            rows.slice(0, maxDisplay).forEach((player, index) => {
+                const stt = `${index + 1}`.padStart(2);
+
+                const name = player.Username.padEnd(18);
+                const level = `${player.Level}`.padStart(3);
+
+                description += `${stt} ${name}${level}\n`;
+            });
 
             if (rows.length > maxDisplay) {
-                playerList += `\n... và ${rows.length - maxDisplay} người khác.`;
+                description += `... và ${rows.length - maxDisplay} người khác\n`;
             }
+
+            description += '```';
 
             const embed = new EmbedBuilder()
                 .setColor('#00FF00')
-                .setTitle(`📡 Danh sách người chơi online (${rows.length})`)
-                .setDescription(playerList)
-                .setFooter({ text: 'GTA-HTB Roleplay' })
+                .setTitle(`🟢 Người chơi đang online (${rows.length})`)
+                .setDescription(description)
+                .setFooter({ text: 'GTA-HTB Roleplay • Cập nhật theo thời gian thực' })
                 .setTimestamp();
 
             return interaction.editReply({ embeds: [embed] });
