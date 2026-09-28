@@ -1086,21 +1086,20 @@ CMD:giahang(playerid, params[])
 {
     if(PlayerInfo[playerid][pDonateRank] < 3 && PlayerInfo[playerid][pAdmin] < 1338) return 1;
 
-    new highPrices[4];
+    new szDialog[2000], s[96], zone[MAX_ZONE_NAME];
+    strcat(szDialog, "Diem\tLoai Hang\tKhu Vuc\tGia Thu Mua\n");
     for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
-        new l = ThuMuaTruck[i][loaihang];
-        if(l >= 1 && l <= 3 && ThuMuaTruck[i][giabanhientai] > highPrices[l])
-            highPrices[l] = ThuMuaTruck[i][giabanhientai];
+        Get3DZone(KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2], zone, sizeof(zone));
+        format(s, sizeof(s), "%d\t%s\t%s\t{4dad2b}$%s\n",
+            ThuMuaTruck[i][idhang],
+            ThuMuaTruck[i][tenhang],
+            zone,
+            number_format(ThuMuaTruck[i][giabanhientai]));
+        strcat(szDialog, s);
     }
 
-    new szDialog[512], s[64];
-    strcat(szDialog, "Loai hang\tGia thu mua cao nhat\n");
-    format(s, sizeof(s), "Thuc An\t{4dad2b}$%s\n",  number_format(highPrices[1])); strcat(szDialog, s);
-    format(s, sizeof(s), "Vat Lieu\t{4dad2b}$%s\n", number_format(highPrices[2])); strcat(szDialog, s);
-    format(s, sizeof(s), "Quan Ao\t{4dad2b}$%s\n",  number_format(highPrices[3])); strcat(szDialog, s);
-
     ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_TABLIST_HEADERS,
-        "Gia Thu Mua Cao Nhat (VIP)", szDialog, "Dong", "");
+        "Gia Thu Mua Tung Diem (VIP)", szDialog, "Dong", "");
     return 1;
 }
 

@@ -12433,6 +12433,7 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0_"/>
 			<referrer name="_@yHOnDialogResponse@0_"/>
 			<referrer name="pc_cmd_diemgiaohang"/>
+			<referrer name="pc_cmd_giahang"/>
 		</member>
 		<member name="F:KillTime">
 			<referrer name="AntiVPN_OnPlayerConnect"/>
@@ -47055,6 +47056,7 @@
 			<referrer name="pc_cmd_announcetakeoff"/>
 			<referrer name="pc_cmd_houseinvite"/>
 			<referrer name="pc_cmd_diemgiaohang"/>
+			<referrer name="pc_cmd_giahang"/>
 			<referrer name="ShowGPSTimDuong"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="operator&gt;=(Float:,Float:)"/>
@@ -121779,18 +121781,23 @@
 		</member>
 		<member name="M:pc_cmd_giahang" syntax="pc_cmd_giahang(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="603"/>
+			<stacksize value="2151"/>
+			<dependency name="Get3DZone"/>
+			<dependency name="KhuVucThuMua"/>
+			<dependency name="KhuVucThuMua"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="ThuMuaTruck"/>
+			<dependency name="ThuMuaTruck"/>
 			<dependency name="format"/>
 			<dependency name="giabanhientai"/>
-			<dependency name="loaihang"/>
+			<dependency name="idhang"/>
 			<dependency name="number_format"/>
 			<dependency name="number_format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pDonateRank"/>
 			<dependency name="strcat"/>
+			<dependency name="tenhang"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
