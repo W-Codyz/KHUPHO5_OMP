@@ -410,8 +410,9 @@ new DynVeh[MAX_VEHICLES]; // -1 = Not a dynamic vehicle, 0 > = DynVehicleInfo ID
 
 new Float: fVehSpeed[MAX_PLAYERS];
 new Float: fVehHealth[MAX_PLAYERS];
-new szAdvert[MAX_PLAYERS][128];
-new AdvertType[MAX_PLAYERS];
+#define MAX_ADS 50
+enum E_AD_DATA { szAdText[256], szAdPoster[MAX_PLAYER_NAME], iAdPhone, iAdType, iAdExpiry }
+new arrAds[MAX_ADS][E_AD_DATA];
 //Aduty
 new Aduty[MAX_PLAYERS];
 // C4 vehicle bomb

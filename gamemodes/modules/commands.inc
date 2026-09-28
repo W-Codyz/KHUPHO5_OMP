@@ -24526,7 +24526,7 @@ CMD:advertisements(playerid, params[]) {
 	else if(PlayerInfo[playerid][pJailTime] > 0) {
 		SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the su dung quang cao khi dang trong tu.");
 	}
-	else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Huy bo");
+	else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Huy bo");
 	return 1;
 }
 

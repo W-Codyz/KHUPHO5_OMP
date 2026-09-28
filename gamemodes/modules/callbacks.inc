@@ -2531,8 +2531,6 @@ public OnPlayerConnect(playerid) {
 	MatsHolding[playerid]=0;
 	MatDeliver[playerid]=0;
 	MatDeliver2[playerid]=0;
-	szAdvert[playerid][0] = 0;
-	AdvertType[playerid] = 0;
 	SelectFCharPlace[playerid]=0;
 	GettingJob[playerid]=0;
 	GettingJob2[playerid]=0;

@@ -851,6 +851,21 @@
 				<tagname value="Float"/>
 			</member>
 		</member>
+		<member name="T:E_AD_DATA" value="283">
+			<tagname value="E_AD_DATA"/>
+			<member name="C:szAdText" value="0">
+				<size value="256"/>
+			</member>
+			<member name="C:szAdPoster" value="256">
+				<size value="24"/>
+			</member>
+			<member name="C:iAdPhone" value="280">
+			</member>
+			<member name="C:iAdType" value="281">
+			</member>
+			<member name="C:iAdExpiry" value="282">
+			</member>
+		</member>
 		<member name="T:E_AMX_TABLE" value="5">
 			<tagname value="E_AMX_TABLE"/>
 			<member name="C:AMX_TABLE_PUBLICS" value="0">
@@ -9724,7 +9739,6 @@
 			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="pc_cmd_togchatbox"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
-			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ActorInfo">
 			<referrer name="LoadStreamerActors"/>
@@ -9748,10 +9762,6 @@
 		</member>
 		<member name="F:Aduty">
 			<referrer name="pc_cmd_aduty"/>
-		</member>
-		<member name="F:AdvertType">
-			<referrer name="AntiVPN_OnPlayerConnect"/>
-			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:AdvisorMessage">
 			<referrer name="ProductionUpdate"/>
@@ -11755,7 +11765,6 @@
 			<referrer name="SendClientMessageEx"/>
 			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
-			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:InsidePlane">
 			<referrer name="ProxDetector"/>
@@ -11782,7 +11791,6 @@
 			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="SpectatePlayer"/>
 			<referrer name="AntiVPN_OnPlayerConnect"/>
-			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:InvTDOpen">
 			<tagname value="bool"/>
@@ -19575,6 +19583,9 @@
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="antiteleportpainter"/>
 		</member>
+		<member name="F:arrAds">
+			<referrer name="OnDialogResponse"/>
+		</member>
 		<member name="F:arrGroupData">
 			<referrer name="SendGroupMessage"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
@@ -20962,7 +20973,6 @@
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
-			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:gNextButtonTextDrawId">
 			<tagname value="PlayerText"/>
@@ -21832,7 +21842,6 @@
 			<referrer name="pc_cmd_joinhunger"/>
 		</member>
 		<member name="F:iAdverTimer">
-			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:iRewardBox">
 			<referrer name="Misc_Save"/>
@@ -22448,10 +22457,6 @@
 			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="ShowStorageEquipDialog"/>
 			<referrer name="TransferStorage"/>
-		</member>
-		<member name="F:szAdvert">
-			<referrer name="AntiVPN_OnPlayerConnect"/>
-			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:tRewardText">
 			<tagname value="Text3D"/>
@@ -30935,7 +30940,6 @@
 			<stacksize value="7"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="ActiveChatbox"/>
-			<dependency name="AdvertType"/>
 			<dependency name="AppealOffer"/>
 			<dependency name="AppealOfferAccepted"/>
 			<dependency name="Backup"/>
@@ -31206,8 +31210,6 @@
 			<dependency name="sobeitCheckIsDone"/>
 			<dependency name="sobeitCheckvar"/>
 			<dependency name="strdel"/>
-			<dependency name="szAdvert"/>
-			<dependency name="szAdvert"/>
 			<dependency name="turfWarsRadar"/>
 			<dependency name="unbanip"/>
 			<dependency name="unbanip"/>
@@ -69326,13 +69328,11 @@
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="operator&lt;(Float:,_:)"/>
 			<dependency name="ABroadCast"/>
-			<dependency name="ActiveChatbox"/>
 			<dependency name="AddCrime"/>
 			<dependency name="AddFlag"/>
 			<dependency name="AddReportToken"/>
 			<dependency name="AddTicket"/>
 			<dependency name="AddVehicleComponent"/>
-			<dependency name="AdvertType"/>
 			<dependency name="AmountMade"/>
 			<dependency name="AmountSold"/>
 			<dependency name="ApplyAnimation"/>
@@ -69537,8 +69537,6 @@
 			<dependency name="InBusiness"/>
 			<dependency name="InProgress"/>
 			<dependency name="Increment"/>
-			<dependency name="InsideMainMenu"/>
-			<dependency name="InsideTut"/>
 			<dependency name="InvalidModCheck"/>
 			<dependency name="IsABike"/>
 			<dependency name="IsACop"/>
@@ -69696,6 +69694,7 @@
 			<dependency name="SendCallToQueue"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="SendClientMessageToAll"/>
 			<dependency name="SendClientMessageToAllEx"/>
 			<dependency name="SendDutyAdvisorMessage"/>
 			<dependency name="SendGroupMessage"/>
@@ -69802,6 +69801,8 @@
 			<dependency name="_scRotation"/>
 			<dependency name="_scTextID"/>
 			<dependency name="abs"/>
+			<dependency name="arrAds"/>
+			<dependency name="arrAds"/>
 			<dependency name="arrGroupData"/>
 			<dependency name="arrGroupData"/>
 			<dependency name="arrGroupDivisions"/>
@@ -69890,7 +69891,6 @@
 			<dependency name="floatstr"/>
 			<dependency name="format"/>
 			<dependency name="fread"/>
-			<dependency name="gNews"/>
 			<dependency name="g_arrQueryHandle"/>
 			<dependency name="g_fCratePos"/>
 			<dependency name="g_fGaragePos"/>
@@ -70016,7 +70016,9 @@
 			<dependency name="holdingmodelname"/>
 			<dependency name="holdingprice"/>
 			<dependency name="holdingprice"/>
-			<dependency name="iAdverTimer"/>
+			<dependency name="iAdExpiry"/>
+			<dependency name="iAdPhone"/>
+			<dependency name="iAdType"/>
 			<dependency name="io_read"/>
 			<dependency name="mysql_format"/>
 			<dependency name="mysql_real_escape_string"/>
@@ -70273,8 +70275,8 @@
 			<dependency name="strlen"/>
 			<dependency name="strmid"/>
 			<dependency name="strval"/>
-			<dependency name="szAdvert"/>
-			<dependency name="szAdvert"/>
+			<dependency name="szAdPoster"/>
+			<dependency name="szAdText"/>
 			<dependency name="toyCountCheck"/>
 			<dependency name="true"/>
 			<dependency name="vehicleCountCheck"/>
@@ -86987,6 +86989,7 @@
 			<referrer name="pc_cmd_leavehunger"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="UpdateTruckerPrices"/>
+			<referrer name="OnDialogResponse"/>
 			<param name="colour">
 				The colour of the message (<b>RGBA</b>)
 			</param>

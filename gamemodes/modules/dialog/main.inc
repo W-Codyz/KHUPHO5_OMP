@@ -1568,371 +1568,124 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else return DeletePVar(playerid, "vDel");
 		}
-		case DIALOG_ADCATEGORY: if(response) switch(listitem) {
+		case DIALOG_ADMAIN: if(response) switch(listitem) {
 			case 0: {
-
-				new
-					szDialog[2256],
-					szBuffer[32],
-					arrAdverts[MAX_PLAYERS] = INVALID_PLAYER_ID,
-					iDialogCount,
-					iCount,
-					iBreak,
-					iRand;
-
+				new szDialog[2048], szBuffer[50], iCount, curtime = gettime();
 				for(new x; x < 50; ++x) ListItemTrackId[playerid][x] = -1;
-				foreach(new i: Player)
-				{ if(!isnull(szAdvert[i])) arrAdverts[iCount++] = i; }
-
-				while(iDialogCount < 50 && iBreak < 500) {
-					iRand = random(iCount);
-					if(arrAdverts[iRand] != INVALID_PLAYER_ID) {
-						if(AdvertType[arrAdverts[iRand]] == 1) //Real Estate
-						{
-							strcpy(szBuffer, szAdvert[arrAdverts[iRand]], sizeof(szBuffer));
-							if(PlayerInfo[playerid][pAdmin] <= 1) format(szDialog, sizeof(szDialog), "%s%s... (%i)\r\n", szDialog, szBuffer, PlayerInfo[arrAdverts[iRand]][pPnumber]);
-							else format(szDialog, sizeof(szDialog), "%s%s... (%s)\r\n", szDialog, szBuffer, GetPlayerNameEx(arrAdverts[iRand]));
-							ListItemTrackId[playerid][iDialogCount++] = arrAdverts[iRand];
-							arrAdverts[iRand] = INVALID_PLAYER_ID;	
-						}
+				for(new i; i < MAX_ADS; i++) {
+					if(arrAds[i][iAdExpiry] > curtime && iCount < 50) {
+						strcpy(szBuffer, arrAds[i][szAdText], sizeof(szBuffer));
+						if(PlayerInfo[playerid][pAdmin] <= 1) format(szDialog, sizeof(szDialog), "%s%s... (%i)\r\n", szDialog, szBuffer, arrAds[i][iAdPhone]);
+						else format(szDialog, sizeof(szDialog), "%s%s... (%s)\r\n", szDialog, szBuffer, arrAds[i][szAdPoster]);
+						ListItemTrackId[playerid][iCount++] = i;
 					}
-					++iBreak;
 				}
- 			    if(!isnull(szDialog)) return ShowPlayerDialog(playerid, DIALOG_ADLIST, DIALOG_STYLE_LIST, "Quang cao - Danh sach", szDialog, "Lua chon", "Quay lai");
-				ShowPlayerDialog(playerid, DIALOG_ADCATEGORY, DIALOG_STYLE_LIST, "Lai quang cao", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua Chon", "Thoat");
-				SendClientMessage(playerid, COLOR_GREY, "Khong co quang cao duoc dang.");
+				if(!isnull(szDialog)) return ShowPlayerDialog(playerid, DIALOG_ADLIST, DIALOG_STYLE_LIST, "Danh sach Quang Cao", szDialog, "Goi", "Quay lai");
+				ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+				SendClientMessage(playerid, COLOR_GREY, "Hien tai khong co quang cao nao.");
 			}
 			case 1: {
-
-				new
-					szDialog[2256],
-					szBuffer[32],
-					arrAdverts[MAX_PLAYERS] = INVALID_PLAYER_ID,
-					iDialogCount,
-					iCount,
-					iBreak,
-					iRand;
-
-				for(new x; x < 50; ++x) ListItemTrackId[playerid][x] = -1;
-				foreach(new i: Player)
-				{ if(!isnull(szAdvert[i])) arrAdverts[iCount++] = i; }
-
-				while(iDialogCount < 50 && iBreak < 500) {
-					iRand = random(iCount);
-					if(arrAdverts[iRand] != INVALID_PLAYER_ID) {
-						if(AdvertType[arrAdverts[iRand]] == 2) //Automobile
-						{
-							strcpy(szBuffer, szAdvert[arrAdverts[iRand]], sizeof(szBuffer));
-							if(PlayerInfo[playerid][pAdmin] <= 1) format(szDialog, sizeof(szDialog), "%s%s... (%i)\r\n", szDialog, szBuffer, PlayerInfo[arrAdverts[iRand]][pPnumber]);
-							else format(szDialog, sizeof(szDialog), "%s%s... (%s)\r\n", szDialog, szBuffer, GetPlayerNameEx(arrAdverts[iRand]));
-							ListItemTrackId[playerid][iDialogCount++] = arrAdverts[iRand];
-							arrAdverts[iRand] = INVALID_PLAYER_ID;
-						}
-					}
-					++iBreak;
-				}
-				if(!isnull(szDialog)) return ShowPlayerDialog(playerid, DIALOG_ADLIST, DIALOG_STYLE_LIST, "Quang cao - Danh sach", szDialog, "Lua chon", "Quay lai");
-				ShowPlayerDialog(playerid, DIALOG_ADCATEGORY, DIALOG_STYLE_LIST, "Lai quang cao", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
-				SendClientMessage(playerid, COLOR_GREY, "Khong co quang cao duoc dang.");
+				if(PlayerInfo[playerid][pADMute] == 1)
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban dang bi cam quang cao.");
+				if(PlayerInfo[playerid][pPnumber] == 0)
+					return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can co so dien thoai de dat quang cao.");
+				if(gettime() < GetPVarInt(playerid, "adT"))
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai doi 2 phut giua cac lan dat quang cao.");
+				if(GetPlayerCash(playerid) < 5000)
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien. Chi phi dat quang cao la $5,000.");
+				ShowPlayerDialog(playerid, DIALOG_ADPLACE, DIALOG_STYLE_INPUT, "Dat Quang Cao Thuong",
+					"Nhap noi dung quang cao (toi da 256 ky tu).\nChi phi: $5,000 | Hieu luc: 5 phut.", "Dat", "Quay lai");
 			}
 			case 2: {
-
-				new
-					szDialog[2256],
-					szBuffer[32],
-					arrAdverts[MAX_PLAYERS] = INVALID_PLAYER_ID,
-					iDialogCount,
-					iCount,
-					iBreak,
-					iRand;
-
-				for(new x; x < 50; ++x) ListItemTrackId[playerid][x] = -1;
-				foreach(new i: Player)
-				{ if(!isnull(szAdvert[i])) arrAdverts[iCount++] = i; }
-
-				while(iDialogCount < 50 && iBreak < 500) {
-					iRand = random(iCount);
-					if(arrAdverts[iRand] != INVALID_PLAYER_ID) {
-						if(AdvertType[arrAdverts[iRand]] == 3) //Buying
-						{
-							strcpy(szBuffer, szAdvert[arrAdverts[iRand]], sizeof(szBuffer));
-							if(PlayerInfo[playerid][pAdmin] <= 1) format(szDialog, sizeof(szDialog), "%s%s... (%i)\r\n", szDialog, szBuffer, PlayerInfo[arrAdverts[iRand]][pPnumber]);
-							else format(szDialog, sizeof(szDialog), "%s%s... (%s)\r\n", szDialog, szBuffer, GetPlayerNameEx(arrAdverts[iRand]));
-							ListItemTrackId[playerid][iDialogCount++] = arrAdverts[iRand];
-							arrAdverts[iRand] = INVALID_PLAYER_ID;
-						}
-					}
-					++iBreak;
-				}
-				if(!isnull(szDialog)) return ShowPlayerDialog(playerid, DIALOG_ADLIST, DIALOG_STYLE_LIST, "Quang cao - Danh sacht", szDialog, "Lua chon", "Quay lai");
-				ShowPlayerDialog(playerid, DIALOG_ADCATEGORY, DIALOG_STYLE_LIST, "Lai quang cao", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
-				SendClientMessage(playerid, COLOR_GREY, "Khong co quang cao duoc dang.");
-			}
-			case 3: {
-
-				new
-					szDialog[2256],
-					szBuffer[32],
-					arrAdverts[MAX_PLAYERS] = INVALID_PLAYER_ID,
-					iDialogCount,
-					iCount,
-					iBreak,
-					iRand;
-
-				for(new x; x < 50; ++x) ListItemTrackId[playerid][x] = -1;
-				foreach(new i: Player)
-				{ if(!isnull(szAdvert[i])) arrAdverts[iCount++] = i; }
-
-				while(iDialogCount < 50 && iBreak < 500) {
-					iRand = random(iCount);
-					if(arrAdverts[iRand] != INVALID_PLAYER_ID) {
-						if(AdvertType[arrAdverts[iRand]] == 4) //Selling
-						{
-							strcpy(szBuffer, szAdvert[arrAdverts[iRand]], sizeof(szBuffer));
-							if(PlayerInfo[playerid][pAdmin] <= 1) format(szDialog, sizeof(szDialog), "%s%s... (%i)\r\n", szDialog, szBuffer, PlayerInfo[arrAdverts[iRand]][pPnumber]);
-							else format(szDialog, sizeof(szDialog), "%s%s... (%s)\r\n", szDialog, szBuffer, GetPlayerNameEx(arrAdverts[iRand]));
-							ListItemTrackId[playerid][iDialogCount++] = arrAdverts[iRand];
-							arrAdverts[iRand] = INVALID_PLAYER_ID;	
-						}
-					}
-					++iBreak;
-				}
-    			if(!isnull(szDialog)) return ShowPlayerDialog(playerid, DIALOG_ADLIST, DIALOG_STYLE_LIST, "Quang cao - Danh sach", szDialog, "Lua chon", "Quay lai");
-				ShowPlayerDialog(playerid, DIALOG_ADCATEGORY, DIALOG_STYLE_LIST, "Lai quang cao", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
-				SendClientMessage(playerid, COLOR_GREY, "Khong co quang cao duoc dang.");
-			}
-			case 4: {
-
-				new
-					szDialog[2256],
-					szBuffer[32],
-					arrAdverts[MAX_PLAYERS] = INVALID_PLAYER_ID,
-					iDialogCount,
-					iCount,
-					iBreak,
-					iRand;
-
-				for(new x; x < 50; ++x) ListItemTrackId[playerid][x] = -1;
-				foreach(new i: Player)
-				{ if(!isnull(szAdvert[i])) arrAdverts[iCount++] = i; }
-
-				while(iDialogCount < 50 && iBreak < 500) {
-					iRand = random(iCount);
-					if(arrAdverts[iRand] != INVALID_PLAYER_ID) {
-						if(AdvertType[arrAdverts[iRand]] == 5) //Miscellaneous
-						{
-							strcpy(szBuffer, szAdvert[arrAdverts[iRand]], sizeof(szBuffer));
-							if(PlayerInfo[playerid][pAdmin] <= 1) format(szDialog, sizeof(szDialog), "%s%s... (%i)\r\n", szDialog, szBuffer, PlayerInfo[arrAdverts[iRand]][pPnumber]);
-							else format(szDialog, sizeof(szDialog), "%s%s... (%s)\r\n", szDialog, szBuffer, GetPlayerNameEx(arrAdverts[iRand]));
-							ListItemTrackId[playerid][iDialogCount++] = arrAdverts[iRand];
-							arrAdverts[iRand] = INVALID_PLAYER_ID;
-						}	
-					}
-					++iBreak;
-				}
-   			    if(!isnull(szDialog)) return ShowPlayerDialog(playerid, DIALOG_ADLIST, DIALOG_STYLE_LIST, "Advertisements - List", szDialog, "Select", "Return");
-				ShowPlayerDialog(playerid, DIALOG_ADCATEGORY, DIALOG_STYLE_LIST, "Lai quang cao", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
-				SendClientMessage(playerid, COLOR_GREY, "Khong co quang cao duoc dang.");
-			}
-		}
-		case DIALOG_ADMAIN: if(response) switch(listitem) {
-			case 0: ShowPlayerDialog(playerid, DIALOG_ADCATEGORY, DIALOG_STYLE_LIST, "Lai quang cao", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
-			case 1: ShowPlayerDialog(playerid, DIALOG_ADSEARCH, DIALOG_STYLE_INPUT, "Tim kiem quang cao", "Nhap cum tu tim kiem.", "Search", "Return");
-			case 2: {
-				if(PlayerInfo[playerid][pADMute] == 1) {
-					SendClientMessageEx(playerid, COLOR_GREY, "Ban dang bi cam quang cao.");
-				}
-				else if(PlayerInfo[playerid][pPnumber] == 0) {
-					SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
-				}
-				else ShowPlayerDialog(playerid, DIALOG_ADCATEGORYPLACE, DIALOG_STYLE_LIST, "Chon mot the loai", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
-			}
-			case 3: {
-				if(PlayerInfo[playerid][pADMute] == 1) {
-					SendClientMessageEx(playerid, COLOR_GREY, "Ban dang bi cam quang cao.");
-				}
-				else if(PlayerInfo[playerid][pPnumber] == 0) {
-					SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co dien thoai.");
-				}
-				else if(gettime() < GetPVarInt(playerid, "adT")) {
-					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
-					return SendClientMessageEx(playerid, COLOR_GREY, "Ban chi co the dang quang cao uu tien 2 phut 1 lan.");
-				}
-				else if(gettime() < iAdverTimer) {
-					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
-					return SendClientMessageEx(playerid, COLOR_GREY, "Quang cao uu tien phai cach nhau 30 giay.");
-				}
-				else
-				{
-					if(PlayerInfo[playerid][pAdvertVoucher] != 0)
-					{
-						ShowPlayerDialog(playerid, DIALOG_ADVERTVOUCHER, DIALOG_STYLE_MSGBOX, "Voucher quang cao uu tien", "Chung toi thay mot Voucher quang cao uu tien cua ban, ban co muon su dung no?\n\n{FF0000}Note: Ban se mat 1 voucher neu ban dong y.{FFFFFF}", "Dong y", "Khong");
-					}
-					else if(PlayerInfo[playerid][pAdvertVoucher] == 0)
-						return ShowPlayerDialog(playerid, DIALOG_ADCATEGORYPLACEP, DIALOG_STYLE_LIST, "Chon mot the loai", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
-				}
-			}
-		}
-		case DIALOG_ADCATEGORYPLACE: {
-			if(response) switch(listitem) {
-				case 0: {
-					AdvertType[playerid] = 1;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACE, DIALOG_STYLE_INPUT, "Quang cao",
-					"Nhap quang cao Bat dong san cua ban! Nhap tu quang cao duoi 128 ki tu.", "Lua chon", "Return");
-				}
-				case 1: {
-					AdvertType[playerid] = 2;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACE, DIALOG_STYLE_INPUT, "Quang cao",
-					"Nhap quang cao Xe hoi cua ban! Nhap tu quang cao duoi 128 ki tu.", "Lua chon", "Return");
-				}
-				case 2: {
-					AdvertType[playerid] = 3;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACE, DIALOG_STYLE_INPUT, "Quang cao",
-					"Nhap quang cao Can mua cua ban! Nhap tu quang cao duoi 128 ki tu.", "Lua chon", "Return");
-				}
-				case 3: {
-					AdvertType[playerid] = 4;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACE, DIALOG_STYLE_INPUT, "Quang cao",
-					"Nhap quang cao Can ban cua ban! Nhap tu quang cao duoi 128 ki tu.", "Lua chon", "Return");
-				}
-				case 4: {
-					AdvertType[playerid] = 5;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACE, DIALOG_STYLE_INPUT, "Quang cao",
-					"Nhap quang cao The loai khac cua ban! Nhap tu quang cao duoi 128 ki tu.", "Lua chon", "Return");
-				}
-			}
-		}
-		case DIALOG_ADCATEGORYPLACEP: {
-			if(response) switch(listitem) {
-				case 0: {
-					AdvertType[playerid] = 1;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACEP, DIALOG_STYLE_INPUT, "Quang cao uu tien",
-					"Nhap doan quang cao mong muon cua ban! Khong qua 128 ki tu.\nVi day la quang cao uu tien nen no duoc quang cao toan San Andreas, chi phi moi lan gui la $150,000.", "Lua chon", "Return");
-				}
-				case 1: {
-					AdvertType[playerid] = 2;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACEP, DIALOG_STYLE_INPUT, "Quang cao uu tien",
-					"Nhap doan quang cao mong muon cua ban! Khong qua 128 ki tu.\nVi day la quang cao uu tien nen no duoc quang cao toan San Andreas, chi phi moi lan gui la $150,000.", "Lua chon", "Return");
-				}
-				case 2: {
-					AdvertType[playerid] = 3;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACEP, DIALOG_STYLE_INPUT, "Quang cao uu tien",
-					"Nhap doan quang cao mong muon cua ban! Khong qua 128 ki tu.\nVi day la quang cao uu tien nen no duoc quang cao toan San Andreas, chi phi moi lan gui la $150,000.", "Lua chon", "Return");
-				}
-				case 3: {
-					AdvertType[playerid] = 4;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACEP, DIALOG_STYLE_INPUT, "Quang cao uu tien",
-					"Nhap doan quang cao mong muon cua ban! Khong qua 128 ki tu.\nVi day la quang cao uu tien nen no duoc quang cao toan San Andreas, chi phi moi lan gui la $150,000.", "Lua chon", "Return");
-				}
-				case 4: {
-					AdvertType[playerid] = 5;
-					ShowPlayerDialog(playerid, DIALOG_ADPLACEP, DIALOG_STYLE_INPUT, "Quang cao uu tien",
-					"Nhap doan quang cao mong muon cua ban! Khong qua 128 ki tu.\nVi day la quang cao uu tien nen no duoc quang cao toan San Andreas, chi phi moi lan gui la $150,000.", "Lua chon", "Return");
-				}
+				if(PlayerInfo[playerid][pADMute] == 1)
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban dang bi cam quang cao.");
+				if(PlayerInfo[playerid][pPnumber] == 0)
+					return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can co so dien thoai de dat quang cao.");
+				if(gettime() < GetPVarInt(playerid, "adT"))
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai doi 2 phut giua cac lan dat quang cao.");
+				if(GetPlayerCash(playerid) < 10000)
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien. Chi phi dat quang cao uu tien la $10,000.");
+				ShowPlayerDialog(playerid, DIALOG_ADPLACEP, DIALOG_STYLE_INPUT, "Dat Quang Cao Uu Tien",
+					"Nhap noi dung quang cao (toi da 256 ky tu).\nChi phi: $10,000 | Se phat song den tat ca nguoi choi. Hieu luc: 10 phut.", "Dat", "Quay lai");
 			}
 		}
 		case DIALOG_ADPLACE: {
 			if(response) {
-
 				new iLength = strlen(inputtext);
-
-				if(GetPVarInt(playerid, "RequestingAdP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban da co mot quang cao uu tien duoc cap nhat tren he thong.");
-
-				if(!(2 <= iLength <= 127)) {
-					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
-					return SendClientMessageEx(playerid, COLOR_GREY, "Ki tu nhap vao cua ban qua dai hoac qua ngan.");
+				if(!(2 <= iLength <= 255)) {
+					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+					return SendClientMessageEx(playerid, COLOR_GREY, "Noi dung quang cao phai tu 2 den 256 ky tu.");
 				}
-
-				iLength *= 50;
-				if(GetPlayerCash(playerid) < iLength) {
-					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
-					return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien mat de dat quang cao");
+				if(GetPlayerCash(playerid) < 5000) {
+					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien mat de dat quang cao.");
 				}
-				strcpy(szAdvert[playerid], inputtext, 128);
-				StripColorEmbedding(szAdvert[playerid]);
-				GivePlayerCash(playerid, -iLength);
-				SendClientMessageEx(playerid, COLOR_WHITE, "Xin chuc mung, ban da dat quang cao thanh cong!");
+				new slot = -1, curtime = gettime();
+				for(new s; s < MAX_ADS; s++) {
+					if(arrAds[s][iAdExpiry] <= curtime) { slot = s; break; }
+				}
+				if(slot == -1) {
+					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+					return SendClientMessageEx(playerid, COLOR_GREY, "He thong quang cao dang day. Vui long thu lai sau.");
+				}
+				strcpy(arrAds[slot][szAdText], inputtext, 256);
+				StripColorEmbedding(arrAds[slot][szAdText]);
+				GetPlayerName(playerid, arrAds[slot][szAdPoster], MAX_PLAYER_NAME);
+				arrAds[slot][iAdPhone] = PlayerInfo[playerid][pPnumber];
+				arrAds[slot][iAdType] = 1;
+				arrAds[slot][iAdExpiry] = curtime + 300;
+				GivePlayerCash(playerid, -5000);
+				SetPVarInt(playerid, "adT", curtime + 120);
+				SendClientMessageEx(playerid, COLOR_WHITE, "Quang cao da duoc dang thanh cong! Chi phi: $5,000. Het han sau 5 phut.");
 			}
-			else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+			else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
 		}
-
 		case DIALOG_ADPLACEP: {
 			if(response) {
-				if(GetPVarInt(playerid, "RequestingAdP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban dang co mot quang cao uu tien chua giai quyet.");
-
-				if(gettime() < iAdverTimer) {
-					SendClientMessageEx(playerid, COLOR_GREY, "Chi gui quang cao uu tien trong 30 giay.");
-					return ShowPlayerDialog(playerid, DIALOG_ADPLACEP, DIALOG_STYLE_INPUT, "Quang cao uu tien",
-					"Nhap doan quang cao mong muon cua ban! Khong qua 128 ki tu.\nVi day la quang cao uu tien nen no duoc quang cao toan San Andreas, chi phi moi lan gui la $150,000.", "Lua chon", "Return");
+				new iLength = strlen(inputtext);
+				if(!(2 <= iLength <= 255)) {
+					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+					return SendClientMessageEx(playerid, COLOR_GREY, "Noi dung quang cao phai tu 2 den 256 ky tu.");
 				}
-				else if(GetPlayerCash(playerid) < 150000 && GetPVarInt(playerid, "AdvertVoucher") != 1) {
-					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
-					return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien mat de dat quang cao");
+				if(GetPlayerCash(playerid) < 10000) {
+					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien mat de dat quang cao uu tien.");
 				}
-				else if(!(2 <= strlen(inputtext) <= 79)) {
-					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
-					return SendClientMessageEx(playerid, COLOR_GREY, "Ki tu nhap vao cua ban qua dai hoac qua ngan.");
+				new slot = -1, curtime = gettime();
+				for(new s; s < MAX_ADS; s++) {
+					if(arrAds[s][iAdExpiry] <= curtime) { slot = s; break; }
 				}
-				SetPVarInt(playerid, "adT", gettime()+120);
-				strcpy(szAdvert[playerid], inputtext, 128);
-				StripColorEmbedding(szAdvert[playerid]);
-
-				SetPVarInt(playerid, "RequestingAdP", 1);
-				SetPVarString(playerid, "PriorityAdText", szAdvert[playerid]);
-				new playername[MAX_PLAYER_NAME];
-				GetPlayerName(playerid, playername, sizeof(playername));
-				SendReportToQue(playerid, "Priority Advertisement", 2, 4);
-
-				return SendClientMessageEx(playerid, COLOR_WHITE, "Ban da dat mot quang cao uu tien den khi Admin phe quyet/denies de huy quang cao uu tien cua ban.");
+				if(slot == -1) {
+					ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+					return SendClientMessageEx(playerid, COLOR_GREY, "He thong quang cao dang day. Vui long thu lai sau.");
+				}
+				strcpy(arrAds[slot][szAdText], inputtext, 256);
+				StripColorEmbedding(arrAds[slot][szAdText]);
+				GetPlayerName(playerid, arrAds[slot][szAdPoster], MAX_PLAYER_NAME);
+				arrAds[slot][iAdPhone] = PlayerInfo[playerid][pPnumber];
+				arrAds[slot][iAdType] = 2;
+				arrAds[slot][iAdExpiry] = curtime + 600;
+				GivePlayerCash(playerid, -10000);
+				SetPVarInt(playerid, "adT", curtime + 120);
+				new string[300];
+				format(string, sizeof(string), "[QC Uu Tien] %s: %s (SDT: %d)", arrAds[slot][szAdPoster], arrAds[slot][szAdText], arrAds[slot][iAdPhone]);
+				SendClientMessageToAll(COLOR_YELLOW, string);
+				Log("logs/pads.log", string);
+				SendClientMessageEx(playerid, COLOR_WHITE, "Quang cao uu tien da phat song thanh cong! Chi phi: $10,000. Het han sau 10 phut.");
 			}
-			else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
+			else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
 		}
-		case DIALOG_ADSEARCH: {
+		case DIALOG_ADLIST: {
 			if(response) {
-
-				if(!(4 <= strlen(inputtext) <= 80)) {
-					return ShowPlayerDialog(playerid, DIALOG_ADSEARCH, DIALOG_STYLE_INPUT, "Tim kiem quang cao", "Cum tu tim kiem phai tu 4\n va nhieu nhat la 80 ki tu.\n\nNhap cum tu tim kiem.", "Tim kiem", "Tro giup");
+				new i = ListItemTrackId[playerid][listitem], szDialog[300];
+				if(i != -1 && arrAds[i][iAdExpiry] > gettime()) {
+					SetPVarInt(playerid, "advertContact", arrAds[i][iAdPhone]);
+					format(szDialog, sizeof(szDialog), "%s\r\nLien he: %d", arrAds[i][szAdText], arrAds[i][iAdPhone]);
+					return ShowPlayerDialog(playerid, DIALOG_ADFINAL, DIALOG_STYLE_MSGBOX, "Chi tiet Quang Cao", szDialog, "Goi", "Thoat");
 				}
-				else for(new x; x < 50; ++x) ListItemTrackId[playerid][x] = -1;
-
-				new
-					szDialog[2256],
-					szSearch[80],
-					szBuffer[32],
-					iCount;
-
-				strcat(szSearch, inputtext, sizeof(szSearch)); // strfind is a piece of shit when it comes to non-indexed arrays, maybe this'll help.
-				foreach(new i: Player)
-				{
-					if(!isnull(szAdvert[i])) {
-						// printf("[ads] [NAME: %s] [ID: %i] [AD: %s] [SEARCH: %s]", GetPlayerNameEx(i), i, szAdvert[i], szSearch);
-						if(strfind(szAdvert[i], szSearch, true) != -1 && iCount < 50) {
-							// printf("[ads - MATCH] [NAME: %s] [ID: %i] [AD: %s] [SEARCH: %s] [COUNT: %i] [DIALOG LENGTH: %i] [FINDPOS: %i]", GetPlayerNameEx(i), i, szAdvert[i], szSearch, iCount, strlen(szDialog), strfind(szAdvert[i], szSearch, true));
-							strcpy(szBuffer, szAdvert[i], sizeof(szBuffer));
-							if(PlayerInfo[playerid][pAdmin] <= 1) format(szDialog, sizeof(szDialog), "%s%s... (%i)\r\n", szDialog, szBuffer, PlayerInfo[i][pPnumber]);
-							else format(szDialog, sizeof(szDialog), "%s%s... (%s)\r\n", szDialog, szBuffer, GetPlayerNameEx(i));
-							ListItemTrackId[playerid][iCount++] = i;
-						}
-					}
-				}
-				if(!isnull(szDialog)) ShowPlayerDialog(playerid, DIALOG_ADSEARCHLIST, DIALOG_STYLE_LIST, "Ket qua tim kiem quang caos", szDialog, "Tim kiem", "Quay lai");
-				else ShowPlayerDialog(playerid, DIALOG_ADSEARCH, DIALOG_STYLE_INPUT, "Tim kiem quang cao", "Khong tim thay.\n\nNhap cum tu tim kiem.", "Tim kiem", "Quay lai");
-
+				else SendClientMessage(playerid, COLOR_GREY, "Quang cao nay da het han hoac khong con ton tai.");
 			}
-			else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
-		}
-		case DIALOG_ADSEARCHLIST: if(response) {
-
-			new
-				i = ListItemTrackId[playerid][listitem],
-				szDialog[164];
-
-			if(IsPlayerConnected(i) && !isnull(szAdvert[i])) {
-				SetPVarInt(playerid, "advertContact", PlayerInfo[i][pPnumber]);
-				format(szDialog, sizeof(szDialog), "%s\r\nContact: %i", szAdvert[i], PlayerInfo[i][pPnumber]);
-				ShowPlayerDialog(playerid, DIALOG_ADFINAL, DIALOG_STYLE_MSGBOX, "Ket qua tim kiem quang cao", szDialog, "Call", "Thoat");
-			}
-			else SendClientMessage(playerid, COLOR_GREY, "Nguoi nay da thoat game hoac ho da thu hoi lai quang cao.");
+			else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Kenh Quang Cao", "Danh sach quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
 		}
 		case DIALOG_ADFINAL: {
 			if(response) {
@@ -1940,36 +1693,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(params, sizeof(params), "%d", GetPVarInt(playerid, "advertContact"));
 				DeletePVar(playerid, "adverContact");
 				return pc_cmd_call(playerid, params);
-			}
-		}
-		case DIALOG_ADLIST: {
-			if(response) {
-
-				new
-					i = ListItemTrackId[playerid][listitem],
-					szDialog[164];
-
-				if(IsPlayerConnected(i) && !isnull(szAdvert[i])) {
-					SetPVarInt(playerid, "advertContact", PlayerInfo[i][pPnumber]);
-					format(szDialog, sizeof(szDialog), "%s\r\nContact: %i", szAdvert[i], PlayerInfo[i][pPnumber]);
-					return ShowPlayerDialog(playerid, DIALOG_ADFINAL, DIALOG_STYLE_MSGBOX, "Ket qua tim kiem quang cao", szDialog, "Goi", "Thoat");
-				}
-				else SendClientMessage(playerid, COLOR_GREY, "Nguoi nay da thoat game hoac ho da thu hoi lai quang cao.");
-			}
-			else ShowPlayerDialog(playerid, DIALOG_ADMAIN, DIALOG_STYLE_LIST, "Quang cao", "Danh sach quang cao\nTim kiem quang cao\nDat quang cao\nDat quang cao uu tien", "Lua chon", "Thoat");
-		}
-		case DIALOG_ADVERTVOUCHER:
-		{
-			if(response) // Clicked Yes
-			{
-				SendClientMessageEx(playerid, COLOR_CYAN, "Ban da su dung mot quang cao uu tien");
-				PlayerInfo[playerid][pAdvertVoucher]--;
-				SetPVarInt(playerid, "AdvertVoucher", 1);
-				ShowPlayerDialog(playerid, DIALOG_ADCATEGORYPLACEP, DIALOG_STYLE_LIST, "Chon mot the loai", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
-			}
-			else // Clicked No
-			{
-				ShowPlayerDialog(playerid, DIALOG_ADCATEGORYPLACEP, DIALOG_STYLE_LIST, "Chon mot the loai", "Bat dong san\nXe hoi\nCan mua\nToi ban\nLoai khac", "Lua chon", "Thoat");
 			}
 		}
 	}
@@ -17398,38 +17121,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		else
 		{
 			DeletePVar(playerid, "nrn");
-		}
-	}
-	if(dialogid == DIALOG_CONFIRMADP)
-	{
-		if(response)
-		{
-			new advert[128], reportid = GetPVarInt(playerid, "ReporterID");
-			GetPVarString(reportid, "PriorityAdText", advert, 128);
-			format(advert, sizeof(advert), "Quang cao: %s - Lien he: %s (%d)", advert, GetPlayerNameEx(reportid), PlayerInfo[reportid][pPnumber]);
-			SendClientMessageEx(reportid, -1, "Quang cao uu tien cua ban da duoc phe duyet va cong bo.");
-			if(GetPVarInt(playerid, "AdvertVoucher") != 1)
-			{
-				GivePlayerCash(reportid, -150000);
-			}
-			iAdverTimer = gettime()+30;
-			
-			foreach(new i: Player)
-			{	if(!gNews[i] && InsideMainMenu{i} != 1 && InsideTut{i} != 1 && ActiveChatbox[i] != 0) SendClientMessage(i, TEAM_GROVE_COLOR, advert); }
-			Log("logs/pads.log", advert);
-			
-			DeletePVar(reportid, "PriorityAdText");
-			DeletePVar(playerid, "ReporterID");
-			DeletePVar(reportid, "RequestingAdP");
-			DeletePVar(reportid, "AdvertVoucher");
-		}
-		else
-		{
-			SendClientMessageEx(GetPVarInt(playerid, "ReporterID"), -1, "Quang cao uu tien cua ban da bi tu choi.");
-			DeletePVar(GetPVarInt(playerid, "ReporterID"), "PriorityAdText");
-			DeletePVar(GetPVarInt(playerid, "ReporterID"), "AdvertVoucher");
-			DeletePVar(GetPVarInt(playerid, "ReporterID"), "RequestingAdP");
-			DeletePVar(playerid, "ReporterID");
 		}
 	}
 	if(dialogid == DIALOG_GIFTBOX_INFO)
