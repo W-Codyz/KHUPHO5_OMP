@@ -115,6 +115,9 @@
 //	#include "./modules/player/loading_circle"
 #include "./modules/player/suckhoe"
 
+//==============VEHICLE============//
+#include "./modules/vehicle/trunk.inc"
+
 //==============HOSPITAL============//
 #include "./modules/system/hospital_spawn"
 //#include "./modules/player/phone"

@@ -4990,7 +4990,7 @@
 				<size value="3"/>
 			</member>
 		</member>
-		<member name="T:pInfo" value="1676">
+		<member name="T:pInfo" value="1677">
 			<tagname value="pInfo"/>
 			<member name="C:pId" value="0">
 			</member>
@@ -5706,6 +5706,8 @@
 			</member>
 			<member name="C:pNuocEp" value="1675">
 			</member>
+			<member name="C:pTruyDuoi" value="1676">
+			</member>
 		</member>
 		<member name="T:pLocationData" value="57">
 			<tagname value="pLocationData"/>
@@ -5893,7 +5895,7 @@
 				<tagname value="Float"/>
 			</member>
 		</member>
-		<member name="T:pvInfo" value="81">
+		<member name="T:pvInfo" value="111">
 			<tagname value="pvInfo"/>
 			<member name="C:pvSlotId" value="0">
 			</member>
@@ -5939,41 +5941,50 @@
 			</member>
 			<member name="C:pvWepUpgrade" value="34">
 			</member>
-			<member name="C:pvImpounded" value="35">
+			<member name="C:pvTrunkType" value="35">
+				<size value="10"/>
 			</member>
-			<member name="C:pvSpawned" value="36">
+			<member name="C:pvTrunkCat" value="45">
+				<size value="10"/>
 			</member>
-			<member name="C:pvDisabled" value="37">
+			<member name="C:pvTrunkAmt" value="55">
+				<size value="10"/>
 			</member>
-			<member name="C:pvPlate" value="38">
+			<member name="C:pvImpounded" value="65">
+			</member>
+			<member name="C:pvSpawned" value="66">
+			</member>
+			<member name="C:pvDisabled" value="67">
+			</member>
+			<member name="C:pvPlate" value="68">
 				<size value="32"/>
 			</member>
-			<member name="C:pvRestricted" value="70">
+			<member name="C:pvRestricted" value="100">
 			</member>
-			<member name="C:pvFuel" value="71">
+			<member name="C:pvFuel" value="101">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:pvHealth" value="72">
+			<member name="C:pvHealth" value="102">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:pvVW" value="73">
+			<member name="C:pvVW" value="103">
 			</member>
-			<member name="C:pvInt" value="74">
+			<member name="C:pvInt" value="104">
 			</member>
-			<member name="C:pvCrashFlag" value="75">
+			<member name="C:pvCrashFlag" value="105">
 			</member>
-			<member name="C:pvCrashVW" value="76">
+			<member name="C:pvCrashVW" value="106">
 			</member>
-			<member name="C:pvCrashX" value="77">
+			<member name="C:pvCrashX" value="107">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:pvCrashY" value="78">
+			<member name="C:pvCrashY" value="108">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:pvCrashZ" value="79">
+			<member name="C:pvCrashZ" value="109">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:pvCrashAngle" value="80">
+			<member name="C:pvCrashAngle" value="110">
 				<tagname value="Float"/>
 			</member>
 		</member>
@@ -6410,6 +6421,8 @@
 			<referrer name="pc_cmd_selfie"/>
 		</member>
 		<member name="C:VEHICLE_PARAMS_OFF" value="0">
+			<referrer name="pc_cmd_copxe"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="VehicleUpdate"/>
 			<referrer name="DisableVehicleAlarm"/>
@@ -6423,13 +6436,11 @@
 			<referrer name="pc_cmd_usekit"/>
 			<referrer name="pc_cmd_announcetakeoff"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_car"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
 			<library>omp_vehicle</library> 
 		</member>
 		<member name="C:VEHICLE_PARAMS_ON" value="1">
@@ -6450,6 +6461,8 @@
 			<library>omp_vehicle</library> 
 		</member>
 		<member name="C:VEHICLE_PARAMS_UNSET" value="-1">
+			<referrer name="pc_cmd_copxe"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="SetVehicleEngine"/>
 			<referrer name="SetVehicleLights"/>
 			<referrer name="SetVehicleHood"/>
@@ -6459,10 +6472,7 @@
 			<referrer name="pc_cmd_usekit"/>
 			<referrer name="pc_cmd_announcetakeoff"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_car"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
@@ -6971,11 +6981,21 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="196">
+		<member name="C:__line" value="199">
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="pc_cmd_testturf"/>
 			<referrer name="pc_cmd_switchgang"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="LoadSafeZones"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
@@ -6992,6 +7012,7 @@
 			<referrer name="LoadLastResetInfo"/>
 			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_lucsoat"/>
+			<referrer name="pc_cmd_truyduoi"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="OnQueryFinish"/>
@@ -7166,7 +7187,6 @@
 			<referrer name="pc_cmd_donggop"/>
 			<referrer name="pc_cmd_accent"/>
 			<referrer name="pc_cmd_check"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_hwithdraw"/>
@@ -7854,16 +7874,6 @@
 			<referrer name="Inline_UI_"/>
 			<referrer name="Callback_Restore_"/>
 			<referrer name="GetVehiclePassenger"/>
-			<referrer name="AdminOnl"/>
-			<referrer name="pc_cmd_fakename"/>
-			<referrer name="checkTeleport"/>
-			<referrer name="timeCheckWeapon"/>
-			<referrer name="reset_countGiveDamageNSS"/>
-			<referrer name="CheckBossRange"/>
-			<referrer name="pc_cmd_taoboss"/>
-			<referrer name="pc_cmd_xoabosshtb"/>
-			<referrer name="EVF_OnPlayerWeaponShot"/>
-			<referrer name="pc_cmd_baotri"/>
 			<referrer name="ShopTechBroadCast"/>
 			<referrer name="ABroadCast"/>
 			<referrer name="CBroadCast"/>
@@ -7880,6 +7890,16 @@
 			<referrer name="SendFamedMessage"/>
 			<referrer name="SendAdvisorMessage"/>
 			<referrer name="SendDutyAdvisorMessage"/>
+			<referrer name="AdminOnl"/>
+			<referrer name="pc_cmd_fakename"/>
+			<referrer name="checkTeleport"/>
+			<referrer name="timeCheckWeapon"/>
+			<referrer name="reset_countGiveDamageNSS"/>
+			<referrer name="CheckBossRange"/>
+			<referrer name="pc_cmd_taoboss"/>
+			<referrer name="pc_cmd_xoabosshtb"/>
+			<referrer name="EVF_OnPlayerWeaponShot"/>
+			<referrer name="pc_cmd_baotri"/>
 			<referrer name="FA_NotifyGang"/>
 			<referrer name="TW_FamilyMsg"/>
 			<referrer name="TW_CountNear"/>
@@ -7912,6 +7932,7 @@
 			<referrer name="UpdateBar"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="AFKUpdate"/>
 			<referrer name="SyncUp"/>
 			<referrer name="SaveAccountsUpdate"/>
@@ -7992,7 +8013,6 @@
 			<referrer name="pc_cmd_admins"/>
 			<referrer name="pc_cmd_advisors"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_bonline"/>
 			<referrer name="pc_cmd_adestroymailbox"/>
 			<referrer name="pc_cmd_ringbell"/>
@@ -8495,6 +8515,7 @@
 			<referrer name="OnFadeInGameText"/>
 			<referrer name="OnFadeOutGameText"/>
 			<referrer name="Action_OnPlayerDisconnect"/>
+			<referrer name="SendMessageTD"/>
 			<referrer name="OPBA_AirbrakeTeleport"/>
 			<referrer name="OPBA_DelayCall"/>
 			<referrer name="OPBA_ResetPImuunity"/>
@@ -8533,7 +8554,6 @@
 			<referrer name="_@yHOnPlayerDisconnect@0C"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="pc_cmd_baotri"/>
-			<referrer name="SendMessageTD"/>
 			<referrer name="TW_SupplyCheck"/>
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_DeliverSupply"/>
@@ -8541,6 +8561,7 @@
 			<referrer name="TaoHenGioRoulette"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_thoathtb"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
@@ -8592,7 +8613,10 @@
 			<referrer name="Lumber_SellLog"/>
 			<referrer name="Lumber_ConvertToRaw"/>
 			<referrer name="_@yHOnPlayerConnect@0T"/>
+			<referrer name="pc_cmd_truyduoi"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
+			<referrer name="g_mysql_LoadTrunk"/>
 			<referrer name="hosp_StopRecovery"/>
 			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="hosp_ConfirmBedPos"/>
@@ -8697,6 +8721,7 @@
 			<referrer name="pc_cmd_alockdown"/>
 			<referrer name="pc_cmd_hhcheck"/>
 			<referrer name="pc_cmd_fly"/>
+			<referrer name="pc_cmd_searchcar"/>
 			<referrer name="pc_cmd_beginparkour"/>
 			<referrer name="pc_cmd_time"/>
 			<referrer name="pc_cmd_car"/>
@@ -8729,7 +8754,6 @@
 			<referrer name="pc_cmd_giveweapon"/>
 			<referrer name="pc_cmd_getgift"/>
 			<referrer name="pc_cmd_capture"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_movegate"/>
@@ -9056,6 +9080,7 @@
 			<referrer name="TaoHenGioRoulette"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_taoroulette"/>
+			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="@yH_OnGameModeInit@0E"/>
@@ -9141,10 +9166,13 @@
 			<referrer name="@yH_OnDialogResponse@0T"/>
 			<referrer name="pc_cmd_laygo"/>
 			<referrer name="@yH_OnDialogResponse@0U"/>
+			<referrer name="@yH_OnPlayerDisconnect@0U"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
 			<referrer name="@yH_OnPlayerConnect@0V"/>
 			<referrer name="@yH_OnPlayerDisconnect@0V"/>
 			<referrer name="LoadPlayerZone"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
+			<referrer name="g_mysql_LoadTrunk"/>
 			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="hosp_ConfirmBedPos"/>
 			<referrer name="HospitalRecovery_Tick"/>
@@ -9233,6 +9261,7 @@
 			<referrer name="pc_cmd_alockdown"/>
 			<referrer name="pc_cmd_hhcheck"/>
 			<referrer name="pc_cmd_id"/>
+			<referrer name="pc_cmd_searchcar"/>
 			<referrer name="pc_cmd_beginparkour"/>
 			<referrer name="pc_cmd_rentroom"/>
 			<referrer name="pc_cmd_postdirectory"/>
@@ -9278,7 +9307,6 @@
 			<referrer name="pc_cmd_getgift"/>
 			<referrer name="pc_cmd_rc"/>
 			<referrer name="pc_cmd_giveobject"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_order"/>
@@ -9702,6 +9730,12 @@
 			<referrer name="LoadStreamerActors"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0X"/>
 		</member>
+		<member name="F:AdminBuocKetQua">
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_huybq"/>
+			<referrer name="KetThucQuay"/>
+			<referrer name="_@yHOnGameModeInit@0E"/>
+		</member>
 		<member name="F:AdminMOTD">
 			<referrer name="OnQueryFinish"/>
 			<referrer name="g_mysql_SaveMOTD"/>
@@ -9843,6 +9877,9 @@
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
 			<referrer name="DemNguocThoiGianQuay"/>
@@ -11838,12 +11875,17 @@
 		<member name="F:ItemInventory">
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
+			<referrer name="GetTrunkItemName"/>
+			<referrer name="ShowTrunkDialog"/>
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="BuildInvTDSlotMap"/>
 			<referrer name="PopulateInvTDSlots"/>
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="ShowItemOptions"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="pc_cmd_additem"/>
+			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:ItemsInfo">
 		</member>
@@ -11973,16 +12015,6 @@
 			<referrer name="ScriptInit_OnPlayerDisconnect"/>
 			<referrer name="_Timer_D"/>
 			<referrer name="GetVehiclePassenger"/>
-			<referrer name="AdminOnl"/>
-			<referrer name="pc_cmd_fakename"/>
-			<referrer name="checkTeleport"/>
-			<referrer name="timeCheckWeapon"/>
-			<referrer name="reset_countGiveDamageNSS"/>
-			<referrer name="CheckBossRange"/>
-			<referrer name="pc_cmd_taoboss"/>
-			<referrer name="pc_cmd_xoabosshtb"/>
-			<referrer name="EVF_OnPlayerWeaponShot"/>
-			<referrer name="pc_cmd_baotri"/>
 			<referrer name="ShopTechBroadCast"/>
 			<referrer name="ABroadCast"/>
 			<referrer name="CBroadCast"/>
@@ -11999,6 +12031,16 @@
 			<referrer name="SendFamedMessage"/>
 			<referrer name="SendAdvisorMessage"/>
 			<referrer name="SendDutyAdvisorMessage"/>
+			<referrer name="AdminOnl"/>
+			<referrer name="pc_cmd_fakename"/>
+			<referrer name="checkTeleport"/>
+			<referrer name="timeCheckWeapon"/>
+			<referrer name="reset_countGiveDamageNSS"/>
+			<referrer name="CheckBossRange"/>
+			<referrer name="pc_cmd_taoboss"/>
+			<referrer name="pc_cmd_xoabosshtb"/>
+			<referrer name="EVF_OnPlayerWeaponShot"/>
+			<referrer name="pc_cmd_baotri"/>
 			<referrer name="FA_NotifyGang"/>
 			<referrer name="TW_FamilyMsg"/>
 			<referrer name="TW_CountNear"/>
@@ -12031,6 +12073,7 @@
 			<referrer name="UpdateBar"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="AFKUpdate"/>
 			<referrer name="SyncUp"/>
 			<referrer name="SaveAccountsUpdate"/>
@@ -12111,7 +12154,6 @@
 			<referrer name="pc_cmd_admins"/>
 			<referrer name="pc_cmd_advisors"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_bonline"/>
 			<referrer name="pc_cmd_adestroymailbox"/>
 			<referrer name="pc_cmd_ringbell"/>
@@ -12538,6 +12580,14 @@
 			<referrer name="pc_cmd_speclotto"/>
 			<referrer name="pc_cmd_cancelspeclotto"/>
 		</member>
+		<member name="F:LucSoatCount">
+			<referrer name="pc_cmd_lucsoatcopxe"/>
+			<referrer name="OnDialogResponse"/>
+		</member>
+		<member name="F:LucSoatMap">
+			<referrer name="pc_cmd_lucsoatcopxe"/>
+			<referrer name="OnDialogResponse"/>
+		</member>
 		<member name="F:LuongHang">
 			<referrer name="Trucker_Cleanup"/>
 			<referrer name="_@yHOnPlayerConnect@0_"/>
@@ -12596,6 +12646,8 @@
 		<member name="F:MainPipeline">
 			<tagname value="MySQL"/>
 			<referrer name="GetPlayerNameSQLId"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_ssetcredits"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
@@ -12628,6 +12680,9 @@
 			<referrer name="STK_check"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
+			<referrer name="g_mysql_SaveTrunk"/>
+			<referrer name="g_mysql_LoadTrunk"/>
+			<referrer name="g_mysql_DeleteTrunk"/>
 			<referrer name="ShopItemQueue"/>
 			<referrer name="PinLogin"/>
 			<referrer name="Group_DisbandGroup"/>
@@ -13260,6 +13315,7 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0T"/>
 			<referrer name="@yH_OnDialogResponse@0T"/>
 			<referrer name="@yH_OnDialogResponse@0U"/>
+			<referrer name="@yH_OnPlayerDisconnect@0U"/>
 			<referrer name="@yH_OnPlayerConnect@0V"/>
 			<referrer name="@yH_OnPlayerDisconnect@0V"/>
 			<referrer name="@yH_OnPlayerConnect@0W"/>
@@ -13777,6 +13833,15 @@
 			<referrer name="_@yHOnPlayerDeath@0Y"/>
 			<referrer name="_@yHOnPlayerEnterVehicle@0Y"/>
 		</member>
+		<member name="F:PlayerExamCarLabel">
+			<tagname value="Text3D"/>
+			<referrer name="_@yHOnPlayerConnect@0Y"/>
+			<referrer name="_@yHOnPlayerDisconnect@0Y"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
+			<referrer name="_@yHOnPlayerEnterRaceCheckpoint@0Y"/>
+			<referrer name="_@yHOnVehicleDeath@0Y"/>
+			<referrer name="_@yHOnPlayerDeath@0Y"/>
+		</member>
 		<member name="F:PlayerExamCheckpoint">
 			<referrer name="SetPlayerExamCheckpoint"/>
 			<referrer name="_@yHOnPlayerConnect@0Y"/>
@@ -13846,6 +13911,19 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:PlayerInfo">
+			<referrer name="ShopTechBroadCast"/>
+			<referrer name="ABroadCast"/>
+			<referrer name="CBroadCast"/>
+			<referrer name="SendGroupMessage"/>
+			<referrer name="SendDivisionMessage"/>
+			<referrer name="SendJobMessage"/>
+			<referrer name="SendNewFamilyMessage"/>
+			<referrer name="SendFamilyMessage"/>
+			<referrer name="RadioBroadCast"/>
+			<referrer name="SendVIPMessage"/>
+			<referrer name="SendFamedMessage"/>
+			<referrer name="SendAdvisorMessage"/>
+			<referrer name="SendDutyAdvisorMessage"/>
 			<referrer name="pc_cmd_rconbanned"/>
 			<referrer name="IsAdminPlayer"/>
 			<referrer name="AdminOnl"/>
@@ -13878,6 +13956,13 @@
 			<referrer name="pc_cmd_xoabosshtb"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="pc_cmd_checkbosshp"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
@@ -13886,19 +13971,6 @@
 			<referrer name="pc_cmd_checkad"/>
 			<referrer name="pc_cmd_kickallbaotri"/>
 			<referrer name="pc_cmd_baotri"/>
-			<referrer name="ShopTechBroadCast"/>
-			<referrer name="ABroadCast"/>
-			<referrer name="CBroadCast"/>
-			<referrer name="SendGroupMessage"/>
-			<referrer name="SendDivisionMessage"/>
-			<referrer name="SendJobMessage"/>
-			<referrer name="SendNewFamilyMessage"/>
-			<referrer name="SendFamilyMessage"/>
-			<referrer name="RadioBroadCast"/>
-			<referrer name="SendVIPMessage"/>
-			<referrer name="SendFamedMessage"/>
-			<referrer name="SendAdvisorMessage"/>
-			<referrer name="SendDutyAdvisorMessage"/>
 			<referrer name="FA_NotifyGang"/>
 			<referrer name="FA_OpenSafeDialog"/>
 			<referrer name="FA_ShowItemAction"/>
@@ -13936,6 +14008,9 @@
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="_@yHOnPlayerUpdate@0F"/>
@@ -14035,6 +14110,9 @@
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_licenses"/>
+			<referrer name="pc_cmd_truyduoi"/>
+			<referrer name="TruyDuoiC"/>
+			<referrer name="_@yHOnPlayerDisconnect@0U"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="GetTypeHunger"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
@@ -14045,6 +14123,7 @@
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="pc_cmd_suckhoe"/>
 			<referrer name="pc_cmd_hungertype"/>
+			<referrer name="ShowTrunkPutDialog"/>
 			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="hosp_PostSpawnBed"/>
@@ -14569,8 +14648,6 @@
 			<referrer name="pc_cmd_donggop"/>
 			<referrer name="pc_cmd_accent"/>
 			<referrer name="pc_cmd_check"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_hwithdraw"/>
@@ -15299,6 +15376,14 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:PlayerVehicleInfo">
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="FindClosestOwnedVehicle"/>
+			<referrer name="GetTrunkItemName"/>
+			<referrer name="ShowTrunkDialog"/>
+			<referrer name="pc_cmd_copxe"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
+			<referrer name="g_mysql_SaveTrunk"/>
+			<referrer name="g_mysql_LoadTrunk"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="g_mysql_SaveVehicle"/>
 			<referrer name="OnQueryCreateVehicle"/>
@@ -15319,12 +15404,10 @@
 			<referrer name="StopRefueling"/>
 			<referrer name="LoadPlayerDisabledVehicles"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_impound"/>
 			<referrer name="pc_cmd_aimpound"/>
 			<referrer name="pc_cmd_colorcar"/>
 			<referrer name="pc_cmd_resetupgrades"/>
-			<referrer name="pc_cmd_upgrade"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_jarrest"/>
 			<referrer name="pc_cmd_shopplate"/>
@@ -15347,8 +15430,6 @@
 			<referrer name="pc_cmd_gotopveh"/>
 			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="pc_cmd_rc"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_rcreset"/>
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="pc_cmd_userimkit"/>
@@ -16596,6 +16677,18 @@
 		<member name="F:TruckerVehicles">
 			<referrer name="LoadStreamerStaticVehicles"/>
 		</member>
+		<member name="F:TrunkPutCat">
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="OnDialogResponse"/>
+		</member>
+		<member name="F:TrunkPutCount">
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="OnDialogResponse"/>
+		</member>
+		<member name="F:TrunkPutType">
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="OnDialogResponse"/>
+		</member>
 		<member name="F:TurfData">
 			<referrer name="TW_UpdateLabel"/>
 			<referrer name="TW_OnLoad"/>
@@ -16791,6 +16884,7 @@
 			<referrer name="pc_cmd_xmas"/>
 		</member>
 		<member name="F:VIPM">
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="Misc_Save"/>
 			<referrer name="Misc_Load"/>
 			<referrer name="pc_cmd_newgvip"/>
@@ -16836,6 +16930,7 @@
 		</member>
 		<member name="F:VehicleFuel">
 			<tagname value="Float"/>
+			<referrer name="Lumber_Start"/>
 			<referrer name="VehicleUpdate"/>
 			<referrer name="Vehicle_ResetData"/>
 			<referrer name="GasPumpSaleTimer"/>
@@ -16854,6 +16949,10 @@
 			<referrer name="pc_cmd_veh"/>
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
+			<referrer name="_@yHOnDialogResponse@0_"/>
+			<referrer name="Electric_OnMenuResponse"/>
+			<referrer name="Miner_Start"/>
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<referrer name="OnDialogResponse"/>
@@ -16865,6 +16964,9 @@
 			<referrer name="AntiVPN_OnPlayerConnect"/>
 		</member>
 		<member name="F:VehicleName">
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="ShowTrunkDialog"/>
 			<referrer name="BusinessesLoadQueryFinish"/>
 			<referrer name="UpdateCarRadars"/>
 			<referrer name="GivePlayerStoreItem"/>
@@ -16898,7 +17000,6 @@
 			<referrer name="pc_cmd_gotopveh"/>
 			<referrer name="pc_cmd_vehid"/>
 			<referrer name="pc_cmd_createpvehicle"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="pc_cmd_oldcar"/>
 			<referrer name="EVF_OnVehicleSpawn"/>
@@ -18197,7 +18298,6 @@
 			<referrer name="pc_cmd_donggop"/>
 			<referrer name="pc_cmd_accent"/>
 			<referrer name="pc_cmd_check"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_hwithdraw"/>
@@ -18496,8 +18596,11 @@
 		<member name="F:__file">
 		</member>
 		<member name="F:__file">
+		</member>
+		<member name="F:__file">
 			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_lucsoat"/>
+			<referrer name="pc_cmd_truyduoi"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 		</member>
 		<member name="F:__file">
@@ -18681,6 +18784,9 @@
 		<member name="F:__file">
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_quayngay"/>
 		</member>
 		<member name="F:__file">
 			<referrer name="pc_cmd_switchgang"/>
@@ -18691,6 +18797,15 @@
 			<referrer name="pc_cmd_testturf"/>
 		</member>
 		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
 		</member>
 		<member name="F:__file">
 		</member>
@@ -19705,6 +19820,7 @@
 		</member>
 		<member name="F:cacSoDo">
 			<referrer name="LayMauRoulette"/>
+			<referrer name="pc_cmd_buockq"/>
 		</member>
 		<member name="F:cage">
 			<referrer name="CloseCage"/>
@@ -21381,6 +21497,7 @@
 			<library>amx_assembly dynamic_call</library>
 		</member>
 		<member name="F:g_arrQueryHandle">
+			<referrer name="g_mysql_LoadTrunk"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="g_mysql_Check_Store"/>
 			<referrer name="g_mysql_AccountLoginCheck"/>
@@ -22026,7 +22143,6 @@
 			<referrer name="pc_cmd_judgejail"/>
 			<referrer name="pc_cmd_judgeprison"/>
 			<referrer name="pc_cmd_dropgun"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_groupkick"/>
 			<referrer name="pc_cmd_tazer"/>
 			<referrer name="pc_cmd_joinhunger"/>
@@ -22362,6 +22478,11 @@
 		</member>
 		<member name="F:timeshift">
 			<referrer name="FixHour"/>
+		</member>
+		<member name="F:timetrd">
+			<referrer name="pc_cmd_truyduoi"/>
+			<referrer name="TruyDuoiC"/>
+			<referrer name="_@yHOnPlayerDisconnect@0U"/>
 		</member>
 		<member name="F:toglapcount">
 			<referrer name="pc_cmd_toglapcount"/>
@@ -23702,6 +23823,7 @@
 			<referrer name="pc_cmd_taoboss"/>
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
+			<referrer name="pc_cmd_ssetstat"/>
 			<referrer name="_@yHOnPlayerUpdate@0F"/>
 			<referrer name="_@yHOnPlayerTakeDamage@0F"/>
 			<referrer name="_@yHOnPlayerGiveDamage@0F"/>
@@ -24072,7 +24194,6 @@
 			<referrer name="HospitalSpawn"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="ScoreFlagPaintballArena"/>
-			<referrer name="LeavePaintballArena"/>
 			<referrer name="pc_cmd_crates"/>
 			<referrer name="pc_cmd_joinevent"/>
 			<referrer name="pc_cmd_quitevent"/>
@@ -24215,7 +24336,6 @@
 			<referrer name="GetClosestCar"/>
 			<referrer name="SpawnZombie"/>
 			<referrer name="IsPlayerInArea"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_usecrack"/>
 			<referrer name="SetPlayerToFacePos"/>
 			<referrer name="OnDynamicObjectMoved"/>
@@ -26900,6 +27020,21 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:@yH_OnPlayerDisconnect@0U" syntax="@yH_OnPlayerDisconnect@0U(&amp;playerid, &amp;reason)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerDisconnect@0U"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="reason">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:@yH_OnPlayerDisconnect@0V" syntax="@yH_OnPlayerDisconnect@0V(&amp;playerid, &amp;reason)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -28035,6 +28170,7 @@
 			<referrer name="ProcessFoodPurchase"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Q"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0R"/>
+			<referrer name="_@yHOnPlayerDisconnect@0U"/>
 			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
 			<referrer name="HospitalSpawn_OnPlayerDeath"/>
 			<referrer name="MoneyUpdate"/>
@@ -31061,6 +31197,9 @@
 			<dependency name="pvModelId"/>
 			<dependency name="pvSlotId"/>
 			<dependency name="pvSpawned"/>
+			<dependency name="pvTrunkAmt"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="pvTrunkType"/>
 			<dependency name="rBigEarT"/>
 			<dependency name="random"/>
 			<dependency name="sobeitCheckIsDone"/>
@@ -33944,6 +34083,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="Lumber_Start"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
 			<referrer name="_@yHOnDialogResponse@0_"/>
 			<referrer name="Electric_OnMenuResponse"/>
 			<referrer name="Miner_Start"/>
@@ -38686,6 +38826,7 @@
 			<referrer name="PlacePokerTable"/>
 			<referrer name="CreatePaintballArenaHill"/>
 			<referrer name="DropFlagPaintballArena"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
 			<referrer name="_@yHOnDialogResponse@0_"/>
 			<referrer name="Electric_OnMenuResponse"/>
 			<referrer name="Miner_Start"/>
@@ -39975,6 +40116,7 @@
 		</member>
 		<member name="M:CreatePlayerVehicle" syntax="CreatePlayerVehicle(playerid, playervehicleid, modelid, x, y, z, angle, color1, color2, price, VW, Int)">
 			<stacksize value="137"/>
+			<referrer name="pc_cmd_screatecar"/>
 			<referrer name="pc_cmd_shopcar"/>
 			<referrer name="pc_cmd_createpvehicle"/>
 			<referrer name="OnPlayerModelSelection"/>
@@ -41121,6 +41263,10 @@
 			<referrer name="ResetPaintballArenaHill"/>
 			<referrer name="ResetFlagPaintballArena"/>
 			<referrer name="PickupFlagPaintballArena"/>
+			<referrer name="_@yHOnPlayerDisconnect@0Y"/>
+			<referrer name="_@yHOnPlayerEnterRaceCheckpoint@0Y"/>
+			<referrer name="_@yHOnVehicleDeath@0Y"/>
+			<referrer name="_@yHOnPlayerDeath@0Y"/>
 			<referrer name="Trucker_Cleanup"/>
 			<referrer name="Electric_ResetVars"/>
 			<referrer name="_@yHOnVehicleSpawn@0d"/>
@@ -41163,13 +41309,13 @@
 		<member name="M:DeletePVar" syntax="DeletePVar(playerid, pvar[])">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="DestroyMessageTD"/>
 			<referrer name="deleteTB_AntiSlap"/>
 			<referrer name="deleteTB_AntiSlap2"/>
 			<referrer name="deleteTB_AntiSpeed"/>
 			<referrer name="deleteTB_AntiSpeedCar"/>
 			<referrer name="deleteTB_AntiRapid"/>
 			<referrer name="_@yHOnPlayerDisconnect@0@"/>
-			<referrer name="DestroyMessageTD"/>
 			<referrer name="OnOfflineKickMember"/>
 			<referrer name="_@yHOnPlayerDisconnect@0K"/>
 			<referrer name="pc_cmd_dienthoai"/>
@@ -44898,6 +45044,7 @@
 			<dependency name="ProxDetectorWrap"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="ShowTDN"/>
+			<dependency name="VehicleFuel"/>
 			<dependency name="dclog_Electric"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
@@ -45970,7 +46117,6 @@
 			<referrer name="pc_cmd_rentroom"/>
 			<referrer name="pc_cmd_gotomailbox"/>
 			<referrer name="pc_cmd_ringbell"/>
-			<referrer name="pc_cmd_upgrade"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_home"/>
 			<referrer name="pc_cmd_showmehq"/>
@@ -46015,7 +46161,6 @@
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
-			<referrer name="_@yHOnPlayerEnterRaceCheckpoint@0Y"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="OnDialogResponse"/>
@@ -46391,6 +46536,20 @@
 				The name of the output file.
 			</param>
 			<library>y_utils - files</library>      <remarks>  Moves a file from <c>src</c> to <c>dst</c>.  </remarks> 
+		</member>
+		<member name="M:FindClosestOwnedVehicle" syntax="FindClosestOwnedVehicle(playerid, range)">
+			<stacksize value="11"/>
+			<referrer name="pc_cmd_copxe"/>
+			<dependency name="GetVehiclePos"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="pvId"/>
+			<param name="playerid">
+			</param>
+			<param name="range">
+				<paraminfo>Float </paraminfo>
+			</param>
 		</member>
 		<member name="M:FindFreeAttachedObjectSlot" syntax="FindFreeAttachedObjectSlot(playerid)">
 			<stacksize value="5"/>
@@ -47298,10 +47457,10 @@
 			<stacksize value="12"/>
 			<referrer name="OnPlayerSpeedCheat"/>
 			<referrer name="checkSpeed_2"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="pc_cmd_loadkit"/>
 			<referrer name="pc_cmd_usekit"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_tow"/>
 			<referrer name="pc_cmd_car"/>
 			<referrer name="pc_cmd_vcheck"/>
@@ -48082,6 +48241,7 @@
 			<dependency name="pDice"/>
 			<dependency name="pGoThuong"/>
 			<dependency name="pHamburger"/>
+			<dependency name="pIDCard"/>
 			<dependency name="pMinBac"/>
 			<dependency name="pMinDong"/>
 			<dependency name="pMinKimCuong"/>
@@ -48784,6 +48944,10 @@
 		</member>
 		<member name="M:GetPVarInt" syntax="GetPVarInt(playerid, pvar[])">
 			<attribute name="native"/>
+			<referrer name="SendNewFamilyMessage"/>
+			<referrer name="SendFamedMessage"/>
+			<referrer name="SendDutyAdvisorMessage"/>
+			<referrer name="SendMessageTD"/>
 			<referrer name="OPBA_AirbrakeTeleport"/>
 			<referrer name="OPBA_DelayCall"/>
 			<referrer name="checkArena"/>
@@ -48804,10 +48968,6 @@
 			<referrer name="QueryHPerfList"/>
 			<referrer name="QueryHPerfGetSelected"/>
 			<referrer name="QueryHPerfDetail"/>
-			<referrer name="SendNewFamilyMessage"/>
-			<referrer name="SendFamedMessage"/>
-			<referrer name="SendDutyAdvisorMessage"/>
-			<referrer name="SendMessageTD"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="ShowMemberManageDialog"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
@@ -48832,6 +48992,8 @@
 			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
+			<referrer name="pc_cmd_copxe"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
@@ -49019,8 +49181,6 @@
 			<referrer name="pc_cmd_v"/>
 			<referrer name="pc_cmd_givemeorder"/>
 			<referrer name="pc_cmd_newgvip"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_togradio"/>
@@ -49727,6 +49887,7 @@
 			<attribute name="native"/>
 			<referrer name="CA_IsPlayerFacingWater"/>
 			<referrer name="CA_IsPlayerBlocked"/>
+			<referrer name="pc_cmd_screatecar"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="GetXYInFrontOfPlayer"/>
 			<referrer name="GetXYBehindPlayer"/>
@@ -49779,6 +49940,7 @@
 		</member>
 		<member name="M:GetPlayerFreeVehicleId" syntax="GetPlayerFreeVehicleId(playerid)">
 			<stacksize value="2"/>
+			<referrer name="pc_cmd_screatecar"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_shopcar"/>
 			<referrer name="pc_cmd_createpvehicle"/>
@@ -49881,7 +50043,6 @@
 			<referrer name="pc_cmd_god"/>
 			<referrer name="pc_cmd_triage"/>
 			<referrer name="pc_cmd_giveweapon"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_heal"/>
 			<referrer name="pc_cmd_slap"/>
 			<referrer name="pc_cmd_accepthelp"/>
@@ -49918,6 +50079,8 @@
 			<referrer name="EVF_OnPlayerUpdate"/>
 			<referrer name="checkSpeed_2"/>
 			<referrer name="_@yHOnPlayerUpdate@06"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_truyduoi"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="DynVeh_CreateDVQuery"/>
@@ -50023,6 +50186,7 @@
 			<referrer name="AntiCrasherWeapon"/>
 			<referrer name="_@yHOnPlayerCommandText@08"/>
 			<referrer name="OPBA_OnPlayerConnect"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="OnProcessOrderCheck"/>
@@ -50081,6 +50245,7 @@
 		</member>
 		<member name="M:GetPlayerIpEx" syntax="GetPlayerIpEx(playerid)">
 			<stacksize value="21"/>
+			<referrer name="pc_cmd_ssetcredits"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="OnQueryFinish"/>
@@ -50274,6 +50439,7 @@
 		</member>
 		<member name="M:GetPlayerNameEx" syntax="GetPlayerNameEx(playerid)">
 			<stacksize value="31"/>
+			<referrer name="RadioBroadCast"/>
 			<referrer name="AntiTrollCarNe"/>
 			<referrer name="pc_cmd_fakename"/>
 			<referrer name="fakeOnline_weapon"/>
@@ -50302,13 +50468,20 @@
 			<referrer name="SlapAntiSlap"/>
 			<referrer name="AntiVPN"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
-			<referrer name="RadioBroadCast"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
@@ -50351,8 +50524,11 @@
 			<referrer name="pc_cmd_take"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_lucsoat"/>
-			<referrer name="pc_cmd_licenses"/>
+			<referrer name="pc_cmd_truyduoi"/>
+			<referrer name="TruyDuoiC"/>
+			<referrer name="_@yHOnPlayerDisconnect@0U"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
 			<referrer name="HospitalSpawn_OnPlayerDeath"/>
@@ -50481,7 +50657,6 @@
 			<referrer name="pc_cmd_lockarenas"/>
 			<referrer name="pc_cmd_admins"/>
 			<referrer name="pc_cmd_advisors"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_aduty"/>
 			<referrer name="pc_cmd_bonline"/>
 			<referrer name="pc_cmd_flipcoin"/>
@@ -50659,8 +50834,6 @@
 			<referrer name="pc_cmd_giftgvip"/>
 			<referrer name="pc_cmd_ofine"/>
 			<referrer name="pc_cmd_donggop"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_hwithdraw"/>
@@ -50943,6 +51116,7 @@
 			<referrer name="OnPlayerText"/>
 			<referrer name="EVF_OnPlayerEditDynamicObject"/>
 			<referrer name="PrepTradeToysGUI"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
 			<referrer name="pc_cmd_fare"/>
 			<referrer name="pc_cmd_ataxi"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0_"/>
@@ -51121,6 +51295,7 @@
 			<referrer name="GetPlayer2DZone"/>
 			<referrer name="GetPlayer3DZone"/>
 			<referrer name="GetPlayerMainZone"/>
+			<referrer name="RadioBroadCast"/>
 			<referrer name="OPBA_AirbrakeTeleport"/>
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="AntiTrollCarNe"/>
@@ -51131,7 +51306,7 @@
 			<referrer name="_@yHOnPlayerGiveDamage@0B"/>
 			<referrer name="TimeLastPosF4T"/>
 			<referrer name="SlapAntiSlap"/>
-			<referrer name="RadioBroadCast"/>
+			<referrer name="pc_cmd_screatecar"/>
 			<referrer name="pc_cmd_glocker"/>
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="pc_cmd_fstoregun2"/>
@@ -51387,6 +51562,7 @@
 			<referrer name="fakeOnline_name"/>
 			<referrer name="AntiCrasherWeapon"/>
 			<referrer name="_@yHOnPlayerCommandText@08"/>
+			<referrer name="pc_cmd_ssetcredits"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="ShopItemQueue"/>
@@ -51731,11 +51907,11 @@
 		</member>
 		<member name="M:GetPlayerVehicle" syntax="GetPlayerVehicle(playerid, vehicleid)">
 			<stacksize value="2"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="UpdateCarRadars"/>
 			<referrer name="UpdateSpeedCamerasForPlayer"/>
 			<referrer name="StopRefueling"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_tow"/>
 			<referrer name="pc_cmd_impound"/>
 			<referrer name="pc_cmd_aimpound"/>
@@ -51792,6 +51968,7 @@
 			<referrer name="_@yHOnPlayerStateChange@0A"/>
 			<referrer name="SlapAntiSlap"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="NOPCheck"/>
 			<referrer name="MoneyUpdate"/>
@@ -51834,7 +52011,6 @@
 			<referrer name="pc_cmd_fd"/>
 			<referrer name="pc_cmd_bk"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_tow"/>
 			<referrer name="pc_cmd_untow"/>
 			<referrer name="pc_cmd_impound"/>
@@ -51928,6 +52104,7 @@
 		</member>
 		<member name="M:GetPlayerVehicleSlots" syntax="GetPlayerVehicleSlots(playerid)">
 			<stacksize value="1"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
 			<referrer name="pc_cmd_vstorage"/>
 			<referrer name="pc_cmd_removepvehicle"/>
 			<referrer name="pc_cmd_trackcar"/>
@@ -51987,6 +52164,7 @@
 			<referrer name="GetNearestVehicleToPlayer"/>
 			<referrer name="GetNearestVehicle"/>
 			<referrer name="checkSpeed_2"/>
+			<referrer name="pc_cmd_screatecar"/>
 			<referrer name="CatchFish"/>
 			<referrer name="ProxDetector"/>
 			<referrer name="ProxDetectorS"/>
@@ -52820,6 +52998,28 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:GetTrunkItemName" syntax="GetTrunkItemName(playerid, pvid, slot, output[], len)">
+			<stacksize value="8"/>
+			<dependency name="GetWeaponName"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="NameItem"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="format"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="pvTrunkType"/>
+			<param name="playerid">
+			</param>
+			<param name="pvid">
+			</param>
+			<param name="slot">
+			</param>
+			<param name="output">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="len">
+			</param>
+		</member>
 		<member name="M:GetTypeHunger" syntax="GetTypeHunger(playerid)">
 			<stacksize value="1"/>
 			<referrer name="ShowHungerDisplay"/>
@@ -52962,6 +53162,7 @@
 			<tagname value="Float"/>
 			<stacksize value="5"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
 			<dependency name="IsABike"/>
 			<param name="vehicleid">
 			</param>
@@ -53049,6 +53250,8 @@
 			<referrer name="checkSpeedTPhat"/>
 			<referrer name="CheckPlayerRemoteJacking"/>
 			<referrer name="GetHealthInVehicle"/>
+			<referrer name="IsTrunkOpenable"/>
+			<referrer name="ShowTrunkDialog"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="VehicleUpdate"/>
@@ -53115,8 +53318,6 @@
 			<referrer name="pc_cmd_sellmycar"/>
 			<referrer name="pc_cmd_vehid"/>
 			<referrer name="pc_cmd_givenos"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="pc_cmd_oldcar"/>
 			<referrer name="pc_cmd_userimkit"/>
@@ -53326,6 +53527,8 @@
 			<referrer name="SwitchVehicleBonnet"/>
 			<referrer name="SwitchVehicleBoot"/>
 			<referrer name="SwitchVehicleObjective"/>
+			<referrer name="pc_cmd_copxe"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="VehicleUpdate"/>
 			<referrer name="DisableVehicleAlarm"/>
@@ -53340,11 +53543,8 @@
 			<referrer name="pc_cmd_usekit"/>
 			<referrer name="pc_cmd_announcetakeoff"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_car"/>
 			<referrer name="pc_cmd_refuel"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
@@ -53419,6 +53619,7 @@
 			<referrer name="OPBA_PutPlayerInVehicle"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
 			<referrer name="pc_cmd_laygo"/>
+			<referrer name="FindClosestOwnedVehicle"/>
 			<referrer name="IsPlayerInRangeOfVehicle"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
 			<referrer name="ParkVehicle"/>
@@ -53429,7 +53630,6 @@
 			<referrer name="GetClosestCar"/>
 			<referrer name="pc_cmd_crates"/>
 			<referrer name="pc_cmd_loadforklift"/>
-			<referrer name="pc_cmd_upgrade"/>
 			<referrer name="pc_cmd_shopplate"/>
 			<referrer name="pc_cmd_dvpark"/>
 			<referrer name="pc_cmd_gotodv"/>
@@ -53440,8 +53640,6 @@
 			<referrer name="pc_cmd_vticket"/>
 			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="pc_cmd_rc"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_gotocar"/>
 			<referrer name="pc_cmd_detain"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
@@ -53675,14 +53873,16 @@
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_lucsoat"/>
+			<referrer name="GetTrunkItemName"/>
+			<referrer name="ShowTrunkDialog"/>
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="OnPlayerChangeWeapon"/>
 			<referrer name="PaintballSetupArena"/>
 			<referrer name="ExecuteHackerAction"/>
 			<referrer name="GetWeaponNameEx"/>
-			<referrer name="pc_cmd_searchcar"/>
 			<referrer name="pc_cmd_myguns"/>
 			<referrer name="pc_cmd_listguns"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OnPlayerGiveDamage"/>
@@ -53693,6 +53893,7 @@
 			<referrer name="ShowPlayerInventory"/>
 			<referrer name="ShowWeaponOptions"/>
 			<referrer name="DropPlayerWeapon"/>
+			<referrer name="OnDialogResponse"/>
 			<param name="weaponid">
 				The ID of the weapon to get the name of
 			</param>
@@ -53762,6 +53963,7 @@
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="PickupNearestItem"/>
 			<referrer name="PlayerExitInterior"/>
+			<referrer name="OnDialogResponse"/>
 			<param name="weaponid">
 			</param>
 			<library>omp_core</library> 
@@ -54000,6 +54202,8 @@
 		<member name="M:GivePlayerCash" syntax="GivePlayerCash(playerid, cash)">
 			<stacksize value="23"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
 			<referrer name="FA_UpgradeSafe"/>
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="TW_StartSupplyCollect"/>
@@ -54275,7 +54479,6 @@
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_eventstaff"/>
 			<referrer name="pc_cmd_giveweapon"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_order"/>
 			<referrer name="pc_cmd_tazer"/>
@@ -54891,6 +55094,7 @@
 		<member name="M:HenGioQuayRoulette" syntax="HenGioQuayRoulette(idban)">
 			<attribute name="public"/>
 			<stacksize value="1549"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<dependency name="BanCuaNguoiChoi"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="BanRoulette"/>
@@ -55295,6 +55499,7 @@
 			<referrer name="pc_cmd_pvlock"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnPlayerCommandPerformed"/>
+			<referrer name="_@yHOnPlayerEnterRaceCheckpoint@0Y"/>
 			<referrer name="PorterAnimation"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="PayDay"/>
@@ -58050,6 +58255,8 @@
 			<referrer name="_@yHOnPlayerDeath@0R"/>
 			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_lucsoat"/>
+			<referrer name="pc_cmd_truyduoi"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="OnPlayerChangeWeapon"/>
@@ -58071,7 +58278,6 @@
 			<referrer name="pc_cmd_islandgps"/>
 			<referrer name="pc_cmd_announcetakeoff"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_tow"/>
 			<referrer name="pc_cmd_untow"/>
 			<referrer name="pc_cmd_impound"/>
@@ -58408,6 +58614,7 @@
 		</member>
 		<member name="M:IsATrain" syntax="IsATrain(modelid)">
 			<stacksize value="1"/>
+			<referrer name="pc_cmd_screatecar"/>
 			<referrer name="pc_cmd_tow"/>
 			<referrer name="pc_cmd_shopcar"/>
 			<referrer name="pc_cmd_dvcreate"/>
@@ -58792,6 +58999,17 @@
 			<referrer name="Porter_Stop"/>
 			<referrer name="Construction_Stop"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
+			<referrer name="TDA_DIALOG_USEBANHMI"/>
+			<referrer name="TDA_DIALOG_USENUOCLOC"/>
+			<referrer name="TDA_DIALOG_USEPIZZA"/>
+			<referrer name="TDA_DIALOG_USEBUNRIEU"/>
+			<referrer name="TDA_DIALOG_USEPHOBO"/>
+			<referrer name="TDA_DIALOG_USEHAMBURGER"/>
+			<referrer name="TDA_DIALOG_USECAPHE"/>
+			<referrer name="TDA_DIALOG_USESUABO"/>
+			<referrer name="TDA_DIALOG_USETHITHUNKHOI"/>
+			<referrer name="TDA_DIALOG_USETRAICAY"/>
+			<referrer name="TDA_DIALOG_USENUOCEP"/>
 			<referrer name="SetLoading"/>
 			<dependency name="loadingAnimation"/>
 			<param name="playerid">
@@ -59128,6 +59346,12 @@
 			<referrer name="OPBA_SafeReset"/>
 			<referrer name="GetPlayerPacketLoss"/>
 			<referrer name="CheckBossRange"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
 			<referrer name="FA_OnLoadLogs"/>
@@ -59164,6 +59388,8 @@
 			<referrer name="pc_cmd_take"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_lucsoat"/>
+			<referrer name="pc_cmd_truyduoi"/>
+			<referrer name="TruyDuoiC"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="SucKhoe"/>
 			<referrer name="UpdateDoiBung"/>
@@ -59565,6 +59791,7 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0R"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
 			<referrer name="pc_cmd_laygo"/>
+			<referrer name="pc_cmd_copxe"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="EMSUpdate"/>
 			<referrer name="ServerHeartbeat"/>
@@ -59609,8 +59836,6 @@
 			<referrer name="pc_cmd_dropgun"/>
 			<referrer name="pc_cmd_dynamicgift"/>
 			<referrer name="pc_cmd_rc"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_order"/>
 			<referrer name="pc_cmd_movept"/>
 			<referrer name="pc_cmd_placeboombox"/>
@@ -59800,6 +60025,7 @@
 			<referrer name="Lumber_ChopFinish"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0T"/>
 			<referrer name="pc_cmd_laygo"/>
+			<referrer name="FindClosestOwnedVehicle"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="EMSUpdate"/>
@@ -59857,7 +60083,6 @@
 			<referrer name="pc_cmd_cashchecks"/>
 			<referrer name="pc_cmd_ringbell"/>
 			<referrer name="pc_cmd_tow"/>
-			<referrer name="pc_cmd_upgrade"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_join"/>
 			<referrer name="pc_cmd_changedoorpass"/>
@@ -59889,8 +60114,6 @@
 			<referrer name="pc_cmd_viplocker"/>
 			<referrer name="pc_cmd_claimpoint"/>
 			<referrer name="pc_cmd_capture"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_hwithdraw"/>
@@ -60021,8 +60244,8 @@
 		<member name="M:IsPlayerInRangeOfVehicle" syntax="IsPlayerInRangeOfVehicle(playerid, vehicleid, radius)">
 			<stacksize value="10"/>
 			<referrer name="checkSpeed_2"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_car"/>
 			<referrer name="pc_cmd_loadpt"/>
 			<referrer name="pc_cmd_vcheck"/>
@@ -60350,6 +60573,15 @@
 			<dependency name="pJob"/>
 			<dependency name="pJob2"/>
 			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:IsTrunkOpenable" syntax="IsTrunkOpenable(vehicleid)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<referrer name="pc_cmd_copxe"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
+			<dependency name="GetVehicleModel"/>
+			<param name="vehicleid">
 			</param>
 		</member>
 		<member name="M:IsVIPModel" syntax="IsVIPModel(carid)">
@@ -62868,6 +63100,7 @@
 		<member name="M:KetThucQuay" syntax="KetThucQuay(idban)">
 			<attribute name="public"/>
 			<stacksize value="5236"/>
+			<dependency name="AdminBuocKetQua"/>
 			<dependency name="BanCuaNguoiChoi"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="BanRoulette"/>
@@ -63078,6 +63311,7 @@
 			<referrer name="FIXES_GameTextForPlayer"/>
 			<referrer name="FIXES_GameTextForAll"/>
 			<referrer name="Action_OnPlayerDisconnect"/>
+			<referrer name="SendMessageTD"/>
 			<referrer name="OPBA_AirbrakeTeleport"/>
 			<referrer name="OPBA_RCarFall"/>
 			<referrer name="OPBA_SetPlayerPos"/>
@@ -63095,12 +63329,12 @@
 			<referrer name="_@yHOnPlayerDisconnect@0B"/>
 			<referrer name="pc_cmd_xoabosshtb"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
-			<referrer name="SendMessageTD"/>
 			<referrer name="TW_SupplyCheck"/>
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_CancelSupply"/>
 			<referrer name="TaoHenGioRoulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="HenGioHieuUngQuay"/>
 			<referrer name="KetThucQuay"/>
@@ -63114,6 +63348,8 @@
 			<referrer name="StopFishing"/>
 			<referrer name="CatchFish"/>
 			<referrer name="Lumber_Stop"/>
+			<referrer name="TruyDuoiC"/>
+			<referrer name="_@yHOnPlayerDisconnect@0U"/>
 			<referrer name="hosp_StopRecovery"/>
 			<referrer name="ServerHeartbeatTwo"/>
 			<referrer name="LeavePokerTable"/>
@@ -63171,6 +63407,7 @@
 			<stacksize value="2"/>
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="HienThiDialogQuay"/>
+			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
 			<referrer name="KetThucQuay"/>
 			<dependency name="cacSoDo"/>
@@ -63181,6 +63418,7 @@
 			<stacksize value="5"/>
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="HienThiDialogQuay"/>
+			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
 			<referrer name="KetThucQuay"/>
 			<dependency name="format"/>
@@ -63211,7 +63449,6 @@
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnDialogResponse"/>
-			<dependency name="operator&gt;(Float:,_:)"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="DisablePlayerCP"/>
 			<dependency name="DropFlagPaintballArena"/>
@@ -63736,6 +63973,7 @@
 		</member>
 		<member name="M:LoadPlayerDisabledVehicles" syntax="LoadPlayerDisabledVehicles(playerid)">
 			<stacksize value="3"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="pc_cmd_newgvip"/>
 			<referrer name="pc_cmd_setvip"/>
 			<referrer name="pc_cmd_givesprize"/>
@@ -64232,6 +64470,12 @@
 			<referrer name="Anti_killall_6"/>
 			<referrer name="CheckPlayerRemoteJacking"/>
 			<referrer name="ChongNoXe2"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
 			<referrer name="OnOfflineRankUpdate"/>
@@ -64802,6 +65046,7 @@
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetPlayerSkin"/>
 			<dependency name="ShowTDN"/>
+			<dependency name="VehicleFuel"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="gLumberVehLabel"/>
@@ -65907,6 +66152,7 @@
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetPlayerSkin"/>
 			<dependency name="ShowTDN"/>
+			<dependency name="VehicleFuel"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="gMinerVehLabel"/>
@@ -66072,6 +66318,7 @@
 		</member>
 		<member name="M:Misc_Save" syntax="Misc_Save()">
 			<stacksize value="43"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="Lotto"/>
 			<referrer name="LoadForklift"/>
 			<referrer name="FinishMaintenance"/>
@@ -67110,6 +67357,7 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0T"/>
 			<referrer name="@yH_OnDialogResponse@0T"/>
 			<referrer name="@yH_OnDialogResponse@0U"/>
+			<referrer name="@yH_OnPlayerDisconnect@0U"/>
 			<referrer name="@yH_OnPlayerConnect@0V"/>
 			<referrer name="@yH_OnPlayerDisconnect@0V"/>
 			<referrer name="@yH_OnPlayerConnect@0W"/>
@@ -69247,9 +69495,11 @@
 			<dependency name="GetVehicleModel"/>
 			<dependency name="GetVehiclePos"/>
 			<dependency name="GetVehicleVirtualWorld"/>
+			<dependency name="GetWeaponName"/>
 			<dependency name="GetWeaponNameEx"/>
 			<dependency name="GetWeaponNameEx"/>
 			<dependency name="GetWeaponParam"/>
+			<dependency name="GetWeaponSlot"/>
 			<dependency name="GiveKeysTo"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="GivePlayerCredits"/>
@@ -69315,6 +69565,8 @@
 			<dependency name="IsVehicleInTow"/>
 			<dependency name="IsVehicleOccupiedEx"/>
 			<dependency name="IsWeaponizedVehicle"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="ItemInventory"/>
 			<dependency name="ItemValue"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="Jackpot"/>
@@ -69342,12 +69594,16 @@
 			<dependency name="Log"/>
 			<dependency name="LottoNumbers"/>
 			<dependency name="LottoNumbers"/>
+			<dependency name="LucSoatCount"/>
+			<dependency name="LucSoatMap"/>
+			<dependency name="LucSoatMap"/>
 			<dependency name="MainPipeline"/>
 			<dependency name="Medics"/>
 			<dependency name="Misc_Save"/>
 			<dependency name="Mobile"/>
 			<dependency name="MoveDynamicObject"/>
 			<dependency name="NGGShop"/>
+			<dependency name="NameItem"/>
 			<dependency name="News"/>
 			<dependency name="OOCPrisonSpawns"/>
 			<dependency name="OOCPrisonSpawns"/>
@@ -69396,6 +69652,7 @@
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="Price"/>
 			<dependency name="ProxDetector"/>
+			<dependency name="ProxDetectorWrap"/>
 			<dependency name="PumpkinStock"/>
 			<dependency name="RandomMinMax"/>
 			<dependency name="ReCreateGangTags"/>
@@ -69404,6 +69661,7 @@
 			<dependency name="RemoveArmor"/>
 			<dependency name="RemovePlayerAttachedObject"/>
 			<dependency name="RemovePlayerFromVehicle"/>
+			<dependency name="RemovePlayerWeaponEx"/>
 			<dependency name="RemoveVehicleComponent"/>
 			<dependency name="ReplyTimerr"/>
 			<dependency name="Report"/>
@@ -69481,6 +69739,8 @@
 			<dependency name="ShowPlayerDynamicGiftBox"/>
 			<dependency name="ShowPlayerSettings"/>
 			<dependency name="ShowSecondaryStats"/>
+			<dependency name="ShowTrunkDialog"/>
+			<dependency name="ShowTrunkPutDialog"/>
 			<dependency name="SkinList"/>
 			<dependency name="SpawnPaintballArena"/>
 			<dependency name="SpeedCameras"/>
@@ -69504,6 +69764,9 @@
 			<dependency name="Timer"/>
 			<dependency name="TogglePlayerControllable"/>
 			<dependency name="TruckDeliveringTo"/>
+			<dependency name="TrunkPutCat"/>
+			<dependency name="TrunkPutCount"/>
+			<dependency name="TrunkPutType"/>
 			<dependency name="TutStep"/>
 			<dependency name="UpdateDynamic3DTextLabelText"/>
 			<dependency name="UpdateNewbieMission"/>
@@ -69658,6 +69921,7 @@
 			<dependency name="g_iSpikeStrips"/>
 			<dependency name="g_mysql_AccountLoginCheck"/>
 			<dependency name="g_mysql_CreateAccount"/>
+			<dependency name="g_mysql_DeleteTrunk"/>
 			<dependency name="g_mysql_NewToy"/>
 			<dependency name="g_mysql_ReturnEscaped"/>
 			<dependency name="g_mysql_ReturnEscaped"/>
@@ -69665,6 +69929,7 @@
 			<dependency name="g_mysql_SaveMOTD"/>
 			<dependency name="g_mysql_SavePrices"/>
 			<dependency name="g_mysql_SaveToys"/>
+			<dependency name="g_mysql_SaveTrunk"/>
 			<dependency name="g_mysql_SaveVehicle"/>
 			<dependency name="g_szGroupName"/>
 			<dependency name="g_tCrate3DLabel"/>
@@ -69803,6 +70068,7 @@
 			<dependency name="pGiftVoucher"/>
 			<dependency name="pGoldBoxTokens"/>
 			<dependency name="pGunLic"/>
+			<dependency name="pGuns"/>
 			<dependency name="pHR"/>
 			<dependency name="pHasCuff"/>
 			<dependency name="pHasTazer"/>
@@ -69869,6 +70135,7 @@
 			<dependency name="pVIPSellable"/>
 			<dependency name="pVIPSold"/>
 			<dependency name="pVW"/>
+			<dependency name="pVariable"/>
 			<dependency name="pVehVoucher"/>
 			<dependency name="pVehicleKeys"/>
 			<dependency name="pVehicleKeysFrom"/>
@@ -69988,6 +70255,9 @@
 			<dependency name="pvSlotId"/>
 			<dependency name="pvSpawned"/>
 			<dependency name="pvTicket"/>
+			<dependency name="pvTrunkAmt"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="pvTrunkType"/>
 			<dependency name="pvVW"/>
 			<dependency name="pvWeapons"/>
 			<dependency name="rBigEarT"/>
@@ -74346,6 +74616,7 @@
 			<dependency name="__printf"/>
 			<dependency name="cache_insert_id"/>
 			<dependency name="format"/>
+			<dependency name="g_mysql_SaveTrunk"/>
 			<dependency name="g_mysql_SaveVehicle"/>
 			<dependency name="mysql_tquery"/>
 			<dependency name="pvModelId"/>
@@ -74511,6 +74782,7 @@
 			<dependency name="g_mysql_LoadAccount"/>
 			<dependency name="g_mysql_LoadPVehicles"/>
 			<dependency name="g_mysql_LoadPlayerToys"/>
+			<dependency name="g_mysql_LoadTrunk"/>
 			<dependency name="mysql_tquery"/>
 			<dependency name="number_format"/>
 			<dependency name="p911Muted"/>
@@ -74870,6 +75142,9 @@
 			<dependency name="pvRestricted"/>
 			<dependency name="pvSlotId"/>
 			<dependency name="pvTicket"/>
+			<dependency name="pvTrunkAmt"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="pvTrunkType"/>
 			<dependency name="pvVW"/>
 			<dependency name="pvWeapons"/>
 			<dependency name="pvWepUpgrade"/>
@@ -75796,6 +76071,7 @@
 		</member>
 		<member name="M:PC_RegAlias" syntax="PC_RegAlias(cmd[], alias[], ...)">
 			<attribute name="native"/>
+			<referrer name="pc_alias_screatecar"/>
 			<referrer name="pc_alias_taoroulette"/>
 			<referrer name="pc_alias_xoaroulette"/>
 			<referrer name="pc_alias_listsz"/>
@@ -77124,7 +77400,6 @@
 			<referrer name="TransferStorage"/>
 			<referrer name="GivePlayerXP"/>
 			<referrer name="pc_cmd_resetupgrades"/>
-			<referrer name="pc_cmd_upgrade"/>
 			<referrer name="pc_cmd_playsound"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_gdonate"/>
@@ -77584,8 +77859,8 @@
 			<referrer name="OnPlayerClickTextDraw"/>
 			<referrer name="OnHideGameText"/>
 			<referrer name="OnFadeOutGameText"/>
-			<referrer name="HideBossHPBarFromPlayer"/>
 			<referrer name="DestroyMessageTD"/>
+			<referrer name="HideBossHPBarFromPlayer"/>
 			<referrer name="HideUiPlayerInfo"/>
 			<referrer name="XoaTextDraw"/>
 			<referrer name="HideAllHungerTextdraws"/>
@@ -77917,9 +78192,9 @@
 			<referrer name="Prev_UpdateListitems"/>
 			<referrer name="OnPlayerClickTextDraw"/>
 			<referrer name="FIXES_GameTextForPlayer"/>
+			<referrer name="SendMessageTD"/>
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
-			<referrer name="SendMessageTD"/>
 			<referrer name="UpdateHudUI"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="XoaTextDraw"/>
@@ -77976,8 +78251,8 @@
 			<referrer name="FIXES_GameTextForPlayer"/>
 			<referrer name="OnFadeInGameText"/>
 			<referrer name="OnFadeOutGameText"/>
-			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="SendMessageTD"/>
+			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="ShowUiPlayerInfo"/>
 			<referrer name="HienTextdraw"/>
 			<referrer name="NotifyLoadingUpdet"/>
@@ -79125,6 +79400,7 @@
 			<stacksize value="4441"/>
 			<referrer name="NDP_ShowDialogPage"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
 			<referrer name="pc_cmd_dsadmin"/>
 			<referrer name="pc_cmd_dsadvisor"/>
@@ -79203,8 +79479,10 @@
 			<referrer name="pc_cmd_vitrilumber"/>
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
-			<referrer name="pc_cmd_licenses"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
+			<referrer name="ShowTrunkDialog"/>
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="OnPhoneNumberCheck"/>
 			<referrer name="MailsQueryFinish"/>
@@ -79800,7 +80078,6 @@
 			<referrer name="pc_cmd_getvials"/>
 			<referrer name="pc_cmd_bite"/>
 			<referrer name="pc_cmd_curevirus"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_flipcoin"/>
 			<referrer name="pc_cmd_dice"/>
 			<referrer name="pc_cmd_ringbell"/>
@@ -79831,8 +80108,6 @@
 			<referrer name="pc_cmd_dropgun"/>
 			<referrer name="pc_cmd_getgift"/>
 			<referrer name="pc_cmd_capture"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_showbadge"/>
@@ -79937,6 +80212,7 @@
 			<referrer name="pc_cmd_bantepcansa"/>
 			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_lucsoat"/>
+			<referrer name="pc_cmd_truyduoi"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="MoneyUpdate"/>
 			<referrer name="CuffTackled"/>
@@ -80024,6 +80300,7 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0e"/>
 			<referrer name="pc_cmd_capcccd"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="OnDialogResponse"/>
 			<dependency name="ProxDetector"/>
 			<dependency name="format"/>
 			<dependency name="strlen"/>
@@ -81621,7 +81898,6 @@
 			<referrer name="pc_cmd_quitevent"/>
 			<referrer name="pc_cmd_giveweapon"/>
 			<referrer name="pc_cmd_dropgun"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_endevent"/>
 			<referrer name="pc_cmd_takeadminweapons"/>
@@ -81629,6 +81905,7 @@
 			<referrer name="pc_cmd_radargun"/>
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
+			<referrer name="OnDialogResponse"/>
 			<dependency name="GetWeaponSlot"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -81956,6 +82233,7 @@
 		</member>
 		<member name="M:ResetPlayerCash" syntax="ResetPlayerCash(playerid)">
 			<stacksize value="3"/>
+			<referrer name="pc_cmd_ssetmoney"/>
 			<referrer name="pc_cmd_setmoney"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -82791,10 +83069,20 @@
 		</member>
 		<member name="M:SSCANF__" syntax="SSCANF__(file[], line, data[], format[], ...)">
 			<attribute name="native"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="pc_cmd_testturf"/>
 			<referrer name="pc_cmd_switchgang"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="LoadSafeZones"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
@@ -82811,6 +83099,7 @@
 			<referrer name="LoadLastResetInfo"/>
 			<referrer name="pc_cmd_take"/>
 			<referrer name="pc_cmd_lucsoat"/>
+			<referrer name="pc_cmd_truyduoi"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="OnQueryFinish"/>
@@ -82985,7 +83274,6 @@
 			<referrer name="pc_cmd_donggop"/>
 			<referrer name="pc_cmd_accent"/>
 			<referrer name="pc_cmd_check"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_hwithdraw"/>
@@ -85159,6 +85447,9 @@
 			<referrer name="pc_cmd_dsadvisor"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="pc_cmd_thoathtb"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
@@ -85374,20 +85665,6 @@
 		</member>
 		<member name="M:SendClientMessageEx" syntax="SendClientMessageEx(playerid, color, string[], ...)">
 			<stacksize value="271"/>
-			<referrer name="pc_cmd_rconbanned"/>
-			<referrer name="pc_cmd_antispeed"/>
-			<referrer name="h_OnPlayerClickMap"/>
-			<referrer name="_@yHOnPlayerGiveDamage@0B"/>
-			<referrer name="AntiCheat"/>
-			<referrer name="SlapAntiSlap"/>
-			<referrer name="pc_cmd_taoboss"/>
-			<referrer name="EVF_OnPlayerWeaponShot"/>
-			<referrer name="KickAdminOff"/>
-			<referrer name="KickAdvisorOff"/>
-			<referrer name="pc_cmd_checkad"/>
-			<referrer name="QueryHPerfList"/>
-			<referrer name="pc_cmd_kickallbaotri"/>
-			<referrer name="pc_cmd_baotri"/>
 			<referrer name="ShopTechBroadCast"/>
 			<referrer name="ABroadCast"/>
 			<referrer name="CBroadCast"/>
@@ -85404,6 +85681,27 @@
 			<referrer name="SendFamedMessage"/>
 			<referrer name="SendAdvisorMessage"/>
 			<referrer name="SendDutyAdvisorMessage"/>
+			<referrer name="pc_cmd_rconbanned"/>
+			<referrer name="pc_cmd_antispeed"/>
+			<referrer name="h_OnPlayerClickMap"/>
+			<referrer name="_@yHOnPlayerGiveDamage@0B"/>
+			<referrer name="AntiCheat"/>
+			<referrer name="SlapAntiSlap"/>
+			<referrer name="pc_cmd_taoboss"/>
+			<referrer name="EVF_OnPlayerWeaponShot"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
+			<referrer name="KickAdminOff"/>
+			<referrer name="KickAdvisorOff"/>
+			<referrer name="pc_cmd_checkad"/>
+			<referrer name="QueryHPerfList"/>
+			<referrer name="pc_cmd_kickallbaotri"/>
+			<referrer name="pc_cmd_baotri"/>
 			<referrer name="FA_NotifyGang"/>
 			<referrer name="FA_OpenSafeDialog"/>
 			<referrer name="FA_ShowGunStoreList"/>
@@ -85498,12 +85796,18 @@
 			<referrer name="pc_cmd_take"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_lucsoat"/>
+			<referrer name="pc_cmd_licenses"/>
+			<referrer name="pc_cmd_truyduoi"/>
+			<referrer name="TruyDuoiC"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="SucKhoe"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="pc_cmd_suckhoe"/>
 			<referrer name="pc_cmd_hungertype"/>
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="pc_cmd_copxe"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="hosp_CompleteBedExit"/>
 			<referrer name="SyncUp"/>
@@ -85722,7 +86026,6 @@
 			<referrer name="pc_cmd_fd"/>
 			<referrer name="pc_cmd_bk"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_phoneprivacy"/>
 			<referrer name="pc_cmd_speakerphone"/>
 			<referrer name="pc_cmd_aduty"/>
@@ -86055,8 +86358,6 @@
 			<referrer name="pc_cmd_donggop"/>
 			<referrer name="pc_cmd_accent"/>
 			<referrer name="pc_cmd_check"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_hwithdraw"/>
@@ -87191,6 +87492,7 @@
 			<stacksize value="82"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
@@ -88416,6 +88718,7 @@
 		<member name="M:SetPVarInt" syntax="SetPVarInt(playerid, pvar[], value)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="SendMessageTD"/>
 			<referrer name="checkSpeed_2"/>
 			<referrer name="checkSpeedVehicle"/>
 			<referrer name="h_AntiRapid"/>
@@ -88423,8 +88726,9 @@
 			<referrer name="_@yHOnPlayerCommandText@08"/>
 			<referrer name="_@yHOnPlayerConnect@0@"/>
 			<referrer name="_@yHOnPlayerUpdate@0@"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
-			<referrer name="SendMessageTD"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="OnSelectMember"/>
 			<referrer name="OnOfflineRankUpdate"/>
@@ -88449,6 +88753,8 @@
 			<referrer name="ShowPoliceInspect"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
+			<referrer name="ShowTrunkDialog"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="hosp_PlacePatientInBed"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="HospitalSpawn_OnPlayerSpawn"/>
@@ -88598,7 +88904,6 @@
 			<referrer name="pc_cmd_setvip"/>
 			<referrer name="pc_cmd_ofine"/>
 			<referrer name="pc_cmd_giveobject"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_groupunban"/>
@@ -88759,6 +89064,7 @@
 		<member name="M:SetPVarString" syntax="SetPVarString(playerid, pvar[], value[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
 			<referrer name="QueryHPerfGetSelected"/>
 			<referrer name="OnSelectMember"/>
@@ -89903,6 +90209,7 @@
 		<member name="M:SetPlayerScore" syntax="SetPlayerScore(playerid, score)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="pc_cmd_ssetstat"/>
 			<referrer name="SyncUp"/>
 			<referrer name="GivePlayerXP"/>
 			<referrer name="pc_cmd_setstat"/>
@@ -90747,6 +91054,7 @@
 			<referrer name="FIXES_GameTextForAll"/>
 			<referrer name="OnFadeInGameText"/>
 			<referrer name="OnFadeOutGameText"/>
+			<referrer name="SendMessageTD"/>
 			<referrer name="OPBA_AirbrakeTeleport"/>
 			<referrer name="OPBA_DelayCall"/>
 			<referrer name="OPBA_SetVehicleToRespawn"/>
@@ -90774,7 +91082,6 @@
 			<referrer name="_@yHOnPlayerGiveDamage@0B"/>
 			<referrer name="AntiCheat"/>
 			<referrer name="SlapAntiSlap"/>
-			<referrer name="SendMessageTD"/>
 			<referrer name="TW_StartSupplyCollect"/>
 			<referrer name="TaoHenGioRoulette"/>
 			<referrer name="HenGioQuayRoulette"/>
@@ -90796,6 +91103,7 @@
 			<referrer name="SetupDailyReset"/>
 			<referrer name="StartFishing"/>
 			<referrer name="Lumber_ChopFinish"/>
+			<referrer name="pc_cmd_truyduoi"/>
 			<referrer name="UpdateDoiBung"/>
 			<referrer name="UpdateKhatNuoc"/>
 			<referrer name="hosp_PlacePatientInBed"/>
@@ -90870,7 +91178,6 @@
 			<referrer name="pc_cmd_countdown"/>
 			<referrer name="pc_cmd_giveweapon"/>
 			<referrer name="pc_cmd_capture"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_movegate"/>
@@ -91273,6 +91580,7 @@
 			<referrer name="vehicle_unlock_doors"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
 			<referrer name="_@yHOnDialogResponse@0g"/>
 			<param name="vehicleid">
 				The ID of the vehicle to set the parameters of
@@ -91652,6 +91960,7 @@
 		</member>
 		<member name="M:ShowCardTD" syntax="ShowCardTD(viewerid, ownerid)">
 			<stacksize value="40"/>
+			<referrer name="pc_cmd_licenses"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<dependency name="CreateCardTDPlayer"/>
 			<dependency name="IsPlayerConnected"/>
@@ -92122,6 +92431,7 @@
 			<dependency name="SelectedItem"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
+			<dependency name="pIDCard"/>
 			<dependency name="pVariable"/>
 			<dependency name="strcat"/>
 			<param name="playerid">
@@ -93012,6 +93322,56 @@
 			</param>
 			<param name="text">
 				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:ShowTrunkDialog" syntax="ShowTrunkDialog(playerid, pvid)">
+			<stacksize value="812"/>
+			<referrer name="pc_cmd_copxe"/>
+			<referrer name="OnDialogResponse"/>
+			<dependency name="GetVehicleModel"/>
+			<dependency name="GetWeaponName"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="NameItem"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="VehicleName"/>
+			<dependency name="VehicleName"/>
+			<dependency name="format"/>
+			<dependency name="pvId"/>
+			<dependency name="pvTrunkAmt"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="pvTrunkType"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
+			<param name="pvid">
+			</param>
+		</member>
+		<member name="M:ShowTrunkPutDialog" syntax="ShowTrunkPutDialog(playerid)">
+			<stacksize value="1143"/>
+			<referrer name="OnDialogResponse"/>
+			<dependency name="GetWeaponName"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="NameItem"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="TrunkPutCat"/>
+			<dependency name="TrunkPutCat"/>
+			<dependency name="TrunkPutCount"/>
+			<dependency name="TrunkPutType"/>
+			<dependency name="TrunkPutType"/>
+			<dependency name="format"/>
+			<dependency name="pGuns"/>
+			<dependency name="pIDCard"/>
+			<dependency name="pVariable"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:ShowUiPlayerInfo" syntax="ShowUiPlayerInfo(playerid)">
@@ -94573,6 +94933,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94593,6 +94954,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94612,6 +94974,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94632,6 +94995,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94651,6 +95015,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94671,6 +95036,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94691,6 +95057,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94710,6 +95077,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94729,6 +95097,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94748,6 +95117,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -94767,6 +95137,7 @@
 			<dependency name="ApplyAnimation"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="IsABike"/>
+			<dependency name="IsLoadingActive"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
@@ -96768,6 +97139,23 @@
 			<referrer name="pc_cmd_huongdan"/>
 			<dependency name="SendClientMessageEx"/>
 			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:TruyDuoiC" syntax="TruyDuoiC(playerid, pid)">
+			<attribute name="public"/>
+			<stacksize value="135"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="format"/>
+			<dependency name="pTruyDuoi"/>
+			<dependency name="timetrd"/>
+			<param name="playerid">
+			</param>
+			<param name="pid">
 			</param>
 		</member>
 		<member name="M:TryPPM" syntax="TryPPM(ppm)">
@@ -99276,6 +99664,7 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0T"/>
 			<referrer name="@yH_OnDialogResponse@0T"/>
 			<referrer name="@yH_OnDialogResponse@0U"/>
+			<referrer name="@yH_OnPlayerDisconnect@0U"/>
 			<referrer name="@yH_OnPlayerConnect@0V"/>
 			<referrer name="@yH_OnPlayerDisconnect@0V"/>
 			<referrer name="@yH_OnPlayerConnect@0W"/>
@@ -100259,6 +100648,7 @@
 			<dependency name="TruckerJobCar"/>
 			<dependency name="TruckerJobText"/>
 			<dependency name="Trucker_ShowInstructions"/>
+			<dependency name="VehicleFuel"/>
 			<dependency name="dclog_Trucker"/>
 			<dependency name="false"/>
 			<dependency name="floatround"/>
@@ -100530,7 +100920,9 @@
 			<dependency name="pThit"/>
 			<dependency name="pTraiCay"/>
 			<dependency name="pVariable"/>
+			<dependency name="pc_cmd_choxemgiayphep"/>
 			<dependency name="pc_cmd_dice"/>
+			<dependency name="pc_cmd_licenses"/>
 			<dependency name="pc_cmd_placeboombox"/>
 			<dependency name="pc_cmd_tie"/>
 			<dependency name="pc_cmd_usecigar"/>
@@ -100682,6 +101074,7 @@
 			<attribute name="public"/>
 			<stacksize value="3"/>
 			<referrer name="@yH_OnGameModeInit@0E"/>
+			<dependency name="AdminBuocKetQua"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="TaiBanRoulette"/>
@@ -101172,6 +101565,7 @@
 			<stacksize value="2"/>
 			<referrer name="@yH_OnPlayerConnect@0Y"/>
 			<dependency name="MAX_CAR_EXAM"/>
+			<dependency name="PlayerExamCarLabel"/>
 			<dependency name="PlayerExamCheckpoint"/>
 			<dependency name="PlayerExamCorrect"/>
 			<dependency name="PlayerExamCurrent"/>
@@ -101428,10 +101822,12 @@
 			<attribute name="public"/>
 			<stacksize value="5"/>
 			<referrer name="@yH_OnPlayerDeath@0Y"/>
+			<dependency name="Delete3DTextLabel"/>
 			<dependency name="DisablePlayerRaceCP"/>
 			<dependency name="EVF_DestroyVehicle"/>
 			<dependency name="IsValidVehicle"/>
 			<dependency name="PlayerExamCar"/>
+			<dependency name="PlayerExamCarLabel"/>
 			<dependency name="PlayerExamCheckpoint"/>
 			<dependency name="PlayerExamCorrect"/>
 			<dependency name="PlayerExamCurrent"/>
@@ -101660,6 +102056,27 @@
 			<param name="reason">
 			</param>
 		</member>
+		<member name="M:_@yHOnPlayerDisconnect@0U" syntax="_@yHOnPlayerDisconnect@0U(playerid, reason)">
+			<attribute name="public"/>
+			<stacksize value="111"/>
+			<referrer name="@yH_OnPlayerDisconnect@0U"/>
+			<dependency name="ABroadCast"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="format"/>
+			<dependency name="pJailTime"/>
+			<dependency name="pPrisonReason"/>
+			<dependency name="pPrisonedBy"/>
+			<dependency name="pTruyDuoi"/>
+			<dependency name="strcat"/>
+			<dependency name="timetrd"/>
+			<param name="playerid">
+			</param>
+			<param name="reason">
+			</param>
+		</member>
 		<member name="M:_@yHOnPlayerDisconnect@0V" syntax="_@yHOnPlayerDisconnect@0V(playerid, reason)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
@@ -101684,9 +102101,11 @@
 			<attribute name="public"/>
 			<stacksize value="4"/>
 			<referrer name="@yH_OnPlayerDisconnect@0Y"/>
+			<dependency name="Delete3DTextLabel"/>
 			<dependency name="EVF_DestroyVehicle"/>
 			<dependency name="IsValidVehicle"/>
 			<dependency name="PlayerExamCar"/>
+			<dependency name="PlayerExamCarLabel"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -101864,18 +102283,28 @@
 		</member>
 		<member name="M:_@yHOnPlayerEnterCheckpoint@0Y" syntax="_@yHOnPlayerEnterCheckpoint@0Y(playerid)">
 			<attribute name="public"/>
-			<stacksize value="16"/>
+			<stacksize value="161"/>
 			<referrer name="@yH_OnPlayerEnterCheckpoint@0Y"/>
+			<dependency name="Attach3DTextLabelToVehicle"/>
 			<dependency name="CarExamSpawn"/>
 			<dependency name="CarExamSpawn"/>
+			<dependency name="Create3DTextLabel"/>
 			<dependency name="DisablePlayerCP"/>
 			<dependency name="EVF_CreateVehicle"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetVehicleFuelCapacity"/>
 			<dependency name="OPBA_PutPlayerInVehicle"/>
 			<dependency name="PlayerExamCar"/>
+			<dependency name="PlayerExamCarLabel"/>
 			<dependency name="PlayerExamCheckpoint"/>
 			<dependency name="PlayerExamStep"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="SetPlayerExamCheckpoint"/>
+			<dependency name="SetVehicleParamsEx"/>
+			<dependency name="VEHICLE_PARAMS_OFF"/>
+			<dependency name="VehicleFuel"/>
+			<dependency name="format"/>
 			<dependency name="gPlayerCheckpointStatus"/>
 			<dependency name="random"/>
 			<dependency name="va_SetVehicleNumberPlate"/>
@@ -102082,12 +102511,14 @@
 			<attribute name="public"/>
 			<stacksize value="7"/>
 			<referrer name="@yH_OnPlayerEnterRaceCheckpoint@0Y"/>
+			<dependency name="Delete3DTextLabel"/>
 			<dependency name="DisablePlayerRaceCP"/>
 			<dependency name="EVF_DestroyVehicle"/>
-			<dependency name="FIXES_GameTextForPlayer"/>
 			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="HienTextdraw"/>
 			<dependency name="IsPlayerInAnyVehicle"/>
 			<dependency name="PlayerExamCar"/>
+			<dependency name="PlayerExamCarLabel"/>
 			<dependency name="PlayerExamCheckpoint"/>
 			<dependency name="PlayerExamCorrect"/>
 			<dependency name="PlayerExamCurrent"/>
@@ -102874,10 +103305,12 @@
 			<attribute name="public"/>
 			<stacksize value="6"/>
 			<referrer name="@yH_OnVehicleDeath@0Y"/>
+			<dependency name="Delete3DTextLabel"/>
 			<dependency name="DisablePlayerRaceCP"/>
 			<dependency name="EVF_DestroyVehicle"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="PlayerExamCar"/>
+			<dependency name="PlayerExamCarLabel"/>
 			<dependency name="PlayerExamCheckpoint"/>
 			<dependency name="PlayerExamCorrect"/>
 			<dependency name="PlayerExamCurrent"/>
@@ -103345,6 +103778,7 @@
 			<referrer name="CodeScanRunFast"/>
 			<referrer name="strexplode"/>
 			<referrer name="OnRuntimeError"/>
+			<referrer name="pc_cmd_ssetcredits"/>
 			<referrer name="_@yHOnGameModeInit@0E"/>
 			<referrer name="g_mysql_Init"/>
 			<referrer name="OnQueryFinish"/>
@@ -105905,6 +106339,8 @@
 			<referrer name="EVF_Exit"/>
 			<referrer name="Internal_ShowActionForPlayer"/>
 			<referrer name="GetPlayer2DZone"/>
+			<referrer name="SendNewFamilyMessage"/>
+			<referrer name="RadioBroadCast"/>
 			<referrer name="OPBA_AirbrakeTeleport"/>
 			<referrer name="AntiTrollCarNe"/>
 			<referrer name="rconBannedPlayer"/>
@@ -105943,6 +106379,13 @@
 			<referrer name="ShowBossHPToPlayer"/>
 			<referrer name="UpdateBossBar"/>
 			<referrer name="pc_cmd_checkbosshp"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_screatecar"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
+			<referrer name="pc_cmd_ssetcredits"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
@@ -105951,8 +106394,6 @@
 			<referrer name="QueryHPerfList"/>
 			<referrer name="QueryHPerfGetSelected"/>
 			<referrer name="QueryHPerfDetail"/>
-			<referrer name="SendNewFamilyMessage"/>
-			<referrer name="RadioBroadCast"/>
 			<referrer name="FA_NotifyGang"/>
 			<referrer name="FA_OpenSafeDialog"/>
 			<referrer name="FA_ShowSafeView"/>
@@ -106005,6 +106446,9 @@
 			<referrer name="HienThiDialogQuay"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
 			<referrer name="DemNguocThoiGianQuay"/>
@@ -106099,9 +106543,19 @@
 			<referrer name="_@yHOnDialogResponse@0U"/>
 			<referrer name="pc_cmd_lucsoat"/>
 			<referrer name="pc_cmd_licenses"/>
+			<referrer name="pc_cmd_truyduoi"/>
+			<referrer name="TruyDuoiC"/>
+			<referrer name="_@yHOnPlayerDisconnect@0U"/>
 			<referrer name="pc_cmd_choxemgiayphep"/>
 			<referrer name="UpdatePlayerHungerDisplay"/>
 			<referrer name="pc_cmd_suckhoe"/>
+			<referrer name="GetTrunkItemName"/>
+			<referrer name="ShowTrunkDialog"/>
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
+			<referrer name="g_mysql_SaveTrunk"/>
+			<referrer name="g_mysql_LoadTrunk"/>
+			<referrer name="g_mysql_DeleteTrunk"/>
 			<referrer name="pc_cmd_deliverpt"/>
 			<referrer name="HospitalRecovery_Tick"/>
 			<referrer name="HospitalSpawn_OnPlayerDisconnect"/>
@@ -106480,7 +106934,6 @@
 			<referrer name="pc_cmd_admins"/>
 			<referrer name="pc_cmd_advisors"/>
 			<referrer name="pc_cmd_searchcar"/>
-			<referrer name="pc_cmd_takecarweapons"/>
 			<referrer name="pc_cmd_aduty"/>
 			<referrer name="pc_cmd_editauctions"/>
 			<referrer name="pc_cmd_auctions"/>
@@ -106723,8 +107176,6 @@
 			<referrer name="pc_cmd_ofine"/>
 			<referrer name="pc_cmd_giveobject"/>
 			<referrer name="pc_cmd_donggop"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_hwithdraw"/>
@@ -107118,6 +107569,7 @@
 			<referrer name="SendDiscordDisconnect"/>
 			<referrer name="LoadStreamerActors"/>
 			<referrer name="ShowCarExam"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
 			<referrer name="Job_Init"/>
 			<referrer name="Job_KeyState"/>
 			<referrer name="pc_cmd_fare"/>
@@ -107512,6 +107964,16 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:g_mysql_DeleteTrunk" syntax="g_mysql_DeleteTrunk(vehicle_id)">
+			<stacksize value="136"/>
+			<referrer name="pc_cmd_accept"/>
+			<referrer name="OnDialogResponse"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="format"/>
+			<dependency name="mysql_tquery"/>
+			<param name="vehicle_id">
+			</param>
+		</member>
 		<member name="M:g_mysql_Exit" syntax="g_mysql_Exit()">
 			<stacksize value="3"/>
 			<referrer name="OPBA_OnGameModeExit"/>
@@ -107618,6 +108080,21 @@
 			<referrer name="InitiateGamemode"/>
 			<dependency name="MainPipeline"/>
 			<dependency name="mysql_tquery"/>
+		</member>
+		<member name="M:g_mysql_LoadTrunk" syntax="g_mysql_LoadTrunk(playerid)">
+			<stacksize value="780"/>
+			<referrer name="OnQueryFinish"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="g_arrQueryHandle"/>
+			<dependency name="mysql_tquery"/>
+			<dependency name="pvSlotId"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:g_mysql_NewToy" syntax="g_mysql_NewToy(playerid, slotid)">
 			<stacksize value="2067"/>
@@ -108090,6 +108567,24 @@
 			<param name="slotid">
 			</param>
 		</member>
+		<member name="M:g_mysql_SaveTrunk" syntax="g_mysql_SaveTrunk(playerid, slotid)">
+			<stacksize value="140"/>
+			<referrer name="OnQueryCreateVehicle"/>
+			<referrer name="OnDialogResponse"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="format"/>
+			<dependency name="mysql_tquery"/>
+			<dependency name="pvSlotId"/>
+			<dependency name="pvTrunkAmt"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="pvTrunkType"/>
+			<param name="playerid">
+			</param>
+			<param name="slotid">
+			</param>
+		</member>
 		<member name="M:g_mysql_SaveVehicle" syntax="g_mysql_SaveVehicle(playerid, slotid)">
 			<stacksize value="2314"/>
 			<referrer name="OnQueryCreateVehicle"/>
@@ -108101,8 +108596,6 @@
 			<referrer name="pc_cmd_colorcar"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_shopplate"/>
-			<referrer name="pc_cmd_trunkput"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="pc_cmd_paintcar"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
@@ -108308,6 +108801,7 @@
 			<referrer name="_@yHOnPlayerUpdate@06"/>
 			<referrer name="_@yHOnPlayerClickMap@06"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
+			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="FA_LogTransaction"/>
 			<referrer name="TW_UpdateLabel"/>
 			<referrer name="TW_EndWar"/>
@@ -109627,6 +110121,8 @@
 		</member>
 		<member name="M:mysql_tquery" syntax="mysql_tquery(handle, query[], callback[], format[], ...)">
 			<attribute name="native"/>
+			<referrer name="pc_cmd_ssetstat"/>
+			<referrer name="pc_cmd_ssetcredits"/>
 			<referrer name="KickAdminOff"/>
 			<referrer name="KickAdvisorOff"/>
 			<referrer name="_@yHOnDialogResponse@0D"/>
@@ -109652,6 +110148,9 @@
 			<referrer name="UpdateTK"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
+			<referrer name="g_mysql_SaveTrunk"/>
+			<referrer name="g_mysql_LoadTrunk"/>
+			<referrer name="g_mysql_DeleteTrunk"/>
 			<referrer name="ShopItemQueue"/>
 			<referrer name="PinLogin"/>
 			<referrer name="Group_DisbandGroup"/>
@@ -109998,6 +110497,9 @@
 		</member>
 		<member name="M:number_format" syntax="number_format(number)">
 			<stacksize value="22"/>
+			<referrer name="pc_cmd_ssetmoney"/>
+			<referrer name="pc_cmd_sgivemoney"/>
+			<referrer name="pc_cmd_ssetcredits"/>
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
@@ -110702,6 +111204,11 @@
 			<stacksize value="4"/>
 			<dependency name="PC_RegAlias"/>
 		</member>
+		<member name="M:pc_alias_screatecar" syntax="pc_alias_screatecar()">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="PC_RegAlias"/>
+		</member>
 		<member name="M:pc_alias_seatbelt" syntax="pc_alias_seatbelt()">
 			<attribute name="public"/>
 			<stacksize value="4"/>
@@ -111117,6 +111624,7 @@
 			<dependency name="gPlayerCheckpointStatus"/>
 			<dependency name="g_iBudget"/>
 			<dependency name="g_iGroupType"/>
+			<dependency name="g_mysql_DeleteTrunk"/>
 			<dependency name="g_mysql_SaveVehicle"/>
 			<dependency name="g_szGroupName"/>
 			<dependency name="getdate"/>
@@ -111182,6 +111690,9 @@
 			<dependency name="pvSlotId"/>
 			<dependency name="pvSpawned"/>
 			<dependency name="pvTicket"/>
+			<dependency name="pvTrunkAmt"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="pvTrunkType"/>
 			<dependency name="pvVW"/>
 			<dependency name="pvWeapons"/>
 			<dependency name="strcmp"/>
@@ -113753,6 +114264,33 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_buockq" syntax="pc_cmd_buockq(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="348"/>
+			<dependency name="AdminBuocKetQua"/>
+			<dependency name="BanRoulette"/>
+			<dependency name="LayMauRoulette"/>
+			<dependency name="LayTenMau"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="bHoatDong"/>
+			<dependency name="cacSoDo"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="random"/>
+			<dependency name="strcmp"/>
+			<dependency name="strval"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_businessdate" syntax="pc_cmd_businessdate(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="199"/>
@@ -115388,6 +115926,7 @@
 		<member name="M:pc_cmd_choxemgiayphep" syntax="pc_cmd_choxemgiayphep(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="267"/>
+			<referrer name="_@yHOnDialogResponse@0k"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="PlayerInfo"/>
@@ -115877,6 +116416,27 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="SearchingHit"/>
 			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_copxe" syntax="pc_cmd_copxe(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="18"/>
+			<dependency name="FindClosestOwnedVehicle"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetVehicleParamsEx"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
+			<dependency name="IsTrunkOpenable"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="ShowTrunkDialog"/>
+			<dependency name="VEHICLE_PARAMS_OFF"/>
+			<dependency name="VEHICLE_PARAMS_UNSET"/>
+			<dependency name="pvId"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -123971,6 +124531,25 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_huybq" syntax="pc_cmd_huybq(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="135"/>
+			<dependency name="AdminBuocKetQua"/>
+			<dependency name="BanRoulette"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="bHoatDong"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_huychetao" syntax="pc_cmd_huychetao(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="6"/>
@@ -125520,16 +126099,16 @@
 		</member>
 		<member name="M:pc_cmd_licenses" syntax="pc_cmd_licenses(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="568"/>
-			<dependency name="GetPlayerNameEx"/>
+			<stacksize value="279"/>
+			<referrer name="_@yHOnDialogResponse@0k"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="SendClientMessage"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="ShowCardTD"/>
 			<dependency name="format"/>
 			<dependency name="pBoatLic"/>
-			<dependency name="pCarLic"/>
 			<dependency name="pFlyLic"/>
+			<dependency name="pGunLic"/>
 			<dependency name="pIDCard"/>
 			<dependency name="pTaxiLicense"/>
 			<param name="playerid">
@@ -126249,6 +126828,46 @@
 			<dependency name="sPot"/>
 			<dependency name="storagetype"/>
 			<dependency name="storagetype"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_lucsoatcopxe" syntax="pc_cmd_lucsoatcopxe(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="806"/>
+			<dependency name="GetClosestCar"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerVehicle"/>
+			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="GetVehicleParamsEx"/>
+			<dependency name="GetWeaponName"/>
+			<dependency name="IsACop"/>
+			<dependency name="IsPlayerInRangeOfVehicle"/>
+			<dependency name="IsTrunkOpenable"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="ItemInventory"/>
+			<dependency name="Iterator@Player"/>
+			<dependency name="LucSoatCount"/>
+			<dependency name="LucSoatMap"/>
+			<dependency name="LucSoatMap"/>
+			<dependency name="NameItem"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="VEHICLE_PARAMS_OFF"/>
+			<dependency name="VEHICLE_PARAMS_UNSET"/>
+			<dependency name="cellmax"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="pvTrunkAmt"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="pvTrunkType"/>
+			<dependency name="strcat"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -129207,6 +129826,32 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_quayngay" syntax="pc_cmd_quayngay(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="393"/>
+			<dependency name="BanRoulette"/>
+			<dependency name="BanRoulette"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="HenGioQuayRoulette"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="SendRuaThoLogDC"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="bDangQuay"/>
+			<dependency name="bHenGio"/>
+			<dependency name="bHenGioDemNguoc"/>
+			<dependency name="bHoatDong"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_quickstats" syntax="pc_cmd_quickstats(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="170"/>
@@ -131195,6 +131840,35 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_screatecar" syntax="pc_cmd_screatecar(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1111"/>
+			<dependency name="CreatePlayerVehicle"/>
+			<dependency name="GetPlayerFacingAngle"/>
+			<dependency name="GetPlayerFreeVehicleId"/>
+			<dependency name="GetPlayerInterior"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="GetPlayerVirtualWorld"/>
+			<dependency name="IsATrain"/>
+			<dependency name="Log"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="VehicleName"/>
+			<dependency name="VehicleName"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="vehicleCountCheck"/>
+			<dependency name="vehicleSpawnCountCheck"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_sdm" syntax="pc_cmd_sdm(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="236"/>
@@ -131314,20 +131988,20 @@
 			<dependency name="GetPlayerVehicle"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleParamsEx"/>
-			<dependency name="GetWeaponName"/>
 			<dependency name="IsABike"/>
 			<dependency name="IsACop"/>
 			<dependency name="IsAPlane"/>
 			<dependency name="IsPlayerInRangeOfVehicle"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="VEHICLE_PARAMS_OFF"/>
 			<dependency name="VEHICLE_PARAMS_UNSET"/>
 			<dependency name="cellmax"/>
+			<dependency name="false"/>
 			<dependency name="format"/>
-			<dependency name="pvWeapons"/>
+			<dependency name="pvTrunkCat"/>
+			<dependency name="true"/>
 			<dependency name="vCarVestKit"/>
 			<param name="playerid">
 			</param>
@@ -133099,6 +133773,27 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_sgivemoney" syntax="pc_cmd_sgivemoney(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1102"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GivePlayerCash"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="Log"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_shakehand" syntax="pc_cmd_shakehand(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="165"/>
@@ -134195,6 +134890,187 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_sremovepvehicle" syntax="pc_cmd_sremovepvehicle(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1163"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerVehicleSlots"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerVehicleInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="SetPVarString"/>
+			<dependency name="VehicleName"/>
+			<dependency name="VehicleName"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pvDisabled"/>
+			<dependency name="pvImpounded"/>
+			<dependency name="pvModelId"/>
+			<dependency name="pvSpawned"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_ssetcredits" syntax="pc_cmd_ssetcredits(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1106"/>
+			<dependency name="GetPlayerIpEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerSQLId"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="Log"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="__print"/>
+			<dependency name="format"/>
+			<dependency name="mysql_tquery"/>
+			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pCredits"/>
+			<dependency name="pShopTech"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_ssetmoney" syntax="pc_cmd_ssetmoney(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1102"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GivePlayerCash"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="Log"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ResetPlayerCash"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_ssetstat" syntax="pc_cmd_ssetstat(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1228"/>
+			<dependency name="Float:operator=(_:)"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="Log"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="SetPlayerScore"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="gPupgrade"/>
+			<dependency name="mysql_tquery"/>
+			<dependency name="pADMuteTotal"/>
+			<dependency name="pAccount"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pBusiness"/>
+			<dependency name="pBusinessRank"/>
+			<dependency name="pConnectHours"/>
+			<dependency name="pCrack"/>
+			<dependency name="pExp"/>
+			<dependency name="pFMember"/>
+			<dependency name="pFishSkill"/>
+			<dependency name="pFitness"/>
+			<dependency name="pGangWarn"/>
+			<dependency name="pGoldBoxTokens"/>
+			<dependency name="pHeroin"/>
+			<dependency name="pHunger"/>
+			<dependency name="pInsurance"/>
+			<dependency name="pJob"/>
+			<dependency name="pLevel"/>
+			<dependency name="pMats"/>
+			<dependency name="pMember"/>
+			<dependency name="pModel"/>
+			<dependency name="pNMuteTotal"/>
+			<dependency name="pPaper"/>
+			<dependency name="pPhousekey"/>
+			<dependency name="pPhousekey2"/>
+			<dependency name="pPnumber"/>
+			<dependency name="pPot"/>
+			<dependency name="pRMutedTotal"/>
+			<dependency name="pRank"/>
+			<dependency name="pRawOpium"/>
+			<dependency name="pRewardDrawChance"/>
+			<dependency name="pRewardHours"/>
+			<dependency name="pRimMod"/>
+			<dependency name="pSHealth"/>
+			<dependency name="pScrewdriver"/>
+			<dependency name="pSex"/>
+			<dependency name="pSpraycan"/>
+			<dependency name="pSyringes"/>
+			<dependency name="pTrickortreat"/>
+			<dependency name="pTruckSkill"/>
+			<dependency name="pWRestricted"/>
+			<dependency name="pWarns"/>
+			<dependency name="pXP"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_ssetvip" syntax="pc_cmd_ssetvip(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="1168"/>
+			<dependency name="GetPlayerIp"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="LoadPlayerDisabledVehicles"/>
+			<dependency name="Log"/>
+			<dependency name="Misc_Save"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="VIPM"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="gettime"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pBuddyInvited"/>
+			<dependency name="pDonateRank"/>
+			<dependency name="pShopTech"/>
+			<dependency name="pTempVIP"/>
+			<dependency name="pTokens"/>
+			<dependency name="pVIPExpire"/>
+			<dependency name="pVIPM"/>
+			<dependency name="pVIPSellable"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_st" syntax="pc_cmd_st(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="186"/>
@@ -134832,33 +135708,6 @@
 			<dependency name="pAdmin"/>
 			<dependency name="pHelper"/>
 			<dependency name="pPR"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:pc_cmd_takecarweapons" syntax="pc_cmd_takecarweapons(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="111"/>
-			<dependency name="GetClosestCar"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerVehicle"/>
-			<dependency name="GetPlayerVehicleID"/>
-			<dependency name="GetVehicleParamsEx"/>
-			<dependency name="IsACop"/>
-			<dependency name="IsPlayerInRangeOfVehicle"/>
-			<dependency name="Iterator@Player"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="ProxDetector"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="VEHICLE_PARAMS_OFF"/>
-			<dependency name="VEHICLE_PARAMS_UNSET"/>
-			<dependency name="cellmax"/>
-			<dependency name="format"/>
-			<dependency name="pvWeapons"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -136290,80 +137139,26 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:pc_cmd_trunkput" syntax="pc_cmd_trunkput(playerid, params[])">
+		<member name="M:pc_cmd_truyduoi" syntax="pc_cmd_truyduoi(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="207"/>
-			<dependency name="operator&lt;(Float:,Float:)"/>
-			<dependency name="GetPVarInt"/>
-			<dependency name="GetPlayerHealth"/>
+			<stacksize value="137"/>
+			<dependency name="GetPlayerInterior"/>
 			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetVehicleModel"/>
-			<dependency name="GetVehicleParamsEx"/>
-			<dependency name="GetVehiclePos"/>
-			<dependency name="IsPlayerInAnyVehicle"/>
-			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="IsACop"/>
+			<dependency name="IsPlayerConnected"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="ProxDetector"/>
-			<dependency name="RemovePlayerWeaponEx"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ProxDetectorS"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageEx"/>
-			<dependency name="SetPVarInt"/>
 			<dependency name="SetTimerEx"/>
-			<dependency name="VEHICLE_PARAMS_OFF"/>
-			<dependency name="VEHICLE_PARAMS_UNSET"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
-			<dependency name="g_mysql_SaveVehicle"/>
-			<dependency name="pAGuns"/>
-			<dependency name="pGuns"/>
-			<dependency name="pTazer"/>
-			<dependency name="pvId"/>
-			<dependency name="pvWeapons"/>
-			<dependency name="pvWepUpgrade"/>
-			<dependency name="strcmp"/>
-			<dependency name="strlen"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:pc_cmd_trunktake" syntax="pc_cmd_trunktake(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="188"/>
-			<dependency name="GetPVarInt"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetVehicleModel"/>
-			<dependency name="GetVehicleParamsEx"/>
-			<dependency name="GetVehiclePos"/>
-			<dependency name="GetWeaponName"/>
-			<dependency name="GivePlayerValidWeapon"/>
-			<dependency name="IsPlayerInAnyVehicle"/>
-			<dependency name="IsPlayerInRangeOfPoint"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="ProxDetector"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="VEHICLE_PARAMS_OFF"/>
-			<dependency name="VEHICLE_PARAMS_UNSET"/>
-			<dependency name="VehicleName"/>
-			<dependency name="VehicleName"/>
-			<dependency name="format"/>
-			<dependency name="g_mysql_SaveVehicle"/>
-			<dependency name="pConnectHours"/>
-			<dependency name="pWRestricted"/>
-			<dependency name="pvId"/>
-			<dependency name="pvWeapons"/>
-			<dependency name="pvWepUpgrade"/>
-			<dependency name="strval"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pTruyDuoi"/>
+			<dependency name="timetrd"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -136804,21 +137599,15 @@
 		</member>
 		<member name="M:pc_cmd_upgrade" syntax="pc_cmd_upgrade(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="125"/>
+			<stacksize value="70"/>
 			<dependency name="operator++(Float:)"/>
 			<dependency name="operator&lt;(Float:,_:)"/>
-			<dependency name="FIXES_GameTextForPlayer"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="GetPlayerSQLId"/>
-			<dependency name="GetVehiclePos"/>
 			<dependency name="HouseInfo"/>
 			<dependency name="HouseInfo"/>
-			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerPlaySound"/>
-			<dependency name="PlayerVehicleInfo"/>
-			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="SaveHouse"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="format"/>
@@ -136831,8 +137620,6 @@
 			<dependency name="pPhousekey"/>
 			<dependency name="pPhousekey2"/>
 			<dependency name="pSHealth"/>
-			<dependency name="pvId"/>
-			<dependency name="pvWepUpgrade"/>
 			<dependency name="strcmp"/>
 			<dependency name="true"/>
 			<param name="playerid">
@@ -138703,6 +139490,7 @@
 			<referrer name="GetVehicleRandomColors"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="TW_TryRandomWar"/>
+			<referrer name="pc_cmd_buockq"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_ouninvite"/>
@@ -139521,6 +140309,7 @@
 			<referrer name="NDP_ShowDialogPage"/>
 			<referrer name="NDP_ProcessDialogResponse"/>
 			<referrer name="Mail_Send"/>
+			<referrer name="pc_cmd_sremovepvehicle"/>
 			<referrer name="FA_OpenSafeDialog"/>
 			<referrer name="FA_ShowItemList"/>
 			<referrer name="FA_OnLoadLogs"/>
@@ -139558,6 +140347,10 @@
 			<referrer name="ShowBuyFishingRod"/>
 			<referrer name="ShowBuyBait"/>
 			<referrer name="ShowConfirmBuyBait"/>
+			<referrer name="_@yHOnPlayerDisconnect@0U"/>
+			<referrer name="ShowTrunkDialog"/>
+			<referrer name="ShowTrunkPutDialog"/>
+			<referrer name="pc_cmd_lucsoatcopxe"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="MySQLUpdateBuild"/>
 			<referrer name="MySQLUpdateFinish"/>
@@ -139683,6 +140476,7 @@
 			<referrer name="_@yHOnPlayerCommandText@08"/>
 			<referrer name="FA_OnLoadLogs"/>
 			<referrer name="pc_cmd_testturf"/>
+			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
@@ -139745,7 +140539,6 @@
 			<referrer name="pc_cmd_setcode"/>
 			<referrer name="pc_cmd_giftcode"/>
 			<referrer name="pc_cmd_giveobject"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_order"/>
@@ -140253,7 +141046,6 @@
 			<referrer name="pc_cmd_writecheck"/>
 			<referrer name="pc_cmd_setmyname"/>
 			<referrer name="pc_cmd_setname"/>
-			<referrer name="pc_cmd_trunkput"/>
 			<referrer name="pc_cmd_storegun"/>
 			<referrer name="pc_cmd_getgun"/>
 			<referrer name="pc_cmd_setautoreply"/>
@@ -140612,6 +141404,7 @@
 			<referrer name="QueryHPerfDetail"/>
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
+			<referrer name="pc_cmd_buockq"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
@@ -140691,7 +141484,6 @@
 			<referrer name="pc_cmd_gvbuyback"/>
 			<referrer name="pc_cmd_vticket"/>
 			<referrer name="pc_cmd_setcapping"/>
-			<referrer name="pc_cmd_trunktake"/>
 			<referrer name="pc_cmd_fedit"/>
 			<referrer name="pc_cmd_entercar"/>
 			<referrer name="pc_cmd_editevent"/>
@@ -141037,6 +141829,7 @@
 		</member>
 		<member name="M:vehicleCountCheck" syntax="vehicleCountCheck(playerid)">
 			<stacksize value="5"/>
+			<referrer name="pc_cmd_screatecar"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_shopcar"/>
 			<referrer name="pc_cmd_createpvehicle"/>
@@ -141052,6 +141845,7 @@
 		</member>
 		<member name="M:vehicleSpawnCountCheck" syntax="vehicleSpawnCountCheck(playerid)">
 			<stacksize value="1"/>
+			<referrer name="pc_cmd_screatecar"/>
 			<referrer name="LoadPlayerVehicles"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_shopcar"/>

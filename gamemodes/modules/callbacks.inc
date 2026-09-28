@@ -2426,6 +2426,11 @@ public OnPlayerConnect(playerid) {
 		PlayerVehicleInfo[playerid][i][pvId] = INVALID_PLAYER_VEHICLE_ID;
 		PlayerVehicleInfo[playerid][i][pvSpawned] = 0;
 		PlayerVehicleInfo[playerid][i][pvSlotId] = 0;
+		for(new s = 0; s < MAX_TRUNK_SLOTS; s++) {
+			PlayerVehicleInfo[playerid][i][pvTrunkCat][s]  = TRUNK_CAT_EMPTY;
+			PlayerVehicleInfo[playerid][i][pvTrunkType][s] = 0;
+			PlayerVehicleInfo[playerid][i][pvTrunkAmt][s]  = 0;
+		}
 	}
 	
 	for(new i = 0; i < MAX_PLAYERTOYS; i++) {
