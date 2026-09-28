@@ -1026,20 +1026,12 @@ task ServerHeartbeat[1000]() {
 		if(PlayerInfo[i][pJudgeJailTime] <= 0 && PlayerInfo[i][pJudgeJailType] != 0) PlayerInfo[i][pJudgeJailType] = 0;
 		if(playerTabbed[i] == 0) {
 			if(PlayerInfo[i][pJailTime] > 0 && --PlayerInfo[i][pJailTime] <= 0) {
-				if(strfind(PlayerInfo[i][pPrisonReason], "[IC]", true) != -1 || strfind(PlayerInfo[i][pPrisonReason], "[ISOLATE]", true) != -1) {
-	   				SetPlayerInterior(i, 0);
+					SetPlayerInterior(i, 0);
 					PlayerInfo[i][pInt] = 0;
 					SetPlayerVirtualWorld(i, 0);
 					PlayerInfo[i][pVW] = 0;
-					SetPlayerPos(i, -2028.5829,-96.5533,35.1641);
-				}
-				else {
-				 	SetPlayerInterior(i, 0);
-					PlayerInfo[i][pInt] = 0;
-					SetPlayerVirtualWorld(i, 0);
-					PlayerInfo[i][pVW] = 0;
-	    			SetPlayerPos(i, 1544.5059,-1675.5673,13.5585);
-				}
+					SetPlayerPos(i, -1605.000000, 720.000000, 11.869579);
+					SetPlayerFacingAngle(i, 339.806793);
 				SetPlayerHealth(i, 100);
 				PlayerInfo[i][pJailTime] = 0;
 				PhoneOnline[i] = 0;

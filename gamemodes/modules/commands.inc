@@ -30356,8 +30356,9 @@ CMD:release(playerid, params[])
 				SetPlayerHealth(giveplayerid, 100);
 				SetPlayerWantedLevel(giveplayerid, 0);
 				PlayerInfo[giveplayerid][pJailTime] = 0;
-				SetPlayerPos(giveplayerid, 1529.6,-1691.2,13.3);
-				SetPlayerInterior(giveplayerid,0);
+				SetPlayerPos(giveplayerid, -1605.000000, 720.000000, 11.869579);
+				SetPlayerFacingAngle(giveplayerid, 339.806793);
+				SetPlayerInterior(giveplayerid, 0);
 				PlayerInfo[giveplayerid][pInt] = 0;
 				SetPlayerVirtualWorld(giveplayerid, 0);
 				PlayerInfo[giveplayerid][pVW] = 0;

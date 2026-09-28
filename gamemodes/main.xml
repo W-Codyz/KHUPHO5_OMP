@@ -87695,7 +87695,6 @@
 			<dependency name="playerTabbed"/>
 			<dependency name="random"/>
 			<dependency name="strcat"/>
-			<dependency name="strfind"/>
 			<dependency name="true"/>
 		</member>
 		<member name="M:ServerHeartbeatTwo" syntax="ServerHeartbeatTwo()">
@@ -89630,6 +89629,7 @@
 			<referrer name="pc_cmd_travel"/>
 			<referrer name="pc_cmd_goindoor"/>
 			<referrer name="pc_cmd_gotodoor"/>
+			<referrer name="pc_cmd_release"/>
 			<referrer name="pc_cmd_sjail"/>
 			<referrer name="pc_cmd_jail"/>
 			<referrer name="pc_cmd_endevent"/>
@@ -130463,6 +130463,7 @@
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SendClientMessageToAllEx"/>
+			<dependency name="SetPlayerFacingAngle"/>
 			<dependency name="SetPlayerHealth"/>
 			<dependency name="SetPlayerInterior"/>
 			<dependency name="SetPlayerToTeamColor"/>
@@ -140785,7 +140786,6 @@
 			<referrer name="_@yHOnDialogResponse@0J"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="_@yHOnDialogResponse@0O"/>
-			<referrer name="ServerHeartbeat"/>
 			<referrer name="MySQLUpdateBuild"/>
 			<referrer name="MySQLUpdateFinish"/>
 			<referrer name="ini_GetValue"/>
