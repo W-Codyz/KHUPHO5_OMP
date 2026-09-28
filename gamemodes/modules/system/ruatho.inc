@@ -7,7 +7,8 @@
 #define TEP_TIN_ROULETTE "Roulette_Tables.cfg"
 #define TIEN_TO_TIN_NHAN "{FFFF00}GTAHTB{FFFFFF} "
 #define KHOANG_THOI_GIAN_DEM_NGUOC 1000
-#define GIOI_HAN_THANG_MOI_LAN 1000000
+#define GIOI_HAN_THANG_MOI_LAN 5000000
+#define VAT_PHAN_TRAM 2
 
 enum DuLieuBanRoulette
 {
@@ -39,6 +40,17 @@ new CacSoRoulette[37] = {0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,2
 new const cacSoDo[] = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
 new AdminBuocKetQua[MAX_BAN_ROULETTE]; // -1 = ngau nhien, 0-36 = so bi ep
 
+// RAM: reset moi session, khong can luu DB
+new RoulCuocChuKy[MAX_PLAYERS];    // tong cuoc trong chu ky nha hien tai
+new RoulThangChuKy[MAX_PLAYERS];   // tong loi nhuan da nha trong chu ky
+new RoulThangVanTruoc[MAX_PLAYERS]; // loi nhuan van truoc (kiem tra thang lon)
+
+static g_sAiDecision[512];                   // quyet dinh AI phien hien tai (temp)
+new g_AiKetQua[MAX_BAN_ROULETTE] = {-1, ...}; // so AI chon cho moi ban (-1=random)
+new g_sAiDecisionBan[MAX_BAN_ROULETTE][384];  // noi dung log AI moi ban
+
+static const cacSoDen[] = {2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35};
+
 #define DIALOG_ROULETTE_CHINH 9110
 #define DIALOG_ROULETTE_LOAI_CUOC 9111
 #define DIALOG_ROULETTE_CUOC_SO 9112
@@ -48,6 +60,10 @@ new AdminBuocKetQua[MAX_BAN_ROULETTE]; // -1 = ngau nhien, 0-36 = so bi ep
 
 forward DemNguocThoiGianQuay(idban);
 forward HenGioQuayRoulette(idban);
+forward OnRuaThoPhienCreated(idban);
+
+// 1 message persistent moi ban, edit lien tuc thay vi spam message moi
+new DCC_Message:BanPhienMsg[MAX_BAN_ROULETTE];
 forward KetThucQuay(idban);
 forward HenGioHieuUngQuay(idban);
 
@@ -89,6 +105,51 @@ stock SendRuaThoLogDC(const str[])
     DCC_SetEmbedFooter(embed, timeStr);
     DCC_SendChannelEmbedMessage(ruathoChannel, embed);
     return 1;
+}
+
+// Gui log AI nha cai vao channel rieng
+stock SendNhaCaiLogDC(const str[])
+{
+    if(nhaCaiChannel == DCC_INVALID_CHANNEL) return 0;
+    new DCC_Embed:embed = DCC_CreateEmbed();
+    DCC_SetEmbedTitle(embed, "🧠 NHÀ CÁI");
+    DCC_SetEmbedDescription(embed, str);
+    DCC_SetEmbedColor(embed, 0xFF4500);
+    new year, month, day, hour, minute, second;
+    getdate(year, month, day); gettime(hour, minute, second);
+    new timeStr[64];
+    format(timeStr, sizeof(timeStr), "%02d/%02d/%d - %02d:%02d:%02d", day, month, year, hour, minute, second);
+    DCC_SetEmbedFooter(embed, timeStr);
+    DCC_SendChannelEmbedMessage(nhaCaiChannel, embed);
+    return 1;
+}
+
+// Edit hoac tao moi message phien cho ban idban
+stock GuiHoacEditPhienMsg(idban, const str[])
+{
+    new DCC_Embed:embed = DCC_CreateEmbed();
+    DCC_SetEmbedTitle(embed, "🎲 RÙA THỎ - BÀN #" );
+    new title[32];
+    format(title, sizeof(title), "🎲 RÙA THỎ - BÀN #%d", idban);
+    DCC_SetEmbedTitle(embed, title);
+    DCC_SetEmbedDescription(embed, str);
+    DCC_SetEmbedColor(embed, 0xFFD700);
+    new year, month, day, hour, minute, second;
+    getdate(year, month, day); gettime(hour, minute, second);
+    new timeStr[64];
+    format(timeStr, sizeof(timeStr), "%02d/%02d/%d - %02d:%02d:%02d", day, month, year, hour, minute, second);
+    DCC_SetEmbedFooter(embed, timeStr);
+
+    if(BanPhienMsg[idban] != DCC_Message:0)
+        DCC_EditMessage(BanPhienMsg[idban], "", embed);
+    else
+        DCC_SendChannelEmbedMessage(ruathoChannel, embed, "", "OnRuaThoPhienCreated", "i", idban);
+}
+
+public OnRuaThoPhienCreated(idban)
+{
+    BanPhienMsg[idban] = DCC_GetCreatedMessage();
+    DCC_SetMessagePersistent(BanPhienMsg[idban], true);
 }
 
 stock KiemTraThoiGianHoatDong()
@@ -876,9 +937,29 @@ public HenGioQuayRoulette(idban)
     BanRoulette[idban][bGiayDemNguoc] = 0;
     CapNhatNhanRoulette(idban);
     
+    // Tinh AI truoc de hien thi trong log phien
+    g_sAiDecisionBan[idban][0] = 0;
+    g_AiKetQua[idban] = ChonKetQuaNhaCai(idban);
+    if(strlen(g_sAiDecision) > 0)
+        strcat(g_sAiDecisionBan[idban], g_sAiDecision);
+
+    // Them nguoi thuong (non-target co cuoc) vao phan AI
+    for(new pn = 0; pn < MAX_PLAYERS; pn++)
+    {
+        if(!IsPlayerConnected(pn)) continue;
+        if(PlayerInfo[pn][pRouletteTarget] == 1) continue;
+        new tongCuocPn = 0;
+        for(new jn = 0; jn < 37; jn++) tongCuocPn += CuocHienTai[idban][pn][jn];
+        for(new jn = 0; jn < 3; jn++) tongCuocPn += CuocMau[idban][pn][jn];
+        if(tongCuocPn == 0) continue;
+        new lineNt[128];
+        format(lineNt, sizeof(lineNt), ":bust_in_silhouette: `%s` → Ngẫu nhiên\n", GetPlayerNameEx(pn));
+        strcat(g_sAiDecisionBan[idban], lineNt);
+    }
+
     // Discord Log - Phien moi bat dau
-    new logMsg[1024], tempMsg[256];
-    format(logMsg, sizeof(logMsg), "**:arrows_counterclockwise: PHIÊN MỚI BẮT ĐẦU**\n");
+    new logMsg[1536], tempMsg[256];
+    format(logMsg, sizeof(logMsg), "**:hourglass_flowing_sand: PHIÊN ĐANG QUAY**\n");
     format(tempMsg, sizeof(tempMsg), "**Bàn:** `#%d`\n", idban);
     strcat(logMsg, tempMsg);
     
@@ -913,9 +994,11 @@ public HenGioQuayRoulette(idban)
             for(new j=0; j<37; j++) tongCuocNguoiChoi += CuocHienTai[idban][i][j];
             for(new j=0; j<3; j++) tongCuocNguoiChoi += CuocMau[idban][i][j];
             
-            if(tongCuocNguoiChoi > 0) 
+            if(tongCuocNguoiChoi > 0)
             {
-                format(tempMsg, sizeof(tempMsg), "> `%s` - Tổng cược: `$%s`\n", GetPlayerNameEx(i), number_format(tongCuocNguoiChoi));
+                new tagCuoc[24];
+                format(tagCuoc, sizeof(tagCuoc), "%s", (PlayerInfo[i][pRouletteTarget] == 1) ? ":dart:" : ":bust_in_silhouette:");
+                format(tempMsg, sizeof(tempMsg), "> %s `%s` - Tổng cược: `$%s`\n", tagCuoc, GetPlayerNameEx(i), number_format(tongCuocNguoiChoi));
                 strcat(logMsg, tempMsg);
                 
                 // Chi tiet cuoc
@@ -955,9 +1038,16 @@ public HenGioQuayRoulette(idban)
     {
         strcat(logMsg, "_Không có người chơi đặt cược trong phiên này._\n");
     }
-    
-    SendRuaThoLogDC(logMsg);
-    
+
+    // AI decision (tinh truoc de hien thi ngay)
+    if(strlen(g_sAiDecisionBan[idban]) > 0)
+    {
+        strcat(logMsg, "\n**:brain: NHÀ CÁI:**\n");
+        strcat(logMsg, g_sAiDecisionBan[idban]);
+    }
+
+    GuiHoacEditPhienMsg(idban, logMsg);
+
     BanRoulette[idban][bViTriHieuUngQuay] = 0;
     if(BanRoulette[idban][bHenGioHieuUngQuay] != -1) KillTimer(BanRoulette[idban][bHenGioHieuUngQuay]);
     BanRoulette[idban][bHenGioHieuUngQuay] = SetTimerEx("HenGioHieuUngQuay", 100, true, "i", idban);
@@ -995,6 +1085,232 @@ public HenGioHieuUngQuay(idban)
     }
 }
 
+// Tra ve so ngau nhien thuoc mau chi dinh (0=Tho/Do, 1=Rua/Den)
+// Khong xu ly Xanh vi khong bao gio ep Xanh
+stock LaySoTheoMau(mau)
+{
+    if(mau == 0) return cacSoDo[random(18)];
+    return cacSoDen[random(18)];
+}
+
+// Quyet dinh ket qua AI nha cai. Tra ve so 0-36 neu co ep, -1 neu de random.
+stock ChonKetQuaNhaCai(idban)
+{
+    g_sAiDecision[0] = 0; // reset quyet dinh cu
+
+    // Tim player muc tieu co cuoc tren ban, uu tien nguoi profit thap nhat
+    new priorityPlayer = -1;
+    new minProfit = 0x7FFFFFFF;
+
+    for(new p = 0; p < MAX_PLAYERS; p++)
+    {
+        if(!IsPlayerConnected(p)) continue;
+        if(PlayerInfo[p][pRouletteTarget] != 1) continue;
+
+        new tongCuoc = 0;
+        for(new i = 0; i < 37; i++) tongCuoc += CuocHienTai[idban][p][i];
+        for(new i = 0; i < 3; i++) tongCuoc += CuocMau[idban][p][i];
+        if(tongCuoc == 0) continue; // khong co cuoc tren ban nay → bo qua
+
+        if(PlayerInfo[p][pRouletteProfit] < minProfit)
+        {
+            minProfit = PlayerInfo[p][pRouletteProfit];
+            priorityPlayer = p;
+        }
+    }
+
+    if(priorityPlayer == -1) return -1;
+
+    new p = priorityPlayer;
+
+    // Neu tai san thuc da xuong duoi 4m → ngung can thiep, ve random
+    new taiSanThuc = GetPlayerCash(p) + PlayerInfo[p][pAccount];
+    if(taiSanThuc <= 4000000)
+    {
+        new aiLog[256];
+        format(aiLog, sizeof(aiLog),
+            "**⛔ DỪNG** | `%s` | Bàn #%d\nTài sản: `$%s` ≤ 4m → Đã đạt mục tiêu, về random.",
+            GetPlayerNameEx(p), idban, number_format(taiSanThuc));
+        strcat(g_sAiDecision, aiLog);
+        SendNhaCaiLogDC(aiLog);
+        return -1;
+    }
+
+    new profit = PlayerInfo[p][pRouletteProfit];
+
+    // Tinh tong cuoc mau (chi Tho/Rua) cua player
+    new cuocTho = CuocMau[idban][p][0];
+    new cuocRua = CuocMau[idban][p][1];
+    new tongCuocVan = 0;
+    for(new i = 0; i < 37; i++) tongCuocVan += CuocHienTai[idban][p][i];
+    for(new i = 0; i < 3; i++) tongCuocVan += CuocMau[idban][p][i];
+
+    // --- Xac dinh mode ---
+    // 0=Random (khong can thiep), 1=MOI khan cap (<-5m), 2=NHA (0 den 1m), 3=TUA (>=1m)
+    new mode;
+    if(profit < -5000000)
+        mode = 1; // MOI khan cap: thua qua sau, cho thang 1 lan de giu nguoi choi
+    else if(profit < 0)
+        mode = 0; // Random: dang thua, de RNG tu nhien (house edge 2.7%)
+    else if(profit < 1000000)
+        mode = 2; // NHA: vua bat dau thang, cho thang de giu chan
+    else
+        mode = 3; // TUA: thang qua nhieu, an lai
+
+    new modeLyDo[64];
+    if(mode == 1) format(modeLyDo, _, "thua sâu ($%s)", number_format(profit));
+    else if(mode == 0) format(modeLyDo, _, "đang âm, để random ($%s)", number_format(profit));
+    else if(mode == 2) format(modeLyDo, _, "vừa thắng ($%s)", number_format(profit));
+    else format(modeLyDo, _, "thắng nhiều ($%s)", number_format(profit));
+
+    // Kiem tra het chu ky nha → chuyen TUA
+    if(mode == 2 && PlayerInfo[p][pRoulNguong] > 0 && PlayerInfo[p][pRoulVanThang] >= PlayerInfo[p][pRoulNguong])
+    {
+        mode = 3;
+        format(modeLyDo, _, "hết chu kỳ (%d/%d ván)", PlayerInfo[p][pRoulVanThang], PlayerInfo[p][pRoulNguong]);
+    }
+
+    // Mode 0: de random, khong can thiep
+    if(mode == 0) return -1;
+
+    // --- MODE MOI: ep thang 1 van, bo qua budget ---
+    if(mode == 1)
+    {
+        new mauNha = -1;
+        if(cuocTho >= cuocRua && cuocTho > 0) mauNha = 0;
+        else if(cuocRua > 0) mauNha = 1;
+        if(mauNha == -1) return -1;
+        new ketQua = LaySoTheoMau(mauNha);
+        new aiLog[256];
+        format(aiLog, sizeof(aiLog),
+            "**🪝 MỒI** | `%s` | Bàn #%d\nLý do: `%s`\nCược: Thỏ $%s / Rùa $%s\n→ Ép thắng **%s** (số %d)",
+            GetPlayerNameEx(p), idban, modeLyDo,
+            number_format(cuocTho), number_format(cuocRua),
+            (mauNha == 0) ? "Thỏ" : "Rùa", ketQua);
+        strcat(g_sAiDecision, aiLog);
+        SendNhaCaiLogDC(aiLog);
+        return ketQua;
+    }
+
+    // --- MODE NHA: ep thang, kiem tra budget 30% ---
+    if(mode == 2)
+    {
+        if(PlayerInfo[p][pRoulNguong] == 0)
+        {
+            PlayerInfo[p][pRoulNguong] = 2 + random(3);
+            PlayerInfo[p][pRoulVanThang] = 0;
+            RoulCuocChuKy[p] = 0;
+            RoulThangChuKy[p] = 0;
+        }
+
+        new mauNha = -1;
+        if(cuocTho >= cuocRua && cuocTho > 0) mauNha = 0;
+        else if(cuocRua > 0) mauNha = 1;
+        if(mauNha == -1) return -1;
+
+        new ketQua = LaySoTheoMau(mauNha);
+        new aiLog[384];
+        format(aiLog, sizeof(aiLog),
+            "**🟢 NHẢ** | `%s` | Bàn #%d\nLý do: `%s` | Ván %d/%d\nTài sản: $%s | Profit: $%s\n→ Ép thắng **%s** (số %d)",
+            GetPlayerNameEx(p), idban, modeLyDo,
+            PlayerInfo[p][pRoulVanThang] + 1, PlayerInfo[p][pRoulNguong],
+            number_format(taiSanThuc), number_format(profit),
+            (mauNha == 0) ? "Thỏ" : "Rùa", ketQua);
+        strcat(g_sAiDecision, aiLog);
+        SendNhaCaiLogDC(aiLog);
+        return ketQua;
+    }
+
+    // --- MODE TUA: ep thua ---
+    if(mode == 3)
+    {
+        new mauNhieu = -1;
+        if(cuocTho > 0 || cuocRua > 0)
+            mauNhieu = (cuocTho >= cuocRua) ? 0 : 1;
+
+        if(mauNhieu == -1) return -1;
+
+        new ketQua = LaySoTheoMau(1 - mauNhieu);
+        new aiLog[256];
+        format(aiLog, sizeof(aiLog),
+            "**🔴 TUA** | `%s` | Bàn #%d\nLý do: `%s`\nTài sản: $%s | Cược: Thỏ $%s / Rùa $%s\n→ Ép thua, ra **%s** (số %d)",
+            GetPlayerNameEx(p), idban, modeLyDo,
+            number_format(taiSanThuc),
+            number_format(cuocTho), number_format(cuocRua),
+            (1 - mauNhieu == 0) ? "Thỏ" : "Rùa", ketQua);
+        strcat(g_sAiDecision, aiLog);
+        SendNhaCaiLogDC(aiLog);
+        return ketQua;
+    }
+
+    return -1;
+}
+
+// Cap nhat trang thai AI sau moi ket qua quay
+stock CapNhatNhaCai(playerid, idban, soThang)
+{
+    if(!IsPlayerConnected(playerid)) return;
+    if(PlayerInfo[playerid][pRouletteTarget] != 1) return;
+
+    new tongThang = 0, tongCuoc = 0;
+    new mauThang = LayMauRoulette(soThang);
+
+    if(CuocHienTai[idban][playerid][soThang] > 0)
+        tongThang += CuocHienTai[idban][playerid][soThang] * 36;
+    if(CuocMau[idban][playerid][mauThang] > 0)
+        tongThang += CuocMau[idban][playerid][mauThang] * ((mauThang == 2) ? 36 : 2);
+    for(new i = 0; i < 37; i++) tongCuoc += CuocHienTai[idban][playerid][i];
+    for(new i = 0; i < 3; i++) tongCuoc += CuocMau[idban][playerid][i];
+    if(tongCuoc == 0) return;
+
+    new loinhuan = tongThang - tongCuoc; // co the am neu thua
+
+    // Ap dung VAT 2% tren loi nhuan thuc (profit tracking dung so thuc nguoi choi nhan)
+    if(loinhuan > 0)
+    {
+        new vat = loinhuan * VAT_PHAN_TRAM / 100;
+        loinhuan -= vat;
+    }
+
+    // Xac dinh mode truoc khi cap nhat profit
+    new profitTruoc = PlayerInfo[playerid][pRouletteProfit];
+    new bModeNha = (profitTruoc >= 0 && profitTruoc < 1000000);
+
+    // Cap nhat RAM budget chu ky
+    RoulCuocChuKy[playerid] += tongCuoc;
+    RoulThangVanTruoc[playerid] = (loinhuan > 0) ? loinhuan : 0;
+
+    // Cap nhat profit tich luy
+    PlayerInfo[playerid][pRouletteProfit] += loinhuan;
+    new profit = PlayerInfo[playerid][pRouletteProfit];
+
+    // Cap nhat dem van thang chu ky (chi khi dang NHA va thang mau)
+    if(bModeNha && loinhuan > 0 && PlayerInfo[playerid][pRoulNguong] > 0)
+    {
+        RoulThangChuKy[playerid] += loinhuan;
+        PlayerInfo[playerid][pRoulVanThang]++;
+    }
+
+    // Khi profit xuong duoi 0 (roi khoi vung NHA/TUA ve Random/MOI) → reset chu ky
+    if(profit < 0 && profitTruoc >= 0)
+    {
+        PlayerInfo[playerid][pRoulNguong] = 0;
+        PlayerInfo[playerid][pRoulVanThang] = 0;
+        RoulCuocChuKy[playerid] = 0;
+        RoulThangChuKy[playerid] = 0;
+    }
+
+    // Luu DB ngay lap tuc
+    new szQuery[256];
+    format(szQuery, sizeof(szQuery),
+        "UPDATE `accounts` SET `RouletteProfit`=%d, `RoulVanThang`=%d, `RoulNguong`=%d WHERE `id`=%d",
+        PlayerInfo[playerid][pRouletteProfit],
+        PlayerInfo[playerid][pRoulVanThang],
+        PlayerInfo[playerid][pRoulNguong],
+        GetPlayerSQLId(playerid));
+    mysql_function_query(MainPipeline, szQuery, false, "OnQueryFinish", "ii", SENDDATA_THREAD, INVALID_PLAYER_ID);
+}
+
 public KetThucQuay(idban)
 {
     if(idban < 0 || idban >= MAX_BAN_ROULETTE || !BanRoulette[idban][bHoatDong]) return;
@@ -1011,12 +1327,16 @@ public KetThucQuay(idban)
         soThang = AdminBuocKetQua[idban];
         AdminBuocKetQua[idban] = -1;
     }
+    else if(g_AiKetQua[idban] != -1)
+    {
+        soThang = g_AiKetQua[idban];
+    }
     else
     {
-        // Dung random(47) de tang loi the nha cai: so 0 (Xanh) xuat hien 11/47 lan thay vi 1/37
-        new randSo = random(55);
+        new randSo = random(47);
         soThang = (randSo >= 37) ? 0 : randSo;
     }
+    g_AiKetQua[idban] = -1; // reset cho phien sau
     for(new i=0; i<37; i++)
     {
         if(CacSoRoulette[i] == soThang)
@@ -1042,11 +1362,11 @@ public KetThucQuay(idban)
     LayTenMau(mauThang, tenMauThang, sizeof(tenMauThang));
     
     // Discord Log - Ket qua phien
-    new logMsg[2048], tempMsg[256];
+    new logMsg[3072], tempMsg[256];
     format(logMsg, sizeof(logMsg), "**:trophy: KẾT QUẢ PHIÊN QUAY**\n");
     format(tempMsg, sizeof(tempMsg), "**Bàn:** `#%d`\n", idban);
     strcat(logMsg, tempMsg);
-    
+
     new emojiMau[16];
     switch(mauThang)
     {
@@ -1056,7 +1376,34 @@ public KetThucQuay(idban)
     }
     format(tempMsg, sizeof(tempMsg), "**Số trúng:** %s `%d` (%s)\n\n", emojiMau, soThang, tenMauThang);
     strcat(logMsg, tempMsg);
-    
+
+    // Danh sach cuoc dau phien (truoc khi reset)
+    new dsCuocPhien[1024] = "";
+    new coCuocPhien = 0;
+    for(new pc = 0; pc < MAX_PLAYERS; pc++)
+    {
+        if(!IsPlayerConnected(pc)) continue;
+        new tongCuocPC = 0;
+        for(new jj = 0; jj < 37; jj++) tongCuocPC += CuocHienTai[idban][pc][jj];
+        for(new jj = 0; jj < 3; jj++) tongCuocPC += CuocMau[idban][pc][jj];
+        if(tongCuocPC == 0) continue;
+        coCuocPhien = 1;
+        format(tempMsg, sizeof(tempMsg), "> `%s` — `$%s`", GetPlayerNameEx(pc), number_format(tongCuocPC));
+        strcat(dsCuocPhien, tempMsg);
+        new chiTietMau[128] = "";
+        if(CuocMau[idban][pc][0] > 0) { format(tempMsg, sizeof(tempMsg), " | Thỏ:$%s", number_format(CuocMau[idban][pc][0])); strcat(chiTietMau, tempMsg); }
+        if(CuocMau[idban][pc][1] > 0) { format(tempMsg, sizeof(tempMsg), " | Rùa:$%s", number_format(CuocMau[idban][pc][1])); strcat(chiTietMau, tempMsg); }
+        if(CuocMau[idban][pc][2] > 0) { format(tempMsg, sizeof(tempMsg), " | Xanh:$%s", number_format(CuocMau[idban][pc][2])); strcat(chiTietMau, tempMsg); }
+        strcat(dsCuocPhien, chiTietMau);
+        strcat(dsCuocPhien, "\n");
+    }
+    if(coCuocPhien)
+    {
+        strcat(logMsg, "**:notepad_spiral: DANH SÁCH CƯỢC:**\n");
+        strcat(logMsg, dsCuocPhien);
+        strcat(logMsg, "\n");
+    }
+
     // Thong ke nguoi thang/thua
     new soNguoiThang = 0, soNguoiThua = 0, soNguoiHoa = 0;
     new tongTienThang = 0, tongTienThua = 0;
@@ -1146,9 +1493,19 @@ public KetThucQuay(idban)
     {
         strcat(logMsg, "_Không có người chơi trong phiên này._\n");
     }
-    
-    SendRuaThoLogDC(logMsg);
-    
+
+    // AI decision (tinh tu dau phien)
+    if(strlen(g_sAiDecisionBan[idban]) > 0)
+    {
+        strcat(logMsg, "\n**:brain: NHÀ CÁI:**\n");
+        strcat(logMsg, g_sAiDecisionBan[idban]);
+        g_sAiDecisionBan[idban][0] = 0;
+    }
+
+    // Edit message phien, sau khi hien thi ket qua se reset de phien moi tao lai
+    GuiHoacEditPhienMsg(idban, logMsg);
+    BanPhienMsg[idban] = DCC_Message:0;
+
     for(new p = 0; p < MAX_PLAYERS; p++)
     {
         if(!IsPlayerConnected(p)) continue;
@@ -1171,12 +1528,19 @@ public KetThucQuay(idban)
 
         if(tongCuoc > 0)
         {
-            if(tongThang > tongCuoc + GIOI_HAN_THANG_MOI_LAN) tongThang = tongCuoc + GIOI_HAN_THANG_MOI_LAN;
+            // Ap dung VAT 2% tren loi nhuan
+            new vat = 0;
+            if(tongThang > tongCuoc)
+            {
+                vat = (tongThang - tongCuoc) * VAT_PHAN_TRAM / 100;
+                tongThang -= vat;
+            }
+
             PlayerInfo[p][pCash] += tongThang;
 
             new msg[256], tenmau[32], mauCode[16];
             LayTenMau(mauThang, tenmau, sizeof(tenmau));
-            
+
             // Get color code for the winning number
             switch(mauThang)
             {
@@ -1185,7 +1549,7 @@ public KetThucQuay(idban)
                 case 2: mauCode = "{90EE90}"; // Xanh (Green)
                 default: mauCode = "{FFFFFF}";
             }
-            
+
             if(tongThang > tongCuoc)
             {
                 new loinhuan = tongThang - tongCuoc;
@@ -1195,11 +1559,8 @@ public KetThucQuay(idban)
                 SendClientMessage(p, -1, msg);
                 format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{00FF00}Ban thang: {FFFF00}+$%s", number_format(loinhuan));
                 SendClientMessage(p, -1, msg);
-                if(loinhuan >= GIOI_HAN_THANG_MOI_LAN)
-                {
-                    format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{FFFF00}(Gioi han thuong toi da: $1,000,000/lan)");
-                    SendClientMessage(p, -1, msg);
-                }
+                format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{AAAAAA}Phi VAT %d%%: {FFFF00}-$%s", VAT_PHAN_TRAM, number_format(vat));
+                SendClientMessage(p, -1, msg);
                 format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{00FF00}==================");
                 SendClientMessage(p, -1, msg);
             }
@@ -1228,6 +1589,8 @@ public KetThucQuay(idban)
             }
         }
         
+        CapNhatNhaCai(p, idban, soThang);
+
         for(new i=0; i<37; i++) CuocHienTai[idban][p][i] = 0;
         for(new i=0; i<3; i++) CuocMau[idban][p][i] = 0;
     }
@@ -1247,6 +1610,7 @@ hook OnGameModeInit()
         BanRoulette[i][bSoThangCuoi] = -1;
         BanRoulette[i][bChiSoLichSu] = 0;
         AdminBuocKetQua[i] = -1;
+        BanPhienMsg[i] = DCC_Message:0;
         for(new j = 0; j < 20; j++)
         {
             BanRoulette[i][bLichSu][j] = -1;
@@ -1275,6 +1639,9 @@ hook OnPlayerConnect(playerid)
     BanCuaNguoiChoi[playerid] = -1;
     NguoiChoiTrongRoulette[playerid] = false;
     DuLieuCuocCuaNguoiChoi[playerid] = 0;
+    RoulCuocChuKy[playerid] = 0;
+    RoulThangChuKy[playerid] = 0;
+    RoulThangVanTruoc[playerid] = 0;
     return 1;
 }
 
@@ -1428,6 +1795,24 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 SendClientMessage(playerid, -1, TIEN_TO_TIN_NHAN "{FF0000}So tien khong hop le!");
                 return HienThiDialogLoaiCuoc(playerid);
             }
+            // Tinh tong cuoc hien tai cua nguoi choi tren ban nay
+            new idbanCheck = BanCuaNguoiChoi[playerid];
+            new tongCuocHienTai = 0;
+            for(new jj = 0; jj < 37; jj++) tongCuocHienTai += CuocHienTai[idbanCheck][playerid][jj];
+            for(new jj = 0; jj < 3; jj++) tongCuocHienTai += CuocMau[idbanCheck][playerid][jj];
+            if(tongCuocHienTai + sotien > GIOI_HAN_THANG_MOI_LAN)
+            {
+                new conLai = GIOI_HAN_THANG_MOI_LAN - tongCuocHienTai;
+                if(conLai <= 0)
+                    SendClientMessage(playerid, -1, TIEN_TO_TIN_NHAN "{FF0000}Ban da dat toi da {FFFF00}$5,000,000 {FF0000}trong phien nay!");
+                else
+                {
+                    new tmpMsg[128];
+                    format(tmpMsg, sizeof(tmpMsg), TIEN_TO_TIN_NHAN "{FF0000}Tong cuoc khong duoc qua {FFFF00}$5,000,000{FF0000}. Con co the dat them: {FFFF00}$%s", number_format(conLai));
+                    SendClientMessage(playerid, -1, tmpMsg);
+                }
+                return HienThiDialogLoaiCuoc(playerid);
+            }
             if(sotien > PlayerInfo[playerid][pCash])
             {
                 SendClientMessage(playerid, -1, TIEN_TO_TIN_NHAN "{FF0000}Ban khong du tien! {FFFFFF}Can: {FFFF00}$",number_format(sotien));
@@ -1471,28 +1856,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                 }
             }
-            
-            // Send log to Discord
-            format(logMsg, sizeof(logMsg), "**:money_with_wings: ĐẶT CƯỢC MỚI**\n");
-            format(tempMsg, sizeof(tempMsg), "**Người chơi:** `%s`\n", GetPlayerNameEx(playerid));
-            strcat(logMsg, tempMsg);
-            format(tempMsg, sizeof(tempMsg), "**Bàn:** `#%d`\n", idban);
-            strcat(logMsg, tempMsg);
-            format(tempMsg, sizeof(tempMsg), "**Loại cược:** `%s`\n", loaiCuocText);
-            strcat(logMsg, tempMsg);
-            format(tempMsg, sizeof(tempMsg), "**Số tiền:** `$%s`\n", number_format(sotien));
-            strcat(logMsg, tempMsg);
-            
-            // Tong cuoc hien tai cua nguoi choi
-            new tongCuocHienTai = 0;
-            for(new i=0; i<37; i++) tongCuocHienTai += CuocHienTai[idban][playerid][i];
-            for(new i=0; i<3; i++) tongCuocHienTai += CuocMau[idban][playerid][i];
-            format(tempMsg, sizeof(tempMsg), "**Tổng cược:** `$%s`\n", number_format(tongCuocHienTai));
-            strcat(logMsg, tempMsg);
-            format(tempMsg, sizeof(tempMsg), "**Thời gian còn lại:** `%d giây`", BanRoulette[idban][bGiayDemNguoc]);
-            strcat(logMsg, tempMsg);
-            
-            SendRuaThoLogDC(logMsg);
             
             PlayerInfo[playerid][pCash] -= sotien;
             SendClientMessage(playerid, -1, msg);
