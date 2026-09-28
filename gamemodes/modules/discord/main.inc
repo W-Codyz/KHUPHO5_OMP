@@ -150,7 +150,7 @@ Discord_Init()
     //old server
     renameChannel = DCC_FindChannelById("");
 	banChannel = DCC_FindChannelById("1548216250415456376");
-    ruathoChannel = DCC_FindChannelById("");
+    ruathoChannel = DCC_FindChannelById("1554072577255804939");
 	creditChannel = DCC_FindChannelById("1548216250415456376");
 	logChannel = DCC_FindChannelById("");
 	logDCChannel = DCC_FindChannelById("");

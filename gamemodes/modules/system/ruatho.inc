@@ -7,6 +7,7 @@
 #define TEP_TIN_ROULETTE "Roulette_Tables.cfg"
 #define TIEN_TO_TIN_NHAN "{FFFF00}GTAHTB{FFFFFF} "
 #define KHOANG_THOI_GIAN_DEM_NGUOC 1000
+#define GIOI_HAN_THANG_MOI_LAN 1000000
 
 enum DuLieuBanRoulette
 {
@@ -1012,7 +1013,9 @@ public KetThucQuay(idban)
     }
     else
     {
-        soThang = random(37);
+        // Dung random(47) de tang loi the nha cai: so 0 (Xanh) xuat hien 11/47 lan thay vi 1/37
+        new randSo = random(55);
+        soThang = (randSo >= 37) ? 0 : randSo;
     }
     for(new i=0; i<37; i++)
     {
@@ -1077,12 +1080,13 @@ public KetThucQuay(idban)
 
         if(tongCuoc > 0)
         {
+            if(tongThang > tongCuoc + GIOI_HAN_THANG_MOI_LAN) tongThang = tongCuoc + GIOI_HAN_THANG_MOI_LAN;
             if(tongThang > tongCuoc)
             {
                 new loinhuan = tongThang - tongCuoc;
                 soNguoiThang++;
                 tongTienThang += loinhuan;
-                format(tempMsg, sizeof(tempMsg), "> :white_check_mark: `%s` - Thắng: `+$%s` (Cược: $%s)\n", 
+                format(tempMsg, sizeof(tempMsg), "> :white_check_mark: `%s` - Thắng: `+$%s` (Cược: $%s)\n",
                     GetPlayerNameEx(p), number_format(loinhuan), number_format(tongCuoc));
                 strcat(dsNguoiThang, tempMsg);
             }
@@ -1167,8 +1171,9 @@ public KetThucQuay(idban)
 
         if(tongCuoc > 0)
         {
+            if(tongThang > tongCuoc + GIOI_HAN_THANG_MOI_LAN) tongThang = tongCuoc + GIOI_HAN_THANG_MOI_LAN;
             PlayerInfo[p][pCash] += tongThang;
-            
+
             new msg[256], tenmau[32], mauCode[16];
             LayTenMau(mauThang, tenmau, sizeof(tenmau));
             
@@ -1190,6 +1195,11 @@ public KetThucQuay(idban)
                 SendClientMessage(p, -1, msg);
                 format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{00FF00}Ban thang: {FFFF00}+$%s", number_format(loinhuan));
                 SendClientMessage(p, -1, msg);
+                if(loinhuan >= GIOI_HAN_THANG_MOI_LAN)
+                {
+                    format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{FFFF00}(Gioi han thuong toi da: $1,000,000/lan)");
+                    SendClientMessage(p, -1, msg);
+                }
                 format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{00FF00}==================");
                 SendClientMessage(p, -1, msg);
             }
