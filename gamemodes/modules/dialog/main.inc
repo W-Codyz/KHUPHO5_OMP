@@ -1545,7 +1545,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new query[128];
 					format(query, sizeof(query), "DELETE FROM `vehicles` WHERE `id` = '%d'", PlayerVehicleInfo[playerid][i][pvSlotId]);
 					mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
-					
+					g_mysql_DeleteTrunk(PlayerVehicleInfo[playerid][i][pvSlotId]);
+					for(new s = 0; s < MAX_TRUNK_SLOTS; s++)
+					{
+						PlayerVehicleInfo[playerid][i][pvTrunkCat][s]  = TRUNK_CAT_EMPTY;
+						PlayerVehicleInfo[playerid][i][pvTrunkType][s] = 0;
+						PlayerVehicleInfo[playerid][i][pvTrunkAmt][s]  = 0;
+					}
+
 					PlayerVehicleInfo[playerid][i][pvSlotId] = 0;
 
 					return SendClientMessageEx(playerid, COLOR_WHITE, "Xe cua ban da bi xoa vinh vien.");
@@ -17768,6 +17775,284 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	if(dialogid == DIALOG_ELECTRIC_COLORS) return 1;
 	// ──────────────────────────────────────────────────────────
+
+	// ========================= TRUNK DIALOGS =========================
+	if(dialogid == DIALOG_TRUNK_MAIN)
+	{
+		if(!IsPlayerConnected(playerid)) return 1;
+		if(!response) return 1; // Dong
+
+		new pvid = GetPVarInt(playerid, "TrunkPvid");
+		new slot = listitem;
+		SetPVarInt(playerid, "TrunkSlot", slot);
+
+		new cat = PlayerVehicleInfo[playerid][pvid][pvTrunkCat][slot];
+
+		if(cat == TRUNK_CAT_EMPTY)
+		{
+			ShowTrunkPutDialog(playerid);
+		}
+		else if(cat == TRUNK_CAT_GUN)
+		{
+			new wepid   = PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot];
+			new gunSlot = GetWeaponSlot(wepid);
+			if(PlayerInfo[playerid][pGuns][gunSlot] == wepid)
+				return SendClientMessageEx(playerid, COLOR_GREY, "Ban da co sung cung loai tren nguoi roi!");
+
+			GivePlayerValidWeapon(playerid, wepid, 60000);
+			PlayerVehicleInfo[playerid][pvid][pvTrunkCat][slot]  = TRUNK_CAT_EMPTY;
+			PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot] = 0;
+			PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot]  = 0;
+			g_mysql_SaveTrunk(playerid, pvid);
+
+			new szWep[32], szMsg[128], proxstring[128];
+			GetWeaponName(wepid, szWep, sizeof(szWep));
+			format(szMsg, sizeof(szMsg), "Ban da lay %s ra khoi cop xe.", szWep);
+			SendClientMessageEx(playerid, COLOR_WHITE, szMsg);
+			format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s lay %s ra khoi cop xe.", GetPlayerNameEx(playerid), szWep);
+			ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+		}
+		else // TRUNK_CAT_ITEM
+		{
+			new type   = PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot];
+			new maxAmt = PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot];
+			new szTitle[32], szMsg[80];
+			if(type >= 0 && type < sizeof(ItemInventory))
+				format(szTitle, sizeof(szTitle), "%s", ItemInventory[type][NameItem]);
+			else
+				format(szTitle, sizeof(szTitle), "Vat pham");
+			format(szMsg, sizeof(szMsg), "So luong trong cop: %d\nNhap so luong muon lay:", maxAmt);
+			ShowPlayerDialog(playerid, DIALOG_TRUNK_TAKE_AMT, DIALOG_STYLE_INPUT, szTitle, szMsg, "Lay ra", "Quay lai");
+		}
+		return 1;
+	}
+
+	if(dialogid == DIALOG_TRUNK_PUT)
+	{
+		if(!IsPlayerConnected(playerid)) return 1;
+		new pvid = GetPVarInt(playerid, "TrunkPvid");
+		if(!response)
+		{
+			ShowTrunkDialog(playerid, pvid);
+			return 1;
+		}
+		if(listitem >= TrunkPutCount[playerid]) return 1;
+		new type = TrunkPutType[playerid][listitem];
+		new cat  = TrunkPutCat[playerid][listitem];
+		new slot = GetPVarInt(playerid, "TrunkSlot");
+
+		if(cat == TRUNK_CAT_GUN)
+		{
+			new gunSlot = GetWeaponSlot(type);
+			RemovePlayerWeaponEx(playerid, type);
+			PlayerInfo[playerid][pGuns][gunSlot] = 0;
+			PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot] = type;
+			PlayerVehicleInfo[playerid][pvid][pvTrunkCat][slot]  = TRUNK_CAT_GUN;
+			PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot]  = 0;
+			g_mysql_SaveTrunk(playerid, pvid);
+
+			new szWep[32], szMsg[128], proxstring[128];
+			GetWeaponName(type, szWep, sizeof(szWep));
+			format(szMsg, sizeof(szMsg), "Ban da cat %s vao cop xe.", szWep);
+			SendClientMessageEx(playerid, COLOR_WHITE, szMsg);
+			format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s cat %s vao cop xe.", GetPlayerNameEx(playerid), szWep);
+			ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+		}
+		else
+		{
+			// Item — can so luong
+			SetPVarInt(playerid, "TrunkPutItemIdx", type);
+			new szTitle[32], szMsg[80];
+			format(szTitle, sizeof(szTitle), "%s", ItemInventory[type][NameItem]);
+			format(szMsg, sizeof(szMsg), "Tren nguoi: %d\nNhap so luong muon cat:", PlayerInfo[playerid][ItemInventory[type][pVariable]]);
+			ShowPlayerDialog(playerid, DIALOG_TRUNK_PUT_AMT, DIALOG_STYLE_INPUT, szTitle, szMsg, "Cat vao", "Quay lai");
+		}
+		return 1;
+	}
+
+	if(dialogid == DIALOG_TRUNK_PUT_AMT)
+	{
+		if(!IsPlayerConnected(playerid)) return 1;
+		new pvid = GetPVarInt(playerid, "TrunkPvid");
+		if(!response)
+		{
+			ShowTrunkPutDialog(playerid);
+			return 1;
+		}
+		new amt = strval(inputtext);
+		if(amt <= 0) return SendClientMessageEx(playerid, COLOR_GREY, "So luong phai lon hon 0.");
+
+		new itemIdx = GetPVarInt(playerid, "TrunkPutItemIdx");
+		new slot    = GetPVarInt(playerid, "TrunkSlot");
+		new onHand  = PlayerInfo[playerid][ItemInventory[itemIdx][pVariable]];
+
+		if(amt > onHand)
+		{
+			new szErr[128];
+			format(szErr, sizeof(szErr), "Ban chi co %d %s tren nguoi.", onHand, ItemInventory[itemIdx][NameItem]);
+			return SendClientMessageEx(playerid, COLOR_GREY, szErr);
+		}
+
+		PlayerInfo[playerid][ItemInventory[itemIdx][pVariable]] -= amt;
+		PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot] = itemIdx;
+		PlayerVehicleInfo[playerid][pvid][pvTrunkCat][slot]  = TRUNK_CAT_ITEM;
+		PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot]  = amt;
+		g_mysql_SaveTrunk(playerid, pvid);
+
+		new szMsg[128], proxstring[128];
+		format(szMsg, sizeof(szMsg), "Ban da cat %d %s vao cop xe.", amt, ItemInventory[itemIdx][NameItem]);
+		SendClientMessageEx(playerid, COLOR_WHITE, szMsg);
+		format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s cat %d %s vao cop xe.", GetPlayerNameEx(playerid), amt, ItemInventory[itemIdx][NameItem]);
+		ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+		return 1;
+	}
+
+	if(dialogid == DIALOG_TRUNK_TAKE_AMT)
+	{
+		if(!IsPlayerConnected(playerid)) return 1;
+		new pvid = GetPVarInt(playerid, "TrunkPvid");
+		if(!response)
+		{
+			ShowTrunkDialog(playerid, pvid);
+			return 1;
+		}
+		new amt  = strval(inputtext);
+		new slot = GetPVarInt(playerid, "TrunkSlot");
+		if(amt <= 0) return SendClientMessageEx(playerid, COLOR_GREY, "So luong phai lon hon 0.");
+
+		new itemIdx = PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot];
+		new inTrunk = PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot];
+		if(amt > inTrunk)
+		{
+			new szErr[128];
+			format(szErr, sizeof(szErr), "Cop xe chi co %d %s.", inTrunk, ItemInventory[itemIdx][NameItem]);
+			return SendClientMessageEx(playerid, COLOR_GREY, szErr);
+		}
+
+		PlayerInfo[playerid][ItemInventory[itemIdx][pVariable]] += amt;
+		PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot] -= amt;
+		if(PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot] <= 0)
+		{
+			PlayerVehicleInfo[playerid][pvid][pvTrunkCat][slot]  = TRUNK_CAT_EMPTY;
+			PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot] = 0;
+			PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot]  = 0;
+		}
+		g_mysql_SaveTrunk(playerid, pvid);
+
+		new szMsg[256], proxstring[128];
+		format(szMsg, sizeof(szMsg), "Ban da lay %d %s ra khoi cop xe.", amt, ItemInventory[itemIdx][NameItem]);
+		SendClientMessageEx(playerid, COLOR_WHITE, szMsg);
+		format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s lay %d %s ra khoi cop xe.", GetPlayerNameEx(playerid), amt, ItemInventory[itemIdx][NameItem]);
+		ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+		return 1;
+	}
+
+	if(dialogid == DIALOG_LUCSOAT_MAIN)
+	{
+		if(!IsPlayerConnected(playerid)) return 1;
+		if(!response) return 1;
+
+		new ownerid   = GetPVarInt(playerid, "LucSoatOwner");
+		new ownerpvid = GetPVarInt(playerid, "LucSoatPvid");
+		if(listitem >= LucSoatCount[playerid]) return 1;
+		new trunkSlot = LucSoatMap[playerid][listitem];
+
+		SetPVarInt(playerid, "LucSoatSlot", trunkSlot);
+
+		// Hien thi confirm
+		new szTitle[64], szMsg[128];
+		new cat  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkCat][trunkSlot];
+		new type = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkType][trunkSlot];
+		new amt  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkAmt][trunkSlot];
+		format(szTitle, sizeof(szTitle), "Xac nhan tich thu");
+		if(cat == TRUNK_CAT_GUN)
+		{
+			new szWep[32];
+			GetWeaponName(type, szWep, sizeof(szWep));
+			format(szMsg, sizeof(szMsg), "{FFFFFF}Tich thu {FF8000}%s{FFFFFF} tu cop xe cua {FFFF00}%s{FFFFFF}?", szWep, GetPlayerNameEx(ownerid));
+		}
+		else
+		{
+			new szItemName[32];
+			if(type >= 0 && type < sizeof(ItemInventory)) format(szItemName, sizeof(szItemName), "%s", ItemInventory[type][NameItem]);
+			else format(szItemName, sizeof(szItemName), "vat pham");
+			format(szMsg, sizeof(szMsg), "{FFFFFF}Tich thu {00FF88}%d %s{FFFFFF} tu cop xe cua {FFFF00}%s{FFFFFF}?",
+				amt, szItemName, GetPlayerNameEx(ownerid));
+		}
+		ShowPlayerDialog(playerid, DIALOG_LUCSOAT_CONFIRM, DIALOG_STYLE_MSGBOX, szTitle, szMsg, "Tich thu", "Quay lai");
+		return 1;
+	}
+
+	if(dialogid == DIALOG_LUCSOAT_CONFIRM)
+	{
+		if(!IsPlayerConnected(playerid)) return 1;
+		new ownerid   = GetPVarInt(playerid, "LucSoatOwner");
+		new ownerpvid = GetPVarInt(playerid, "LucSoatPvid");
+		new trunkSlot = GetPVarInt(playerid, "LucSoatSlot");
+		if(!response)
+		{
+			// Quay lai dialog luc soat
+			new szTitle[64], szList[640], szRow[80];
+			LucSoatCount[playerid] = 0;
+			for(new s = 0; s < MAX_TRUNK_SLOTS; s++)
+			{
+				new cat  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkCat][s];
+				new type = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkType][s];
+				new amt  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkAmt][s];
+				if(cat == TRUNK_CAT_EMPTY) continue;
+				if(cat == TRUNK_CAT_GUN) { new szWep[32]; GetWeaponName(type, szWep, sizeof(szWep)); format(szRow, sizeof(szRow), "{FF8000}[Sung] {FFFFFF}%s\n", szWep); }
+				else { if(type < 0 || type >= sizeof(ItemInventory)) continue; format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}x%d\n", ItemInventory[type][NameItem], amt); }
+				strcat(szList, szRow, sizeof(szList));
+				LucSoatMap[playerid][LucSoatCount[playerid]++] = s;
+			}
+			if(LucSoatCount[playerid] == 0) return SendClientMessageEx(playerid, COLOR_WHITE, "Cop xe da trong.");
+			format(szTitle, sizeof(szTitle), "Luc soat cop xe - %s", GetPlayerNameEx(ownerid));
+			ShowPlayerDialog(playerid, DIALOG_LUCSOAT_MAIN, DIALOG_STYLE_LIST, szTitle, szList, "Tich thu", "Dong");
+			return 1;
+		}
+
+		// Xac nhan tich thu
+		new cat  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkCat][trunkSlot];
+		new type = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkType][trunkSlot];
+		new amt  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkAmt][trunkSlot];
+		if(cat == TRUNK_CAT_EMPTY) return SendClientMessageEx(playerid, COLOR_GREY, "Slot nay da trong.");
+
+		new proxstring[128];
+		if(cat == TRUNK_CAT_GUN)
+		{
+			new szWep[32];
+			GetWeaponName(type, szWep, sizeof(szWep));
+			GivePlayerValidWeapon(playerid, type, 60000);
+			format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s tich thu %s tu cop xe cua %s.", GetPlayerNameEx(playerid), szWep, GetPlayerNameEx(ownerid));
+		}
+		else
+		{
+			new szItemName[32];
+			if(type >= 0 && type < sizeof(ItemInventory))
+			{
+				format(szItemName, sizeof(szItemName), "%s", ItemInventory[type][NameItem]);
+				PlayerInfo[playerid][ItemInventory[type][pVariable]] += amt;
+			}
+			else format(szItemName, sizeof(szItemName), "vat pham");
+			format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s tich thu %d %s tu cop xe cua %s.",
+				GetPlayerNameEx(playerid), amt, szItemName, GetPlayerNameEx(ownerid));
+		}
+		ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+
+		PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkCat][trunkSlot]  = TRUNK_CAT_EMPTY;
+		PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkType][trunkSlot] = 0;
+		PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkAmt][trunkSlot]  = 0;
+		g_mysql_SaveTrunk(ownerid, ownerpvid);
+
+		new szCopMsg[128];
+		if(cat == TRUNK_CAT_GUN) { new szWep2[32]; GetWeaponName(type, szWep2, sizeof(szWep2)); format(szCopMsg, sizeof(szCopMsg), "Da tich thu: %s.", szWep2); }
+		else { new szN[32]; if(type >= 0 && type < sizeof(ItemInventory)) format(szN, sizeof(szN), "%s", ItemInventory[type][NameItem]); else format(szN, sizeof(szN), "vat pham"); format(szCopMsg, sizeof(szCopMsg), "Da tich thu: %d %s.", amt, szN); }
+		SendClientMessageEx(playerid, COLOR_WHITE, szCopMsg);
+		if(IsPlayerConnected(ownerid))
+			SendClientMessageEx(ownerid, COLOR_GRAD2, "Canh sat da tich thu mot vat pham tu cop xe cua ban.");
+		return 1;
+	}
+	// ================================================================
 
 	return 1;
 }

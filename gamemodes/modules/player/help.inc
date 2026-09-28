@@ -56,14 +56,15 @@ stock ShowHelpCommand(playerid, listitem)
 				case 1:
 				{
 					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] (/r)adio /dept (/m)egaphone (/su)spect /tudo /mdc /dualenxe /dandi /arrest /warrantarrest /wanted /cuff /tazer", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
-					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /lucsoat /take /ticket (/gov)ernment /clothes /ram /invite /giverank /deploy /destroy /pddoor /pdcell", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
+					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /ticket (/gov)ernment /clothes /ram /invite /giverank /deploy /destroy /pddoor /pdcell", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
 					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /spikes /tichthubanglai /vcheck /vmdc /vticket /tow /untow /impound /dmvrelease /gdonate /togradio /togdept", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
 					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /flares /cones /wants /docarrest /siren /destroyplant /radargun /searchcar /dvsiren /vradar %s", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName], PlayerInfo[playerid][pRank] >= arrGroupData[PlayerInfo[playerid][pMember]][g_iBugAccess] ? ("/bug /listbugs /clearbugs /hfind") : (""));
 					if(arrGroupData[PlayerInfo[playerid][pMember]][g_iCrateIsland] != INVALID_RANK) {
 						SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /cratelimit /viewcrateorders", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
 					}
 					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /loadkit /usekit /backup (code2) /backupall /calls /a(ccept)c(all) /i(gnore)c(all)", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
-				}
+					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /capcccd /lucsoatcopxe /truyduoi /lucsoat /tichthu", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
+				}	
 				case 2:
 				{
 					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] (/f)amily /r /hopdong /givemehit /order /ranks /profile /h(show)badge /hfind /togbr", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);

@@ -1054,6 +1054,38 @@ public OnQueryFinish(resultid, extraid, handleid)
 					}
 					i++;
 				}
+				g_mysql_LoadTrunk(extraid);
+			}
+		}
+		case LOADTRUNK_THREAD:
+		{
+			if(IsPlayerConnected(extraid))
+			{
+				for(new i = 0; i < rows; i++)
+				{
+					new szResult[32];
+					cache_get_field_content(i, "vehicle_id", szResult, MainPipeline);
+					new vehicle_id = strval(szResult);
+					cache_get_field_content(i, "slot", szResult, MainPipeline);
+					new slot = strval(szResult);
+					cache_get_field_content(i, "item_type", szResult, MainPipeline);
+					new item_type = strval(szResult);
+					cache_get_field_content(i, "item_cat", szResult, MainPipeline);
+					new item_cat = strval(szResult);
+					cache_get_field_content(i, "item_amt", szResult, MainPipeline);
+					new item_amt = strval(szResult);
+					if(slot < 0 || slot >= MAX_TRUNK_SLOTS) continue;
+					for(new d = 0; d < MAX_PLAYERVEHICLES; d++)
+					{
+						if(PlayerVehicleInfo[extraid][d][pvSlotId] == vehicle_id)
+						{
+							PlayerVehicleInfo[extraid][d][pvTrunkType][slot] = item_type;
+							PlayerVehicleInfo[extraid][d][pvTrunkCat][slot]  = item_cat;
+							PlayerVehicleInfo[extraid][d][pvTrunkAmt][slot]  = item_amt;
+							break;
+						}
+					}
+				}
 			}
 		}
 		case LOADPVEHPOS_THREAD:
@@ -7280,6 +7312,7 @@ public OnQueryCreateVehicle(playerid, playervehicleid)
 	mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
 	
 	g_mysql_SaveVehicle(playerid, playervehicleid);
+	g_mysql_SaveTrunk(playerid, playervehicleid);
 }
 
 forward CheckAccounts(playerid);

@@ -704,3 +704,10 @@
 #define DIALOG_GANGS_SAFE_SETPOS    (5358)
 #define DIALOG_GANGS_SAFE_UPGRADE   (5359)
 #define DIALOG_GANGS_BANK           (5360)
+
+#define DIALOG_TRUNK_MAIN           (5410)
+#define DIALOG_TRUNK_PUT            (5411)
+#define DIALOG_TRUNK_PUT_AMT        (5412)
+#define DIALOG_TRUNK_TAKE_AMT       (5413)
+#define DIALOG_LUCSOAT_MAIN         (5414)
+#define DIALOG_LUCSOAT_CONFIRM      (5415)

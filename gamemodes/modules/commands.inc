@@ -3187,27 +3187,29 @@ CMD:searchcar(playerid, params[])
         if(v != -1)
 		{
             string[0] = 0;
-            for(new x = 0; x < 3; x++)
-			{
-                if(PlayerVehicleInfo[i][v][pvWeapons][x] != 0)
-				{
-                    new
-                        szWep[20];
-
-                    GetWeaponName(PlayerVehicleInfo[i][v][pvWeapons][x], szWep, sizeof(szWep));
-                    if(isnull(string)) format(string, sizeof(string), "* Trunk contains: %s", szWep);
-                    else format(string, sizeof(string), "%s, %s", string, szWep);
+            new bHasTrunkItem = false;
+            for(new s = 0; s < MAX_TRUNK_SLOTS; s++)
+            {
+                if(PlayerVehicleInfo[i][v][pvTrunkCat][s] != TRUNK_CAT_EMPTY)
+                {
+                    bHasTrunkItem = true;
+                    break;
                 }
             }
-            if(!isnull(string)) {
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
-				if(CrateVehicleLoad[closestcar][vCarVestKit]) {
-		            SendClientMessageEx(playerid, COLOR_WHITE, "* Trunk contains:");
-		            SendClientMessageEx(playerid, COLOR_WHITE, "* Kevlar Vest.");
-		            SendClientMessageEx(playerid, COLOR_WHITE, "* First Aid Kit.");
-				}
-			}
-            else SendClientMessageEx(playerid, COLOR_WHITE, "* Trunk contains: khong co gi.");
+            if(bHasTrunkItem)
+            {
+                SendClientMessageEx(playerid, COLOR_WHITE, "* Trunk co chua do vat. Su dung /lucsoatcopxe de tich thu.");
+            }
+            else
+            {
+                if(CrateVehicleLoad[closestcar][vCarVestKit])
+                {
+                    SendClientMessageEx(playerid, COLOR_WHITE, "* Trunk contains:");
+                    SendClientMessageEx(playerid, COLOR_WHITE, "* Kevlar Vest.");
+                    SendClientMessageEx(playerid, COLOR_WHITE, "* First Aid Kit.");
+                }
+                else SendClientMessageEx(playerid, COLOR_WHITE, "* Trunk contains: khong co gi.");
+            }
         }
     }
     if(isnull(string))
@@ -3220,57 +3222,16 @@ CMD:searchcar(playerid, params[])
             format(str, sizeof(str), "* First Aid Kit(x%d).", CrateVehicleLoad[closestcar][vCarVestKit]);
             SendClientMessageEx(playerid, COLOR_WHITE, str);
 		}
-		else SendClientMessageEx(playerid, COLOR_WHITE, "* Trunk contains: khong co gi.");
     }
     return 1;
 }
 
+/* CMD:takecarweapons — replaced by /lucsoatcopxe (see vehicle/trunk.inc)
 CMD:takecarweapons(playerid, params[])
 {
-    if (!IsACop(playerid))
-	{
-        SendClientMessageEx(playerid,COLOR_GREY,"Ban khong phai la nhan vien thuc thi phap luat.");
-        return 1;
-    }
-    new carid = GetPlayerVehicleID(playerid);
-    new closestcar = GetClosestCar(playerid,carid);
-    if(!IsPlayerInRangeOfVehicle(playerid, closestcar, 9.0))
-	{
-        SendClientMessageEx(playerid,COLOR_GREY,"Ban khong o gan bat ki xe nao.");
-        return 1;
-    }
-	new engine, lights, alarm, doors, bonnet, boot, objective;
-	GetVehicleParamsEx(closestcar,engine,lights,alarm,doors,bonnet,boot,objective);
-	if(boot == VEHICLE_PARAMS_OFF || boot == VEHICLE_PARAMS_UNSET)
-	{
-		SendClientMessageEx(playerid, COLOR_GRAD1, "Cop xe phai mo moi co the kiem tra.");
-		return 1;
-	}
-    foreach(new i: Player)
-	{
-        new v = GetPlayerVehicle(i, closestcar);
-        if(v != -1)
-		{
-		    if (!PlayerVehicleInfo[i][v][pvWeapons][0] && !PlayerVehicleInfo[i][v][pvWeapons][1] && !PlayerVehicleInfo[i][v][pvWeapons][2])
-	 		{
-		 		SendClientMessageEx(playerid, COLOR_WHITE,  "Khong co vu khi tren xe.");
-		 		return 1;
-			}
-			else
-			{
-	            PlayerVehicleInfo[i][v][pvWeapons][0] = 0;
-	            PlayerVehicleInfo[i][v][pvWeapons][1] = 0;
-	            PlayerVehicleInfo[i][v][pvWeapons][2] = 0;
-				SendClientMessageEx(playerid, COLOR_WHITE,  "Tat ca vu khi da bi chuyen ra khoi xe nay.");
-	    		new string[MAX_PLAYER_NAME + 44];
-				format(string, sizeof(string), "* %s da chuyen cac vu khi ra khoi xe.", GetPlayerNameEx(playerid));
-				ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-			    return 1;
-			}
-        }
-    }
-    return 1;
+    return SendClientMessageEx(playerid, COLOR_GREY, "Lenh nay khong con hoat dong. Su dung /lucsoatcopxe.");
 }
+*/
 
 CMD:phoneprivacy(playerid, params[])
 {
@@ -5745,38 +5706,8 @@ CMD:upgrade(playerid, params[])
 		}
 		else if(strcmp(params, "copxe", true) == 0)
 		{
-			new Float: x, Float: y, Float: z;
-			for(new d = 0 ; d < MAX_PLAYERVEHICLES; d++)
-			{
-				if(PlayerVehicleInfo[playerid][d][pvId] != INVALID_PLAYER_VEHICLE_ID) GetVehiclePos(PlayerVehicleInfo[playerid][d][pvId], x, y, z);
-				if(IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
-				{
-					if( PlayerInfo[playerid][gPupgrade] < 2 )
-					{
-						SendClientMessageEx(playerid, COLOR_GRAD6, "   Ban can it nhat 2 diem nang cap.");
-						return 1;
-					}
-					if(PlayerVehicleInfo[playerid][d][pvWepUpgrade] < 2)
-					{
-						new string[114];
-						GameTextForPlayer(playerid,"~r~Nang cap Cop xe de sung!",5000,6);
-						PlayerPlaySound(playerid, 1145, 0.0, 0.0, 0.0);
-						PlayerVehicleInfo[playerid][d][pvWepUpgrade]++;
-						PlayerInfo[playerid][gPupgrade] = PlayerInfo[playerid][gPupgrade]-2;
-						SendClientMessageEx(playerid, COLOR_WHITE, "Ban da nang cap them khong gian de sung moi.");
-						format(string, sizeof(string), "HUONG DAN: De su dung cop xe cua ban, su dung lenh /trunkput va /trunktake. Ban co %d khong gian de sung.", PlayerVehicleInfo[playerid][d][pvWepUpgrade]+1);
-						SendClientMessageEx(playerid, COLOR_GRAD2, string );
-						return 1;
-					}
-					else
-					{
-						SendClientMessageEx(playerid, COLOR_GREY, "Ban da nang cap them khong gian de sung trong xe.");
-						return 1;
-					}
-				}
-			}
-			SendClientMessageEx(playerid, COLOR_GREY, " Ban khong o xe cua ban.");
-			return 1;
+			// He thong nang cap cop xe da bi bo — cop xe gio co 10 slot mac dinh.
+			return SendClientMessageEx(playerid, COLOR_GREY, "Chuc nang nang cap cop xe da bi xoa. Cop xe gio co san 10 slot.");
 		}
 		else
 		{
@@ -6510,6 +6441,7 @@ CMD:car(playerid, params[])
 				return SendClientMessageEx(playerid,COLOR_WHITE,"Lenh nay khong the duoc su dung trong chiec xe nay.");
 			}
 			SetVehicleTrunk(vehicleid, playerid);
+			SendHintMessage(playerid, "Su dung /copxe de lay/cat do o cop xe.");
 		}
 		else if(!IsPlayerInAnyVehicle(playerid))
 		{
@@ -6521,6 +6453,7 @@ CMD:car(playerid, params[])
 					return SendClientMessageEx(playerid,COLOR_WHITE,"Lenh nay khong the duoc su dung trong chiec xe nay.");
 				}
 				SetVehicleTrunk(closestcar, playerid);
+				SendHintMessage(playerid, "Su dung /copxe de lay/cat do o cop xe.");
 			}
 		}
 	}
@@ -9426,6 +9359,13 @@ CMD:accept(playerid, params[])
                             for(new m = 0; m < MAX_MODS; m++) {
                                 PlayerVehicleInfo[playerid][playervehicleid][pvMods][m] = PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvMods][m];
                             }
+                            // Transfer trunk data from seller to buyer in memory
+                            for(new s = 0; s < MAX_TRUNK_SLOTS; s++) {
+                                PlayerVehicleInfo[playerid][playervehicleid][pvTrunkType][s] = PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvTrunkType][s];
+                                PlayerVehicleInfo[playerid][playervehicleid][pvTrunkCat][s]  = PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvTrunkCat][s];
+                                PlayerVehicleInfo[playerid][playervehicleid][pvTrunkAmt][s]  = PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvTrunkAmt][s];
+                            }
+                            g_mysql_DeleteTrunk(PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvSlotId]);
 
         					format(szMessage, sizeof(szMessage), "INSERT INTO `vehicles` (`sqlID`) VALUES ('%d')", GetPlayerSQLId(playerid));
 							mysql_function_query(MainPipeline, szMessage, true, "OnQueryCreateVehicle", "ii", playerid, playervehicleid);
@@ -9459,6 +9399,11 @@ CMD:accept(playerid, params[])
                             VehicleSpawned[VehicleOffer[playerid]]--;
                             for(new m = 0; m < MAX_MODS; m++) {
                                 PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvMods][m] = 0;
+                            }
+                            for(new s = 0; s < MAX_TRUNK_SLOTS; s++) {
+                                PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvTrunkCat][s]  = TRUNK_CAT_EMPTY;
+                                PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvTrunkType][s] = 0;
+                                PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvTrunkAmt][s]  = 0;
                             }
 
                             VehicleOffer[playerid] = INVALID_PLAYER_ID;
@@ -19210,7 +19155,7 @@ CMD:sellmycar(playerid, params[])
                 VehiclePrice[giveplayerid] = price;
                 format(string, sizeof(string), "* You offered %s to buy this %s for $%s.", GetPlayerNameEx(giveplayerid), GetVehicleName(PlayerVehicleInfo[playerid][d][pvId]), number_format(price));
                 SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
-                format(string, sizeof(string), "* %s has offered you their %s (VID: %d) for $%s, (Su dung /chapnhan car) to buy.", GetPlayerNameEx(playerid), GetVehicleName(PlayerVehicleInfo[playerid][d][pvId]), PlayerVehicleInfo[playerid][d][pvId], number_format(price));
+                format(string, sizeof(string), "* %s has offered you their %s (VID: %d) for $%s, (Su dung /chapnhan xe) to buy.", GetPlayerNameEx(playerid), GetVehicleName(PlayerVehicleInfo[playerid][d][pvId]), PlayerVehicleInfo[playerid][d][pvId], number_format(price));
                 SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
                 return 1;
             }
@@ -23566,6 +23511,7 @@ CMD:checkinv(playerid, params[])
 	return 1;
 }*/
 
+/* CMD:trunkput — replaced by /copxe (see vehicle/trunk.inc)
 CMD:trunkput(playerid, params[])
 {
 	if(GetPVarInt(playerid, "IsInArena") >= 0)
@@ -23835,7 +23781,9 @@ CMD:trunkput(playerid, params[])
 	}
 	else { SendClientMessageEx(playerid,COLOR_GREY,"   Invalid weapon name!"); return 1; }
 }
+*/
 
+/* CMD:trunktake — replaced by /copxe (see vehicle/trunk.inc)
 CMD:trunktake(playerid, params[]) {
 	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "You can't do this while you're inside a vehicle.");
 	else if(GetPVarInt(playerid, "IsInArena") >= 0) return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lam dieu nay trong dau truong!");
@@ -23911,6 +23859,7 @@ CMD:trunktake(playerid, params[]) {
 	}
 	return SendClientMessageEx(playerid,COLOR_GREY,"You are not near any vehicle that you own.");
 }
+*/
 
 CMD:storegun(playerid, params[])
 {

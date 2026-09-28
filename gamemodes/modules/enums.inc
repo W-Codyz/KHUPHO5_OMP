@@ -1019,8 +1019,9 @@ enum pInfo
 	pSuaBo, 
 	pThit,
 	pTraiCay,
-	pNuocEp
+	pNuocEp,
 
+	pTruyDuoi
 
 	//enum pinfo
 };
@@ -1047,6 +1048,9 @@ enum pvInfo
 	pvTicket,
 	pvWeapons[3],
 	pvWepUpgrade,
+	pvTrunkType[10],
+	pvTrunkCat[10],
+	pvTrunkAmt[10],
 	pvImpounded,
 	pvSpawned,
 	pvDisabled,
