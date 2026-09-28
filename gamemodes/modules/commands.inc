@@ -11999,6 +11999,22 @@ CMD:refuelveh(playerid, params[])
     return 1;
 }
 
+CMD:refuelvehzz(playerid, params[])
+{
+    if(IsPlayerConnected(playerid)) {
+        if(PlayerInfo[playerid][pAdmin] < 4) {
+            SendUnAuth(playerid);
+            return 1;
+        }
+        if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_RED, "Ban phai ngoi trong xe de su dung lenh nay.");
+        new vehicleid = GetPlayerVehicleID(playerid);
+        if(!IsRefuelableVehicle(vehicleid)) return SendClientMessageEx(playerid, COLOR_RED, "Chiec xe nay khong can nhien lieu.");
+        VehicleFuel[vehicleid] = 10.0;
+        SendClientMessageEx(playerid, COLOR_GREY, "   Xe da duoc set con 10 lit xang!");
+    }
+    return 1;
+}
+
 
 CMD:destroycars(playerid, params[])
 {
@@ -45795,15 +45811,26 @@ CMD:editgasprice(playerid, params[])
 
 CMD:editprices(playerid, params[])
 {
-	new
-		iBusiness = PlayerInfo[playerid][pBusiness];
+	new iBusiness = PlayerInfo[playerid][pBusiness];
+
+	if(PlayerInfo[playerid][pAdmin] >= 3)
+	{
+		new iBizParam;
+		if(!sscanf(params, "i", iBizParam) && iBizParam >= 0 && iBizParam < MAX_BUSINESSES)
+			iBusiness = iBizParam;
+		else
+			iBusiness = InBusiness(playerid);
+
+		if(iBusiness == INVALID_BUSINESS_ID)
+			return SendHelpMessage(playerid, "/editprices [businessid] - Admin: chi dinh ID hoac vao trong cua hang");
+	}
 
 	if (iBusiness != INVALID_BUSINESS_ID)
 	{
-	    if(PlayerInfo[playerid][pBusinessRank] >= 5)
+	    if(PlayerInfo[playerid][pBusinessRank] >= 5 || PlayerInfo[playerid][pAdmin] >= 3)
 		{
 			if(Businesses[iBusiness][bType] == BUSINESS_TYPE_STORE || Businesses[iBusiness][bType] == BUSINESS_TYPE_GASSTATION) {
-	    		new szDialog[912];
+	    		new szDialog[1600];
 				for (new i = 0; i < sizeof(StoreItems); i++) format(szDialog, sizeof(szDialog), "%s%s  ($%s) (Cost of Good: $%s)\n", szDialog, StoreItems[i], number_format(Businesses[iBusiness][bItemPrices][i]), number_format(floatround(StoreItemCost[i][ItemValue] * BUSINESS_ITEMS_COST)) );
 				ShowPlayerDialog(playerid, DIALOG_STOREPRICES, DIALOG_STYLE_LIST, "Chinh gia 24/7", szDialog, "Chinh sua", "Huy bo");
 				SetPVarInt(playerid, "EditingBusiness", iBusiness);
