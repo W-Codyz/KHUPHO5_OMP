@@ -49,7 +49,8 @@ static GetInvItemModel(itemVariable)
     if(itemVariable == pMinVang)   return 3930;
     if(itemVariable == pMinKimCuong) return 3930;
     if(itemVariable == pGoThuong)    return 19632;
-    if(itemVariable == pIDCard)      return 1581;
+    if(itemVariable == pIDCard)         return 1581;
+    if(itemVariable == (_:pBinhXang))   return 1650;
     return 2663;
 }
 
@@ -304,7 +305,14 @@ static PopulateInvTDSlots(playerid)
                 PlayerTextDrawShow(playerid, iTD_mdl[playerid][i]);
                 PlayerTextDrawSetString(playerid, iTD_name[playerid][i], ItemInventory[slotVal][NameItem]);
                 PlayerTextDrawShow(playerid, iTD_name[playerid][i]);
-                format(str, sizeof(str), "%dx", qty);
+                if(itemVar == (_:pBinhXang)) {
+                    new Float:fLiters = Float:qty - FUELCAN_EMPTY_MARKER;
+                    if(fLiters < 0.0) fLiters = 0.0;
+                    if(fLiters <= 0.0) format(str, sizeof(str), "Rong");
+                    else format(str, sizeof(str), "%.1fL", fLiters);
+                } else {
+                    format(str, sizeof(str), "%dx", qty);
+                }
                 PlayerTextDrawSetString(playerid, iTD_qty[playerid][i], str);
                 PlayerTextDrawShow(playerid, iTD_qty[playerid][i]);
             }

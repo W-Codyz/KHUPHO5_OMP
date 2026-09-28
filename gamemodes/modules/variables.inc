@@ -120,9 +120,10 @@ new StoreItemCost[][StoreItemCostEnum] =
 	{1},
 	{1},
 	{1},
-	{25},
-	{80},
-	{10}
+	{25}, // [15] ILOCK
+	{80}, // [16] ELOCK
+	{10}, // [17] ALOCK
+	{5}   // [18] FUELCAN
 };
 
 new const StoreItems[][] =
@@ -141,10 +142,11 @@ new const StoreItems[][] =
 	"May anh",
 	"Ve so xo",
 	"Ngan phieu",
-	"Giay trang"
-	/* "Khoa cong nghiep",
-	"Khoa dien",
-	"Khoa bao dong" */
+	"Giay trang",
+	"", // [15] ITEM_ILOCK = 16 - khong ban qua store
+	"", // [16] ITEM_ELOCK = 17 - khong ban qua store
+	"", // [17] ITEM_ALOCK = 18 - khong ban qua store
+	"Binh xang" // [18] ITEM_FUELCAN = 19
 };
 
 new PokerTable[MAX_POKERTABLES][pkrInfo];

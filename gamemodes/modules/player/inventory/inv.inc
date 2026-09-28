@@ -8,7 +8,7 @@
 #define DIALOG_DROP_AMOUNT (11002)
 #define DIALOG_ITEM_LIST (11003)
 #define DIALOG_ITEM_AMOUNT (11004)
-#define DIALOG_DELETE_AMOUNT (11005) 
+#define DIALOG_DELETE_AMOUNT (11005)
 #define DIALOG_WEAPON_OPTIONS (11006)
 
 // Struct cho dropped items
@@ -64,15 +64,20 @@ ShowPlayerInventory(playerid)
     {
         new variable = ItemInventory[i][pVariable];
         new quantity = PlayerInfo[playerid][variable];
-        
-        if(quantity > 0) 
+
+        if(quantity > 0)
         {
             count++;
-            format(string, sizeof(string), "%s%s\t%d\n", 
-                string, 
-                ItemInventory[i][NameItem],
-                quantity
-            );
+            if(variable == (_:pBinhXang)) {
+                new Float:fuelInCan = Float:quantity - FUELCAN_EMPTY_MARKER;
+                if(fuelInCan < 0.0) fuelInCan = 0.0;
+                new canLabel[32];
+                if(fuelInCan <= 0.0) format(canLabel, sizeof(canLabel), "Rong");
+                else format(canLabel, sizeof(canLabel), "%.1f L", fuelInCan);
+                format(string, sizeof(string), "%s%s\t%s\n", string, ItemInventory[i][NameItem], canLabel);
+            } else {
+                format(string, sizeof(string), "%s%s\t%d\n", string, ItemInventory[i][NameItem], quantity);
+            }
         }
     }
     
@@ -169,10 +174,19 @@ ShowItemOptions(playerid, itemid) {
         return 1;
     }
 
-    format(string, sizeof(string), "Item: %s\nSo luong: %d\n\nChon hanh dong:",
-        ItemInventory[itemid][NameItem],
-        quantity
-    );
+    if(variable == (_:pBinhXang)) {
+        new Float:fuelInCan = Float:quantity - FUELCAN_EMPTY_MARKER;
+        if(fuelInCan < 0.0) fuelInCan = 0.0;
+        if(fuelInCan <= 0.0)
+            format(string, sizeof(string), "Item: Binh xang\nXang trong binh: Rong (0.0 / 35.0 L)\n\nChon hanh dong:");
+        else
+            format(string, sizeof(string), "Item: Binh xang\nXang trong binh: %.1f / 35.0 L\n\nChon hanh dong:", fuelInCan);
+    } else {
+        format(string, sizeof(string), "Item: %s\nSo luong: %d\n\nChon hanh dong:",
+            ItemInventory[itemid][NameItem],
+            quantity
+        );
+    }
 
     new options[64] = "Su dung\nVut";
     if(PlayerInfo[playerid][pAdmin] > 1) strcat(options, "\nXoa", sizeof(options));
@@ -300,10 +314,20 @@ PickupNearestItem(playerid) {
                     ammo);
             }
         } 
+        else if(DroppedItems[closestItem][dropVariable] == (_:pBinhXang)) {
+            if(PlayerInfo[playerid][pBinhXang] > 0.0) {
+                SendClientMessage(playerid, COLOR_RED, "Ban da co binh xang roi, khong the nhat them!");
+                return 1;
+            }
+            new Float:fuelInCan = Float:DroppedItems[closestItem][dropQuantity] - FUELCAN_EMPTY_MARKER;
+            if(fuelInCan < 0.0) fuelInCan = 0.0;
+            PlayerInfo[playerid][pBinhXang] = Float:DroppedItems[closestItem][dropQuantity];
+            format(string, sizeof(string), "Ban da nhat {FFFF00}Binh xang{FFFFFF} (%.1f L).", fuelInCan);
+        }
         else {
             // Xử lý khi nhặt vật phẩm thông thường
             PlayerInfo[playerid][DroppedItems[closestItem][dropVariable]] += DroppedItems[closestItem][dropQuantity];
-            
+
             format(string, sizeof(string), "Ban da nhat {FFFF00}%s{FFFFFF} (So luong: %d).",
                 DroppedItems[closestItem][dropItemName],
                 DroppedItems[closestItem][dropQuantity]);
@@ -506,6 +530,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                             pc_cmd_licenses(playerid, "");
                         }
 
+                        case (_:pBinhXang): {
+                            UseFuelCan(playerid);
+                        }
+
                         default: {
                             SendClientMessage(playerid, COLOR_RED, "Khong the su dung item nay!");
                         }
@@ -520,11 +548,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                         SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
                         return 1;
                     }
-
                     if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban khong the lam dieu nay tren xe.");
-                    
+
+                    if(variable == (_:pBinhXang)) {
+                        DropFuelCan(playerid);
+                        return 1;
+                    }
+
                     new string[128];
-                    format(string, sizeof(string), "Ban dang co: %d %s\nNhap so luong muon vut:", 
+                    format(string, sizeof(string), "Ban dang co: %d %s\nNhap so luong muon vut:",
                         PlayerInfo[playerid][variable],
                         ItemInventory[SelectedItem[playerid]][NameItem]
                     );
@@ -754,11 +786,20 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                             if(variable == pIDCard) continue; // CCCD khong the cho nguoi khac
                             if(PlayerInfo[playerid][variable] > 0) // Only show items player has
                             {
-                                format(string, sizeof(string), "%s%s\t%d\n",
-                                    string,
-                                    ItemInventory[i][NameItem],
-                                    PlayerInfo[playerid][variable]
-                                );
+                                if(variable == (_:pBinhXang)) {
+                                    new Float:fuelInCan = Float:PlayerInfo[playerid][variable] - FUELCAN_EMPTY_MARKER;
+                                    if(fuelInCan < 0.0) fuelInCan = 0.0;
+                                    new canLabel[32];
+                                    if(fuelInCan <= 0.0) format(canLabel, sizeof(canLabel), "Rong");
+                                    else format(canLabel, sizeof(canLabel), "%.1f L", fuelInCan);
+                                    format(string, sizeof(string), "%sBinh xang\t%s\n", string, canLabel);
+                                } else {
+                                    format(string, sizeof(string), "%s%s\t%d\n",
+                                        string,
+                                        ItemInventory[i][NameItem],
+                                        PlayerInfo[playerid][variable]
+                                    );
+                                }
                                 count++;
                             }
                         }
@@ -887,14 +928,39 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
                 if(selectedItemId != -1) {
                     SetPVarInt(playerid, "GiveItemID", selectedItemId);
-                    
+
+                    if(ItemInventory[selectedItemId][pVariable] == (_:pBinhXang)) {
+                        // Fuel can: skip amount dialog, give entire can
+                        new giveplayerid2 = GetPVarInt(playerid, "pInteractID");
+                        if(!IsPlayerConnected(giveplayerid2)) {
+                            SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da mat ket noi.");
+                        } else if(PlayerInfo[giveplayerid2][pBinhXang] > 0.0) {
+                            SendClientMessageEx(playerid, COLOR_RED, "Nguoi nhan da co binh xang roi.");
+                        } else {
+                            new Float:fuelInCan = PlayerInfo[playerid][pBinhXang] - FUELCAN_EMPTY_MARKER;
+                            if(fuelInCan < 0.0) fuelInCan = 0.0;
+                            PlayerInfo[giveplayerid2][pBinhXang] = PlayerInfo[playerid][pBinhXang];
+                            PlayerInfo[playerid][pBinhXang] = 0.0;
+                            new proxstring[128];
+                            format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s dua binh xang (%.1f L) cho %s.", GetPlayerNameEx(playerid), fuelInCan, GetPlayerNameEx(giveplayerid2));
+                            ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+                            new msg[64];
+                            format(msg, sizeof(msg), "Ban da nhan binh xang (%.1f L) tu %s.", fuelInCan, GetPlayerNameEx(playerid));
+                            SendClientMessageEx(giveplayerid2, COLOR_GREEN, msg);
+                        }
+                        DeletePVar(playerid, "pInteractName");
+                        DeletePVar(playerid, "pInteractID");
+                        DeletePVar(playerid, "GiveItemID");
+                        return 1;
+                    }
+
                     new string[128];
-                    format(string, sizeof(string), "{ffffff}Ban dang co: {FFFF00}%d {ffffff}%s\nNhap so luong muon cho:", 
+                    format(string, sizeof(string), "{ffffff}Ban dang co: {FFFF00}%d {ffffff}%s\nNhap so luong muon cho:",
                         PlayerInfo[playerid][ItemInventory[selectedItemId][pVariable]],
                         ItemInventory[selectedItemId][NameItem]
                     );
-                    
-                    ShowPlayerDialog(playerid, INTERACTGIVE3, DIALOG_STYLE_INPUT, 
+
+                    ShowPlayerDialog(playerid, INTERACTGIVE3, DIALOG_STYLE_INPUT,
                         "{ffffff}Nhap so luong", string, "Cho", "Huy bo");
                 }
             }

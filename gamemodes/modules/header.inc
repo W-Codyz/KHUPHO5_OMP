@@ -212,7 +212,10 @@ native WP_Hash(buffer[], len, const str[]);
 #define 		ITEM_ILOCK                      	16
 #define 		ITEM_ELOCK                      	17
 #define 		ITEM_ALOCK                      	18
+#define 		ITEM_FUELCAN						19
 #define 		FUEL_PUMP_RATE 						0.1 // Gallons per second
+#define 		FUELCAN_MAX_LITERS					35.0
+#define 		FUELCAN_EMPTY_MARKER				0.1
 #define 		BIZ_PENALTY 						0.2
 
 // Objects

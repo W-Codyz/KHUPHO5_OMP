@@ -161,6 +161,7 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pRacePlayerLaps] = 0;
 		PlayerInfo[playerid][pSprunk] = 0;
 		PlayerInfo[playerid][pSpraycan] = 0;
+		PlayerInfo[playerid][pBinhXang] = 0.0;
 		PlayerInfo[playerid][pCigar] = 0;
 		PlayerInfo[playerid][pConnectSeconds] = 0;
 		PlayerInfo[playerid][pPayDayHad] = 0;

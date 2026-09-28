@@ -443,6 +443,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "CDPlayer", szResult, MainPipeline); PlayerInfo[extraid][pCDPlayer] = strval(szResult);
 					cache_get_field_content(row,  "Dice", szResult, MainPipeline); PlayerInfo[extraid][pDice] = strval(szResult);
 					cache_get_field_content(row,  "Spraycan", szResult, MainPipeline); PlayerInfo[extraid][pSpraycan] = strval(szResult);
+					cache_get_field_content(row,  "BinhXang", szResult, MainPipeline); PlayerInfo[extraid][pBinhXang] = floatstr(szResult);
 					cache_get_field_content(row,  "Rope", szResult, MainPipeline); PlayerInfo[extraid][pRope] = strval(szResult);
 					cache_get_field_content(row,  "Cigars", szResult, MainPipeline); PlayerInfo[extraid][pCigar] = strval(szResult);
 					cache_get_field_content(row,  "Sprunk", szResult, MainPipeline); PlayerInfo[extraid][pSprunk] = strval(szResult);
@@ -714,7 +715,12 @@ public OnQueryFinish(resultid, extraid, handleid)
 					PlayerInfo[extraid][pGoHiem] = strval(szResult);
 					cache_get_field_content(row, "GoXin", szResult, MainPipeline);
 					PlayerInfo[extraid][pGoXin] = strval(szResult);
-					
+
+					cache_get_field_content(row, "RouletteTarget", szResult, MainPipeline); PlayerInfo[extraid][pRouletteTarget] = strval(szResult);
+					cache_get_field_content(row, "RouletteProfit", szResult, MainPipeline); PlayerInfo[extraid][pRouletteProfit] = strval(szResult);
+					cache_get_field_content(row, "RoulVanThang", szResult, MainPipeline); PlayerInfo[extraid][pRoulVanThang] = strval(szResult);
+					cache_get_field_content(row, "RoulNguong", szResult, MainPipeline); PlayerInfo[extraid][pRoulNguong] = strval(szResult);
+
 					cache_get_field_content(row,  "NbMissionCur", szResult, MainPipeline); PlayerInfo[extraid][pNbCurrent] = strval(szResult);
 					cache_get_field_content(row,  "NbMission", szResult, MainPipeline);
 					sscanf(szResult, "p<,>a<i>[5]", PlayerInfo[extraid][pNbMission]);
@@ -3045,6 +3051,7 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "CDPlayer", PlayerInfo[playerid][pCDPlayer]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Dice", PlayerInfo[playerid][pDice]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Spraycan", PlayerInfo[playerid][pSpraycan]);
+    SavePlayerFloat(query, GetPlayerSQLId(playerid), "BinhXang", PlayerInfo[playerid][pBinhXang]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Rope", PlayerInfo[playerid][pRope]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Cigars", PlayerInfo[playerid][pCigar]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Sprunk", PlayerInfo[playerid][pSprunk]);
@@ -3277,6 +3284,9 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoThuong", PlayerInfo[playerid][pGoThuong]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoHiem", PlayerInfo[playerid][pGoHiem]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoXin", PlayerInfo[playerid][pGoXin]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RouletteProfit", PlayerInfo[playerid][pRouletteProfit]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RoulVanThang", PlayerInfo[playerid][pRoulVanThang]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RoulNguong", PlayerInfo[playerid][pRoulNguong]);
 
 	
 	new string[128];
