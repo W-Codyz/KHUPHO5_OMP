@@ -538,10 +538,13 @@ public OnPlayerLoad(playerid)
 		SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da bi mat cong viec phu do VIP/Famed da het han su dung.");
 	}
 
-	if (PlayerInfo[playerid][pLevel] < 6 || PlayerInfo[playerid][pHelper] > 0)
+	/* if (PlayerInfo[playerid][pLevel] < 6 || PlayerInfo[playerid][pHelper] > 0)
 	{
 		gNewbie[playerid] = 0;
-	}
+	} */
+	
+	gNewbie[playerid] = 0;
+
 	if (PlayerInfo[playerid][pHelper] == 1)
 	{
 		gHelp[playerid] = 0;
