@@ -6272,15 +6272,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             PlayerVehicleInfo[giveplayerid][listitem][pvMods][m] = 0;
 		}
 		new reason[64], bcast[1024];
+		new isSilent = GetPVarInt(playerid, "vehcheck_silent");
 		GetPVarString(playerid, "vehcheck_reason", reason, sizeof(reason));
 		DeletePVar(playerid, "vehcheck_reason");
-		format(bcast, sizeof(bcast), "{FF8000}[ADMIN XOA XE] {FFFF00}%s (ID:%d){FFFFFF} xoa xe {00FF00}(Model:%d){FFFFFF} cua {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, model, GetPlayerNameEx(giveplayerid), giveplayerid);
-		foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, bcast);
-		format(bcast, sizeof(bcast), "  {FFFFFF}>> Ly do: {FFFF00}%s", reason);
-		foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, bcast);
-		format(string, sizeof(string), "[REMOVEPVEHICLE] Admin: %s | Player: %s | Model: %d | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), model, reason);
-  		Log("logs/admin.log", string);
-		DiscordLog(dclog_AdminCmd, "/removepvehicle", "**%s** đã xóa xe (Model: **%d**) của **%s** | Lý do: **%s**", GetPlayerNameEx(playerid), model, GetPlayerNameEx(giveplayerid), reason);
+		DeletePVar(playerid, "vehcheck_silent");
+		if(isSilent)
+		{
+			format(bcast, sizeof(bcast), "{FF8000}[SILENT XOA XE] {FFFFFF}Da xoa xe {00FF00}(Model:%d){FFFFFF} cua {FFFF00}%s (ID:%d){FFFFFF} | Ly do: {FFFF00}%s",
+				model, GetPlayerNameEx(giveplayerid), giveplayerid, reason);
+			SendClientMessageEx(playerid, COLOR_WHITE, bcast);
+			format(string, sizeof(string), "[SREMOVEPVEHICLE] Admin: %s | Player: %s | Model: %d | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), model, reason);
+			Log("logs/admin.log", string);
+		}
+		else
+		{
+			format(bcast, sizeof(bcast), "{FF8000}[ADMIN XOA XE] {FFFF00}%s (ID:%d){FFFFFF} xoa xe {00FF00}(Model:%d){FFFFFF} cua {FFFF00}%s (ID:%d)", GetPlayerNameEx(playerid), playerid, model, GetPlayerNameEx(giveplayerid), giveplayerid);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, bcast);
+			format(bcast, sizeof(bcast), "  {FFFFFF}>> Ly do: {FFFF00}%s", reason);
+			foreach(new i: Player) SendClientMessage(i, COLOR_WHITE, bcast);
+			format(string, sizeof(string), "[REMOVEPVEHICLE] Admin: %s | Player: %s | Model: %d | Reason: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(giveplayerid), model, reason);
+			Log("logs/admin.log", string);
+			DiscordLog(dclog_AdminCmd, "/removepvehicle", "**%s** đã xóa xe (Model: **%d**) của **%s** | Lý do: **%s**", GetPlayerNameEx(playerid), model, GetPlayerNameEx(giveplayerid), reason);
+		}
 
 	}
 	if(dialogid == TRACKCAR && response) {
