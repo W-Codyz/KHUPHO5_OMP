@@ -751,6 +751,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                         for(new i = 0; i < sizeof(ItemInventory); i++)
                         {
                             new variable = ItemInventory[i][pVariable];
+                            if(variable == pIDCard) continue; // CCCD khong the cho nguoi khac
                             if(PlayerInfo[playerid][variable] > 0) // Only show items player has
                             {
                                 format(string, sizeof(string), "%s%s\t%d\n",
@@ -874,6 +875,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
                 // Tìm item được chọn
                 for(new i = 0; i < sizeof(ItemInventory); i++) {
+                    if(ItemInventory[i][pVariable] == pIDCard) continue; // CCCD khong the cho nguoi khac
                     if(PlayerInfo[playerid][ItemInventory[i][pVariable]] > 0) {
                         if(currentItem == listitem) {
                             selectedItemId = i;
@@ -914,6 +916,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                 if(amount <= 0)
                     return SendClientMessageEx(playerid, COLOR_GREY, "So luong khong hop le.");
                     
+                if(ItemInventory[itemid][pVariable] == pIDCard)
+                    return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the cho nguoi khac Can cuoc cong dan.");
+
                 if(PlayerInfo[playerid][ItemInventory[itemid][pVariable]] < amount)
                     return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du so luong de cho.");
 
