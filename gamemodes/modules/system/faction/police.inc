@@ -385,6 +385,77 @@ CMD:licenses(playerid, params[])
 	return 1;
 }
 
+CMD:truyduoi(playerid, params[])
+{
+    if(!IsACop(playerid) && PlayerInfo[playerid][pAdmin] <= 2)
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong duoc phep su dung lenh nay.");
+
+    new iTargetID;
+    if(sscanf(params, "u", iTargetID))
+        return SendHelpMessage(playerid, "/truyduoi [nguoi choi]");
+
+    if(iTargetID == playerid)
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the su dung lenh nay cho chinh ban.");
+
+    if(!IsPlayerConnected(iTargetID))
+        return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi khong hop le.");
+
+    if(IsACop(iTargetID))
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the truy duoi nhan vien thi hanh phap luat.");
+
+    if(GetPlayerInterior(iTargetID) != 0)
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the su dung lenh nay khi nguoi do dang o trong noi that.");
+
+    if(PlayerInfo[iTargetID][pTruyDuoi] == 1)
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "  Nguoi nay dang bi canh sat truy duoi.");
+
+    if(!ProxDetectorS(200.0, playerid, iTargetID))
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "  Ban phai gan nguoi nay trong pham vi 200m.");
+
+    new str[128];
+    format(str, sizeof(str), "> Ban dang truy duoi %s.", GetPlayerNameEx(iTargetID));
+    SendClientMessageEx(playerid, COLOR_WHITE, str);
+    SendClientMessageEx(iTargetID, COLOR_WHITE, "> Ban dang bi canh sat truy duoi.");
+
+    PlayerInfo[iTargetID][pTruyDuoi] = 1;
+    timetrd[iTargetID] = SetTimerEx("TruyDuoiC", 600000, false, "ii", iTargetID, playerid);
+    return 1;
+}
+
+forward TruyDuoiC(playerid, pid);
+public TruyDuoiC(playerid, pid)
+{
+    PlayerInfo[playerid][pTruyDuoi] = 0;
+    KillTimer(timetrd[playerid]);
+
+    if(IsPlayerConnected(pid))
+    {
+        new ss[128];
+        format(ss, sizeof(ss), "> Ban da het truy duoi %s.", GetPlayerNameEx(playerid));
+        SendClientMessageEx(pid, COLOR_LIGHTRED, ss);
+    }
+    if(IsPlayerConnected(playerid))
+        SendClientMessageEx(playerid, COLOR_LIGHTRED, "> Ban da het bi canh sat truy duoi.");
+    return 1;
+}
+
+hook OnPlayerDisconnect(playerid, reason)
+{
+    if(PlayerInfo[playerid][pTruyDuoi] == 1)
+    {
+        PlayerInfo[playerid][pTruyDuoi] = 0;
+        KillTimer(timetrd[playerid]);
+        strcpy(PlayerInfo[playerid][pPrisonReason], "[OOC] Thoat game khi dang bi truy duoi", 128);
+        strcpy(PlayerInfo[playerid][pPrisonedBy], "System", 128);
+        PlayerInfo[playerid][pJailTime] += 60 * 60;
+
+        new szMsg[80 + MAX_PLAYER_NAME];
+        format(szMsg, sizeof(szMsg), "{AA3333}AdmWarning{FFFF00}: %s da thoat game khi dang bi truy duoi.", GetPlayerNameEx(playerid));
+        ABroadCast(COLOR_YELLOW, szMsg, 2);
+    }
+    return 1;
+}
+
 alias:choxemgiayphep("showid")
 CMD:choxemgiayphep(playerid, params[])
 {

@@ -474,6 +474,7 @@ new turfWarsRadar[MAX_PLAYERS] = 0;
 new turfWarsMiniMap[MAX_PLAYERS] = 0;
 new stationidv[MAX_VEHICLES][64];
 new courtjail[MAX_PLAYERS];
+new timetrd[MAX_PLAYERS];
 
 new PlayerText: pFPSCounter[MAX_PLAYERS];
 
