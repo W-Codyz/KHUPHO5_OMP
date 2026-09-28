@@ -45,9 +45,9 @@ public AntiVPN(playerid, response_code, data[])
     {
         if(substr(data, "\"proxy\": \"yes\""))
         {
-            format(string, sizeof(string), "{F70000}[ANTI-VPN]: {FFE700}%s (ID: %d) {FFFFFF}đã bị {F70000}kick {FFFFFF}vì nghi ngờ sử dụng {F70000}VPN/Proxy", nome, playerid);
+            format(string, sizeof(string), "{F70000}[ANTI-VPN]: {FFE700}%s (ID: %d) {FFFFFF}da bi {F70000}kick {FFFFFF}vi nghi ngo su dung {F70000}VPN/Proxy", nome, playerid);
             SendClientMessageToAll(-1, string);
-            printf("[ANTI-VPN]: %s (ID: %d) bị phát hiện sử dụng VPN/Proxy.", nome, playerid);
+            printf("[ANTI-VPN]: %s (ID: %d) bi phat hien su dung VPN/Proxy.", nome, playerid);
 
             new DCC_Channel:channel = DCC_FindChannelById("1548013006141661205");
             new nofi[520], title[128];
