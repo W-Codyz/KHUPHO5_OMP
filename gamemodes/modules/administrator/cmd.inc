@@ -1,4 +1,5 @@
 #include <YSI/YSI_Coding/y_hooks>
+#include "./modules/administrator/cmd_clone"
 #define         DIALOG_THANHVIEN_ADMIN      (5197)
 #define         DIALOG_ADMIN_KICK           (5198)
 #define			DIALOG_THANHVIEN_ADVISOR    (5199)

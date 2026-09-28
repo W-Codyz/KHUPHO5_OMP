@@ -57,6 +57,8 @@
 #include "./modules/dialog/header"
 #include "./modules/actor/header"
 
+#include "./modules/misc/msg"
+
 //==============JOB HEADER============//
 #include "./modules/job/header"
 #include "./modules/job/miner/header"
@@ -76,8 +78,6 @@
 #include "./modules/Event/SanBoss"
 
 #include "./modules/administrator/cmd"
-
-#include "./modules/misc/msg"
 
 //==============FAMILY SYSTEM============//
 #include "./modules/system/family/assets"
