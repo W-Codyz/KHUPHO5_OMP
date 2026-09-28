@@ -1027,6 +1027,7 @@ Action:DIALOG_USEBANHMI(playerid, response)
         if(PlayerInfo[playerid][pThucAn] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the an them.");
         if(PlayerInfo[playerid][pBanhMi] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1053,6 +1054,7 @@ Action:DIALOG_USENUOCLOC(playerid, response)
         if(PlayerInfo[playerid][pNuoc] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the uong them.");
         if(PlayerInfo[playerid][pNuocLoc] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1079,6 +1081,7 @@ Action:DIALOG_USEPIZZA(playerid, response)
         if(PlayerInfo[playerid][pThucAn] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the an them.");
         if(PlayerInfo[playerid][pPizza] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1104,6 +1107,7 @@ Action:DIALOG_USEBUNRIEU(playerid, response)
         if(PlayerInfo[playerid][pThucAn] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the an them.");
         if(PlayerInfo[playerid][pBunRieu] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1129,6 +1133,7 @@ Action:DIALOG_USEPHOBO(playerid, response)
         if(PlayerInfo[playerid][pThucAn] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the an them.");
         if(PlayerInfo[playerid][pPhoBo] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1154,6 +1159,7 @@ Action:DIALOG_USEHAMBURGER(playerid, response)
         if(PlayerInfo[playerid][pThucAn] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the an them.");
         if(PlayerInfo[playerid][pHamburger] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1179,6 +1185,7 @@ Action:DIALOG_USECAPHE(playerid, response)
         if(PlayerInfo[playerid][pNuoc] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the uong them.");
         if(PlayerInfo[playerid][pCaPhe] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1204,6 +1211,7 @@ Action:DIALOG_USESUABO(playerid, response)
         if(PlayerInfo[playerid][pNuoc] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the uong them.");
         if(PlayerInfo[playerid][pSuaBo] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1229,6 +1237,7 @@ Action:DIALOG_USETHITHUNKHOI(playerid, response)
         if(PlayerInfo[playerid][pThucAn] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the an them.");
         if(PlayerInfo[playerid][pThit] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1254,6 +1263,7 @@ Action:DIALOG_USETRAICAY(playerid, response)
         if(PlayerInfo[playerid][pThucAn] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the an them.");
         if(PlayerInfo[playerid][pTraiCay] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
@@ -1279,6 +1289,7 @@ Action:DIALOG_USENUOCEP(playerid, response)
         if(PlayerInfo[playerid][pNuoc] >= 100) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da qua no de co the uong them.");
         if(PlayerInfo[playerid][pNuocEp] >= 1)
         {
+            if(IsLoadingActive(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban dang trong mot tien trinh, hay cho no hoan thanh.");
             if(!IsPlayerInAnyVehicle(playerid))
             {
                 TogglePlayerControllable(playerid, 0);
