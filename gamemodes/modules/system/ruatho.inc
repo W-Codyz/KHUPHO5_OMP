@@ -36,6 +36,7 @@ new DuLieuCuocCuaNguoiChoi[MAX_PLAYERS];
 new bool:NguoiChoiTrongRoulette[MAX_PLAYERS];
 new CacSoRoulette[37] = {0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26};
 new const cacSoDo[] = {1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36};
+new AdminBuocKetQua[MAX_BAN_ROULETTE]; // -1 = ngau nhien, 0-36 = so bi ep
 
 #define DIALOG_ROULETTE_CHINH 9110
 #define DIALOG_ROULETTE_LOAI_CUOC 9111
@@ -496,6 +497,160 @@ CMD:xoaroulette(playerid, params[])
     return 1;
 }
 
+// /buockq [id_ban] [so 0-36 | tho | rua | xanh] — ep ket qua van tiep theo
+CMD:buockq(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 1)
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FF0000}Ban khong co quyen!");
+        return 1;
+    }
+
+    new idban;
+    new param2[32];
+    if(sscanf(params, "is[32]", idban, param2))
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, "{FFFFFF}SU DUNG: {FFFF00}/buockq {FFFFFF}[id ban] [so 0-36 | tho | rua | xanh]");
+        return 1;
+    }
+
+    if(idban < 0 || idban >= MAX_BAN_ROULETTE || !BanRoulette[idban][bHoatDong])
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FF0000}ID ban khong hop le!");
+        return 1;
+    }
+
+    new soEp = -1;
+
+    if(strcmp(param2, "tho", true) == 0)
+    {
+        soEp = cacSoDo[random(sizeof(cacSoDo))];
+    }
+    else if(strcmp(param2, "rua", true) == 0)
+    {
+        new cacSoDen[18], countDen = 0;
+        for(new i = 1; i <= 36; i++)
+        {
+            new laTho = false;
+            for(new j = 0; j < sizeof(cacSoDo); j++)
+                if(cacSoDo[j] == i) { laTho = true; break; }
+            if(!laTho) cacSoDen[countDen++] = i;
+        }
+        soEp = cacSoDen[random(countDen)];
+    }
+    else if(strcmp(param2, "xanh", true) == 0)
+    {
+        soEp = 0;
+    }
+    else
+    {
+        soEp = strval(param2);
+        if(soEp < 0 || soEp > 36)
+        {
+            SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FF0000}So khong hop le! Nhap 0-36, hoac: tho / rua / xanh");
+            return 1;
+        }
+    }
+
+    AdminBuocKetQua[idban] = soEp;
+
+    new tenmau[32], mauCode[16], msg[256];
+    new mau = LayMauRoulette(soEp);
+    LayTenMau(mau, tenmau, sizeof(tenmau));
+    switch(mau)
+    {
+        case 0: mauCode = "{FF6347}";
+        case 1: mauCode = "{A9A9A9}";
+        case 2: mauCode = "{90EE90}";
+    }
+
+    format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{FFFF00}[ADMIN] Ban #{FFFFFF}%d{FFFF00}: Ket qua tiep theo se bi ep la %s%d {FFFFFF}(%s){FFFF00}.", idban, mauCode, soEp, tenmau);
+    SendClientMessage(playerid, -1, msg);
+
+    return 1;
+}
+
+// /huybq [id_ban] — huy ep ket qua, tra ve ngau nhien
+CMD:huybq(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 1)
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FF0000}Ban khong co quyen!");
+        return 1;
+    }
+
+    new idban;
+    if(sscanf(params, "i", idban))
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, "{FFFFFF}SU DUNG: {FFFF00}/huybq {FFFFFF}[id ban]");
+        return 1;
+    }
+
+    if(idban < 0 || idban >= MAX_BAN_ROULETTE || !BanRoulette[idban][bHoatDong])
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FF0000}ID ban khong hop le!");
+        return 1;
+    }
+
+    if(AdminBuocKetQua[idban] == -1)
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FFFF00}Ban nay dang o che do ngau nhien, khong co gi de huy.");
+        return 1;
+    }
+
+    AdminBuocKetQua[idban] = -1;
+    new msg[128];
+    format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{FFFF00}[ADMIN] Ban #{FFFFFF}%d{FFFF00}: Da huy ep ket qua. Tra ve che do ngau nhien.", idban);
+    SendClientMessage(playerid, -1, msg);
+    return 1;
+}
+
+// /quayngay [id_ban] — buoc quay ngay lap tuc
+CMD:quayngay(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 1)
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FF0000}Ban khong co quyen!");
+        return 1;
+    }
+
+    new idban;
+    if(sscanf(params, "i", idban))
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, "{FFFFFF}SU DUNG: {FFFF00}/quayngay {FFFFFF}[id ban]");
+        return 1;
+    }
+
+    if(idban < 0 || idban >= MAX_BAN_ROULETTE || !BanRoulette[idban][bHoatDong])
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FF0000}ID ban khong hop le!");
+        return 1;
+    }
+
+    if(BanRoulette[idban][bDangQuay])
+    {
+        SendClientMessage(playerid, COLOR_GRAD2, TIEN_TO_TIN_NHAN "{FFFF00}Ban nay dang quay roi, khong the bat dau lai!");
+        return 1;
+    }
+
+    if(BanRoulette[idban][bHenGio] != -1) KillTimer(BanRoulette[idban][bHenGio]);
+    if(BanRoulette[idban][bHenGioDemNguoc] != -1) KillTimer(BanRoulette[idban][bHenGioDemNguoc]);
+    BanRoulette[idban][bHenGio] = -1;
+    BanRoulette[idban][bHenGioDemNguoc] = -1;
+
+    HenGioQuayRoulette(idban);
+
+    new msg[128];
+    format(msg, sizeof(msg), TIEN_TO_TIN_NHAN "{FFFF00}[ADMIN] Ban #{FFFFFF}%d{FFFF00}: Da bat dau quay ngay!", idban);
+    SendClientMessage(playerid, -1, msg);
+
+    new logMsg[256];
+    format(logMsg, sizeof(logMsg), "**:fast_forward: ADMIN QUAY NGAY**\n**Admin:** `%s`\n**Bàn:** `#%d`",
+        GetPlayerNameEx(playerid), idban);
+    SendRuaThoLogDC(logMsg);
+    return 1;
+}
+
 CMD:choihtb(playerid, params[])
 {
     if(NguoiChoiTrongRoulette[playerid]) 
@@ -849,7 +1004,16 @@ public KetThucQuay(idban)
         BanRoulette[idban][bHenGioHieuUngQuay] = -1;
     }
     
-    new soThang = random(37), vitriThang = -1;
+    new soThang, vitriThang = -1;
+    if(AdminBuocKetQua[idban] != -1)
+    {
+        soThang = AdminBuocKetQua[idban];
+        AdminBuocKetQua[idban] = -1;
+    }
+    else
+    {
+        soThang = random(37);
+    }
     for(new i=0; i<37; i++)
     {
         if(CacSoRoulette[i] == soThang)
@@ -1072,7 +1236,8 @@ hook OnGameModeInit()
         BanRoulette[i][bVatThe] = INVALID_OBJECT_ID;
         BanRoulette[i][bSoThangCuoi] = -1;
         BanRoulette[i][bChiSoLichSu] = 0;
-        for(new j = 0; j < 20; j++) 
+        AdminBuocKetQua[i] = -1;
+        for(new j = 0; j < 20; j++)
         {
             BanRoulette[i][bLichSu][j] = -1;
             BanRoulette[i][bLichSuThoiGian][j] = 0;
