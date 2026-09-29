@@ -107,7 +107,7 @@ enum eBiz {
 	bGunsOffered[31],
 	bSkinsOffered[300],
 	bToysOffered[100],
-	bItemPrices[18],
+	bItemPrices[19],
 	bTotalSales,
 	bTotalProfits,
 	Text3D: bStateText,
@@ -803,6 +803,7 @@ enum pInfo
 	pRope,
 	pDice,
 	pBombs,
+	Float: pBinhXang,
 	pDuty,
 	pFightStyle,
 	pEmail[128],
@@ -1021,7 +1022,12 @@ enum pInfo
 	pTraiCay,
 	pNuocEp,
 
-	pTruyDuoi
+	pTruyDuoi,
+
+	pRouletteTarget,  // 1 = nam trong danh sach bi nha cai nham den
+	pRouletteProfit,  // loi nhuan tich luy dai han (co the am)
+	pRoulVanThang,    // so van thang lien tiep trong chu ky nha hien tai
+	pRoulNguong       // chu ky nay duoc thang toi da bao nhieu van (2-4)
 
 	//enum pinfo
 };

@@ -3284,6 +3284,7 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoThuong", PlayerInfo[playerid][pGoThuong]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoHiem", PlayerInfo[playerid][pGoHiem]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "GoXin", PlayerInfo[playerid][pGoXin]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RouletteTarget", PlayerInfo[playerid][pRouletteTarget]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RouletteProfit", PlayerInfo[playerid][pRouletteProfit]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RoulVanThang", PlayerInfo[playerid][pRoulVanThang]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RoulNguong", PlayerInfo[playerid][pRoulNguong]);
