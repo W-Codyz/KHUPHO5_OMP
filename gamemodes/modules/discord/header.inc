@@ -8,6 +8,7 @@ new DCC_Channel:antiChannel;
 new DCC_Channel:renameChannel;
 new DCC_Channel:banChannel;
 new DCC_Channel:ruathoChannel;
+new DCC_Channel:nhaCaiChannel;
 new DCC_Channel:creditChannel;
 new DCC_Channel:logChannel;
 new DCC_Channel:weaponChannel;
