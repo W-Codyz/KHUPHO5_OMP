@@ -9406,6 +9406,12 @@ CMD:accept(playerid, params[])
                                 PlayerVehicleInfo[VehicleOffer[playerid]][VehicleId[playerid]][pvTrunkAmt][s]  = 0;
                             }
 
+                            new DCC_Channel:dcSellCar = DCC_FindChannelById("1331919236691398687");
+                            new dcTitle[128], dcNofi[520];
+                            format(dcTitle, sizeof(dcTitle), "**%s (ID: %d) đã bán xe cho %s (ID: %d)**", GetPlayerNameEx(VehicleOffer[playerid]), VehicleOffer[playerid], GetPlayerNameEx(playerid), playerid);
+                            format(dcNofi, sizeof(dcNofi), ":car: **XE BÁN ĐƯỢC: %s | Giá: $%s**", VehicleName[PlayerVehicleInfo[playerid][playervehicleid][pvModelId] - 400], number_format(VehiclePrice[playerid]));
+                            DiscordLog(dcSellCar, dcTitle, dcNofi);
+
                             VehicleOffer[playerid] = INVALID_PLAYER_ID;
                             VehiclePrice[playerid] = 0;
                             return 1;
@@ -17013,6 +17019,7 @@ CMD:removepvehicle(playerid, params[])
 			}
 			else strcat(vstring, "\nEmpty");
 		}
+		if(vstring[0] == '\n') strdel(vstring, 0, 1);
 		new string[64];
 		SetPVarInt(playerid, "vehcheck_giveplayerid", giveplayerid);
 		SetPVarString(playerid, "vehcheck_reason", reason);

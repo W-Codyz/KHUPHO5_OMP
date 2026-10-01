@@ -369,6 +369,7 @@ CMD:sremovepvehicle(playerid, params[])
             }
             else strcat(vstring, "\nEmpty");
         }
+        if(vstring[0] == '\n') strdel(vstring, 0, 1);
 
         new title[64];
         SetPVarInt(playerid, "vehcheck_giveplayerid", giveplayerid);

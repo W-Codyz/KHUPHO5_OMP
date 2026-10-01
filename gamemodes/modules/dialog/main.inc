@@ -5990,17 +5990,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         PlayerVehicleInfo[giveplayerid][listitem][pvInt] = 0;
         if(PlayerVehicleInfo[giveplayerid][listitem][pvSpawned])
 		{
-	        PlayerVehicleInfo[giveplayerid][iVehicleID][pvSpawned] = 0;
+	        PlayerVehicleInfo[giveplayerid][listitem][pvSpawned] = 0;
 	        DestroyVehicle(iVehicleID);
-			PlayerVehicleInfo[playerid][listitem][pvId] = INVALID_PLAYER_VEHICLE_ID;
+			PlayerVehicleInfo[giveplayerid][listitem][pvId] = INVALID_PLAYER_VEHICLE_ID;
 	        VehicleSpawned[giveplayerid]--;
-			
+
 	    }
 		DestroyPlayerVehicle(giveplayerid, listitem);
         for(new m = 0; m < MAX_MODS; m++)
 		{
             PlayerVehicleInfo[giveplayerid][listitem][pvMods][m] = 0;
 		}
+		new szDelQuery[128];
+		format(szDelQuery, sizeof(szDelQuery), "UPDATE `vehicles` SET `pvModelId` = 0 WHERE `id` = %d", PlayerVehicleInfo[giveplayerid][listitem][pvSlotId]);
+		mysql_function_query(MainPipeline, szDelQuery, false, "OnQueryFinish", "ii", SENDDATA_THREAD, giveplayerid);
+		g_mysql_SaveVehicle(giveplayerid, listitem);
 		new reason[64], bcast[1024];
 		new isSilent = GetPVarInt(playerid, "vehcheck_silent");
 		GetPVarString(playerid, "vehcheck_reason", reason, sizeof(reason));
