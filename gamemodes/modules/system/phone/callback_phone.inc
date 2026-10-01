@@ -232,18 +232,20 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GetPVarString(playerid,"_NguoiNhan",nguoinhan,24);
 				new stk = GetPVarInt(playerid, "STK");
 				DeletePVar(playerid,"Offline");
+				new beforeAmount = PlayerInfo[playerid][pAccount];
+				PlayerInfo[playerid][pAccount] -= amount;
 				format(string, sizeof string, "{00FF7F}[>]{FFFFFF} Chuyen {00FF7F}$%s{FFFFFF} toi {00CFFF}%s (STK: %d){FFFFFF} | So du con: {FF6B6B}$%s", number_format(amount), nguoinhan, stk, number_format(PlayerInfo[playerid][pAccount]));
     		    SendClientMessage(playerid, COLOR_YELLOW2, string);
 
     		    new ip[32];
     		    GetPlayerIp(playerid, ip, sizeof(ip));
-    		    format(string, sizeof string, "[CHUYEN KHOAN OFFLINE] %s (IP:%s) -> %s (STK:%d) | $%s", GetPlayerNameEx(playerid), ip, nguoinhan, stk, number_format(amount));
+    		    format(string, sizeof string, "[CHUYEN KHOAN OFFLINE] %s (IP:%s) -> %s (STK:%d) | $%s | Truoc: $%s | Sau: $%s", GetPlayerNameEx(playerid), ip, nguoinhan, stk, number_format(amount), number_format(beforeAmount), number_format(PlayerInfo[playerid][pAccount]));
     		    Log("logs/bank.log", string);
 
     		    new DCC_Channel:channel = DCC_FindChannelById("1548216250415456376");
     		    new nofi[520], title[128];
     		    format(title, sizeof(title), "**%s (ID: %d) chuyen khoan qua dien thoai**", GetPlayerNameEx(playerid), playerid);
-    		    format(nofi, sizeof(nofi), ":bank: **SO TIEN: $%s** -> %s (STK: %d) | [OFFLINE]", number_format(amount), nguoinhan, stk);
+    		    format(nofi, sizeof(nofi), ":bank: **SO TIEN: $%s** -> %s (STK: %d) | [OFFLINE] | Truoc: $%s | Sau: $%s", number_format(amount), nguoinhan, stk, number_format(beforeAmount), number_format(PlayerInfo[playerid][pAccount]));
     		    DiscordLog(channel, title, nofi);
 				return 1;
     		}
