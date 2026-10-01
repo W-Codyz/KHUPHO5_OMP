@@ -3843,7 +3843,7 @@
 			<member name="C:e_iTargetColor" value="12">
 			</member>
 		</member>
-		<member name="T:eBiz" value="869">
+		<member name="T:eBiz" value="870">
 			<tagname value="eBiz"/>
 			<member name="C:bName" value="0">
 				<size value="48"/>
@@ -3914,180 +3914,180 @@
 				<size value="100"/>
 			</member>
 			<member name="C:bItemPrices" value="539">
-				<size value="18"/>
+				<size value="19"/>
 			</member>
-			<member name="C:bTotalSales" value="557">
+			<member name="C:bTotalSales" value="558">
 			</member>
-			<member name="C:bTotalProfits" value="558">
+			<member name="C:bTotalProfits" value="559">
 			</member>
-			<member name="C:bStateText" value="559">
+			<member name="C:bStateText" value="560">
 				<tagname value="Text3D"/>
 			</member>
-			<member name="C:bDoorText" value="560">
+			<member name="C:bDoorText" value="561">
 				<tagname value="Text3D"/>
 			</member>
-			<member name="C:bSupplyText" value="561">
+			<member name="C:bSupplyText" value="562">
 				<tagname value="Text3D"/>
 			</member>
-			<member name="C:bMapIcon" value="562">
+			<member name="C:bMapIcon" value="563">
 			</member>
-			<member name="C:bPickup" value="563">
+			<member name="C:bPickup" value="564">
 			</member>
-			<member name="C:bAutoPay" value="564">
+			<member name="C:bAutoPay" value="565">
 			</member>
-			<member name="C:bGasPrice" value="565">
+			<member name="C:bGasPrice" value="566">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:bStrictPrice" value="566">
+			<member name="C:bStrictPrice" value="567">
 			</member>
-			<member name="C:bOrderBy" value="567">
+			<member name="C:bOrderBy" value="568">
 				<size value="24"/>
 			</member>
-			<member name="C:bOrderState" value="591">
+			<member name="C:bOrderState" value="592">
 			</member>
-			<member name="C:bOrderAmount" value="592">
+			<member name="C:bOrderAmount" value="593">
 			</member>
-			<member name="C:bOrderDate" value="593">
+			<member name="C:bOrderDate" value="594">
 				<size value="30"/>
 			</member>
-			<member name="C:bCustomExterior" value="623">
+			<member name="C:bCustomExterior" value="624">
 			</member>
-			<member name="C:bCustomInterior" value="624">
+			<member name="C:bCustomInterior" value="625">
 			</member>
-			<member name="C:bGrade" value="625">
+			<member name="C:bGrade" value="626">
 			</member>
-			<member name="C:GasPumpPosX" value="626">
+			<member name="C:GasPumpPosX" value="627">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpPosY" value="628">
+			<member name="C:GasPumpPosY" value="629">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpPosZ" value="630">
+			<member name="C:GasPumpPosZ" value="631">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpAngle" value="632">
+			<member name="C:GasPumpAngle" value="633">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpCapacity" value="634">
+			<member name="C:GasPumpCapacity" value="635">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpGallons" value="636">
+			<member name="C:GasPumpGallons" value="637">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpObjectID" value="638">
+			<member name="C:GasPumpObjectID" value="639">
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpInfoTextID" value="640">
+			<member name="C:GasPumpInfoTextID" value="641">
 				<tagname value="Text3D"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpSaleTextID" value="642">
+			<member name="C:GasPumpSaleTextID" value="643">
 				<tagname value="Text3D"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpSaleGallons" value="644">
+			<member name="C:GasPumpSaleGallons" value="645">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpSalePrice" value="646">
+			<member name="C:GasPumpSalePrice" value="647">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpTimer" value="648">
+			<member name="C:GasPumpTimer" value="649">
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpVehicleID" value="650">
+			<member name="C:GasPumpVehicleID" value="651">
 				<size value="2"/>
 			</member>
-			<member name="C:bParkPosX" value="652">
+			<member name="C:bParkPosX" value="653">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bParkPosY" value="662">
+			<member name="C:bParkPosY" value="663">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bParkPosZ" value="672">
+			<member name="C:bParkPosZ" value="673">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bParkAngle" value="682">
+			<member name="C:bParkAngle" value="683">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bPurchaseX" value="692">
+			<member name="C:bPurchaseX" value="693">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bPurchaseY" value="702">
+			<member name="C:bPurchaseY" value="703">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bPurchaseZ" value="712">
+			<member name="C:bPurchaseZ" value="713">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bPurchaseAngle" value="722">
+			<member name="C:bPurchaseAngle" value="723">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bColor1" value="732">
+			<member name="C:bColor1" value="733">
 				<size value="10"/>
 			</member>
-			<member name="C:bColor2" value="742">
+			<member name="C:bColor2" value="743">
 				<size value="10"/>
 			</member>
-			<member name="C:bModel" value="752">
+			<member name="C:bModel" value="753">
 				<size value="10"/>
 			</member>
-			<member name="C:bPrice" value="762">
+			<member name="C:bPrice" value="763">
 			</member>
-			<member name="C:bHealth" value="772">
+			<member name="C:bHealth" value="773">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bFuel" value="782">
+			<member name="C:bFuel" value="783">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:Lock" value="792">
+			<member name="C:Lock" value="793">
 				<size value="10"/>
 			</member>
-			<member name="C:bVehID" value="802">
+			<member name="C:bVehID" value="803">
 				<size value="10"/>
 			</member>
-			<member name="C:DealershipVehStock" value="812">
+			<member name="C:DealershipVehStock" value="813">
 				<size value="10"/>
 			</member>
-			<member name="C:DealershipVehOrder" value="822">
+			<member name="C:DealershipVehOrder" value="823">
 				<size value="10"/>
 			</member>
-			<member name="C:bVehicleLabel" value="832">
+			<member name="C:bVehicleLabel" value="833">
 				<tagname value="Text3D"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bMonths" value="842">
+			<member name="C:bMonths" value="843">
 			</member>
-			<member name="C:bGymEntryFee" value="843">
+			<member name="C:bGymEntryFee" value="844">
 			</member>
-			<member name="C:bGymType" value="844">
+			<member name="C:bGymType" value="845">
 			</member>
-			<member name="C:bGymBoxingArena1" value="845">
+			<member name="C:bGymBoxingArena1" value="846">
 				<size value="2"/>
 			</member>
-			<member name="C:bGymBoxingArena2" value="847">
+			<member name="C:bGymBoxingArena2" value="848">
 				<size value="2"/>
 			</member>
-			<member name="C:bGymBikePlayers" value="849">
+			<member name="C:bGymBikePlayers" value="850">
 				<size value="10"/>
 			</member>
-			<member name="C:bGymBikeVehicles" value="859">
+			<member name="C:bGymBikeVehicles" value="860">
 				<size value="10"/>
 			</member>
 		</member>
@@ -5005,7 +5005,7 @@
 				<size value="3"/>
 			</member>
 		</member>
-		<member name="T:pInfo" value="1677">
+		<member name="T:pInfo" value="1682">
 			<tagname value="pInfo"/>
 			<member name="C:pId" value="0">
 			</member>
@@ -5276,452 +5276,463 @@
 			</member>
 			<member name="C:pBombs" value="415">
 			</member>
-			<member name="C:pDuty" value="416">
-			</member>
-			<member name="C:pFightStyle" value="417">
-			</member>
-			<member name="C:pEmail" value="418">
-				<size value="128"/>
-			</member>
-			<member name="C:pIP" value="546">
-				<size value="16"/>
-			</member>
-			<member name="C:pSecureIP" value="562">
-				<size value="16"/>
-			</member>
-			<member name="C:pBanned" value="578">
-			</member>
-			<member name="C:pPermaBanned" value="579">
-			</member>
-			<member name="C:pDisabled" value="580">
-			</member>
-			<member name="C:pAccent" value="581">
-			</member>
-			<member name="C:pCHits" value="582">
-			</member>
-			<member name="C:pFHits" value="583">
-			</member>
-			<member name="C:pVW" value="584">
-			</member>
-			<member name="C:pRenting" value="585">
-			</member>
-			<member name="C:pTempVIP" value="586">
-			</member>
-			<member name="C:pBuddyInvited" value="587">
-			</member>
-			<member name="C:pVIPInviteDay" value="588">
-			</member>
-			<member name="C:pTokens" value="589">
-			</member>
-			<member name="C:pPaintTokens" value="590">
-			</member>
-			<member name="C:pGangWarn" value="591">
-			</member>
-			<member name="C:pCSFBanned" value="592">
-			</member>
-			<member name="C:pGiftTime" value="593">
-			</member>
-			<member name="C:pContractBy" value="594">
-				<size value="100"/>
-			</member>
-			<member name="C:pContractDetail" value="694">
-				<size value="64"/>
-			</member>
-			<member name="C:pRadio" value="758">
-			</member>
-			<member name="C:pRadioFreq" value="759">
-			</member>
-			<member name="C:pDutyHours" value="760">
-			</member>
-			<member name="C:pAcceptedHelp" value="761">
-			</member>
-			<member name="C:pAcceptReport" value="762">
-			</member>
-			<member name="C:pShopTechOrders" value="763">
-			</member>
-			<member name="C:pTrashReport" value="764">
-			</member>
-			<member name="C:pInsurance" value="765">
-			</member>
-			<member name="C:pTriageTime" value="766">
-			</member>
-			<member name="C:pVehicleKeys" value="767">
-			</member>
-			<member name="C:pVehicleKeysFrom" value="768">
-			</member>
-			<member name="C:pTaxiLicense" value="769">
-			</member>
-			<member name="C:pTicketTime" value="770">
-			</member>
-			<member name="C:pScrewdriver" value="771">
-			</member>
-			<member name="C:pWristwatch" value="772">
-			</member>
-			<member name="C:pSurveillance" value="773">
-			</member>
-			<member name="C:pSmslog" value="774">
-			</member>
-			<member name="C:pTire" value="775">
-			</member>
-			<member name="C:pFirstaid" value="776">
-			</member>
-			<member name="C:pRccam" value="777">
-			</member>
-			<member name="C:pReceiver" value="778">
-			</member>
-			<member name="C:pSweep" value="779">
-			</member>
-			<member name="C:pSweepLeft" value="780">
-			</member>
-			<member name="C:pBugged" value="781">
-			</member>
-			<member name="C:pCheckCash" value="782">
-			</member>
-			<member name="C:pChecks" value="783">
-			</member>
-			<member name="C:pWeedObject" value="784">
-			</member>
-			<member name="C:pWSeeds" value="785">
-			</member>
-			<member name="C:pWarrant" value="786">
-				<size value="128"/>
-			</member>
-			<member name="C:pJudgeJailTime" value="914">
-			</member>
-			<member name="C:pJudgeJailType" value="915">
-			</member>
-			<member name="C:pBeingSentenced" value="916">
-			</member>
-			<member name="C:pProbationTime" value="917">
-			</member>
-			<member name="C:pDMKills" value="918">
-			</member>
-			<member name="C:pOrder" value="919">
-			</member>
-			<member name="C:pOrderConfirmed" value="920">
-			</member>
-			<member name="C:pCallsAccepted" value="921">
-			</member>
-			<member name="C:pPatientsDelivered" value="922">
-			</member>
-			<member name="C:pLiveBanned" value="923">
-			</member>
-			<member name="C:pFreezeBank" value="924">
-			</member>
-			<member name="C:pFreezeHouse" value="925">
-			</member>
-			<member name="C:pFreezeCar" value="926">
-			</member>
-			<member name="C:pServiceTime" value="927">
-			</member>
-			<member name="C:pFirework" value="928">
-			</member>
-			<member name="C:pBoombox" value="929">
-			</member>
-			<member name="C:pHydration" value="930">
-			</member>
-			<member name="C:pRacePlayerLaps" value="931">
-			</member>
-			<member name="C:pDoubleEXP" value="932">
-			</member>
-			<member name="C:pEXPToken" value="933">
-			</member>
-			<member name="C:pRingtone" value="934">
-			</member>
-			<member name="C:pVIPM" value="935">
-			</member>
-			<member name="C:pVIPMO" value="936">
-			</member>
-			<member name="C:pVIPExpire" value="937">
-			</member>
-			<member name="C:pGVip" value="938">
-			</member>
-			<member name="C:pSMod" value="939">
-			</member>
-			<member name="C:pWatchdog" value="940">
-			</member>
-			<member name="C:pPSFPot" value="941">
-			</member>
-			<member name="C:pPSFCrack" value="942">
-			</member>
-			<member name="C:pPSFMats" value="943">
-			</member>
-			<member name="C:pVIPSold" value="944">
-			</member>
-			<member name="C:pGoldBoxTokens" value="945">
-			</member>
-			<member name="C:pRewardHours" value="946">
+			<member name="C:pBinhXang" value="416">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:pRewardDrawChance" value="947">
+			<member name="C:pDuty" value="417">
 			</member>
-			<member name="C:pRVehRestricted" value="948">
+			<member name="C:pFightStyle" value="418">
 			</member>
-			<member name="C:pRVehWarns" value="949">
+			<member name="C:pEmail" value="419">
+				<size value="128"/>
 			</member>
-			<member name="C:pLastRVehWarn" value="950">
+			<member name="C:pIP" value="547">
+				<size value="16"/>
 			</member>
-			<member name="C:pFlagged" value="951">
+			<member name="C:pSecureIP" value="563">
+				<size value="16"/>
 			</member>
-			<member name="C:pPaper" value="952">
+			<member name="C:pBanned" value="579">
 			</member>
-			<member name="C:pMailEnabled" value="953">
+			<member name="C:pPermaBanned" value="580">
 			</member>
-			<member name="C:pMailbox" value="954">
+			<member name="C:pDisabled" value="581">
 			</member>
-			<member name="C:pBusiness" value="955">
+			<member name="C:pAccent" value="582">
 			</member>
-			<member name="C:pBusinessRank" value="956">
+			<member name="C:pCHits" value="583">
 			</member>
-			<member name="C:pTreasureSkill" value="957">
+			<member name="C:pFHits" value="584">
 			</member>
-			<member name="C:pMetalDetector" value="958">
+			<member name="C:pVW" value="585">
 			</member>
-			<member name="C:pHelpedBefore" value="959">
+			<member name="C:pRenting" value="586">
 			</member>
-			<member name="C:pTrickortreat" value="960">
+			<member name="C:pTempVIP" value="587">
 			</member>
-			<member name="C:pLastCharmReceived" value="961">
+			<member name="C:pBuddyInvited" value="588">
 			</member>
-			<member name="C:pRHMutes" value="962">
+			<member name="C:pVIPInviteDay" value="589">
 			</member>
-			<member name="C:pRHMuteTime" value="963">
+			<member name="C:pTokens" value="590">
 			</member>
-			<member name="C:pGiftCode" value="964">
+			<member name="C:pPaintTokens" value="591">
 			</member>
-			<member name="C:pTable" value="965">
+			<member name="C:pGangWarn" value="592">
 			</member>
-			<member name="C:pOpiumSeeds" value="966">
+			<member name="C:pCSFBanned" value="593">
 			</member>
-			<member name="C:pRawOpium" value="967">
+			<member name="C:pGiftTime" value="594">
 			</member>
-			<member name="C:pHeroin" value="968">
+			<member name="C:pContractBy" value="595">
+				<size value="100"/>
 			</member>
-			<member name="C:pSyringes" value="969">
+			<member name="C:pContractDetail" value="695">
+				<size value="64"/>
 			</member>
-			<member name="C:pSkins" value="970">
+			<member name="C:pRadio" value="759">
 			</member>
-			<member name="C:pHunger" value="971">
+			<member name="C:pRadioFreq" value="760">
 			</member>
-			<member name="C:pHungerTimer" value="972">
+			<member name="C:pDutyHours" value="761">
 			</member>
-			<member name="C:pHungerDeathTimer" value="973">
+			<member name="C:pAcceptedHelp" value="762">
 			</member>
-			<member name="C:pFitness" value="974">
+			<member name="C:pAcceptReport" value="763">
 			</member>
-			<member name="C:pForcePasswordChange" value="975">
+			<member name="C:pShopTechOrders" value="764">
 			</member>
-			<member name="C:pCredits" value="976">
+			<member name="C:pTrashReport" value="765">
 			</member>
-			<member name="C:pHealthCare" value="977">
+			<member name="C:pInsurance" value="766">
 			</member>
-			<member name="C:pTotalCredits" value="978">
+			<member name="C:pTriageTime" value="767">
 			</member>
-			<member name="C:pReceivedCredits" value="979">
+			<member name="C:pVehicleKeys" value="768">
 			</member>
-			<member name="C:pRimMod" value="980">
+			<member name="C:pVehicleKeysFrom" value="769">
 			</member>
-			<member name="C:pHasTazer" value="981">
+			<member name="C:pTaxiLicense" value="770">
 			</member>
-			<member name="C:pHasCuff" value="982">
+			<member name="C:pTicketTime" value="771">
 			</member>
-			<member name="C:pCarVoucher" value="983">
+			<member name="C:pScrewdriver" value="772">
 			</member>
-			<member name="C:pReferredBy" value="984">
+			<member name="C:pWristwatch" value="773">
+			</member>
+			<member name="C:pSurveillance" value="774">
+			</member>
+			<member name="C:pSmslog" value="775">
+			</member>
+			<member name="C:pTire" value="776">
+			</member>
+			<member name="C:pFirstaid" value="777">
+			</member>
+			<member name="C:pRccam" value="778">
+			</member>
+			<member name="C:pReceiver" value="779">
+			</member>
+			<member name="C:pSweep" value="780">
+			</member>
+			<member name="C:pSweepLeft" value="781">
+			</member>
+			<member name="C:pBugged" value="782">
+			</member>
+			<member name="C:pCheckCash" value="783">
+			</member>
+			<member name="C:pChecks" value="784">
+			</member>
+			<member name="C:pWeedObject" value="785">
+			</member>
+			<member name="C:pWSeeds" value="786">
+			</member>
+			<member name="C:pWarrant" value="787">
+				<size value="128"/>
+			</member>
+			<member name="C:pJudgeJailTime" value="915">
+			</member>
+			<member name="C:pJudgeJailType" value="916">
+			</member>
+			<member name="C:pBeingSentenced" value="917">
+			</member>
+			<member name="C:pProbationTime" value="918">
+			</member>
+			<member name="C:pDMKills" value="919">
+			</member>
+			<member name="C:pOrder" value="920">
+			</member>
+			<member name="C:pOrderConfirmed" value="921">
+			</member>
+			<member name="C:pCallsAccepted" value="922">
+			</member>
+			<member name="C:pPatientsDelivered" value="923">
+			</member>
+			<member name="C:pLiveBanned" value="924">
+			</member>
+			<member name="C:pFreezeBank" value="925">
+			</member>
+			<member name="C:pFreezeHouse" value="926">
+			</member>
+			<member name="C:pFreezeCar" value="927">
+			</member>
+			<member name="C:pServiceTime" value="928">
+			</member>
+			<member name="C:pFirework" value="929">
+			</member>
+			<member name="C:pBoombox" value="930">
+			</member>
+			<member name="C:pHydration" value="931">
+			</member>
+			<member name="C:pRacePlayerLaps" value="932">
+			</member>
+			<member name="C:pDoubleEXP" value="933">
+			</member>
+			<member name="C:pEXPToken" value="934">
+			</member>
+			<member name="C:pRingtone" value="935">
+			</member>
+			<member name="C:pVIPM" value="936">
+			</member>
+			<member name="C:pVIPMO" value="937">
+			</member>
+			<member name="C:pVIPExpire" value="938">
+			</member>
+			<member name="C:pGVip" value="939">
+			</member>
+			<member name="C:pSMod" value="940">
+			</member>
+			<member name="C:pWatchdog" value="941">
+			</member>
+			<member name="C:pPSFPot" value="942">
+			</member>
+			<member name="C:pPSFCrack" value="943">
+			</member>
+			<member name="C:pPSFMats" value="944">
+			</member>
+			<member name="C:pVIPSold" value="945">
+			</member>
+			<member name="C:pGoldBoxTokens" value="946">
+			</member>
+			<member name="C:pRewardHours" value="947">
+				<tagname value="Float"/>
+			</member>
+			<member name="C:pRewardDrawChance" value="948">
+			</member>
+			<member name="C:pRVehRestricted" value="949">
+			</member>
+			<member name="C:pRVehWarns" value="950">
+			</member>
+			<member name="C:pLastRVehWarn" value="951">
+			</member>
+			<member name="C:pFlagged" value="952">
+			</member>
+			<member name="C:pPaper" value="953">
+			</member>
+			<member name="C:pMailEnabled" value="954">
+			</member>
+			<member name="C:pMailbox" value="955">
+			</member>
+			<member name="C:pBusiness" value="956">
+			</member>
+			<member name="C:pBusinessRank" value="957">
+			</member>
+			<member name="C:pTreasureSkill" value="958">
+			</member>
+			<member name="C:pMetalDetector" value="959">
+			</member>
+			<member name="C:pHelpedBefore" value="960">
+			</member>
+			<member name="C:pTrickortreat" value="961">
+			</member>
+			<member name="C:pLastCharmReceived" value="962">
+			</member>
+			<member name="C:pRHMutes" value="963">
+			</member>
+			<member name="C:pRHMuteTime" value="964">
+			</member>
+			<member name="C:pGiftCode" value="965">
+			</member>
+			<member name="C:pTable" value="966">
+			</member>
+			<member name="C:pOpiumSeeds" value="967">
+			</member>
+			<member name="C:pRawOpium" value="968">
+			</member>
+			<member name="C:pHeroin" value="969">
+			</member>
+			<member name="C:pSyringes" value="970">
+			</member>
+			<member name="C:pSkins" value="971">
+			</member>
+			<member name="C:pHunger" value="972">
+			</member>
+			<member name="C:pHungerTimer" value="973">
+			</member>
+			<member name="C:pHungerDeathTimer" value="974">
+			</member>
+			<member name="C:pFitness" value="975">
+			</member>
+			<member name="C:pForcePasswordChange" value="976">
+			</member>
+			<member name="C:pCredits" value="977">
+			</member>
+			<member name="C:pHealthCare" value="978">
+			</member>
+			<member name="C:pTotalCredits" value="979">
+			</member>
+			<member name="C:pReceivedCredits" value="980">
+			</member>
+			<member name="C:pRimMod" value="981">
+			</member>
+			<member name="C:pHasTazer" value="982">
+			</member>
+			<member name="C:pHasCuff" value="983">
+			</member>
+			<member name="C:pCarVoucher" value="984">
+			</member>
+			<member name="C:pReferredBy" value="985">
 				<size value="24"/>
 			</member>
-			<member name="C:pPendingRefReward" value="1008">
+			<member name="C:pPendingRefReward" value="1009">
 			</member>
-			<member name="C:pRefers" value="1009">
+			<member name="C:pRefers" value="1010">
 			</member>
-			<member name="C:pFamed" value="1010">
+			<member name="C:pFamed" value="1011">
 			</member>
-			<member name="C:pFMuted" value="1011">
+			<member name="C:pFMuted" value="1012">
 			</member>
-			<member name="C:pPVIPVoucher" value="1012">
+			<member name="C:pPVIPVoucher" value="1013">
 			</member>
-			<member name="C:pVehicleSlot" value="1013">
+			<member name="C:pVehicleSlot" value="1014">
 			</member>
-			<member name="C:pToySlot" value="1014">
+			<member name="C:pToySlot" value="1015">
 			</member>
-			<member name="C:pRFLTeam" value="1015">
+			<member name="C:pRFLTeam" value="1016">
 			</member>
-			<member name="C:pRFLTeamL" value="1016">
+			<member name="C:pRFLTeamL" value="1017">
 			</member>
-			<member name="C:pVehVoucher" value="1017">
+			<member name="C:pVehVoucher" value="1018">
 			</member>
-			<member name="C:pSVIPVoucher" value="1018">
+			<member name="C:pSVIPVoucher" value="1019">
 			</member>
-			<member name="C:pGVIPVoucher" value="1019">
+			<member name="C:pGVIPVoucher" value="1020">
 			</member>
-			<member name="C:pGiftVoucher" value="1020">
+			<member name="C:pGiftVoucher" value="1021">
 			</member>
-			<member name="C:pFallIntoFun" value="1021">
+			<member name="C:pFallIntoFun" value="1022">
 			</member>
-			<member name="C:pHungerVoucher" value="1022">
+			<member name="C:pHungerVoucher" value="1023">
 			</member>
-			<member name="C:pBoughtCure" value="1023">
+			<member name="C:pBoughtCure" value="1024">
 			</member>
-			<member name="C:pVials" value="1024">
+			<member name="C:pVials" value="1025">
 			</member>
-			<member name="C:pAdvertVoucher" value="1025">
+			<member name="C:pAdvertVoucher" value="1026">
 			</member>
-			<member name="C:pShopCounter" value="1026">
+			<member name="C:pShopCounter" value="1027">
 			</member>
-			<member name="C:pShopNotice" value="1027">
+			<member name="C:pShopNotice" value="1028">
 			</member>
-			<member name="C:pSVIPExVoucher" value="1028">
+			<member name="C:pSVIPExVoucher" value="1029">
 			</member>
-			<member name="C:pGVIPExVoucher" value="1029">
+			<member name="C:pGVIPExVoucher" value="1030">
 			</member>
-			<member name="C:pVIPSellable" value="1030">
+			<member name="C:pVIPSellable" value="1031">
 			</member>
-			<member name="C:pReceivedPrize" value="1031">
+			<member name="C:pReceivedPrize" value="1032">
 			</member>
-			<member name="C:pNbMission" value="1032">
+			<member name="C:pNbMission" value="1033">
 				<size value="5"/>
 			</member>
-			<member name="C:pNbProgress" value="1037">
+			<member name="C:pNbProgress" value="1038">
 				<size value="5"/>
 			</member>
-			<member name="C:pNbCurrent" value="1042">
+			<member name="C:pNbCurrent" value="1043">
 			</member>
-			<member name="C:pFishRod" value="1043">
+			<member name="C:pFishRod" value="1044">
 			</member>
-			<member name="C:pBait" value="1044">
+			<member name="C:pBait" value="1045">
 			</member>
-			<member name="C:pInvType" value="1045">
+			<member name="C:pInvType" value="1046">
 			</member>
-			<member name="C:pBinhXit" value="1046">
+			<member name="C:pBinhXit" value="1047">
 			</member>
-			<member name="C:pThucAn" value="1047">
+			<member name="C:pThucAn" value="1048">
 			</member>
-			<member name="C:pNuoc" value="1048">
+			<member name="C:pNuoc" value="1049">
 			</member>
-			<member name="C:pCanSa" value="1049">
+			<member name="C:pCanSa" value="1050">
 			</member>
-			<member name="C:pTepCanSa" value="1050">
+			<member name="C:pTepCanSa" value="1051">
 			</member>
-			<member name="C:pSoLanCauCa" value="1051">
+			<member name="C:pSoLanCauCa" value="1052">
 			</member>
-			<member name="C:pLastFishingReset" value="1052">
+			<member name="C:pLastFishingReset" value="1053">
 			</member>
-			<member name="C:pMoiCau" value="1053">
+			<member name="C:pMoiCau" value="1054">
 			</member>
-			<member name="C:pBiggestFishSize" value="1054">
+			<member name="C:pBiggestFishSize" value="1055">
 			</member>
-			<member name="C:pBiggestFishType" value="1055">
+			<member name="C:pBiggestFishType" value="1056">
 			</member>
-			<member name="C:pCanCau" value="1056">
+			<member name="C:pCanCau" value="1057">
 				<size value="3"/>
 			</member>
-			<member name="C:pDoBenCan" value="1059">
+			<member name="C:pDoBenCan" value="1060">
 				<size value="3"/>
 			</member>
-			<member name="C:pFishCarp" value="1062">
+			<member name="C:pFishCarp" value="1063">
 			</member>
-			<member name="C:pFishTilapia" value="1063">
+			<member name="C:pFishTilapia" value="1064">
 			</member>
-			<member name="C:pFishBass" value="1064">
+			<member name="C:pFishBass" value="1065">
 			</member>
-			<member name="C:pFishCatfish" value="1065">
+			<member name="C:pFishCatfish" value="1066">
 			</member>
-			<member name="C:pFishSalmon" value="1066">
+			<member name="C:pFishSalmon" value="1067">
 			</member>
-			<member name="C:pFishTuna" value="1067">
+			<member name="C:pFishTuna" value="1068">
 			</member>
-			<member name="C:pFishSnakehead" value="1068">
+			<member name="C:pFishSnakehead" value="1069">
 			</member>
-			<member name="C:pFishSturgeon" value="1069">
+			<member name="C:pFishSturgeon" value="1070">
 			</member>
-			<member name="C:pFishKoi" value="1070">
+			<member name="C:pFishKoi" value="1071">
 			</member>
-			<member name="C:pFishGolden" value="1071">
+			<member name="C:pFishGolden" value="1072">
 			</member>
-			<member name="C:pAxe" value="1072">
+			<member name="C:pAxe" value="1073">
 			</member>
-			<member name="C:pGoTho" value="1073">
+			<member name="C:pGoTho" value="1074">
 			</member>
-			<member name="C:pGoThuong" value="1074">
+			<member name="C:pGoThuong" value="1075">
 			</member>
-			<member name="C:pGoXin" value="1075">
+			<member name="C:pGoXin" value="1076">
 			</member>
-			<member name="C:pGoHiem" value="1076">
+			<member name="C:pGoHiem" value="1077">
 			</member>
-			<member name="C:pHUDInfo" value="1077">
+			<member name="C:pHUDInfo" value="1078">
 			</member>
-			<member name="C:pSoTaiKhoan" value="1078">
+			<member name="C:pSoTaiKhoan" value="1079">
 			</member>
-			<member name="C:pDanhBa1" value="1079">
+			<member name="C:pDanhBa1" value="1080">
 				<size value="64"/>
 			</member>
-			<member name="C:pDanhBa2" value="1143">
+			<member name="C:pDanhBa2" value="1144">
 				<size value="64"/>
 			</member>
-			<member name="C:pDanhBa3" value="1207">
+			<member name="C:pDanhBa3" value="1208">
 				<size value="64"/>
 			</member>
-			<member name="C:pDanhBa4" value="1271">
+			<member name="C:pDanhBa4" value="1272">
 				<size value="64"/>
 			</member>
-			<member name="C:pDanhBa5" value="1335">
+			<member name="C:pDanhBa5" value="1336">
 				<size value="64"/>
 			</member>
-			<member name="C:pDanhBa6" value="1399">
+			<member name="C:pDanhBa6" value="1400">
 				<size value="64"/>
 			</member>
-			<member name="C:pDanhBa7" value="1463">
+			<member name="C:pDanhBa7" value="1464">
 				<size value="64"/>
 			</member>
-			<member name="C:pDanhBa8" value="1527">
+			<member name="C:pDanhBa8" value="1528">
 				<size value="64"/>
 			</member>
-			<member name="C:pDanhBa9" value="1591">
+			<member name="C:pDanhBa9" value="1592">
 				<size value="64"/>
 			</member>
-			<member name="C:pSDT1" value="1655">
+			<member name="C:pSDT1" value="1656">
 			</member>
-			<member name="C:pSDT2" value="1656">
+			<member name="C:pSDT2" value="1657">
 			</member>
-			<member name="C:pSDT3" value="1657">
+			<member name="C:pSDT3" value="1658">
 			</member>
-			<member name="C:pSDT4" value="1658">
+			<member name="C:pSDT4" value="1659">
 			</member>
-			<member name="C:pSDT5" value="1659">
+			<member name="C:pSDT5" value="1660">
 			</member>
-			<member name="C:pSDT6" value="1660">
+			<member name="C:pSDT6" value="1661">
 			</member>
-			<member name="C:pSDT7" value="1661">
+			<member name="C:pSDT7" value="1662">
 			</member>
-			<member name="C:pSDT8" value="1662">
+			<member name="C:pSDT8" value="1663">
 			</member>
-			<member name="C:pSDT9" value="1663">
+			<member name="C:pSDT9" value="1664">
 			</member>
-			<member name="C:pTypeHunger" value="1664">
+			<member name="C:pTypeHunger" value="1665">
 			</member>
-			<member name="C:pBanhMi" value="1665">
+			<member name="C:pBanhMi" value="1666">
 			</member>
-			<member name="C:pNuocLoc" value="1666">
+			<member name="C:pNuocLoc" value="1667">
 			</member>
-			<member name="C:pPizza" value="1667">
+			<member name="C:pPizza" value="1668">
 			</member>
-			<member name="C:pBunRieu" value="1668">
+			<member name="C:pBunRieu" value="1669">
 			</member>
-			<member name="C:pPhoBo" value="1669">
+			<member name="C:pPhoBo" value="1670">
 			</member>
-			<member name="C:pHamburger" value="1670">
+			<member name="C:pHamburger" value="1671">
 			</member>
-			<member name="C:pCaPhe" value="1671">
+			<member name="C:pCaPhe" value="1672">
 			</member>
-			<member name="C:pSuaBo" value="1672">
+			<member name="C:pSuaBo" value="1673">
 			</member>
-			<member name="C:pThit" value="1673">
+			<member name="C:pThit" value="1674">
 			</member>
-			<member name="C:pTraiCay" value="1674">
+			<member name="C:pTraiCay" value="1675">
 			</member>
-			<member name="C:pNuocEp" value="1675">
+			<member name="C:pNuocEp" value="1676">
 			</member>
-			<member name="C:pTruyDuoi" value="1676">
+			<member name="C:pTruyDuoi" value="1677">
+			</member>
+			<member name="C:pRouletteTarget" value="1678">
+			</member>
+			<member name="C:pRouletteProfit" value="1679">
+			</member>
+			<member name="C:pRoulVanThang" value="1680">
+			</member>
+			<member name="C:pRoulNguong" value="1681">
 			</member>
 		</member>
 		<member name="T:pLocationData" value="57">
@@ -6996,7 +7007,7 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="199">
+		<member name="C:__line" value="201">
 			<referrer name="pc_cmd_ssetmoney"/>
 			<referrer name="pc_cmd_sgivemoney"/>
 			<referrer name="pc_cmd_ssetstat"/>
@@ -7010,7 +7021,11 @@
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_settarget"/>
+			<referrer name="pc_cmd_unsettarget"/>
 			<referrer name="pc_cmd_quayngay"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="LoadSafeZones"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
@@ -7448,6 +7463,7 @@
 			<referrer name="pc_cmd_resupply"/>
 			<referrer name="pc_cmd_minrank"/>
 			<referrer name="pc_cmd_employeepayset"/>
+			<referrer name="pc_cmd_editprices"/>
 			<referrer name="pc_cmd_fmute"/>
 			<referrer name="pc_cmd_funmute"/>
 			<referrer name="pc_cmd_setfamed"/>
@@ -8573,10 +8589,11 @@
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_DeliverSupply"/>
 			<referrer name="TW_CancelSupply"/>
+			<referrer name="LogAdd"/>
 			<referrer name="TaoHenGioRoulette"/>
+			<referrer name="ChonKetQuaNhaCai"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
-			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_thoathtb"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
@@ -8885,6 +8902,7 @@
 			<referrer name="_@yHOnPlayerConnect@0j"/>
 			<referrer name="RemoveDroppedItem"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="PayDay"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
@@ -9092,11 +9110,14 @@
 			<referrer name="TW_StartSupplyCollect"/>
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="pc_cmd_testturf"/>
+			<referrer name="LogAdd"/>
 			<referrer name="TaoHenGioRoulette"/>
 			<referrer name="TaiBanRoulette"/>
+			<referrer name="ChonKetQuaNhaCai"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_choihtb"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="@yH_OnGameModeInit@0E"/>
 			<referrer name="@yH_OnGameModeExit@0E"/>
@@ -9516,6 +9537,10 @@
 			<referrer name="@yH_OnDialogResponse@0k"/>
 			<referrer name="@yH_OnDialogResponse@0l"/>
 			<referrer name="_@yHOnDialogResponse@0l"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
+			<referrer name="@yH_OnPlayerDisconnect@0l"/>
 			<referrer name="@yH_OnPlayerConnect@0m"/>
 			<referrer name="CreatePlayerNameTag"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
@@ -9892,6 +9917,7 @@
 			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
+			<referrer name="pc_cmd_checknhacai"/>
 			<referrer name="DemNguocThoiGianQuay"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="HenGioHieuUngQuay"/>
@@ -10104,6 +10130,8 @@
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
 			<referrer name="PayDay"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="OnPlayerLoad"/>
@@ -10390,6 +10418,14 @@
 		</member>
 		<member name="F:CuocHienTai">
 			<referrer name="HienThiDialogChinh"/>
+			<referrer name="TinhTongPayout"/>
+			<referrer name="PrecomputePayoutPlayer"/>
+			<referrer name="PrecomputePayoutAll"/>
+			<referrer name="LaySoChoThang"/>
+			<referrer name="LaySoChoThua"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<referrer name="CapNhatNhaCai"/>
+			<referrer name="pc_cmd_checknhacai"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
@@ -10397,6 +10433,12 @@
 		</member>
 		<member name="F:CuocMau">
 			<referrer name="HienThiDialogChinh"/>
+			<referrer name="TinhTongPayout"/>
+			<referrer name="PrecomputePayoutPlayer"/>
+			<referrer name="PrecomputePayoutAll"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<referrer name="CapNhatNhaCai"/>
+			<referrer name="pc_cmd_checknhacai"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
@@ -10523,11 +10565,13 @@
 			<referrer name="AddDroppedItem"/>
 			<referrer name="RemoveDroppedItem"/>
 			<referrer name="PickupNearestItem"/>
+			<referrer name="DropFuelCan"/>
 		</member>
 		<member name="F:DroppedItems">
 			<referrer name="AddDroppedItem"/>
 			<referrer name="RemoveDroppedItem"/>
 			<referrer name="PickupNearestItem"/>
+			<referrer name="DropFuelCan"/>
 		</member>
 		<member name="F:DuLieuCuocCuaNguoiChoi">
 			<referrer name="_@yHOnPlayerConnect@0E"/>
@@ -13381,6 +13425,7 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0k"/>
 			<referrer name="@yH_OnDialogResponse@0k"/>
 			<referrer name="@yH_OnDialogResponse@0l"/>
+			<referrer name="@yH_OnPlayerDisconnect@0l"/>
 			<referrer name="@yH_OnPlayerConnect@0m"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
 			<referrer name="@yH_OnGameModeInit@0o"/>
@@ -14013,13 +14058,20 @@
 			<referrer name="FAdmin_ShowSwitchGangList"/>
 			<referrer name="pc_cmd_switchgang"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
-			<referrer name="KiemTraThoiGianHoatDongChoNguoiChoi"/>
 			<referrer name="HienThiDialogChinh"/>
+			<referrer name="TinhTongPayout"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<referrer name="CapNhatNhaCai"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_settarget"/>
+			<referrer name="pc_cmd_unsettarget"/>
 			<referrer name="pc_cmd_quayngay"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
+			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="_@yHOnPlayerUpdate@0F"/>
@@ -14449,6 +14501,7 @@
 			<referrer name="pc_cmd_fixveh"/>
 			<referrer name="pc_cmd_fixvehall"/>
 			<referrer name="pc_cmd_refuelveh"/>
+			<referrer name="pc_cmd_refuelvehzz"/>
 			<referrer name="pc_cmd_destroycars"/>
 			<referrer name="pc_cmd_announcem"/>
 			<referrer name="pc_cmd_dm"/>
@@ -15192,6 +15245,12 @@
 			<referrer name="UpdateNewbieMission"/>
 			<referrer name="_@yHOnDialogResponse@0l"/>
 			<referrer name="pc_cmd_nhiemvu"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="UpdateNameTag"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
@@ -16954,6 +17013,7 @@
 			<referrer name="pc_cmd_car"/>
 			<referrer name="pc_cmd_refuel"/>
 			<referrer name="pc_cmd_refuelveh"/>
+			<referrer name="pc_cmd_refuelvehzz"/>
 			<referrer name="pc_cmd_createcdveh"/>
 			<referrer name="pc_cmd_veh"/>
 			<referrer name="pc_cmd_rcabuse"/>
@@ -16963,6 +17023,8 @@
 			<referrer name="Electric_OnMenuResponse"/>
 			<referrer name="Miner_Start"/>
 			<referrer name="ParkRentedVehicle"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
 			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
@@ -18000,6 +18062,8 @@
 		<member name="F:__file">
 		</member>
 		<member name="F:__file">
+		</member>
+		<member name="F:__file">
 			<referrer name="pc_cmd_capcccd"/>
 		</member>
 		<member name="F:__file">
@@ -18553,6 +18617,7 @@
 			<referrer name="pc_cmd_resupply"/>
 			<referrer name="pc_cmd_minrank"/>
 			<referrer name="pc_cmd_employeepayset"/>
+			<referrer name="pc_cmd_editprices"/>
 			<referrer name="pc_cmd_fmute"/>
 			<referrer name="pc_cmd_funmute"/>
 			<referrer name="pc_cmd_setfamed"/>
@@ -18795,7 +18860,11 @@
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_settarget"/>
+			<referrer name="pc_cmd_unsettarget"/>
 			<referrer name="pc_cmd_quayngay"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
 		</member>
 		<member name="F:__file">
 			<referrer name="pc_cmd_switchgang"/>
@@ -19830,8 +19899,17 @@
 			<referrer name="pc_cmd_stopnews"/>
 			<referrer name="pc_cmd_broadcast"/>
 		</member>
+		<member name="F:cacSoDen">
+			<referrer name="PrecomputePayoutPlayer"/>
+			<referrer name="PrecomputePayoutAll"/>
+			<referrer name="LaySoTheoMau"/>
+			<referrer name="pc_cmd_buockq"/>
+		</member>
 		<member name="F:cacSoDo">
 			<referrer name="LayMauRoulette"/>
+			<referrer name="PrecomputePayoutPlayer"/>
+			<referrer name="PrecomputePayoutAll"/>
+			<referrer name="LaySoTheoMau"/>
 			<referrer name="pc_cmd_buockq"/>
 		</member>
 		<member name="F:cage">
@@ -21212,6 +21290,10 @@
 			<referrer name="RotateWheel"/>
 			<referrer name="UpdateWheelTarget"/>
 		</member>
+		<member name="F:g_AiKetQua">
+			<referrer name="HenGioQuayRoulette"/>
+			<referrer name="KetThucQuay"/>
+		</member>
 		<member name="F:g_CarLic_Class">
 			<tagname value="PlayerText"/>
 			<referrer name="CreateCardTDPlayer"/>
@@ -21589,6 +21671,23 @@
 			<referrer name="Animator_Destroy"/>
 			<referrer name="Animator_Process"/>
 			<referrer name="Animator_Insert"/>
+		</member>
+		<member name="F:g_sAiDecision">
+			<referrer name="ChonKetQuaNhaCai"/>
+			<referrer name="HenGioQuayRoulette"/>
+		</member>
+		<member name="F:g_sAiDecisionBan">
+			<referrer name="HenGioQuayRoulette"/>
+			<referrer name="KetThucQuay"/>
+		</member>
+		<member name="F:g_sLogBuf">
+			<referrer name="LogReset"/>
+			<referrer name="LogAdd"/>
+			<referrer name="LogLen"/>
+			<referrer name="HenGioQuayRoulette"/>
+			<referrer name="KetThucQuay"/>
+		</member>
+		<member name="F:g_sLogChunk">
 		</member>
 		<member name="F:g_safeCooldown">
 			<referrer name="FA_OnLoadFamilies"/>
@@ -22074,6 +22173,11 @@
 		<member name="F:nextteam">
 			<referrer name="pc_cmd_joinevent"/>
 		</member>
+		<member name="F:nhaCaiChannel">
+			<tagname value="DCC_Channel"/>
+			<referrer name="SendNhaCaiLogDC"/>
+			<referrer name="Discord_Init"/>
+		</member>
 		<member name="F:nonewbie">
 			<referrer name="pc_cmd_nonewbie"/>
 			<referrer name="pc_cmd_newb"/>
@@ -22280,6 +22384,7 @@
 		</member>
 		<member name="F:ruathoChannel">
 			<tagname value="DCC_Channel"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="SendRuaThoLogDC"/>
 			<referrer name="Discord_Init"/>
 		</member>
@@ -23180,7 +23285,18 @@
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="Miner_Init"/>
 			<referrer name="CreateGarbageObject"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="ShowPlayerInventory"/>
+			<referrer name="ShowItemOptions"/>
 			<referrer name="AddDroppedItem"/>
+			<referrer name="PickupNearestItem"/>
+			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="OnDialogResponse"/>
@@ -23366,6 +23482,8 @@
 			<referrer name="_@yHOnDialogResponse@0g"/>
 			<referrer name="CreateInvTDGlobal"/>
 			<referrer name="CreateInvTDPlayer"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="FuelCanPourTimer"/>
 			<referrer name="SetPlayerCP"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="GetVehicleSpeed"/>
@@ -23517,6 +23635,7 @@
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OnPlayerText"/>
 			<referrer name="Miner_Init"/>
+			<referrer name="FuelCanFillTimer"/>
 			<referrer name="GetVehicleSpeed"/>
 			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<referrer name="OnDialogResponse"/>
@@ -24155,6 +24274,7 @@
 			<referrer name="ServerMicrobeat"/>
 			<referrer name="VehicleUpdate"/>
 			<referrer name="GasPumpSaleTimer"/>
+			<referrer name="GivePlayerStoreItem"/>
 			<referrer name="SpawnZombie"/>
 			<referrer name="pc_cmd_hackwarnings"/>
 			<referrer name="IsPlayerInArea"/>
@@ -24168,6 +24288,10 @@
 			<referrer name="OPBA_OnVehicleDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="pc_cmd_laybanh"/>
+			<referrer name="PickupNearestItem"/>
+			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="FuelCanPourTimer"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<referrer name="OnDialogResponse"/>
@@ -24259,6 +24383,10 @@
 			<referrer name="pc_cmd_heal"/>
 			<referrer name="OnPlayerTakeDamage"/>
 			<referrer name="OPBA_OnPlayerDeath"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
 			<referrer name="PlayerCompassUpdate"/>
 			<dependency name="floatcmp"/>
 			<param name="__oper1">
@@ -24351,7 +24479,17 @@
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="pc_cmd_laybanh"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="ShowPlayerInventory"/>
+			<referrer name="ShowItemOptions"/>
 			<referrer name="PickupNearestItem"/>
+			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="PlayerCompassUpdate"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="floatcmp"/>
@@ -24436,6 +24574,15 @@
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
 			<referrer name="RespawnNearbyVehicles"/>
 			<referrer name="ElectricStandUp"/>
+			<referrer name="PopulateInvTDSlots"/>
+			<referrer name="ShowPlayerInventory"/>
+			<referrer name="ShowItemOptions"/>
+			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<dependency name="floatcmp"/>
 			<param name="__oper1">
 				<paraminfo>Float </paraminfo>
@@ -27180,6 +27327,21 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerDisconnect@0j"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="reason">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerDisconnect@0l" syntax="@yH_OnPlayerDisconnect@0l(&amp;playerid, &amp;reason)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerDisconnect@0l"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -31468,6 +31630,7 @@
 			<referrer name="TDA_DIALOG_USETHITHUNKHOI"/>
 			<referrer name="TDA_DIALOG_USETRAICAY"/>
 			<referrer name="TDA_DIALOG_USENUOCEP"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player to apply the animation to
@@ -36345,6 +36508,26 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:CapNhatNhaCai" syntax="CapNhatNhaCai(playerid, idban, soThang)">
+			<stacksize value="8"/>
+			<referrer name="KetThucQuay"/>
+			<dependency name="CuocHienTai"/>
+			<dependency name="CuocMau"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="LayMauRoulette"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="pRoulNguong"/>
+			<dependency name="pRoulVanThang"/>
+			<dependency name="pRouletteProfit"/>
+			<dependency name="pRouletteTarget"/>
+			<param name="playerid">
+			</param>
+			<param name="idban">
+			</param>
+			<param name="soThang">
+			</param>
+		</member>
 		<member name="M:CapNhatNhanRoulette" syntax="CapNhatNhanRoulette(idban)">
 			<stacksize value="263"/>
 			<referrer name="TaoHenGioRoulette"/>
@@ -37031,6 +37214,39 @@
 		<member name="M:CheckXP" syntax="CheckXP(nextlevel)">
 			<stacksize value="2"/>
 			<param name="nextlevel">
+			</param>
+		</member>
+		<member name="M:ChonKetQuaNhaCai" syntax="ChonKetQuaNhaCai(idban)">
+			<stacksize value="746"/>
+			<referrer name="HenGioQuayRoulette"/>
+			<dependency name="CuocHienTai"/>
+			<dependency name="CuocMau"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="LayMauRoulette"/>
+			<dependency name="LaySoChoThang"/>
+			<dependency name="LaySoChoThua"/>
+			<dependency name="LayTenMau"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PrecomputePayoutPlayer"/>
+			<dependency name="SendNhaCaiLogDC"/>
+			<dependency name="TimSoPayoutThapNhat"/>
+			<dependency name="TinhTongPayout"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="g_sAiDecision"/>
+			<dependency name="number_format"/>
+			<dependency name="pAccount"/>
+			<dependency name="pCash"/>
+			<dependency name="pRoulNguong"/>
+			<dependency name="pRoulVanThang"/>
+			<dependency name="pRouletteProfit"/>
+			<dependency name="pRouletteTarget"/>
+			<dependency name="random"/>
+			<dependency name="strcat"/>
+			<dependency name="true"/>
+			<param name="idban">
 			</param>
 		</member>
 		<member name="M:ChongNoXe" syntax="ChongNoXe(playerid, vehicleid, ss)">
@@ -38834,6 +39050,7 @@
 			<referrer name="Electric_OnMenuResponse"/>
 			<referrer name="Miner_Start"/>
 			<referrer name="AddDroppedItem"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="CreatePlayerNameTag"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="text">
@@ -39315,6 +39532,7 @@
 			<referrer name="pc_cmd_testminerfill"/>
 			<referrer name="CreateGarbageObject"/>
 			<referrer name="AddDroppedItem"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="modelid">
 			</param>
@@ -40543,7 +40761,9 @@
 			<tagname value="DCC_Embed"/>
 			<attribute name="native"/>
 			<referrer name="discord_messHack"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<referrer name="DiscordLog"/>
 			<referrer name="SendInteractionEmbed"/>
 			<referrer name="SendDiscordConnect"/>
@@ -40802,7 +41022,9 @@
 		<member name="M:DCC_SendChannelEmbedMessage" syntax="DCC_SendChannelEmbedMessage(channel, embed, message[], callback[], format[], ...)">
 			<attribute name="native"/>
 			<referrer name="discord_messHack"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<referrer name="DiscordLog"/>
 			<referrer name="SendDiscordConnect"/>
 			<referrer name="SendDiscordDisconnect"/>
@@ -40879,7 +41101,9 @@
 		<member name="M:DCC_SetEmbedColor" syntax="DCC_SetEmbedColor(embed, color)">
 			<attribute name="native"/>
 			<referrer name="discord_messHack"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<referrer name="DiscordLog"/>
 			<referrer name="SendInteractionEmbed"/>
 			<referrer name="SendDiscordConnect"/>
@@ -40893,7 +41117,9 @@
 		<member name="M:DCC_SetEmbedDescription" syntax="DCC_SetEmbedDescription(embed, description[])">
 			<attribute name="native"/>
 			<referrer name="discord_messHack"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<param name="embed">
 				<paraminfo>DCC_Embed </paraminfo>
 			</param>
@@ -40904,7 +41130,9 @@
 		<member name="M:DCC_SetEmbedFooter" syntax="DCC_SetEmbedFooter(embed, footer_text[], footer_icon_url[])">
 			<attribute name="native"/>
 			<referrer name="discord_messHack"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<referrer name="DiscordLog"/>
 			<referrer name="SendInteractionEmbed"/>
 			<referrer name="SendDiscordConnect"/>
@@ -40932,7 +41160,9 @@
 		<member name="M:DCC_SetEmbedTitle" syntax="DCC_SetEmbedTitle(embed, title[])">
 			<attribute name="native"/>
 			<referrer name="discord_messHack"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<param name="embed">
 				<paraminfo>DCC_Embed </paraminfo>
 			</param>
@@ -41531,6 +41761,12 @@
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="_@yHOnDialogResponse@0l"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="_@yHOnPlayerDisconnect@0l"/>
 			<referrer name="PayDay"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="pc_cmd_exit"/>
@@ -42809,6 +43045,7 @@
 			<dependency name="logDCChannel"/>
 			<dependency name="mainGuild"/>
 			<dependency name="moneyChannel"/>
+			<dependency name="nhaCaiChannel"/>
 			<dependency name="renameChannel"/>
 			<dependency name="ruathoChannel"/>
 			<dependency name="weaponChannel"/>
@@ -42839,7 +43076,7 @@
 			</param>
 		</member>
 		<member name="M:DisplayItemPricesDialog" syntax="DisplayItemPricesDialog(businessid, playerid)">
-			<stacksize value="669"/>
+			<stacksize value="1081"/>
 			<referrer name="pc_cmd_buy"/>
 			<referrer name="pc_cmd_shop"/>
 			<dependency name="operator*(Float:,_:)"/>
@@ -43183,6 +43420,43 @@
 			<param name="arenaid">
 			</param>
 			<param name="flagid">
+			</param>
+		</member>
+		<member name="M:DropFuelCan" syntax="DropFuelCan(playerid)">
+			<stacksize value="262"/>
+			<referrer name="_@yHOnDialogResponse@0k"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="ApplyAnimation"/>
+			<dependency name="Create3DTextLabel"/>
+			<dependency name="CreateDynamicObject"/>
+			<dependency name="DroppedItemCount"/>
+			<dependency name="DroppedItems"/>
+			<dependency name="DroppedItems"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ProxDetector"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="dropItemName"/>
+			<dependency name="dropObject"/>
+			<dependency name="dropQuantity"/>
+			<dependency name="dropVariable"/>
+			<dependency name="dropX"/>
+			<dependency name="dropY"/>
+			<dependency name="dropZ"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="isValid"/>
+			<dependency name="isWeapon"/>
+			<dependency name="labelID"/>
+			<dependency name="pBinhXang"/>
+			<dependency name="true"/>
+			<dependency name="weaponType"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:DropPlayerWeapon" syntax="DropPlayerWeapon(playerid, weaponid, ammo)">
@@ -46164,6 +46438,7 @@
 			<referrer name="OnPlayerEnterCheckpoint"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
+			<referrer name="FuelCanFillTimer"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="OnDialogResponse"/>
@@ -46580,6 +46855,18 @@
 				<paraminfo> {Float,_} </paraminfo>
 			</param>
 		</member>
+		<member name="M:FindSplitPoint" syntax="FindSplitPoint(content[], start, preferredLen)">
+			<stacksize value="5"/>
+			<referrer name="SendLogSplit"/>
+			<dependency name="strlen"/>
+			<param name="content">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="start">
+			</param>
+			<param name="preferredLen">
+			</param>
+		</member>
 		<member name="M:FinishMaintenance" syntax="FinishMaintenance()">
 			<attribute name="public"/>
 			<stacksize value="7"/>
@@ -46791,6 +47078,75 @@
 			<dependency name="format"/>
 			<dependency name="pTreasureSkill"/>
 			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:FuelCanFillTimer" syntax="FuelCanFillTimer(playerid, iBusinessID, iPumpID)">
+			<attribute name="public"/>
+			<stacksize value="62"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
+			<dependency name="operator&gt;(Float:,Float:)"/>
+			<dependency name="operator&gt;=(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="Businesses"/>
+			<dependency name="Businesses"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="FIXES_GameTextForPlayer"/>
+			<dependency name="GasPumpGallons"/>
+			<dependency name="GasPumpSaleGallons"/>
+			<dependency name="GasPumpSalePrice"/>
+			<dependency name="GetPVarFloat"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerDistanceFromPoint"/>
+			<dependency name="GivePlayerCash"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SendMessageTD"/>
+			<dependency name="bGasPrice"/>
+			<dependency name="floatround"/>
+			<dependency name="floatround_ceil"/>
+			<dependency name="format"/>
+			<dependency name="pBinhXang"/>
+			<dependency name="pCash"/>
+			<param name="playerid">
+			</param>
+			<param name="iBusinessID">
+			</param>
+			<param name="iPumpID">
+			</param>
+		</member>
+		<member name="M:FuelCanPourTimer" syntax="FuelCanPourTimer(playerid, vehicleid)">
+			<attribute name="public"/>
+			<stacksize value="158"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator&gt;(Float:,Float:)"/>
+			<dependency name="operator&gt;=(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarFloat"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerDistanceFromPoint"/>
+			<dependency name="GetVehicleFuelCapacity"/>
+			<dependency name="GetVehicleModel"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SendMessageTD"/>
+			<dependency name="VehicleFuel"/>
+			<dependency name="format"/>
+			<dependency name="pBinhXang"/>
+			<param name="playerid">
+			</param>
+			<param name="vehicleid">
 			</param>
 		</member>
 		<member name="M:G@" syntax="G@(...)">
@@ -47487,6 +47843,7 @@
 		<member name="M:GetClosestGasPump" syntax="GetClosestGasPump(playerid, &amp;businessid, &amp;pumpslot)">
 			<stacksize value="10"/>
 			<referrer name="pc_cmd_refuel"/>
+			<referrer name="pc_cmd_muaxang"/>
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
@@ -48236,6 +48593,7 @@
 			<stacksize value="1"/>
 			<referrer name="PopulateInvTDSlots"/>
 			<dependency name="pBanhMi"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pBunRieu"/>
 			<dependency name="pCaPhe"/>
 			<dependency name="pCanSa"/>
@@ -48936,6 +49294,8 @@
 			<referrer name="OPBA_OnPlayerSpawn"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerExitVehicle"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="FuelCanPourTimer"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player whose player variable you want to get
@@ -49340,6 +49700,12 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0k"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="_@yHOnDialogResponse@0l"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="_@yHOnPlayerDisconnect@0l"/>
 			<referrer name="ShowPlayerSettings"/>
 			<referrer name="pc_cmd_caidat"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
@@ -49850,6 +50216,8 @@
 			<referrer name="OPBA_OnPlayerUpdate"/>
 			<referrer name="pc_cmd_diemgiaohang"/>
 			<referrer name="pc_cmd_laybanh"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="FuelCanPourTimer"/>
 			<referrer name="ShowGPSTimDuong"/>
 			<param name="playerid">
 				The ID of the player to calculate the distance from
@@ -50483,13 +50851,17 @@
 			<referrer name="KickAdvisorOff"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
+			<referrer name="ChonKetQuaNhaCai"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="pc_cmd_settarget"/>
+			<referrer name="pc_cmd_unsettarget"/>
 			<referrer name="pc_cmd_quayngay"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
-			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="OnOfflineRankUpdate"/>
@@ -51162,6 +51534,8 @@
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0k"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="UpdateNameTag"/>
 			<referrer name="PayDay"/>
 			<referrer name="ShowMainStats"/>
@@ -51472,6 +51846,9 @@
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="PickupNearestItem"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="ShowGPSTimDuong"/>
 			<referrer name="pc_cmd_editgps"/>
 			<referrer name="_@yHOnDialogResponse@0o"/>
@@ -52027,6 +52404,7 @@
 			<referrer name="pc_cmd_repaircar"/>
 			<referrer name="pc_cmd_fixveh"/>
 			<referrer name="pc_cmd_refuelveh"/>
+			<referrer name="pc_cmd_refuelvehzz"/>
 			<referrer name="pc_cmd_dvsiren"/>
 			<referrer name="pc_cmd_dvpark"/>
 			<referrer name="pc_cmd_gotodv"/>
@@ -53110,6 +53488,7 @@
 			<referrer name="GasPumpSaleTimer"/>
 			<referrer name="OnPlayerPickUpDynamicPickup"/>
 			<referrer name="RespawnNearbyVehicles"/>
+			<referrer name="UseFuelCan"/>
 			<param name="vehicleid">
 				The ID of the vehicle to calculate the distance for
 			</param>
@@ -53167,6 +53546,8 @@
 			<stacksize value="5"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0Y"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
 			<dependency name="IsABike"/>
 			<param name="vehicleid">
 			</param>
@@ -53331,6 +53712,8 @@
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="vehicleid">
@@ -54302,6 +54685,7 @@
 			<referrer name="_@yHOnDialogResponse@0h"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="UpdateNewbieMission"/>
+			<referrer name="FuelCanFillTimer"/>
 			<referrer name="PayDay"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="OnDialogResponse"/>
@@ -54399,6 +54783,7 @@
 			<stacksize value="394"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="OnDialogResponse"/>
+			<dependency name="operator&gt;(Float:,Float:)"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
 			<dependency name="DeletePVar"/>
@@ -54441,6 +54826,7 @@
 			<dependency name="format"/>
 			<dependency name="mysql_tquery"/>
 			<dependency name="number_format"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pBusiness"/>
 			<dependency name="pBusinessRank"/>
 			<dependency name="pCDPlayer"/>
@@ -55097,12 +55483,13 @@
 		</member>
 		<member name="M:HenGioQuayRoulette" syntax="HenGioQuayRoulette(idban)">
 			<attribute name="public"/>
-			<stacksize value="1549"/>
+			<stacksize value="1280"/>
 			<referrer name="pc_cmd_quayngay"/>
 			<dependency name="BanCuaNguoiChoi"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="CapNhatNhanRoulette"/>
+			<dependency name="ChonKetQuaNhaCai"/>
 			<dependency name="CuocHienTai"/>
 			<dependency name="CuocHienTai"/>
 			<dependency name="CuocMau"/>
@@ -55110,8 +55497,11 @@
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="KillTimer"/>
+			<dependency name="LogAdd"/>
+			<dependency name="LogReset"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessage"/>
-			<dependency name="SendRuaThoLogDC"/>
+			<dependency name="SendLogSplit"/>
 			<dependency name="SetTimerEx"/>
 			<dependency name="bDangQuay"/>
 			<dependency name="bGiayDemNguoc"/>
@@ -55120,7 +55510,13 @@
 			<dependency name="bViTriHieuUngQuay"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
+			<dependency name="g_AiKetQua"/>
+			<dependency name="g_sAiDecision"/>
+			<dependency name="g_sAiDecisionBan"/>
+			<dependency name="g_sAiDecisionBan"/>
+			<dependency name="g_sLogBuf"/>
 			<dependency name="number_format"/>
+			<dependency name="pRouletteTarget"/>
 			<dependency name="strcat"/>
 			<dependency name="strlen"/>
 			<dependency name="true"/>
@@ -55523,7 +55919,7 @@
 			</param>
 		</member>
 		<member name="M:HienThiDialogChinh" syntax="HienThiDialogChinh(playerid)">
-			<stacksize value="2356"/>
+			<stacksize value="2362"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<dependency name="BanCuaNguoiChoi"/>
@@ -55533,6 +55929,7 @@
 			<dependency name="CuocMau"/>
 			<dependency name="LayMauRoulette"/>
 			<dependency name="LayTenMau"/>
+			<dependency name="MauCode"/>
 			<dependency name="NguoiChoiTrongRoulette"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -55556,13 +55953,14 @@
 			</param>
 		</member>
 		<member name="M:HienThiDialogQuay" syntax="HienThiDialogQuay(playerid, idban, vitrihighlight, vitrithang)">
-			<stacksize value="2166"/>
+			<stacksize value="2172"/>
 			<referrer name="HenGioHieuUngQuay"/>
 			<referrer name="KetThucQuay"/>
 			<dependency name="BanCuaNguoiChoi"/>
 			<dependency name="CacSoRoulette"/>
 			<dependency name="LayMauRoulette"/>
 			<dependency name="LayTenMau"/>
+			<dependency name="MauCode"/>
 			<dependency name="NguoiChoiTrongRoulette"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="format"/>
@@ -56499,6 +56897,7 @@
 			<referrer name="pc_cmd_offermenu"/>
 			<referrer name="pc_cmd_bpanic"/>
 			<referrer name="pc_cmd_offeritem"/>
+			<referrer name="pc_cmd_editprices"/>
 			<referrer name="OnPlayerModelSelection"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
@@ -58662,6 +59061,7 @@
 			<referrer name="SetVehicleEngine"/>
 			<referrer name="pc_cmd_car"/>
 			<referrer name="pc_cmd_refuel"/>
+			<referrer name="UseFuelCan"/>
 			<dependency name="CreatedCars"/>
 			<param name="vehicleid">
 			</param>
@@ -58908,6 +59308,7 @@
 			<referrer name="pc_cmd_refuel"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
+			<referrer name="UseFuelCan"/>
 			<dependency name="FamedVehicles"/>
 			<param name="carid">
 			</param>
@@ -59366,6 +59767,14 @@
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="pc_cmd_switchgang"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
+			<referrer name="TinhTongPayout"/>
+			<referrer name="PrecomputePayoutAll"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<referrer name="CapNhatNhaCai"/>
+			<referrer name="pc_cmd_settarget"/>
+			<referrer name="pc_cmd_unsettarget"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="DemNguocThoiGianQuay"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="HenGioHieuUngQuay"/>
@@ -59483,6 +59892,7 @@
 			<referrer name="pc_cmd_fixveh"/>
 			<referrer name="pc_cmd_fixvehall"/>
 			<referrer name="pc_cmd_refuelveh"/>
+			<referrer name="pc_cmd_refuelvehzz"/>
 			<referrer name="pc_cmd_dm"/>
 			<referrer name="pc_cmd_sdm"/>
 			<referrer name="pc_cmd_present"/>
@@ -59726,6 +60136,8 @@
 			<referrer name="pc_cmd_capcccd"/>
 			<referrer name="_@yHOnDialogResponse@0j"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="FuelCanPourTimer"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="ShowHelpCommand"/>
 			<referrer name="OnDialogResponse"/>
@@ -59825,6 +60237,7 @@
 			<referrer name="pc_cmd_repaircar"/>
 			<referrer name="pc_cmd_fixveh"/>
 			<referrer name="pc_cmd_refuelveh"/>
+			<referrer name="pc_cmd_refuelvehzz"/>
 			<referrer name="pc_cmd_search"/>
 			<referrer name="pc_cmd_useheroin"/>
 			<referrer name="pc_cmd_dvpark"/>
@@ -59902,6 +60315,7 @@
 			<referrer name="OnPlayerUseThitHunKhoi"/>
 			<referrer name="OnPlayerUseTraiCay"/>
 			<referrer name="OnPlayerUseNuocEp"/>
+			<referrer name="pc_cmd_muaxang"/>
 			<referrer name="PlayerCompassUpdate"/>
 			<referrer name="_@yHOnPlayerUpdate@0p"/>
 			<referrer name="OnDialogResponse"/>
@@ -60450,6 +60864,8 @@
 			<referrer name="pc_cmd_car"/>
 			<referrer name="pc_cmd_refuel"/>
 			<referrer name="pc_cmd_refuelveh"/>
+			<referrer name="pc_cmd_refuelvehzz"/>
+			<referrer name="UseFuelCan"/>
 			<dependency name="GetVehicleModel"/>
 			<param name="vehicleid">
 			</param>
@@ -60603,6 +61019,7 @@
 			<referrer name="pc_cmd_refuel"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
+			<referrer name="UseFuelCan"/>
 			<dependency name="VIPVehicles"/>
 			<param name="carid">
 			</param>
@@ -63103,12 +63520,13 @@
 		</member>
 		<member name="M:KetThucQuay" syntax="KetThucQuay(idban)">
 			<attribute name="public"/>
-			<stacksize value="5236"/>
+			<stacksize value="1155"/>
 			<dependency name="AdminBuocKetQua"/>
 			<dependency name="BanCuaNguoiChoi"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="CacSoRoulette"/>
+			<dependency name="CapNhatNhaCai"/>
 			<dependency name="CuocHienTai"/>
 			<dependency name="CuocHienTai"/>
 			<dependency name="CuocMau"/>
@@ -63119,10 +63537,14 @@
 			<dependency name="KillTimer"/>
 			<dependency name="LayMauRoulette"/>
 			<dependency name="LayTenMau"/>
+			<dependency name="LogAdd"/>
+			<dependency name="LogReset"/>
+			<dependency name="MauCode"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessage"/>
-			<dependency name="SendRuaThoLogDC"/>
+			<dependency name="SendLogSplit"/>
+			<dependency name="SendNhaCaiLogDC"/>
 			<dependency name="TaoHenGioRoulette"/>
 			<dependency name="bChiSoLichSu"/>
 			<dependency name="bDangQuay"/>
@@ -63133,11 +63555,18 @@
 			<dependency name="bSoThangCuoi"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
+			<dependency name="g_AiKetQua"/>
+			<dependency name="g_sAiDecisionBan"/>
+			<dependency name="g_sAiDecisionBan"/>
+			<dependency name="g_sLogBuf"/>
 			<dependency name="gettime"/>
 			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pCash"/>
+			<dependency name="pRouletteProfit"/>
+			<dependency name="pRouletteTarget"/>
 			<dependency name="random"/>
-			<dependency name="strcat"/>
+			<dependency name="strlen"/>
 			<param name="idban">
 			</param>
 		</member>
@@ -63248,18 +63677,6 @@
 			<dependency name="SetTimerEx"/>
 			<dependency name="false"/>
 			<dependency name="strcmp"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:KiemTraThoiGianHoatDong" syntax="KiemTraThoiGianHoatDong()">
-			<stacksize value="1"/>
-			<referrer name="KiemTraThoiGianHoatDongChoNguoiChoi"/>
-		</member>
-		<member name="M:KiemTraThoiGianHoatDongChoNguoiChoi" syntax="KiemTraThoiGianHoatDongChoNguoiChoi(playerid)">
-			<stacksize value="3"/>
-			<dependency name="KiemTraThoiGianHoatDong"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="pAdmin"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -63386,6 +63803,12 @@
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerExitVehicle"/>
 			<referrer name="Miner_Stop"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="_@yHOnPlayerDisconnect@0l"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="timerid">
 				The ID of the timer to kill (returned by <a href="#SetTimer">SetTimer</a> or  <a href="#SetTimerEx">SetTimerEx</a>)
@@ -63411,6 +63834,11 @@
 			<stacksize value="2"/>
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="HienThiDialogQuay"/>
+			<referrer name="TinhTongPayout"/>
+			<referrer name="LaySoChoThang"/>
+			<referrer name="LaySoChoThua"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<referrer name="CapNhatNhaCai"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
 			<referrer name="KetThucQuay"/>
@@ -63418,10 +63846,46 @@
 			<param name="so">
 			</param>
 		</member>
+		<member name="M:LaySoChoThang" syntax="LaySoChoThang(idban, playerid, mau)">
+			<stacksize value="7"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<dependency name="CuocHienTai"/>
+			<dependency name="LayMauRoulette"/>
+			<dependency name="LaySoTheoMau"/>
+			<param name="idban">
+			</param>
+			<param name="playerid">
+			</param>
+			<param name="mau">
+			</param>
+		</member>
+		<member name="M:LaySoChoThua" syntax="LaySoChoThua(idban, playerid, mau)">
+			<stacksize value="24"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<dependency name="CuocHienTai"/>
+			<dependency name="LayMauRoulette"/>
+			<dependency name="random"/>
+			<param name="idban">
+			</param>
+			<param name="playerid">
+			</param>
+			<param name="mau">
+			</param>
+		</member>
+		<member name="M:LaySoTheoMau" syntax="LaySoTheoMau(mau)">
+			<stacksize value="3"/>
+			<referrer name="LaySoChoThang"/>
+			<dependency name="cacSoDen"/>
+			<dependency name="cacSoDo"/>
+			<dependency name="random"/>
+			<param name="mau">
+			</param>
+		</member>
 		<member name="M:LayTenMau" syntax="LayTenMau(mau, ketqua[], dodai)">
 			<stacksize value="5"/>
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="HienThiDialogQuay"/>
+			<referrer name="ChonKetQuaNhaCai"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
 			<referrer name="KetThucQuay"/>
@@ -64759,6 +65223,31 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:LogAdd" syntax="LogAdd(str[])">
+			<tagname value="bool"/>
+			<stacksize value="5"/>
+			<referrer name="HenGioQuayRoulette"/>
+			<referrer name="KetThucQuay"/>
+			<dependency name="false"/>
+			<dependency name="g_sLogBuf"/>
+			<dependency name="strcat"/>
+			<dependency name="strlen"/>
+			<dependency name="true"/>
+			<param name="str">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:LogLen" syntax="LogLen()">
+			<stacksize value="3"/>
+			<dependency name="g_sLogBuf"/>
+			<dependency name="strlen"/>
+		</member>
+		<member name="M:LogReset" syntax="LogReset()">
+			<stacksize value="1"/>
+			<referrer name="HenGioQuayRoulette"/>
+			<referrer name="KetThucQuay"/>
+			<dependency name="g_sLogBuf"/>
+		</member>
 		<member name="M:LoginCheck" syntax="LoginCheck(playerid)">
 			<attribute name="public"/>
 			<stacksize value="177"/>
@@ -65848,6 +66337,22 @@
 				Allocation unit to get the size of.
 			</param>
 			  <returns>  The size.  </returns> 
+		</member>
+		<member name="M:MauCode" syntax="MauCode(mau, out[], size)">
+			<stacksize value="5"/>
+			<referrer name="HienThiDialogChinh"/>
+			<referrer name="HienThiDialogQuay"/>
+			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_lichsuhtb"/>
+			<referrer name="KetThucQuay"/>
+			<dependency name="format"/>
+			<param name="mau">
+			</param>
+			<param name="out">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="size">
+			</param>
 		</member>
 		<member name="M:Mean" syntax="Mean(arr[], num)">
 			<stacksize value="5"/>
@@ -67418,6 +67923,7 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0k"/>
 			<referrer name="@yH_OnDialogResponse@0k"/>
 			<referrer name="@yH_OnDialogResponse@0l"/>
+			<referrer name="@yH_OnPlayerDisconnect@0l"/>
 			<referrer name="@yH_OnPlayerConnect@0m"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
 			<referrer name="@yH_OnGameModeInit@0o"/>
@@ -73185,6 +73691,7 @@
 			<dependency name="pBanned"/>
 			<dependency name="pBeingSentenced"/>
 			<dependency name="pBiggestFish"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pBirthDate"/>
 			<dependency name="pBoatLic"/>
 			<dependency name="pBoombox"/>
@@ -74809,6 +75316,7 @@
 			<dependency name="pBiggestFish"/>
 			<dependency name="pBiggestFishSize"/>
 			<dependency name="pBiggestFishType"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pBinhXit"/>
 			<dependency name="pBirthDate"/>
 			<dependency name="pBoatLic"/>
@@ -75031,6 +75539,10 @@
 			<dependency name="pRimMod"/>
 			<dependency name="pRingtone"/>
 			<dependency name="pRope"/>
+			<dependency name="pRoulNguong"/>
+			<dependency name="pRoulVanThang"/>
+			<dependency name="pRouletteProfit"/>
+			<dependency name="pRouletteTarget"/>
 			<dependency name="pSDT1"/>
 			<dependency name="pSDT2"/>
 			<dependency name="pSDT3"/>
@@ -76214,6 +76726,7 @@
 			<referrer name="pc_alias_xemhang"/>
 			<referrer name="pc_alias_kiemtrahang"/>
 			<referrer name="pc_alias_vitriminer"/>
+			<referrer name="pc_alias_muaxang"/>
 			<referrer name="pc_alias_caidat"/>
 			<referrer name="pc_alias_nextpaycheck"/>
 			<referrer name="pc_alias_stats"/>
@@ -76821,6 +77334,8 @@
 		<member name="M:PickupNearestItem" syntax="PickupNearestItem(playerid)">
 			<stacksize value="146"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0k"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&gt;(Float:,Float:)"/>
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="DroppedItemCount"/>
@@ -76846,6 +77361,7 @@
 			<dependency name="format"/>
 			<dependency name="isValid"/>
 			<dependency name="isWeapon"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pGuns"/>
 			<dependency name="pHospital"/>
 			<dependency name="weaponType"/>
@@ -78972,6 +79488,9 @@
 			<stacksize value="76"/>
 			<referrer name="ShowInvTD"/>
 			<referrer name="RefreshInvTD"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
 			<dependency name="GetInvItemModel"/>
 			<dependency name="GetInvItemModelColor"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -79000,6 +79519,7 @@
 			<dependency name="iTD_pstr"/>
 			<dependency name="iTD_qty"/>
 			<dependency name="iTD_qty"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pVariable"/>
 			<param name="playerid">
 			</param>
@@ -79118,6 +79638,35 @@
 			<dependency name="gPlayerCheckpointStatus"/>
 			<dependency name="true"/>
 			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:PrecomputePayoutAll" syntax="PrecomputePayoutAll(idban, payoutByNumber[])">
+			<stacksize value="4"/>
+			<referrer name="TimSoPayoutThapNhat"/>
+			<dependency name="CuocHienTai"/>
+			<dependency name="CuocMau"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="cacSoDen"/>
+			<dependency name="cacSoDo"/>
+			<param name="idban">
+			</param>
+			<param name="payoutByNumber">
+				<paraminfo> [37] </paraminfo>
+			</param>
+		</member>
+		<member name="M:PrecomputePayoutPlayer" syntax="PrecomputePayoutPlayer(idban, p, payoutByNumber[])">
+			<stacksize value="2"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<dependency name="CuocHienTai"/>
+			<dependency name="CuocMau"/>
+			<dependency name="cacSoDen"/>
+			<dependency name="cacSoDo"/>
+			<param name="idban">
+			</param>
+			<param name="p">
+			</param>
+			<param name="payoutByNumber">
+				<paraminfo> [37] </paraminfo>
 			</param>
 		</member>
 		<member name="M:PreloadAnimLib" syntax="PreloadAnimLib(playerid, animlib[])">
@@ -79440,6 +79989,7 @@
 			<referrer name="HienThiDialogLoaiCuoc"/>
 			<referrer name="HienThiDialogQuay"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
+			<referrer name="pc_cmd_checknhacai"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="ShowSafeZoneList"/>
 			<referrer name="ShowSafeZoneManage"/>
@@ -80167,6 +80717,8 @@
 			<referrer name="ParkRentedVehicle"/>
 			<referrer name="DropPlayerWeapon"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="OnDialogResponse"/>
@@ -83086,7 +83638,11 @@
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_settarget"/>
+			<referrer name="pc_cmd_unsettarget"/>
 			<referrer name="pc_cmd_quayngay"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="LoadSafeZones"/>
 			<referrer name="pc_cmd_gotosz"/>
 			<referrer name="pc_cmd_editsz"/>
@@ -83524,6 +84080,7 @@
 			<referrer name="pc_cmd_resupply"/>
 			<referrer name="pc_cmd_minrank"/>
 			<referrer name="pc_cmd_employeepayset"/>
+			<referrer name="pc_cmd_editprices"/>
 			<referrer name="pc_cmd_fmute"/>
 			<referrer name="pc_cmd_funmute"/>
 			<referrer name="pc_cmd_setfamed"/>
@@ -85453,10 +86010,14 @@
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_settarget"/>
+			<referrer name="pc_cmd_unsettarget"/>
 			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="pc_cmd_thoathtb"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="DemNguocThoiGianQuay"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
@@ -86144,6 +86705,7 @@
 			<referrer name="pc_cmd_fixveh"/>
 			<referrer name="pc_cmd_fixvehall"/>
 			<referrer name="pc_cmd_refuelveh"/>
+			<referrer name="pc_cmd_refuelvehzz"/>
 			<referrer name="pc_cmd_destroycars"/>
 			<referrer name="pc_cmd_scores"/>
 			<referrer name="pc_cmd_announcem"/>
@@ -86934,6 +87496,12 @@
 			<referrer name="TDA_DIALOG_USENUOCEP"/>
 			<referrer name="_@yHOnDialogResponse@0l"/>
 			<referrer name="pc_cmd_nhiemvu"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="OnTestLoadingFinish"/>
 			<referrer name="pc_cmd_caidat"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
@@ -87326,6 +87894,32 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:SendLogSplit" syntax="SendLogSplit(baseTitle[], content[], color)">
+			<stacksize value="3943"/>
+			<referrer name="HenGioQuayRoulette"/>
+			<referrer name="KetThucQuay"/>
+			<dependency name="DCC_CreateEmbed"/>
+			<dependency name="DCC_SendChannelEmbedMessage"/>
+			<dependency name="DCC_SetEmbedColor"/>
+			<dependency name="DCC_SetEmbedDescription"/>
+			<dependency name="DCC_SetEmbedFooter"/>
+			<dependency name="DCC_SetEmbedTitle"/>
+			<dependency name="FindSplitPoint"/>
+			<dependency name="format"/>
+			<dependency name="getdate"/>
+			<dependency name="gettime"/>
+			<dependency name="ruathoChannel"/>
+			<dependency name="strlen"/>
+			<dependency name="strmid"/>
+			<param name="baseTitle">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="content">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="color">
+			</param>
+		</member>
 		<member name="M:SendMessageTD" syntax="SendMessageTD(playerid, time, string[], ...)">
 			<stacksize value="271"/>
 			<referrer name="EMSUpdate"/>
@@ -87339,6 +87933,8 @@
 			<referrer name="_@yHOnPlayerExitVehicle@0g"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0g"/>
 			<referrer name="_@yHOnDialogResponse@0g"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="FuelCanPourTimer"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarType"/>
 			<dependency name="IsValidTimer"/>
@@ -87381,6 +87977,25 @@
 			<param name="color">
 			</param>
 			<param name="string">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:SendNhaCaiLogDC" syntax="SendNhaCaiLogDC(str[])">
+			<stacksize value="82"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<referrer name="pc_cmd_setnhacai"/>
+			<referrer name="KetThucQuay"/>
+			<dependency name="DCC_CreateEmbed"/>
+			<dependency name="DCC_SendChannelEmbedMessage"/>
+			<dependency name="DCC_SetEmbedColor"/>
+			<dependency name="DCC_SetEmbedDescription"/>
+			<dependency name="DCC_SetEmbedFooter"/>
+			<dependency name="DCC_SetEmbedTitle"/>
+			<dependency name="format"/>
+			<dependency name="getdate"/>
+			<dependency name="gettime"/>
+			<dependency name="nhaCaiChannel"/>
+			<param name="str">
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
@@ -87498,10 +88113,7 @@
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="pc_cmd_quayngay"/>
-			<referrer name="HenGioQuayRoulette"/>
-			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
-			<referrer name="_@yHOnDialogResponse@0E"/>
 			<dependency name="DCC_CreateEmbed"/>
 			<dependency name="DCC_SendChannelEmbedMessage"/>
 			<dependency name="DCC_SetEmbedColor"/>
@@ -88703,6 +89315,8 @@
 			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="UseFuelCan"/>
 			<referrer name="PlayerEnterInterior"/>
 			<referrer name="PlayerExitInterior"/>
 			<referrer name="OnDialogResponse"/>
@@ -89046,6 +89660,9 @@
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="ShowNewbieMission"/>
 			<referrer name="_@yHOnDialogResponse@0l"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="UseFuelCan"/>
 			<referrer name="_@yHOnDialogResponse@0n"/>
 			<referrer name="ShowMainStats"/>
 			<referrer name="ShowSecondaryStats"/>
@@ -91231,6 +91848,8 @@
 			<referrer name="Electric_OnFixResponse"/>
 			<referrer name="Miner_MineFinish"/>
 			<referrer name="Miner_StartWash"/>
+			<referrer name="pc_cmd_muaxang"/>
+			<referrer name="UseFuelCan"/>
 			<referrer name="PayDay"/>
 			<referrer name="OnPlayerLoad"/>
 			<referrer name="OnDialogResponse"/>
@@ -92428,6 +93047,9 @@
 			<stacksize value="332"/>
 			<referrer name="_@yHOnPlayerClickPlayerTextDraw@0i"/>
 			<referrer name="_@yHOnDialogResponse@0k"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
 			<dependency name="ItemInventory"/>
 			<dependency name="ItemInventory"/>
 			<dependency name="NameItem"/>
@@ -92436,6 +93058,7 @@
 			<dependency name="SelectedItem"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pIDCard"/>
 			<dependency name="pVariable"/>
 			<dependency name="strcat"/>
@@ -92986,6 +93609,9 @@
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="pc_cmd_inv"/>
 			<referrer name="pc_cmd_tuido"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerWeaponData"/>
@@ -92997,6 +93623,7 @@
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="ShowInvTD"/>
 			<dependency name="format"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pGuns"/>
 			<dependency name="pInvType"/>
 			<dependency name="pVariable"/>
@@ -96667,6 +97294,14 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:TimSoPayoutThapNhat" syntax="TimSoPayoutThapNhat(idban)">
+			<stacksize value="79"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<dependency name="PrecomputePayoutAll"/>
+			<dependency name="random"/>
+			<param name="idban">
+			</param>
+		</member>
 		<member name="M:TimeConvert" syntax="TimeConvert(time)">
 			<stacksize value="140"/>
 			<referrer name="pc_cmd_time"/>
@@ -96767,6 +97402,23 @@
 			<param name="playerid">
 			</param>
 			<param name="reason">
+			</param>
+		</member>
+		<member name="M:TinhTongPayout" syntax="TinhTongPayout(idban, soKetQua, chiTinhTarget)">
+			<stacksize value="6"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<dependency name="CuocHienTai"/>
+			<dependency name="CuocMau"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="LayMauRoulette"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="pRouletteTarget"/>
+			<param name="idban">
+			</param>
+			<param name="soKetQua">
+			</param>
+			<param name="chiTinhTarget">
+				<paraminfo>bool </paraminfo>
 			</param>
 		</member>
 		<member name="M:ToHexStr" syntax="ToHexStr(x)">
@@ -98182,6 +98834,39 @@
 		</member>
 		<member name="M:UrinateTimer" syntax="UrinateTimer(playerid)">
 			<stacksize value="1"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:UseFuelCan" syntax="UseFuelCan(playerid)">
+			<stacksize value="167"/>
+			<referrer name="_@yHOnDialogResponse@0k"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&gt;=(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="GetVehicleDistanceFromPoint"/>
+			<dependency name="GetVehicleFuelCapacity"/>
+			<dependency name="GetVehicleModel"/>
+			<dependency name="IsAdminSpawnedVehicle"/>
+			<dependency name="IsFamedVeh"/>
+			<dependency name="IsRefuelableVehicle"/>
+			<dependency name="IsVIPcar"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ProxDetector"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarFloat"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="VehicleFuel"/>
+			<dependency name="format"/>
+			<dependency name="pBinhXang"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -99726,6 +100411,7 @@
 			<referrer name="@yH_OnPlayerKeyStateChange@0k"/>
 			<referrer name="@yH_OnDialogResponse@0k"/>
 			<referrer name="@yH_OnDialogResponse@0l"/>
+			<referrer name="@yH_OnPlayerDisconnect@0l"/>
 			<referrer name="@yH_OnPlayerConnect@0m"/>
 			<referrer name="@yH_OnDialogResponse@0n"/>
 			<referrer name="@yH_OnGameModeInit@0o"/>
@@ -99972,17 +100658,15 @@
 		</member>
 		<member name="M:_@yHOnDialogResponse@0E" syntax="_@yHOnDialogResponse@0E(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="972"/>
+			<stacksize value="142"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
 			<dependency name="BanCuaNguoiChoi"/>
-			<dependency name="BanRoulette"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="CuocHienTai"/>
 			<dependency name="CuocHienTai"/>
 			<dependency name="CuocMau"/>
 			<dependency name="CuocMau"/>
 			<dependency name="DuLieuCuocCuaNguoiChoi"/>
-			<dependency name="GetPlayerNameEx"/>
 			<dependency name="HienThiDialogChinh"/>
 			<dependency name="HienThiDialogLoaiCuoc"/>
 			<dependency name="NguoiChoiTrongRoulette"/>
@@ -99991,13 +100675,10 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="SendClientMessage"/>
-			<dependency name="SendRuaThoLogDC"/>
 			<dependency name="bDangQuay"/>
-			<dependency name="bGiayDemNguoc"/>
 			<dependency name="format"/>
 			<dependency name="number_format"/>
 			<dependency name="pCash"/>
-			<dependency name="strcat"/>
 			<dependency name="strval"/>
 			<param name="playerid">
 			</param>
@@ -100856,13 +101537,18 @@
 		</member>
 		<member name="M:_@yHOnDialogResponse@0k" syntax="_@yHOnDialogResponse@0k(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="2187"/>
+			<stacksize value="2219"/>
 			<referrer name="@yH_OnDialogResponse@0k"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&gt;(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
 			<dependency name="AddDroppedItem"/>
 			<dependency name="ApplyAnimation"/>
 			<dependency name="DCC_FindChannelById"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="DiscordLog"/>
+			<dependency name="DropFuelCan"/>
 			<dependency name="DropPlayerWeapon"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPVarString"/>
@@ -100893,12 +101579,14 @@
 			<dependency name="ShowItemOptions"/>
 			<dependency name="ShowPlayerInventory"/>
 			<dependency name="ShowWeaponOptions"/>
+			<dependency name="UseFuelCan"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="number_format"/>
 			<dependency name="number_format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pBanhMi"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pBoombox"/>
 			<dependency name="pBunRieu"/>
 			<dependency name="pCaPhe"/>
@@ -101933,7 +102621,7 @@
 		</member>
 		<member name="M:_@yHOnPlayerDisconnect@0E" syntax="_@yHOnPlayerDisconnect@0E(playerid, reason)">
 			<attribute name="public"/>
-			<stacksize value="1067"/>
+			<stacksize value="809"/>
 			<referrer name="@yH_OnPlayerDisconnect@0E"/>
 			<dependency name="BanCuaNguoiChoi"/>
 			<dependency name="BanRoulette"/>
@@ -101953,7 +102641,6 @@
 			<dependency name="format"/>
 			<dependency name="number_format"/>
 			<dependency name="strcat"/>
-			<dependency name="strlen"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
@@ -102212,6 +102899,18 @@
 			<dependency name="Iterator@Player"/>
 			<dependency name="cellmax"/>
 			<dependency name="g_CardViewOwner"/>
+			<param name="playerid">
+			</param>
+			<param name="reason">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerDisconnect@0l" syntax="_@yHOnPlayerDisconnect@0l(playerid, reason)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerDisconnect@0l"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="KillTimer"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
@@ -106128,6 +106827,7 @@
 			<referrer name="_@yHOnDialogResponse@0_"/>
 			<referrer name="pc_cmd_laybanh"/>
 			<referrer name="Miner_Init"/>
+			<referrer name="FuelCanFillTimer"/>
 			<referrer name="PayDay"/>
 			<referrer name="pc_cmd_nextpaycheck"/>
 			<referrer name="ShowMainStats"/>
@@ -106441,21 +107141,29 @@
 			<referrer name="pc_cmd_fdelete"/>
 			<referrer name="FAdmin_ShowSwitchGangList"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="LayTenMau"/>
-			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="MauCode"/>
 			<referrer name="FormatThoiGianTruoc"/>
+			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<referrer name="CapNhatNhanRoulette"/>
 			<referrer name="LuuBanRoulette"/>
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="HienThiDialogLoaiCuoc"/>
 			<referrer name="HienThiDialogQuay"/>
+			<referrer name="ChonKetQuaNhaCai"/>
 			<referrer name="pc_cmd_taoroulette"/>
 			<referrer name="pc_cmd_xoaroulette"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="pc_cmd_huybq"/>
+			<referrer name="pc_cmd_settarget"/>
+			<referrer name="pc_cmd_unsettarget"/>
 			<referrer name="pc_cmd_quayngay"/>
 			<referrer name="pc_cmd_choihtb"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="DemNguocThoiGianQuay"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
@@ -107648,6 +108356,11 @@
 			<referrer name="_@yHOnDialogResponse@0k"/>
 			<referrer name="pc_cmd_additem"/>
 			<referrer name="ShowNewbieMission"/>
+			<referrer name="FuelCanFillTimer"/>
+			<referrer name="pc_cmd_dungmuaxang"/>
+			<referrer name="FuelCanPourTimer"/>
+			<referrer name="UseFuelCan"/>
+			<referrer name="DropFuelCan"/>
 			<referrer name="SetLoading"/>
 			<referrer name="UpdateNameTag"/>
 			<referrer name="ShowPlayerSettings"/>
@@ -108211,6 +108924,7 @@
 			<dependency name="pBiggestFish"/>
 			<dependency name="pBiggestFishSize"/>
 			<dependency name="pBiggestFishType"/>
+			<dependency name="pBinhXang"/>
 			<dependency name="pBinhXit"/>
 			<dependency name="pBirthDate"/>
 			<dependency name="pBoatLic"/>
@@ -108418,6 +109132,10 @@
 			<dependency name="pRimMod"/>
 			<dependency name="pRingtone"/>
 			<dependency name="pRope"/>
+			<dependency name="pRoulNguong"/>
+			<dependency name="pRoulVanThang"/>
+			<dependency name="pRouletteProfit"/>
+			<dependency name="pRouletteTarget"/>
 			<dependency name="pSDT1"/>
 			<dependency name="pSDT2"/>
 			<dependency name="pSDT3"/>
@@ -108681,7 +109399,9 @@
 		<member name="M:getdate" syntax="getdate(&amp;year, &amp;month, &amp;day)">
 			<attribute name="native"/>
 			<referrer name="ScriptInit_GetStartTime"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<referrer name="pc_cmd_uninvite"/>
 			<referrer name="pc_cmd_giverank"/>
 			<referrer name="pc_cmd_setdiv"/>
@@ -108813,8 +109533,10 @@
 			<referrer name="pc_cmd_testturf"/>
 			<referrer name="TurfSupplyDeadlineCheck"/>
 			<referrer name="FM_OnDialogResponse"/>
-			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="FormatThoiGianTruoc"/>
+			<referrer name="SendRuaThoLogDC"/>
+			<referrer name="SendNhaCaiLogDC"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="UpdateHudUI"/>
 			<referrer name="_@yHOnDialogResponse@0J"/>
@@ -110506,6 +111228,9 @@
 			<referrer name="pc_cmd_sgivemoney"/>
 			<referrer name="pc_cmd_ssetcredits"/>
 			<referrer name="HienThiDialogChinh"/>
+			<referrer name="ChonKetQuaNhaCai"/>
+			<referrer name="pc_cmd_checknhacai"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="HenGioQuayRoulette"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
@@ -111085,6 +111810,11 @@
 			<dependency name="PC_RegAlias"/>
 		</member>
 		<member name="M:pc_alias_movegate" syntax="pc_alias_movegate()">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="PC_RegAlias"/>
+		</member>
+		<member name="M:pc_alias_muaxang" syntax="pc_alias_muaxang()">
 			<attribute name="public"/>
 			<stacksize value="4"/>
 			<dependency name="PC_RegAlias"/>
@@ -114276,14 +115006,15 @@
 			<dependency name="BanRoulette"/>
 			<dependency name="LayMauRoulette"/>
 			<dependency name="LayTenMau"/>
+			<dependency name="MauCode"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="bHoatDong"/>
+			<dependency name="cacSoDen"/>
 			<dependency name="cacSoDo"/>
-			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="random"/>
@@ -115656,6 +116387,38 @@
 			<dependency name="pJailTime"/>
 			<dependency name="pJudgeJailTime"/>
 			<dependency name="pJudgeJailType"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_checknhacai" syntax="pc_cmd_checknhacai(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="2417"/>
+			<dependency name="BanRoulette"/>
+			<dependency name="CuocHienTai"/>
+			<dependency name="CuocMau"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="bHoatDong"/>
+			<dependency name="format"/>
+			<dependency name="number_format"/>
+			<dependency name="pAccount"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pCash"/>
+			<dependency name="pRoulNguong"/>
+			<dependency name="pRoulVanThang"/>
+			<dependency name="pRouletteProfit"/>
+			<dependency name="pRouletteTarget"/>
+			<dependency name="strcat"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -119045,6 +119808,25 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_dungmuaxang" syntax="pc_cmd_dungmuaxang(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="71"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="format"/>
+			<dependency name="pBinhXang"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_dungviec" syntax="pc_cmd_dungviec(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="23"/>
@@ -119680,7 +120462,7 @@
 		</member>
 		<member name="M:pc_cmd_editprices" syntax="pc_cmd_editprices(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="955"/>
+			<stacksize value="1643"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
@@ -119688,11 +120470,13 @@
 			<dependency name="Drinks"/>
 			<dependency name="GetWeaponNameEx"/>
 			<dependency name="GetWeaponNameEx"/>
+			<dependency name="InBusiness"/>
 			<dependency name="ItemValue"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="RestaurantItems"/>
 			<dependency name="RestaurantItems"/>
+			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetPVarInt"/>
 			<dependency name="SexItems"/>
@@ -119703,12 +120487,15 @@
 			<dependency name="WeaponId"/>
 			<dependency name="Weapons"/>
 			<dependency name="Weapons"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
 			<dependency name="bItemPrices"/>
 			<dependency name="bType"/>
 			<dependency name="floatround"/>
 			<dependency name="format"/>
 			<dependency name="number_format"/>
 			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pBusiness"/>
 			<dependency name="pBusinessRank"/>
 			<param name="playerid">
@@ -126129,7 +126916,7 @@
 		</member>
 		<member name="M:pc_cmd_lichsuhtb" syntax="pc_cmd_lichsuhtb(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="2475"/>
+			<stacksize value="2474"/>
 			<dependency name="BanCuaNguoiChoi"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="BanRoulette"/>
@@ -126137,6 +126924,7 @@
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="LayMauRoulette"/>
 			<dependency name="LayTenMau"/>
+			<dependency name="MauCode"/>
 			<dependency name="NguoiChoiTrongRoulette"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="SendClientMessage"/>
@@ -127524,6 +128312,39 @@
 			<dependency name="IsAtRestaurant"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="ShowBuyFood"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_muaxang" syntax="pc_cmd_muaxang(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="16"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator&gt;=(Float:,Float:)"/>
+			<dependency name="operator&lt;(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="Businesses"/>
+			<dependency name="Businesses"/>
+			<dependency name="DeletePVar"/>
+			<dependency name="GasPumpGallons"/>
+			<dependency name="GasPumpSaleGallons"/>
+			<dependency name="GasPumpSalePrice"/>
+			<dependency name="GasPumpVehicleID"/>
+			<dependency name="GetClosestGasPump"/>
+			<dependency name="GetPVarInt"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPVarFloat"/>
+			<dependency name="SetPVarInt"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="bStatus"/>
+			<dependency name="pBinhXang"/>
+			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -130434,6 +131255,23 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_refuelvehzz" syntax="pc_cmd_refuelvehzz(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="7"/>
+			<dependency name="GetPlayerVehicleID"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="IsPlayerInAnyVehicle"/>
+			<dependency name="IsRefuelableVehicle"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="VehicleFuel"/>
+			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_rehashall" syntax="pc_cmd_rehashall(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="6"/>
@@ -133270,6 +134108,34 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_setnhacai" syntax="pc_cmd_setnhacai(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="829"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="SendNhaCaiLogDC"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pRoulNguong"/>
+			<dependency name="pRoulVanThang"/>
+			<dependency name="pRouletteProfit"/>
+			<dependency name="pRouletteTarget"/>
+			<dependency name="strcmp"/>
+			<dependency name="strval"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_setpayday" syntax="pc_cmd_setpayday(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="4"/>
@@ -133533,6 +134399,26 @@
 			<dependency name="format"/>
 			<dependency name="mysql_tquery"/>
 			<dependency name="pAdmin"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_settarget" syntax="pc_cmd_settarget(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="136"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pRouletteTarget"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -135780,7 +136666,7 @@
 		</member>
 		<member name="M:pc_cmd_taoroulette" syntax="pc_cmd_taoroulette(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="524"/>
+			<stacksize value="655"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="BanRoulette"/>
@@ -135805,7 +136691,6 @@
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
-			<dependency name="strcat"/>
 			<dependency name="true"/>
 			<param name="playerid">
 			</param>
@@ -137526,6 +138411,29 @@
 			<dependency name="hOwnerID"/>
 			<dependency name="pPhousekey"/>
 			<dependency name="pRenting"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_unsettarget" syntax="pc_cmd_unsettarget(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="136"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pRoulNguong"/>
+			<dependency name="pRoulVanThang"/>
+			<dependency name="pRouletteProfit"/>
+			<dependency name="pRouletteTarget"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -139255,7 +140163,7 @@
 		</member>
 		<member name="M:pc_cmd_xoaroulette" syntax="pc_cmd_xoaroulette(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="520"/>
+			<stacksize value="649"/>
 			<dependency name="BanCuaNguoiChoi"/>
 			<dependency name="BanRoulette"/>
 			<dependency name="BanRoulette"/>
@@ -139282,7 +140190,6 @@
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="pAdmin"/>
-			<dependency name="strcat"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -139501,6 +140408,10 @@
 			<referrer name="GetVehicleRandomColors"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="TW_TryRandomWar"/>
+			<referrer name="TimSoPayoutThapNhat"/>
+			<referrer name="LaySoTheoMau"/>
+			<referrer name="LaySoChoThua"/>
+			<referrer name="ChonKetQuaNhaCai"/>
 			<referrer name="pc_cmd_buockq"/>
 			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDeath@0F"/>
@@ -140334,15 +141245,14 @@
 			<referrer name="FAdmin_ShowCreateSlotDialog"/>
 			<referrer name="pc_cmd_fdelete"/>
 			<referrer name="FAdmin_ShowSwitchGangList"/>
+			<referrer name="LogAdd"/>
 			<referrer name="HienThiDialogChinh"/>
 			<referrer name="HienThiDialogQuay"/>
-			<referrer name="pc_cmd_taoroulette"/>
-			<referrer name="pc_cmd_xoaroulette"/>
+			<referrer name="ChonKetQuaNhaCai"/>
 			<referrer name="pc_cmd_lichsuhtb"/>
+			<referrer name="pc_cmd_checknhacai"/>
 			<referrer name="HenGioQuayRoulette"/>
-			<referrer name="KetThucQuay"/>
 			<referrer name="_@yHOnPlayerDisconnect@0E"/>
-			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="ShowSafeZoneList"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>
 			<referrer name="OnLoadMemberList"/>
@@ -140488,6 +141398,7 @@
 			<referrer name="FA_OnLoadLogs"/>
 			<referrer name="pc_cmd_testturf"/>
 			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
@@ -141006,9 +141917,13 @@
 			<referrer name="FM_ShowMotdMenu"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
+			<referrer name="LogAdd"/>
+			<referrer name="LogLen"/>
+			<referrer name="FindSplitPoint"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="HenGioQuayRoulette"/>
-			<referrer name="_@yHOnPlayerDisconnect@0E"/>
+			<referrer name="KetThucQuay"/>
 			<referrer name="pc_cmd_setdiv"/>
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
@@ -141101,6 +142016,7 @@
 			<referrer name="TW_OnDialogResponse"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
+			<referrer name="SendLogSplit"/>
 			<referrer name="_@yHOnDialogResponse@0L"/>
 			<referrer name="OnQueryFinish"/>
 			<referrer name="SQL_Log"/>
@@ -141415,6 +142331,7 @@
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 			<referrer name="pc_cmd_buockq"/>
+			<referrer name="pc_cmd_setnhacai"/>
 			<referrer name="_@yHOnDialogResponse@0E"/>
 			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnDialogResponse@0G"/>

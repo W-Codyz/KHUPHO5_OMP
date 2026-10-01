@@ -157,6 +157,8 @@
 #include "./modules/player/inventory/inv"
 #include "./modules/player/mission/newbie"
 
+#include "./modules/vehicle/fuelcan.inc"
+
 #include "./modules/player/loading"
 #include "./modules/player/nametag"
 #include "./modules/player/settings"
