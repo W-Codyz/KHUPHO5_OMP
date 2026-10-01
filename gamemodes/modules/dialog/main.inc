@@ -7312,7 +7312,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    SendClientMessageEx(playerid, COLOR_GRAD4, "Mua khong thanh cong vi gia mat hang nay da thay doi.");
 			}
 			else if (GetPlayerCash(playerid) < cost) {
-				SendClientMessageEx(playerid, COLOR_GRAD4, "Ban khong the mua item nay!");
+				SendClientMessageEx(playerid, COLOR_GRAD4, "Ban khong the mua vat pham nay!");
 			}
 			else {
 		        format(pvar, sizeof(pvar), "Business_MenuItem%d", listitem);
@@ -7439,14 +7439,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (!iPrice) {
 			    SendClientMessageEx(playerid, COLOR_GRAD4, "Item khong con de ban.");
 			}
-		 	else if (Businesses[iBusiness][bInventory] < 1) {
-	   	 		SendClientMessageEx(playerid, COLOR_GRAD2, "Cua hang da het hang!");
-			}
+		 	// else if (Businesses[iBusiness][bInventory] < 1) {
+	   	 	//     SendClientMessageEx(playerid, COLOR_GRAD2, "Cua hang da het hang!");
+			// }
 			else if (iPrice != Businesses[iBusiness][bItemPrices][iItem-1]) {
 			    SendClientMessageEx(playerid, COLOR_GRAD4, "Mua khong thanh cong vi gia item nay da thay doi.");
 			}
 			else if (GetPlayerCash(playerid) < cost) {
-				SendClientMessageEx(playerid, COLOR_GRAD4, "Ban khong the mua item nay!");
+				SendClientMessageEx(playerid, COLOR_GRAD4, "Ban khong the mua vat pham nay!");
 			}
 			else {
 		        format(pvar, sizeof(pvar), "Business_MenuItem%d", listitem);
@@ -12040,7 +12040,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 	else if (dialogid == DIALOG_STOREPRICES)
 	{
-		if (!response || (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness]) || PlayerInfo[playerid][pBusinessRank] < 5) {
+		new bool:bAdminEdit = (PlayerInfo[playerid][pAdmin] >= 3);
+		if (!response || (!bAdminEdit && (GetPVarInt(playerid, "EditingBusiness") != PlayerInfo[playerid][pBusiness] || PlayerInfo[playerid][pBusinessRank] < 5))) {
 			DeletePVar(playerid, "EditingBusiness");
 		}
 		else {
@@ -12192,14 +12193,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	}
 	else if (dialogid == DIALOG_STOREITEMPRICE)
 	{
-
-		if (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || PlayerInfo[playerid][pBusinessRank] < 5) {
+		new bool:bAdminEdit2 = (PlayerInfo[playerid][pAdmin] >= 3);
+		if (!bAdminEdit2 && (PlayerInfo[playerid][pBusiness] != GetPVarInt(playerid, "EditingBusiness") || PlayerInfo[playerid][pBusinessRank] < 5)) {
 			DeletePVar(playerid, "EditingStoreItem");
 			DeletePVar(playerid, "EditingBusiness");
 			return 1;
 		}
 
-		new iBusiness = PlayerInfo[playerid][pBusiness];
+		new iBusiness = GetPVarInt(playerid, "EditingBusiness");
 
 		if (response) {
 			new iPrice = strval(inputtext), item = GetPVarInt(playerid, "EditingStoreItem");
@@ -12215,7 +12216,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SaveBusiness(iBusiness);
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			format(string, sizeof(string), "%s %s (IP: %s) da dat gia %s den $%s trong %s (%d)", GetBusinessRankName(PlayerInfo[playerid][pBusinessRank]), GetPlayerNameEx(playerid), GetPlayerIpEx(playerid), StoreItems[item], number_format(iPrice), Businesses[iBusiness][bName], iBusiness);
-			new szDialog[912];
+			new szDialog[1600];
 			for (new i = 0; i < sizeof(StoreItems); i++) format(szDialog, sizeof(szDialog), "%s%s  ($%s) (Gia co the ban: $%s)\n", szDialog, StoreItems[i], number_format(Businesses[iBusiness][bItemPrices][i]), number_format(floatround(StoreItemCost[i][ItemValue] * BUSINESS_ITEMS_COST)));
 	        ShowPlayerDialog(playerid, DIALOG_STOREPRICES, DIALOG_STYLE_LIST, "Sua gia cua hang 24/7", szDialog, "Dong y", "Huy bo");
 			Log("logs/business.log", string);

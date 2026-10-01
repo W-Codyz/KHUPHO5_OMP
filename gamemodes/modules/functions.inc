@@ -11345,8 +11345,8 @@ stock Group_NumToDialogHex(iValue)
 stock GivePlayerStoreItem(playerid, type, business, item, price)
 {
 	new string[256];
-	if(Businesses[business][bInventory] >= StoreItemCost[item][ItemValue]) Businesses[business][bInventory] -= StoreItemCost[item][ItemValue];
-	else return SendClientMessageEx(playerid, COLOR_GRAD2, "Cua hang khong co du cho item do");
+	// if(Businesses[business][bInventory] >= StoreItemCost[item][ItemValue]) Businesses[business][bInventory] -= StoreItemCost[item][ItemValue];
+	// else return SendClientMessageEx(playerid, COLOR_GRAD2, "Cua hang khong co du cho item do");
 	switch (item)
   	{
   		case ITEM_CELLPHONE:
@@ -11520,6 +11520,18 @@ stock GivePlayerStoreItem(playerid, type, business, item, price)
 			    ShowPlayerDialog(playerid, DIALOG_CDLOCKMENU, DIALOG_STYLE_INPUT, "Khoa xe;"," Chon mot chiec xe ma ban muon cai dat khoa len:", "Lua chon", "Huy bo");
 			}
 			else return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong co chiec xe nao - Ban muon cai dat no len dau?");
+		}
+		case ITEM_FUELCAN:
+		{
+			if(PlayerInfo[playerid][pBinhXang] > 0.0)
+			{
+				Businesses[business][bInventory] += StoreItemCost[item][ItemValue];
+				return SendClientMessageEx(playerid, COLOR_GRAD4, "Ban da co binh xang roi, khong the mua them.");
+			}
+			PlayerInfo[playerid][pBinhXang] = FUELCAN_EMPTY_MARKER;
+			SendClientMessageEx(playerid, COLOR_GRAD4, "Ban da mua 1 binh xang (rong).");
+			SendClientMessageEx(playerid, COLOR_WHITE, "HUONG DAN: Dung /muaxang khi o tram xang (khong tren xe) de do xang vao binh.");
+			SendClientMessageEx(playerid, COLOR_WHITE, "HUONG DAN: Vao Inventory, chon Binh xang va Su dung khi dung canh xe de do xang.");
 		}
 		default:
 		{
@@ -14241,7 +14253,7 @@ stock CreateDynamicGasPump(iPlayerID = INVALID_PLAYER_ID, iBusiness, iPump)
 	}
 	new szLabel[148];
 	Businesses[iBusiness][GasPumpObjectID][iPump] = CreateDynamicObject(1676, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump], 0, 0, Businesses[iBusiness][GasPumpAngle][iPump], .worldid = 0, .streamdistance = 100);
-	format(szLabel, sizeof(szLabel), "{33AA33}Tram xang\nID: %d\n{FFFF00}su dung '/doxang' de nap them nhien lieu vao dong co.", iPump);
+	format(szLabel, sizeof(szLabel), "{33AA33}Tram xang\nID: %d\n{FFFF00}/doxang {FFFFFF}de nap nhien lieu vao xe\n{FFFF00}/muaxang {FFFFFF}de do xang vao binh xang", iPump);
 	Businesses[iBusiness][GasPumpInfoTextID][iPump] = CreateDynamic3DTextLabel(szLabel, COLOR_YELLOW, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump] - 0.3, 10.00);
 	format(szLabel, sizeof(szLabel), "Muc Gia Trung Binh: $%.2f\nSo Tien Phai Tra: $0.00\nSo Luong Xang Da xuat: 0.000\nXang Du Tru: %.2f/%.2f gallons", Businesses[iBusiness][bGasPrice], Businesses[iBusiness][GasPumpGallons][iPump], Businesses[iBusiness][GasPumpCapacity][iPump]);
 	Businesses[iBusiness][GasPumpSaleTextID][iPump] = CreateDynamic3DTextLabel(szLabel, COLOR_YELLOW, Businesses[iBusiness][GasPumpPosX][iPump], Businesses[iBusiness][GasPumpPosY][iPump], Businesses[iBusiness][GasPumpPosZ][iPump] + 0.7, 10.00);
@@ -17857,7 +17869,7 @@ stock IsANewsCar(carid)
 stock DisplayItemPricesDialog(businessid, playerid)
 {
 
-	new szDialog[612], pvar[25], iListIndex, i;
+	new szDialog[1024], pvar[25], iListIndex, i;
 	if (Businesses[businessid][bType] == BUSINESS_TYPE_STORE || Businesses[businessid][bType] == BUSINESS_TYPE_GASSTATION) i = sizeof(StoreItems);
 	if (Businesses[businessid][bType] == BUSINESS_TYPE_SEXSHOP) i = sizeof(SexItems);
 	if (Businesses[businessid][bType] == BUSINESS_TYPE_RESTAURANT) i = sizeof(RestaurantItems);
@@ -17865,6 +17877,7 @@ stock DisplayItemPricesDialog(businessid, playerid)
 	for(new item; item < i; item++)
 	{
 	    if(Businesses[businessid][bItemPrices][item] == 0) continue;
+	    if((Businesses[businessid][bType] == BUSINESS_TYPE_STORE || Businesses[businessid][bType] == BUSINESS_TYPE_GASSTATION) && StoreItems[item][0] == '\0') continue;
 		new cost = (PlayerInfo[playerid][pDonateRank] >= 1) ? (floatround(Businesses[businessid][bItemPrices][item] * 0.8)) : (Businesses[businessid][bItemPrices][item]);
 	    if(Businesses[businessid][bType] == BUSINESS_TYPE_STORE || Businesses[businessid][bType] == BUSINESS_TYPE_GASSTATION) format(szDialog, sizeof(szDialog), "%s%s  ($%s)\n", szDialog, StoreItems[item], number_format(cost));
 	    else if(Businesses[businessid][bType] == BUSINESS_TYPE_SEXSHOP) format(szDialog, sizeof(szDialog), "%s%s  ($%s)\n", szDialog, SexItems[item], number_format(cost));
