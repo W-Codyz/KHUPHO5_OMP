@@ -71,7 +71,16 @@ stock ShowTrunkDialog(playerid, pvid)
         else
         {
             if(type >= 0 && type < sizeof(ItemInventory))
-                format(szRow, sizeof(szRow), "Slot %d: {00FF88}[Item] %s {FFFFFF}x%d\n", s + 1, ItemInventory[type][NameItem], amt);
+            {
+                if(ItemInventory[type][pVariable] == (_:pBinhXang))
+                {
+                    new Float:fLiters = Float:(amt) - FUELCAN_EMPTY_MARKER;
+                    if(fLiters < 0.0) fLiters = 0.0;
+                    format(szRow, sizeof(szRow), "Slot %d: {00FF88}[Item] %s {FFFFFF}%.1f L\n", s + 1, ItemInventory[type][NameItem], fLiters);
+                }
+                else
+                    format(szRow, sizeof(szRow), "Slot %d: {00FF88}[Item] %s {FFFFFF}x%d\n", s + 1, ItemInventory[type][NameItem], amt);
+            }
             else
                 format(szRow, sizeof(szRow), "Slot %d: {AAAAAA}[Trong]\n", s + 1);
         }
@@ -108,7 +117,14 @@ stock ShowTrunkPutDialog(playerid)
         if(ItemInventory[i][pVariable] == pIDCard) continue;
         if(PlayerInfo[playerid][ItemInventory[i][pVariable]] > 0)
         {
-            format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}(x%d)\n", ItemInventory[i][NameItem], PlayerInfo[playerid][ItemInventory[i][pVariable]]);
+            if(ItemInventory[i][pVariable] == (_:pBinhXang))
+            {
+                new Float:fLiters = PlayerInfo[playerid][pBinhXang] - FUELCAN_EMPTY_MARKER;
+                if(fLiters < 0.0) fLiters = 0.0;
+                format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}(%.1f L)\n", ItemInventory[i][NameItem], fLiters);
+            }
+            else
+                format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}(x%d)\n", ItemInventory[i][NameItem], PlayerInfo[playerid][ItemInventory[i][pVariable]]);
             strcat(szList, szRow, sizeof(szList));
             TrunkPutType[playerid][TrunkPutCount[playerid]] = i;
             TrunkPutCat[playerid][TrunkPutCount[playerid]] = TRUNK_CAT_ITEM;
@@ -218,7 +234,16 @@ CMD:lucsoatcopxe(playerid, params[])
         else
         {
             if(type >= 0 && type < sizeof(ItemInventory))
-                format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}x%d\n", ItemInventory[type][NameItem], amt);
+            {
+                if(ItemInventory[type][pVariable] == (_:pBinhXang))
+                {
+                    new Float:fLiters = Float:(amt) - FUELCAN_EMPTY_MARKER;
+                    if(fLiters < 0.0) fLiters = 0.0;
+                    format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}%.1f L\n", ItemInventory[type][NameItem], fLiters);
+                }
+                else
+                    format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}x%d\n", ItemInventory[type][NameItem], amt);
+            }
             else continue;
         }
         strcat(szList, szRow, sizeof(szList));
