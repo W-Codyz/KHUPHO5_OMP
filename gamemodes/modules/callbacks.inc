@@ -4788,8 +4788,9 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 	
 	if(PRESSED(KEY_WALK))
 	{
-		// Di bo: ALT = KEY_WALK (1024), toggle khoa/mo xe gan nhat
-		pc_cmd_pvlock(playerid,"");
+		// Di bo: ALT = KEY_WALK (1024), uu tien khoa/mo nha truoc, sau do xe
+		if(!House_TryALTLock(playerid))
+			pc_cmd_pvlock(playerid,"");
 	}
 	if(PRESSED(KEY_FIRE) && IsPlayerInAnyVehicle(playerid) && GetPlayerVehicleSeat(playerid) == 0)
 	{

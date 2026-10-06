@@ -409,6 +409,7 @@ native WP_Hash(buffer[], len, const str[]);
 #define			LOADGIFTBOX_THREAD				23
 #define			LOADCP_STORE					24
 #define			LOADTRUNK_THREAD				25
+#define			HOUSE_ITEMS_THREAD				26
 #define 		Flag_Query_Display  			1
 #define 		Flag_Query_Offline  			2
 #define 		Flag_Query_Count    			3

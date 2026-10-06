@@ -2888,6 +2888,8 @@ CMD:trogiuppoker(playerid, params[])
     return 1;
 }
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 alias:househelp("trogiupnha")
 CMD:househelp(playerid, params[])
 {
@@ -2898,6 +2900,7 @@ CMD:househelp(playerid, params[])
     SendClientMessageEx(playerid, COLOR_GRAD3,"*** HOUSE *** /movegate /setgatepass /placemailbox /destroymailbox /getmail /guithu");
     return 1;
 }
+*/
 
 alias:carhelp("trogiupxe")
 CMD:carhelp(playerid, params[])
@@ -3866,6 +3869,8 @@ CMD:buyhouse(playerid, params[])
     return 1;
 }
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 alias:rentroom("thuenha")
 CMD:rentroom(playerid, params[])
 {
@@ -3928,7 +3933,10 @@ CMD:rentroom(playerid, params[])
     }
     return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:unrent(playerid, params[])
 {
     new playername[MAX_PLAYER_NAME];
@@ -3945,6 +3953,7 @@ CMD:unrent(playerid, params[])
     }
     return 1;
 }
+*/
 
 CMD:spawnathome(playerid, params[])
 {
@@ -19193,10 +19202,12 @@ CMD:sellmycar(playerid, params[])
     return 1;
 }
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 alias:sellmyhouse("bannhatoi")
 CMD:sellmyhouse(playerid, params[])
 {
-	if(!IsPlayerDiscordVerified(playerid)) 
+	if(!IsPlayerDiscordVerified(playerid))
         return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai lien ket tai khoan Discord de co the lam dieu nay.");
 
 	if(servernumber == 2) return SendClientMessage(playerid, COLOR_WHITE, "Lenh nay da bi vo hieu hoa!");
@@ -19242,6 +19253,7 @@ CMD:sellmyhouse(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu ngoi nha");
     return 1;
 }
+*/
 
 CMD:gotopveh(playerid, params[]) {
     if(PlayerInfo[playerid][pAdmin] >= 2) {
@@ -23884,6 +23896,8 @@ CMD:trunktake(playerid, params[]) {
 }
 */
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:storegun(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -24055,7 +24069,10 @@ CMD:storegun(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:getgun(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -24199,7 +24216,10 @@ CMD:getgun(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:hwithdraw(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -24314,7 +24334,10 @@ CMD:hwithdraw(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:hdeposit(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -24418,7 +24441,10 @@ CMD:hdeposit(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:hbalance(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -24440,6 +24466,7 @@ CMD:hbalance(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
 CMD:closet(playerid, params[])
 {
@@ -24466,6 +24493,8 @@ CMD:closet(playerid, params[])
 	return 1;
 }
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:closetadd(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -24500,7 +24529,10 @@ CMD:closetadd(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:closetremove(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -24528,6 +24560,7 @@ CMD:closetremove(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
 CMD:ad(playerid, params[])
 {
@@ -37844,6 +37877,8 @@ CMD:changepin(playerid, params[])
 	return 1;
 }
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:houseshop(playerid, params[])
 {
 	if(ShopClosed == 1) return SendClientMessageEx(playerid, COLOR_GREY, "Cua hang hien dang dong cua.");
@@ -37862,6 +37897,7 @@ CMD:houseshop(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong o vi tri cua hang nha.");
 	return 1;
 }
+*/
 
 CMD:userimkit(playerid, params[])
 {
@@ -40116,6 +40152,8 @@ CMD:getmats(playerid, params[])
 	return 1;
 }
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:setrentable(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -40144,7 +40182,10 @@ CMD:setrentable(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:setrent(playerid, params[])
 {
 	new string[128], fee;
@@ -40173,7 +40214,10 @@ CMD:setrent(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:evict(playerid, params[])
 {
 	new string[128], giveplayerid;
@@ -40209,7 +40253,10 @@ CMD:evict(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 CMD:evictall(playerid, params[])
 {
 	if(Homes[playerid] > 0)
@@ -40239,7 +40286,10 @@ CMD:evictall(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
+// [HOUSE REWORK] commented out - replaced by new house system
+/*
 alias:lockhouse("khoanha")
 CMD:lockhouse(playerid, params[])
 {
@@ -40271,6 +40321,7 @@ CMD:lockhouse(playerid, params[])
 	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong so huu nha nao.");
 	return 1;
 }
+*/
 
 CMD:givehit(playerid, params[])
 {

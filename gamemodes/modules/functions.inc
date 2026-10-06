@@ -12331,7 +12331,11 @@ stock SavePaintballArenas() {
 	return 0;
 }
 
-stock ReloadHouseText(houseid)
+// [HOUSE REWORK] - stubs redirect to new House_ReloadPickupLabel (defined in house.inc)
+stock ReloadHouseText(houseid)   { House_ReloadPickupLabel(houseid); }
+stock ReloadHousePickup(houseid) { House_ReloadPickupLabel(houseid); }
+/*
+stock _OLD_ReloadHouseText(houseid)
 {
 	new string[128];
 	if(HouseInfo[houseid][hOwned])
@@ -12343,10 +12347,10 @@ stock ReloadHouseText(houseid)
 	UpdateDynamic3DTextLabelText(HouseInfo[houseid][hTextID], COLOR_GREEN, string);
 }
 
-stock ReloadHousePickup(houseid)
+stock _OLD_ReloadHousePickup(houseid)
 {
 	if(HouseInfo[houseid][hExteriorX] == 0.0) return 0;
-	
+
 	new string[128];
 	if(IsValidDynamicPickup(HouseInfo[houseid][hPickupID])) DestroyDynamicPickup(HouseInfo[houseid][hPickupID]);
 	if(IsValidDynamic3DTextLabel(HouseInfo[houseid][hTextID])) DestroyDynamic3DTextLabel(HouseInfo[houseid][hTextID]);
@@ -12373,6 +12377,7 @@ stock ReloadHousePickup(houseid)
 	}
 	return 1;
 }
+*/
 
 stock SaveHouses()
 {

@@ -350,6 +350,8 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pFishRod] = 0;
 		PlayerInfo[playerid][pBait] = 0;
 		PlayerInfo[playerid][pInvType] = INVENTORY_TYPE_TEXTDRAW;
+		PlayerInfo[playerid][pHUDInfo] = 1;
+		PlayerInfo[playerid][pTypeHunger] = 1;
 	}
 
 	if(PlayerInfo[playerid][pHospital] == 1)

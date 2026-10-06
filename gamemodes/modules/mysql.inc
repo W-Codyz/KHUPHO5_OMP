@@ -2396,6 +2396,7 @@ stock SaveHouse(houseid)
 		`Owned`=%d, \
 		`Level`=%d, \
 		`Description`='%s', \
+		`Name`='%s', \
 		`OwnerID`=%d, \
 		`ExteriorX`=%f, \
 		`ExteriorY`=%f, \
@@ -2412,6 +2413,7 @@ stock SaveHouse(houseid)
 		HouseInfo[houseid][hOwned],
 		HouseInfo[houseid][hLevel],
 		g_mysql_ReturnEscaped(HouseInfo[houseid][hDescription], MainPipeline),
+		g_mysql_ReturnEscaped(HouseInfo[houseid][hName], MainPipeline),
 		HouseInfo[houseid][hOwnerID],
 		HouseInfo[houseid][hExteriorX],
 		HouseInfo[houseid][hExteriorY],
@@ -4813,6 +4815,7 @@ public OnLoadHouse(index)
 		cache_get_field_content(row, "Owned", tmp, MainPipeline); HouseInfo[index][hOwned] = strval(tmp);
 		cache_get_field_content(row, "Level", tmp, MainPipeline); HouseInfo[index][hLevel] = strval(tmp);
 		cache_get_field_content(row, "Description", HouseInfo[index][hDescription], MainPipeline, 16);
+		cache_get_field_content(row, "Name", HouseInfo[index][hName], MainPipeline, 32);
 		cache_get_field_content(row, "OwnerID", tmp, MainPipeline); HouseInfo[index][hOwnerID] = strval(tmp);
 		cache_get_field_content(row, "Username", HouseInfo[index][hOwnerName], MainPipeline, MAX_PLAYER_NAME);
 		cache_get_field_content(row, "ExteriorX", tmp, MainPipeline); HouseInfo[index][hExteriorX] = floatstr(tmp);
@@ -4857,7 +4860,7 @@ public OnLoadHouse(index)
 		cache_get_field_content(row, "ClosetY", tmp, MainPipeline); HouseInfo[index][hClosetY] = floatstr(tmp);
 		cache_get_field_content(row, "ClosetZ", tmp, MainPipeline); HouseInfo[index][hClosetZ] = floatstr(tmp);
 
-		ReloadHousePickup(index);
+		House_ReloadPickupLabel(index);
 		if(HouseInfo[index][hClosetX] != 0.0) HouseInfo[index][hClosetTextID] = CreateDynamic3DTextLabel("Tu quan ao\n/Tu de su dung", 0xFFFFFF88, HouseInfo[index][hClosetX], HouseInfo[index][hClosetY], HouseInfo[index][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[index][hIntVW], .interiorid = HouseInfo[index][hIntIW], .streamdistance = 10.0);
 		if(HouseInfo[index][hMailX] != 0.0) RenderHouseMailbox(index);
 	}
@@ -4876,6 +4879,7 @@ public OnLoadHouses()
 		cache_get_field_content(i, "Owned", tmp, MainPipeline); HouseInfo[i][hOwned] = strval(tmp);
 		cache_get_field_content(i, "Level", tmp, MainPipeline); HouseInfo[i][hLevel] = strval(tmp);
 		cache_get_field_content(i, "Description", HouseInfo[i][hDescription], MainPipeline, 16);
+		cache_get_field_content(i, "Name", HouseInfo[i][hName], MainPipeline, 32);
 		cache_get_field_content(i, "OwnerID", tmp, MainPipeline); HouseInfo[i][hOwnerID] = strval(tmp);
 		cache_get_field_content(i, "Username", HouseInfo[i][hOwnerName], MainPipeline, MAX_PLAYER_NAME);
 		cache_get_field_content(i, "ExteriorX", tmp, MainPipeline); HouseInfo[i][hExteriorX] = floatstr(tmp);
@@ -4920,13 +4924,14 @@ public OnLoadHouses()
 		cache_get_field_content(i, "ClosetY", tmp, MainPipeline); HouseInfo[i][hClosetY] = floatstr(tmp);
 		cache_get_field_content(i, "ClosetZ", tmp, MainPipeline); HouseInfo[i][hClosetZ] = floatstr(tmp);
 
-		ReloadHousePickup(i);
+		House_ReloadPickupLabel(i);
 		if(HouseInfo[i][hClosetX] != 0.0) HouseInfo[i][hClosetTextID] = CreateDynamic3DTextLabel("Tu quan ao\n/tu de su dung", 0xFFFFFF88, HouseInfo[i][hClosetX], HouseInfo[i][hClosetY], HouseInfo[i][hClosetZ]+0.5,10.0, .testlos = 1, .worldid = HouseInfo[i][hIntVW], .interiorid = HouseInfo[i][hIntIW], .streamdistance = 10.0);
 		if(HouseInfo[i][hMailX] != 0.0) RenderHouseMailbox(i);
 		i++;
 	}
 	if(i > 0) printf("[LoadHouses] %d ngoi nha duoc tai.", i);
 	else printf("[LoadHouses] Khong the tai vi tri ngoi nha.");
+	House_LoadAllItems();
 }
 
 forward OnLoadMailboxes();

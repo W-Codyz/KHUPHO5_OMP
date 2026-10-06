@@ -17512,13 +17512,35 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			new type   = PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot];
 			new maxAmt = PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot];
-			new szTitle[32], szMsg[80];
-			if(type >= 0 && type < sizeof(ItemInventory))
-				format(szTitle, sizeof(szTitle), "%s", ItemInventory[type][NameItem]);
+
+			if(type >= 0 && type < sizeof(ItemInventory) && ItemInventory[type][pVariable] == (_:pBinhXang))
+			{
+				// Binh xang: khoi phuc float tu raw bits
+				if(PlayerInfo[playerid][pBinhXang] > 0.0)
+					return SendClientMessageEx(playerid, COLOR_GREY, "Ban da co binh xang tren nguoi roi.");
+				PlayerInfo[playerid][pBinhXang] = Float:(maxAmt);
+				PlayerVehicleInfo[playerid][pvid][pvTrunkCat][slot]  = TRUNK_CAT_EMPTY;
+				PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot] = 0;
+				PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot]  = 0;
+				g_mysql_SaveTrunk(playerid, pvid);
+				new Float:fLiters = Float:(maxAmt) - FUELCAN_EMPTY_MARKER;
+				if(fLiters < 0.0) fLiters = 0.0;
+				new szBinhMsg2[128], szBinhProx2[128];
+				format(szBinhMsg2, sizeof(szBinhMsg2), "Ban da lay binh xang (%.1f L) ra khoi cop xe.", fLiters);
+				SendClientMessageEx(playerid, COLOR_WHITE, szBinhMsg2);
+				format(szBinhProx2, sizeof(szBinhProx2), "{FF8000}* {C2A2DA}%s lay binh xang ra khoi cop xe.", GetPlayerNameEx(playerid));
+				ProxDetectorWrap(playerid, szBinhProx2, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+			}
 			else
-				format(szTitle, sizeof(szTitle), "Vat pham");
-			format(szMsg, sizeof(szMsg), "So luong trong cop: %d\nNhap so luong muon lay:", maxAmt);
-			ShowPlayerDialog(playerid, DIALOG_TRUNK_TAKE_AMT, DIALOG_STYLE_INPUT, szTitle, szMsg, "Lay ra", "Quay lai");
+			{
+				new szTitle[32], szMsg[80];
+				if(type >= 0 && type < sizeof(ItemInventory))
+					format(szTitle, sizeof(szTitle), "%s", ItemInventory[type][NameItem]);
+				else
+					format(szTitle, sizeof(szTitle), "Vat pham");
+				format(szMsg, sizeof(szMsg), "So luong trong cop: %d\nNhap so luong muon lay:", maxAmt);
+				ShowPlayerDialog(playerid, DIALOG_TRUNK_TAKE_AMT, DIALOG_STYLE_INPUT, szTitle, szMsg, "Lay ra", "Quay lai");
+			}
 		}
 		return 1;
 	}
@@ -17556,12 +17578,31 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		else
 		{
-			// Item — can so luong
-			SetPVarInt(playerid, "TrunkPutItemIdx", type);
-			new szTitle[32], szMsg[80];
-			format(szTitle, sizeof(szTitle), "%s", ItemInventory[type][NameItem]);
-			format(szMsg, sizeof(szMsg), "Tren nguoi: %d\nNhap so luong muon cat:", PlayerInfo[playerid][ItemInventory[type][pVariable]]);
-			ShowPlayerDialog(playerid, DIALOG_TRUNK_PUT_AMT, DIALOG_STYLE_INPUT, szTitle, szMsg, "Cat vao", "Quay lai");
+			if(ItemInventory[type][pVariable] == (_:pBinhXang))
+			{
+				// Binh xang: luu raw float bits vao pvTrunkAmt
+				PlayerVehicleInfo[playerid][pvid][pvTrunkType][slot] = type;
+				PlayerVehicleInfo[playerid][pvid][pvTrunkCat][slot]  = TRUNK_CAT_ITEM;
+				PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot]  = _:(PlayerInfo[playerid][pBinhXang]);
+				PlayerInfo[playerid][pBinhXang] = 0.0;
+				g_mysql_SaveTrunk(playerid, pvid);
+				new Float:fLiters = Float:(PlayerVehicleInfo[playerid][pvid][pvTrunkAmt][slot]) - FUELCAN_EMPTY_MARKER;
+				if(fLiters < 0.0) fLiters = 0.0;
+				new szBinhMsg[128], szBinhProx[128];
+				format(szBinhMsg, sizeof(szBinhMsg), "Ban da cat binh xang (%.1f L) vao cop xe.", fLiters);
+				SendClientMessageEx(playerid, COLOR_WHITE, szBinhMsg);
+				format(szBinhProx, sizeof(szBinhProx), "{FF8000}* {C2A2DA}%s cat binh xang vao cop xe.", GetPlayerNameEx(playerid));
+				ProxDetectorWrap(playerid, szBinhProx, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+			}
+			else
+			{
+				// Item — can so luong
+				SetPVarInt(playerid, "TrunkPutItemIdx", type);
+				new szTitle[32], szMsg[80];
+				format(szTitle, sizeof(szTitle), "%s", ItemInventory[type][NameItem]);
+				format(szMsg, sizeof(szMsg), "Tren nguoi: %d\nNhap so luong muon cat:", PlayerInfo[playerid][ItemInventory[type][pVariable]]);
+				ShowPlayerDialog(playerid, DIALOG_TRUNK_PUT_AMT, DIALOG_STYLE_INPUT, szTitle, szMsg, "Cat vao", "Quay lai");
+			}
 		}
 		return 1;
 	}
@@ -17697,7 +17738,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new amt  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkAmt][s];
 				if(cat == TRUNK_CAT_EMPTY) continue;
 				if(cat == TRUNK_CAT_GUN) { new szWep[32]; GetWeaponName(type, szWep, sizeof(szWep)); format(szRow, sizeof(szRow), "{FF8000}[Sung] {FFFFFF}%s\n", szWep); }
-				else { if(type < 0 || type >= sizeof(ItemInventory)) continue; format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}x%d\n", ItemInventory[type][NameItem], amt); }
+				else
+				{
+					if(type < 0 || type >= sizeof(ItemInventory)) continue;
+					if(ItemInventory[type][pVariable] == (_:pBinhXang))
+					{
+						new Float:fLiters2 = Float:(amt) - FUELCAN_EMPTY_MARKER;
+						if(fLiters2 < 0.0) fLiters2 = 0.0;
+						format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}%.1f L\n", ItemInventory[type][NameItem], fLiters2);
+					}
+					else format(szRow, sizeof(szRow), "{00FF88}[Item] {FFFFFF}%s {AAAAAA}x%d\n", ItemInventory[type][NameItem], amt);
+				}
 				strcat(szList, szRow, sizeof(szList));
 				LucSoatMap[playerid][LucSoatCount[playerid]++] = s;
 			}
@@ -17727,11 +17778,29 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(type >= 0 && type < sizeof(ItemInventory))
 			{
 				format(szItemName, sizeof(szItemName), "%s", ItemInventory[type][NameItem]);
-				PlayerInfo[playerid][ItemInventory[type][pVariable]] += amt;
+				if(ItemInventory[type][pVariable] == (_:pBinhXang))
+				{
+					// Binh xang: khoi phuc float tu raw bits cho canh sat
+					if(PlayerInfo[playerid][pBinhXang] <= 0.0)
+						PlayerInfo[playerid][pBinhXang] = Float:(amt);
+					new Float:fLiters = Float:(amt) - FUELCAN_EMPTY_MARKER;
+					if(fLiters < 0.0) fLiters = 0.0;
+					format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s tich thu binh xang (%.1f L) tu cop xe cua %s.",
+						GetPlayerNameEx(playerid), fLiters, GetPlayerNameEx(ownerid));
+				}
+				else
+				{
+					PlayerInfo[playerid][ItemInventory[type][pVariable]] += amt;
+					format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s tich thu %d %s tu cop xe cua %s.",
+						GetPlayerNameEx(playerid), amt, szItemName, GetPlayerNameEx(ownerid));
+				}
 			}
-			else format(szItemName, sizeof(szItemName), "vat pham");
-			format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s tich thu %d %s tu cop xe cua %s.",
-				GetPlayerNameEx(playerid), amt, szItemName, GetPlayerNameEx(ownerid));
+			else
+			{
+				format(szItemName, sizeof(szItemName), "vat pham");
+				format(proxstring, sizeof(proxstring), "{FF8000}* {C2A2DA}%s tich thu %d %s tu cop xe cua %s.",
+					GetPlayerNameEx(playerid), amt, szItemName, GetPlayerNameEx(ownerid));
+			}
 		}
 		ProxDetectorWrap(playerid, proxstring, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 

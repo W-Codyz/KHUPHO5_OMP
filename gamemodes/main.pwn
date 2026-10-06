@@ -168,6 +168,7 @@
 #include "./modules/player/help"
 #include "./modules/player/player_load"
 #include "./modules/player/enter_exit"
+#include "./modules/house/house"
 //#include "./modules/player/mail"
 #include "./modules/player/speedo"
 //#include "./modules/player/send_location"

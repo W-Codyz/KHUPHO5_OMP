@@ -1099,6 +1099,7 @@ enum hInfo
 	hLevel,
 	hCustomInterior,
 	hDescription[16],
+	hName[32],
 	hOwnerID,
 	hOwnerName[MAX_PLAYER_NAME],
 	Float: hExteriorX,

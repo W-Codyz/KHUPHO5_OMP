@@ -134,6 +134,8 @@ stock PlayerEnterInterior(playerid)
             return 1;
         }
     }
+    // [HOUSE REWORK] commented out - replaced by House_TryEnter in house.inc
+    /*
     for(new i = 0; i < sizeof(HouseInfo); i++) {
         if (IsPlayerInRangeOfPoint(playerid,3,HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ]) && GetPlayerInterior(playerid) == HouseInfo[i][hExtIW] && GetPlayerVirtualWorld(playerid) == HouseInfo[i][hExtVW]) {
             if(PlayerInfo[playerid][pPhousekey] == i || PlayerInfo[playerid][pPhousekey2] == i || HouseInfo[i][hLock] == 0 || PlayerInfo[playerid][pRenting] == i) {
@@ -154,6 +156,7 @@ stock PlayerEnterInterior(playerid)
             return 1;
         }
     }
+    */
 
     for(new i = 0; i < sizeof(Businesses); i++) {
         if (IsPlayerInRangeOfPoint(playerid,3,Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2])) {
@@ -546,6 +549,8 @@ stock PlayerExitInterior(playerid)
             return 1;
         }
     }
+    // [HOUSE REWORK] commented out - replaced by House_TryExit in house.inc
+    /*
     for(new i = 0; i <  sizeof(HouseInfo); i++) {
         if (IsPlayerInRangeOfPoint(playerid,3.0,HouseInfo[i][hInteriorX], HouseInfo[i][hInteriorY], HouseInfo[i][hInteriorZ]) && PlayerInfo[playerid][pVW] == HouseInfo[i][hIntVW]) {
 			SetPlayerInterior(playerid,0);
@@ -561,6 +566,7 @@ stock PlayerExitInterior(playerid)
             return 1;
         }
     }
+    */
     for(new i = 0; i < sizeof(Businesses); i++) {
 		if (IsPlayerInRangeOfPoint(playerid,3,Businesses[i][bIntPos][0], Businesses[i][bIntPos][1], Businesses[i][bIntPos][2])) {
 		    if(Businesses[i][bVW] == 0 && PlayerInfo[playerid][pVW] == BUSINESS_BASE_VW + i || Businesses[i][bVW] != 0 && PlayerInfo[playerid][pVW] == Businesses[i][bVW]) {
