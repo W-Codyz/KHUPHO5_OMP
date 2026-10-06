@@ -1711,9 +1711,12 @@ public HenGioQuayRoulette(idban)
         LogAdd(g_sAiDecisionBan[idban]);
     }
 
-    new titleMain[64];
-    format(titleMain, sizeof(titleMain), "🎲 RÙA THỎ - BÀN #%d", idban);
-    SendLogSplit(titleMain, g_sLogBuf, 0xFFD700);
+    if(soNguoiDatCuoc > 0)
+    {
+        new titleMain[64];
+        format(titleMain, sizeof(titleMain), "🎲 RÙA THỎ - BÀN #%d", idban);
+        SendLogSplit(titleMain, g_sLogBuf, 0xFFD700);
+    }
 
     // ===== Build log phần 2: danh sách cược =====
     if(soNguoiDatCuoc > 0)
@@ -1892,9 +1895,12 @@ public KetThucQuay(idban)
         g_sAiDecisionBan[idban][0] = 0;
     }
 
-    new titleKQ[64];
-    format(titleKQ, sizeof(titleKQ), "🎲 RÙA THỎ - BÀN #%d [KẾT THÚC]", idban);
-    SendLogSplit(titleKQ, g_sLogBuf, 0x00FF00);
+    if(soNguoiThang > 0 || soNguoiThua > 0 || soNguoiHoa > 0)
+    {
+        new titleKQ[64];
+        format(titleKQ, sizeof(titleKQ), "🎲 RÙA THỎ - BÀN #%d [KẾT THÚC]", idban);
+        SendLogSplit(titleKQ, g_sLogBuf, 0x00FF00);
+    }
 
     // ===== Build log phần 2: chi tiết winners / losers / ties =====
     if(soNguoiThang > 0 || soNguoiThua > 0 || soNguoiHoa > 0)
