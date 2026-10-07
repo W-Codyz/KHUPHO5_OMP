@@ -1048,7 +1048,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(HouseInfo[i][hOwned]) continue;
             if(count == listitem)
             {
-                SetPlayerCheckpoint(playerid, HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ], 3.0);
+                SetPlayerCP(playerid, HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ], 3.0);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
                 new szMsg[64], szZone[MAX_ZONE_NAME];
                 Get3DZone(HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ], szZone, MAX_ZONE_NAME);
                 format(szMsg, sizeof(szMsg), "Checkpoint da duoc dat den nha #%d (%s).", i, szZone);
@@ -1073,12 +1074,9 @@ CMD:house(playerid, params[])
     if(GetPVarInt(playerid, "Injured") != 0)
         return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay vao luc nay.");
 
-    // Kiem tra dang trong nha hoac dung ngoai exterior
     new h = GetPlayerHouseInterior(playerid);
     if(h == INVALID_HOUSE_ID)
-        h = FindClosestHouseExterior(playerid, 4.0);
-    if(h == INVALID_HOUSE_ID)
-        return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai dung o gan nha cua minh hoac dang o trong nha.");
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai o ben trong nha de su dung lenh nay.");
     if(!IsHouseOwnerSQL(playerid, h))
         return SendClientMessageEx(playerid, COLOR_GREY, "Day khong phai la nha cua ban.");
 
