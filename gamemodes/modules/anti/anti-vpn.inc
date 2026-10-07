@@ -39,6 +39,8 @@ public OnPlayerConnect(playerid)
 forward AntiVPN(playerid, response_code, data[]);
 public AntiVPN(playerid, response_code, data[])
 {
+    if(PlayerInfo[playerid][pAdmin] >= 2) return 1;
+
     new nome[MAX_PLAYERS], string[144];
     GetPlayerName(playerid, nome, sizeof(nome));
     if(response_code == 200)
@@ -46,7 +48,7 @@ public AntiVPN(playerid, response_code, data[])
         if(substr(data, "\"proxy\": \"yes\""))
         {
             format(string, sizeof(string), "{F70000}[ANTI-VPN]: {FFE700}%s (ID: %d) {FFFFFF}da bi {F70000}kick {FFFFFF}vi nghi ngo su dung {F70000}VPN/Proxy", nome, playerid);
-            SendClientMessageToAll(-1, string);
+            ABroadCast(COLOR_YELLOW, string, 2);
             printf("[ANTI-VPN]: %s (ID: %d) bi phat hien su dung VPN/Proxy.", nome, playerid);
 
             new DCC_Channel:channel = DCC_FindChannelById("1548013006141661205");
