@@ -819,6 +819,25 @@ stock HideCardTD(playerid)
 }
 
 // ===================================================================
+// Actor cap CCCD truc tiep (khong can canh sat)
+// ===================================================================
+stock ActorIssueIDCard(playerid)
+{
+    if(PlayerInfo[playerid][pIDCard] != 0)
+        return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban da co Can cuoc cong dan roi."), 1;
+
+    if(!strcmp(PlayerInfo[playerid][pBirthDate], "00-00-0000"))
+        return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban chua dang ky ngay sinh. Vui long lien he Admin."), 1;
+
+    ShowPlayerDialog(playerid, DIALOG_ACTOR_IDCARD, DIALOG_STYLE_MSGBOX, "{FFFFFF}Can Bo Hanh Chinh",
+        "{FFFFFF}Xin chao ban, toi la {6D9BC0}Can Bo Hanh Chinh{FFFFFF} - nhan vien cap can cuoc tai don canh sat.\n\
+Toi co tham quyen cap {A3F15F}Can cuoc cong dan{FFFFFF} cho cong dan khi moi chuyen den thanh pho nay.\n\n\
+{7D78FF}Ban co muon duoc cap Can cuoc cong dan ngay bay gio khong?",
+        "Cap ngay", "Thoi");
+    return 1;
+}
+
+// ===================================================================
 // Lenh /capcccd — canh sat cap CCCD cho nguoi dan tai don canh sat
 // ===================================================================
 CMD:capcccd(playerid, params[])
@@ -926,6 +945,24 @@ hook OnPlayerDisconnect(playerid, reason)
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+    if(dialogid == DIALOG_ACTOR_IDCARD)
+    {
+        if(!response) return 1;
+
+        if(PlayerInfo[playerid][pIDCard] != 0)
+            return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban da co Can cuoc cong dan roi."), 1;
+
+        if(!strcmp(PlayerInfo[playerid][pBirthDate], "00-00-0000"))
+            return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban chua dang ky ngay sinh. Vui long lien he Admin."), 1;
+
+        CreateIDCard(playerid);
+        UpdateNewbieMission(playerid, 0);
+
+        SendClientMessageEx(playerid, COLOR_WHITE, "Ban da duoc cap {A3F15F}Can cuoc cong dan{FFFFFF} thanh cong.");
+        ShowTDN(playerid, NOTIFICATION_SUCCESS, "Cap Can cuoc cong dan thanh cong!");
+        return 1;
+    }
+
     if(dialogid == DIALOG_CARD_VIEW_REQUEST)
     {
         new ownerid = GetPVarInt(playerid, "pCardViewFrom");

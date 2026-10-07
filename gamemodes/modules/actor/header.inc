@@ -6,7 +6,8 @@ enum _:MAX_SERVER_ACTORS
     ACTOR_TAXILICENSE,
     ACTOR_NEWBIEMISSION,
     ACTOR_FISHERMAN,
-    ACTOR_RENTCAR
+    ACTOR_RENTCAR,
+    ACTOR_IDCARD
 };
 
 enum E_ACTOR_INFO
@@ -34,5 +35,7 @@ new ActorInfo[MAX_SERVER_ACTORS][E_ACTOR_INFO] =
     // Fisherman
     {95, "Ethan Blake", 0, 0, 1.0, 2.0, 3.0, 4.0},
     // Thue xe
-    {12, "Hao Nam", 0, 0, -1980.6089,145.7599,27.6875,90.8890}
+    {12, "Hao Nam", 0, 0, -1980.6089,145.7599,27.6875,90.8890},
+    // Cap Can cuoc cong dan
+    {280, "Can Bo Hanh Chinh", 0, 1, 1324.032958, 739.907531, 111.320312, 92.450729}
 };

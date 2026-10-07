@@ -664,6 +664,7 @@
 #define         DIALOG_NHANDIEMGIAOHANG     (5224)
 #define         DIALOG_MAP_TPHAT            (5225)
 #define         DIALOG_CARD_VIEW_REQUEST    (5226)
+#define         DIALOG_ACTOR_IDCARD         (5227)
 
 // ===== FAMILY SYSTEM (system/family/*.inc) =====
 // turfwars.inc
