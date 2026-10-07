@@ -2820,14 +2820,12 @@ Group_ListGroups(iPlayerID, iDialogID = DIALOG_LISTGROUPS) {
 forward SetServerWeather();
 public SetServerWeather()
 {
-	const maxWeather = 5;
-	new weatherList[maxWeather] = {5, 6, 7, 8, 9};
+	const maxWeather = 3;
+	new weatherList[maxWeather] = {5, 6, 7};
 	new weatherName[maxWeather][21] = {
 		"Nang nhieu it may",
 		"Sieu nang",
-		"Nhieu may",
-		"Bao tap va mua nhieu",
-		"Suong mu"
+		"Nhieu may"
 	};
 	new randomWeather = random(maxWeather);
 
