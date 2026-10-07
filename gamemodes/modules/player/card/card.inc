@@ -960,6 +960,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
         SendClientMessageEx(playerid, COLOR_WHITE, "Ban da duoc cap {A3F15F}Can cuoc cong dan{FFFFFF} thanh cong.");
         ShowTDN(playerid, NOTIFICATION_SUCCESS, "Cap Can cuoc cong dan thanh cong!");
+
+        new proxstring[128];
+        format(proxstring, sizeof(proxstring),
+            "{FF8000}* {C2A2DA}Can Bo Hanh Chinh da cap Can cuoc cong dan cho %s.",
+            GetPlayerNameEx(playerid));
+        ProxDetectorWrap(playerid, proxstring, 92, 15.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
         return 1;
     }
 
