@@ -278,12 +278,12 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         }
         else if(IsPlayerInRangeOfPoint(playerid, 5.0, -382.8928,-1426.2904,26.2979))
         {
-            if(HasCopOnDuty() == false)
-            {
-                SendClientMessage(playerid, -1, "Khong co canh sat nao dang lam nhiem vu, vui long quay lai sau.");
-                ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co canh sat nao dang lam nhiem vu.");
-                return 1;
-            }
+            // if(HasCopOnDuty() == false)
+            // {
+            //     SendClientMessage(playerid, -1, "Khong co canh sat nao dang lam nhiem vu, vui long quay lai sau.");
+            //     ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co canh sat nao dang lam nhiem vu.");
+            //     return 1;
+            // }
             if(gettime() > GetPVarInt(playerid, "CanSaAreaCD")) {
                 CanSa_AlertCops(playerid, "Khu vuc mua ban can sa");
                 SetPVarInt(playerid, "CanSaAreaCD", gettime() + 30);
@@ -466,12 +466,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		if(response)
 		{
-            if(HasCopOnDuty() == false)
-            {
-                SendClientMessage(playerid, -1, "Khong co canh sat nao dang lam nhiem vu, vui long quay lai sau.");
-                ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co canh sat nao dang lam nhiem vu.");
-                return 1;
-            }
+            // if(HasCopOnDuty() == false)
+            // {
+            //     SendClientMessage(playerid, -1, "Khong co canh sat nao dang lam nhiem vu, vui long quay lai sau.");
+            //     ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co canh sat nao dang lam nhiem vu.");
+            //     return 1;
+            // }
 			if(listitem == 0)
 			{
                 if(dangchebien[playerid] == 1)
@@ -546,7 +546,7 @@ public NhanDiemGiaoHangCanSa(playerid)
             new str[256];
             NhanDiemCount[playerid]--;
             format(str, sizeof(str), "~r~Vui long doi ~w~%d ~r~giay nua de nhan duoc diem giao hang~n~Khong duoc di chuyen qua xa khu vuc nhan diem giao hang", NhanDiemCount[playerid]);
-            GameTextForPlayer(playerid, str, 1000, 5);
+            SendMessageTD(playerid, 1000, str);
             GiaoCanSaTimer[playerid] = SetTimerEx("NhanDiemGiaoHangCanSa", 1000, 0, "d", playerid);
         }
         else
@@ -565,7 +565,7 @@ public NhanDiemGiaoHangCanSa(playerid)
         new str[100], zone[MAX_ZONE_NAME];
         GetPlayerPos(playerid, x,y,z);
         PlayerGiaoCanSa[playerid] = GetDistanceBetweenPoints(x,y,z,giaocansa_pos[rand][0],giaocansa_pos[rand][1],giaocansa_pos[rand][2]);
-        GameTextForPlayer(playerid, "~w~Hay di den ~r~Checkpoint~w~ de giao hang!", 10000, 5);
+        SendMessageTD(playerid, 10000, "~w~Hay di den ~r~Checkpoint~w~ de giao hang!");
         Get3DZone(giaocansa_pos[rand][0],giaocansa_pos[rand][1],giaocansa_pos[rand][2],zone, sizeof(zone));
         format(str, sizeof(str), "Co mot doi tuong dang giao can sa huong ve {ffffff}%s{aa3333} hay den do va tieu diet.", zone);
         foreach(new i: Player)
@@ -586,7 +586,7 @@ public CheBien(playerid)
 
 	new string[128];
 	format(string, sizeof(string), "~n~~n~~n~~n~~n~~n~~n~~n~~n~~w~%d Giay Con Lai", time);
-	GameTextForPlayer(playerid, string, 1100, 3);
+	SendMessageTD(playerid, 1100, string);
 	ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.0, 1, 0, 0, 0, 0, 1);
 
 	if(time > 0)
@@ -663,7 +663,7 @@ hook OnPlayerDeath(playerid, killerid, reason) {
                     ClearAnimations(playerid);
                 }
                 format(reasons, sizeof(reasons), "Giao can sa that bai");
-                GameTextForPlayer(playerid, "~w~Welcome to ~n~~r~Fort DeMorgan", 5000, 3);
+                SendMessageTD(playerid, 5000, "~w~Welcome to ~n~~r~Fort DeMorgan");
                 ResetPlayerWeaponsEx(playerid);
                 format(string, sizeof(string), "%s da bi di tu boi %s, ly do: %s", GetPlayerNameEx(playerid), GetPlayerNameEx(killerid), reasons);
                 Log("logs/cansathatbai.log", string);
