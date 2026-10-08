@@ -13,7 +13,7 @@ hook OnPlayerConnect(playerid)
 }
 hook OnPlayerDisconnect(playerid, reason)
 {
-    if (TimerAntiSpawn[playerid]) 
+    if (TimerAntiSpawn[playerid])
 		KillTimer(TimerAntiSpawn[playerid]);
 	KillTimer(TimerLastPos[playerid]);
 	return 1;
@@ -55,6 +55,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart){
         SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti hack, neu co hack that hay tat giup tuiiii...!");
         SetTimerEx("KickEx", 2000, 0, "i", playerid);
 	}
+	/* [DISABLED] Anti God: check damage amount > 30 (non-server-side damage)
 	if (amount > 30 && weaponid != 25 && weaponid != 26 && weaponid != 27 && weaponid != 24 && weaponid != 34)
 	{
 		// Fist: cho phep neu dang danh gan (da qua check distance o tren) va dame <= 100 (knockout hop le)
@@ -67,6 +68,7 @@ hook OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart){
         SendClientMessageEx(playerid, COLOR_WHITE, "[{DD0000}Anti-F4T{FFFFFF}] Anti hack dame, neu co hack that hay tat giup tuiiii...!");
         SetTimerEx("KickEx", 2000, 0, "i", playerid);
 	}
+	*/
     return 1;
 }
 forward TimeLastPosF4T(playerid);
@@ -121,12 +123,12 @@ public AntiCheat(playerid)
 /* task VehicleAntiNoFuel[1000]()
 {
     static engine,lights,alarm,doors,bonnet,boot,objective, Float:healthv;
-    for(new v = 0; v < MAX_VEHICLES; v++) if(GetVehicleModel(v) && GetVehicleModel(v) != 481 && GetVehicleModel(v) != 509 && GetVehicleModel(v) != 510) 
+    for(new v = 0; v < MAX_VEHICLES; v++) if(GetVehicleModel(v) && GetVehicleModel(v) != 481 && GetVehicleModel(v) != 509 && GetVehicleModel(v) != 510)
 	{
 		if (GetVehicleDriver(v) != INVALID_PLAYER_ID)
 		{
 			GetVehicleParamsEx(v,engine,lights,alarm,doors,bonnet,boot,objective);
-			if(arr_Engine{v} == 0 && vehicle_get_speed(v) > 5) 
+			if(arr_Engine{v} == 0 && vehicle_get_speed(v) > 5)
 			{
 				SlapAntiSlap(GetVehicleDriver(v));
 				SendClientMessage(GetVehicleDriver(v), COLOR_LIGHTRED, "Ban chua bat dong co xe, vui long bam N de bat dong co xe va chay.");
@@ -175,6 +177,6 @@ stock SlapAntiSlap(playerid)
 /* stock IsPlayerSpawned(playerid)
 {
 	new pState = GetPlayerState(playerid);
-	
+
 	return 0 <= playerid < MAX_PLAYERS && pState != PLAYER_STATE_NONE && pState != PLAYER_STATE_WASTED && pState != PLAYER_STATE_SPECTATING;
 } */
