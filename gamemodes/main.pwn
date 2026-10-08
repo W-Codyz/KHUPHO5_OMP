@@ -10,6 +10,7 @@
 
 #define	NO_TAGS
 #include <open.mp>
+#include <sampvoice>
 
 #include <a_mysql>
 #include <streamer>
@@ -100,6 +101,7 @@
 #include "./modules/system/panel/panel"
 #include "./modules/system/food"
 #include "./modules/system/sendlocation"
+#include "./modules/system/bug_support"
 
 //==============JOB MAIN============//
 #include "./modules/job/painter/main"
@@ -121,6 +123,10 @@
 //==============HOSPITAL============//
 #include "./modules/system/hospital_spawn"
 //#include "./modules/player/phone"
+
+//==============VOICE CHAT============//
+#include "./modules/player/voicechat/voice_var"
+#include "./modules/player/voicechat/voice"
 
 #include "./modules/timers"
 #include "./modules/mysql"
@@ -181,6 +187,7 @@ public OnGameModeInit()
 {
 	print("Dang cau hinh plugin, xin vui long cho doi...");
 	//SetCrashDetectLongCallTime(1000000);
+	SvInit(24000);
 	CA_Init();
 	print("Hoan tat cau hinh plugin, chuan bi tai gamemode...");
 	g_mysql_Init();

@@ -22255,6 +22255,19 @@ public OnLastLoginLoaded(playerid)
     SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}------------------------------");
     SendClientMessageEx(playerid, COLOR_WHITE, " ");
     
+	if (lstream[playerid] && SvHasMicro(playerid) != SV_FALSE)
+    {
+        SendClientMessage(playerid, 0xFFFFFFAA, "{00FF00}[VOICE] {FFFFFF} Nhan phim {FFFF00}Z hoac B{FFFFFF} de noi chuyen. Dung {FFFF00}/mic{FFFFFF} de bat/tat mic tu dong.");
+    }
+    if (SvGetVersion(playerid) == SV_NULL)
+	{
+		SendClientMessage(playerid, 0xFF4444AA, "[VOICE] Ban chua cai sampvoice, truy cap discord: dsc.gg/gtahtb de cai dat.");
+	}
+	else if (SvHasMicro(playerid) == SV_FALSE)
+	{
+		SendClientMessage(playerid, 0xFF4444AA, "[VOICE] Khong tim thay microphone.");
+	}
+
     return 1;
 }
 
