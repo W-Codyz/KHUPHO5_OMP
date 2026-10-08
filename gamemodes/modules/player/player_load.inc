@@ -651,26 +651,37 @@ public OnPlayerLoad(playerid)
 		GetHourRequestCount(playerid, thour, tdate);
 	}
 
-	if(IsACop(playerid) && !isnull(PlayerInfo[playerid][pDiscordID])) {
-		new DCC_User:user = DCC_FindUserById(PlayerInfo[playerid][pDiscordID]), bool:hasRole;
-		DCC_HasGuildMemberRole(mainGuild, user, dcRole_Police, hasRole);
-		if(!hasRole) {
-			new roleName[32], colour;
-			DCC_GetRoleName(dcRole_Police, roleName, sizeof(roleName));
-			DCC_GetRoleColour(dcRole_Police, colour);
-			DCC_AddGuildMemberRole(mainGuild, user, dcRole_Police);
-			SendClientMessageEx(playerid, -1, "Ban da duoc them vai tro \"{%06x}%s{FFFFFF}\" tren may chu DISCORD.", colour >>> 8, roleName);
+	if(!isnull(PlayerInfo[playerid][pDiscordID])) {
+		new DCC_User:user = DCC_FindUserById(PlayerInfo[playerid][pDiscordID]);
+		new bool:hasPoliceRole, bool:hasMedicRole;
+		DCC_HasGuildMemberRole(mainGuild, user, dcRole_Police, hasPoliceRole);
+		DCC_HasGuildMemberRole(mainGuild, user, dcRole_Medic, hasMedicRole);
+
+		if(IsACop(playerid)) {
+			if(!hasPoliceRole) {
+				new roleName[32], colour;
+				DCC_GetRoleName(dcRole_Police, roleName, sizeof(roleName));
+				DCC_GetRoleColour(dcRole_Police, colour);
+				DCC_AddGuildMemberRole(mainGuild, user, dcRole_Police);
+				SendClientMessageEx(playerid, -1, "Ban da duoc them vai tro \"{%06x}%s{FFFFFF}\" tren may chu DISCORD.", colour >>> 8, roleName);
+			}
 		}
-	}
-	else if(IsAMedic(playerid) && !isnull(PlayerInfo[playerid][pDiscordID])) {
-		new DCC_User:user = DCC_FindUserById(PlayerInfo[playerid][pDiscordID]), bool:hasRole;
-		DCC_HasGuildMemberRole(mainGuild, user, dcRole_Medic, hasRole);
-		if(!hasRole) {
-			new roleName[32], colour;
-			DCC_GetRoleName(dcRole_Medic, roleName, sizeof(roleName));
-			DCC_GetRoleColour(dcRole_Medic, colour);
-			DCC_AddGuildMemberRole(mainGuild, user, dcRole_Medic);
-			SendClientMessageEx(playerid, -1, "Ban da duoc them vai tro \"{%06x}%s{FFFFFF}\" tren may chu DISCORD.", colour >>> 8, roleName);
+		else if(IsAMedic(playerid)) {
+			if(!hasMedicRole) {
+				new roleName[32], colour;
+				DCC_GetRoleName(dcRole_Medic, roleName, sizeof(roleName));
+				DCC_GetRoleColour(dcRole_Medic, colour);
+				DCC_AddGuildMemberRole(mainGuild, user, dcRole_Medic);
+				SendClientMessageEx(playerid, -1, "Ban da duoc them vai tro \"{%06x}%s{FFFFFF}\" tren may chu DISCORD.", colour >>> 8, roleName);
+			}
+		}
+		else {
+			if(hasPoliceRole) {
+				DCC_RemoveGuildMemberRole(mainGuild, user, dcRole_Police);
+			}
+			if(hasMedicRole) {
+				DCC_RemoveGuildMemberRole(mainGuild, user, dcRole_Medic);
+			}
 		}
 	}
 
