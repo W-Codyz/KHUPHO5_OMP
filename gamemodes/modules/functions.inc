@@ -22265,6 +22265,8 @@ public OnLastLoginLoaded(playerid)
     SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}> {FF6347}/yeucautrogiup {AAAAAA}- Goi ho tro vien truc tuyen");
     SendClientMessageEx(playerid, COLOR_WHITE, "{33FF33}------------------------------");
     SendClientMessageEx(playerid, COLOR_WHITE, " ");
+
+	SendDiscordConnect(playerid);
     
 	if (lstream[playerid] && SvHasMicro(playerid) != SV_FALSE)
     {
@@ -22278,6 +22280,8 @@ public OnLastLoginLoaded(playerid)
 	{
 		SendClientMessage(playerid, 0xFF4444AA, "[VOICE] Khong tim thay microphone.");
 	}
+
+	printf("[DEBUG] Player %d - IsPCPlayer: %d, IsUsingOmp: %d", playerid, IsPCPlayer(playerid), IsPlayerUsingOmp(playerid));
 
     return 1;
 }

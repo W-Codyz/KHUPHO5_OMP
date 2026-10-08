@@ -66,7 +66,10 @@ public UpdateNameTag(playerid)
 
         if(IsValid3DTextLabel(PlayerNameTag[playerid]) && gPlayerLogged{playerid} == 1)
         {
-            new Float:fHP, Float:fARM, string[256], szNameColor[8] = "FFFFFF";
+            new Float:fHP, Float:fARM, string[512], szNameColor[8] = "FFFFFF";
+            format(string, sizeof(string), "[%s {ffffff}- %s]\n",
+                IsPCPlayer(playerid) ? "{52b1f8}PC" : "{52b1f8}Mobile",
+                SvHasMicro(playerid) ? "{6feb61}Co Mic" : "{FF3045}Khong Mic");
             if(Aduty[playerid] == 1) {
                 new szAdminRank[32];
                 switch(PlayerInfo[playerid][pAdmin]) {
@@ -103,9 +106,9 @@ public UpdateNameTag(playerid)
 
             GetPlayerHealth(playerid, fHP);
             GetPlayerArmour(playerid, fARM);
-            if(fARM <= 0) format(string, _, "%s{%s}%s (%d)\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetHealthDot(fHP));
-            else format(string, _, "%s{%s}%s (%d)\n%s\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetARMDot(fARM), GetHealthDot(fHP));
-            
+            if(fARM <= 0) format(string, sizeof(string), "%s{%s}%s (%d)\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetHealthDot(fHP));
+            else format(string, sizeof(string), "%s{%s}%s (%d)\n%s\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetARMDot(fARM), GetHealthDot(fHP));
+
             Update3DTextLabelText(PlayerNameTag[playerid], 0xFFFFFFFF, string);
         }
     }

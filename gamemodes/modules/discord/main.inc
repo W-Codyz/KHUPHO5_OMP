@@ -163,12 +163,6 @@ Discord_Init()
     
 }
 
-hook OnPlayerConnect(playerid)
-{
-    SendDiscordConnect(playerid);
-    return 1;
-}
-
 hook OnPlayerDisconnect(playerid, reason)
 {
     SendDiscordDisconnect(playerid, reason);
