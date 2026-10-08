@@ -100,6 +100,31 @@ static bool:Electric_IsNumeric(const str[])
 }
 
 // ============================================================
+//  Helper: duyet va phat am thanh cho nguoi choi trong vong range met
+// ============================================================
+stock Electric_PlaySoundInRange(playerid, soundid, Float:range = 10.0)
+{
+    new Float:x, Float:y, Float:z;
+    GetPlayerPos(playerid, x, y, z);
+
+    new virtualWorld = GetPlayerVirtualWorld(playerid);
+    new interiorId  = GetPlayerInterior(playerid);
+
+    foreach(new i : Player)
+    {
+        if(GetPlayerVirtualWorld(i) != virtualWorld) continue;
+        if(GetPlayerInterior(i)    != interiorId)    continue;
+
+        new Float:px, Float:py, Float:pz;
+        GetPlayerPos(i, px, py, pz);
+
+        if(floatsqroot((x - px) * (x - px) + (y - py) * (y - py) + (z - pz) * (z - pz)) <= range)
+            PlayerPlaySound(i, soundid, x, y, z);
+    }
+    return 1;
+}
+
+// ============================================================
 //  Reset bien cua player
 // ============================================================
 stock Electric_ResetVars(playerid)
@@ -228,7 +253,7 @@ public Electric_FixFinish(playerid)
     new pay = 2500 + random(1001);
     if (PlayerElectricJob[playerid][E_EJ_PartnerID] != INVALID_PLAYER_ID) pay += 500; // thưởng thêm khi có partner
     GivePlayerCash(playerid, pay);
-    PlayerPlaySound(playerid, 32000, 0.0, 0.0, 0.0);
+    Electric_PlaySoundInRange(playerid, 32000);
 
     // 30% co hoi nhan duoc dong tu day dien
     if(random(10) < 3)
@@ -328,7 +353,7 @@ stock Electric_OnFixResponse(playerid, inputtext[])
     {
         // Dung - bat dau loading sua dien 10 giay
         ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, 1, 0, 0, 0, 10000, 1);
-        PlayerPlaySound(playerid, 32000, 0.0, 0.0, 0.0);
+        Electric_PlaySoundInRange(playerid, 32000);
 
         gElectricFixed[playerid][index] = true;
         RemovePlayerAttachedObject(playerid, ELECTRIC_KIT_SLOT);
@@ -346,7 +371,7 @@ stock Electric_OnFixResponse(playerid, inputtext[])
     {
         // Sai - nga xuong va mat mau (freeze=1 giu nguoi choi nam xuong den khi dung day)
         ApplyAnimation(playerid, "PED", "BIKE_fall_off", 4.1, 0, 1, 1, 1, 0);
-        PlayerPlaySound(playerid, 6402, 0.0, 0.0, 0.0);
+        Electric_PlaySoundInRange(playerid, 6402);
         {
             new string[128];
             format(string, sizeof(string), "{FF8000}* {C2A2DA}%s bi dien giat!", GetPlayerNameEx(playerid));
