@@ -52,7 +52,7 @@ stock discord_messHack(const str[])
     new DCC_Embed:embed = DCC_CreateEmbed();
     DCC_SetEmbedTitle(embed, "HTB-AC");
     DCC_SetEmbedDescription(embed, str);
-    DCC_SetEmbedFooter(embed, "HTB Roleplay", "https://iili.io/F4IVMts.gif");
+    DCC_SetEmbedFooter(embed, "HTB Roleplay", "https://cdn.discordapp.com/attachments/1550838170210533517/1551096973803655259/logo_htb.png?ex=6ab0bb20&is=6aaf69a0&hm=10ebf1e2fc90b20de58cd26d101ab14755449ea1bde18d44ec72a3434345f287&"); //https://iili.io/F4IVMts.gif
     DCC_SetEmbedColor(embed, 0x00FF00);
     DCC_SendChannelEmbedMessage(antiChannel, embed);
 	return 1;
