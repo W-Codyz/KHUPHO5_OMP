@@ -145,11 +145,11 @@ static stock TW_UpdateLabel(turfid)
         if(aGang >= 0 && aGang < MAX_FAMILY) strmid(aName, FamilyInfo[aGang][FamilyName], 0, 32, 32);
         else format(aName, 32, "???");
         if(dGang >= 0 && dGang < MAX_FAMILY) strmid(dName, FamilyInfo[dGang][FamilyName], 0, 32, 32);
-        else format(dName, 32, "Chua co chu");
+        else format(dName, 32, "_");
         new mins = TurfData[turfid][twTimeLeft] / 60;
         new secs = TurfData[turfid][twTimeLeft] % 60;
         format(statusLine, sizeof(statusLine),
-            "{FF4444}[DANG WAR]\n{FFFFFF}Tan cong: {FF8800}%s\n{FFFFFF}Phong thu: {4488FF}%s\n{FFFF00}Thoi gian: {FFFFFF}%02d:%02d",
+            "{FF4444}[DANG CHIEM DONG]\n{FFFFFF}Gang 1: {FF8800}%s\n{FFFFFF}Gang 2: {4488FF}%s\n{FFFF00}Thoi gian: {FFFFFF}%02d:%02d",
             aName, dName, mins, secs);
         labelColor = 0xFF4444FF;
     }
@@ -169,7 +169,7 @@ static stock TW_UpdateLabel(turfid)
         new hoursLeft = (TurfData[turfid][twSupplyDeadline] - gettime()) / 3600;
         if(hoursLeft < 0) hoursLeft = 0;
         format(statusLine, sizeof(statusLine),
-            "{FFFF00}[SUPPLY DANG CHAY]\n{FFFFFF}Tien do: {FFFF00}%d{FFFFFF}/%d chuyen\n{FFFFFF}Het han: {FF8800}%dh",
+            "{FFFF00}[HANG CAM DANG CHAY]\n{FFFFFF}Tien do: {FFFF00}%d{FFFFFF}/%d chuyen hang cam\n{FFFFFF}Het han: {FF8800}%dh",
             TurfData[turfid][twSupplyCount], TURF_SUPPLY_MAX, hoursLeft);
         labelColor = 0xFFFF00FF;
     }
@@ -213,7 +213,7 @@ static stock TW_UpdateSupplyLabel(idx)
 {FFAA00}Lenh: {FFFFFF}/layhangcam\n\
 {FFAA00}Chi phi:   {FF4444}$%d\n\
 {FFAA00}Phan thuong: {44FF44}$%d\n\
-{888888}(Chu so huu turf moi dung duoc)",
+{888888}(Chu so huu diem chiem dong moi dung duoc)",
         idx + 1, TURF_SUPPLY_COST, TURF_SUPPLY_REWARD);
 
     g_SupplyPts[idx][spLabelId] = _:CreateDynamic3DTextLabel(labelText, 0xFFAA00FF,
@@ -485,10 +485,10 @@ stock TW_StartWar(turfid, attackGang, defendGang)
     if(attackGang >= 0) strmid(aName, FamilyInfo[attackGang][FamilyName], 0, 32, 32);
     else format(aName, 32, "???");
     if(defendGang >= 0) strmid(dName, FamilyInfo[defendGang][FamilyName], 0, 32, 32);
-    else format(dName, 32, "Chua co chu");
+    else format(dName, 32, "_");
 
     format(str, sizeof(str),
-        "[WAR] %s dang tan cong turf cua %s! (%.1f, %.1f) - Dung /diemchiemdong xem chi tiet.",
+        "[CHIEM DONG] %s va %s bat dau tranh gianh! (%.1f, %.1f) - Dung /diemchiemdong xem chi tiet.",
         aName, dName, TurfData[turfid][twPosX], TurfData[turfid][twPosY]);
 
     if(attackGang >= 0) TW_FamilyMsg(attackGang, COLOR_RED,    str);
@@ -518,7 +518,7 @@ static stock TW_EndWar(turfid)
     else format(wName, 32, "Khong ai");
 
     format(str, sizeof(str),
-        "[WAR KET THUC] %s chien thang! (Tan cong: %d vs Phong thu: %d) +%d fame",
+        "[CHIEM DONG KET THUC] %s chien thang! (Gang 1: %d vs Gang 2: %d) +%d fame",
         wName,
         (winner == aGang) ? aCnt : dCnt,
         (winner == aGang) ? dCnt : aCnt,
@@ -579,7 +579,7 @@ static stock TW_StartSupplyCollect(playerid, turfid)
             SendClientMessageEx(i, COLOR_RED, str);
     }
 
-    SendClientMessageEx(playerid, COLOR_YELLOW, "Ban dang mua hang... Cho 30 giay. Neu bi giet hoac roi khoi diem lay hang se mat tien!");
+    SendClientMessageEx(playerid, COLOR_YELLOW, "Ban dang mua hang cam... Cho 30 giay. Neu bi giet hoac roi khoi diem lay hang cam se mat tien!");
     SetLoading(playerid, TURF_SUPPLY_WAIT * 1000, "Dang lay hang cam...", "TW_OnSupplyLoaded");
 }
 
@@ -634,7 +634,7 @@ public TW_OnSupplyLoaded(playerid)
     SetPlayerCP(playerid, TurfData[turfid][twPosX], TurfData[turfid][twPosY], TurfData[turfid][twPosZ], 5.0);
     gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
 
-    SendClientMessageEx(playerid, COLOR_GREEN, "Ban da nhan hang! Giao den checkpoint (diem chiem dong).");
+    SendClientMessageEx(playerid, COLOR_GREEN, "Ban da nhan hang cam! Giao den checkpoint (diem chiem dong).");
 }
 
 // Giao hàng thành công khi đến turf
@@ -649,7 +649,7 @@ static stock TW_DeliverSupply(playerid)
     TurfData[turfid][twSupplyCount]++;
 
     new str[128];
-    format(str, sizeof(str), "Giao hang thanh cong! +$%d. Tong: %d/%d chuyen.",
+    format(str, sizeof(str), "Giao hang cam thanh cong! +$%d. Tong: %d/%d chuyen hang cam.",
         TURF_SUPPLY_REWARD, TurfData[turfid][twSupplyCount], TURF_SUPPLY_MAX);
     SendClientMessageEx(playerid, COLOR_GREEN, str);
 
@@ -662,7 +662,7 @@ static stock TW_DeliverSupply(playerid)
 
         new gstr[160];
         format(gstr, sizeof(gstr),
-            "[SUPPLY HOAN THANH] Gang da giao du %d chuyen hang! Rank 4+ dung /nhanthuongturf de nhan qua.",
+            "[HANG CAM HOAN THANH] Gang da giao du %d chuyen hang cam! Rank 4+ dung /nhanthuongturf de nhan qua.",
             TURF_SUPPLY_MAX);
         if(owner >= 0) TW_FamilyMsg(owner, COLOR_GREEN, gstr);
     }
@@ -684,13 +684,13 @@ static stock TW_CancelSupply(playerid)
         g_twSupplyPtIdx[playerid] = -1;
         StopLoading(playerid);
         g_twSupplyCollecting[playerid] = false;
-        SendClientMessageEx(playerid, COLOR_RED, "Ban bi giet trong khi lay hang. Mat $25,000!");
+        SendClientMessageEx(playerid, COLOR_RED, "Ban bi giet trong khi lay hang cam. Mat $25,000!");
     }
     if(g_twSupplyCarrying[playerid])
     {
         g_twSupplyCarrying[playerid] = false;
         DisablePlayerCheckpoint(playerid);
-        SendClientMessageEx(playerid, COLOR_RED, "Ban bi giet khi mang hang. Hang mat, khong hoan tien!");
+        SendClientMessageEx(playerid, COLOR_RED, "Ban bi giet khi mang hang cam. Hang cam mat, khong hoan tien!");
     }
     g_twSupplyTurf[playerid] = -1;
 }
@@ -823,44 +823,57 @@ static stock TW_ShowTurfList(playerid)
         return SendClientMessageEx(playerid, COLOR_RED, "Chua co diem chiem dong nao.");
 
     new fam = PlayerInfo[playerid][pFMember];
-    new list[2048]; list[0] = 0;
+    new list[4096]; list[0] = 0;
+
+    strcat(list, "Dia ban\tGang 1\tGang 2\tTinh trang\n", sizeof(list));
 
     for(new i = 0; i < TotalTurfs; i++)
     {
-        new ownerName[32];
-        new ownerIdx = TurfData[i][twOwnerGang];
-        if(ownerIdx >= 0 && ownerIdx < MAX_FAMILY)
-            strmid(ownerName, FamilyInfo[ownerIdx][FamilyName], 0, 32, 32);
-        else
-            format(ownerName, 32, "Trong");
-
         new zone[MAX_ZONE_NAME];
         Get3DZone(TurfData[i][twPosX], TurfData[i][twPosY], TurfData[i][twPosZ], zone, sizeof(zone));
 
-        new status[48];
+        new gang1Name[32], gang2Name[32];
+        new bool:playerInvolved = false;
+        new aGang = TurfData[i][twAttackGang];
+        new dGang = TurfData[i][twDefendGang];
+        new ownerIdx = TurfData[i][twOwnerGang];
+
         if(TurfData[i][twActive])
         {
-            if(TurfData[i][twAttackGang] == fam || TurfData[i][twDefendGang] == fam)
-                format(status, sizeof(status), "{FFFF00}WAR (CUA BAN)");
-            else
-                format(status, sizeof(status), "{FF4444}WAR");
+            if(aGang >= 0 && aGang < MAX_FAMILY) strmid(gang1Name, FamilyInfo[aGang][FamilyName], 0, 32, 32);
+            else format(gang1Name, 32, "---");
+            if(dGang >= 0 && dGang < MAX_FAMILY) strmid(gang2Name, FamilyInfo[dGang][FamilyName], 0, 32, 32);
+            else format(gang2Name, 32, "---");
+            playerInvolved = (fam >= 0 && (fam == aGang || fam == dGang));
         }
+        else
+        {
+            if(ownerIdx >= 0 && ownerIdx < MAX_FAMILY) strmid(gang1Name, FamilyInfo[ownerIdx][FamilyName], 0, 32, 32);
+            else format(gang1Name, 32, "Trong");
+            format(gang2Name, 32, "---");
+            playerInvolved = (fam >= 0 && fam == ownerIdx);
+        }
+
+        new status[56];
+        if(TurfData[i][twActive])
+            format(status, sizeof(status), playerInvolved ? "{FFFF00}CHIEN (CUA BAN)" : "{FF4444}CHIEN");
         else if(TurfData[i][twLocked])
             format(status, sizeof(status), "{888888}DONG");
         else if(TurfData[i][twSupplyDeadline] > 0 && TurfData[i][twSupplyCount] < TURF_SUPPLY_MAX)
-            format(status, sizeof(status), "{00BFFF}SUPPLY");
+            format(status, sizeof(status), "{00BFFF}HANG CAM");
         else
             format(status, sizeof(status), "{44FF44}MO");
 
-        new line[192];
-        format(line, sizeof(line),
-            "{AAAAAA}#%d  {FFFFFF}%s  {AAAAAA}|  Chu: {FFFFFF}%s  {AAAAAA}|  {FFFFFF}%s\n",
-            i + 1, zone, ownerName, status);
+        new line[256];
+        if(playerInvolved)
+            format(line, sizeof(line), "{00FF00}%s\t{FFFF00}%s\t{FFFF00}%s\t%s\n", zone, gang1Name, gang2Name, status);
+        else
+            format(line, sizeof(line), "%s\t{FFFF00}%s\t{FFFF00}%s\t%s\n", zone, gang1Name, gang2Name, status);
         strcat(list, line, sizeof(list));
     }
 
-    ShowPlayerDialog(playerid, DIALOG_TURF_LIST, DIALOG_STYLE_LIST,
-        "Danh Sach Diem Chiem Dong", list, "Xem chi tiet", "Dong");
+    ShowPlayerDialog(playerid, DIALOG_TURF_LIST, DIALOG_STYLE_TABLIST_HEADERS,
+        "> Diem chiem dong", list, "Xem chi tiet", "Dong");
 }
 
 CMD:diemchiemdong(playerid, params[])
@@ -911,7 +924,7 @@ CMD:nhanthuongturf(playerid, params[])
 
     new str[192];
     format(str, sizeof(str),
-        "[PHAN THUONG] %s da nhan thuong supply turf #%d: +$%d tien mat, +%d fame, +50 Pot/+30 Crack/+5000 Vat lieu (/tuido).",
+        "[PHAN THUONG] %s da nhan thuong giao hang cam diem chiem dong #%d: +$%d tien mat, +%d fame, +50 Pot/+30 Crack/+5000 Vat lieu (/tuido).",
         GetPlayerNameEx(playerid), turfid + 1, TURF_SUPPLY_DONE_BANK, TURF_SUPPLY_DONE_FAME);
     TW_FamilyMsg(fam, COLOR_LIGHTGREEN, str);
 
@@ -1076,7 +1089,7 @@ CMD:testturf(playerid, params[])
 
         new fstr[96];
         format(fstr, sizeof(fstr),
-            "[SUPPLY] Gang that bai! Chi giao %d/%d chuyen trong 48h. -%d fame!",
+            "[HANG CAM] Gang that bai! Chi giao %d/%d chuyen hang cam trong 48h. -%d fame!",
             TurfData[tid][twSupplyCount], TURF_SUPPLY_MAX, TURF_SUPPLY_FAIL_FAME);
         if(owner >= 0) { TW_FamilyMsg(owner, COLOR_RED, fstr); SaveFamily(owner); }
 
@@ -1265,7 +1278,7 @@ stock TW_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 format(line, sizeof(line), "%s\n", FamilyInfo[i][FamilyName]);
                 strcat(list, line, sizeof(list));
             }
-            ShowPlayerDialog(playerid, DIALOG_TURFADMIN_SELGANG1, DIALOG_STYLE_LIST, "Chon Gang Tan Cong", list, "Chon", "Huy");
+            ShowPlayerDialog(playerid, DIALOG_TURFADMIN_SELGANG1, DIALOG_STYLE_LIST, "Chon Gang 1", list, "Chon", "Huy");
             return 1;
         }
 
@@ -1291,7 +1304,7 @@ stock TW_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 format(line, sizeof(line), "%s\n", FamilyInfo[i][FamilyName]);
                 strcat(list, line, sizeof(list));
             }
-            ShowPlayerDialog(playerid, DIALOG_TURFADMIN_SELGANG2, DIALOG_STYLE_LIST, "Chon Gang Phong Thu", list, "Chon", "Huy");
+            ShowPlayerDialog(playerid, DIALOG_TURFADMIN_SELGANG2, DIALOG_STYLE_LIST, "Chon Gang 2", list, "Chon", "Huy");
             return 1;
         }
 
@@ -1337,48 +1350,82 @@ stock TW_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(turfid >= TotalTurfs) return 1;
             g_twAdminTurf[playerid] = turfid;
 
-            new ownerName[32], aName[32], dName[32];
+            // Khu vuc
+            new zone[MAX_ZONE_NAME];
+            Get3DZone(TurfData[turfid][twPosX], TurfData[turfid][twPosY], TurfData[turfid][twPosZ], zone, sizeof(zone));
+
+            // Chu so huu
+            new ownerName[32];
             new ownerIdx = TurfData[turfid][twOwnerGang];
             if(ownerIdx >= 0 && ownerIdx < MAX_FAMILY)
                 strmid(ownerName, FamilyInfo[ownerIdx][FamilyName], 0, 32, 32);
-            else format(ownerName, 32, "Trong");
+            else format(ownerName, 32, "_");
 
-            new str[512];
+            // Gang 1 / Gang 2
+            new gang1Name[32], gang2Name[32];
+            new aGang = TurfData[turfid][twAttackGang];
+            new dGang = TurfData[turfid][twDefendGang];
+            if(aGang >= 0 && aGang < MAX_FAMILY) strmid(gang1Name, FamilyInfo[aGang][FamilyName], 0, 32, 32);
+            else format(gang1Name, 32, "_");
+            if(dGang >= 0 && dGang < MAX_FAMILY) strmid(gang2Name, FamilyInfo[dGang][FamilyName], 0, 32, 32);
+            else format(gang2Name, 32, "_");
+
+            // Trang thai
+            new stateStr[48];
+            if(TurfData[turfid][twActive])
+                format(stateStr, sizeof(stateStr), "{FF4444}DANG CHIEM DONG");
+            else if(TurfData[turfid][twLocked])
+                format(stateStr, sizeof(stateStr), "{888888}DANG BI KHOA");
+            else if(TurfData[turfid][twSupplyDeadline] > 0 && TurfData[turfid][twSupplyCount] < TURF_SUPPLY_MAX)
+                format(stateStr, sizeof(stateStr), "{00BFFF}DANG GIAO HANG CAM");
+            else if(g_twSupplyDone[turfid])
+                format(stateStr, sizeof(stateStr), "{FF8C00}PHAN THUONG SAN SANG");
+            else
+                format(stateStr, sizeof(stateStr), "{44FF44}Binh thuong");
+
+            // Thoi gian con lai
+            new timeStr[24];
             if(TurfData[turfid][twActive])
             {
-                new aGang = TurfData[turfid][twAttackGang];
-                new dGang = TurfData[turfid][twDefendGang];
-                if(aGang >= 0 && aGang < MAX_FAMILY) strmid(aName, FamilyInfo[aGang][FamilyName], 0, 32, 32);
-                else format(aName, 32, "???");
-                if(dGang >= 0 && dGang < MAX_FAMILY) strmid(dName, FamilyInfo[dGang][FamilyName], 0, 32, 32);
-                else format(dName, 32, "Khong co");
                 new mins = TurfData[turfid][twTimeLeft] / 60;
                 new secs = TurfData[turfid][twTimeLeft] % 60;
-                format(str, sizeof(str),
-                    "{FFD700}===== TURF #%d =====\n\n\
-                    {AAAAAA}   Chu so huu:  {FFFFFF}%s\n\
-                    {AAAAAA}   Trang thai:  {FF4444}DANG CHIEN\n\
-                    {AAAAAA}   Tan cong:    {FF8888}%s\n\
-                    {AAAAAA}   Phong thu:   {88AAFF}%s\n\
-                    {AAAAAA}   Toa do:      {FFFFFF}%.1f, %.1f, %.1f\n\
-                    {AAAAAA}   Thoi gian:   {FFFF00}%02d:%02d {AAAAAA}con lai",
-                    turfid + 1, ownerName, aName, dName,
-                    TurfData[turfid][twPosX], TurfData[turfid][twPosY], TurfData[turfid][twPosZ],
-                    mins, secs);
+                format(timeStr, sizeof(timeStr), "{FFFF00}%02d:%02d", mins, secs);
+            }
+            else format(timeStr, sizeof(timeStr), "_");
+
+            // Hang cam tien do
+            new supplyStr[56], deadlineStr[24];
+            if(g_twSupplyDone[turfid])
+            {
+                format(supplyStr, sizeof(supplyStr), "{44FF44}%d/%d - HOAN THANH", TURF_SUPPLY_MAX, TURF_SUPPLY_MAX);
+                format(deadlineStr, sizeof(deadlineStr), "_");
+            }
+            else if(TurfData[turfid][twSupplyDeadline] > 0 && TurfData[turfid][twSupplyCount] < TURF_SUPPLY_MAX)
+            {
+                format(supplyStr, sizeof(supplyStr), "{FFFF00}%d{FFFFFF}/%d chuyen", TurfData[turfid][twSupplyCount], TURF_SUPPLY_MAX);
+                new hoursLeft = (TurfData[turfid][twSupplyDeadline] - gettime()) / 3600;
+                if(hoursLeft < 0) hoursLeft = 0;
+                format(deadlineStr, sizeof(deadlineStr), "{FF8800}%dh", hoursLeft);
             }
             else
             {
-                new stateStr[40];
-                if(TurfData[turfid][twLocked]) format(stateStr, 40, "{888888}DANG BI KHOA");
-                else format(stateStr, 40, "{44FF44}Binh thuong");
-                format(str, sizeof(str),
-                    "{FFD700}===== TURF #%d =====\n\n\
-{AAAAAA}   Chu so huu:  {FFFFFF}%s\n\
-{AAAAAA}   Trang thai:  %s\n\
-{AAAAAA}   Toa do:      {FFFFFF}%.1f, %.1f, %.1f",
-                    turfid + 1, ownerName, stateStr,
-                    TurfData[turfid][twPosX], TurfData[turfid][twPosY], TurfData[turfid][twPosZ]);
+                format(supplyStr, sizeof(supplyStr), "_");
+                format(deadlineStr, sizeof(deadlineStr), "_");
             }
+
+            new str[768];
+            format(str, sizeof(str),
+                "{FFD700}===== DIEM CHIEM DONG #%d =====\n\n\
+{AAAAAA}   Khu vuc:     {FFFFFF}%s\n\
+{AAAAAA}   Chu so huu:  {FFFFFF}%s\n\
+{AAAAAA}   Gang 1:      {FFFF00}%s\n\
+{AAAAAA}   Gang 2:      {FFFF00}%s\n\
+{AAAAAA}   Trang thai:  %s\n\
+{AAAAAA}   Thoi gian:   %s\n\
+{AAAAAA}   Hang cam:    %s\n\
+{AAAAAA}   Het han:     %s",
+                turfid + 1, zone, ownerName, gang1Name, gang2Name,
+                stateStr, timeStr, supplyStr, deadlineStr);
 
             ShowPlayerDialog(playerid, DIALOG_DIEMCHIEMDONG, DIALOG_STYLE_MSGBOX,
                 "Chi Tiet Diem Chiem Dong", str, "Dieu Huong", "Quay Lai");
@@ -1480,41 +1527,54 @@ public TW_OnTurfCreated(playerid)
 // Thực hiện random war: tìm 2 gang có đủ thành viên online
 static stock TW_TryRandomWar(adminid)
 {
-    // Thu thập danh sách gang có >= TURF_WAR_MIN_MEMBERS online
+    // Thu thập danh sách gang có ít nhất 1 thành viên (không cần online)
     new eligible[MAX_FAMILY], eCount = 0;
     for(new i = 0; i < MAX_FAMILY; i++)
     {
-        if(FamilyInfo[i][FamilyTaken] && TW_CountOnline(i) >= TURF_WAR_MIN_MEMBERS)
+        if(FamilyInfo[i][FamilyTaken] && FamilyInfo[i][FamilyMembers] > 0)
             eligible[eCount++] = i;
     }
 
-    if(eCount < 2)
+    if(eCount < 1)
     {
-        new str[96];
-        format(str, sizeof(str), "Khong du gang co %d+ thanh vien online de random war.", TURF_WAR_MIN_MEMBERS);
-        SendClientMessageEx(adminid, COLOR_RED, str);
+        SendClientMessageEx(adminid, COLOR_RED, "Khong co gang nao co thanh vien de random war.");
         return 0;
     }
 
-    // Random chọn turf chưa có ai sở hữu hoặc turf bất kỳ
-    new freeTurfs[MAX_TURFS], fCount = 0;
-    for(new i = 0; i < TotalTurfs; i++)
-        if(!TurfData[i][twActive] && !TurfData[i][twLocked]) freeTurfs[fCount++] = i;
-
-    if(fCount == 0)
-    {
-        SendClientMessageEx(adminid, COLOR_RED, "Khong co turf kha dung.");
-        return 0;
-    }
-
-    new turfid = freeTurfs[random(fCount)];
-
-    // Random 2 gang khác nhau
+    // Chọn gang 1 ngẫu nhiên
     new g1idx = random(eCount);
-    new g2idx;
-    do { g2idx = random(eCount); } while(g2idx == g1idx);
+    new gang1 = eligible[g1idx];
 
-    TW_StartWar(turfid, eligible[g1idx], eligible[g2idx]);
+    // Lọc điểm chiếm đóng không bị khóa, không đang war, và không thuộc gang1
+    new candidateTurfs[MAX_TURFS], cCount = 0;
+    for(new i = 0; i < TotalTurfs; i++)
+    {
+        if(!TurfData[i][twActive] && !TurfData[i][twLocked] && TurfData[i][twOwnerGang] != gang1)
+            candidateTurfs[cCount++] = i;
+    }
+
+    if(cCount == 0)
+    {
+        SendClientMessageEx(adminid, COLOR_RED, "Khong co diem chiem dong kha dung (tat ca deu thuoc gang duoc chon hoac dang war).");
+        return 0;
+    }
+
+    new turfid = candidateTurfs[random(cCount)];
+
+    // Gang 2: chủ sở hữu điểm nếu có trong eligible và khác gang1
+    // Nếu không → gang2 = -1 (điểm trống, gang1 chỉ cần đứng hết giờ là thắng)
+    new turfOwner = TurfData[turfid][twOwnerGang];
+    new gang2 = -1;
+
+    if(turfOwner >= 0 && turfOwner != gang1)
+    {
+        for(new j = 0; j < eCount; j++)
+        {
+            if(eligible[j] == turfOwner) { gang2 = turfOwner; break; }
+        }
+    }
+
+    TW_StartWar(turfid, gang1, gang2);
     SendClientMessageEx(adminid, COLOR_GREEN, "Da bat dau random war thanh cong!");
     return 1;
 }
@@ -1664,7 +1724,7 @@ task TurfSupplyDeadlineCheck[300000]()
 
         new str[96];
         format(str, sizeof(str),
-            "[SUPPLY] Gang that bai! Chi giao %d/%d chuyen trong 48h. -%d fame!",
+            "[HANG CAM] Gang that bai! Chi giao %d/%d chuyen hang cam trong 48h. -%d fame!",
             TurfData[i][twSupplyCount], TURF_SUPPLY_MAX, TURF_SUPPLY_FAIL_FAME);
         TW_FamilyMsg(owner, COLOR_RED, str);
         SaveFamily(owner);
