@@ -545,7 +545,7 @@ task MoneyUpdate[1000]()
 				GivePlayerMoney(i, PlayerInfo[i][pCash]);
 			}
 
-			if(IsValidTextDraw(GPS[i]))
+			/* if(IsValidTextDraw(GPS[i]))
 			{
 				if(GetPlayerState(i) != PLAYER_STATE_SPECTATING && GetPlayerInterior(i) == 0)
 				{
@@ -557,7 +557,7 @@ task MoneyUpdate[1000]()
 				else {	
 					TextDrawHideForPlayer(i, GPS[i]);
 				}
-			}
+			} */
 
 			if(GetPVarType(i, "Injured")) SetPlayerArmedWeapon(i, 0);
 			if(GetPVarType(i, "IsFrozen")) TogglePlayerControllable(i, false);

@@ -1018,7 +1018,7 @@ stock CreatePlayerTextDraws(playerid)
 	PlayerTextDrawFont(playerid, XP_Textdraw[playerid][2], TEXT_DRAW_FONT_1);
 	PlayerTextDrawSetProportional(playerid, XP_Textdraw[playerid][2], true); */
 
-	GPS[playerid] = TextDrawCreate(95.000000, 319.000000, "Dang tai...");
+	/* GPS[playerid] = TextDrawCreate(95.000000, 319.000000, "Dang tai...");
 	TextDrawAlignment(GPS[playerid], 2);
 	TextDrawBackgroundColour(GPS[playerid], 255);
 	TextDrawFont(GPS[playerid], 2);
@@ -1026,7 +1026,7 @@ stock CreatePlayerTextDraws(playerid)
 	TextDrawColour(GPS[playerid], -1);
 	TextDrawSetOutline(GPS[playerid], 1);
 	TextDrawSetProportional(GPS[playerid], true);
-	TextDrawShowForPlayer(playerid, GPS[playerid]);
+	TextDrawShowForPlayer(playerid, GPS[playerid]); */
 
 	//GiveCash Notice
 	GiveCashTD[playerid] = CreatePlayerTextDraw(playerid, 607.000, 108.000, "+$0");

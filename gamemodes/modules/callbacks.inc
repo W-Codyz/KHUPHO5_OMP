@@ -3272,8 +3272,8 @@ public OnPlayerDisconnect(playerid, reason)
 			KillTimer(GetPVarInt(playerid, "RentTime"));
 		}
 
-		TextDrawDestroy(GPS[playerid]);
-		GPS[playerid] = INVALID_TEXT_DRAW;
+		/* TextDrawDestroy(GPS[playerid]);
+		GPS[playerid] = INVALID_TEXT_DRAW; */
 
 		if(PlayerInfo[playerid][pAdmin] >= 2) TextDrawDestroy(PriorityReport[playerid]);
 

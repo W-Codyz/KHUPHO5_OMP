@@ -294,7 +294,7 @@ new gRotZoomAmount = 0; // Amount of Rotation/Zoom informations used
 // Textdraw Global Variables
 new Text:NoticeTxtdraw[4];
 new Text:WristWatch;
-new Text:GPS[MAX_PLAYERS] = {INVALID_TEXT_DRAW, ...};
+//new Text:GPS[MAX_PLAYERS] = {INVALID_TEXT_DRAW, ...};
 new Text:BFText;
 new Text:PriorityReport[MAX_PLAYERS];
 new Text:noticeCommand[3];
