@@ -3845,7 +3845,7 @@
 			<member name="C:e_iTargetColor" value="12">
 			</member>
 		</member>
-		<member name="T:eBiz" value="870">
+		<member name="T:eBiz" value="872">
 			<tagname value="eBiz"/>
 			<member name="C:bName" value="0">
 				<size value="48"/>
@@ -3931,165 +3931,170 @@
 			<member name="C:bSupplyText" value="562">
 				<tagname value="Text3D"/>
 			</member>
-			<member name="C:bMapIcon" value="563">
+			<member name="C:bIntDoorText" value="563">
+				<tagname value="Text3D"/>
 			</member>
-			<member name="C:bPickup" value="564">
+			<member name="C:bMapIcon" value="564">
 			</member>
-			<member name="C:bAutoPay" value="565">
+			<member name="C:bPickup" value="565">
 			</member>
-			<member name="C:bGasPrice" value="566">
+			<member name="C:bIntPickup" value="566">
+			</member>
+			<member name="C:bAutoPay" value="567">
+			</member>
+			<member name="C:bGasPrice" value="568">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:bStrictPrice" value="567">
+			<member name="C:bStrictPrice" value="569">
 			</member>
-			<member name="C:bOrderBy" value="568">
+			<member name="C:bOrderBy" value="570">
 				<size value="24"/>
 			</member>
-			<member name="C:bOrderState" value="592">
+			<member name="C:bOrderState" value="594">
 			</member>
-			<member name="C:bOrderAmount" value="593">
+			<member name="C:bOrderAmount" value="595">
 			</member>
-			<member name="C:bOrderDate" value="594">
+			<member name="C:bOrderDate" value="596">
 				<size value="30"/>
 			</member>
-			<member name="C:bCustomExterior" value="624">
+			<member name="C:bCustomExterior" value="626">
 			</member>
-			<member name="C:bCustomInterior" value="625">
+			<member name="C:bCustomInterior" value="627">
 			</member>
-			<member name="C:bGrade" value="626">
+			<member name="C:bGrade" value="628">
 			</member>
-			<member name="C:GasPumpPosX" value="627">
+			<member name="C:GasPumpPosX" value="629">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpPosY" value="629">
+			<member name="C:GasPumpPosY" value="631">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpPosZ" value="631">
+			<member name="C:GasPumpPosZ" value="633">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpAngle" value="633">
+			<member name="C:GasPumpAngle" value="635">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpCapacity" value="635">
+			<member name="C:GasPumpCapacity" value="637">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpGallons" value="637">
+			<member name="C:GasPumpGallons" value="639">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpObjectID" value="639">
+			<member name="C:GasPumpObjectID" value="641">
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpInfoTextID" value="641">
+			<member name="C:GasPumpInfoTextID" value="643">
 				<tagname value="Text3D"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpSaleTextID" value="643">
+			<member name="C:GasPumpSaleTextID" value="645">
 				<tagname value="Text3D"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpSaleGallons" value="645">
+			<member name="C:GasPumpSaleGallons" value="647">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpSalePrice" value="647">
+			<member name="C:GasPumpSalePrice" value="649">
 				<tagname value="Float"/>
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpTimer" value="649">
+			<member name="C:GasPumpTimer" value="651">
 				<size value="2"/>
 			</member>
-			<member name="C:GasPumpVehicleID" value="651">
+			<member name="C:GasPumpVehicleID" value="653">
 				<size value="2"/>
 			</member>
-			<member name="C:bParkPosX" value="653">
+			<member name="C:bParkPosX" value="655">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bParkPosY" value="663">
+			<member name="C:bParkPosY" value="665">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bParkPosZ" value="673">
+			<member name="C:bParkPosZ" value="675">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bParkAngle" value="683">
+			<member name="C:bParkAngle" value="685">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bPurchaseX" value="693">
+			<member name="C:bPurchaseX" value="695">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bPurchaseY" value="703">
+			<member name="C:bPurchaseY" value="705">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bPurchaseZ" value="713">
+			<member name="C:bPurchaseZ" value="715">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bPurchaseAngle" value="723">
+			<member name="C:bPurchaseAngle" value="725">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bColor1" value="733">
+			<member name="C:bColor1" value="735">
 				<size value="10"/>
 			</member>
-			<member name="C:bColor2" value="743">
+			<member name="C:bColor2" value="745">
 				<size value="10"/>
 			</member>
-			<member name="C:bModel" value="753">
+			<member name="C:bModel" value="755">
 				<size value="10"/>
 			</member>
-			<member name="C:bPrice" value="763">
+			<member name="C:bPrice" value="765">
 			</member>
-			<member name="C:bHealth" value="773">
+			<member name="C:bHealth" value="775">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bFuel" value="783">
+			<member name="C:bFuel" value="785">
 				<tagname value="Float"/>
 				<size value="10"/>
 			</member>
-			<member name="C:Lock" value="793">
+			<member name="C:Lock" value="795">
 				<size value="10"/>
 			</member>
-			<member name="C:bVehID" value="803">
+			<member name="C:bVehID" value="805">
 				<size value="10"/>
 			</member>
-			<member name="C:DealershipVehStock" value="813">
+			<member name="C:DealershipVehStock" value="815">
 				<size value="10"/>
 			</member>
-			<member name="C:DealershipVehOrder" value="823">
+			<member name="C:DealershipVehOrder" value="825">
 				<size value="10"/>
 			</member>
-			<member name="C:bVehicleLabel" value="833">
+			<member name="C:bVehicleLabel" value="835">
 				<tagname value="Text3D"/>
 				<size value="10"/>
 			</member>
-			<member name="C:bMonths" value="843">
+			<member name="C:bMonths" value="845">
 			</member>
-			<member name="C:bGymEntryFee" value="844">
+			<member name="C:bGymEntryFee" value="846">
 			</member>
-			<member name="C:bGymType" value="845">
+			<member name="C:bGymType" value="847">
 			</member>
-			<member name="C:bGymBoxingArena1" value="846">
+			<member name="C:bGymBoxingArena1" value="848">
 				<size value="2"/>
 			</member>
-			<member name="C:bGymBoxingArena2" value="848">
+			<member name="C:bGymBoxingArena2" value="850">
 				<size value="2"/>
 			</member>
-			<member name="C:bGymBikePlayers" value="850">
+			<member name="C:bGymBikePlayers" value="852">
 				<size value="10"/>
 			</member>
-			<member name="C:bGymBikeVehicles" value="860">
+			<member name="C:bGymBikeVehicles" value="862">
 				<size value="10"/>
 			</member>
 		</member>
@@ -7144,10 +7149,12 @@
 			<referrer name="pc_cmd_backup"/>
 			<referrer name="pc_cmd_removepvehicle"/>
 			<referrer name="pc_cmd_makeadmin"/>
+			<referrer name="pc_cmd_editcarspawn"/>
 			<referrer name="pc_cmd_entrancefee"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_veh"/>
 			<referrer name="pc_cmd_cnnn"/>
 			<referrer name="pc_cmd_warrant"/>
@@ -10100,6 +10107,7 @@
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_brenewal"/>
 			<referrer name="pc_cmd_shopbusiness"/>
 			<referrer name="pc_cmd_shopbusinessname"/>
@@ -14688,6 +14696,7 @@
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_veh"/>
 			<referrer name="pc_cmd_cnnn"/>
 			<referrer name="pc_cmd_quitgang"/>
@@ -17148,6 +17157,7 @@
 			<referrer name="pc_cmd_apark"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_carkeys"/>
 			<referrer name="pc_cmd_givekeys"/>
 			<referrer name="pc_cmd_dmvrelease"/>
@@ -18395,10 +18405,12 @@
 			<referrer name="pc_cmd_backup"/>
 			<referrer name="pc_cmd_removepvehicle"/>
 			<referrer name="pc_cmd_makeadmin"/>
+			<referrer name="pc_cmd_editcarspawn"/>
 			<referrer name="pc_cmd_entrancefee"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_veh"/>
 			<referrer name="pc_cmd_cnnn"/>
 			<referrer name="pc_cmd_warrant"/>
@@ -34988,12 +35000,13 @@
 		</member>
 		<member name="M:BusinessesLoadQueryFinish" syntax="BusinessesLoadQueryFinish()">
 			<attribute name="public"/>
-			<stacksize value="215"/>
+			<stacksize value="445"/>
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="CreateDynamicGasPump"/>
+			<dependency name="DealershipVehStock"/>
 			<dependency name="EVF_CreateVehicle"/>
 			<dependency name="GasPumpAngle"/>
 			<dependency name="GasPumpCapacity"/>
@@ -42315,6 +42328,7 @@
 			<referrer name="pc_cmd_quitevent"/>
 			<referrer name="pc_cmd_pnsedit"/>
 			<referrer name="pc_cmd_deletecdveh"/>
+			<referrer name="pc_cmd_createcdveh"/>
 			<referrer name="pc_cmd_dynamicgift"/>
 			<referrer name="pc_cmd_createpoint"/>
 			<referrer name="pc_cmd_deletepoint"/>
@@ -48076,6 +48090,7 @@
 			<referrer name="pc_cmd_park"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="Businesses"/>
@@ -48174,6 +48189,7 @@
 			<referrer name="pc_cmd_park"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="OPBA_OnPlayerStateChange"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="Businesses"/>
@@ -54091,6 +54107,7 @@
 			<referrer name="pc_cmd_parktrailer"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_vmdc"/>
 			<referrer name="pc_cmd_vticket"/>
 			<referrer name="pc_cmd_vcheck"/>
@@ -61711,6 +61728,7 @@
 			<referrer name="pc_cmd_joinevent"/>
 			<referrer name="pc_cmd_quitevent"/>
 			<referrer name="pc_cmd_deletecdveh"/>
+			<referrer name="pc_cmd_createcdveh"/>
 			<referrer name="pc_cmd_createpoint"/>
 			<referrer name="pc_cmd_deletepoint"/>
 			<referrer name="pc_cmd_claimpoint"/>
@@ -69285,7 +69303,7 @@
 		</member>
 		<member name="M:OPBA_OnPlayerStateChange" syntax="OPBA_OnPlayerStateChange(playerid, newstate, oldstate)">
 			<attribute name="public"/>
-			<stacksize value="219"/>
+			<stacksize value="638"/>
 			<dependency name="operator+(Float:,_:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="Float:operator=(_:)"/>
@@ -69296,6 +69314,7 @@
 			<dependency name="CarRadars"/>
 			<dependency name="ConnectedToPC"/>
 			<dependency name="CrateVehicleLoad"/>
+			<dependency name="DealershipVehStock"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="DestroyDynamic3DTextLabel"/>
 			<dependency name="DiscordLog"/>
@@ -69393,6 +69412,7 @@
 			<dependency name="arrGroupDivisions"/>
 			<dependency name="bGymBikeVehicles"/>
 			<dependency name="bInventory"/>
+			<dependency name="bName"/>
 			<dependency name="bPrice"/>
 			<dependency name="cellmax"/>
 			<dependency name="dclog_Taxi"/>
@@ -70499,6 +70519,7 @@
 			<dependency name="DDoorsInfo"/>
 			<dependency name="DDoorsInfo"/>
 			<dependency name="DMVRelease"/>
+			<dependency name="DealershipVehStock"/>
 			<dependency name="DeleteFlag"/>
 			<dependency name="DeletePVar"/>
 			<dependency name="DeleteSkin"/>
@@ -70799,6 +70820,7 @@
 			<dependency name="SaveAuction"/>
 			<dependency name="SaveBusiness"/>
 			<dependency name="SaveBusinessSale"/>
+			<dependency name="SaveDealershipVehicle"/>
 			<dependency name="SaveDynamicDoor"/>
 			<dependency name="SaveFamiliesHQ"/>
 			<dependency name="SaveFamily"/>
@@ -70961,6 +70983,8 @@
 			<dependency name="bTotalSales"/>
 			<dependency name="bType"/>
 			<dependency name="bType"/>
+			<dependency name="bVehID"/>
+			<dependency name="bVehicleLabel"/>
 			<dependency name="cellmax"/>
 			<dependency name="chancegambler"/>
 			<dependency name="crLabel"/>
@@ -82311,6 +82335,10 @@
 			<dependency name="bDoorText"/>
 			<dependency name="bExtPos"/>
 			<dependency name="bGymEntryFee"/>
+			<dependency name="bInt"/>
+			<dependency name="bIntDoorText"/>
+			<dependency name="bIntPickup"/>
+			<dependency name="bIntPos"/>
 			<dependency name="bMapIcon"/>
 			<dependency name="bName"/>
 			<dependency name="bOwner"/>
@@ -82321,6 +82349,7 @@
 			<dependency name="bSupplyPos"/>
 			<dependency name="bSupplyText"/>
 			<dependency name="bType"/>
+			<dependency name="bVW"/>
 			<dependency name="bValue"/>
 			<dependency name="format"/>
 			<dependency name="number_format"/>
@@ -84334,10 +84363,12 @@
 			<referrer name="pc_cmd_backup"/>
 			<referrer name="pc_cmd_removepvehicle"/>
 			<referrer name="pc_cmd_makeadmin"/>
+			<referrer name="pc_cmd_editcarspawn"/>
 			<referrer name="pc_cmd_entrancefee"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_veh"/>
 			<referrer name="pc_cmd_cnnn"/>
 			<referrer name="pc_cmd_warrant"/>
@@ -85039,8 +85070,11 @@
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
+			<referrer name="OnDialogResponse"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
+			<dependency name="DealershipVehStock"/>
 			<dependency name="MainPipeline"/>
 			<dependency name="bModel"/>
 			<dependency name="bParkAngle"/>
@@ -87381,6 +87415,7 @@
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_deletecdveh"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_veh"/>
 			<referrer name="pc_cmd_cnnn"/>
 			<referrer name="pc_cmd_quitgang"/>
@@ -99151,6 +99186,7 @@
 			<referrer name="CaptureTimerEx"/>
 			<referrer name="UpdateSANewsBroadcast"/>
 			<referrer name="pc_cmd_editcarprice"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_dedit"/>
 			<referrer name="pc_cmd_hedit"/>
 			<referrer name="pc_cmd_shophouse"/>
@@ -108873,6 +108909,7 @@
 			<referrer name="pc_cmd_entrancefee"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_quitgang"/>
 			<referrer name="pc_cmd_warrant"/>
 			<referrer name="pc_cmd_warrantwd"/>
@@ -112382,6 +112419,7 @@
 			<referrer name="pc_cmd_entrancefee"/>
 			<referrer name="pc_cmd_editcarprice"/>
 			<referrer name="pc_cmd_createcdveh"/>
+			<referrer name="pc_cmd_setcdvehstock"/>
 			<referrer name="pc_cmd_writecheck"/>
 			<referrer name="pc_cmd_vcheck"/>
 			<referrer name="pc_cmd_sellmycar"/>
@@ -118399,16 +118437,18 @@
 		</member>
 		<member name="M:pc_cmd_createcdveh" syntax="pc_cmd_createcdveh(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="83"/>
+			<stacksize value="315"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="DealershipVehStock"/>
+			<dependency name="DestroyDynamic3DTextLabel"/>
 			<dependency name="EVF_CreateVehicle"/>
 			<dependency name="GetPlayerFacingAngle"/>
 			<dependency name="GetPlayerPos"/>
 			<dependency name="GetVehicleModel"/>
 			<dependency name="IsATrain"/>
+			<dependency name="IsValidDynamic3DTextLabel"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SaveDealershipVehicle"/>
@@ -118420,6 +118460,7 @@
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="bModel"/>
+			<dependency name="bName"/>
 			<dependency name="bParkAngle"/>
 			<dependency name="bParkPosX"/>
 			<dependency name="bParkPosY"/>
@@ -119112,6 +119153,7 @@
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
+			<dependency name="DealershipVehStock"/>
 			<dependency name="DestroyDynamic3DTextLabel"/>
 			<dependency name="EVF_DestroyVehicle"/>
 			<dependency name="GetBusinessCarSlot"/>
@@ -121317,9 +121359,10 @@
 		</member>
 		<member name="M:pc_cmd_editcarprice" syntax="pc_cmd_editcarprice(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="155"/>
+			<stacksize value="310"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
+			<dependency name="DealershipVehStock"/>
 			<dependency name="GetBusinessCarSlot"/>
 			<dependency name="GetCarBusiness"/>
 			<dependency name="GetVehicleModel"/>
@@ -121336,6 +121379,7 @@
 			<dependency name="__line"/>
 			<dependency name="bExtPos"/>
 			<dependency name="bMinSupplyRank"/>
+			<dependency name="bName"/>
 			<dependency name="bPrice"/>
 			<dependency name="bType"/>
 			<dependency name="bVehID"/>
@@ -121343,6 +121387,7 @@
 			<dependency name="format"/>
 			<dependency name="number_format"/>
 			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pBusiness"/>
 			<dependency name="pBusinessRank"/>
 			<param name="playerid">
@@ -121353,7 +121398,7 @@
 		</member>
 		<member name="M:pc_cmd_editcarspawn" syntax="pc_cmd_editcarspawn(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="10"/>
+			<stacksize value="11"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
 			<dependency name="GetPlayerFacingAngle"/>
@@ -121361,14 +121406,18 @@
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
 			<dependency name="SaveDealershipSpawn"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
 			<dependency name="bExtPos"/>
 			<dependency name="bPurchaseAngle"/>
 			<dependency name="bPurchaseX"/>
 			<dependency name="bPurchaseY"/>
 			<dependency name="bPurchaseZ"/>
 			<dependency name="bType"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pBusiness"/>
 			<dependency name="pBusinessRank"/>
 			<param name="playerid">
@@ -121919,7 +121968,7 @@
 		</member>
 		<member name="M:pc_cmd_entrancefee" syntax="pc_cmd_entrancefee(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="152"/>
+			<stacksize value="153"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
 			<dependency name="IsPlayerInRangeOfPoint"/>
@@ -121937,6 +121986,7 @@
 			<dependency name="format"/>
 			<dependency name="number_format"/>
 			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pBusiness"/>
 			<param name="playerid">
 			</param>
@@ -130377,6 +130427,7 @@
 			<dependency name="bParkPosZ"/>
 			<dependency name="bVehID"/>
 			<dependency name="false"/>
+			<dependency name="pAdmin"/>
 			<dependency name="pBusiness"/>
 			<dependency name="pLockCar"/>
 			<dependency name="pVehicleKeys"/>
@@ -134322,6 +134373,38 @@
 			<dependency name="pAdmin"/>
 			<dependency name="pointpinglimit"/>
 			<dependency name="strval"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:pc_cmd_setcdvehstock" syntax="pc_cmd_setcdvehstock(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="419"/>
+			<dependency name="Businesses"/>
+			<dependency name="Businesses"/>
+			<dependency name="DealershipVehStock"/>
+			<dependency name="GetBusinessCarSlot"/>
+			<dependency name="GetCarBusiness"/>
+			<dependency name="GetVehicleModel"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SaveDealershipVehicle"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="UpdateDynamic3DTextLabelText"/>
+			<dependency name="VehicleName"/>
+			<dependency name="VehicleName"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="bName"/>
+			<dependency name="bPrice"/>
+			<dependency name="bType"/>
+			<dependency name="bVehicleLabel"/>
+			<dependency name="format"/>
+			<dependency name="number_format"/>
+			<dependency name="number_format"/>
+			<dependency name="pAdmin"/>
 			<param name="playerid">
 			</param>
 			<param name="params">

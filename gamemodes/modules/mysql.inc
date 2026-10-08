@@ -3403,7 +3403,8 @@ stock SaveDealershipVehicle(businessid, slotid)
 	format(query, sizeof(query), "%s `Car%dPosZ` = %0.5f,", query, slotid, Businesses[businessid][bParkPosZ][slotid]);
 	format(query, sizeof(query), "%s `Car%dPosAngle` = %0.5f,", query, slotid, Businesses[businessid][bParkAngle][slotid]);
 	format(query, sizeof(query), "%s `Car%dModelId` = %d,", query, slotid, Businesses[businessid][bModel][slotid]);
-	format(query, sizeof(query), "%s `Car%dPrice` = %d", query, slotid, Businesses[businessid][bPrice][slotid]);
+	format(query, sizeof(query), "%s `Car%dPrice` = %d,", query, slotid, Businesses[businessid][bPrice][slotid]);
+	format(query, sizeof(query), "%s `Car%dStock` = %d", query, slotid, Businesses[businessid][DealershipVehStock][slotid]);
 	format(query, sizeof(query), "%s WHERE `Id` = %d", query, businessid+1);
 	mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "ii", SENDDATA_THREAD, INVALID_PLAYER_ID);
 }
@@ -7216,7 +7217,7 @@ public BusinessesLoadQueryFinish()
 		}
 		else if (Businesses[i][bType] == BUSINESS_TYPE_NEWCARDEALERSHIP || Businesses[i][bType] == BUSINESS_TYPE_OLDCARDEALERSHIP)
 		{
-			for (new j, column[16], label[50]; j < MAX_BUSINESS_DEALERSHIP_VEHICLES; j++)
+			for (new j, column[16], label[256], statusStr[24]; j < MAX_BUSINESS_DEALERSHIP_VEHICLES; j++)
 			{
 
 			    format(column, sizeof(column), "Car%dModelId", j);
@@ -7231,6 +7232,8 @@ public BusinessesLoadQueryFinish()
 				cache_get_field_content(i, column, tmp, MainPipeline); Businesses[i][bParkAngle][j] = floatstr(tmp);
 			    format(column, sizeof(column), "Car%dPrice", j);
 				cache_get_field_content(i, column, tmp, MainPipeline); Businesses[i][bPrice][j] = strval(tmp);
+			    format(column, sizeof(column), "Car%dStock", j);
+				cache_get_field_content(i, column, tmp, MainPipeline); Businesses[i][DealershipVehStock][j] = strval(tmp);
 
 				cache_get_field_content(i, "PurchaseX", tmp, MainPipeline); Businesses[i][bPurchaseX][j] = strval(tmp);
 				cache_get_field_content(i, "PurchaseY", tmp, MainPipeline); Businesses[i][bPurchaseY][j] = strval(tmp);
@@ -7239,8 +7242,17 @@ public BusinessesLoadQueryFinish()
 
                 if(400 < Businesses[i][bModel][j] < 612) {
 			 		Businesses[i][bVehID][j] = CreateVehicle(Businesses[i][bModel][j], Businesses[i][bParkPosX][j], Businesses[i][bParkPosY][j], Businesses[i][bParkPosZ][j], Businesses[i][bParkAngle][j], Businesses[i][bColor1][j], Businesses[i][bColor2][j], 10);
-     				format(label, sizeof(label), "%s Dang ban | Gia ban: $%s", GetVehicleName(Businesses[i][bVehID][j]), number_format(Businesses[i][bPrice][j]));
-					Businesses[i][bVehicleLabel][j] = CreateDynamic3DTextLabel(label,COLOR_LIGHTBLUE,Businesses[i][bParkPosX][j], Businesses[i][bParkPosY][j], Businesses[i][bParkPosZ][j],8.0,INVALID_PLAYER_ID, Businesses[i][bVehID][j]);
+					if(Businesses[i][DealershipVehStock][j] > 0) statusStr = "{00FF00}Con hang";
+					else statusStr = "{FF4444}Het hang";
+					format(label, sizeof(label),
+					    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong  : {FFFF00}%d xe\n{FFFFFF}Gia ban   : {00FF7F}$%s\n{FFFFFF}Dai ly    : {00BFFF}%s",
+					    GetVehicleName(Businesses[i][bVehID][j]),
+					    statusStr,
+					    Businesses[i][DealershipVehStock][j],
+					    number_format(Businesses[i][bPrice][j]),
+					    Businesses[i][bName]
+					);
+					Businesses[i][bVehicleLabel][j] = CreateDynamic3DTextLabel(label, 0xFFFFFFFF, Businesses[i][bParkPosX][j], Businesses[i][bParkPosY][j], Businesses[i][bParkPosZ][j], 10.0, INVALID_PLAYER_ID, Businesses[i][bVehID][j]);
 				}
 			}
 		}

@@ -17548,10 +17548,18 @@ CMD:editcarprice(playerid, params[])
 		new bizid = GetCarBusiness(vehicleid);
 		if(bizid == INVALID_BUSINESS_ID) return SendClientMessageEx(playerid, COLOR_GREY, "That vehicle does not belong to any dealership.");
 		if(amount < 0) return SendClientMessageEx(playerid, COLOR_GREY, "The price can't be set below 0");
-		new iSlot = GetBusinessCarSlot(vehicleid), Message[128];
+		new iSlot = GetBusinessCarSlot(vehicleid), Message[256], statusStr[24];
 		Businesses[bizid][bPrice][iSlot] = amount;
-		format(Message, sizeof(Message), "%s Dang ban | Gia ban: $%s", GetVehicleName(Businesses[bizid][bVehID][iSlot]), number_format(Businesses[bizid][bPrice][iSlot]));
-		UpdateDynamic3DTextLabelText(Businesses[bizid][bVehicleLabel][iSlot], COLOR_LIGHTBLUE, Message);
+		if(Businesses[bizid][DealershipVehStock][iSlot] > 0) statusStr = "{00FF00}Con hang";
+		else statusStr = "{FF4444}Het hang";
+		format(Message, sizeof(Message),
+		    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong: {FFFF00}%d xe\n{FFFFFF}Gia ban: {00FF7F}$%s\n{FFFFFF}Dai ly: {00BFFF}%s",
+		    GetVehicleName(Businesses[bizid][bVehID][iSlot]), statusStr,
+		    Businesses[bizid][DealershipVehStock][iSlot],
+		    number_format(Businesses[bizid][bPrice][iSlot]),
+		    Businesses[bizid][bName]
+		);
+		UpdateDynamic3DTextLabelText(Businesses[bizid][bVehicleLabel][iSlot], 0xFFFFFFFF, Message);
 		format(Message, sizeof(Message), "%s gia da duoc thay doi thanh $%s", GetVehicleName(vehicleid), number_format(amount));
 		SendClientMessageEx(playerid, COLOR_WHITE, Message);
 		SaveDealershipVehicle(bizid, iSlot);
@@ -17584,11 +17592,21 @@ CMD:editcarprice(playerid, params[])
 
  			new
 				iSlot = GetBusinessCarSlot(vehicleid),
-				Message[128];
+				Message[256],
+				statusStr[24];
 
 			Businesses[PlayerInfo[playerid][pBusiness]][bPrice][iSlot] = amount;
-			format(Message, sizeof(Message), "%s Dang ban | Gia ban: $%s", GetVehicleName(Businesses[PlayerInfo[playerid][pBusiness]][bVehID][iSlot]), number_format(Businesses[PlayerInfo[playerid][pBusiness]][bPrice][iSlot]));
-            UpdateDynamic3DTextLabelText(Businesses[PlayerInfo[playerid][pBusiness]][bVehicleLabel][iSlot], COLOR_LIGHTBLUE, Message);
+			if(Businesses[PlayerInfo[playerid][pBusiness]][DealershipVehStock][iSlot] > 0) statusStr = "{00FF00}Con hang";
+			else statusStr = "{FF4444}Het hang";
+			format(Message, sizeof(Message),
+			    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong: {FFFF00}%d xe\n{FFFFFF}Gia ban: {00FF7F}$%s\n{FFFFFF}Dai ly: {00BFFF}%s",
+			    GetVehicleName(Businesses[PlayerInfo[playerid][pBusiness]][bVehID][iSlot]),
+			    statusStr,
+			    Businesses[PlayerInfo[playerid][pBusiness]][DealershipVehStock][iSlot],
+			    number_format(Businesses[PlayerInfo[playerid][pBusiness]][bPrice][iSlot]),
+			    Businesses[PlayerInfo[playerid][pBusiness]][bName]
+			);
+            UpdateDynamic3DTextLabelText(Businesses[PlayerInfo[playerid][pBusiness]][bVehicleLabel][iSlot], 0xFFFFFFFF, Message);
 			format(Message, sizeof(Message), "%s gia da duoc thay doi thanh $%s", GetVehicleName(vehicleid), number_format(amount));
 			SendClientMessageEx(playerid, COLOR_WHITE, Message);
 			SaveDealershipVehicle(PlayerInfo[playerid][pBusiness], iSlot);
@@ -17620,6 +17638,7 @@ CMD:deletecdveh(playerid, params[]) {
 
 			if(Businesses[iBusiness][bVehID][ID] != INVALID_VEHICLE_ID) {
 			    if(IsValidDynamic3DTextLabel(Businesses[iBusiness][bVehicleLabel][ID])) DestroyDynamic3DTextLabel(Businesses[iBusiness][bVehicleLabel][ID]);
+			    Businesses[iBusiness][bVehicleLabel][ID] = Text3D:-1;
                 DestroyVehicle(Businesses[iBusiness][bVehID][ID]);
                	Businesses[iBusiness][bModel][ID] = 0;
 				Businesses[iBusiness][bParkPosX][ID] = 0;
@@ -17628,6 +17647,7 @@ CMD:deletecdveh(playerid, params[]) {
 		   	 	Businesses[iBusiness][bParkAngle][ID] = 0;
 		   	 	Businesses[iBusiness][bVehID][ID] = 0;
 		   	 	Businesses[iBusiness][bPrice][ID] = 0;
+		   	 	Businesses[iBusiness][DealershipVehStock][ID] = 0;
 		   	 	SaveDealershipVehicle(iBusiness, ID);
 	   	 		return 1;
        		}
@@ -17664,7 +17684,7 @@ CMD:createcdveh(playerid, params[]) {
 		else {
 
 			new
-				Float: fVehPos[4], label[50];
+				Float: fVehPos[4], label[256], statusStr[24];
 
 			GetPlayerPos(playerid, fVehPos[0], fVehPos[1], fVehPos[2]);
 			GetPlayerFacingAngle(playerid, fVehPos[3]);
@@ -17681,16 +17701,72 @@ CMD:createcdveh(playerid, params[]) {
 				   	Businesses[iBusiness][bParkPosZ][i] = fVehPos[2];
 			   	 	Businesses[iBusiness][bParkAngle][i] = fVehPos[3];
 
-					format(label, sizeof(label), "%s For Sale | Price: $%s", GetVehicleName(Businesses[iBusiness][bVehID][i]), number_format(Businesses[iBusiness][bPrice][i]));
-					Businesses[iBusiness][bVehicleLabel][i] = CreateDynamic3DTextLabel(label,COLOR_LIGHTBLUE,Businesses[iBusiness][bParkPosX][i], Businesses[iBusiness][bParkPosY][i], Businesses[iBusiness][bParkPosZ][i],8.0,INVALID_PLAYER_ID, Businesses[iBusiness][bVehID][i]);
+					if(IsValidDynamic3DTextLabel(Businesses[iBusiness][bVehicleLabel][i])) {
+					    DestroyDynamic3DTextLabel(Businesses[iBusiness][bVehicleLabel][i]);
+					    Businesses[iBusiness][bVehicleLabel][i] = Text3D:-1;
+					}
 
 					Businesses[iBusiness][DealershipVehStock][i] = 1;
+
+					statusStr = "{00FF00}Con hang";
+					format(label, sizeof(label),
+					    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong: {FFFF00}%d xe\n{FFFFFF}Gia ban: {00FF7F}$%s\n{FFFFFF}Dai ly: {00BFFF}%s",
+					    GetVehicleName(Businesses[iBusiness][bVehID][i]),
+					    statusStr,
+					    Businesses[iBusiness][DealershipVehStock][i],
+					    number_format(Businesses[iBusiness][bPrice][i]),
+					    Businesses[iBusiness][bName]
+					);
+					Businesses[iBusiness][bVehicleLabel][i] = CreateDynamic3DTextLabel(label, 0xFFFFFFFF, Businesses[iBusiness][bParkPosX][i], Businesses[iBusiness][bParkPosY][i], Businesses[iBusiness][bParkPosZ][i], 10.0, INVALID_PLAYER_ID, Businesses[iBusiness][bVehID][i]);
+
 					Vehicle_ResetData(Businesses[iBusiness][bVehID][i]);
 					SaveDealershipVehicle(iBusiness, i);
 					return 1;
 				}
 			}
 			return SendClientMessageEx(playerid, COLOR_GREY, "The max number of vehicles for this business has been reached.");
+		}
+	}
+	else SendUnAuth(playerid);
+	return 1;
+}
+
+CMD:setcdvehstock(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] >= 4) {
+		new iBusiness, iVehicle, iAmount;
+		if(sscanf(params, "iii", iBusiness, iVehicle, iAmount)) {
+			SendHelpMessage(playerid, "/setcdvehstock [business ID] [vehicle ID] [so luong]");
+		}
+		else if(Businesses[iBusiness][bType] != BUSINESS_TYPE_NEWCARDEALERSHIP && Businesses[iBusiness][bType] != BUSINESS_TYPE_OLDCARDEALERSHIP) {
+			SendClientMessageEx(playerid, COLOR_GRAD2, "Business khong phai dai ly xe!");
+		}
+		else if(iBusiness != GetCarBusiness(iVehicle)) {
+			SendClientMessageEx(playerid, COLOR_GREY, "Xe nay khong thuoc dai ly do.");
+		}
+		else if(iAmount < 0) {
+			SendClientMessageEx(playerid, COLOR_GREY, "So luong khong duoc am.");
+		}
+		else {
+			new iSlot = GetBusinessCarSlot(iVehicle);
+			Businesses[iBusiness][DealershipVehStock][iSlot] = iAmount;
+
+			new label[256], statusStr[24];
+			if(iAmount > 0) statusStr = "{00FF00}Con hang";
+			else statusStr = "{FF4444}Het hang";
+			format(label, sizeof(label),
+			    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong: {FFFF00}%d xe\n{FFFFFF}Gia ban: {00FF7F}$%s\n{FFFFFF}Dai ly: {00BFFF}%s",
+			    GetVehicleName(iVehicle),
+			    statusStr,
+			    iAmount,
+			    number_format(Businesses[iBusiness][bPrice][iSlot]),
+			    Businesses[iBusiness][bName]
+			);
+			UpdateDynamic3DTextLabelText(Businesses[iBusiness][bVehicleLabel][iSlot], 0xFFFFFFFF, label);
+			SaveDealershipVehicle(iBusiness, iSlot);
+
+			new msg[128];
+			format(msg, sizeof(msg), "Da dat so luong %s thanh %d xe.", GetVehicleName(iVehicle), iAmount);
+			SendClientMessageEx(playerid, COLOR_WHITE, msg);
 		}
 	}
 	else SendUnAuth(playerid);

@@ -12407,7 +12407,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(!vehicleCountCheck(playerid))
 				return SendClientMessageEx(playerid, COLOR_GREY, "ERROR: Kho xe da day, ban khong the mua them xe duoc nua, neu muon mua su dung /vstorage de tang slot chua xe.");
-				
+
+			if(Businesses[d][DealershipVehStock][v] <= 0)
+			{
+				SendClientMessageEx(playerid, COLOR_GRAD1, "ERROR: Xe nay da het hang, vui long lien he chu cua hang de nhap them.");
+				RemovePlayerFromVehicle(playerid);
+				new Float:slx, Float:sly, Float:slz;
+				GetPlayerPos(playerid, slx, sly, slz);
+				SetPlayerPos(playerid, slx, sly, slz+1.2);
+				TogglePlayerControllable(playerid, true);
+				return 1;
+			}
+
             if(Businesses[d][bPurchaseX] == 0.0 && Businesses[d][bPurchaseY] == 0.0 && Businesses[d][bPurchaseZ] == 0.0)
             {
 				SendClientMessageEx(playerid, COLOR_GRAD1, "ERROR: Chu so huu Dai ly xe nay da khong thiep lap diem giao tra xe cho khach hang.");
@@ -12464,6 +12475,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
      		}
      		Businesses[d][bInventory]--;
 			Businesses[d][bTotalSales]++;
+
+			Businesses[d][DealershipVehStock][v]--;
+			new labelTxt[256], statusStr[24];
+			if(Businesses[d][DealershipVehStock][v] > 0) statusStr = "{00FF00}Con hang";
+			else statusStr = "{FF4444}Het hang";
+			format(labelTxt, sizeof(labelTxt),
+			    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong  : {FFFF00}%d xe\n{FFFFFF}Gia ban   : {00FF7F}$%s\n{FFFFFF}Dai ly    : {00BFFF}%s",
+			    GetVehicleName(Businesses[d][bVehID][v]),
+			    statusStr,
+			    Businesses[d][DealershipVehStock][v],
+			    number_format(Businesses[d][bPrice][v]),
+			    Businesses[d][bName]
+			);
+			UpdateDynamic3DTextLabelText(Businesses[d][bVehicleLabel][v], 0xFFFFFFFF, labelTxt);
+			SaveDealershipVehicle(d, v);
+
      		IsPlayerEntering{playerid} = true;
             new car = CreatePlayerVehicle(playerid, playervehicleid, Businesses[d][bModel][v], Businesses[d][bPurchaseX], Businesses[d][bPurchaseY], Businesses[d][bPurchaseZ], Businesses[d][bPurchaseAngle], randcolor1, randcolor2, cost, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
             PutPlayerInVehicle(playerid, car, 0);

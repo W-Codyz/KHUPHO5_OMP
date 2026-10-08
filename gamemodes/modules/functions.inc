@@ -14103,22 +14103,26 @@ stock RefreshBusinessPickup(i)
 	Businesses[i][bStateText] = INVALID_3DTEXT_ID;
   	DestroyDynamic3DTextLabel(Businesses[i][bSupplyText]);
 	Businesses[i][bSupplyText] = INVALID_3DTEXT_ID;
+	DestroyDynamic3DTextLabel(Businesses[i][bIntDoorText]);
+	Businesses[i][bIntDoorText] = INVALID_3DTEXT_ID;
 	DestroyDynamicMapIcon(Businesses[i][bMapIcon]);
 	Businesses[i][bMapIcon] = INVALID_STREAMER_ID;
   	DestroyDynamicPickup(Businesses[i][bPickup]);
 	Businesses[i][bPickup] = INVALID_STREAMER_ID;
+	DestroyDynamicPickup(Businesses[i][bIntPickup]);
+	Businesses[i][bIntPickup] = INVALID_STREAMER_ID;
     if (!(Businesses[i][bExtPos][0] == 0.0 && Businesses[i][bExtPos][1] == 0.0 && Businesses[i][bExtPos][2] == 0.0)) {
     	new string[1280];
 		Businesses[i][bPickup] = CreateDynamicPickup(GetBusinessDefaultPickup(i), 23, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2]);
         if (Businesses[i][bOwner] < 1) {
-			format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FF8C00}Cua hang dang duoc ban!\n{FFFFFF}Chi phi: {00FF00}$%s\n{FFFFFF}Su dung {FFFF00}/muacuahang\n{AAAAAA}ID: %d\n\n{FFFF00}[ Y ] {FFFFFF}De vao / ra", GetBusinessTypeName(Businesses[i][bType]), number_format(Businesses[i][bValue]), i);
+			format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FF8C00}Cua hang dang duoc ban!\n{FFFFFF}Chi phi: {00FF00}$%s\n{FFFFFF}Su dung {FFFF00}/muacuahang\n{AAAAAA}ID: %d\n\n{FFFF00}[ Y ] {FFFFFF}De vao trong", GetBusinessTypeName(Businesses[i][bType]), number_format(Businesses[i][bValue]), i);
 		}
 		else {
 		    if(Businesses[i][bType] != BUSINESS_TYPE_GYM) {
-				format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FFFFFF}%s\n{AAAAAA}Chu so huu: {00BFFF}%s\n{AAAAAA}ID: %d\n\n{FFFF00}[ Y ] {FFFFFF}De vao / ra", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i);
+				format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FFFFFF}%s\n{AAAAAA}Chu so huu: {00BFFF}%s\n{AAAAAA}ID: %d\n\n{FFFF00}[ Y ] {FFFFFF}De vao trong", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i);
 			}
 			else {
-			    format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FFFFFF}%s\n{AAAAAA}Chu so huu: {00BFFF}%s\n{AAAAAA}ID: %d\n{FFFFFF}Phi vao tap: {00FF00}$%s\n\n{FFFF00}[ Y ] {FFFFFF}De vao / ra", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i, number_format(Businesses[i][bGymEntryFee]));
+			    format(string,sizeof(string),"{FFD700}[ %s ]\n\n{FFFFFF}%s\n{AAAAAA}Chu so huu: {00BFFF}%s\n{AAAAAA}ID: %d\n{FFFFFF}Phi vao tap: {00FF00}$%s\n\n{FFFF00}[ Y ] {FFFFFF}De vao trong", GetBusinessTypeName(Businesses[i][bType]), Businesses[i][bName], StripUnderscore(Businesses[i][bOwnerName]), i, number_format(Businesses[i][bGymEntryFee]));
 			}
 		}
 		Businesses[i][bDoorText] =	CreateDynamic3DTextLabel(string, BUSINESS_NAME_COLOR, Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2] + 0.85, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1);
@@ -14141,6 +14145,13 @@ stock RefreshBusinessPickup(i)
 		}
 
 		Businesses[i][bMapIcon] = CreateDynamicMapIcon(Businesses[i][bExtPos][0], Businesses[i][bExtPos][1], Businesses[i][bExtPos][2], mapicon, 0, 0, 0, -1);
+	}
+	if (!(Businesses[i][bIntPos][0] == 0.0 && Businesses[i][bIntPos][1] == 0.0 && Businesses[i][bIntPos][2] == 0.0)) {
+		new intVW = (Businesses[i][bVW] == 0) ? (BUSINESS_BASE_VW + i) : (Businesses[i][bVW]);
+		new intstring[256];
+		format(intstring, sizeof(intstring), "{FFD700}[ %s ]\n\n{FFFF00}[ Y ] {FFFFFF}De ra ngoai", Businesses[i][bName]);
+		Businesses[i][bIntPickup] = CreateDynamicPickup(1318, 23, Businesses[i][bIntPos][0], Businesses[i][bIntPos][1], Businesses[i][bIntPos][2], intVW, Businesses[i][bInt]);
+		Businesses[i][bIntDoorText] = CreateDynamic3DTextLabel(intstring, BUSINESS_NAME_COLOR, Businesses[i][bIntPos][0], Businesses[i][bIntPos][1], Businesses[i][bIntPos][2] + 0.85, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, intVW, Businesses[i][bInt], -1);
 	}
 }
 

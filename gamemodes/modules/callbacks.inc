@@ -5871,7 +5871,9 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             new
 				iBusiness = GetCarBusiness(newcar),
 				iSlot = GetBusinessCarSlot(newcar),
-				string[128];
+				string[512],
+				stockStr[24],
+				titleStr[64];
 
 			if(Businesses[iBusiness][bInventory] == 0) {
 			    SendClientMessageEx(playerid,COLOR_GREY,"Cua hang nay da het hang.");
@@ -5882,8 +5884,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				defer NOPCheck(playerid);
 				return 1;
 			}
-			format(string, sizeof(string), "Ban co muon mua xe %s\nChi phi xe la $%s.", GetVehicleName(newcar), number_format(Businesses[iBusiness][bPrice][iSlot]));
-		    ShowPlayerDialog(playerid,DIALOG_CDBUY,DIALOG_STYLE_MSGBOX,"Mua xe",string,"Mua","Huy bo");
+			if(Businesses[iBusiness][DealershipVehStock][iSlot] > 0) stockStr = "{00C800}Con hang";
+			else stockStr = "{FF4444}Het hang";
+			format(titleStr, sizeof(titleStr), "Thong tin xe - %s", GetVehicleName(newcar));
+			format(string, sizeof(string), "Thong tin\tGia tri\nTen xe\t%s\nTinh trang\t%s\nSo luong\t%d xe\nGia ban\t$%s\nCua hang\t%s", GetVehicleName(newcar), stockStr, Businesses[iBusiness][DealershipVehStock][iSlot], number_format(Businesses[iBusiness][bPrice][iSlot]), Businesses[iBusiness][bName]);
+		    ShowPlayerDialog(playerid, DIALOG_CDBUY, DIALOG_STYLE_TABLIST_HEADERS, titleStr, string, "Mua xe", "Huy");
 		    TogglePlayerControllable(playerid, false);
 		    return 1;
         }
