@@ -80,7 +80,7 @@ public hackWeapon(playerid)
 				format(string, sizeof(string), "%s da bi kick do su dung hack/weapon %s (%d) (non server-side).", GetPlayerNameEx(playerid), weaponname, weapons[i][0]);
 				ABroadCast( COLOR_LIGHTRED, string, 2 );
 				discord_messHack(string);
-				Kick(playerid);
+				//Kick(playerid);
 				return 1;
 			}
 		}
