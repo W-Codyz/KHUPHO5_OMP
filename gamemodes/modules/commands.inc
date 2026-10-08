@@ -36188,6 +36188,7 @@ CMD:adjust(playerid, params[])
 		new iSp = strfind(params, " ", false);
 		if(iSp != -1) strmid(opstring, params, iSp + 1, strlen(params), sizeof(opstring));
 
+		/* /adjust name - da chuyen sang /fname (admin only) - disabled
 		if(strcmp(choice,"name",true) == 0)
 		{
 			if(PlayerInfo[playerid][pRank] == 6)
@@ -36215,7 +36216,7 @@ CMD:adjust(playerid, params[])
 				Log(file, string);
 			}
 		}
-		else if(strcmp(choice,"safe",true) == 0)
+		else */ if(strcmp(choice,"safe",true) == 0)
 		{
 			if(PlayerInfo[playerid][pRank] == 6)
 			{

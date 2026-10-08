@@ -14,6 +14,8 @@
 #define DIALOG_FADMIN_DELETE_CONFIRM 5373
 #define DIALOG_FADMIN_SWITCH_LIST    5374
 #define DIALOG_FADMIN_SWITCH_TARGET  5375
+#define DIALOG_FADMIN_RENAME_LIST    5376
+#define DIALOG_FADMIN_RENAME_INPUT   5377
 
 // Per-player: slot family đang được chọn
 new g_fadminSelectedFamily[MAX_PLAYERS] = {-1, ...};
@@ -110,6 +112,41 @@ CMD:fdelete(playerid, params[])
     g_fadminSelectedFamily[playerid] = -1;
     ShowPlayerDialog(playerid, DIALOG_FADMIN_DELETE_LIST, DIALOG_STYLE_LIST,
         "Xoa Gang - Chon Slot", list, "Tiep Tuc", "Huy");
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// LỆNH /fname - Admin đổi tên gang (dialog-based)
+// ---------------------------------------------------------------------------
+
+CMD:fname(playerid, params[])
+{
+    #pragma unused params
+    if(PlayerInfo[playerid][pAdmin] <= 3 && PlayerInfo[playerid][pGangModerator] < 1)
+        return 1;
+
+    new list[768]; list[0] = 0;
+    new count = 0;
+    for(new f = 1; f < MAX_FAMILY; f++)
+    {
+        if(FamilyInfo[f][FamilyTaken] == 1)
+        {
+            new line[64];
+            format(line, sizeof(line), "Slot %d: %s\n", f, FamilyInfo[f][FamilyName]);
+            strcat(list, line, sizeof(list));
+            count++;
+        }
+    }
+
+    if(count == 0)
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "   Khong co gang nao.");
+        return 1;
+    }
+
+    g_fadminSelectedFamily[playerid] = -1;
+    ShowPlayerDialog(playerid, DIALOG_FADMIN_RENAME_LIST, DIALOG_STYLE_LIST,
+        "Doi Ten Gang - Chon Gang", list, "Chon", "Huy");
     return 1;
 }
 
@@ -297,6 +334,94 @@ stock FAdmin_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[
             SendClientMessageEx(playerid, COLOR_GREEN, str);
             return 1;
         }
+        // ---- /fname: chọn gang ----
+        case DIALOG_FADMIN_RENAME_LIST:
+        {
+            if(!response) return 1;
+
+            new family = FAdmin_MapListItem(1, listitem);
+            if(family == -1)
+            {
+                SendClientMessageEx(playerid, COLOR_GREY, "   Gang khong hop le.");
+                return 1;
+            }
+
+            g_fadminSelectedFamily[playerid] = family;
+
+            new title[64];
+            format(title, sizeof(title), "Doi Ten Gang - Slot %d: %s", family, FamilyInfo[family][FamilyName]);
+            ShowPlayerDialog(playerid, DIALOG_FADMIN_RENAME_INPUT, DIALOG_STYLE_INPUT,
+                title, "Nhap ten moi cho gang (toi da 40 ky tu):", "Doi Ten", "Quay Lai");
+            return 1;
+        }
+
+        // ---- /fname: nhập tên mới → thực hiện đổi tên ----
+        case DIALOG_FADMIN_RENAME_INPUT:
+        {
+            new family = g_fadminSelectedFamily[playerid];
+            g_fadminSelectedFamily[playerid] = -1;
+
+            if(!response)
+            {
+                // Quay về danh sách chọn gang
+                new list[768]; list[0] = 0;
+                new count = 0;
+                for(new f = 1; f < MAX_FAMILY; f++)
+                {
+                    if(FamilyInfo[f][FamilyTaken] == 1)
+                    {
+                        new line[64];
+                        format(line, sizeof(line), "Slot %d: %s\n", f, FamilyInfo[f][FamilyName]);
+                        strcat(list, line, sizeof(list));
+                        count++;
+                    }
+                }
+                if(count > 0)
+                {
+                    ShowPlayerDialog(playerid, DIALOG_FADMIN_RENAME_LIST, DIALOG_STYLE_LIST,
+                        "Doi Ten Gang - Chon Gang", list, "Chon", "Huy");
+                }
+                return 1;
+            }
+
+            if(family < 1 || family >= MAX_FAMILY) return 1;
+            if(FamilyInfo[family][FamilyTaken] != 1) return 1;
+
+            if(!inputtext[0])
+            {
+                SendClientMessageEx(playerid, COLOR_GREY, "   Ten gang khong duoc de trong.");
+                return 1;
+            }
+            if(strfind(inputtext, "|", true) != -1)
+            {
+                SendClientMessageEx(playerid, COLOR_GREY, "   Ten gang khong duoc chua ky tu '|'.");
+                return 1;
+            }
+            if(strlen(inputtext) > 40)
+            {
+                SendClientMessageEx(playerid, COLOR_GREY, "   Ten gang qua dai (toi da 40 ky tu).");
+                return 1;
+            }
+
+            new oldName[48];
+            strmid(oldName, FamilyInfo[family][FamilyName], 0, sizeof(oldName), sizeof(oldName));
+
+            strmid(FamilyInfo[family][FamilyName], inputtext, 0, strlen(inputtext), 100);
+            SaveFamilies();
+
+            new str[128];
+            format(str, sizeof(str), "   Da doi ten gang Slot %d: %s -> %s", family, oldName, FamilyInfo[family][FamilyName]);
+            SendClientMessageEx(playerid, COLOR_GREEN, str);
+
+            new logstr[160], logfile[48], month, day, year;
+            getdate(year, month, day);
+            format(logstr, sizeof(logstr), "%s doi ten gang Slot %d tu '%s' thanh '%s'",
+                GetPlayerNameEx(playerid), family, oldName, FamilyInfo[family][FamilyName]);
+            format(logfile, sizeof(logfile), "family_logs/%d/%d-%02d-%02d.log", family, year, month, day);
+            Log(logfile, logstr);
+            return 1;
+        }
+
         // ---- /switchgang: chọn gang ----
         case DIALOG_FADMIN_SWITCH_LIST:
         {
