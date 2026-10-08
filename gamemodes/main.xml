@@ -17171,6 +17171,7 @@
 			<referrer name="pc_cmd_createpvehicle"/>
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="pc_cmd_oldcar"/>
+			<referrer name="pc_cmd_bname"/>
 			<referrer name="EVF_OnVehicleSpawn"/>
 			<referrer name="EVF_OnVehicleMod"/>
 			<referrer name="OnPlayerModelSelection"/>
@@ -54117,6 +54118,7 @@
 			<referrer name="pc_cmd_rcabuse"/>
 			<referrer name="pc_cmd_oldcar"/>
 			<referrer name="pc_cmd_userimkit"/>
+			<referrer name="pc_cmd_bname"/>
 			<referrer name="EVF_OnVehicleSpawn"/>
 			<referrer name="EVF_OnVehicleMod"/>
 			<referrer name="OPBA_OnPlayerEnterVehicle"/>
@@ -99190,6 +99192,7 @@
 			<referrer name="pc_cmd_dedit"/>
 			<referrer name="pc_cmd_hedit"/>
 			<referrer name="pc_cmd_shophouse"/>
+			<referrer name="pc_cmd_bname"/>
 			<referrer name="UpdateIllegalStock"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0b"/>
 			<referrer name="pc_cmd_testminerfill"/>
@@ -112455,6 +112458,7 @@
 			<referrer name="pc_cmd_give"/>
 			<referrer name="pc_cmd_sell"/>
 			<referrer name="pc_cmd_bsafe"/>
+			<referrer name="pc_cmd_bname"/>
 			<referrer name="pc_cmd_offergun"/>
 			<referrer name="pc_cmd_offermenu"/>
 			<referrer name="pc_cmd_offeritem"/>
@@ -115756,11 +115760,13 @@
 		</member>
 		<member name="M:pc_cmd_bname" syntax="pc_cmd_bname(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="201"/>
+			<stacksize value="348"/>
 			<dependency name="Businesses"/>
 			<dependency name="Businesses"/>
+			<dependency name="DealershipVehStock"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetVehicleModel"/>
 			<dependency name="IsValidBusinessID"/>
 			<dependency name="Log"/>
 			<dependency name="PlayerInfo"/>
@@ -115768,10 +115774,20 @@
 			<dependency name="SSCANF__"/>
 			<dependency name="SaveBusiness"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="UpdateDynamic3DTextLabelText"/>
+			<dependency name="VehicleName"/>
+			<dependency name="VehicleName"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
+			<dependency name="bModel"/>
 			<dependency name="bName"/>
+			<dependency name="bPrice"/>
+			<dependency name="bType"/>
+			<dependency name="bVehID"/>
+			<dependency name="bVehicleLabel"/>
 			<dependency name="format"/>
+			<dependency name="number_format"/>
+			<dependency name="number_format"/>
 			<dependency name="pAdmin"/>
 			<dependency name="pShopTech"/>
 			<dependency name="strcat"/>

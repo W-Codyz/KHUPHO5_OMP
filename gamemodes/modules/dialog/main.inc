@@ -12481,7 +12481,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(Businesses[d][DealershipVehStock][v] > 0) statusStr = "{00FF00}Con hang";
 			else statusStr = "{FF4444}Het hang";
 			format(labelTxt, sizeof(labelTxt),
-			    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong  : {FFFF00}%d xe\n{FFFFFF}Gia ban   : {00FF7F}$%s\n{FFFFFF}Dai ly    : {00BFFF}%s",
+			    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong: {FFFF00}%d xe\n{FFFFFF}Gia ban: {00FF7F}$%s\n{FFFFFF}Dai ly: {00BFFF}%s",
 			    GetVehicleName(Businesses[d][bVehID][v]),
 			    statusStr,
 			    Businesses[d][DealershipVehStock][v],

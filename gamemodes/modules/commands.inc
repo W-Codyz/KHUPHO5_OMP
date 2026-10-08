@@ -45072,6 +45072,27 @@ CMD:bname(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_WHITE, "You have successfully changed the name of this business.");
 		RefreshBusinessPickup(businessid);
 
+		if(Businesses[businessid][bType] == BUSINESS_TYPE_NEWCARDEALERSHIP || Businesses[businessid][bType] == BUSINESS_TYPE_OLDCARDEALERSHIP)
+		{
+			new label[256], statusStr[24];
+			for(new i; i < MAX_BUSINESS_DEALERSHIP_VEHICLES; i++)
+			{
+				if(Businesses[businessid][bVehID][i] == 0 || !(400 <= Businesses[businessid][bModel][i] <= 611)) continue;
+
+				if(Businesses[businessid][DealershipVehStock][i] > 0) statusStr = "{00FF00}Con hang";
+				else statusStr = "{FF4444}Het hang";
+				format(label, sizeof(label),
+				    "{FFFF00}[ %s ]\n{FFFFFF}Tinh trang: %s\n{FFFFFF}So luong: {FFFF00}%d xe\n{FFFFFF}Gia ban: {00FF7F}$%s\n{FFFFFF}Dai ly: {00BFFF}%s",
+				    GetVehicleName(Businesses[businessid][bVehID][i]),
+				    statusStr,
+				    Businesses[businessid][DealershipVehStock][i],
+				    number_format(Businesses[businessid][bPrice][i]),
+				    Businesses[businessid][bName]
+				);
+				UpdateDynamic3DTextLabelText(Businesses[businessid][bVehicleLabel][i], 0xFFFFFFFF, label);
+			}
+		}
+
 		new string[128];
 		format(string, sizeof(string), "%s has edited business ID %d's name to %s.", GetPlayerNameEx(playerid), businessid, Businesses[businessid][bName]);
 		Log("logs/bedit.log", string);
