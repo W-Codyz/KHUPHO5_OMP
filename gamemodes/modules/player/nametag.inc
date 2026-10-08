@@ -67,10 +67,38 @@ public UpdateNameTag(playerid)
         if(IsValid3DTextLabel(PlayerNameTag[playerid]) && gPlayerLogged{playerid} == 1)
         {
             new Float:fHP, Float:fARM, string[256], szNameColor[8] = "FFFFFF";
+            if(Aduty[playerid] == 1) {
+                new szAdminRank[32];
+                switch(PlayerInfo[playerid][pAdmin]) {
+                    case 1:     szAdminRank = "Server Moderator";
+                    case 2:     szAdminRank = "Junior Administrator";
+                    case 3:     szAdminRank = "General Administrator";
+                    case 4:     szAdminRank = "Senior Administrator";
+                    case 1337:  szAdminRank = "Head Administrator";
+                    case 1338:  szAdminRank = "Lead Head Administrator";
+                    case 99999: szAdminRank = "Executive Administrator";
+                    default:    szAdminRank = "Administrator";
+                }
+                format(string, sizeof(string), "{FF3045}[ADMIN - %s]\n", szAdminRank);
+            }
+            if(GetPVarInt(playerid, "AdvisorDuty") == 1) {
+                new szAdvRank[24];
+                switch(PlayerInfo[playerid][pHelper]) {
+                    case 1: szAdvRank = "Helper";
+                    case 2: szAdvRank = "Community Advisor";
+                    case 3: szAdvRank = "Senior Advisor";
+                    case 4: szAdvRank = "Chief Advisor";
+                    default: szAdvRank = "Advisor";
+                }
+                format(string, sizeof(string), "%s{33CCFF}[CA - %s]\n", string, szAdvRank);
+            }
             if(0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS && PlayerInfo[playerid][pDuty] == 1) {
                 new gId = PlayerInfo[playerid][pMember];
                 format(szNameColor, _, "%s", Group_NumToDialogHex(arrGroupData[gId][g_hDutyColour]));
-                format(string, _, "{%s}%s\n", szNameColor, arrGroupData[gId][g_szGroupName]);
+                format(string, sizeof(string), "%s{%s}TO CHUC - %s\n", string, szNameColor, arrGroupData[gId][g_szGroupName]);
+            }
+            if(g_gangBadge[playerid] && PlayerInfo[playerid][pFMember] != INVALID_FAMILY_ID) {
+                format(string, sizeof(string), "%s{ffd966}GANGSTER - %s\n", string, FamilyInfo[PlayerInfo[playerid][pFMember]][FamilyName]);
             }
 
             GetPlayerHealth(playerid, fHP);

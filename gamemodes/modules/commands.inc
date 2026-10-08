@@ -3293,6 +3293,7 @@ CMD:aduty(playerid, params[])
      	SetPlayerArmour(playerid, 10000.0);
 	    SetPlayerHealth(playerid, 10000.0);
 	    Aduty[playerid] = 1;
+	    UpdateNameTag(playerid);
 	    }
 	    else
 	    {
@@ -3301,6 +3302,7 @@ CMD:aduty(playerid, params[])
 	    SetPlayerHealth(playerid, 100.0);
 	    SetPlayerColor(playerid,COLOR_WHITE);
 	    Aduty[playerid] = 0;
+	    UpdateNameTag(playerid);
 	    }
 	}
 	return 1;
@@ -3308,19 +3310,21 @@ CMD:aduty(playerid, params[])
 
 CMD:cduty(playerid, params[])
 {
-    if(PlayerInfo[playerid][pHelper] >= 2)
+    if(PlayerInfo[playerid][pHelper] >= 1)
 	{
         if(GetPVarInt(playerid, "AdvisorDuty") == 1)
 		{
             SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da offduty Community Advisor, ban khong nhan duoc tro giup nua.");
             DeletePVar(playerid, "AdvisorDuty");
             Advisors -= 1;
+            UpdateNameTag(playerid);
         }
         else
 		{
             SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Ban da onduty Community Advisor, ban se nhan duoc yeu cau tu nhung nguoi can tro giup.");
             SetPVarInt(playerid, "AdvisorDuty", 1);
             Advisors += 1;
+            UpdateNameTag(playerid);
         }
     }
     else
