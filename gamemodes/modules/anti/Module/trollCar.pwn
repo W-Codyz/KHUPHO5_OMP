@@ -103,7 +103,11 @@ public CheckPlayerRemoteJacking(playerid)
                 && !IsPlayerInRangeOfPoint(playerid,5.0, -1581.76, 722.83, -5.53) //xe cop
                 && !IsPlayerInRangeOfPoint(playerid,5.0, -1616.66, 703.10, 49.10) //mb cop
                 && !IsPlayerInRangeOfPoint(playerid,5.0, -1727.95, 1018.69, 17.29) // xe taxi
-                && !IsPlayerInRangeOfPoint(playerid,40.0, -1560.0, 115.0, 3.5)) // lay xe trucker (SF Docks)
+                && !IsPlayerInRangeOfPoint(playerid,40.0, -1560.0, 115.0, 3.5) // lay xe trucker (SF Docks)
+                && !IsPlayerInRangeOfPoint(playerid,40.0, 576.9451, 867.7784, -43.4240) // job khai thac (Miner)
+                && !IsPlayerInRangeOfPoint(playerid,40.0, -751.7999, -143.3935, 66.2233) // job cat go (Lumber)
+                && !IsPlayerInRangeOfPoint(playerid,40.0, -2532.0229, -601.6449, 132.2643) // job sua dien (Electric)
+                && !IsPlayerInRangeOfPoint(playerid,40.0, -1707.9, 1373.0, 6.86)) // xe pizza boy
             {
                 new string[1280];
                 format(string, sizeof(string), "Thong Bao: %s (ID: %d) Phat hien nghi van hack troll car, /spec now.", GetPlayerNameEx(playerid), playerid);
