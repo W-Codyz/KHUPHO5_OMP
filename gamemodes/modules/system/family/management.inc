@@ -25,6 +25,9 @@
 // Per-player state cho management dialogs
 new g_fmSelectedPlayer[MAX_PLAYERS] = {-1, ...}; // Player đang được chọn để xử lý
 new g_fmMotdSlot[MAX_PLAYERS];                   // Slot MOTD đang chỉnh (0-2)
+new g_gangBadge[MAX_PLAYERS];                    // Gang badge toggle (0=tắt, 1=bật)
+
+forward UpdateNameTag(playerid);
 
 // ---------------------------------------------------------------------------
 // LỆNH /gangs (rank 5+)
@@ -42,6 +45,27 @@ CMD:gangs(playerid, params[])
         "Quan Ly Gang",
         "Thong tin gang\nCai dat MOTD\nQuan ly thanh vien\nKet sac\nLich su ket sac",
         "Chon", "Dong");
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// LỆNH /gbadge – bật/tắt hiển thị tên gang trên đầu
+// ---------------------------------------------------------------------------
+
+CMD:gbadge(playerid, params[])
+{
+    #pragma unused params
+    new fam = PlayerInfo[playerid][pFMember];
+    if(fam == INVALID_FAMILY_ID)
+        return SendClientMessageEx(playerid, COLOR_RED, "Ban chua vao gang nao."), 1;
+
+    g_gangBadge[playerid] = !g_gangBadge[playerid];
+    if(g_gangBadge[playerid])
+        SendClientMessageEx(playerid, COLOR_GREEN, "Da bat gang badge. Ten gang se hien thi tren dau ban.");
+    else
+        SendClientMessageEx(playerid, COLOR_RED, "Da tat gang badge.");
+
+    UpdateNameTag(playerid);
     return 1;
 }
 
