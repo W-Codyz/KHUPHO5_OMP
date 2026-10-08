@@ -1169,7 +1169,6 @@ CMD:myhouse(playerid, params[])
     return 1;
 }
 
-alias:chapnhannha("chapnhannha")
 CMD:chapnhannha(playerid, params[])
 {
     new sellerid = -1;
