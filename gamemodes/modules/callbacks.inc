@@ -4266,29 +4266,29 @@ public OnPlayerEnterCheckpoint(playerid)
 
 				if(PlayerInfo[playerid][pDonateRank] == 1)
 				{
-					TransferStorage(playerid, -1, -1, -1, 4, 375, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 375 vat lieu va cho ban 15 goi vat lieu.");
+					TransferStorage(playerid, -1, -1, -1, 4, 975, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 975 vat lieu va cho ban 15 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: ban nhan duoc 1.5x vat lieu.");
 
 				}
 				else if(PlayerInfo[playerid][pDonateRank] == 2 || PlayerInfo[playerid][pDonateRank] == 3)
 				{
-				    TransferStorage(playerid, -1, -1, -1, 4, 500, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 500 vat lieu va cho ban 20 goi vat lieu.");
+				    TransferStorage(playerid, -1, -1, -1, 4, 1100, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1100 vat lieu va cho ban 20 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: ban nhan duoc 2x vat lieu.");
 
 				}
 				else if(PlayerInfo[playerid][pDonateRank] >= 4)
 				{
-				    TransferStorage(playerid, -1, -1, -1, 4, 625, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 625 vat lieu va cho ban 25 goi vat lieu.");
+				    TransferStorage(playerid, -1, -1, -1, 4, 1225, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1225 vat lieu va cho ban 25 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: ban nhan duoc 2.5x vat lieu.");
 
 				}
 				else
 				{
-    				TransferStorage(playerid, -1, -1, -1, 4, 250, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 250 vat lieu va cho ban 10 goi vat lieu.");
+    				TransferStorage(playerid, -1, -1, -1, 4, 850, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 850 vat lieu va cho ban 10 goi vat lieu.");
 				}
 
 				DeletePVar(playerid, "Packages");
@@ -4315,28 +4315,28 @@ public OnPlayerEnterCheckpoint(playerid)
 				{
 					if(PlayerInfo[playerid][pDonateRank] == 1)
 					{
-				    	TransferStorage(playerid, -1, -1, -1, 4, 675, -1, 2);
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 675 vat lieu va cho ban 23 goi vat lieu.");
+				    	TransferStorage(playerid, -1, -1, -1, 4, 1275, -1, 2);
+						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1275 vat lieu va cho ban 23 goi vat lieu.");
 						SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: ban nhan duoc 1.5x vat lieu.");
 					}
 					else if(PlayerInfo[playerid][pDonateRank] == 2 || PlayerInfo[playerid][pDonateRank] == 3)
 					{
-				    	TransferStorage(playerid, -1, -1, -1, 4, 900, -1, 2);
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 900 vat lieu va cho ban 30 goi vat lieu.");
+				    	TransferStorage(playerid, -1, -1, -1, 4, 1500, -1, 2);
+						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1500 vat lieu va cho ban 30 goi vat lieu.");
 						SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: ban nhan duoc 2x vat lieu.");
 
 					}
 					else if(PlayerInfo[playerid][pDonateRank] >= 4)
 					{
-				    	TransferStorage(playerid, -1, -1, -1, 4, 1125, -1, 2);
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1125 vat lieu va cho ban 38 goi vat lieu.");
+				    	TransferStorage(playerid, -1, -1, -1, 4, 1725, -1, 2);
+						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1725 vat lieu va cho ban 38 goi vat lieu.");
 						SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: ban nhan duoc 2.5x vat lieu.");
 
 					}
 					else
 					{
-						TransferStorage(playerid, -1, -1, -1, 4, 450, -1, 2);
-						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 450 vat lieu va cho ban 15 goi vat lieu.");
+						TransferStorage(playerid, -1, -1, -1, 4, 1050, -1, 2);
+						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1050 vat lieu va cho ban 15 goi vat lieu.");
 					}
 					DeletePVar(playerid, "Packages");
 					DeletePVar(playerid, "MatDeliver");
@@ -4365,29 +4365,29 @@ public OnPlayerEnterCheckpoint(playerid)
 			{
 				if(PlayerInfo[playerid][pDonateRank] == 1)
 				{
-				    TransferStorage(playerid, -1, -1, -1, 4, 450, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 450 vat lieu va cho ban 18 goi vat lieu.");
+				    TransferStorage(playerid, -1, -1, -1, 4, 1050, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1050 vat lieu va cho ban 18 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: ban nhan duoc 1.5x vat lieu.");
 
 				}
 				else if(PlayerInfo[playerid][pDonateRank] == 2 || PlayerInfo[playerid][pDonateRank] == 3)
 				{
-				    TransferStorage(playerid, -1, -1, -1, 4, 600, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 600 vat lieu va cho ban 24 goi vat lieu.");
+				    TransferStorage(playerid, -1, -1, -1, 4, 1200, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1200 vat lieu va cho ban 24 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: ban nhan duoc 2x vat lieu.");
 
 				}
 				else if(PlayerInfo[playerid][pDonateRank] >= 4)
 				{
-				    TransferStorage(playerid, -1, -1, -1, 4, 750, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 750 vat lieu va cho ban 30 goi vat lieu.");
+				    TransferStorage(playerid, -1, -1, -1, 4, 1350, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1350 vat lieu va cho ban 30 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: ban nhan duoc 2.5x vat lieu.");
 
 				}
 				else
 				{
-			    	TransferStorage(playerid, -1, -1, -1, 4, 300, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 300 vat lieu va cho ban 12 goi vat lieu.");
+			    	TransferStorage(playerid, -1, -1, -1, 4, 900, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 900 vat lieu va cho ban 12 goi vat lieu.");
 				}
 
 				DeletePVar(playerid, "Packages");
@@ -4411,29 +4411,29 @@ public OnPlayerEnterCheckpoint(playerid)
 			{
 				if(PlayerInfo[playerid][pDonateRank] == 1)
 				{
-				    TransferStorage(playerid, -1, -1, -1, 4, 450, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 450 vat lieu va cho ban 18 goi vat lieu.");
+				    TransferStorage(playerid, -1, -1, -1, 4, 1050, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1050 vat lieu va cho ban 18 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: ban nhan duoc 1.5x vat lieu.");
 
 				}
 				else if(PlayerInfo[playerid][pDonateRank] == 2 || PlayerInfo[playerid][pDonateRank] == 3)
 				{
-				    TransferStorage(playerid, -1, -1, -1, 4, 600, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 600 vat lieu va cho ban 24 goi vat lieu.");
+				    TransferStorage(playerid, -1, -1, -1, 4, 1200, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1200 vat lieu va cho ban 24 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: ban nhan duoc 2x vat lieu.");
 
 				}
 				else if(PlayerInfo[playerid][pDonateRank] >= 4)
 				{
-				    TransferStorage(playerid, -1, -1, -1, 4, 750, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 750 vat lieu va cho ban 30 goi vat lieu.");
+				    TransferStorage(playerid, -1, -1, -1, 4, 1350, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 1350 vat lieu va cho ban 30 goi vat lieu.");
 					SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: ban nhan duoc 2.5x vat lieu.");
 
 				}
 				else
 				{
-			    	TransferStorage(playerid, -1, -1, -1, 4, 300, -1, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 300 vat lieu va cho ban 12 goi vat lieu.");
+			    	TransferStorage(playerid, -1, -1, -1, 4, 900, -1, 2);
+					SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Nha may da dua 900 vat lieu va cho ban 12 goi vat lieu.");
 				}
 
 				DeletePVar(playerid, "Packages");
