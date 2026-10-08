@@ -967,14 +967,14 @@ task ServerHeartbeat[1000]() {
     static string[128];
 	foreach(new i: Player)
 	{
-		/* for(new j; j < MAX_RENTALCAR_SLOT; j++) {
-			if(IsValidVehicle(CarRentalInfo[i][j][rcId])) {
+		for(new j; j < MAX_RENTALCAR_SLOT; j++) {
+			if(CarRentalInfo[i][j][rcSqlid] != 0) {
 				if(--CarRentalInfo[i][j][rcTime] <= 0) {
 					SendClientMessageEx(i, 0xD7DB56FF, "Phuong tien %s da bi xoa bo vi het thoi gian thue.", Model_Name(CarRentalInfo[i][j][rcModel]));
 					RemovePlayerRentalCar(i, j);
 				}
 			}
-		} */
+		}
 		if(playerTabbed[i] == 0) {
 			if(PlayerInfo[i][pPayDayCode] == 0)
 			{

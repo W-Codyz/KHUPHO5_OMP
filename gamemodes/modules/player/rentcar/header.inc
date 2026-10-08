@@ -4,6 +4,7 @@ enum E_RENTCAR_INFO
 {
     rcSqlid,
     rcId,
+    Text3D:rcLabel,
     rcModel,
     rcTime,
     Float:rcPosX,
