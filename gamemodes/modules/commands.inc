@@ -17233,7 +17233,7 @@ CMD:park(playerid, params[])
 	}
 	if (iVehicle != 0 && iBusiness != INVALID_BUSINESS_ID)
 	{
-	 	if (iBusiness != PlayerInfo[playerid][pBusiness]) return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong duoc phep dau chiec xe nay.");
+	 	if (iBusiness != PlayerInfo[playerid][pBusiness] || PlayerInfo[playerid][pAdmin] < 1337 ) return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong duoc phep dau chiec xe nay.");
 		new
 			iSlot = GetBusinessCarSlot(iVehicle);
 
@@ -17451,6 +17451,21 @@ CMD:cnn(playerid, params[]) {
 
 CMD:editcarspawn(playerid, params[])
 {
+	if(PlayerInfo[playerid][pAdmin] >= 1337) {
+		new bizid = PlayerInfo[playerid][pBusiness];
+		sscanf(params, "d", bizid);
+		if(bizid < 0 || bizid >= MAX_BUSINESSES) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /editcarspawn [BusinessID]");
+		new Float:pos[4];
+		GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+		GetPlayerFacingAngle(playerid, pos[3]);
+		Businesses[bizid][bPurchaseX] = pos[0];
+		Businesses[bizid][bPurchaseY] = pos[1];
+		Businesses[bizid][bPurchaseZ] = pos[2];
+		Businesses[bizid][bPurchaseAngle] = pos[3];
+		SendClientMessageEx(playerid, COLOR_WHITE, "You have moved the vehicle purchase spawn location.");
+		SaveDealershipSpawn(bizid);
+		return 1;
+	}
     if(PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID) {
 		SendClientMessageEx(playerid, COLOR_GREY, "You don't own a business.");
 	}
@@ -17479,6 +17494,22 @@ CMD:editcarspawn(playerid, params[])
 
 CMD:entrancefee(playerid, params[])
 {
+	if(PlayerInfo[playerid][pAdmin] >= 1337) {
+		new bizid = -1, amount;
+		if(sscanf(params, "dd", bizid, amount)) {
+			if(sscanf(params, "d", amount)) return SendHelpMessage(playerid, "/entrancefee [Price] or /entrancefee [BusinessID] [Price] (admin)");
+			bizid = PlayerInfo[playerid][pBusiness];
+		}
+		if(bizid < 0 || bizid >= MAX_BUSINESSES) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid business ID. Use /entrancefee [BusinessID] [Price].");
+		if(amount < 0 || amount > 10000) return SendClientMessageEx(playerid, COLOR_GREY, "The price can't be set below $0 and above $10,000.");
+		new string[128];
+		Businesses[bizid][bGymEntryFee] = amount;
+		format(string, sizeof(string), "You have set the gym entry fee to $%i.", number_format(amount));
+		SendClientMessageEx(playerid, COLOR_WHITE, string);
+		RefreshBusinessPickup(bizid);
+		SaveBusiness(bizid);
+		return 1;
+	}
     if(PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID) {
 		return SendClientMessageEx(playerid, COLOR_GREY, "You don't own a business.");
 	}
@@ -17511,6 +17542,21 @@ CMD:entrancefee(playerid, params[])
 
 CMD:editcarprice(playerid, params[])
 {
+	if(PlayerInfo[playerid][pAdmin] >= 1337) {
+		new vehicleid, amount;
+		if(sscanf(params, "dd", vehicleid, amount)) return SendHelpMessage(playerid, "/editcarprice [VehicleID] [Price]");
+		new bizid = GetCarBusiness(vehicleid);
+		if(bizid == INVALID_BUSINESS_ID) return SendClientMessageEx(playerid, COLOR_GREY, "That vehicle does not belong to any dealership.");
+		if(amount < 0) return SendClientMessageEx(playerid, COLOR_GREY, "The price can't be set below 0");
+		new iSlot = GetBusinessCarSlot(vehicleid), Message[128];
+		Businesses[bizid][bPrice][iSlot] = amount;
+		format(Message, sizeof(Message), "%s Dang ban | Gia ban: $%s", GetVehicleName(Businesses[bizid][bVehID][iSlot]), number_format(Businesses[bizid][bPrice][iSlot]));
+		UpdateDynamic3DTextLabelText(Businesses[bizid][bVehicleLabel][iSlot], COLOR_LIGHTBLUE, Message);
+		format(Message, sizeof(Message), "%s gia da duoc thay doi thanh $%s", GetVehicleName(vehicleid), number_format(amount));
+		SendClientMessageEx(playerid, COLOR_WHITE, Message);
+		SaveDealershipVehicle(bizid, iSlot);
+		return 1;
+	}
     if(PlayerInfo[playerid][pBusiness] == INVALID_BUSINESS_ID) {
 		SendClientMessageEx(playerid, COLOR_GREY, "You don't own a business.");
 	}
