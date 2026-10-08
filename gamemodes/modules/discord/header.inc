@@ -50,9 +50,9 @@ new DCC_Channel:dclog_Miner;
 stock discord_messHack(const str[])
 {
     new DCC_Embed:embed = DCC_CreateEmbed();
-    DCC_SetEmbedTitle(embed, "[F4T] ANTI-CHEAT");
+    DCC_SetEmbedTitle(embed, "HTB-AC");
     DCC_SetEmbedDescription(embed, str);
-    DCC_SetEmbedFooter(embed, "Copyright by TPhat");
+    DCC_SetEmbedFooter(embed, "HTB Roleplay", "https://iili.io/F4IVMts.gif");
     DCC_SetEmbedColor(embed, 0x00FF00);
     DCC_SendChannelEmbedMessage(antiChannel, embed);
 	return 1;
