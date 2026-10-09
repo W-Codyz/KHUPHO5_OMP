@@ -5192,7 +5192,7 @@ public OnLoadImpoundPoint(index)
 		cache_get_field_content(row, "Int", tmp, MainPipeline); ImpoundPoints[index][impoundInt] = strval(tmp);
 		if(ImpoundPoints[index][impoundPosX] != 0)
 		{
-			format(string, sizeof(string), "Impound Yard #%d\nType /impound to impound a vehicle", index);
+			format(string, sizeof(string), "{DDF775}[BAI GIAM GIU XE] #%d\n{aaaaaa}Su dung {8FFF9A}[/impound] {AAAAAA}de giam xe", index);
 			ImpoundPoints[index][impoundTextID] = CreateDynamic3DTextLabel(string, COLOR_YELLOW, ImpoundPoints[index][impoundPosX], ImpoundPoints[index][impoundPosY], ImpoundPoints[index][impoundPosZ]+0.6, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ImpoundPoints[index][impoundVW], ImpoundPoints[index][impoundInt], -1);
 		}
 	}
@@ -5215,7 +5215,7 @@ public OnLoadImpoundPoints()
 		cache_get_field_content(i, "Int", tmp, MainPipeline); ImpoundPoints[i][impoundInt] = strval(tmp);
 		if(ImpoundPoints[i][impoundPosX] != 0)
 		{
-			format(string, sizeof(string), "Impound Yard #%d\nType /impound to impound a vehicle", i);
+			format(string, sizeof(string), "{DDF775}[BAI GIAM GIU XE] #%d\n{aaaaaa}Su dung {8FFF9A}[/impound] {aaaaaa}de giam xe", i);
 			ImpoundPoints[i][impoundTextID] = CreateDynamic3DTextLabel(string, COLOR_YELLOW, ImpoundPoints[i][impoundPosX], ImpoundPoints[i][impoundPosY], ImpoundPoints[i][impoundPosZ]+0.6, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ImpoundPoints[i][impoundVW], ImpoundPoints[i][impoundInt], -1);
 		}
 		i++;
