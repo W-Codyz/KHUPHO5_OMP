@@ -26454,7 +26454,7 @@ CMD:call(playerid, params[])
 						SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 						RingTone[giveplayerid] = 10;
 						format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-						SendHintMessage(playerid, "Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+						SendHintMessage(playerid, "Dang goi... Bam /h de cat cuoc goi.");
 						ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 						new Float:rX, Float:rY, Float:rZ;
 						GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -26793,6 +26793,8 @@ CMD:hangup(playerid,params[])
 		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
 		return 1;
 	}
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
+	RemovePlayerAttachedObject(playerid, 9);
 	SendClientMessageEx(playerid,  COLOR_GRAD2, "   Dien thoai dang trong tui cua ban.");
 	return 1;
 }

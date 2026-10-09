@@ -3679,15 +3679,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 	if(IsPlayerConnected(Mobile[playerid]))
 	{
-		new
-			iCaller = Mobile[playerid],
-			szMessage[64];
-
-		SendClientMessageEx(iCaller, COLOR_GRAD2, "The line went dead.");
-		format(szMessage, sizeof(szMessage), "* %s puts away their cellphone.", GetPlayerNameEx(iCaller));
-		ProxDetector(30.0, iCaller, szMessage, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-		CellTime[iCaller] = 0;
-		Mobile[iCaller] = INVALID_PLAYER_ID;
+		SendClientMessageEx(Mobile[playerid], COLOR_GRAD2, "The line went dead.");
+		pc_cmd_hangup(Mobile[playerid], "");
 	}
 	Mobile[playerid] = INVALID_PLAYER_ID;
 	CellTime[playerid] = 0;
@@ -3922,8 +3915,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 	if(IsValidDynamic3DTextLabel(RFLTeamN3D[playerid])) {
 		DestroyDynamic3DTextLabel(RFLTeamN3D[playerid]);
 	}
-	// [Family System] Kill notification + hủy supply run
-	TW_OnPlayerDeath(playerid, killerid, reason);
 	return 1;
 }
 
@@ -4753,8 +4744,6 @@ public OnPlayerEnterCheckpoint(playerid)
 		DisablePlayerCheckpoint(playerid);
 		return 1;
 	}
-	// [Family System] Giao hàng supply run
-	TW_OnPlayerEnterCheckpoint(playerid);
 	return 1;
 }
 
@@ -6557,7 +6546,6 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 public OnPlayerPickUpPickup(playerid, pickupid)
 {
 	// [Family System] két sắt gang + supply run pickup
-	if(TW_OnPlayerPickUpPickup(playerid, pickupid)) return 1;
 	if(FA_OnPlayerPickUpPickup(playerid, pickupid)) return 1;
 	return 1;
 }

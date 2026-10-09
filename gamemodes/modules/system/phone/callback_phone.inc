@@ -513,7 +513,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 							RingTone[giveplayerid] = 10;
 							format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-							SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+							SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 							ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 							new Float:rX, Float:rY, Float:rZ;
 							GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -664,7 +664,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -931,7 +931,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -1196,7 +1196,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -1462,7 +1462,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -1727,7 +1727,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -1993,7 +1993,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -2259,7 +2259,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -2525,7 +2525,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
@@ -2791,7 +2791,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SendClientMessageEx(giveplayerid, COLOR_YELLOW, string);
 								RingTone[giveplayerid] = 10;
 								format(string, sizeof(string), "* %s's dien thoai dang do chuong.", GetPlayerNameEx(i));
-								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Bay gio ban co the bam T de tra loi cuoc goi, hoac /h de tat cuoc goi.");
+								SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Dang goi... Bam /h de cat cuoc goi.");
 								ProxDetector(30.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 								new Float:rX, Float:rY, Float:rZ;
 								GetPlayerPos(giveplayerid, rX, rY, rZ);
