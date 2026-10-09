@@ -22,12 +22,30 @@
 #define DIALOG_GANGS_MOTD       5361
 #define DIALOG_GANGS_MOTD_INPUT 5362
 
+#if !defined DIALOG_STYLE_TABLIST_HEADERS
+    #define DIALOG_STYLE_TABLIST_HEADERS 5
+#endif
+
 // Per-player state cho management dialogs
 new g_fmSelectedPlayer[MAX_PLAYERS] = {-1, ...}; // Player đang được chọn để xử lý
 new g_fmMotdSlot[MAX_PLAYERS];                   // Slot MOTD đang chỉnh (0-2)
 new g_gangBadge[MAX_PLAYERS];                    // Gang badge toggle (0=tắt, 1=bật)
 
+// Cache danh sách thành viên cho dialog tablist (single-owner, một lúc chỉ một commander xem)
+#define MAX_GANG_MEMBER_DISPLAY 50
+new g_fmListName    [MAX_GANG_MEMBER_DISPLAY][MAX_PLAYER_NAME];
+new g_fmListRank    [MAX_GANG_MEMBER_DISPLAY];
+new g_fmListDbId    [MAX_GANG_MEMBER_DISPLAY];
+new g_fmListPlayerId[MAX_GANG_MEMBER_DISPLAY]; // playerid nếu online, -1 nếu offline
+new g_fmListCount   = 0;
+
+// Dữ liệu thành viên đang được chọn (dùng cho cả online lẫn offline)
+new g_fmSelDbId [MAX_PLAYERS];
+new g_fmSelRank [MAX_PLAYERS];
+new g_fmSelName [MAX_PLAYERS][MAX_PLAYER_NAME];
+
 forward UpdateNameTag(playerid);
+forward OnGangMemberList(playerid);
 
 // ---------------------------------------------------------------------------
 // LỆNH /gangs (rank 5+)
@@ -101,12 +119,12 @@ static stock FM_ShowGangInfo(playerid, famid)
     new str[512];
     format(str, sizeof(str),
         "{FFD700}===== %s =====\n\n\
-{AAAAAA}   Level ket:   {FFFF00}%d{AAAAAA}/%d\n\
-{AAAAAA}   Fame:        {FF8800}%d\n\
-{AAAAAA}   Thanh vien:  {FFFFFF}%d{AAAAAA}/%d  {44FF44}(Online: %d)\n\
-{AAAAAA}   Tien bank:   {FFFFFF}$%d\n\n\
-{FFD700}--- Turf dang so huu ---\n\
-{FFFFFF}%s",
+        {AAAAAA}   Level ket:   {FFFF00}%d{AAAAAA}/%d\n\
+        {AAAAAA}   Fame:        {FF8800}%d\n\
+        {AAAAAA}   Thanh vien:  {FFFFFF}%d{AAAAAA}/%d  {44FF44}(Online: %d)\n\
+        {AAAAAA}   Tien bank:   {FFFFFF}$%d\n\n\
+        {FFD700}--- Turf dang so huu ---\n\
+        {FFFFFF}%s",
         FamilyInfo[famid][FamilyName],
         lv, MAX_SAFE_LEVEL,
         FamilyInfo[famid][FamilyFame],
@@ -117,38 +135,76 @@ static stock FM_ShowGangInfo(playerid, famid)
     ShowPlayerDialog(playerid, DIALOG_GANGS_INFO, DIALOG_STYLE_MSGBOX, "Thong Tin Gang", str, "OK", "");
 }
 
+// Truy vấn MySQL để lấy toàn bộ thành viên (kể cả offline), kết quả xử lý trong OnGangMemberList
 static stock FM_ShowMemberList(playerid, famid)
 {
-    new list[1024]; list[0] = 0;
-
-    new memberCount = 0;
-    foreach(new i : Player)
-    {
-        if(PlayerInfo[i][pFMember] != famid) continue;
-        new pname[MAX_PLAYER_NAME];
-        GetPlayerName(i, pname, sizeof(pname));
-        new line[80];
-        format(line, sizeof(line), "{44FF44}[Online] {FFFFFF}%s  {FFFF00}(Rank %d)\n", pname, PlayerInfo[i][pRank]);
-        strcat(list, line, sizeof(list));
-        memberCount++;
-    }
-
-    if(memberCount == 0) strcat(list, "{AAAAAA}(Khong co thanh vien online)\n", sizeof(list));
-
-    ShowPlayerDialog(playerid, DIALOG_GANGS_MEMBERS, DIALOG_STYLE_LIST, "Danh Sach Thanh Vien (Online)", list, "Chon", "Quay Lai");
+    new q[128];
+    mysql_format(MainPipeline, q, sizeof(q),
+        "SELECT `id`, `Username`, `Rank` FROM `accounts` WHERE `FMember`=%d ORDER BY `Rank` DESC",
+        famid);
+    mysql_tquery(MainPipeline, q, "OnGangMemberList", "i", playerid);
 }
 
-// Build danh sách player online của gang theo thứ tự; trả về ID player thứ idx
-static stock FM_GetGangMemberByIdx(famid, idx)
+// Callback nhận kết quả danh sách thành viên từ MySQL
+public OnGangMemberList(playerid)
 {
-    new cnt = -1;
-    foreach(new i : Player)
+    if(!IsPlayerConnected(playerid)) return 0;
+
+    new rows = cache_num_rows();
+    new cnt  = (rows < MAX_GANG_MEMBER_DISPLAY) ? rows : MAX_GANG_MEMBER_DISPLAY;
+
+    g_fmListCount = 0;
+
+    for(new r = 0; r < cnt; r++)
     {
-        if(PlayerInfo[i][pFMember] != famid) continue;
-        cnt++;
-        if(cnt == idx) return i;
+        new dbid, rnk;
+        new uname[MAX_PLAYER_NAME];
+        cache_get_value_name_int(r, "id",       dbid);
+        cache_get_value_name    (r, "Username", uname, MAX_PLAYER_NAME);
+        cache_get_value_name_int(r, "Rank",     rnk);
+
+        g_fmListDbId[r] = dbid;
+        g_fmListRank[r] = rnk;
+        format(g_fmListName[r], MAX_PLAYER_NAME, "%s", uname);
+
+        // Tìm playerid nếu đang online
+        new pid = -1;
+        foreach(new i : Player)
+        {
+            if(PlayerInfo[i][pId] == dbid) { pid = i; break; }
+        }
+        g_fmListPlayerId[r] = pid;
+        g_fmListCount++;
     }
-    return -1;
+
+    // Xây tablist: dòng đầu là header (dùng static tránh tốn stack)
+    static list[3072];
+    format(list, sizeof(list), "Ten\tTrang thai\tRank\n");
+
+    for(new r = 0; r < g_fmListCount; r++)
+    {
+        new line[96];
+        new statusStr[24];
+        if(g_fmListPlayerId[r] != -1)
+            format(statusStr, sizeof(statusStr), "{44FF44}Online");
+        else
+            format(statusStr, sizeof(statusStr), "{AAAAAA}Offline");
+
+        format(line, sizeof(line), "%s\t%s\t{FFFF00}%d\n",
+            g_fmListName[r],
+            statusStr,
+            g_fmListRank[r]);
+        strcat(list, line, sizeof(list));
+    }
+
+    if(g_fmListCount == 0)
+        strcat(list, "(Chua co thanh vien)\t\t\n", sizeof(list));
+
+    ShowPlayerDialog(playerid, DIALOG_GANGS_MEMBERS, DIALOG_STYLE_TABLIST_HEADERS,
+        "Danh Sach Thanh Vien",
+        list,
+        "Chon", "Quay Lai");
+    return 1;
 }
 
 static stock FM_ShowMotdMenu(playerid, famid)
@@ -167,13 +223,11 @@ static stock FM_ShowMotdMenu(playerid, famid)
         "Cai Dat MOTD Gang", list, "Chinh sua", "Quay Lai");
 }
 
-static stock FM_ShowMemberActions(playerid, targetid)
+// Dùng dữ liệu cache g_fmSel* nên không cần truyền targetid
+static stock FM_ShowMemberActions(playerid)
 {
-    if(targetid == -1 || !IsPlayerConnected(targetid)) return;
-    new tname[MAX_PLAYER_NAME];
-    GetPlayerName(targetid, tname, sizeof(tname));
-    new title[48];
-    format(title, sizeof(title), "Hanh Dong: %s (Rank %d)", tname, PlayerInfo[targetid][pRank]);
+    new title[64];
+    format(title, sizeof(title), "Hanh Dong: %s (Rank %d)", g_fmSelName[playerid], g_fmSelRank[playerid]);
 
     ShowPlayerDialog(playerid, DIALOG_GANGS_MEMBER_ACT, DIALOG_STYLE_LIST,
         title,
@@ -213,7 +267,7 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     new safeList[256];
                     format(safeList, sizeof(safeList),
                         "{FFD700}[ Di chuyen ket ]{AAAAAA}  Cooldown: 3 ngay\n\
-{44FF44}[ Nang cap Level %d > %d ]{AAAAAA}  Chi phi: $%d + %d VL",
+                        {44FF44}[ Nang cap Level %d > %d ]{AAAAAA}  Chi phi: $%d + %d VL",
                         lv_s, lv_s + 1,
                         FA_GetUpgradeCostCash(lv_s + 1),
                         FA_GetUpgradeCostMats(lv_s + 1));
@@ -237,52 +291,65 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
             if(!response)
             {
-                // Quay lại main menu
                 ShowPlayerDialog(playerid, DIALOG_GANGS_MAIN, DIALOG_STYLE_LIST,
                     "Quan Ly Gang",
                     "Thong tin gang\nCai dat MOTD\nQuan ly thanh vien\nKet sac\nLich su ket sac",
                     "Chon", "Dong");
                 return 1;
             }
-            new targetid = FM_GetGangMemberByIdx(fam, listitem);
-            if(targetid == -1 || targetid == playerid)
+
+            if(listitem < 0 || listitem >= g_fmListCount)
+                return SendClientMessageEx(playerid, COLOR_RED, "Lua chon khong hop le."), 1;
+
+            // Không cho chọn bản thân
+            if(g_fmListDbId[listitem] == PlayerInfo[playerid][pId])
                 return SendClientMessageEx(playerid, COLOR_RED, "Khong the chon ban than."), 1;
 
-            g_fmSelectedPlayer[playerid] = targetid;
-            FM_ShowMemberActions(playerid, targetid);
+            // Lưu thông tin thành viên được chọn vào cache per-player
+            g_fmSelectedPlayer[playerid] = g_fmListPlayerId[listitem];
+            g_fmSelDbId[playerid]        = g_fmListDbId[listitem];
+            g_fmSelRank[playerid]        = g_fmListRank[listitem];
+            format(g_fmSelName[playerid], MAX_PLAYER_NAME, "%s", g_fmListName[listitem]);
+
+            FM_ShowMemberActions(playerid);
             return 1;
         }
 
-        // ---- Hành động với thành viên ----
+        // ---- Hành động với thành viên (online hoặc offline) ----
         case DIALOG_GANGS_MEMBER_ACT:
         {
             if(!response) return 1;
-            new targetid = g_fmSelectedPlayer[playerid];
-            if(targetid == -1 || !IsPlayerConnected(targetid)) return 1;
 
-            new tRank = PlayerInfo[targetid][pRank];
+            new targetid = g_fmSelectedPlayer[playerid];
+            new isOnline = (targetid != -1 && IsPlayerConnected(targetid));
+            new tRank    = g_fmSelRank[playerid];
+            new tDbId    = g_fmSelDbId[playerid];
+            new tname[MAX_PLAYER_NAME];
+            format(tname, sizeof(tname), "%s", g_fmSelName[playerid]);
 
             switch(listitem)
             {
                 case 0: // Nâng rank
                 {
-                    // Không nâng quá rank mình - 1
                     new newRank = tRank + 1;
                     if(newRank >= rank)
                         return SendClientMessageEx(playerid, COLOR_RED, "Khong the nang rank cao bang hoac hon ban."), 1;
 
-                    PlayerInfo[targetid][pRank] = newRank;
+                    if(isOnline) PlayerInfo[targetid][pRank] = newRank;
+
                     new q[128];
                     mysql_format(MainPipeline, q, sizeof(q),
-                        "UPDATE `accounts` SET `Rank`=%d WHERE `id`=%d", newRank, PlayerInfo[targetid][pId]);
+                        "UPDATE `accounts` SET `Rank`=%d WHERE `id`=%d", newRank, tDbId);
                     mysql_tquery(MainPipeline, q, "", "");
 
-                    new tname[MAX_PLAYER_NAME], str[80];
-                    GetPlayerName(targetid, tname, sizeof(tname));
+                    new str[80];
                     format(str, sizeof(str), "Da nang rank %s len Rank %d.", tname, newRank);
                     SendClientMessageEx(playerid, COLOR_GREEN, str);
-                    format(str, sizeof(str), "Ban da duoc nang len Rank %d boi %s.", newRank, ReturnPlayerName(playerid));
-                    SendClientMessageEx(targetid, COLOR_GREEN, str);
+                    if(isOnline)
+                    {
+                        format(str, sizeof(str), "Ban da duoc nang len Rank %d boi %s.", newRank, ReturnPlayerName(playerid));
+                        SendClientMessageEx(targetid, COLOR_GREEN, str);
+                    }
                 }
                 case 1: // Hạ rank
                 {
@@ -292,41 +359,46 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(tRank >= rank)
                         return SendClientMessageEx(playerid, COLOR_RED, "Khong the ha rank nguoi co rank cao hon ban."), 1;
 
-                    PlayerInfo[targetid][pRank] = newRank;
+                    if(isOnline) PlayerInfo[targetid][pRank] = newRank;
+
                     new q2[128];
                     mysql_format(MainPipeline, q2, sizeof(q2),
-                        "UPDATE `accounts` SET `Rank`=%d WHERE `id`=%d", newRank, PlayerInfo[targetid][pId]);
+                        "UPDATE `accounts` SET `Rank`=%d WHERE `id`=%d", newRank, tDbId);
                     mysql_tquery(MainPipeline, q2, "", "");
 
-                    new tname[MAX_PLAYER_NAME], str[80];
-                    GetPlayerName(targetid, tname, sizeof(tname));
+                    new str[80];
                     format(str, sizeof(str), "Da ha rank %s xuong Rank %d.", tname, newRank);
                     SendClientMessageEx(playerid, COLOR_GREEN, str);
-                    format(str, sizeof(str), "Ban da bi ha xuong Rank %d boi %s.", newRank, ReturnPlayerName(playerid));
-                    SendClientMessageEx(targetid, COLOR_RED, str);
+                    if(isOnline)
+                    {
+                        format(str, sizeof(str), "Ban da bi ha xuong Rank %d boi %s.", newRank, ReturnPlayerName(playerid));
+                        SendClientMessageEx(targetid, COLOR_RED, str);
+                    }
                 }
-                case 2: // Kick
+                case 2: // Kick (hỗ trợ cả offline)
                 {
-                    // Rank 6 không bị kick; chỉ kick được rank thấp hơn mình
                     if(tRank >= 6)
                         return SendClientMessageEx(playerid, COLOR_RED, "Khong the kick thanh vien rank 6."), 1;
                     if(tRank >= rank)
                         return SendClientMessageEx(playerid, COLOR_RED, "Chi kick duoc nguoi co rank thap hon ban."), 1;
 
-                    PlayerInfo[targetid][pFMember] = INVALID_FAMILY_ID;
-                    PlayerInfo[targetid][pRank]    = 0;
+                    if(isOnline)
+                    {
+                        PlayerInfo[targetid][pFMember] = INVALID_FAMILY_ID;
+                        PlayerInfo[targetid][pRank]    = 0;
+                        SendClientMessageEx(targetid, COLOR_RED, "Ban da bi kick khoi gang.");
+                    }
                     FamilyInfo[fam][FamilyMembers]--;
+
                     new q3[128];
                     mysql_format(MainPipeline, q3, sizeof(q3),
-                        "UPDATE `accounts` SET `FMember`=255,`Rank`=0 WHERE `id`=%d", PlayerInfo[targetid][pId]);
+                        "UPDATE `accounts` SET `FMember`=255,`Rank`=0 WHERE `id`=%d", tDbId);
                     mysql_tquery(MainPipeline, q3, "", "");
                     SaveFamily(fam);
 
-                    new tname[MAX_PLAYER_NAME], str[80];
-                    GetPlayerName(targetid, tname, sizeof(tname));
+                    new str[80];
                     format(str, sizeof(str), "Da kick %s khoi gang.", tname);
                     SendClientMessageEx(playerid, COLOR_GREEN, str);
-                    SendClientMessageEx(targetid, COLOR_RED, "Ban da bi kick khoi gang.");
                 }
             }
             return 1;
@@ -385,16 +457,16 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     new str[512];
                     format(str, sizeof(str),
                         "{FFD700}===== Nang Cap Ket Sac =====\n\n\
-{AAAAAA}   Level hien tai:  {FFFF00}%d  {AAAAAA}->  {44FF44}%d\n\n\
-{FFD700}--- Chi phi ---\n\
-{AAAAAA}   Tien mat:        {FF6B6B}$%d\n\
-{AAAAAA}   Vat lieu:        {FF6B6B}%d\n\n\
-{FFD700}--- Sau khi nang cap ---\n\
-{AAAAAA}   Tien max:        {FFFFFF}$%d\n\
-{AAAAAA}   Hang max:        {FFFFFF}%d\n\
-{AAAAAA}   VL max:          {FFFFFF}%d\n\
-{AAAAAA}   Slot vu khi:     {FFFFFF}%d\n\
-{AAAAAA}   Thanh vien max:  {FFFFFF}%d",
+                    {AAAAAA}   Level hien tai:  {FFFF00}%d  {AAAAAA}->  {44FF44}%d\n\n\
+                    {FFD700}--- Chi phi ---\n\
+                    {AAAAAA}   Tien mat:        {FF6B6B}$%d\n\
+                    {AAAAAA}   Vat lieu:        {FF6B6B}%d\n\n\
+                    {FFD700}--- Sau khi nang cap ---\n\
+                    {AAAAAA}   Tien max:        {FFFFFF}$%d\n\
+                    {AAAAAA}   Hang max:        {FFFFFF}%d\n\
+                    {AAAAAA}   VL max:          {FFFFFF}%d\n\
+                    {AAAAAA}   Slot vu khi:     {FFFFFF}%d\n\
+                    {AAAAAA}   Thanh vien max:  {FFFFFF}%d",
                         lv, nextLv,
                         FA_GetUpgradeCostCash(nextLv),
                         FA_GetUpgradeCostMats(nextLv),
