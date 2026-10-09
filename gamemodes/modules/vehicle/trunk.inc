@@ -260,6 +260,83 @@ CMD:lucsoatcopxe(playerid, params[])
     return 1;
 }
 
+CMD:checktrunk(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 1)
+        return SendUnAuth(playerid);
+
+    new carid   = GetPlayerVehicleID(playerid);
+    new closest = GetClosestCar(playerid, carid);
+    if(!IsPlayerInRangeOfVehicle(playerid, closest, 5.0))
+        return SendClientMessageEx(playerid, COLOR_GREY, "[Admin] Ban khong o gan bat ki xe nao.");
+
+    if(!IsTrunkOpenable(closest))
+        return SendClientMessageEx(playerid, COLOR_GREY, "[Admin] Chiec xe nay khong co cop.");
+
+    // Tim chu xe
+    new ownerid = -1, ownerpvid = -1;
+    foreach(new i: Player)
+    {
+        new v = GetPlayerVehicle(i, closest);
+        if(v != -1)
+        {
+            ownerid   = i;
+            ownerpvid = v;
+            break;
+        }
+    }
+
+    if(ownerid == -1)
+        return SendClientMessageEx(playerid, COLOR_GREY, "[Admin] Khong tim thay chu xe truc tuyen.");
+
+    // Build dialog — hien thi tat ca slot
+    new szList[768], szRow[80];
+    new bEmpty = true;
+    for(new s = 0; s < MAX_TRUNK_SLOTS; s++)
+    {
+        new cat  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkCat][s];
+        new type = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkType][s];
+        new amt  = PlayerVehicleInfo[ownerid][ownerpvid][pvTrunkAmt][s];
+        if(cat == TRUNK_CAT_EMPTY)
+            format(szRow, sizeof(szRow), "Slot %d: {AAAAAA}[Trong]\n", s + 1);
+        else if(cat == TRUNK_CAT_GUN)
+        {
+            new szWep[32];
+            GetWeaponName(type, szWep, sizeof(szWep));
+            format(szRow, sizeof(szRow), "Slot %d: {FF8000}[Sung] {FFFFFF}%s\n", s + 1, szWep);
+            bEmpty = false;
+        }
+        else
+        {
+            if(type >= 0 && type < sizeof(ItemInventory))
+            {
+                if(ItemInventory[type][pVariable] == (_:pBinhXang))
+                {
+                    new Float:fLiters = Float:(amt) - FUELCAN_EMPTY_MARKER;
+                    if(fLiters < 0.0) fLiters = 0.0;
+                    format(szRow, sizeof(szRow), "Slot %d: {00FF88}[Item] {FFFFFF}%s {AAAAAA}%.1f L\n", s + 1, ItemInventory[type][NameItem], fLiters);
+                }
+                else
+                    format(szRow, sizeof(szRow), "Slot %d: {00FF88}[Item] {FFFFFF}%s {AAAAAA}x%d\n", s + 1, ItemInventory[type][NameItem], amt);
+                bEmpty = false;
+            }
+            else
+                format(szRow, sizeof(szRow), "Slot %d: {AAAAAA}[Trong]\n", s + 1);
+        }
+        strcat(szList, szRow, sizeof(szList));
+    }
+
+    new szTitle[80];
+    format(szTitle, sizeof(szTitle), "[Admin] Cop xe - %s (%s)", GetPlayerNameEx(ownerid), GetVehicleName(closest));
+    ShowPlayerDialog(playerid, DIALOG_CHECKTRUNK_ADMIN, DIALOG_STYLE_LIST, szTitle, szList, "Dong", "");
+
+    new szLog[128];
+    format(szLog, sizeof(szLog), "[CHECKTRUNK] Admin: %s | Owner: %s | Empty: %s",
+        GetPlayerNameEx(playerid), GetPlayerNameEx(ownerid), bEmpty ? "yes" : "no");
+    Log("logs/admin.log", szLog);
+    return 1;
+}
+
 // ===================== MYSQL SAVE/LOAD =====================
 
 stock g_mysql_SaveTrunk(playerid, slotid)

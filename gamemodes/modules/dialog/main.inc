@@ -17844,6 +17844,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SendClientMessageEx(ownerid, COLOR_GRAD2, "Canh sat da tich thu mot vat pham tu cop xe cua ban.");
 		return 1;
 	}
+	if(dialogid == DIALOG_CHECKTRUNK_ADMIN)
+	{
+		// View-only dialog — khong can xu ly
+		return 1;
+	}
 	// ================================================================
 
 	return 1;

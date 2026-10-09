@@ -1065,6 +1065,61 @@ CMD:tuido(playerid, params[])
     return 1;
 }
 
+CMD:checkinv(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co quyen su dung lenh nay.");
+
+    new targetid;
+    if(sscanf(params, "u", targetid)) return SendClientMessageEx(playerid, COLOR_WHITE, "SYNTAX: /checkinv [playerid/name]");
+    if(!IsPlayerConnected(targetid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi choi khong ton tai.");
+
+    new string[2048], title[64];
+    format(title, sizeof(title), "Inventory cua %s (ID: %d)", GetPlayerNameEx(targetid), targetid);
+    new count;
+
+    for(new i = 0; i < sizeof(ItemInventory); i++)
+    {
+        new variable = ItemInventory[i][pVariable];
+        new quantity = PlayerInfo[targetid][variable];
+
+        if(quantity > 0)
+        {
+            count++;
+            if(variable == (_:pBinhXang)) {
+                new Float:fuelInCan = Float:quantity - FUELCAN_EMPTY_MARKER;
+                if(fuelInCan < 0.0) fuelInCan = 0.0;
+                new canLabel[32];
+                if(fuelInCan <= 0.0) format(canLabel, sizeof(canLabel), "Rong");
+                else format(canLabel, sizeof(canLabel), "%.1f L", fuelInCan);
+                format(string, sizeof(string), "%sBinh xang\t%s\n", string, canLabel);
+            } else {
+                format(string, sizeof(string), "%s%s\t%d\n", string, ItemInventory[i][NameItem], quantity);
+            }
+        }
+    }
+
+    new myweapons[13][2];
+    for(new i = 0; i < 13; i++)
+    {
+        GetPlayerWeaponData(targetid, i, myweapons[i][0], myweapons[i][1]);
+        if(myweapons[i][0] > 0 && PlayerInfo[targetid][pGuns][i] == myweapons[i][0])
+        {
+            count++;
+            new weaponname[32];
+            GetWeaponName(myweapons[i][0], weaponname, sizeof(weaponname));
+            format(string, sizeof(string), "%s%s\t%d dan\n", string, weaponname, myweapons[i][1]);
+        }
+    }
+
+    if(count > 0) ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_TABLIST, title, string, "Dong", "");
+    else ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, title, "{ffffff}Nguoi choi nay khong co gi trong tui do!", "Dong", "");
+
+    new logstr[128];
+    format(logstr, sizeof(logstr), "%s (ID:%d) da xem inventory cua %s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(targetid), targetid);
+    Log("logs/admin.log", logstr);
+    return 1;
+}
+
 /* CMD:give(playerid, params[])
 {
     new targetid;

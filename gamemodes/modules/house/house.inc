@@ -37,6 +37,10 @@ new HsDispSlot[MAX_PLAYERS][MAX_HOUSE_SLOTS]; // dialog row -> slot index trong 
 new HsDispCount[MAX_PLAYERS];
 new HsDispHouseId[MAX_PLAYERS];
 
+// Per-admin buffer cho checkhouse
+new AdminCheckHouseList[MAX_PLAYERS][10];
+new AdminCheckHouseCount[MAX_PLAYERS];
+
 // Per-player buffer chon item de gui vao
 new HsPutCat[MAX_PLAYERS][30];
 new HsPutType[MAX_PLAYERS][30];
@@ -1062,7 +1066,123 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         return 1;
     }
 
+    // --- Admin: danh sach nha cua nguoi choi ---
+    if(dialogid == DIALOG_ADMIN_CHECKHOUSE)
+    {
+        if(!response) return 1;
+        if(listitem < 0 || listitem >= AdminCheckHouseCount[playerid]) return 1;
+        new hid = AdminCheckHouseList[playerid][listitem];
+        ShowAdminCheckHouseStorage(playerid, hid);
+        return 1;
+    }
+
+    // --- Admin: tu do cua nha ---
+    if(dialogid == DIALOG_ADMIN_CHECKHOUSE_STORE)
+    {
+        // "Quay lai" -> hien lai danh sach nha
+        new targetid = GetPVarInt(playerid, "AdminCheckTarget");
+        if(IsPlayerConnected(targetid))
+            ShowAdminCheckHouseList(playerid, targetid);
+        return 1;
+    }
+
     return 1;
+}
+
+// ===================== ADMIN CHECK FUNCTIONS =====================
+
+stock ShowAdminCheckHouseList(adminid, targetid)
+{
+    new sqlid = GetPlayerSQLId(targetid);
+    new szList[2048], szRow[128], count = 0;
+    new szZone[MAX_ZONE_NAME];
+    format(szList, sizeof(szList), "Nha\tKhu vuc\tTrang thai\tTu do\n");
+
+    AdminCheckHouseCount[adminid] = 0;
+
+    for(new i = 0; i < MAX_HOUSES; i++)
+    {
+        if(HouseInfo[i][hOwnerID] != sqlid) continue;
+        if(AdminCheckHouseCount[adminid] >= 10) break;
+
+        new szHouseName[36];
+        GetHouseDisplayName(i, szHouseName, sizeof(szHouseName));
+        Get3DZone(HouseInfo[i][hExteriorX], HouseInfo[i][hExteriorY], HouseInfo[i][hExteriorZ], szZone, MAX_ZONE_NAME);
+
+        new storeCount = 0;
+        for(new s = 0; s < MAX_HOUSE_SLOTS; s++)
+            if(HouseStoreCat[i][s] != HOUSE_STORE_EMPTY) storeCount++;
+
+        format(szRow, sizeof(szRow), "%s (#%d)\t%s\t%s\t%d/%d vat pham\n",
+            szHouseName, i, szZone,
+            HouseInfo[i][hLock] ? "{FF4444}Khoa" : "{44FF44}Mo",
+            storeCount, MAX_HOUSE_SLOTS);
+        strcat(szList, szRow, sizeof(szList));
+
+        AdminCheckHouseList[adminid][AdminCheckHouseCount[adminid]] = i;
+        AdminCheckHouseCount[adminid]++;
+        count++;
+    }
+
+    new szTitle[64];
+    format(szTitle, sizeof(szTitle), "Nha cua %s (ID: %d)", GetPlayerNameEx(targetid), targetid);
+
+    if(count == 0)
+    {
+        ShowPlayerDialog(adminid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, szTitle, "{ffffff}Nguoi choi nay khong co ngoi nha nao.", "Dong", "");
+        return;
+    }
+
+    SetPVarInt(adminid, "AdminCheckTarget", targetid);
+    ShowPlayerDialog(adminid, DIALOG_ADMIN_CHECKHOUSE, DIALOG_STYLE_TABLIST_HEADERS, szTitle, szList, "Xem tu do", "Dong");
+}
+
+stock ShowAdminCheckHouseStorage(adminid, houseid)
+{
+    new szList[1024], szRow[96], szTitle[64], szHouseName[36];
+    GetHouseDisplayName(houseid, szHouseName, sizeof(szHouseName));
+    format(szTitle, sizeof(szTitle), "Tu do - %s (#%d)", szHouseName, houseid);
+    format(szList, sizeof(szList), "Loai\tVat pham\tSo luong\n");
+
+    new count = 0;
+    for(new s = 0; s < MAX_HOUSE_SLOTS; s++)
+    {
+        if(HouseStoreCat[houseid][s] == HOUSE_STORE_EMPTY) continue;
+        new cat   = HouseStoreCat[houseid][s];
+        new itype = HouseStoreType[houseid][s];
+        new amt   = HouseStoreAmt[houseid][s];
+
+        if(cat == HOUSE_STORE_GUN)
+        {
+            new szWep[32];
+            GetWeaponName(itype, szWep, sizeof(szWep));
+            format(szRow, sizeof(szRow), "{FF8000}Sung\t{FFFFFF}%s\t%d dan\n", szWep, amt);
+        }
+        else if(cat == HOUSE_STORE_FUELCAN)
+        {
+            if(itype < 0 || itype >= sizeof(ItemInventory)) continue;
+            new Float:fLiters = Float:amt - FUELCAN_EMPTY_MARKER;
+            format(szRow, sizeof(szRow), "{00FF88}Vat pham\t{FFFFFF}%s\t%.1f L\n", ItemInventory[itype][NameItem], fLiters);
+        }
+        else
+        {
+            if(itype < 0 || itype >= sizeof(ItemInventory)) continue;
+            format(szRow, sizeof(szRow), "{00FF88}Vat pham\t{FFFFFF}%s\t%d\n", ItemInventory[itype][NameItem], amt);
+        }
+
+        strcat(szList, szRow, sizeof(szList));
+        count++;
+    }
+
+    SetPVarInt(adminid, "AdminCheckHouseId", houseid);
+
+    if(count == 0)
+    {
+        ShowPlayerDialog(adminid, DIALOG_ADMIN_CHECKHOUSE_STORE, DIALOG_STYLE_MSGBOX, szTitle, "{ffffff}Tu do trong khong.", "Quay lai", "");
+        return;
+    }
+
+    ShowPlayerDialog(adminid, DIALOG_ADMIN_CHECKHOUSE_STORE, DIALOG_STYLE_TABLIST_HEADERS, szTitle, szList, "Quay lai", "");
 }
 
 // ===================== COMMANDS =====================
@@ -1272,5 +1392,21 @@ CMD:househelp(playerid, params[])
     SendClientMessageEx(playerid, COLOR_GRAD1, "/chapnhannha - Chap nhan mua nha tu nguoi ban");
     SendClientMessageEx(playerid, COLOR_GRAD2, "ALT (ngoai nha): Nhanh khoa/mo cua nha cua ban.");
     SendClientMessageEx(playerid, COLOR_GRAD2, "Phim Y: Vao/ra nha khi dung o gan pickup.");
+    return 1;
+}
+
+CMD:checkhouse(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co quyen su dung lenh nay.");
+
+    new targetid;
+    if(sscanf(params, "u", targetid)) return SendClientMessageEx(playerid, COLOR_WHITE, "SYNTAX: /checkhouse [playerid/name]");
+    if(!IsPlayerConnected(targetid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi choi khong ton tai.");
+
+    ShowAdminCheckHouseList(playerid, targetid);
+
+    new logstr[128];
+    format(logstr, sizeof(logstr), "%s (ID:%d) da xem house cua %s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(targetid), targetid);
+    Log("logs/admin.log", logstr);
     return 1;
 }

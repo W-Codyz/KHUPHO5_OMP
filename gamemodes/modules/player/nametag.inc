@@ -82,7 +82,7 @@ public UpdateNameTag(playerid)
                     case 99999: szAdminRank = "Executive Administrator";
                     default:    szAdminRank = "Administrator";
                 }
-                format(string, sizeof(string), "{FF3045}[ADMIN - %s]\n", szAdminRank);
+                format(string, sizeof(string), "%s{FF3045}[ADMIN - %s]\n", string, szAdminRank);
             }
             if(GetPVarInt(playerid, "AdvisorDuty") == 1) {
                 new szAdvRank[24];
