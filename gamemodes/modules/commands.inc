@@ -4680,7 +4680,7 @@ CMD:impoundedit(playerid, params[])
 			format(string, sizeof(string), "Ban da thay doi vi tri tren diem chua mot the tich #%d.", id);
 			SendClientMessageEx(playerid, COLOR_WHITE, string);
 			DestroyDynamic3DTextLabel(ImpoundPoints[id][impoundTextID]);
-			format(string, sizeof(string), "Impound Yard #%d\nType /impound to impound a vehicle", id);
+			format(string, sizeof(string), "{DDF775}[BAI GIAM GIU XE] #%d\n{aaaaaa}Su dung {8FFF9A}[/impound] {aaaaaa}de giam xe", id);
 			ImpoundPoints[id][impoundTextID] = CreateDynamic3DTextLabel(string, COLOR_YELLOW, ImpoundPoints[id][impoundPosX], ImpoundPoints[id][impoundPosY], ImpoundPoints[id][impoundPosZ]+0.6, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, ImpoundPoints[id][impoundVW], ImpoundPoints[id][impoundInt], -1);
 			SaveImpoundPoint(id);
 			format(string, sizeof(string), "%s has edited Impound Point ID %d's position.", GetPlayerNameEx(playerid), id);
@@ -4808,10 +4808,30 @@ CMD:impound(playerid, params[]) {
 				}
 				switch(iVehType) {
 					case 0, 2: {
-						SendClientMessageEx(playerid, COLOR_GRAD1, "Viec giam giu khong thanh cong khi chinh phu khong tim thay bat ki giay dang ky xe nao tren chiec xe nay.");
+						new iJobOwner = INVALID_PLAYER_ID;
+						foreach(new j: Player) {
+							if(TruckerJobCar[j] == iVehTowed ||
+							   PlayerLumberData[j][LP_VehicleID] == iVehTowed ||
+							   PlayerMinerData[j][MP_VehicleID] == iVehTowed ||
+							   PlayerElectricJob[j][E_EJ_VehicleID] == iVehTowed)
+							{
+								iJobOwner = j;
+								break;
+							}
+						}
 						DetachTrailerFromVehicle(GetPlayerVehicleID(playerid));
 						SetVehiclePos(iVehTowed, 0, 0, 0); // Attempted desync fix
 						SetVehicleToRespawn(iVehTowed);
+						if(iJobOwner != INVALID_PLAYER_ID) {
+							new szJobMsg[128];
+							GivePlayerCash(iJobOwner, -5000);
+							format(szJobMsg, sizeof(szJobMsg), "Xe lam viec cua ban da bi tich thu boi %s. Ban bi phat $5,000.", GetPlayerNameEx(playerid));
+							SendClientMessageEx(iJobOwner, COLOR_LIGHTBLUE, szJobMsg);
+							format(szJobMsg, sizeof(szJobMsg), "* Ban da tich thu xe lam viec cua %s va phat $5,000.", GetPlayerNameEx(iJobOwner));
+							SendClientMessageEx(playerid, COLOR_LIGHTBLUE, szJobMsg);
+						} else {
+							SendClientMessageEx(playerid, COLOR_GRAD1, "Viec giam giu khong thanh cong khi chinh phu khong tim thay bat ki giay dang ky xe nao tren chiec xe nay.");
+						}
 					}
 					case 1: {
 
@@ -18984,10 +19004,10 @@ CMD:dmvmenu(playerid, params[])
 {
 	new vstring[1024], icount, icountz = GetPlayerVehicleSlots(playerid);
 	if(!IsPlayerInRangeOfPoint(playerid, 3.0, 1321.647094, 733.484375, 111.320312)) 
-		return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong o trong Trung tam giay phep (DMV Menu).");
+		return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong o trong Tru so canh sat.");
 	
-	if(PlayerInfo[playerid][pCarLic] == 0) 
-		return SendClientMessageEx(playerid, COLOR_GRAD1, "Kiem tra chiec xe thanh cong. Hay tra tien ve phat de lay chiec xe ra.");
+	/* if(PlayerInfo[playerid][pCarLic] == 0) 
+		return SendClientMessageEx(playerid, COLOR_GRAD1, "Kiem tra chiec xe thanh cong. Hay tra tien ve phat de lay chiec xe ra."); */
 
 	for(new i; i < icountz; i++) {
 		if(PlayerVehicleInfo[playerid][i][pvPrice] < 1) PlayerVehicleInfo[playerid][i][pvPrice] = 2000000;
