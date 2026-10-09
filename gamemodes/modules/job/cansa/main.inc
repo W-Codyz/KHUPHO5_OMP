@@ -2,6 +2,7 @@
 
 new dangchebien[MAX_PLAYERS];
 new inputcansa[MAX_PLAYERS];
+new LastCanSaAlert;
 #define MONEY_SELL_CANSA 650 // money sell 1 tep can sa
 #define THUNGRAC 21
 #define GIAOCANSA 10
@@ -62,10 +63,14 @@ new ThungRac[THUNGRAC][thungrac_enum];
 
 stock CanSa_AlertCops(playerid, const action[])
 {
+    if(gettime() < LastCanSaAlert) return;
+
     new bool:hasCop = false;
     foreach(new i: Player) { if(IsACop(i) && PlayerInfo[i][pDuty] == 1) { hasCop = true; break; } }
 
     if(!hasCop) return;
+
+    LastCanSaAlert = gettime() + 60;
 
     new str[256], zone[MAX_ZONE_NAME], Float:px, Float:py, Float:pz;
     GetPlayerPos(playerid, px, py, pz);
