@@ -68,6 +68,7 @@
 #include "./modules/job/pizzaboy/header"
 #include "./modules/job/construction/header"
 #include "./modules/job/lumber/header"
+#include "./modules/job/electric/header"
 
 //==============ANTI CHECK============//
 #include "./modules/anti/Teleport"
