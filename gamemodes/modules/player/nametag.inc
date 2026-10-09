@@ -67,7 +67,7 @@ public UpdateNameTag(playerid)
         if(IsValid3DTextLabel(PlayerNameTag[playerid]) && gPlayerLogged{playerid} == 1)
         {
             new Float:fHP, Float:fARM, string[512], szNameColor[8] = "FFFFFF";
-            format(string, sizeof(string), "[%s {ffffff}- %s]\n",
+            format(string, sizeof(string), "[%s {ffffff}- %s{ffffff}]\n",
                 IsPCPlayer(playerid) ? "{52b1f8}PC" : "{52b1f8}Mobile",
                 SvHasMicro(playerid) ? "{6feb61}Co Mic" : "{FF3045}Khong Mic");
             if(Aduty[playerid] == 1) {
@@ -103,11 +103,23 @@ public UpdateNameTag(playerid)
             if(g_gangBadge[playerid] && PlayerInfo[playerid][pFMember] != INVALID_FAMILY_ID) {
                 format(string, sizeof(string), "%s{ffd966}GANGSTER - %s\n", string, FamilyInfo[PlayerInfo[playerid][pFMember]][FamilyName]);
             }
-
             GetPlayerHealth(playerid, fHP);
             GetPlayerArmour(playerid, fARM);
-            if(fARM <= 0) format(string, sizeof(string), "%s{%s}%s (%d)\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetHealthDot(fHP));
-            else format(string, sizeof(string), "%s{%s}%s (%d)\n%s\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetARMDot(fARM), GetHealthDot(fHP));
+            if(g_vipBadge[playerid] && PlayerInfo[playerid][pDonateRank] >= 1) {
+                new szVipName[24], szVipColor[8];
+                switch(PlayerInfo[playerid][pDonateRank]) {
+                    case 1: { szVipName = "VIP Dong";       szVipColor = "edaa68"; }
+                    case 2: { szVipName = "VIP Bac";        szVipColor = "C0C0C0"; }
+                    case 3: { szVipName = "VIP Vang";       szVipColor = "FFD700"; }
+                    case 4: { szVipName = "VIP Kim Cuong";  szVipColor = "B9F2FF"; }
+                    default: { szVipName = "VIP Moderator"; szVipColor = "C93CCE"; }
+                }
+                if(fARM <= 0) format(string, sizeof(string), "%s{%s}%s{ffffff} | %s (%d)\n%s", string, szVipColor, szVipName, GetPlayerNameEx(playerid), playerid, GetHealthDot(fHP));
+                else format(string, sizeof(string), "%s{%s}%s{ffffff} | %s (%d)\n%s\n%s", string, szVipColor, szVipName, GetPlayerNameEx(playerid), playerid, GetARMDot(fARM), GetHealthDot(fHP));
+            } else {
+                if(fARM <= 0) format(string, sizeof(string), "%s{%s}%s (%d)\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetHealthDot(fHP));
+                else format(string, sizeof(string), "%s{%s}%s (%d)\n%s\n%s", string, szNameColor, GetPlayerNameEx(playerid), playerid, GetARMDot(fARM), GetHealthDot(fHP));
+            }
 
             Update3DTextLabelText(PlayerNameTag[playerid], 0xFFFFFFFF, string);
         }
