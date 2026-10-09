@@ -75,6 +75,7 @@ public OnVehicleSpawn(vehicleid) {
 	foreach(new i: Player)
 	{
 		if((v = GetPlayerVehicle(i, vehicleid)) != -1) {
+			GetVehicleHealth(vehicleid, PlayerVehicleInfo[i][v][pvHealth]);
 			DestroyVehicle(vehicleid);
 
 			new
@@ -86,6 +87,8 @@ public OnVehicleSpawn(vehicleid) {
 			PlayerVehicleInfo[i][v][pvId] = iVehicleID;
 
 			Vehicle_ResetData(iVehicleID);
+			if(PlayerVehicleInfo[i][v][pvHealth] >= 800.0)
+				SetVehicleHealth(iVehicleID, PlayerVehicleInfo[i][v][pvHealth]);
 			if(!isnull(PlayerVehicleInfo[i][v][pvPlate])) {
 				SetVehicleNumberPlate(iVehicleID, PlayerVehicleInfo[i][v][pvPlate]);
 			}
@@ -107,7 +110,7 @@ public OnVehicleSpawn(vehicleid) {
 				}
 			}
 			new string[128];
-			format(string, sizeof(string), "Your %s has been sent to the location at which you last parked it.", GetVehicleName(iVehicleID));
+			format(string, sizeof(string), "Chiec %s cua ban da duoc dua ve vi tri ban do xe lan cuoi.", GetVehicleName(iVehicleID));
 			SendClientMessageEx(i, COLOR_GRAD1, string);
 		}
 		if(IsValidDynamicObject(CrateVehicleLoad[vehicleid][vForkObject]))
@@ -4775,15 +4778,11 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
     }
 	if(GetPVarInt(playerid, "Injured") == 1) return 1;
 	
-	if(PRESSED(KEY_WALK))
+	if(PRESSED(KEY_YES))
 	{
-		// Di bo: ALT = KEY_WALK (1024), uu tien khoa/mo nha truoc, sau do xe
-		if(!House_TryALTLock(playerid))
-			pc_cmd_pvlock(playerid,"");
-	}
-	if(PRESSED(KEY_FIRE) && IsPlayerInAnyVehicle(playerid) && GetPlayerVehicleSeat(playerid) == 0)
-	{
-		// Trong xe: ALT = KEY_FIRE (4), chi nguoi lai (seat 0) moi khoa/mo duoc
+		if(IsPlayerInAnyVehicle(playerid) && GetPlayerVehicleSeat(playerid) == 0)
+		{
+		// Trong xe: KEY_YES, chi nguoi lai (seat 0) moi khoa/mo duoc
 		new Float:vx, Float:vy, Float:vz;
 		for(new d = 0; d < MAX_PLAYERVEHICLES; d++)
 		{
@@ -4815,6 +4814,11 @@ public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 					PlayerPlaySound(pi, 24600, vx, vy, vz);
 			}
 			break;
+		}
+		}
+		else
+		{
+			pc_cmd_pvlock(playerid,"");
 		}
 	}
 
