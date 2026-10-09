@@ -49,8 +49,8 @@ DestroyPlayerNameTag(playerid)
     if(IsValid3DTextLabel(PlayerNameTag[playerid]))
     {
         Delete3DTextLabel(PlayerNameTag[playerid]);
-        PlayerNameTag[playerid] = INVALID_3DTEXT_ID;
     }
+    PlayerNameTag[playerid] = INVALID_3DTEXT_ID;
 }
 
 forward UpdateNameTag(playerid);
