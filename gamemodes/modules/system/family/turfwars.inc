@@ -56,6 +56,7 @@
 #define DIALOG_SUPPLY_ADMIN_LIST    5310
 #define DIALOG_SUPPLY_ADMIN_DEL     5311
 #define DIALOG_TURF_LIST            5312
+#define DIALOG_SUPPLY_ADMIN_OPT     5313
 
 // ---------------------------------------------------------------------------
 // CẤU TRÚC DỮ LIỆU
@@ -1495,11 +1496,32 @@ stock TW_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 GetPlayerPos(playerid, px, py, pz);
                 TW_AddSupplyPt(playerid, px, py, pz);
             }
-            else // Chọn điểm để xóa (offset 1)
+            else // Chọn điểm để quản lý (offset 1)
             {
                 new idx = listitem - 1;
                 if(idx < 0 || idx >= g_SupplyPtCount) return 1;
                 g_twAdminSupplyPt[playerid] = idx;
+                new str[128];
+                format(str, sizeof(str), "Diem #%d tai (%.0f, %.0f, %.0f)\nChon hanh dong:",
+                    idx+1, g_SupplyPts[idx][spPosX], g_SupplyPts[idx][spPosY], g_SupplyPts[idx][spPosZ]);
+                ShowPlayerDialog(playerid, DIALOG_SUPPLY_ADMIN_OPT, DIALOG_STYLE_LIST,
+                    "Quan Ly Diem Hang Cam", "Dich chuyen den\nXoa diem", "Chon", "Huy");
+            }
+            return 1;
+        }
+
+        case DIALOG_SUPPLY_ADMIN_OPT:
+        {
+            if(!response) return 1;
+            new idx = g_twAdminSupplyPt[playerid];
+            if(idx < 0 || idx >= g_SupplyPtCount) return 1;
+            if(listitem == 0) // Dịch chuyển đến
+            {
+                SetPlayerPos(playerid, g_SupplyPts[idx][spPosX], g_SupplyPts[idx][spPosY], g_SupplyPts[idx][spPosZ] + 0.5);
+                SendClientMessageEx(playerid, COLOR_GREEN, "Da dich chuyen den diem lay hang cam #%d.", idx+1);
+            }
+            else // Xóa
+            {
                 new str[96];
                 format(str, sizeof(str), "Xoa diem lay hang cam #%d tai (%.0f, %.0f, %.0f)?",
                     idx+1, g_SupplyPts[idx][spPosX], g_SupplyPts[idx][spPosY], g_SupplyPts[idx][spPosZ]);
