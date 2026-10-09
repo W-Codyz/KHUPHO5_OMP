@@ -531,7 +531,7 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         RemovePlayerAttachedObject(playerid, 6);
         SetPlayerSpecialAction(playerid, 0);
 
-        new price = giatruck[3] + 300 + random(100);
+        new price = giatruck[3] + 30000 + random(10000);
         GivePlayerCash(playerid, price);
         hangtrentay[playerid][HANG_CAM] = 0;
         SetPVarInt(playerid, "idloaihang", 0);
