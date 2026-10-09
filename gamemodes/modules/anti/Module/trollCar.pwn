@@ -80,6 +80,7 @@ hook OnPlayerUpdate(playerid) {
 forward CheckPlayerRemoteJacking(playerid);
 public CheckPlayerRemoteJacking(playerid)
 {
+    if(PlayerInfo[playerid][pLevel] >= 2) return;
     new iVehicle = GetPlayerVehicleID( playerid );
 
     if( !IsPlayerInAnyVehicle( playerid ) )
@@ -224,6 +225,7 @@ public checkTrollCar(playerid) {
 forward ChongNoXe2(playerid,vehicleid);
 public ChongNoXe2(playerid,vehicleid)
 {
+    if(PlayerInfo[playerid][pLevel] >= 2) return;
     new Float:fDistance, Float: pos[3], Float: fVehicleHealth, string[1280];
     GetPlayerPos(playerid, pos[0],pos[1],pos[2]);
     GetVehicleHealth(vehicleid, fVehicleHealth);
@@ -271,6 +273,7 @@ stock GetHealthInVehicle(vehicleid) {
 forward ChongNoXe(playerid,vehicleid,ss);
 public ChongNoXe(playerid,vehicleid,ss)
 {
+    if(PlayerInfo[playerid][pLevel] >= 2) return;
     new Float: fVehicleHealth;
     if(DynVeh[vehicleid] == -1) {
 	    if(IsValidVehicleID(vehicleid) && vehicleid != INVALID_VEHICLE_ID)
@@ -332,21 +335,11 @@ public ChongNoXe(playerid,vehicleid,ss)
 		new iDvSlotID = DynVeh[vehicleid];
 		GetVehicleHealth(vehicleid, fVehicleHealth);
 		if(fVehicleHealth > DynVehicleInfo[iDvSlotID][gv_fMaxHealth] + 1000) {
-			new Float:posx, Float:posy, Float:posz;
-			GetPlayerPos(playerid, posx, posy, posz);
-			OPBA_SetPlayerPos(playerid, posx, posy, posz+5);
-			PlayerPlaySound(playerid, 1130, posx, posy, posz+5);
-            SendClientMessage(playerid, -1, "{FF0000}[!]{FFFFFF} Phuong tien nay da bi loi, he thong se tu dong Respawn phuong tien nay ve vi tri ban dau.");
-        	SetVehicleToRespawn(vehicleid);
+			SetVehicleHealth(vehicleid, DynVehicleInfo[iDvSlotID][gv_fMaxHealth]);
 		}
 
 		if(fVehicleHealth < 251)
         {
-            new Float:posx, Float:posy, Float:posz;
-			GetPlayerPos(playerid, posx, posy, posz);
-			OPBA_SetPlayerPos(playerid, posx, posy, posz+5);
-			PlayerPlaySound(playerid, 1130, posx, posy, posz+5);
-            
             GameTextForPlayer(playerid, "~r~XE HONG!", 2500, 3);
             SetVehicleHealth(vehicleid, 255);
         }
