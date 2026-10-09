@@ -1,4 +1,5 @@
 // ===========================================================================
+#include <YSI\YSI_Coding\y_hooks>
 // gamemodes/modules/system/family/turfwars.inc
 // Hệ thống Turf Wars – chiếm địa bàn theo vùng pickup
 //
@@ -80,6 +81,7 @@ new TotalTurfs = 0;
 // Trạng thái per-player
 new g_twAdminTurf[MAX_PLAYERS] = {-1, ...};       // Turf đang thao tác trong /turfadmin
 new g_twAdminGang1[MAX_PLAYERS] = {-1, ...};      // Gang 1 đã chọn khi setup war
+new g_twAdminGang2[MAX_PLAYERS] = {-1, ...};      // Gang 2 đã chọn khi setup war
 static g_twAdminSupplyPt[MAX_PLAYERS] = {-1, ...}; // Supply point đang chọn để xóa
 new bool:g_twSupplyCollecting[MAX_PLAYERS];        // Đang đứng chờ lấy hàng
 new bool:g_twSupplyCarrying[MAX_PLAYERS];          // Đang mang hàng về turf
@@ -487,9 +489,11 @@ stock TW_StartWar(turfid, attackGang, defendGang)
     if(defendGang >= 0) strmid(dName, FamilyInfo[defendGang][FamilyName], 0, 32, 32);
     else format(dName, 32, "_");
 
+    new zone[MAX_ZONE_NAME];
+    Get3DZone(TurfData[turfid][twPosX], TurfData[turfid][twPosY], TurfData[turfid][twPosZ], zone, sizeof(zone));
     format(str, sizeof(str),
-        "[CHIEM DONG] %s va %s bat dau tranh gianh! (%.1f, %.1f) - Dung /diemchiemdong xem chi tiet.",
-        aName, dName, TurfData[turfid][twPosX], TurfData[turfid][twPosY]);
+        "[CHIEM DONG] %s va %s bat dau tranh gianh! Khu vuc: %s - Dung /diemchiemdong xem chi tiet.",
+        aName, dName, zone);
 
     if(attackGang >= 0) TW_FamilyMsg(attackGang, COLOR_RED,    str);
     if(defendGang >= 0) TW_FamilyMsg(defendGang, COLOR_ORANGE, str);
@@ -613,9 +617,7 @@ public TW_SupplyCheck(playerid)
     }
 
     g_twSupplyTimeLeft[playerid]--;
-    new timeStr[48];
-    format(timeStr, sizeof(timeStr), "~y~Con lai: ~w~%d giay~n~~r~Khong roi khoi 10m!", g_twSupplyTimeLeft[playerid]);
-    GameTextForPlayer(playerid, timeStr, 1200, 3);
+    SendMessageTD(playerid, 1200, "~y~Con lai: ~w~%d giay~n~~r~Khong roi khoi 10m!", g_twSupplyTimeLeft[playerid]);
 }
 
 forward TW_OnSupplyLoaded(playerid);
@@ -1320,10 +1322,36 @@ stock TW_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
             if(famid == -1) return 1;
 
-            TW_StartWar(g_twAdminTurf[playerid], aGang, famid);
-            new str[128];
-            format(str, sizeof(str), "Da bat dau war giua %s va %s tai turf #%d.",
-                FamilyInfo[aGang][FamilyName], FamilyInfo[famid][FamilyName], g_twAdminTurf[playerid]+1);
+            g_twAdminGang2[playerid] = famid;
+            new turfConfirm = g_twAdminTurf[playerid];
+            new zone[MAX_ZONE_NAME];
+            Get3DZone(TurfData[turfConfirm][twPosX], TurfData[turfConfirm][twPosY], TurfData[turfConfirm][twPosZ], zone, sizeof(zone));
+            new dlgStr[256];
+            format(dlgStr, sizeof(dlgStr),
+                "Turf #%d - Khu vuc: %s\n  Gang 1: %s\n  Gang 2: %s\n\nXac nhan bat dau war?",
+                turfConfirm + 1, zone, FamilyInfo[aGang][FamilyName], FamilyInfo[famid][FamilyName]);
+            ShowPlayerDialog(playerid, DIALOG_TURFADMIN_WARCONFIRM, DIALOG_STYLE_MSGBOX, "Xac Nhan Bat Dau War", dlgStr, "Bat Dau War", "Huy");
+            return 1;
+        }
+
+        case DIALOG_TURFADMIN_WARCONFIRM:
+        {
+            if(!response)
+            {
+                SendClientMessageEx(playerid, COLOR_YELLOW, "Da huy. War se khong bat dau.");
+                return 1;
+            }
+            new turfid = g_twAdminTurf[playerid];
+            new gang1  = g_twAdminGang1[playerid];
+            new gang2  = g_twAdminGang2[playerid];
+            if(turfid < 0 || turfid >= TotalTurfs) return 1;
+            TW_StartWar(turfid, gang1, gang2);
+            new str[128], g1name[32], g2name[32];
+            if(gang1 >= 0) strmid(g1name, FamilyInfo[gang1][FamilyName], 0, 32, 32);
+            else format(g1name, 32, "???");
+            if(gang2 >= 0) strmid(g2name, FamilyInfo[gang2][FamilyName], 0, 32, 32);
+            else format(g2name, 32, "Khong co chu");
+            format(str, sizeof(str), "Da bat dau war: %s vs %s tai turf #%d.", g1name, g2name, turfid + 1);
             SendClientMessageEx(playerid, COLOR_GREEN, str);
             return 1;
         }
@@ -1574,14 +1602,75 @@ static stock TW_TryRandomWar(adminid)
         }
     }
 
-    TW_StartWar(turfid, gang1, gang2);
-    SendClientMessageEx(adminid, COLOR_GREEN, "Da bat dau random war thanh cong!");
+    // Lưu pending cho admin xác nhận
+    g_twAdminTurf[adminid]  = turfid;
+    g_twAdminGang1[adminid] = gang1;
+    g_twAdminGang2[adminid] = gang2;
+
+    // Thông báo chuẩn bị cho 2 gang (chưa bắt đầu war)
+    new zone[MAX_ZONE_NAME];
+    Get3DZone(TurfData[turfid][twPosX], TurfData[turfid][twPosY], TurfData[turfid][twPosZ], zone, sizeof(zone));
+    new g1name[32], g2name[32], notify[224];
+    strmid(g1name, FamilyInfo[gang1][FamilyName], 0, 32, 32);
+    if(gang2 >= 0) strmid(g2name, FamilyInfo[gang2][FamilyName], 0, 32, 32);
+    else format(g2name, 32, "Khong co chu");
+    format(notify, sizeof(notify), "[TURF WAR] Chuan bi! %s va %s sap tranh gianh khu vuc: %s! Hay san sang!", g1name, g2name, zone);
+    TW_FamilyMsg(gang1, COLOR_ORANGE, notify);
+    if(gang2 >= 0) TW_FamilyMsg(gang2, COLOR_ORANGE, notify);
+
+    // Hiện dialog xác nhận cho admin
+    new dlgStr[256];
+    format(dlgStr, sizeof(dlgStr),
+        "Da thong bao 2 gang chuan bi:\n  Gang 1: %s\n  Gang 2: %s\n  Khu vuc: %s\n\nXac nhan bat dau war?",
+        g1name, g2name, zone);
+    ShowPlayerDialog(adminid, DIALOG_TURFADMIN_WARCONFIRM, DIALOG_STYLE_MSGBOX, "Xac Nhan Bat Dau War", dlgStr, "Bat Dau War", "Huy");
     return 1;
 }
 
 // ---------------------------------------------------------------------------
 // PICKUP & CHECKPOINT HANDLERS (gọi từ callbacks.inc)
 // ---------------------------------------------------------------------------
+
+hook OnPlayerConnect(playerid)
+{
+    g_twInZone[playerid]             = -1;
+    g_twSupplyCollecting[playerid]   = false;
+    g_twSupplyCarrying[playerid]     = false;
+    g_twSupplyTurf[playerid]         = -1;
+    g_twSupplyPtIdx[playerid]        = -1;
+    g_twSupplyTimeLeft[playerid]     = 0;
+    g_twSupplyCheckTimer[playerid]   = -1;
+    g_twAdminTurf[playerid]          = -1;
+    g_twAdminGang1[playerid]         = -1;
+    g_twAdminGang2[playerid]         = -1;
+}
+
+hook OnPlayerDisconnect(playerid, reason)
+{
+    #pragma unused reason
+    // Kill timer supply nếu đang chạy
+    if(g_twSupplyCheckTimer[playerid] != -1)
+    {
+        KillTimer(g_twSupplyCheckTimer[playerid]);
+        g_twSupplyCheckTimer[playerid] = -1;
+    }
+
+    // Dừng loading bar nếu đang collect
+    if(g_twSupplyCollecting[playerid])
+        StopLoading(playerid);
+
+    // Reset toàn bộ trạng thái supply
+    g_twSupplyCollecting[playerid] = false;
+    g_twSupplyCarrying[playerid]   = false;
+    g_twSupplyTurf[playerid]       = -1;
+    g_twSupplyPtIdx[playerid]      = -1;
+    g_twSupplyTimeLeft[playerid]   = 0;
+
+    // Reset trạng thái admin
+    g_twAdminTurf[playerid]  = -1;
+    g_twAdminGang1[playerid] = -1;
+    g_twAdminGang2[playerid] = -1;
+}
 
 // Gọi từ OnPlayerPickUpPickup
 stock TW_OnPlayerPickUpPickup(playerid, pickupid)

@@ -2362,7 +2362,6 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 public OnPlayerConnect(playerid) {
 	if(IsPlayerNPC(playerid)) return 1;
-	g_twInZone[playerid] = -1;
 	g_arrQueryHandle{playerid} = random(256);
 
 	TotalConnect++;
@@ -2727,7 +2726,6 @@ public OnPlayerConnect(playerid) {
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	g_twInZone[playerid] = -1;
 	HospitalSpawn_OnPlayerDisconnect(playerid);
 	DestroyPlayerNameTag(playerid);
 	
