@@ -15183,7 +15183,18 @@ CMD:gwithdraw(playerid, params[])
 			return 1;
 		}
 	}
-	else if(-1 < PlayerInfo[playerid][pLeader] <= MAX_GROUPS && PlayerInfo[playerid][pRank] == Group_GetMaxRank(PlayerInfo[playerid][pLeader]))
+	/*else if(PlayerInfo[playerid][pLeader] >= 0 && PlayerInfo[playerid][pLeader] < MAX_GROUPS)
+	{
+		iGroupID = PlayerInfo[playerid][pLeader];
+		if(sscanf(params, "ds[64]", amount, reason))
+		{
+			SendHelpMessage(playerid, "/gwithdraw [amount] [reason]");
+			format(string, sizeof(string), "* VAULT BALANCE: $%d.", arrGroupData[iGroupID][g_iBudget]);
+			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+			return 1;
+		}
+	}*/
+	else if(PlayerInfo[playerid][pLeader] >= 0 && PlayerInfo[playerid][pLeader] < MAX_GROUPS && PlayerInfo[playerid][pAdmin] > 1336)
 	{
 		iGroupID = PlayerInfo[playerid][pLeader];
 		if(sscanf(params, "ds[64]", amount, reason))
@@ -19416,6 +19427,28 @@ CMD:gotopveh(playerid, params[]) {
 		}
   	}
 	return 1;
+}
+
+CMD:pullveh(playerid, params[]) {
+    if(PlayerInfo[playerid][pAdmin] >= 2) {
+        new iVehID;
+        if(sscanf(params, "d", iVehID)) return SendHelpMessage(playerid, "/pullveh [vehicle ID]");
+        if(!IsValidVehicle(iVehID)) return SendClientMessageEx(playerid, COLOR_GREY, "Vehicle ID khong hop le.");
+
+        new Float: admPos[4], string[128];
+        GetPlayerPos(playerid, admPos[0], admPos[1], admPos[2]);
+        GetPlayerFacingAngle(playerid, admPos[3]);
+        SetVehiclePos(iVehID, admPos[0], admPos[1] + 3.0, admPos[2]);
+        SetVehicleZAngle(iVehID, admPos[3]);
+        LinkVehicleToInterior(iVehID, GetPlayerInterior(playerid));
+        SetVehicleVirtualWorld(iVehID, GetPlayerVirtualWorld(playerid));
+
+        format(string, sizeof(string), "AdmCmd: %s da keo vehicle ID %d ve vi tri cua minh.", GetPlayerNameEx(playerid), iVehID);
+        SendClientMessageToAllEx(COLOR_LIGHTRED, string);
+        Log("logs/admin.log", string);
+    }
+    else SendUnAuth(playerid);
+    return 1;
 }
 
 CMD:pvlock(playerid, params[])
