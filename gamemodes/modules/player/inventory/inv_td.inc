@@ -21,6 +21,7 @@ new bool: g_InvTDCreated[MAX_PLAYERS];
 // ======================================================================
 static GetInvItemModel(itemVariable)
 {
+    if(itemVariable == pMats)       return 2983;
     if(itemVariable == pBanhMi)    return 19579;
     if(itemVariable == pNuocLoc)   return 19570;
     if(itemVariable == pTepCanSa)  return 1575;

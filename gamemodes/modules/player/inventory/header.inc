@@ -116,6 +116,7 @@ new const ItemInventory[][Inv_Data] = {
     {pMinKimCuong, "Kim Cuong"},
     // Lumber
     {pGoThuong, "Go tho"},
+    {pMats, "Vat lieu"},
     // Giay to
     {pIDCard, "CCCD"},
     // Binh xang
