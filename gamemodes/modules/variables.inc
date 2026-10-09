@@ -2235,6 +2235,8 @@ new gdCanSa[MAX_PLAYERS];
 new slCanSa[MAX_PLAYERS];
 new tienCanSa[MAX_PLAYERS];
 
+new g_vipBadge[MAX_PLAYERS]; // VIP badge toggle on nametag (0=off, 1=on)
+
 
 //color
 #define WHITE       "{FFFFFF}"

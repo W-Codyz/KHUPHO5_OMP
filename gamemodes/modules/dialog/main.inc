@@ -7258,41 +7258,34 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			if(listitem == 5)
 			{
-			    ShowPlayerDialog(playerid, 7486, DIALOG_STYLE_LIST, "VIP: Mau nick VIP", "Bat\nTat", "Chon", "Huy bo");
+			    // Goi lenh /khoevip thay cho dialog VIP Color cu
+			    pc_cmd_khoevip(playerid, "");
 			}
 		}
 	}
-	
-	if(dialogid == 7486)
-	{
-	    if(!response) return 1;
 
-        if(PlayerInfo[playerid][pWantedLevel] >= 6)
-        {
-            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban khong the su dung khi dang bi truy na!");
-            return 1;
-		}
-		if(PlayerInfo[playerid][pJailTime] > 0)
-        {
-            SendClientMessageEx(playerid, COLOR_YELLOW, "Ban khong the lam dieu nay vao luc nay.");
-			format(string, sizeof(string), "{AA3333}AdmWarning{FFFF00}: %s da co gang thay doi mau nick VIP khi dang o tu.", GetPlayerNameEx(playerid));
-			ABroadCast(COLOR_YELLOW, string, 2);
-            return 1;
-		}
-	    switch(listitem)
-	    {
-	        case 0:
-	        {
-				SetPlayerColor(playerid, COLOR_VIP);
-	        	SendClientMessageEx(playerid, COLOR_YELLOW, "Dat bat mau nick VIP!");
-			}
-	        case 1:
-			{
-		 		SetPlayerToTeamColor(playerid);
-		 		SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da tat mau nick VIP!");
-			}
-	    }
-	}
+	// [VIP Color dialog 7486 - da duoc thay the boi /khoevip]
+	// if(dialogid == 7486)
+	// {
+	//     if(!response) return 1;
+	//     if(PlayerInfo[playerid][pWantedLevel] >= 6)
+	//     {
+	//         SendClientMessageEx(playerid, COLOR_YELLOW, "Ban khong the su dung khi dang bi truy na!");
+	//         return 1;
+	//     }
+	//     if(PlayerInfo[playerid][pJailTime] > 0)
+	//     {
+	//         SendClientMessageEx(playerid, COLOR_YELLOW, "Ban khong the lam dieu nay vao luc nay.");
+	//         format(string, sizeof(string), "{AA3333}AdmWarning{FFFF00}: %s da co gang thay doi mau nick VIP khi dang o tu.", GetPlayerNameEx(playerid));
+	//         ABroadCast(COLOR_YELLOW, string, 2);
+	//         return 1;
+	//     }
+	//     switch(listitem)
+	//     {
+	//         case 0: { SetPlayerColor(playerid, COLOR_VIP); SendClientMessageEx(playerid, COLOR_YELLOW, "Dat bat mau nick VIP!"); }
+	//         case 1: { SetPlayerToTeamColor(playerid);      SendClientMessageEx(playerid, COLOR_YELLOW, "Ban da tat mau nick VIP!"); }
+	//     }
+	// }
 	if(dialogid == RESTAURANTMENU)
 	{
 	    new pvar[25];

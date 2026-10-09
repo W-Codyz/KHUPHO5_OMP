@@ -22096,9 +22096,9 @@ CMD:viplocker(playerid, params[]) {
 	#endif
 	if(IsPlayerInRangeOfPoint(playerid, 7.0, 2555.747314, 1404.106079, 7699.584472) /*LS Main*/ || IsPlayerInRangeOfPoint(playerid, 7.0, 1832.0533, 1380.7281, 1464.3822) /*LV Main*/ || IsPlayerInRangeOfPoint(playerid, 7.0, 772.4844, 1715.7213, 1938.0391) /*LV Plat*/) switch(PlayerInfo[playerid][pDonateRank]) {
 		case 0: SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai la VIP.");
-		case 1: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest ($15000)\nWeapons\nClothes Corner\nJob Center\nVIP Color", "Lua chon", "Huy bo");
-		case 2: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest ($10000)\nWeapons\nClothes Corner\nJob Center\nVIP Color", "Lua chon", "Huy bo");
-		default: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons\nClothes Corner\nJob Center\nVIP Color", "Lua chon", "Huy bo");
+		case 1: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest ($15000)\nWeapons\nClothes Corner\nJob Center\nKhoe VIP", "Lua chon", "Huy bo");
+		case 2: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest ($10000)\nWeapons\nClothes Corner\nJob Center\nKhoe VIP", "Lua chon", "Huy bo");
+		default: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons\nClothes Corner\nJob Center\nKhoe VIP", "Lua chon", "Huy bo");
 	}
 	else SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong o tu do VIP.");
 	return 1;
@@ -22734,6 +22734,20 @@ CMD:v(playerid, params[]) {
 		}
 	}
 	return 1;
+}
+
+CMD:khoevip(playerid, params[]) {
+    if(PlayerInfo[playerid][pDonateRank] < 1)
+        return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai la VIP."), 1;
+
+    g_vipBadge[playerid] = !g_vipBadge[playerid];
+    if(g_vipBadge[playerid])
+        SendClientMessageEx(playerid, COLOR_VIP, "Da bat VIP badge. Cap bac VIP se hien thi tren nametag cua ban.");
+    else
+        SendClientMessageEx(playerid, COLOR_VIP, "Da tat VIP badge.");
+
+    UpdateNameTag(playerid);
+    return 1;
 }
 
 CMD:orders(playerid, params[])
@@ -40083,7 +40097,7 @@ CMD:getmats(playerid, params[])
 				GivePlayerCash(playerid, -2125);
 				SetPVarInt(playerid, "Packages", 23);
 				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban da mua 23 vat lieu va cha cho $2125.");
-				SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: Ban nhan duoc 1.5x goi hang, se giup ban nhan duoc them 1.5x vat lieu.");
+				SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: Ban nhan duoc 1.5x goi hang.");
 			}
 			else if(PlayerInfo[playerid][pDonateRank] == 2 || PlayerInfo[playerid][pDonateRank] == 3)
 			{
@@ -40095,7 +40109,7 @@ CMD:getmats(playerid, params[])
 				GivePlayerCash(playerid, -2500);
 				SetPVarInt(playerid, "Packages", 30);
 				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban da mua 30 goi vat lieu va cha cho $2500.");
-				SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: Ban nhan duoc 2x goi hang, se giup ban nhan duoc them 2x vat lieu.");
+				SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: Ban nhan duoc 2x goi hang.");
 			}
 			else if(PlayerInfo[playerid][pDonateRank] >= 4)
 			{
@@ -40107,7 +40121,7 @@ CMD:getmats(playerid, params[])
 				GivePlayerCash(playerid, -2875);
 				SetPVarInt(playerid, "Packages", 38);
 				SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban da mua 38 goi vat lieu va cha cho $2875.");
-				SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: Ban nhan duoc 2.5x goi hang, se giup ban nhan duoc them 2.5x vat lieu.");
+				SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: Ban nhan duoc 2.5x goi hang.");
 			}
 			else
 			{
@@ -40148,7 +40162,7 @@ CMD:getmats(playerid, params[])
 			GivePlayerCash(playerid, -1900);
 			SetPVarInt(playerid, "Packages", 18);
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban mua 18 Goi vat lieu voi gia $1900.");
-			SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: Ban nhan duoc 1.5x goi hang, se giup ban nhan duoc them 1.5x vat lieu.");
+			SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: Ban nhan duoc 1.5x goi hang.");
 		}
 		else if(PlayerInfo[playerid][pDonateRank] == 2 || PlayerInfo[playerid][pDonateRank] == 3)
 		{
@@ -40160,7 +40174,7 @@ CMD:getmats(playerid, params[])
 			GivePlayerCash(playerid, -2200);
 			SetPVarInt(playerid, "Packages", 24);
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban mua 24 Goi vat lieu voi gia $2200.");
-			SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: Ban nhan duoc 2x goi hang, se giup ban nhan duoc them 2x vat lieu.");
+			SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: Ban nhan duoc 2x goi hang.");
 		}
 		else if(PlayerInfo[playerid][pDonateRank] >= 4)
 		{
@@ -40172,7 +40186,7 @@ CMD:getmats(playerid, params[])
 			GivePlayerCash(playerid, -2500);
 			SetPVarInt(playerid, "Packages", 30);
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban mua 30 Goi vat lieu voi gia $2500.");
-			SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: Ban nhan duoc 2.5x goi hang, se giup ban nhan duoc them 2.5x vat lieu.");
+			SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: Ban nhan duoc 2.5x goi hang.");
 		}
 		else
 		{
@@ -40206,7 +40220,7 @@ CMD:getmats(playerid, params[])
 			GivePlayerCash(playerid, -1900);
 			SetPVarInt(playerid, "Packages", 18);
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban mua 18 Goi vat lieu voi gia $1900.");
-			SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: Ban nhan duoc 1.5x goi hang, se giup ban nhan duoc them 1.5x vat lieu.");
+			SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: Ban nhan duoc 1.5x goi hang.");
 		}
 		else if(PlayerInfo[playerid][pDonateRank] == 2 || PlayerInfo[playerid][pDonateRank] == 3)
 		{
@@ -40218,7 +40232,7 @@ CMD:getmats(playerid, params[])
 			GivePlayerCash(playerid, -2200);
 			SetPVarInt(playerid, "Packages", 24);
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban mua 24 Goi vat lieu voi gia $2200.");
-			SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: Ban nhan duoc 2x goi hang, se giup ban nhan duoc them 2x vat lieu.");
+			SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: Ban nhan duoc 2x goi hang.");
 		}
 		else if(PlayerInfo[playerid][pDonateRank] >= 4)
 		{
@@ -40230,7 +40244,7 @@ CMD:getmats(playerid, params[])
 			GivePlayerCash(playerid, -2500);
 			SetPVarInt(playerid, "Packages", 30);
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban mua 30 Goi vat lieu voi gia $2500.");
-			SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: Ban nhan duoc 2.5x goi hang, se giup ban nhan duoc them 2.5x vat lieu.");
+			SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: Ban nhan duoc 2.5x goi hang.");
 		}
 		else
 		{
@@ -40279,7 +40293,7 @@ CMD:getmats(playerid, params[])
 		GivePlayerCash(playerid, -1750);
 		SetPVarInt(playerid, "Packages", 15);
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban da mua 15 goi vat lieu voi gia $1750.");
-		SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: Ban nhan duoc 1.5x goi hang, se giup ban nhan duoc them 1.5x vat lieu.");
+		SendClientMessageEx(playerid, COLOR_YELLOW,"Bronze VIP: Ban nhan duoc 1.5x goi hang.");
 	}
 	else if(PlayerInfo[playerid][pDonateRank] == 2 || PlayerInfo[playerid][pDonateRank] == 3)
 	{
@@ -40291,7 +40305,7 @@ CMD:getmats(playerid, params[])
 		GivePlayerCash(playerid, -2000);
 		SetPVarInt(playerid, "Packages", 20);
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban da mua 20 goi vat lieu voi gia $2000.");
-		SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: Ban nhan duoc 2x goi hang, se giup ban nhan duoc them 2x vat lieu.");
+		SendClientMessageEx(playerid, COLOR_YELLOW,"Silver & Gold VIP: Ban nhan duoc 2x goi hang.");
 	}
 	else if(PlayerInfo[playerid][pDonateRank] >= 4)
 	{
@@ -40303,7 +40317,7 @@ CMD:getmats(playerid, params[])
 		GivePlayerCash(playerid, -2250);
 		SetPVarInt(playerid, "Packages", 25);
 		SendClientMessageEx(playerid, COLOR_LIGHTBLUE,"* Ban da mua 25 goi vat lieu voi gia $2250.");
-		SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: Ban nhan duoc 2.5x goi hang, se giup ban nhan duoc them 2.5x vat lieu.");
+		SendClientMessageEx(playerid, COLOR_YELLOW,"Platinum VIP: Ban nhan duoc 2.5x goi hang.");
 	}
 	else
 	{
