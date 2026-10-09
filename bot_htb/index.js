@@ -14,6 +14,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+let botReadyTime = null;
 
 // Load commands
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -25,6 +26,7 @@ for (const file of commandFiles) {
 
 // Ready event
 client.once('ready', async () => {
+    botReadyTime = Date.now();
     console.log(`Bot is ready! Logged in as ${client.user.tag}`);
 
     // Register Slash Commands
@@ -48,6 +50,12 @@ client.once('ready', async () => {
 // Handle Interactions
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
+
+    // Bỏ qua interaction tạo ra trước khi bot sẵn sàng (stale từ lần restart trước)
+    if (botReadyTime && interaction.createdTimestamp < botReadyTime) {
+        console.log(`Bỏ qua interaction cũ: ${interaction.commandName}`);
+        return;
+    }
 
     const command = client.commands.get(interaction.commandName);
     if (!command) return;
