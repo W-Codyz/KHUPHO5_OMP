@@ -1366,7 +1366,7 @@
 				<tagname value="Float"/>
 			</member>
 		</member>
-		<member name="T:E_SUPPLY_PT" value="6">
+		<member name="T:E_SUPPLY_PT" value="7">
 			<tagname value="E_SUPPLY_PT"/>
 			<member name="C:spDbId" value="0">
 			</member>
@@ -1383,6 +1383,8 @@
 			<member name="C:spPosZ" value="5">
 				<tagname value="Float"/>
 			</member>
+			<member name="C:spStock" value="6">
+			</member>
 		</member>
 		<member name="T:E_TEXTDRAW_ACTIONS" value="35">
 			<tagname value="E_TEXTDRAW_ACTIONS"/>
@@ -1397,13 +1399,13 @@
 				<tagname value="Float"/>
 			</member>
 		</member>
-		<member name="T:E_TURF_DATA" value="13">
+		<member name="T:E_TURF_DATA" value="15">
 			<tagname value="E_TURF_DATA"/>
 			<member name="C:twId" value="0">
 			</member>
 			<member name="C:twActive" value="1">
 			</member>
-			<member name="C:twTimeLeft" value="2">
+			<member name="C:twWarEndUnix" value="2">
 			</member>
 			<member name="C:twPickupId" value="3">
 			</member>
@@ -1413,20 +1415,24 @@
 			</member>
 			<member name="C:twOwnerGang" value="6">
 			</member>
-			<member name="C:twPosX" value="7">
+			<member name="C:twCurrentHolder" value="7">
+			</member>
+			<member name="C:twLastCaptureUnix" value="8">
+			</member>
+			<member name="C:twPosX" value="9">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:twPosY" value="8">
+			<member name="C:twPosY" value="10">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:twPosZ" value="9">
+			<member name="C:twPosZ" value="11">
 				<tagname value="Float"/>
 			</member>
-			<member name="C:twSupplyCount" value="10">
+			<member name="C:twSupplyCount" value="12">
 			</member>
-			<member name="C:twSupplyDeadline" value="11">
+			<member name="C:twSupplyDeadline" value="13">
 			</member>
-			<member name="C:twLocked" value="12">
+			<member name="C:twLocked" value="14">
 			</member>
 		</member>
 		<member name="T:E_YSI_DIR" value="2">
@@ -7023,7 +7029,7 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="209">
+		<member name="C:__line" value="210">
 			<referrer name="pc_cmd_ssetmoney"/>
 			<referrer name="pc_cmd_sgivemoney"/>
 			<referrer name="pc_cmd_ssetstat"/>
@@ -7947,15 +7953,13 @@
 			<referrer name="pc_cmd_baotri"/>
 			<referrer name="FA_NotifyGang"/>
 			<referrer name="TW_FamilyMsg"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="TW_CountOnline"/>
 			<referrer name="TW_EndWar"/>
 			<referrer name="TW_StartSupplyCollect"/>
-			<referrer name="TW_OnPlayerDeath"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="FM_ShowGangInfo"/>
-			<referrer name="FM_ShowMemberList"/>
-			<referrer name="FM_GetGangMemberByIdx"/>
+			<referrer name="OnGangMemberList"/>
 			<referrer name="FAdmin_ShowSwitchGangList"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 			<referrer name="_@yHOnDialogResponse@0I"/>
@@ -8607,6 +8611,7 @@
 			<referrer name="_@yHOnPlayerDisconnect@0D"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="pc_cmd_baotri"/>
+			<referrer name="TW_EndWar"/>
 			<referrer name="TW_SupplyCheck"/>
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_DeliverSupply"/>
@@ -9142,9 +9147,13 @@
 			<referrer name="FA_OnLoadLogs"/>
 			<referrer name="TW_StartSupplyCollect"/>
 			<referrer name="TW_OnSupplyLoaded"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_testturf"/>
+			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnPlayerConnect@0F"/>
 			<referrer name="@yH_OnPlayerDisconnect@0F"/>
+			<referrer name="@yH_OnPlayerPickUpPickup@0F"/>
+			<referrer name="@yH_OnPlayerEnterCheckpoint@0F"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 			<referrer name="LogAdd"/>
 			<referrer name="TaoHenGioRoulette"/>
@@ -11140,12 +11149,15 @@
 			<referrer name="pc_cmd_fstoregun2"/>
 			<referrer name="TW_UpdateLabel"/>
 			<referrer name="TW_FamilyColorTag"/>
-			<referrer name="TW_StartWar"/>
+			<referrer name="TW_StartWarAt"/>
 			<referrer name="TW_EndWar"/>
+			<referrer name="pc_cmd_layhangcam"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="TW_ShowTurfList"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_TryRandomWar"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="FM_ShowGangInfo"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="FAdmin_ShowCreateSlotDialog"/>
@@ -12218,15 +12230,13 @@
 			<referrer name="pc_cmd_baotri"/>
 			<referrer name="FA_NotifyGang"/>
 			<referrer name="TW_FamilyMsg"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="TW_CountOnline"/>
 			<referrer name="TW_EndWar"/>
 			<referrer name="TW_StartSupplyCollect"/>
-			<referrer name="TW_OnPlayerDeath"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="FM_ShowGangInfo"/>
-			<referrer name="FM_ShowMemberList"/>
-			<referrer name="FM_GetGangMemberByIdx"/>
+			<referrer name="OnGangMemberList"/>
 			<referrer name="FAdmin_ShowSwitchGangList"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 			<referrer name="_@yHOnDialogResponse@0I"/>
@@ -12854,7 +12864,8 @@
 			<referrer name="TurfSupplyPoints_Load"/>
 			<referrer name="TW_AddSupplyPt"/>
 			<referrer name="TW_RemoveSupplyPt"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="FM_ShowMemberList"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="_@yHOnDialogResponse@0I"/>
 			<referrer name="OnSelectMember"/>
@@ -13452,8 +13463,12 @@
 			<referrer name="@yH_OnPlayerSpawn@0D"/>
 			<referrer name="@yH_OnPlayerDisconnect@0D"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
+			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnPlayerConnect@0F"/>
 			<referrer name="@yH_OnPlayerDisconnect@0F"/>
+			<referrer name="@yH_OnPlayerPickUpPickup@0F"/>
+			<referrer name="@yH_OnPlayerEnterCheckpoint@0F"/>
 			<referrer name="@yH_OnGameModeInit@0G"/>
 			<referrer name="@yH_OnGameModeExit@0G"/>
 			<referrer name="@yH_OnPlayerConnect@0G"/>
@@ -14012,6 +14027,7 @@
 			<referrer name="_@yHOnDialogResponse@0H"/>
 		</member>
 		<member name="F:PlayerElectricJob">
+			<referrer name="pc_cmd_impound"/>
 			<referrer name="Electric_ResetVars"/>
 			<referrer name="Electric_Stop"/>
 			<referrer name="Electric_FixFinish"/>
@@ -14150,8 +14166,11 @@
 			<referrer name="Anti_killall_4"/>
 			<referrer name="Anti_killall_5"/>
 			<referrer name="Anti_killall_6"/>
+			<referrer name="CheckPlayerRemoteJacking"/>
 			<referrer name="_@yHOnPlayerEnterVehicle@0A"/>
 			<referrer name="_@yHOnPlayerStateChange@0A"/>
+			<referrer name="ChongNoXe2"/>
+			<referrer name="ChongNoXe"/>
 			<referrer name="_@yHOnPlayerGiveDamage@0B"/>
 			<referrer name="AntiCheat"/>
 			<referrer name="AntiVPN"/>
@@ -14188,11 +14207,10 @@
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="pc_cmd_fstoregun2"/>
 			<referrer name="TW_FamilyMsg"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="TW_CountOnline"/>
 			<referrer name="TW_StartSupplyCollect"/>
-			<referrer name="TW_OnPlayerDeath"/>
-			<referrer name="pc_cmd_layhangcam"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="pc_cmd_turfadmin"/>
 			<referrer name="TW_ShowTurfList"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
@@ -14201,9 +14219,7 @@
 			<referrer name="pc_cmd_gangs"/>
 			<referrer name="pc_cmd_gbadge"/>
 			<referrer name="FM_ShowGangInfo"/>
-			<referrer name="FM_ShowMemberList"/>
-			<referrer name="FM_GetGangMemberByIdx"/>
-			<referrer name="FM_ShowMemberActions"/>
+			<referrer name="OnGangMemberList"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="pc_cmd_fcreate"/>
 			<referrer name="pc_cmd_fdelete"/>
@@ -14850,6 +14866,7 @@
 			<referrer name="pc_cmd_setpayday"/>
 			<referrer name="pc_cmd_togvip"/>
 			<referrer name="pc_cmd_v"/>
+			<referrer name="pc_cmd_khoevip"/>
 			<referrer name="pc_cmd_orders"/>
 			<referrer name="pc_cmd_givemeorder"/>
 			<referrer name="pc_cmd_searchvipm"/>
@@ -15467,8 +15484,10 @@
 			<referrer name="_@yHOnPlayerKeyStateChange@0W"/>
 			<referrer name="pc_cmd_laygo"/>
 			<referrer name="pc_cmd_chatgo"/>
+			<referrer name="pc_cmd_impound"/>
 		</member>
 		<member name="F:PlayerMinerData">
+			<referrer name="pc_cmd_impound"/>
 			<referrer name="Miner_Start"/>
 			<referrer name="Miner_Stop"/>
 			<referrer name="Miner_StartMine"/>
@@ -16763,15 +16782,16 @@
 			<referrer name="TW_UpdateLabel"/>
 			<referrer name="TW_OnLoad"/>
 			<referrer name="TW_SaveTurf"/>
-			<referrer name="TW_StartWar"/>
+			<referrer name="TW_StartWarAt"/>
 			<referrer name="pc_cmd_layhangcam"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="TW_ShowTurfList"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="TW_OnTurfCreated"/>
-			<referrer name="TW_TryRandomWar"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="TurfSupplyDeadlineCheck"/>
 			<referrer name="FM_ShowGangInfo"/>
@@ -16883,6 +16903,7 @@
 			<referrer name="_@yHOnDialogResponse@0d"/>
 		</member>
 		<member name="F:TruckerJobCar">
+			<referrer name="pc_cmd_impound"/>
 			<referrer name="IsATruckerCar"/>
 			<referrer name="Trucker_Cleanup"/>
 			<referrer name="_@yHOnPlayerConnect@0d"/>
@@ -16916,20 +16937,19 @@
 			<referrer name="TW_UpdateLabel"/>
 			<referrer name="TW_OnLoad"/>
 			<referrer name="TW_SaveTurf"/>
-			<referrer name="TW_CountNear"/>
-			<referrer name="TW_StartWar"/>
+			<referrer name="TW_StartWarAt"/>
 			<referrer name="TW_EndWar"/>
-			<referrer name="TW_StartSupplyCollect"/>
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_DeliverSupply"/>
 			<referrer name="pc_cmd_layhangcam"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="TW_ShowTurfList"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="TW_OnTurfCreated"/>
-			<referrer name="TW_TryRandomWar"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="TurfSupplyDeadlineCheck"/>
 			<referrer name="FM_ShowGangInfo"/>
@@ -19774,11 +19794,12 @@
 		</member>
 		<member name="F:__file">
 		</member>
+		<member name="F:__file">
+		</member>
 		<member name="F:__gOnce">
 			<referrer name="OnPlayerStateChange"/>
 			<referrer name="Iter_OnPlayerStateChange"/>
 			<referrer name="_@yHOnPlayerStateChange@0A"/>
-			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="OnOfflineDivisionUpdate"/>
 			<referrer name="OnQueryFinish"/>
@@ -21331,7 +21352,7 @@
 		</member>
 		<member name="F:gPlayerCheckpointStatus">
 			<referrer name="TW_OnSupplyLoaded"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="pc_cmd_dienthoai"/>
 			<referrer name="_@yHOnDialogResponse@0W"/>
 			<referrer name="CheckPointCheck"/>
@@ -21801,20 +21822,22 @@
 			<referrer name="TW_AddSupplyPt"/>
 			<referrer name="TSP_OnCreated"/>
 			<referrer name="TW_RemoveSupplyPt"/>
+			<referrer name="TW_StartSupplyCollect"/>
 			<referrer name="TW_SupplyCheck"/>
 			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_OnPlayerPickUpPickup"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="_@yHOnPlayerPickUpPickup@0F"/>
 		</member>
 		<member name="F:g_SupplyPts">
 			<referrer name="TW_UpdateSupplyLabel"/>
 			<referrer name="TSP_OnLoad"/>
 			<referrer name="TSP_OnCreated"/>
 			<referrer name="TW_RemoveSupplyPt"/>
+			<referrer name="TW_StartSupplyCollect"/>
 			<referrer name="TW_SupplyCheck"/>
 			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_OnPlayerPickUpPickup"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="_@yHOnPlayerPickUpPickup@0F"/>
 		</member>
 		<member name="F:g_TotalLicense_TD">
 			<tagname value="PlayerText"/>
@@ -21907,7 +21930,38 @@
 			<referrer name="pc_cmd_switchgang"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 		</member>
+		<member name="F:g_fmListCount">
+			<referrer name="OnGangMemberList"/>
+			<referrer name="FM_OnDialogResponse"/>
+		</member>
+		<member name="F:g_fmListDbId">
+			<referrer name="OnGangMemberList"/>
+			<referrer name="FM_OnDialogResponse"/>
+		</member>
+		<member name="F:g_fmListName">
+			<referrer name="OnGangMemberList"/>
+			<referrer name="FM_OnDialogResponse"/>
+		</member>
+		<member name="F:g_fmListPlayerId">
+			<referrer name="OnGangMemberList"/>
+			<referrer name="FM_OnDialogResponse"/>
+		</member>
+		<member name="F:g_fmListRank">
+			<referrer name="OnGangMemberList"/>
+			<referrer name="FM_OnDialogResponse"/>
+		</member>
 		<member name="F:g_fmMotdSlot">
+			<referrer name="FM_OnDialogResponse"/>
+		</member>
+		<member name="F:g_fmSelDbId">
+			<referrer name="FM_OnDialogResponse"/>
+		</member>
+		<member name="F:g_fmSelName">
+			<referrer name="FM_ShowMemberActions"/>
+			<referrer name="FM_OnDialogResponse"/>
+		</member>
+		<member name="F:g_fmSelRank">
+			<referrer name="FM_ShowMemberActions"/>
 			<referrer name="FM_OnDialogResponse"/>
 		</member>
 		<member name="F:g_fmSelectedPlayer">
@@ -21969,24 +22023,20 @@
 			<referrer name="FA_UpdateSafeLabel"/>
 		</member>
 		<member name="F:g_twAdminGang1">
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_TryRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnPlayerConnect@0F"/>
 			<referrer name="_@yHOnPlayerDisconnect@0F"/>
 		</member>
 		<member name="F:g_twAdminGang2">
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_TryRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnPlayerConnect@0F"/>
 			<referrer name="_@yHOnPlayerDisconnect@0F"/>
 		</member>
 		<member name="F:g_twAdminSupplyPt">
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 		</member>
 		<member name="F:g_twAdminTurf">
-			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_TryRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnPlayerConnect@0F"/>
 			<referrer name="_@yHOnPlayerDisconnect@0F"/>
 		</member>
@@ -21997,7 +22047,7 @@
 		</member>
 		<member name="F:g_twLabel">
 			<referrer name="TW_UpdateLabel"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 		</member>
 		<member name="F:g_twSupplyCarrying">
 			<tagname value="bool"/>
@@ -22007,7 +22057,7 @@
 			<referrer name="pc_cmd_layhangcam"/>
 			<referrer name="_@yHOnPlayerConnect@0F"/>
 			<referrer name="_@yHOnPlayerDisconnect@0F"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 		</member>
 		<member name="F:g_twSupplyCheckTimer">
 			<referrer name="TW_StartSupplyCollect"/>
@@ -22029,12 +22079,14 @@
 		</member>
 		<member name="F:g_twSupplyDone">
 			<referrer name="TW_UpdateLabel"/>
+			<referrer name="TW_EndWar"/>
 			<referrer name="TW_DeliverSupply"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 		</member>
 		<member name="F:g_twSupplyPtIdx">
+			<referrer name="TW_StartSupplyCollect"/>
 			<referrer name="TW_SupplyCheck"/>
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_CancelSupply"/>
@@ -22055,7 +22107,11 @@
 			<referrer name="TW_CancelSupply"/>
 			<referrer name="_@yHOnPlayerConnect@0F"/>
 			<referrer name="_@yHOnPlayerDisconnect@0F"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
+		</member>
+		<member name="F:g_vipBadge">
+			<referrer name="pc_cmd_khoevip"/>
+			<referrer name="UpdateNameTag"/>
 		</member>
 		<member name="F:garagekey">
 			<referrer name="OnPlayerPressButton"/>
@@ -23532,9 +23588,9 @@
 			<referrer name="pc_cmd_glocker"/>
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="pc_cmd_fstoregun2"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="pc_cmd_chiemdong"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_taoroulette"/>
@@ -23684,9 +23740,10 @@
 			<referrer name="pc_cmd_fstoregun2"/>
 			<referrer name="TW_UpdateLabel"/>
 			<referrer name="TW_UpdateSupplyLabel"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="pc_cmd_chiemdong"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="TaiBanRoulette"/>
 			<referrer name="pc_cmd_taoroulette"/>
@@ -23918,9 +23975,9 @@
 			<referrer name="pc_cmd_glocker"/>
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="pc_cmd_fstoregun2"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="pc_cmd_chiemdong"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="pc_cmd_selfie"/>
 			<referrer name="NhanTienCanSa"/>
@@ -24876,9 +24933,9 @@
 			<referrer name="GetPlayerMainZone"/>
 			<referrer name="SlapAntiSlap"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="pc_cmd_chiemdong"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="UpdatePlayerHealthBar"/>
 			<referrer name="VehicleUpdate"/>
@@ -26047,6 +26104,30 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnDialogResponse@0E"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="dialogid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="response">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="listitem">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="inputtext">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnDialogResponse@0F" syntax="@yH_OnDialogResponse@0F(&amp;playerid, &amp;dialogid, &amp;response, &amp;listitem, inputtext[])">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnDialogResponse@0F"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -27315,6 +27396,24 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:@yH_OnPlayerDeath@0F" syntax="@yH_OnPlayerDeath@0F(&amp;playerid, &amp;killerid, &amp;reason)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerDeath@0F"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="killerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="reason">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:@yH_OnPlayerDeath@0H" syntax="@yH_OnPlayerDeath@0H(&amp;playerid, &amp;killerid, &amp;reason)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -27858,6 +27957,18 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:@yH_OnPlayerEnterCheckpoint@0F" syntax="@yH_OnPlayerEnterCheckpoint@0F(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerEnterCheckpoint@0F"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:@yH_OnPlayerEnterCheckpoint@0T" syntax="@yH_OnPlayerEnterCheckpoint@0T(&amp;playerid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -28368,6 +28479,21 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 			<param name="oldkeys">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerPickUpPickup@0F" syntax="@yH_OnPlayerPickUpPickup@0F(&amp;playerid, &amp;pickupid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerPickUpPickup@0F"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="pickupid">
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
@@ -37717,10 +37843,12 @@
 			<dependency name="IsPlayerInRangeOfPoint"/>
 			<dependency name="Kick"/>
 			<dependency name="Log"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="discord_messHack"/>
 			<dependency name="format"/>
 			<dependency name="g_carjackData"/>
 			<dependency name="g_carjackData"/>
+			<dependency name="pLevel"/>
 			<dependency name="pTrollcar"/>
 			<param name="playerid">
 			</param>
@@ -37847,6 +37975,7 @@
 			<dependency name="operator&lt;(Float:,_:)"/>
 			<dependency name="DynVeh"/>
 			<dependency name="DynVehicleInfo"/>
+			<dependency name="DynVehicleInfo"/>
 			<dependency name="EVF_SetVehicleHealth"/>
 			<dependency name="FIXES_GameTextForPlayer"/>
 			<dependency name="GetHealthInVehicle"/>
@@ -37855,9 +37984,11 @@
 			<dependency name="IsValidVehicleID"/>
 			<dependency name="OPBA_SetPlayerPos"/>
 			<dependency name="OPBA_SetVehicleToRespawn"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerPlaySound"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="gv_fMaxHealth"/>
+			<dependency name="pLevel"/>
 			<param name="playerid">
 			</param>
 			<param name="vehicleid">
@@ -37877,8 +38008,10 @@
 			<dependency name="GetVehicleHealth"/>
 			<dependency name="Kick"/>
 			<dependency name="Log"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="discord_messHack"/>
 			<dependency name="format"/>
+			<dependency name="pLevel"/>
 			<dependency name="pTrollCarNoXe"/>
 			<param name="playerid">
 			</param>
@@ -42554,7 +42687,7 @@
 			<referrer name="TW_UpdateLabel"/>
 			<referrer name="TW_UpdateSupplyLabel"/>
 			<referrer name="TW_RemoveSupplyPt"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="pc_cmd_xoasz"/>
 			<referrer name="_@yHOnDialogResponse@0H"/>
@@ -42750,7 +42883,7 @@
 			<attribute name="native"/>
 			<referrer name="FA_ResetSafe"/>
 			<referrer name="TW_RemoveSupplyPt"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="pc_cmd_editsz"/>
 			<referrer name="pc_cmd_xoasz"/>
@@ -47165,18 +47298,6 @@
 				<paraminfo>bool </paraminfo>
 			</param>
 		</member>
-		<member name="M:FM_GetGangMemberByIdx" syntax="FM_GetGangMemberByIdx(famid, idx)">
-			<stacksize value="3"/>
-			<referrer name="FM_OnDialogResponse"/>
-			<dependency name="Iterator@Player"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="cellmax"/>
-			<dependency name="pFMember"/>
-			<param name="famid">
-			</param>
-			<param name="idx">
-			</param>
-		</member>
 		<member name="M:FM_OnDialogResponse" syntax="FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])">
 			<stacksize value="537"/>
 			<referrer name="OnDialogResponse"/>
@@ -47192,7 +47313,6 @@
 			<dependency name="FA_ShowLogs"/>
 			<dependency name="FA_UpdateSafeLabel"/>
 			<dependency name="FA_UpgradeSafe"/>
-			<dependency name="FM_GetGangMemberByIdx"/>
 			<dependency name="FM_ShowGangInfo"/>
 			<dependency name="FM_ShowMemberActions"/>
 			<dependency name="FM_ShowMemberList"/>
@@ -47205,7 +47325,6 @@
 			<dependency name="FamilyMembers"/>
 			<dependency name="FamilyPickup"/>
 			<dependency name="FamilySafe"/>
-			<dependency name="GetPlayerName"/>
 			<dependency name="GetPlayerPos"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="MainPipeline"/>
@@ -47219,7 +47338,17 @@
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="__gOnce"/>
 			<dependency name="format"/>
+			<dependency name="g_fmListCount"/>
+			<dependency name="g_fmListDbId"/>
+			<dependency name="g_fmListName"/>
+			<dependency name="g_fmListName"/>
+			<dependency name="g_fmListPlayerId"/>
+			<dependency name="g_fmListRank"/>
 			<dependency name="g_fmMotdSlot"/>
+			<dependency name="g_fmSelDbId"/>
+			<dependency name="g_fmSelName"/>
+			<dependency name="g_fmSelName"/>
+			<dependency name="g_fmSelRank"/>
 			<dependency name="g_fmSelectedPlayer"/>
 			<dependency name="g_safeCooldown"/>
 			<dependency name="gettime"/>
@@ -47273,34 +47402,23 @@
 			<param name="famid">
 			</param>
 		</member>
-		<member name="M:FM_ShowMemberActions" syntax="FM_ShowMemberActions(playerid, targetid)">
-			<stacksize value="82"/>
+		<member name="M:FM_ShowMemberActions" syntax="FM_ShowMemberActions(playerid)">
+			<stacksize value="74"/>
 			<referrer name="FM_OnDialogResponse"/>
-			<dependency name="GetPlayerName"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="format"/>
-			<dependency name="pRank"/>
+			<dependency name="g_fmSelName"/>
+			<dependency name="g_fmSelName"/>
+			<dependency name="g_fmSelRank"/>
 			<param name="playerid">
-			</param>
-			<param name="targetid">
 			</param>
 		</member>
 		<member name="M:FM_ShowMemberList" syntax="FM_ShowMemberList(playerid, famid)">
-			<stacksize value="1137"/>
+			<stacksize value="135"/>
 			<referrer name="FM_OnDialogResponse"/>
-			<dependency name="GetPlayerName"/>
-			<dependency name="Iterator@Player"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="cellmax"/>
-			<dependency name="format"/>
-			<dependency name="pFMember"/>
-			<dependency name="pRank"/>
-			<dependency name="strcat"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="mysql_format"/>
+			<dependency name="mysql_tquery"/>
 			<param name="playerid">
 			</param>
 			<param name="famid">
@@ -48076,10 +48194,11 @@
 		<member name="M:Get3DZone" syntax="Get3DZone(x, y, z, zone[], len)">
 			<stacksize value="6"/>
 			<referrer name="h_OnPlayerClickMap"/>
-			<referrer name="TW_StartWar"/>
+			<referrer name="TW_StartWarAt"/>
+			<referrer name="pc_cmd_layhangcam"/>
 			<referrer name="TW_ShowTurfList"/>
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_TryRandomWar"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="FM_ShowGangInfo"/>
 			<referrer name="CanSa_AlertCops"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
@@ -49310,6 +49429,7 @@
 			<dependency name="pGoThuong"/>
 			<dependency name="pHamburger"/>
 			<dependency name="pIDCard"/>
+			<dependency name="pMats"/>
 			<dependency name="pMinBac"/>
 			<dependency name="pMinDong"/>
 			<dependency name="pMinKimCuong"/>
@@ -51464,10 +51584,8 @@
 			<referrer name="AntiVPN"/>
 			<referrer name="FA_NotifyGang"/>
 			<referrer name="FA_LogTransaction"/>
-			<referrer name="TW_OnPlayerDeath"/>
-			<referrer name="FM_ShowMemberList"/>
-			<referrer name="FM_ShowMemberActions"/>
-			<referrer name="FM_OnDialogResponse"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 			<referrer name="_@yHOnPlayerGiveDamage@0H"/>
 			<referrer name="UpdateHudUI"/>
@@ -51597,6 +51715,8 @@
 			<referrer name="ProcessSMS"/>
 			<referrer name="_@yHOnDialogResponse@0N"/>
 			<referrer name="pc_cmd_guivitri"/>
+			<referrer name="_@yHOnPlayerUpdate@0S"/>
+			<referrer name="_@yHOnDialogResponse@0S"/>
 			<referrer name="_@yHOnPlayerEnterCheckpoint@0T"/>
 			<referrer name="startpainter"/>
 			<referrer name="_@yHOnDialogResponse@0U"/>
@@ -52410,12 +52530,12 @@
 			<referrer name="pc_cmd_glocker"/>
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="pc_cmd_fstoregun2"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="TSP_OnCreated"/>
 			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="pc_cmd_chiemdong"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="TW_OnTurfCreated"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="pc_cmd_taoroulette"/>
@@ -55343,6 +55463,7 @@
 			<referrer name="pc_cmd_buyhouse"/>
 			<referrer name="pc_cmd_muabaohiem"/>
 			<referrer name="pc_cmd_cashchecks"/>
+			<referrer name="pc_cmd_impound"/>
 			<referrer name="pc_cmd_resetupgrades"/>
 			<referrer name="pc_cmd_accept"/>
 			<referrer name="pc_cmd_dm"/>
@@ -60727,8 +60848,8 @@
 			<referrer name="FA_OnLoadLogs"/>
 			<referrer name="TW_SupplyCheck"/>
 			<referrer name="TW_OnSupplyLoaded"/>
-			<referrer name="TW_OnPlayerDeath"/>
-			<referrer name="FM_ShowMemberActions"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
+			<referrer name="OnGangMemberList"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="pc_cmd_switchgang"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
@@ -68780,8 +68901,12 @@
 			<referrer name="@yH_OnPlayerSpawn@0D"/>
 			<referrer name="@yH_OnPlayerDisconnect@0D"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
+			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnPlayerConnect@0F"/>
 			<referrer name="@yH_OnPlayerDisconnect@0F"/>
+			<referrer name="@yH_OnPlayerPickUpPickup@0F"/>
+			<referrer name="@yH_OnPlayerEnterCheckpoint@0F"/>
 			<referrer name="@yH_OnGameModeInit@0G"/>
 			<referrer name="@yH_OnGameModeExit@0G"/>
 			<referrer name="@yH_OnPlayerConnect@0G"/>
@@ -69184,7 +69309,6 @@
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerTextDrawHide"/>
-			<dependency name="ProxDetector"/>
 			<dependency name="Purification"/>
 			<dependency name="RFLTeamN3D"/>
 			<dependency name="RemoveArmor"/>
@@ -69202,7 +69326,6 @@
 			<dependency name="SpawnPlayer"/>
 			<dependency name="SpoofKill"/>
 			<dependency name="SystemBan"/>
-			<dependency name="TW_OnPlayerDeath"/>
 			<dependency name="TextDrawHideForPlayer"/>
 			<dependency name="TotalAutoBan"/>
 			<dependency name="_crTextSpeed"/>
@@ -69231,6 +69354,7 @@
 			<dependency name="pbTeamRedDeaths"/>
 			<dependency name="pbTeamRedKills"/>
 			<dependency name="pbTimeLeft"/>
+			<dependency name="pc_cmd_hangup"/>
 			<dependency name="zombieevent"/>
 			<param name="playerid">
 			</param>
@@ -70084,6 +70208,7 @@
 			<referrer name="checkTeleport"/>
 			<referrer name="ChongNoXe"/>
 			<referrer name="SafeSetPlayerPos"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnPlayerTakeDamage@0H"/>
 			<referrer name="_@yHOnPlayerDeath@0H"/>
 			<referrer name="_@yHOnDialogResponse@0S"/>
@@ -71254,7 +71379,6 @@
 			<dependency name="SuspectCrimes"/>
 			<dependency name="SuspectCrimes"/>
 			<dependency name="TRTax"/>
-			<dependency name="TW_OnDialogResponse"/>
 			<dependency name="Tax"/>
 			<dependency name="TaxSale"/>
 			<dependency name="TicketsSold"/>
@@ -71694,6 +71818,7 @@
 			<dependency name="pbVirtual"/>
 			<dependency name="pbWeapons"/>
 			<dependency name="pc_cmd_call"/>
+			<dependency name="pc_cmd_khoevip"/>
 			<dependency name="pc_cmd_nrn"/>
 			<dependency name="pkrActive"/>
 			<dependency name="pkrActiveBet"/>
@@ -71990,6 +72115,29 @@
 			<stacksize value="2"/>
 			<dependency name="PC_Init"/>
 			<summary>This callback is triggered when the gamemode starts.</summary>  <seealso name="OnGameModeExit" />  <seealso name="OnFilterScriptInit" />  <seealso name="OnFilterScriptExit" />  <remarks>This function can also be used in a filterscript to detect if the gamemode changes with  RCON commands like changemode or gmx, as changing the gamemode does not reload a filterscript.</remarks>  <returns>  <b><c>0</c></b> - Will prevent other filterscripts from receiving this callback.<br />  <b><c>1</c></b> - Indicates that this callback will be passed to the next filterscript.<br />  It is always called first in gamemode.  </returns> 
+		</member>
+		<member name="M:OnGangMemberList" syntax="OnGangMemberList(playerid)">
+			<attribute name="public"/>
+			<stacksize value="131"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="Iterator@Player"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="cache_get_value_name"/>
+			<dependency name="cache_get_value_name_int"/>
+			<dependency name="cache_num_rows"/>
+			<dependency name="cellmax"/>
+			<dependency name="format"/>
+			<dependency name="g_fmListCount"/>
+			<dependency name="g_fmListDbId"/>
+			<dependency name="g_fmListName"/>
+			<dependency name="g_fmListName"/>
+			<dependency name="g_fmListPlayerId"/>
+			<dependency name="g_fmListRank"/>
+			<dependency name="pId"/>
+			<dependency name="strcat"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:OnGangTagQueryFinish" syntax="OnGangTagQueryFinish(threadid, extraid)">
 			<attribute name="public"/>
@@ -74158,7 +74306,6 @@
 			<dependency name="SetPlayerInterior"/>
 			<dependency name="SetPlayerVirtualWorld"/>
 			<dependency name="SetTimerEx"/>
-			<dependency name="TW_OnPlayerEnterCheckpoint"/>
 			<dependency name="TaxiAccepted"/>
 			<dependency name="TaxiCallTime"/>
 			<dependency name="TransferStorage"/>
@@ -75162,7 +75309,6 @@
 			<attribute name="public"/>
 			<stacksize value="5"/>
 			<dependency name="FA_OnPlayerPickUpPickup"/>
-			<dependency name="TW_OnPlayerPickUpPickup"/>
 			<param name="playerid">
 				The ID of the player that picked up the pickup
 			</param>
@@ -80972,11 +81118,10 @@
 			<referrer name="pc_cmd_layhangcam"/>
 			<referrer name="pc_cmd_turfadmin"/>
 			<referrer name="TW_ShowTurfList"/>
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_TryRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="pc_cmd_gangs"/>
 			<referrer name="FM_ShowGangInfo"/>
-			<referrer name="FM_ShowMemberList"/>
+			<referrer name="OnGangMemberList"/>
 			<referrer name="FM_ShowMotdMenu"/>
 			<referrer name="FM_ShowMemberActions"/>
 			<referrer name="FM_OnDialogResponse"/>
@@ -81720,7 +81865,6 @@
 			<referrer name="pc_cmd_spraytag"/>
 			<referrer name="OnPlayerGiveDamage"/>
 			<referrer name="OPBA_OnPlayerDisconnect"/>
-			<referrer name="OPBA_OnPlayerDeath"/>
 			<referrer name="Action_OnPlayerKeyStateChange"/>
 			<referrer name="OPBA_OnPlayerExitVehicle"/>
 			<referrer name="OnPlayerText"/>
@@ -87298,17 +87442,17 @@
 			<referrer name="TW_OnSupplyLoaded"/>
 			<referrer name="TW_DeliverSupply"/>
 			<referrer name="TW_CancelSupply"/>
-			<referrer name="TW_OnPlayerDeath"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_layhangcam"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="pc_cmd_turfadmin"/>
 			<referrer name="TW_ShowTurfList"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="TW_OnTurfCreated"/>
-			<referrer name="TW_TryRandomWar"/>
-			<referrer name="TW_OnPlayerPickUpPickup"/>
-			<referrer name="TurfWarsNewUpdate"/>
+			<referrer name="_@yHOnPlayerPickUpPickup@0F"/>
 			<referrer name="pc_cmd_gangs"/>
 			<referrer name="pc_cmd_gbadge"/>
 			<referrer name="FM_OnDialogResponse"/>
@@ -87926,6 +88070,7 @@
 			<referrer name="pc_cmd_pointtime"/>
 			<referrer name="pc_cmd_togvip"/>
 			<referrer name="pc_cmd_v"/>
+			<referrer name="pc_cmd_khoevip"/>
 			<referrer name="pc_cmd_orders"/>
 			<referrer name="pc_cmd_givemeorder"/>
 			<referrer name="pc_cmd_searchvipm"/>
@@ -88938,6 +89083,7 @@
 		<member name="M:SendMessageTD" syntax="SendMessageTD(playerid, time, string[], ...)">
 			<stacksize value="271"/>
 			<referrer name="TW_SupplyCheck"/>
+			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="BugCountdownTimer"/>
 			<referrer name="_@yHOnDialogResponse@0S"/>
 			<referrer name="NhanDiemGiaoHangCanSa"/>
@@ -90996,7 +91142,7 @@
 		<member name="M:SetPlayerCP" syntax="SetPlayerCP(playerid, centreX, centreY, centreZ, size, wavegps)">
 			<stacksize value="9"/>
 			<referrer name="TW_OnSupplyLoaded"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="_@yHOnDialogResponse@0W"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="SetAllCopCheckpoint"/>
@@ -97249,6 +97395,7 @@
 			<dependency name="spPosX"/>
 			<dependency name="spPosY"/>
 			<dependency name="spPosZ"/>
+			<dependency name="spStock"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -97270,10 +97417,11 @@
 			<dependency name="spPosX"/>
 			<dependency name="spPosY"/>
 			<dependency name="spPosZ"/>
+			<dependency name="spStock"/>
 		</member>
 		<member name="M:TW_AddSupplyPt" syntax="TW_AddSupplyPt(playerid, x, y, z)">
 			<stacksize value="201"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<dependency name="MainPipeline"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="g_SupplyPtCount"/>
@@ -97291,9 +97439,15 @@
 				<paraminfo>Float </paraminfo>
 			</param>
 		</member>
+		<member name="M:TW_Calc9PMUnix" syntax="TW_Calc9PMUnix()">
+			<stacksize value="12"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<dependency name="gettime"/>
+		</member>
 		<member name="M:TW_CancelSupply" syntax="TW_CancelSupply(playerid)">
 			<stacksize value="6"/>
-			<referrer name="TW_OnPlayerDeath"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<dependency name="DisablePlayerCheckpoint"/>
 			<dependency name="KillTimer"/>
 			<dependency name="SendClientMessageEx"/>
@@ -97307,28 +97461,6 @@
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:TW_CountNear" syntax="TW_CountNear(familyid, turfid)">
-			<stacksize value="14"/>
-			<referrer name="TW_EndWar"/>
-			<dependency name="operator-(Float:,Float:)"/>
-			<dependency name="operator+(Float:,Float:)"/>
-			<dependency name="operator*(Float:,Float:)"/>
-			<dependency name="operator&lt;=(Float:,Float:)"/>
-			<dependency name="GetPlayerPos"/>
-			<dependency name="Iterator@Player"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="TurfData"/>
-			<dependency name="cellmax"/>
-			<dependency name="floatsqroot"/>
-			<dependency name="pFMember"/>
-			<dependency name="twPosX"/>
-			<dependency name="twPosY"/>
-			<dependency name="twPosZ"/>
-			<param name="familyid">
-			</param>
-			<param name="turfid">
-			</param>
-		</member>
 		<member name="M:TW_CountOnline" syntax="TW_CountOnline(familyid)">
 			<stacksize value="3"/>
 			<dependency name="Iterator@Player"/>
@@ -97340,7 +97472,7 @@
 		</member>
 		<member name="M:TW_DeliverSupply" syntax="TW_DeliverSupply(playerid)">
 			<stacksize value="297"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<dependency name="DisablePlayerCheckpoint"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="SendClientMessageEx"/>
@@ -97360,32 +97492,63 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:TW_DoRandomWar" syntax="TW_DoRandomWar(adminid)">
+			<stacksize value="452"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyMembers"/>
+			<dependency name="FamilyName"/>
+			<dependency name="FamilyTaken"/>
+			<dependency name="Get3DZone"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="TW_Calc9PMUnix"/>
+			<dependency name="TW_StartWarAt"/>
+			<dependency name="TotalTurfs"/>
+			<dependency name="TurfData"/>
+			<dependency name="TurfData"/>
+			<dependency name="format"/>
+			<dependency name="gettime"/>
+			<dependency name="random"/>
+			<dependency name="strmid"/>
+			<dependency name="twActive"/>
+			<dependency name="twLocked"/>
+			<dependency name="twOwnerGang"/>
+			<dependency name="twPosX"/>
+			<dependency name="twPosY"/>
+			<dependency name="twPosZ"/>
+			<param name="adminid">
+			</param>
+		</member>
 		<member name="M:TW_EndWar" syntax="TW_EndWar(turfid)">
-			<stacksize value="305"/>
+			<stacksize value="303"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<dependency name="FA_AddFame"/>
 			<dependency name="FamilyInfo"/>
 			<dependency name="FamilyInfo"/>
 			<dependency name="FamilyName"/>
 			<dependency name="Iterator@Player"/>
-			<dependency name="TW_CountNear"/>
 			<dependency name="TW_FamilyMsg"/>
 			<dependency name="TW_SaveTurf"/>
 			<dependency name="TW_UpdateLabel"/>
 			<dependency name="TurfData"/>
 			<dependency name="TurfData"/>
 			<dependency name="cellmax"/>
+			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="g_twInZone"/>
+			<dependency name="g_twSupplyDone"/>
 			<dependency name="gettime"/>
 			<dependency name="strmid"/>
 			<dependency name="twActive"/>
 			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
 			<dependency name="twDefendGang"/>
+			<dependency name="twLastCaptureUnix"/>
 			<dependency name="twOwnerGang"/>
 			<dependency name="twSupplyCount"/>
 			<dependency name="twSupplyDeadline"/>
-			<dependency name="twTimeLeft"/>
+			<dependency name="twWarEndUnix"/>
 			<param name="turfid">
 			</param>
 		</member>
@@ -97404,12 +97567,12 @@
 		</member>
 		<member name="M:TW_FamilyMsg" syntax="TW_FamilyMsg(familyid, color, msg[])">
 			<stacksize value="7"/>
-			<referrer name="TW_StartWar"/>
+			<referrer name="TW_StartWarAt"/>
 			<referrer name="TW_EndWar"/>
 			<referrer name="TW_DeliverSupply"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_TryRandomWar"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="TurfSupplyDeadlineCheck"/>
 			<dependency name="Iterator@Player"/>
@@ -97422,76 +97585,6 @@
 			<param name="color">
 			</param>
 			<param name="msg">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:TW_OnDialogResponse" syntax="TW_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])">
-			<stacksize value="1132"/>
-			<referrer name="OnDialogResponse"/>
-			<dependency name="DestroyDynamic3DTextLabel"/>
-			<dependency name="DestroyDynamicPickup"/>
-			<dependency name="FamilyInfo"/>
-			<dependency name="FamilyInfo"/>
-			<dependency name="FamilyName"/>
-			<dependency name="FamilyTaken"/>
-			<dependency name="Get3DZone"/>
-			<dependency name="GetPlayerPos"/>
-			<dependency name="MainPipeline"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="SetPlayerCP"/>
-			<dependency name="TW_AddSupplyPt"/>
-			<dependency name="TW_RemoveSupplyPt"/>
-			<dependency name="TW_SaveTurf"/>
-			<dependency name="TW_ShowTurfList"/>
-			<dependency name="TW_StartSupplyCollect"/>
-			<dependency name="TW_StartWar"/>
-			<dependency name="TW_TryRandomWar"/>
-			<dependency name="TW_UpdateLabel"/>
-			<dependency name="TotalTurfs"/>
-			<dependency name="TurfData"/>
-			<dependency name="TurfData"/>
-			<dependency name="format"/>
-			<dependency name="gPlayerCheckpointStatus"/>
-			<dependency name="g_SupplyPtCount"/>
-			<dependency name="g_SupplyPts"/>
-			<dependency name="g_SupplyPts"/>
-			<dependency name="g_twAdminGang1"/>
-			<dependency name="g_twAdminGang2"/>
-			<dependency name="g_twAdminSupplyPt"/>
-			<dependency name="g_twAdminTurf"/>
-			<dependency name="g_twLabel"/>
-			<dependency name="g_twSupplyDone"/>
-			<dependency name="gettime"/>
-			<dependency name="mysql_format"/>
-			<dependency name="mysql_tquery"/>
-			<dependency name="spPosX"/>
-			<dependency name="spPosY"/>
-			<dependency name="spPosZ"/>
-			<dependency name="strcat"/>
-			<dependency name="strmid"/>
-			<dependency name="twActive"/>
-			<dependency name="twAttackGang"/>
-			<dependency name="twDefendGang"/>
-			<dependency name="twId"/>
-			<dependency name="twLocked"/>
-			<dependency name="twOwnerGang"/>
-			<dependency name="twPickupId"/>
-			<dependency name="twPosX"/>
-			<dependency name="twPosY"/>
-			<dependency name="twPosZ"/>
-			<dependency name="twSupplyCount"/>
-			<dependency name="twSupplyDeadline"/>
-			<dependency name="twTimeLeft"/>
-			<param name="playerid">
-			</param>
-			<param name="dialogid">
-			</param>
-			<param name="response">
-			</param>
-			<param name="listitem">
-			</param>
-			<param name="inputtext">
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
@@ -97509,8 +97602,10 @@
 			<dependency name="cache_num_rows"/>
 			<dependency name="twActive"/>
 			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
 			<dependency name="twDefendGang"/>
 			<dependency name="twId"/>
+			<dependency name="twLastCaptureUnix"/>
 			<dependency name="twLocked"/>
 			<dependency name="twOwnerGang"/>
 			<dependency name="twPickupId"/>
@@ -97519,58 +97614,7 @@
 			<dependency name="twPosZ"/>
 			<dependency name="twSupplyCount"/>
 			<dependency name="twSupplyDeadline"/>
-			<dependency name="twTimeLeft"/>
-		</member>
-		<member name="M:TW_OnPlayerDeath" syntax="TW_OnPlayerDeath(playerid, killerid, reason)">
-			<stacksize value="250"/>
-			<referrer name="OPBA_OnPlayerDeath"/>
-			<dependency name="GetPlayerName"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="Iterator@Player"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="TW_CancelSupply"/>
-			<dependency name="cellmax"/>
-			<dependency name="format"/>
-			<dependency name="pFMember"/>
-			<param name="playerid">
-			</param>
-			<param name="killerid">
-			</param>
-			<param name="reason">
-			</param>
-		</member>
-		<member name="M:TW_OnPlayerEnterCheckpoint" syntax="TW_OnPlayerEnterCheckpoint(playerid)">
-			<stacksize value="10"/>
-			<referrer name="OnPlayerEnterCheckpoint"/>
-			<dependency name="operator-(Float:,Float:)"/>
-			<dependency name="operator+(Float:,Float:)"/>
-			<dependency name="operator*(Float:,Float:)"/>
-			<dependency name="operator&lt;=(Float:,Float:)"/>
-			<dependency name="GetPlayerPos"/>
-			<dependency name="TW_DeliverSupply"/>
-			<dependency name="TotalTurfs"/>
-			<dependency name="TurfData"/>
-			<dependency name="floatsqroot"/>
-			<dependency name="g_twSupplyCarrying"/>
-			<dependency name="g_twSupplyTurf"/>
-			<dependency name="twPosX"/>
-			<dependency name="twPosY"/>
-			<dependency name="twPosZ"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:TW_OnPlayerPickUpPickup" syntax="TW_OnPlayerPickUpPickup(playerid, pickupid)">
-			<stacksize value="7"/>
-			<referrer name="OnPlayerPickUpPickup"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="g_SupplyPtCount"/>
-			<dependency name="g_SupplyPts"/>
-			<dependency name="spPickupId"/>
-			<param name="playerid">
-			</param>
-			<param name="pickupid">
-			</param>
+			<dependency name="twWarEndUnix"/>
 		</member>
 		<member name="M:TW_OnSupplyLoaded" syntax="TW_OnSupplyLoaded(playerid)">
 			<attribute name="public"/>
@@ -97609,8 +97653,10 @@
 			<dependency name="format"/>
 			<dependency name="twActive"/>
 			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
 			<dependency name="twDefendGang"/>
 			<dependency name="twId"/>
+			<dependency name="twLastCaptureUnix"/>
 			<dependency name="twLocked"/>
 			<dependency name="twOwnerGang"/>
 			<dependency name="twPickupId"/>
@@ -97619,12 +97665,13 @@
 			<dependency name="twPosZ"/>
 			<dependency name="twSupplyCount"/>
 			<dependency name="twSupplyDeadline"/>
+			<dependency name="twWarEndUnix"/>
 			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:TW_RemoveSupplyPt" syntax="TW_RemoveSupplyPt(idx)">
 			<stacksize value="71"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<dependency name="DestroyDynamic3DTextLabel"/>
 			<dependency name="DestroyDynamicPickup"/>
 			<dependency name="MainPipeline"/>
@@ -97639,6 +97686,7 @@
 			<dependency name="spPosX"/>
 			<dependency name="spPosY"/>
 			<dependency name="spPosZ"/>
+			<dependency name="spStock"/>
 			<param name="idx">
 			</param>
 		</member>
@@ -97648,7 +97696,7 @@
 			<referrer name="TW_DeliverSupply"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="TurfSupplyDeadlineCheck"/>
 			<dependency name="MainPipeline"/>
 			<dependency name="TotalTurfs"/>
@@ -97667,7 +97715,7 @@
 		<member name="M:TW_ShowTurfList" syntax="TW_ShowTurfList(playerid)">
 			<stacksize value="4515"/>
 			<referrer name="pc_cmd_diemchiemdong"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<dependency name="FamilyInfo"/>
 			<dependency name="FamilyInfo"/>
 			<dependency name="FamilyName"/>
@@ -97697,8 +97745,8 @@
 			</param>
 		</member>
 		<member name="M:TW_StartSupplyCollect" syntax="TW_StartSupplyCollect(playerid, turfid)">
-			<stacksize value="163"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<stacksize value="164"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<dependency name="GetPlayer2DZone"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="IsACop"/>
@@ -97707,26 +97755,42 @@
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SetLoading"/>
 			<dependency name="SetTimerEx"/>
-			<dependency name="TurfData"/>
+			<dependency name="TW_UpdateSupplyLabel"/>
 			<dependency name="cellmax"/>
 			<dependency name="format"/>
+			<dependency name="g_SupplyPtCount"/>
+			<dependency name="g_SupplyPts"/>
+			<dependency name="g_SupplyPts"/>
 			<dependency name="g_twSupplyCheckTimer"/>
 			<dependency name="g_twSupplyCollecting"/>
+			<dependency name="g_twSupplyPtIdx"/>
 			<dependency name="g_twSupplyTimeLeft"/>
 			<dependency name="g_twSupplyTurf"/>
 			<dependency name="pCash"/>
-			<dependency name="pFMember"/>
+			<dependency name="spStock"/>
 			<dependency name="true"/>
-			<dependency name="twOwnerGang"/>
 			<param name="playerid">
 			</param>
 			<param name="turfid">
 			</param>
 		</member>
 		<member name="M:TW_StartWar" syntax="TW_StartWar(turfid, attackGang, defendGang)">
-			<stacksize value="356"/>
+			<stacksize value="11"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<dependency name="TW_StartWarAt"/>
+			<dependency name="gettime"/>
+			<param name="turfid">
+			</param>
+			<param name="attackGang">
+			</param>
+			<param name="defendGang">
+			</param>
+		</member>
+		<member name="M:TW_StartWarAt" syntax="TW_StartWarAt(turfid, attackGang, defendGang, endUnix)">
+			<stacksize value="364"/>
+			<referrer name="TW_StartWar"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<dependency name="FamilyInfo"/>
 			<dependency name="FamilyInfo"/>
 			<dependency name="FamilyName"/>
@@ -97737,20 +97801,25 @@
 			<dependency name="TurfData"/>
 			<dependency name="TurfData"/>
 			<dependency name="format"/>
+			<dependency name="gettime"/>
 			<dependency name="strmid"/>
 			<dependency name="twActive"/>
 			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
 			<dependency name="twDefendGang"/>
+			<dependency name="twLastCaptureUnix"/>
 			<dependency name="twLocked"/>
 			<dependency name="twPosX"/>
 			<dependency name="twPosY"/>
 			<dependency name="twPosZ"/>
-			<dependency name="twTimeLeft"/>
+			<dependency name="twWarEndUnix"/>
 			<param name="turfid">
 			</param>
 			<param name="attackGang">
 			</param>
 			<param name="defendGang">
+			</param>
+			<param name="endUnix">
 			</param>
 		</member>
 		<member name="M:TW_SupplyCheck" syntax="TW_SupplyCheck(playerid)">
@@ -97763,6 +97832,7 @@
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SendMessageTD"/>
 			<dependency name="StopLoading"/>
+			<dependency name="TW_UpdateSupplyLabel"/>
 			<dependency name="false"/>
 			<dependency name="g_SupplyPtCount"/>
 			<dependency name="g_SupplyPts"/>
@@ -97774,48 +97844,20 @@
 			<dependency name="spPosX"/>
 			<dependency name="spPosY"/>
 			<dependency name="spPosZ"/>
+			<dependency name="spStock"/>
 			<param name="playerid">
 			</param>
 		</member>
-		<member name="M:TW_TryRandomWar" syntax="TW_TryRandomWar(adminid)">
-			<stacksize value="671"/>
-			<referrer name="TW_OnDialogResponse"/>
-			<dependency name="FamilyInfo"/>
-			<dependency name="FamilyInfo"/>
-			<dependency name="FamilyMembers"/>
-			<dependency name="FamilyName"/>
-			<dependency name="FamilyTaken"/>
-			<dependency name="Get3DZone"/>
-			<dependency name="Prev_ShowPlayerDialog"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="TW_FamilyMsg"/>
-			<dependency name="TotalTurfs"/>
-			<dependency name="TurfData"/>
-			<dependency name="TurfData"/>
-			<dependency name="format"/>
-			<dependency name="g_twAdminGang1"/>
-			<dependency name="g_twAdminGang2"/>
-			<dependency name="g_twAdminTurf"/>
-			<dependency name="random"/>
-			<dependency name="strmid"/>
-			<dependency name="twActive"/>
-			<dependency name="twLocked"/>
-			<dependency name="twOwnerGang"/>
-			<dependency name="twPosX"/>
-			<dependency name="twPosY"/>
-			<dependency name="twPosZ"/>
-			<param name="adminid">
-			</param>
-		</member>
 		<member name="M:TW_UpdateLabel" syntax="TW_UpdateLabel(turfid)">
-			<stacksize value="563"/>
+			<stacksize value="691"/>
 			<referrer name="TW_OnLoad"/>
-			<referrer name="TW_StartWar"/>
+			<referrer name="TW_StartWarAt"/>
 			<referrer name="TW_EndWar"/>
 			<referrer name="TW_DeliverSupply"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="TW_OnTurfCreated"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<dependency name="operator+(Float:,Float:)"/>
@@ -97834,6 +97876,7 @@
 			<dependency name="strmid"/>
 			<dependency name="twActive"/>
 			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
 			<dependency name="twDefendGang"/>
 			<dependency name="twLocked"/>
 			<dependency name="twOwnerGang"/>
@@ -97842,14 +97885,15 @@
 			<dependency name="twPosZ"/>
 			<dependency name="twSupplyCount"/>
 			<dependency name="twSupplyDeadline"/>
-			<dependency name="twTimeLeft"/>
 			<param name="turfid">
 			</param>
 		</member>
 		<member name="M:TW_UpdateSupplyLabel" syntax="TW_UpdateSupplyLabel(idx)">
-			<stacksize value="273"/>
+			<stacksize value="413"/>
 			<referrer name="TSP_OnLoad"/>
 			<referrer name="TSP_OnCreated"/>
+			<referrer name="TW_StartSupplyCollect"/>
+			<referrer name="TW_SupplyCheck"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="CreateDynamic3DTextLabel"/>
 			<dependency name="DestroyDynamic3DTextLabel"/>
@@ -97861,6 +97905,7 @@
 			<dependency name="spPosX"/>
 			<dependency name="spPosY"/>
 			<dependency name="spPosZ"/>
+			<dependency name="spStock"/>
 			<param name="idx">
 			</param>
 		</member>
@@ -99271,34 +99316,38 @@
 		</member>
 		<member name="M:TurfWarsNewUpdate" syntax="TurfWarsNewUpdate()">
 			<attribute name="public"/>
-			<stacksize value="105"/>
+			<stacksize value="107"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="operator*(Float:,Float:)"/>
 			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyName"/>
 			<dependency name="GetPlayerPos"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="PlayerInfo"/>
-			<dependency name="SendClientMessageEx"/>
+			<dependency name="SendMessageTD"/>
 			<dependency name="TW_EndWar"/>
 			<dependency name="TW_FamilyMsg"/>
 			<dependency name="TW_UpdateLabel"/>
 			<dependency name="TotalTurfs"/>
 			<dependency name="TurfData"/>
-			<dependency name="TurfData"/>
-			<dependency name="__gOnce"/>
 			<dependency name="cellmax"/>
 			<dependency name="floatsqroot"/>
 			<dependency name="format"/>
 			<dependency name="g_twInZone"/>
+			<dependency name="gettime"/>
 			<dependency name="pFMember"/>
+			<dependency name="strmid"/>
 			<dependency name="twActive"/>
 			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
 			<dependency name="twDefendGang"/>
 			<dependency name="twPosX"/>
 			<dependency name="twPosY"/>
 			<dependency name="twPosZ"/>
-			<dependency name="twTimeLeft"/>
+			<dependency name="twWarEndUnix"/>
 		</member>
 		<member name="M:TurfWars_InitMySQL" syntax="TurfWars_InitMySQL()">
 			<stacksize value="6"/>
@@ -99786,11 +99835,12 @@
 		</member>
 		<member name="M:UpdateNameTag" syntax="UpdateNameTag(playerid)">
 			<attribute name="public"/>
-			<stacksize value="815"/>
+			<stacksize value="848"/>
 			<referrer name="pc_cmd_gbadge"/>
 			<referrer name="ServerHeartbeat"/>
 			<referrer name="pc_cmd_aduty"/>
 			<referrer name="pc_cmd_cduty"/>
+			<referrer name="pc_cmd_khoevip"/>
 			<dependency name="operator&lt;=(Float:,_:)"/>
 			<dependency name="Aduty"/>
 			<dependency name="CreatePlayerNameTag"/>
@@ -99824,7 +99874,9 @@
 			<dependency name="g_gangBadge"/>
 			<dependency name="g_hDutyColour"/>
 			<dependency name="g_szGroupName"/>
+			<dependency name="g_vipBadge"/>
 			<dependency name="pAdmin"/>
+			<dependency name="pDonateRank"/>
 			<dependency name="pDuty"/>
 			<dependency name="pFMember"/>
 			<dependency name="pHelper"/>
@@ -101744,8 +101796,12 @@
 			<referrer name="@yH_OnPlayerSpawn@0D"/>
 			<referrer name="@yH_OnPlayerDisconnect@0D"/>
 			<referrer name="@yH_OnDialogResponse@0E"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
+			<referrer name="@yH_OnDialogResponse@0F"/>
 			<referrer name="@yH_OnPlayerConnect@0F"/>
 			<referrer name="@yH_OnPlayerDisconnect@0F"/>
+			<referrer name="@yH_OnPlayerPickUpPickup@0F"/>
+			<referrer name="@yH_OnPlayerEnterCheckpoint@0F"/>
 			<referrer name="@yH_OnGameModeInit@0G"/>
 			<referrer name="@yH_OnGameModeExit@0G"/>
 			<referrer name="@yH_OnPlayerConnect@0G"/>
@@ -102139,6 +102195,81 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:_@yHOnDialogResponse@0F" syntax="_@yHOnDialogResponse@0F(playerid, dialogid, response, listitem, inputtext[])">
+			<attribute name="public"/>
+			<stacksize value="1233"/>
+			<referrer name="@yH_OnDialogResponse@0F"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="DestroyDynamic3DTextLabel"/>
+			<dependency name="DestroyDynamicPickup"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyName"/>
+			<dependency name="FamilyTaken"/>
+			<dependency name="Get3DZone"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="MainPipeline"/>
+			<dependency name="OPBA_SetPlayerPos"/>
+			<dependency name="Prev_ShowPlayerDialog"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetPlayerCP"/>
+			<dependency name="TW_AddSupplyPt"/>
+			<dependency name="TW_Calc9PMUnix"/>
+			<dependency name="TW_DoRandomWar"/>
+			<dependency name="TW_RemoveSupplyPt"/>
+			<dependency name="TW_SaveTurf"/>
+			<dependency name="TW_ShowTurfList"/>
+			<dependency name="TW_StartSupplyCollect"/>
+			<dependency name="TW_StartWarAt"/>
+			<dependency name="TW_UpdateLabel"/>
+			<dependency name="TotalTurfs"/>
+			<dependency name="TurfData"/>
+			<dependency name="TurfData"/>
+			<dependency name="format"/>
+			<dependency name="gPlayerCheckpointStatus"/>
+			<dependency name="g_SupplyPtCount"/>
+			<dependency name="g_SupplyPts"/>
+			<dependency name="g_SupplyPts"/>
+			<dependency name="g_twAdminGang1"/>
+			<dependency name="g_twAdminGang2"/>
+			<dependency name="g_twAdminSupplyPt"/>
+			<dependency name="g_twAdminTurf"/>
+			<dependency name="g_twLabel"/>
+			<dependency name="g_twSupplyDone"/>
+			<dependency name="gettime"/>
+			<dependency name="mysql_format"/>
+			<dependency name="mysql_tquery"/>
+			<dependency name="spPosX"/>
+			<dependency name="spPosY"/>
+			<dependency name="spPosZ"/>
+			<dependency name="strcat"/>
+			<dependency name="strmid"/>
+			<dependency name="twActive"/>
+			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
+			<dependency name="twDefendGang"/>
+			<dependency name="twId"/>
+			<dependency name="twLocked"/>
+			<dependency name="twOwnerGang"/>
+			<dependency name="twPickupId"/>
+			<dependency name="twPosX"/>
+			<dependency name="twPosY"/>
+			<dependency name="twPosZ"/>
+			<dependency name="twSupplyCount"/>
+			<dependency name="twSupplyDeadline"/>
+			<dependency name="twWarEndUnix"/>
+			<param name="playerid">
+			</param>
+			<param name="dialogid">
+			</param>
+			<param name="response">
+			</param>
+			<param name="listitem">
+			</param>
+			<param name="inputtext">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:_@yHOnDialogResponse@0G" syntax="_@yHOnDialogResponse@0G(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="142"/>
@@ -102506,10 +102637,11 @@
 		</member>
 		<member name="M:_@yHOnDialogResponse@0S" syntax="_@yHOnDialogResponse@0S(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="31"/>
+			<stacksize value="38"/>
 			<referrer name="@yH_OnDialogResponse@0S"/>
 			<dependency name="GetPVarFloat"/>
 			<dependency name="GetPlayerName"/>
+			<dependency name="GetPlayerNameEx"/>
 			<dependency name="OPBA_SetPlayerPos"/>
 			<dependency name="SendMessageTD"/>
 			<dependency name="SetPlayerInterior"/>
@@ -104073,6 +104205,26 @@
 			<param name="reason">
 			</param>
 		</member>
+		<member name="M:_@yHOnPlayerDeath@0F" syntax="_@yHOnPlayerDeath@0F(playerid, killerid, reason)">
+			<attribute name="public"/>
+			<stacksize value="250"/>
+			<referrer name="@yH_OnPlayerDeath@0F"/>
+			<dependency name="GetPlayerName"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="Iterator@Player"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="TW_CancelSupply"/>
+			<dependency name="cellmax"/>
+			<dependency name="format"/>
+			<dependency name="pFMember"/>
+			<param name="playerid">
+			</param>
+			<param name="killerid">
+			</param>
+			<param name="reason">
+			</param>
+		</member>
 		<member name="M:_@yHOnPlayerDeath@0H" syntax="_@yHOnPlayerDeath@0H(playerid, killerid, reason)">
 			<attribute name="public"/>
 			<stacksize value="2570"/>
@@ -104655,6 +104807,27 @@
 			<param name="playerid">
 			</param>
 			<param name="reason">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerEnterCheckpoint@0F" syntax="_@yHOnPlayerEnterCheckpoint@0F(playerid)">
+			<attribute name="public"/>
+			<stacksize value="10"/>
+			<referrer name="@yH_OnPlayerEnterCheckpoint@0F"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="TW_DeliverSupply"/>
+			<dependency name="TotalTurfs"/>
+			<dependency name="TurfData"/>
+			<dependency name="floatsqroot"/>
+			<dependency name="g_twSupplyCarrying"/>
+			<dependency name="g_twSupplyTurf"/>
+			<dependency name="twPosX"/>
+			<dependency name="twPosY"/>
+			<dependency name="twPosZ"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:_@yHOnPlayerEnterCheckpoint@0T" syntax="_@yHOnPlayerEnterCheckpoint@0T(playerid)">
@@ -105487,6 +105660,19 @@
 			<param name="oldkeys">
 			</param>
 		</member>
+		<member name="M:_@yHOnPlayerPickUpPickup@0F" syntax="_@yHOnPlayerPickUpPickup@0F(playerid, pickupid)">
+			<attribute name="public"/>
+			<stacksize value="7"/>
+			<referrer name="@yH_OnPlayerPickUpPickup@0F"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="g_SupplyPtCount"/>
+			<dependency name="g_SupplyPts"/>
+			<dependency name="spPickupId"/>
+			<param name="playerid">
+			</param>
+			<param name="pickupid">
+			</param>
+		</member>
 		<member name="M:_@yHOnPlayerSpawn@0D" syntax="_@yHOnPlayerSpawn@0D(playerid)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
@@ -105713,11 +105899,12 @@
 		</member>
 		<member name="M:_@yHOnPlayerUpdate@0S" syntax="_@yHOnPlayerUpdate@0S(playerid)">
 			<attribute name="public"/>
-			<stacksize value="37"/>
+			<stacksize value="38"/>
 			<referrer name="@yH_OnPlayerUpdate@0S"/>
 			<dependency name="operator&lt;(Float:,Float:)"/>
 			<dependency name="GetPlayerInterior"/>
 			<dependency name="GetPlayerName"/>
+			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerPos"/>
 			<dependency name="GetPlayerVirtualWorld"/>
 			<dependency name="PlayerInfo"/>
@@ -107148,6 +107335,7 @@
 			<attribute name="native"/>
 			<referrer name="cache_get_field_content"/>
 			<referrer name="FA_OnLoadLogs"/>
+			<referrer name="OnGangMemberList"/>
 			<param name="row_idx">
 			</param>
 			<param name="column_name">
@@ -107194,6 +107382,7 @@
 			<referrer name="FA_OnLoadLogs"/>
 			<referrer name="TW_OnLoad"/>
 			<referrer name="TSP_OnLoad"/>
+			<referrer name="OnGangMemberList"/>
 			<param name="row_idx">
 			</param>
 			<param name="column_name">
@@ -107233,6 +107422,7 @@
 			<referrer name="FA_OnLoadLogs"/>
 			<referrer name="TW_OnLoad"/>
 			<referrer name="TSP_OnLoad"/>
+			<referrer name="OnGangMemberList"/>
 			<referrer name="_@yHOnDialogResponse@0I"/>
 			<referrer name="UpdateTK"/>
 			<referrer name="STK_check"/>
@@ -108684,9 +108874,9 @@
 			<referrer name="pc_cmd_glocker"/>
 			<referrer name="FA_OnDialogResponse"/>
 			<referrer name="pc_cmd_fstoregun2"/>
-			<referrer name="TW_CountNear"/>
 			<referrer name="pc_cmd_layhangcam"/>
-			<referrer name="TW_OnPlayerEnterCheckpoint"/>
+			<referrer name="pc_cmd_chiemdong"/>
+			<referrer name="_@yHOnPlayerEnterCheckpoint@0F"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="GetPointDistanceToPoint"/>
 			<referrer name="GetDistance"/>
@@ -108897,22 +109087,23 @@
 			<referrer name="TW_UpdateSupplyLabel"/>
 			<referrer name="TW_FamilyColorTag"/>
 			<referrer name="TSP_OnCreated"/>
-			<referrer name="TW_StartWar"/>
+			<referrer name="TW_StartWarAt"/>
 			<referrer name="TW_EndWar"/>
 			<referrer name="TW_StartSupplyCollect"/>
 			<referrer name="TW_DeliverSupply"/>
-			<referrer name="TW_OnPlayerDeath"/>
+			<referrer name="_@yHOnPlayerDeath@0F"/>
 			<referrer name="pc_cmd_layhangcam"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="TW_ShowTurfList"/>
 			<referrer name="pc_cmd_nhanthuongturf"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="TW_OnTurfCreated"/>
-			<referrer name="TW_TryRandomWar"/>
 			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="TurfSupplyDeadlineCheck"/>
 			<referrer name="FM_ShowGangInfo"/>
-			<referrer name="FM_ShowMemberList"/>
+			<referrer name="OnGangMemberList"/>
 			<referrer name="FM_ShowMotdMenu"/>
 			<referrer name="FM_ShowMemberActions"/>
 			<referrer name="FM_OnDialogResponse"/>
@@ -111324,10 +111515,16 @@
 			<referrer name="EVF_OnPlayerWeaponShot"/>
 			<referrer name="pc_cmd_ssetvip"/>
 			<referrer name="FA_LogTransaction"/>
+			<referrer name="TW_Calc9PMUnix"/>
 			<referrer name="TW_UpdateLabel"/>
+			<referrer name="TW_StartWarAt"/>
+			<referrer name="TW_StartWar"/>
 			<referrer name="TW_EndWar"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="pc_cmd_testturf"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="TurfSupplyDeadlineCheck"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="SendLogSplit"/>
@@ -112532,7 +112729,8 @@
 			<referrer name="TW_SaveTurf"/>
 			<referrer name="TW_AddSupplyPt"/>
 			<referrer name="TW_RemoveSupplyPt"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="FM_ShowMemberList"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="_@yHOnDialogResponse@0I"/>
 			<referrer name="UpdatePlayerInteger"/>
@@ -112666,7 +112864,8 @@
 			<referrer name="TurfSupplyPoints_Load"/>
 			<referrer name="TW_AddSupplyPt"/>
 			<referrer name="TW_RemoveSupplyPt"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="FM_ShowMemberList"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="_@yHOnDialogResponse@0I"/>
 			<referrer name="pc_cmd_thanhvien"/>
@@ -118590,6 +118789,46 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_chiemdong" syntax="pc_cmd_chiemdong(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="337"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
+			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyName"/>
+			<dependency name="GetPlayerName"/>
+			<dependency name="GetPlayerPos"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="TW_FamilyMsg"/>
+			<dependency name="TW_UpdateLabel"/>
+			<dependency name="TotalTurfs"/>
+			<dependency name="TurfData"/>
+			<dependency name="TurfData"/>
+			<dependency name="floatsqroot"/>
+			<dependency name="format"/>
+			<dependency name="gettime"/>
+			<dependency name="pFMember"/>
+			<dependency name="pRank"/>
+			<dependency name="strmid"/>
+			<dependency name="twActive"/>
+			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
+			<dependency name="twDefendGang"/>
+			<dependency name="twLastCaptureUnix"/>
+			<dependency name="twPosX"/>
+			<dependency name="twPosY"/>
+			<dependency name="twPosZ"/>
+			<dependency name="twWarEndUnix"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_chinhgiaminer" syntax="pc_cmd_chinhgiaminer(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="36"/>
@@ -121289,7 +121528,6 @@
 			<dependency name="VehicleName"/>
 			<dependency name="VehicleName"/>
 			<dependency name="format"/>
-			<dependency name="pCarLic"/>
 			<dependency name="pLevel"/>
 			<dependency name="pvId"/>
 			<dependency name="pvImpounded"/>
@@ -126437,6 +126675,7 @@
 		<member name="M:pc_cmd_hangup" syntax="pc_cmd_hangup(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="161"/>
+			<referrer name="OPBA_OnPlayerDeath"/>
 			<dependency name="CellTime"/>
 			<dependency name="GetPVarInt"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -127186,24 +127425,32 @@
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="DetachTrailerFromVehicle"/>
 			<dependency name="EVF_DestroyVehicle"/>
+			<dependency name="E_EJ_VehicleID"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerVehicle"/>
 			<dependency name="GetPlayerVehicleID"/>
 			<dependency name="GetVehicleModel"/>
 			<dependency name="GetVehicleTrailer"/>
+			<dependency name="GivePlayerCash"/>
 			<dependency name="IsACop"/>
 			<dependency name="IsATowman"/>
 			<dependency name="IsAtImpoundingPoint"/>
 			<dependency name="IsTrailerAttachedToVehicle"/>
 			<dependency name="Iterator@Player"/>
+			<dependency name="LP_VehicleID"/>
+			<dependency name="MP_VehicleID"/>
 			<dependency name="OPBA_SetVehiclePos"/>
 			<dependency name="OPBA_SetVehicleToRespawn"/>
 			<dependency name="PlayerCars"/>
+			<dependency name="PlayerElectricJob"/>
+			<dependency name="PlayerLumberData"/>
+			<dependency name="PlayerMinerData"/>
 			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="PlayerVehicleInfo"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="SendGroupMessage"/>
+			<dependency name="TruckerJobCar"/>
 			<dependency name="VehicleName"/>
 			<dependency name="VehicleName"/>
 			<dependency name="VehicleSpawned"/>
@@ -128010,6 +128257,21 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:pc_cmd_khoevip" syntax="pc_cmd_khoevip(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="6"/>
+			<referrer name="OnDialogResponse"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="UpdateNameTag"/>
+			<dependency name="g_vipBadge"/>
+			<dependency name="pDonateRank"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:pc_cmd_kick" syntax="pc_cmd_kick(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="283"/>
@@ -128336,30 +128598,38 @@
 		</member>
 		<member name="M:pc_cmd_layhangcam" syntax="pc_cmd_layhangcam(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="273"/>
+			<stacksize value="2287"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="operator*(Float:,Float:)"/>
 			<dependency name="operator&lt;=(Float:,Float:)"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyInfo"/>
+			<dependency name="FamilyName"/>
+			<dependency name="Get3DZone"/>
 			<dependency name="GetPlayerPos"/>
-			<dependency name="PlayerInfo"/>
 			<dependency name="Prev_ShowPlayerDialog"/>
 			<dependency name="SendClientMessageEx"/>
 			<dependency name="TotalTurfs"/>
+			<dependency name="TurfData"/>
 			<dependency name="TurfData"/>
 			<dependency name="floatsqroot"/>
 			<dependency name="format"/>
 			<dependency name="g_SupplyPtCount"/>
 			<dependency name="g_SupplyPts"/>
-			<dependency name="g_twAdminTurf"/>
 			<dependency name="g_twSupplyCarrying"/>
 			<dependency name="g_twSupplyCollecting"/>
 			<dependency name="g_twSupplyPtIdx"/>
-			<dependency name="pFMember"/>
 			<dependency name="spPosX"/>
 			<dependency name="spPosY"/>
 			<dependency name="spPosZ"/>
+			<dependency name="spStock"/>
+			<dependency name="strcat"/>
+			<dependency name="strmid"/>
 			<dependency name="twOwnerGang"/>
+			<dependency name="twPosX"/>
+			<dependency name="twPosY"/>
+			<dependency name="twPosZ"/>
 			<dependency name="twSupplyCount"/>
 			<dependency name="twSupplyDeadline"/>
 			<param name="playerid">
@@ -138661,7 +138931,7 @@
 		</member>
 		<member name="M:pc_cmd_testturf" syntax="pc_cmd_testturf(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="290"/>
+			<stacksize value="293"/>
 			<dependency name="FA_AddFame"/>
 			<dependency name="FamilyInfo"/>
 			<dependency name="FamilyInfo"/>
@@ -138688,12 +138958,13 @@
 			<dependency name="true"/>
 			<dependency name="twActive"/>
 			<dependency name="twAttackGang"/>
+			<dependency name="twCurrentHolder"/>
 			<dependency name="twDefendGang"/>
 			<dependency name="twLocked"/>
 			<dependency name="twOwnerGang"/>
 			<dependency name="twSupplyCount"/>
 			<dependency name="twSupplyDeadline"/>
-			<dependency name="twTimeLeft"/>
+			<dependency name="twWarEndUnix"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -142008,7 +142279,7 @@
 			<referrer name="Iter_Func@Random"/>
 			<referrer name="GetVehicleRandomColors"/>
 			<referrer name="EVF_OnPlayerWeaponShot"/>
-			<referrer name="TW_TryRandomWar"/>
+			<referrer name="TW_DoRandomWar"/>
 			<referrer name="TimSoPayoutThapNhat"/>
 			<referrer name="LaySoTheoMau"/>
 			<referrer name="LaySoChoThua"/>
@@ -142839,10 +143110,11 @@
 			<referrer name="FA_OnLoadLogs"/>
 			<referrer name="FA_ShowGunDialog"/>
 			<referrer name="FA_ShowGunStoreList"/>
+			<referrer name="pc_cmd_layhangcam"/>
 			<referrer name="TW_ShowTurfList"/>
-			<referrer name="TW_OnDialogResponse"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
 			<referrer name="FM_ShowGangInfo"/>
-			<referrer name="FM_ShowMemberList"/>
+			<referrer name="OnGangMemberList"/>
 			<referrer name="FM_ShowMotdMenu"/>
 			<referrer name="FAdmin_ShowCreateSlotDialog"/>
 			<referrer name="pc_cmd_fdelete"/>
@@ -143625,11 +143897,14 @@
 			<referrer name="Prev_ShowPlayerDialog"/>
 			<referrer name="GetPlayerPacketLoss"/>
 			<referrer name="TW_UpdateLabel"/>
-			<referrer name="TW_StartWar"/>
+			<referrer name="TW_StartWarAt"/>
 			<referrer name="TW_EndWar"/>
+			<referrer name="pc_cmd_layhangcam"/>
+			<referrer name="pc_cmd_chiemdong"/>
 			<referrer name="TW_ShowTurfList"/>
-			<referrer name="TW_OnDialogResponse"/>
-			<referrer name="TW_TryRandomWar"/>
+			<referrer name="TW_DoRandomWar"/>
+			<referrer name="_@yHOnDialogResponse@0F"/>
+			<referrer name="TurfWarsNewUpdate"/>
 			<referrer name="FM_OnDialogResponse"/>
 			<referrer name="FAdmin_OnDialogResponse"/>
 			<referrer name="SendLogSplit"/>
