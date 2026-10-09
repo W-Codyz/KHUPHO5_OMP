@@ -38,7 +38,7 @@ native WP_Hash(buffer[], len, const str[]);
 #define 		RED_FLAG_OBJ 				1580
 #define 		BLUE_FLAG_OBJ 				1579
 #define 		HILL_OBJ 					1578
-#define 		VEHICLE_RESPAWN 			7200
+#define 		VEHICLE_RESPAWN 			-1
 #define 		SPEEDGUN 					43
 #define 		MAX_NOP_WARNINGS 			4
 #define 		NEW_VULNERABLE 				(24)

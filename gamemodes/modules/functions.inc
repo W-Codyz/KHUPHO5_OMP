@@ -11793,6 +11793,7 @@ public SyncTime()
 						SendGroupMessage(5, COLOR_RED, string);
 					}
 				}
+				/* Vehicle upkeep deduction disabled
 				for(new iDvSlotID = 0; iDvSlotID < MAX_DYNAMIC_VEHICLES; iDvSlotID++)
 				{
 					if(DynVehicleInfo[iDvSlotID][gv_igID] != INVALID_GROUP_ID && DynVehicleInfo[iDvSlotID][gv_igID] == iGroupID)
@@ -11813,11 +11814,13 @@ public SyncTime()
 							{
 								DynVehicleInfo[iDvSlotID][gv_iDisabled] = 1;
 								DynVeh_Save(iDvSlotID);
-								DynVeh_Spawn(iDvSlotID);
+								if(!IsVehicleOccupiedEx(DynVehicleInfo[iDvSlotID][gv_iSpawnedID]))
+									DynVeh_Spawn(iDvSlotID);
 							}
 						}
 					}
 				}
+				*/
 				SaveGroup(iGroupID);
 			}
 		}

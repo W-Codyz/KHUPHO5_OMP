@@ -63,7 +63,8 @@ public OnVehicleSpawn(vehicleid) {
 
 	if(DynVeh[vehicleid] != -1)
 	{
-	    DynVeh_Spawn(DynVeh[vehicleid]);
+	    if(!IsVehicleOccupiedEx(vehicleid))
+	        DynVeh_Spawn(DynVeh[vehicleid]);
 	}
     TruckContents{vehicleid} = 0;
 	Vehicle_ResetData(vehicleid);
@@ -2728,6 +2729,7 @@ public OnPlayerDisconnect(playerid, reason)
 {
 	HospitalSpawn_OnPlayerDisconnect(playerid);
 	DestroyPlayerNameTag(playerid);
+	Aduty[playerid] = 0;
 	
     if(!isnull(unbanip[playerid]))
 	{

@@ -9840,6 +9840,7 @@
 		</member>
 		<member name="F:Aduty">
 			<referrer name="pc_cmd_aduty"/>
+			<referrer name="OPBA_OnPlayerDisconnect"/>
 			<referrer name="UpdateNameTag"/>
 		</member>
 		<member name="F:AdvisorMessage">
@@ -12646,6 +12647,9 @@
 			<referrer name="pc_cmd_floorname"/>
 			<referrer name="pc_cmd_floorpassr"/>
 			<referrer name="pc_cmd_floornamer"/>
+		</member>
+		<member name="F:LastCanSaAlert">
+			<referrer name="CanSa_AlertCops"/>
 		</member>
 		<member name="F:LastPosF4T">
 			<referrer name="checkTeleport"/>
@@ -37052,11 +37056,13 @@
 			<dependency name="GetPlayerPos"/>
 			<dependency name="IsACop"/>
 			<dependency name="Iterator@Player"/>
+			<dependency name="LastCanSaAlert"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="cellmax"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
+			<dependency name="gettime"/>
 			<dependency name="pDuty"/>
 			<dependency name="true"/>
 			<param name="playerid">
@@ -69240,6 +69246,7 @@
 			<dependency name="Float:operator=(_:)"/>
 			<dependency name="operator&gt;(Float:,Float:)"/>
 			<dependency name="ABroadCast"/>
+			<dependency name="Aduty"/>
 			<dependency name="Advisors"/>
 			<dependency name="Area"/>
 			<dependency name="BeingUsed"/>
@@ -111333,6 +111340,7 @@
 			<referrer name="UpdatePhoneTime"/>
 			<referrer name="pc_cmd_guivitri"/>
 			<referrer name="pc_cmd_xemvitri"/>
+			<referrer name="CanSa_AlertCops"/>
 			<referrer name="_@yHOnPlayerKeyStateChange@0U"/>
 			<referrer name="_@yHOnPlayerDeath@0U"/>
 			<referrer name="SetupDailyReset"/>
