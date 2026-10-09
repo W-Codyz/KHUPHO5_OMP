@@ -15685,10 +15685,10 @@ CMD:dvrespawnall(playerid, params[])
 CMD:dvrespawn(playerid, params[])
 {
 	new szString[128],
-		iGroupID = PlayerInfo[playerid][pMember],
+		iGroupID = (PlayerInfo[playerid][pLeader] >= 0) ? PlayerInfo[playerid][pLeader] : PlayerInfo[playerid][pMember],
 	    iFamilyID = PlayerInfo[playerid][pFMember];
 
-    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 1 || PlayerInfo[playerid][pGangModerator] >= 1 || PlayerInfo[playerid][pLeader] != 0)
+    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 1 || PlayerInfo[playerid][pGangModerator] >= 1 || PlayerInfo[playerid][pLeader] >= 0)
     {
 		if((0 <= iGroupID <= MAX_GROUPS))
 		{
