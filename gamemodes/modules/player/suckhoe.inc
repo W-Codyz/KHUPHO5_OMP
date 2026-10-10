@@ -312,7 +312,8 @@ task UpdateDoiBung[900000]() {
             else {
                 new Float:health;
                 GetPlayerHealth(i, health);
-                SetPlayerHealth(i, health - 10.0);
+                new Float:newHealth = health - 10.0;
+                SetPlayerHealth(i, (newHealth < 1.0) ? 1.0 : newHealth);
 
                 TogglePlayerControllable(i, 0);
                 ApplyAnimation(i, "CRACK", "crckdeth2", 4.1, 1, 1, 1, 1, 1, 1);
@@ -335,7 +336,8 @@ task UpdateKhatNuoc[800000]() {
             else {
                 new Float:health;
                 GetPlayerHealth(i, health);
-                SetPlayerHealth(i, health - 20.0);
+                new Float:newHealth = health - 20.0;
+                SetPlayerHealth(i, (newHealth < 1.0) ? 1.0 : newHealth);
 
                 TogglePlayerControllable(i, 0);
                 ApplyAnimation(i, "CRACK", "crckdeth2", 4.1, 1, 1, 1, 1, 1, 1);
