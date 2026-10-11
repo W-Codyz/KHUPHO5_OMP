@@ -1750,6 +1750,22 @@ task ServerMicrobeat[500]() {
 				}
 
 				fVehSpeed[i] = fCurrentSpeed;
+				if(fVehHealth[i] > 0.0 && fVehicleHealth > fVehHealth[i] + 50.0)
+				{
+					if(GetPVarInt(i, "MechanicRepair"))
+						DeletePVar(i, "MechanicRepair");
+					else
+					{
+						new bool:_bNearPNS;
+						for(new _p = 0; _p < sizeof(g_PayNSprayPos) && !_bNearPNS; _p++)
+							if(IsPlayerInRangeOfPoint(i, 10.0, g_PayNSprayPos[_p][0], g_PayNSprayPos[_p][1], g_PayNSprayPos[_p][2]))
+								_bNearPNS = true;
+						if(_bNearPNS) {
+							SetVehicleHealth(iVehicle, fVehHealth[i]);
+							fVehicleHealth = fVehHealth[i];
+						}
+					}
+				}
 	            fVehHealth[i] = fVehicleHealth;
 
 				if(fVehicleHealth < 350.0)
