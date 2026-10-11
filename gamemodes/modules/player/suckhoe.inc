@@ -304,7 +304,7 @@ task UpdateBar[1000]() {
 
 task UpdateDoiBung[900000]() {
     foreach(new i: Player) {
-        if(IsPlayerConnected(i) && GetPVarInt(i, "Injured") == 0) {
+        if(IsPlayerConnected(i) && GetPVarInt(i, "Injured") == 0 && Aduty[i] == 0) {
             if(PlayerInfo[i][pThucAn] > 0) {
                 PlayerInfo[i][pThucAn] -= 5 + random(10);
                 ShowTDN(i, NOTIFICATION_INFO, "Ban vua bi tru diem doi bung.");
@@ -328,7 +328,7 @@ task UpdateDoiBung[900000]() {
 
 task UpdateKhatNuoc[800000]() {
     foreach(new i: Player) {
-        if(IsPlayerConnected(i) && GetPVarInt(i, "Injured") == 0) {
+        if(IsPlayerConnected(i) && GetPVarInt(i, "Injured") == 0 && Aduty[i] == 0) {
             if(PlayerInfo[i][pNuoc] > 0) {
                 PlayerInfo[i][pNuoc] -= 5 + random(10);
                 ShowTDN(i, NOTIFICATION_INFO, "Ban vua bi tru diem khat nuoc.");
