@@ -75,7 +75,6 @@ public OnVehicleSpawn(vehicleid) {
 	foreach(new i: Player)
 	{
 		if((v = GetPlayerVehicle(i, vehicleid)) != -1) {
-			GetVehicleHealth(vehicleid, PlayerVehicleInfo[i][v][pvHealth]);
 			DestroyVehicle(vehicleid);
 
 			new
@@ -87,7 +86,7 @@ public OnVehicleSpawn(vehicleid) {
 			PlayerVehicleInfo[i][v][pvId] = iVehicleID;
 
 			Vehicle_ResetData(iVehicleID);
-			if(PlayerVehicleInfo[i][v][pvHealth] >= 800.0)
+			if(PlayerVehicleInfo[i][v][pvHealth] > 0.0)
 				SetVehicleHealth(iVehicleID, PlayerVehicleInfo[i][v][pvHealth]);
 			if(!isnull(PlayerVehicleInfo[i][v][pvPlate])) {
 				SetVehicleNumberPlate(iVehicleID, PlayerVehicleInfo[i][v][pvPlate]);
@@ -110,7 +109,7 @@ public OnVehicleSpawn(vehicleid) {
 				}
 			}
 			new string[128];
-			format(string, sizeof(string), "Chiec %s cua ban da duoc dua ve vi tri ban do xe lan cuoi.", GetVehicleName(iVehicleID));
+			format(string, sizeof(string), "Chiec xe %s cua ban da duoc dua ve vi tri ban dau xe lan cuoi.", GetVehicleName(iVehicleID));
 			SendClientMessageEx(i, COLOR_GRAD1, string);
 		}
 		if(IsValidDynamicObject(CrateVehicleLoad[vehicleid][vForkObject]))
@@ -136,82 +135,94 @@ public OnVehicleSpawn(vehicleid) {
 
 public OnVehicleMod(playerid, vehicleid, componentid) 
 {
-	new string[128];
+    new string[128];
     for(new i = 0; i < sizeof(IsRim); i++)
-	{
-		if(IsRim[i] == componentid)
-		{
-		    if(!legalRims(playerid, componentid, vehicleid))
-		    {
-				if(HackingMods[playerid] < 3)
-				{
-					new szMessage[128];
-					format(szMessage, sizeof(szMessage), "{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be hacking vehicle mods (%s (%d) %s to a %s (ID: %d))", GetPlayerNameEx(playerid), playerid, partName(componentid), componentid, partType(GetVehicleComponentType(componentid)), GetVehicleName(vehicleid), GetPlayerVehicleID(playerid));
-					ABroadCast(COLOR_YELLOW, szMessage, 2);
-					format(szMessage, sizeof(szMessage), "%s may be hacking vehicle mods (%s (%d) %s to a %s (ID: %d))", GetPlayerNameEx(playerid), partName(componentid), componentid, partType(GetVehicleComponentType(componentid)), GetVehicleName(vehicleid), GetPlayerVehicleID(playerid));
-					Log("logs/hack.log", szMessage);
-					HackingMods[playerid]++;
-					return 0;
-				}
-				else if(HackingMods[playerid] == 3)
-				{
-					format(string, sizeof(string), "AdmCmd: %s has been banned, reason: Hacking Vehicle Modifications.", GetPlayerNameEx(playerid));
-					ABroadCast(COLOR_LIGHTRED, string, 2);
-					SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
-					PlayerInfo[playerid][pBanned] = 3;
-					new playerip[32];
-					GetPlayerIp(playerid, playerip, sizeof(playerip));
-					format(string, sizeof(string), "AdmCmd: %s (IP:%s) da bi khoa tai khoan, ly do: Hacking Vehicle Modifications.", GetPlayerNameEx(playerid), playerip);
-					PlayerInfo[playerid][pBanned] = 3;
-					Log("logs/ban.log", string);
-					new ip[32];
-					GetPlayerIp(playerid, ip, sizeof(ip));
-					SystemBan(playerid, "[System] (Hacking Vehicle Modifications)");
-					MySQLBan(GetPlayerSQLId(playerid), playerip, "Hacking Vehicle Modifications", 1, "System");
-					HackingMods[playerid] = 0;
-					Kick(playerid);
-					TotalAutoBan++;
-					return 0;
-				}
-		    }
-		}
-	}
-	if(!(1 <= GetPlayerInterior(playerid) <= 3) && !GetPVarType(playerid, "unMod")) {
-		new
-			szMessage[128];
-		
-		if(HackingMods[playerid] < 3)		
-		{
-			format(szMessage, sizeof(szMessage), "{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be hacking vehicle mods (%s (%d) %s to a %s (ID: %d))", GetPlayerNameEx(playerid), playerid, partName(componentid), componentid, partType(GetVehicleComponentType(componentid)), GetVehicleName(vehicleid), GetPlayerVehicleID(playerid));
-			ABroadCast(COLOR_YELLOW, szMessage, 2);
-			format(szMessage, sizeof(szMessage), "%s may be hacking vehicle mods (%s (%d) %s to a %s (ID: %d))", GetPlayerNameEx(playerid), partName(componentid), componentid, partType(GetVehicleComponentType(componentid)), GetVehicleName(vehicleid), GetPlayerVehicleID(playerid));
-			Log("logs/hack.log", szMessage);
-			HackingMods[playerid]++;
-			return 0;
-		}
-		else if(HackingMods[playerid] == 3)
-		{
-			format(string, sizeof(string), "AdmCmd: %s has been banned, reason: Hacking Vehicle Modifications.", GetPlayerNameEx(playerid));
-			ABroadCast(COLOR_LIGHTRED, string, 2);
-			SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
-			PlayerInfo[playerid][pBanned] = 3;
-			new playerip[32];
-			GetPlayerIp(playerid, playerip, sizeof(playerip));
-			format(string, sizeof(string), "AdmCmd: %s (IP:%s) da bi khoa tai khoan, reason: Hacking Vehicle Modifications.", GetPlayerNameEx(playerid), playerip);
-			PlayerInfo[playerid][pBanned] = 3;
-			Log("logs/ban.log", string);
-			new ip[32];
-			GetPlayerIp(playerid, ip, sizeof(ip));
-			SystemBan(playerid, "[System] (Hacking Vehicle Modifications)");
-			MySQLBan(GetPlayerSQLId(playerid), playerip, "Hacking Vehicle Modifications", 1, "System");
-			HackingMods[playerid] = 0;
-			Kick(playerid);
-			TotalAutoBan++;
-			return 0;
-		}
-	}
-	if(GetPVarType(playerid, "unMod")) DeletePVar(playerid, "unMod");
-	return 1;
+    {
+        if(IsRim[i] == componentid)
+        {
+            if(!legalRims(playerid, componentid, vehicleid))
+            {
+                if(HackingMods[playerid] < 3)
+                {
+                    new szMessage[128];
+                    format(szMessage, sizeof(szMessage), "{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be hacking vehicle mods (%s (%d) %s to a %s (ID: %d))", GetPlayerNameEx(playerid), playerid, partName(componentid), componentid, partType(GetVehicleComponentType(componentid)), GetVehicleName(vehicleid), GetPlayerVehicleID(playerid));
+                    ABroadCast(COLOR_YELLOW, szMessage, 2);
+                    format(szMessage, sizeof(szMessage), "%s may be hacking vehicle mods (%s (%d) %s to a %s (ID: %d))", GetPlayerNameEx(playerid), partName(componentid), componentid, partType(GetVehicleComponentType(componentid)), GetVehicleName(vehicleid), GetPlayerVehicleID(playerid));
+                    Log("logs/hack.log", szMessage);
+                    HackingMods[playerid]++;
+                    return 0;
+                }
+                else if(HackingMods[playerid] == 3)
+                {
+                    format(string, sizeof(string), "AdmCmd: %s has been banned, reason: Hacking Vehicle Modifications.", GetPlayerNameEx(playerid));
+                    ABroadCast(COLOR_LIGHTRED, string, 2);
+                    SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
+                    PlayerInfo[playerid][pBanned] = 3;
+                    new playerip[32];
+                    GetPlayerIp(playerid, playerip, sizeof(playerip));
+                    format(string, sizeof(string), "AdmCmd: %s (IP:%s) da bi khoa tai khoan, ly do: Hacking Vehicle Modifications.", GetPlayerNameEx(playerid), playerip);
+                    PlayerInfo[playerid][pBanned] = 3;
+                    Log("logs/ban.log", string);
+                    new ip[32];
+                    GetPlayerIp(playerid, ip, sizeof(ip));
+                    SystemBan(playerid, "[System] (Hacking Vehicle Modifications)");
+                    MySQLBan(GetPlayerSQLId(playerid), playerip, "Hacking Vehicle Modifications", 1, "System");
+                    HackingMods[playerid] = 0;
+                    Kick(playerid);
+                    TotalAutoBan++;
+                    return 0;
+                }
+            }
+        }
+    }
+
+    // Trước: !(1 <= GetPlayerInterior(playerid) <= 3) -> cho phép mod shop
+    // Giờ:   Chặn TẤT CẢ trừ khi có PVar "unMod" (từ hệ thống mechanic)
+    if(!GetPVarType(playerid, "unMod"))
+    {
+        // Dù ở trong mod shop hay ngoài đường -> đều chặn nếu không có unMod
+        if(IsPlayerInModShop(playerid))
+        {
+            // Trong mod shop -> chặn nhưng KHÔNG coi là hack (không warn/ban)
+            SendClientMessage(playerid, 0xFF6347FF, "[Server] Mod shop bi vo hieu hoa. Admin khong ho tro truong hop mat tien do Modshop!");
+            return 0;
+        }
+
+        // Ngoài mod shop và không có unMod -> hack
+        new szMessage[128];
+        if(HackingMods[playerid] < 3)
+        {
+            format(szMessage, sizeof(szMessage), "{AA3333}AdmWarning{FFFF00}: %s (ID: %d) may be hacking vehicle mods (%s (%d) %s to a %s (ID: %d))", GetPlayerNameEx(playerid), playerid, partName(componentid), componentid, partType(GetVehicleComponentType(componentid)), GetVehicleName(vehicleid), GetPlayerVehicleID(playerid));
+            ABroadCast(COLOR_YELLOW, szMessage, 2);
+            format(szMessage, sizeof(szMessage), "%s may be hacking vehicle mods (%s (%d) %s to a %s (ID: %d))", GetPlayerNameEx(playerid), partName(componentid), componentid, partType(GetVehicleComponentType(componentid)), GetVehicleName(vehicleid), GetPlayerVehicleID(playerid));
+            Log("logs/hack.log", szMessage);
+            HackingMods[playerid]++;
+            return 0;
+        }
+        else if(HackingMods[playerid] == 3)
+        {
+            format(string, sizeof(string), "AdmCmd: %s has been banned, reason: Hacking Vehicle Modifications.", GetPlayerNameEx(playerid));
+            ABroadCast(COLOR_LIGHTRED, string, 2);
+            SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
+            PlayerInfo[playerid][pBanned] = 3;
+            new playerip[32];
+            GetPlayerIp(playerid, playerip, sizeof(playerip));
+            format(string, sizeof(string), "AdmCmd: %s (IP:%s) da bi khoa tai khoan, reason: Hacking Vehicle Modifications.", GetPlayerNameEx(playerid), playerip);
+            PlayerInfo[playerid][pBanned] = 3;
+            Log("logs/ban.log", string);
+            new ip[32];
+            GetPlayerIp(playerid, ip, sizeof(ip));
+            SystemBan(playerid, "[System] (Hacking Vehicle Modifications)");
+            MySQLBan(GetPlayerSQLId(playerid), playerip, "Hacking Vehicle Modifications", 1, "System");
+            HackingMods[playerid] = 0;
+            Kick(playerid);
+            TotalAutoBan++;
+            return 0;
+        }
+    }
+
+    if(GetPVarType(playerid, "unMod")) DeletePVar(playerid, "unMod");
+    return 1;
 }
 
 public OnVehicleStreamIn(vehicleid, forplayerid)
@@ -1178,28 +1189,43 @@ public OnPlayerPressButton(playerid, buttonid)
 	return false;
 }
 
-public OnEnterExitModShop( playerid, enterexit, interiorid ) {
-	if(!enterexit && GetPlayerVehicle(playerid, GetPlayerVehicleID(playerid)) > -1) UpdatePlayerVehicleMods(playerid, GetPlayerVehicle(playerid, GetPlayerVehicleID(playerid)));
-	if(!enterexit && DynVeh[GetPlayerVehicleID(playerid)] != -1) UpdateGroupVehicleMods(GetPlayerVehicleID(playerid));
+public OnEnterExitModShop(playerid, enterexit, interiorid)
+{
+    if(enterexit) // Vào mod shop -> đá ra
+    {
+        //SetPlayerInterior(playerid, 0);
+        SendClientMessage(playerid, 0xFF6347FF, "[Server] Khong the vao mod shop! Admin khong ho tro refund tien cho mod shop.");
+        return 1;
+    }
+
+    // Khi rời — giữ logic lưu mods hiện có
+    if(GetPlayerVehicle(playerid, GetPlayerVehicleID(playerid)) > -1)
+        UpdatePlayerVehicleMods(playerid, GetPlayerVehicle(playerid, GetPlayerVehicleID(playerid)));
+    if(DynVeh[GetPlayerVehicleID(playerid)] != -1)
+        UpdateGroupVehicleMods(GetPlayerVehicleID(playerid));
+
+    return 1;
 }
 
 public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
-    if(GetPlayerVehicle(playerid, vehicleid) > -1)
+    /* if(GetPlayerVehicle(playerid, vehicleid) > -1)
 	{
 		PlayerVehicleInfo[playerid][GetPlayerVehicle(playerid, vehicleid)][pvPaintJob] = paintjobid;
 	}
-    return 1;
+    return 1; */
+	return 0;
 }
 
 public OnVehicleRespray(playerid, vehicleid, color1, color2)
 {
-    if(GetPlayerVehicle(playerid, vehicleid) > -1)
+    /* if(GetPlayerVehicle(playerid, vehicleid) > -1)
 	{
 		PlayerVehicleInfo[playerid][GetPlayerVehicle(playerid, vehicleid)][pvColor1] = color1;
 		PlayerVehicleInfo[playerid][GetPlayerVehicle(playerid, vehicleid)][pvColor2] = color2;
 	}
-    return 1;
+    return 1; */
+	return 0;
 }
 
 public OnPlayerClickTextDraw(playerid, Text:clickedid)
@@ -3334,6 +3360,12 @@ public OnPlayerDisconnect(playerid, reason)
 		}
 
 		//SavePlayerRentalCar(playerid);
+		for(new _v = 0; _v < MAX_PLAYERVEHICLES; _v++) {
+			if(PlayerVehicleInfo[playerid][_v][pvSpawned] == 1 && PlayerVehicleInfo[playerid][_v][pvId] != INVALID_PLAYER_VEHICLE_ID) {
+				GetVehicleHealth(PlayerVehicleInfo[playerid][_v][pvId], PlayerVehicleInfo[playerid][_v][pvHealth]);
+				g_mysql_SaveVehicle(playerid, _v);
+			}
+		}
 		UnloadPlayerVehicles(playerid);
 		g_mysql_AccountOnline(playerid, 0);
 
@@ -5954,6 +5986,11 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	    SetPlayerPos(playerid, GetPVarFloat(playerid, "rcX"), GetPVarFloat(playerid, "rcY"), GetPVarFloat(playerid, "rcZ"));
 		DeletePVar(playerid, "rccam");
 	    KillTimer(GetPVarInt(playerid, "rccamtimer"));
+	}
+	new _slot = GetPlayerVehicle(playerid, vehicleid);
+	if(_slot != -1)
+	{
+		GetVehicleHealth(vehicleid, PlayerVehicleInfo[playerid][_slot][pvHealth]);
 	}
 	return 1;
 }

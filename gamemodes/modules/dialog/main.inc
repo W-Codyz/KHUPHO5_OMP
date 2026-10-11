@@ -5877,6 +5877,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					VehicleSpawned[playerid]--;
 					PlayerVehicleInfo[playerid][listitem][pvSpawned] = 0;
 					PlayerVehicleInfo[playerid][listitem][pvFuel] = VehicleFuel[iVehicleID];
+					PlayerVehicleInfo[playerid][listitem][pvHealth] = vehiclehealth;
 					DestroyVehicle(iVehicleID);
 					PlayerVehicleInfo[playerid][listitem][pvId] = INVALID_PLAYER_VEHICLE_ID;
 					g_mysql_SaveVehicle(playerid, listitem);
@@ -5945,6 +5946,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessageEx(playerid, COLOR_WHITE, vstring);
 				CheckPlayerVehiclesForDesync(playerid);
 				Vehicle_ResetData(iVeh);
+				if(PlayerVehicleInfo[playerid][listitem][pvHealth] > 0.0)
+					SetVehicleHealth(iVeh, PlayerVehicleInfo[playerid][listitem][pvHealth]);
 				VehicleFuel[iVeh] = PlayerVehicleInfo[playerid][listitem][pvFuel];
 				if (VehicleFuel[iVeh] > 100.0) VehicleFuel[iVeh] = 100.0;
 				

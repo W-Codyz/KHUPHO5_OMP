@@ -143,11 +143,11 @@ DynVeh_Save(iDvSlotID) {
 		"UPDATE `groupvehs` SET `SpawnedID`= '%d',`gID`= '%d',`gDivID`= '%d', `fID`='%d', `rID`='%d', `vModel`= '%d', \
 		`vPlate` = '%s',`vMaxHealth`= '%.2f',`vType`= '%d',`vLoadMax`= '%d',`vCol1`= '%d',`vCol2`= '%d', \
 		`vX`= '%.2f',`vY`= '%.2f',`vZ`= '%.2f',`vRotZ`= '%.2f', `vUpkeep` = '%d', `vVW` = '%d', `vDisabled` = '%d', \
-		`vInt` = '%d', `vFuel` = '%.5f'"
+		`vInt` = '%d', `vFuel` = '%.5f', `vHealth` = '%.2f'"
 		, DynVehicleInfo[iDvSlotID][gv_iSpawnedID], DynVehicleInfo[iDvSlotID][gv_igID], DynVehicleInfo[iDvSlotID][gv_igDivID], DynVehicleInfo[iDvSlotID][gv_ifID], DynVehicleInfo[iDvSlotID][gv_irID], DynVehicleInfo[iDvSlotID][gv_iModel],
 		g_mysql_ReturnEscaped(DynVehicleInfo[iDvSlotID][gv_iPlate], MainPipeline), DynVehicleInfo[iDvSlotID][gv_fMaxHealth], DynVehicleInfo[iDvSlotID][gv_iType], DynVehicleInfo[iDvSlotID][gv_iLoadMax], DynVehicleInfo[iDvSlotID][gv_iCol1], DynVehicleInfo[iDvSlotID][gv_iCol2],
 		DynVehicleInfo[iDvSlotID][gv_fX], DynVehicleInfo[iDvSlotID][gv_fY], DynVehicleInfo[iDvSlotID][gv_fZ], DynVehicleInfo[iDvSlotID][gv_fRotZ], DynVehicleInfo[iDvSlotID][gv_iUpkeep], DynVehicleInfo[iDvSlotID][gv_iVW], DynVehicleInfo[iDvSlotID][gv_iDisabled],
-		DynVehicleInfo[iDvSlotID][gv_iInt], DynVehicleInfo[iDvSlotID][gv_fFuel]);
+		DynVehicleInfo[iDvSlotID][gv_iInt], DynVehicleInfo[iDvSlotID][gv_fFuel], DynVehicleInfo[iDvSlotID][gv_fHealth]);
 
 	for(i = 0; i != MAX_DV_OBJECTS; ++i) {
 		format(szQuery, sizeof szQuery, "%s, `vAttachedObjectModel%i` = '%d'", szQuery, i+1, DynVehicleInfo[iDvSlotID][gv_iAttachedObjectModel][i]);
@@ -414,6 +414,8 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "MinSat", szResult, MainPipeline); PlayerInfo[extraid][pMinSat] = strval(szResult);
 					cache_get_field_content(row,  "MinDong", szResult, MainPipeline); PlayerInfo[extraid][pMinDong] = strval(szResult);
 					cache_get_field_content(row,  "MinBac", szResult, MainPipeline); PlayerInfo[extraid][pMinBac] = strval(szResult);
+					cache_get_field_content(row,  "ToolkitOto", szResult, MainPipeline); PlayerInfo[extraid][pToolkitOto] = strval(szResult);
+					cache_get_field_content(row,  "ToolkitXeMay", szResult, MainPipeline); PlayerInfo[extraid][pToolkitXeMay] = strval(szResult);
 					cache_get_field_content(row,  "MinVang", szResult, MainPipeline); PlayerInfo[extraid][pMinVang] = strval(szResult);
 					cache_get_field_content(row,  "MinKimCuong", szResult, MainPipeline); PlayerInfo[extraid][pMinKimCuong] = strval(szResult);
 					cache_get_field_content(row,  "FightingStyle", szResult, MainPipeline); PlayerInfo[extraid][pFightStyle] = strval(szResult);
@@ -1010,6 +1012,9 @@ public OnQueryFinish(resultid, extraid, handleid)
 						cache_get_field_content(i,  "pvFuel", szResult, MainPipeline);
 						PlayerVehicleInfo[extraid][i][pvFuel] = floatstr(szResult);
 
+						cache_get_field_content(i,  "pvHealth", szResult, MainPipeline);
+						PlayerVehicleInfo[extraid][i][pvHealth] = floatstr(szResult);
+
 						cache_get_field_content(i,  "pvImpound", szResult, MainPipeline);
 						PlayerVehicleInfo[extraid][i][pvImpounded] = strval(szResult);
 
@@ -1581,6 +1586,7 @@ stock g_mysql_SaveVehicle(playerid, slotid)
 	format(query, sizeof(query), "%s `pvLock` = %d,", query, PlayerVehicleInfo[playerid][slotid][pvLock]);
 	format(query, sizeof(query), "%s `pvWepUpgrade` = %d,", query, PlayerVehicleInfo[playerid][slotid][pvWepUpgrade]);
 	format(query, sizeof(query), "%s `pvFuel` = %0.5f,", query, PlayerVehicleInfo[playerid][slotid][pvFuel]);
+	format(query, sizeof(query), "%s `pvHealth` = %0.2f,", query, PlayerVehicleInfo[playerid][slotid][pvHealth]);
 	format(query, sizeof(query), "%s `pvImpound` = %d,", query, PlayerVehicleInfo[playerid][slotid][pvImpounded]);
 	format(query, sizeof(query), "%s `pvDisabled` = %d,", query, PlayerVehicleInfo[playerid][slotid][pvDisabled]);
 	format(query, sizeof(query), "%s `pvPlate` = '%s',", query, g_mysql_ReturnEscaped(PlayerVehicleInfo[playerid][slotid][pvPlate], MainPipeline));
@@ -2618,7 +2624,7 @@ stock LoadTxtLabels()
 	mysql_function_query(MainPipeline, "SELECT * FROM `text_labels`", true, "OnLoadTxtLabels", "");
 }
 
-stock SavePayNSpray(id)
+/* stock SavePayNSpray(id)
 {
 	new string[1024];
 	format(string, sizeof(string), "UPDATE `paynsprays` SET \
@@ -2677,7 +2683,7 @@ stock RehashPayNSprays()
 	{
 		RehashPayNSpray(i);
 	}
-	LoadPayNSprays();
+	LoadPayNSprays(); // Mechanic system: Pay N' Spray removed
 }
 
 stock LoadPayNSpray(id)
@@ -2685,7 +2691,7 @@ stock LoadPayNSpray(id)
 	new string[128];
 	format(string, sizeof(string), "SELECT * FROM `paynsprays` WHERE `id`=%d", id);
 	mysql_function_query(MainPipeline, string, true, "OnLoadPayNSprays", "i", id);
-}
+} */
 
 stock IsAdminSpawnedVehicle(vehicleid)
 {
@@ -3029,6 +3035,8 @@ stock g_mysql_SaveAccount(playerid)
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinSat", PlayerInfo[playerid][pMinSat]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinDong", PlayerInfo[playerid][pMinDong]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinBac", PlayerInfo[playerid][pMinBac]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "ToolkitOto", PlayerInfo[playerid][pToolkitOto]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "ToolkitXeMay", PlayerInfo[playerid][pToolkitXeMay]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinVang", PlayerInfo[playerid][pMinVang]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "MinKimCuong", PlayerInfo[playerid][pMinKimCuong]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "CheckCash", PlayerInfo[playerid][pCheckCash]);
@@ -6990,6 +6998,8 @@ public DynVeh_QueryFinish(iType, iExtraID) {
 				cache_get_field_content(iIndex, "vDisabled", szResult, MainPipeline); DynVehicleInfo[sqlid][gv_iDisabled] = strval(szResult);
 				cache_get_field_content(iIndex, "vRotZ", szResult, MainPipeline); DynVehicleInfo[sqlid][gv_fRotZ] = floatstr(szResult);
 				cache_get_field_content(iIndex, "vUpkeep", szResult, MainPipeline); DynVehicleInfo[sqlid][gv_iUpkeep] = strval(szResult);
+				cache_get_field_content(iIndex, "vFuel", szResult, MainPipeline); DynVehicleInfo[sqlid][gv_fFuel] = floatstr(szResult);
+				cache_get_field_content(iIndex, "vHealth", szResult, MainPipeline); DynVehicleInfo[sqlid][gv_fHealth] = floatstr(szResult);
 				i = 1;
 				while(i <= MAX_DV_OBJECTS) {
 					format(szResult, sizeof szResult, "vAttachedObjectModel%i", i);

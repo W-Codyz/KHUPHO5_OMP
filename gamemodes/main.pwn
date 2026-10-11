@@ -79,7 +79,13 @@
 //==============EVENT============//
 #include "./modules/Event/SanBoss"
 
+//==============ADMIN CMD============//
 #include "./modules/administrator/cmd"
+
+//==============ANIMATION============//
+//#include "./modules/player/animation/anim_var"
+//#include "./modules/player/animation/anim_func"
+//#include "./modules/player/animation/anim_cmd"
 
 //==============FAMILY SYSTEM============//
 #include "./modules/system/family/assets"
@@ -91,6 +97,8 @@
 #include "./modules/system/ruatho"
 #include "./modules/system/safezone"
 #include "./modules/system/faction/leader_cmd"
+#include "./modules/system/mechanic/mechanic"
+#include "./modules/system/mechanic/mechanic_repair"
 #include "./modules/system/logo"
 //#include "./modules/system/logo_anim"
 #include "./modules/system/support_notif"
@@ -103,6 +111,9 @@
 #include "./modules/system/food"
 #include "./modules/system/sendlocation"
 #include "./modules/system/bug_support"
+
+//==============REMOVE/DISABLE============//
+#include "./modules/system/remove/garage"
 
 //==============JOB MAIN============//
 #include "./modules/job/painter/main"
@@ -200,6 +211,8 @@ public OnGameModeInit()
 	TurfWars_Load();
 	TurfSupplyPoints_InitMySQL();
 	TurfSupplyPoints_Load();
+	
+	BlockGarages();
 	return 1;
 }
 
