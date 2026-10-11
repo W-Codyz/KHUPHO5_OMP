@@ -383,6 +383,10 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         if(House_TryEnter(playerid)) return 1;
         if(House_TryExit(playerid))  return 1;
     }
+    if(PRESSED(KEY_WALK))
+    {
+        House_TryALTLock(playerid);
+    }
     return 1;
 }
 
