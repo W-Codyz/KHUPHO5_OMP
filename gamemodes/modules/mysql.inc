@@ -2624,7 +2624,7 @@ stock LoadTxtLabels()
 	mysql_function_query(MainPipeline, "SELECT * FROM `text_labels`", true, "OnLoadTxtLabels", "");
 }
 
-/* stock SavePayNSpray(id)
+stock SavePayNSpray(id)
 {
 	new string[1024];
 	format(string, sizeof(string), "UPDATE `paynsprays` SET \
@@ -2649,7 +2649,7 @@ stock LoadTxtLabels()
 
 	mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
 }
-
+/*
 stock SavePayNSprays()
 {
 	for(new i = 0; i < MAX_PAYNSPRAYS; i++)
@@ -2729,11 +2729,11 @@ public OnLoadPayNSpray(index)
 	return 1;
 }
 
-stock LoadPayNSprays()
+/* stock LoadPayNSprays()
 {
 	printf("[LoadPayNSprays] Loading data from database...");
 	mysql_function_query(MainPipeline, "SELECT * FROM `paynsprays`", true, "OnLoadPayNSprays", "");
-}
+} */
 
 stock SaveArrestPoint(id)
 {
@@ -2983,7 +2983,7 @@ stock g_mysql_SaveAccount(playerid)
     SavePlayerFloat(query, GetPlayerSQLId(playerid), "pSHealth", PlayerInfo[playerid][pSHealth]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "Int", PlayerInfo[playerid][pInt]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "VirtualWorld", PlayerInfo[playerid][pVW]);
-    SavePlayerInteger(query, GetPlayerSQLId(playerid), "Model", PlayerInfo[playerid][pModel]);
+    SavePlayerInteger(query, GetPlayerSQLId(playerid), "Model", (PlayerInfo[playerid][pPreDutyModel] != 0) ? PlayerInfo[playerid][pPreDutyModel] : PlayerInfo[playerid][pModel]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "BanAppealer", PlayerInfo[playerid][pBanAppealer]);
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "PR", PlayerInfo[playerid][pPR]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "HR", PlayerInfo[playerid][pHR]);
@@ -6684,10 +6684,13 @@ public Group_QueryFinish(iType, iExtraID) {
 
 			format(szResult, sizeof szResult, "Tu do %s \n{1FBDFF}/tudo{FFFF00} de su dung\n ID: %i", arrGroupData[iGroup][g_szGroupName], arrGroupLockers[iGroup][iLocker]);
 			arrGroupLockers[iGroup][iLocker][g_tLocker3DLabel] = CreateDynamic3DTextLabel(szResult, arrGroupData[iGroup][g_hDutyColour] * 256 + 0xFF, arrGroupLockers[iGroup][iLocker][g_fLockerPos][0], arrGroupLockers[iGroup][iLocker][g_fLockerPos][1], arrGroupLockers[iGroup][iLocker][g_fLockerPos][2], 15.0, .testlos = 1, .worldid = arrGroupLockers[iGroup][iLocker][g_iLockerVW]);
+			arrGroupLockers[iGroup][iLocker][g_iLockerPickup] = CreateDynamicPickup(1239, 23, arrGroupLockers[iGroup][iLocker][g_fLockerPos][0], arrGroupLockers[iGroup][iLocker][g_fLockerPos][1], arrGroupLockers[iGroup][iLocker][g_fLockerPos][2], arrGroupLockers[iGroup][iLocker][g_iLockerVW]);
 			iIndex++;
 
 		}
-		case GROUP_QUERY_LOAD: while(iIndex < iRows) {
+		case GROUP_QUERY_LOAD:
+		{
+		while(iIndex < iRows) {
 			cache_get_field_content(iIndex, "Name", arrGroupData[iIndex][g_szGroupName], MainPipeline, GROUP_MAX_NAME_LEN);
 
 			cache_get_field_content(iIndex, "MOTD", arrGroupData[iIndex][g_szGroupMOTD], MainPipeline, GROUP_MAX_MOTD_LEN);
@@ -6807,6 +6810,8 @@ public Group_QueryFinish(iType, iExtraID) {
 				arrGroupData[iIndex][g_tCrate3DLabel] = CreateDynamic3DTextLabel(szResult, arrGroupData[iIndex][g_hDutyColour] * 256 + 0xFF, arrGroupData[iIndex][g_fCratePos][0], arrGroupData[iIndex][g_fCratePos][1], arrGroupData[iIndex][g_fCratePos][2], 10.0, .testlos = 1, .streamdistance = 20.0);
 			}
 			iIndex++;
+		}
+		CallLocalFunction("OnAllGroupsLoaded", "");
 		}
 
 		case GROUP_QUERY_INVITE: if(GetPVarType(iExtraID, "Group_Invited")) {
