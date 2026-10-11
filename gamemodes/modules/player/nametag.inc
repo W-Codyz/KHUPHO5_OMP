@@ -98,7 +98,10 @@ public UpdateNameTag(playerid)
             if(0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS && PlayerInfo[playerid][pDuty] == 1) {
                 new gId = PlayerInfo[playerid][pMember];
                 format(szNameColor, _, "%s", Group_NumToDialogHex(arrGroupData[gId][g_hDutyColour]));
-                format(string, sizeof(string), "%s{%s}TO CHUC - %s\n", string, szNameColor, arrGroupData[gId][g_szGroupName]);
+                if(IsAMechanic(playerid))
+                    format(string, sizeof(string), "%s{%s}CONG TY - %s\n", string, szNameColor, arrGroupData[gId][g_szGroupName]);
+                else
+                    format(string, sizeof(string), "%s{%s}TO CHUC - %s\n", string, szNameColor, arrGroupData[gId][g_szGroupName]);
             }
             if(g_gangBadge[playerid] && PlayerInfo[playerid][pFMember] != INVALID_FAMILY_ID) {
                 format(string, sizeof(string), "%s{ffd966}GANGSTER - %s\n", string, FamilyInfo[PlayerInfo[playerid][pFMember]][FamilyName]);

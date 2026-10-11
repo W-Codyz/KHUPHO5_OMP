@@ -33,7 +33,7 @@ enum E_ITEM_INFO
     Float:itemZoom
 };
 
-new ItemsInfo[MAX_INVENTORY_ITEMS][E_ITEM_INFO] =
+/* new ItemsInfo[MAX_INVENTORY_ITEMS][E_ITEM_INFO] =
 {
     {pMats, false, 16444, "Vat lieu", "Su dung de che tao vat pham/vu khi", 82.0000, 0.0000, 0.0000, 1.0000},
     {pFishRod, false, 18632, "Can cau ca ", "Su dung de co the cau ca", 45.0000, -10.0000, 8.0000, 0.8900},
@@ -56,7 +56,7 @@ new ItemsInfo[MAX_INVENTORY_ITEMS][E_ITEM_INFO] =
     {pLock, false, 19804, "Khoa", "Su dung de khoa xe", 24.0000, 8.0000, 2.0000, 1.1000},
     {pFirstaid, true, 11738, "Bo so cuu", "Su dung de so cuu cho ban than", 24.0000, 8.0000, 2.0000, 0.8900},
     {pBoombox, false, 2103, "May nghe nhac", "Dat xuong va nghe nhac", 1.0000, 1.0000, 177.0000, 0.8900}
-};
+}; */
 
 /* new DroppedItems[MAX_DROPPED_ITEMS][E_DROPPED_ITEM]; //drop
 new Iterator:DropItems<MAX_DROPPED_ITEMS>;
