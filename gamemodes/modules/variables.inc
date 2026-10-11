@@ -2244,3 +2244,6 @@ new g_vipBadge[MAX_PLAYERS]; // VIP badge toggle on nametag (0=off, 1=on)
 #define YELLOW      "{FFFF00}"
 #define JAVA     "{FF9999}"
 #define LIGHTGREEN                  "{90EE90}"
+
+//key
+#define KEY_Z 0x5A
