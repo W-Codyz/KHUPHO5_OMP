@@ -57,6 +57,7 @@ enum eGroupVehData {
 	gv_iModel, // Model of Vehicle
 	gv_iPlate[32],
 	Float:gv_fMaxHealth, //Maximum Health of Vehicle
+	Float:gv_fHealth,   // Current health (persisted to DB, restored on spawn)
 	Float:gv_fFuel, // gas level of the vehicle
 	gv_iCol1, // Color 1
 	gv_iCol2, // Color 2
@@ -752,6 +753,8 @@ enum pInfo
 	pMinSat,
 	pMinDong,
 	pMinBac,
+	pToolkitOto,
+	pToolkitXeMay,
 	pMinVang,
 	pMinKimCuong,
 	Float:pHealth,

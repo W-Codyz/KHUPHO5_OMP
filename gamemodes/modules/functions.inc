@@ -2672,7 +2672,7 @@ Group_ReturnType(iGroupType) {
 		case 5: szResult = "Government";
 		case 6: szResult = "Judicial";
 		case 7: szResult = "Transport";
-		case 8: szResult = "Towing";
+		case 8: szResult = "Mechanic";
 		case 9: szResult = "URL";
 	}
 	return szResult;
@@ -2855,7 +2855,7 @@ public InitiateGamemode()
 	LoadTxtLabels();
 	LoadPlants();
 	LoadSpeedCameras();
-	LoadPayNSprays();
+	//LoadPayNSprays(); // Mechanic system: Pay N' Spray removed
 	LoadArrestPoints();
 	LoadImpoundPoints();
 	LoadRelayForLifeTeams();
@@ -9249,7 +9249,7 @@ stock IsATaxiDriver(playerid)
 	return 0;
 }
 
-stock IsATowman(playerid)
+stock IsAMechanic(playerid)
 {
 	if((0 <= PlayerInfo[playerid][pMember] < MAX_GROUPS) && (arrGroupData[PlayerInfo[playerid][pMember]][g_iGroupType] == 8)) return 1;
 	return 0;
@@ -11265,6 +11265,7 @@ stock DynVeh_Spawn(iDvSlotID)
 		if(tmpdv == iDvSlotID) {
 			format(string, sizeof(string), "Pha huy xe ID %d trong DV Slot %d",DynVehicleInfo[iDvSlotID][gv_iSpawnedID], iDvSlotID);
 			Log("logs/dvspawn.log", string);
+			GetVehicleHealth(DynVehicleInfo[iDvSlotID][gv_iSpawnedID], DynVehicleInfo[iDvSlotID][gv_fHealth]);
 			DestroyVehicle(DynVehicleInfo[iDvSlotID][gv_iSpawnedID]);
 			DynVehicleInfo[iDvSlotID][gv_iSpawnedID] = INVALID_VEHICLE_ID;
 			for(new i = 0; i != MAX_DV_OBJECTS; i++)
@@ -11307,7 +11308,6 @@ stock DynVeh_Spawn(iDvSlotID)
 	DynVeh_Save(iDvSlotID);
 	format(string, sizeof(string), "Xe ID %d tao ra trong DV Slot %d",DynVehicleInfo[iDvSlotID][gv_iSpawnedID], iDvSlotID);
 	Log("logs/dvspawn.log", string);
-	SetVehicleHealth(DynVehicleInfo[iDvSlotID][gv_iSpawnedID], DynVehicleInfo[iDvSlotID][gv_fMaxHealth]);
     SetVehicleVirtualWorld(DynVehicleInfo[iDvSlotID][gv_iSpawnedID], DynVehicleInfo[iDvSlotID][gv_iVW]);
     LinkVehicleToInterior(DynVehicleInfo[iDvSlotID][gv_iSpawnedID], DynVehicleInfo[iDvSlotID][gv_iInt]);
     VehicleFuel[DynVehicleInfo[iDvSlotID][gv_iSpawnedID]] = DynVehicleInfo[iDvSlotID][gv_fFuel];
@@ -11325,6 +11325,7 @@ stock DynVeh_Spawn(iDvSlotID)
 		SetVehicleNumberPlate(DynVehicleInfo[iDvSlotID][gv_iSpawnedID], DynVehicleInfo[iDvSlotID][gv_iPlate]);
 	}
 	Vehicle_ResetData(DynVehicleInfo[iDvSlotID][gv_iSpawnedID]);
+	SetVehicleHealth(DynVehicleInfo[iDvSlotID][gv_iSpawnedID], (DynVehicleInfo[iDvSlotID][gv_fHealth] > 0.0) ? DynVehicleInfo[iDvSlotID][gv_fHealth] : DynVehicleInfo[iDvSlotID][gv_fMaxHealth]);
 	LoadGroupVehicleMods(DynVehicleInfo[iDvSlotID][gv_iSpawnedID]);
     return 1;
 }
@@ -16134,7 +16135,7 @@ stock SendCallToQueue(callfrom, description[], area[], mainzone[], type)
 							format(string, sizeof(string), "HQ: Dia diem: %s, Mieu ta: %s", area, description);
 							SendClientMessageEx(i, TEAM_BLUE_COLOR, string);
 						}
-						if(type == 3 && (IsACop(i) || IsATowman(i)))
+						if(type == 3 && (IsACop(i) || IsAMechanic(i)))
 						{
 							format(string, sizeof(string), "HQ: Tat ca cac don vi APB: Nguoi trinh bao: %s", GetPlayerNameEx(callfrom));
 							SendClientMessageEx(i, TEAM_BLUE_COLOR, string);

@@ -4550,109 +4550,7 @@ CMD:prisoners(playerid, params[])
 	return 1;
 }
 
-CMD:tow(playerid, params[]) {
- 	if(IsACop(playerid) || IsATowman(playerid)) {
-   		if(IsPlayerInAnyVehicle(playerid))
-     	{
-			new
-				carid = GetPlayerVehicleID(playerid);
-
-			if(IsATowTruck(carid))
-			{
-   				new
-					closestcar = GetClosestCar(playerid, carid);
-
-				foreach(new i: Player)
-				{
-					if(arr_Towing[i] == closestcar || (GetPlayerVehicleID(i) == closestcar && GetPlayerState(i) == 2)) return SendClientMessageEx(playerid, COLOR_GREY, "Ban dang keo xe khac, ban khong co quyen keo them xe.");
-				}
-
-       			if(GetDistanceToCar(playerid,closestcar) <= 8 && !IsTrailerAttachedToVehicle(carid)) {
-					foreach(new i: Player)
-					{
-					    if(IsAPlane(closestcar) || IsABike(closestcar) || IsASpawnedTrain(closestcar) || IsATrain(closestcar) || IsAHelicopter(closestcar)) {
-							return SendClientMessageEx(playerid, COLOR_GRAD2, "ban khong theo keo xe nay.");
-						}
-						if(GetPlayerVehicle(i, closestcar) != -1) {
-
-							new
-								hKey;
-
-							if(((hKey = PlayerInfo[i][pPhousekey]) != INVALID_HOUSE_ID) && IsPlayerInRangeOfPoint(playerid, 50.0, HouseInfo[hKey][hExteriorX], HouseInfo[hKey][hExteriorY], HouseInfo[hKey][hExteriorZ])
-							||((hKey = PlayerInfo[i][pPhousekey2]) != INVALID_HOUSE_ID) && IsPlayerInRangeOfPoint(playerid, 50.0, HouseInfo[hKey][hExteriorX], HouseInfo[hKey][hExteriorY], HouseInfo[hKey][hExteriorZ])) {
-								return SendClientMessageEx(playerid, COLOR_GREY, "Chiec xe nay khong can phai keo.");
-							}
-
-							arr_Towing[playerid] = closestcar;
-						    SendClientMessageEx(playerid, COLOR_GRAD2, "Chiec xe da san sang de giam giu.");
-      						return AttachTrailerToVehicle(closestcar,carid);
-						}
-					}
-					SendClientMessageEx(playerid, COLOR_GRAD2, "Chiec xe nay khong co dang ky, no san sang de giam giu.");
-					AttachTrailerToVehicle(closestcar,carid);
-					arr_Towing[playerid] = closestcar;
-					return 1;
-     			}
-			}
-			else if(IsAAircraftTowTruck(carid)) //Tug
-			{
-				new
-				    closestcar = GetClosestCar(playerid, carid);
-
-                foreach(new i: Player)
-				{
-					if(arr_Towing[i] == closestcar || (GetPlayerVehicleID(i) == closestcar && GetPlayerState(i) == 2)) return SendClientMessageEx(playerid, COLOR_GREY, "You can't tow a vehicle which is occupied, or in tow.");
-				}
-
-				if(GetDistanceToCar(playerid,closestcar) <= 8 && !IsTrailerAttachedToVehicle(carid))
-				{
-					foreach(new i: Player)
-					{
-						if(IsAPlane(closestcar))
-						{
-						    if(GetPlayerVehicle(i, closestcar) != -1)
-						    {
-						        arr_Towing[playerid] = closestcar;
-							    SendClientMessageEx(playerid, COLOR_GRAD2, "Chiec xe da san sang de giam giu.");
-	      						return AttachTrailerToVehicle(closestcar,carid);
-	      					}
-	      				}
-						else return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban chi co the keo may bay bang xe nay!");
-	      			}
-					SendClientMessageEx(playerid, COLOR_GRAD2, "Chiec xe nay khong co dang ky, no san sang de giam giu.");
-					AttachTrailerToVehicle(closestcar,carid);
-					arr_Towing[playerid] = closestcar;
-	      		}
-	      	}
-			else SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong duoc phep keo xe nay.");
-   		}
-     	else SendClientMessageEx(playerid, COLOR_GRAD2, "ban phai o ben  trong xe keo moi co the su dung lenh nay!");
-	}
-   	else SendUnAuth(playerid);
-	return 1;
-}
-
-CMD:untow(playerid, params[])
-{
- 	if(IsACop(playerid) || IsATowman(playerid))
-	{
-   		if(IsTrailerAttachedToVehicle(GetPlayerVehicleID(playerid)))
-     	{
-      		SendClientMessageEx(playerid, COLOR_GRAD1,"Ban da tha chiec xe ma ban da keo.");
-			arr_Towing[playerid] = INVALID_VEHICLE_ID;
-			DetachTrailerFromVehicle(GetPlayerVehicleID(playerid));
-     	}
-      	else
-       	{
-        	SendClientMessageEx(playerid, COLOR_GRAD1,"Ban khong keo chiec xe nao.");
-        }
-  	}
-   	else
-	{
- 		SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong du kha nang su dung lenh nay.");
-	}
-	return 1;
-}
+// /tow and /untow moved to gamemodes/modules/system/mechanic/mechanic.inc
 
 CMD:impoundedit(playerid, params[])
 {
@@ -4778,7 +4676,7 @@ CMD:gotoimpoundpoint(playerid, params[])
 
 CMD:impound(playerid, params[]) {
 
-	if (IsACop(playerid) || IsATowman(playerid))
+	if (IsACop(playerid) /*|| IsAMechanic(playerid)*/)
 	{
 			if(!IsAtImpoundingPoint(playerid))
 			{
@@ -11996,6 +11894,7 @@ CMD:fixveh(playerid, params[])
             new Float:vrot;
             GetVehicleZAngle(GetPlayerVehicleID(playerid), vrot);
             SetVehicleZAngle(GetPlayerVehicleID(playerid), vrot);
+            SetPVarInt(playerid, "MechanicRepair", 1);
             RepairVehicle(GetPlayerVehicleID(playerid));
 			Vehicle_Armor(GetPlayerVehicleID(playerid));
             SendClientMessageEx(playerid, COLOR_GREY, "   Xe da duoc sua!");
@@ -12015,6 +11914,9 @@ CMD:fixvehall(playerid, params[])
         for(new v = 0; v < MAX_VEHICLES; v++) {
             RepairVehicle(v);
 			Vehicle_Armor(v);
+        }
+        foreach(new p: Player) {
+            if(GetPlayerState(p) == PLAYER_STATE_DRIVER) SetPVarInt(p, "MechanicRepair", 1);
         }
         SendClientMessageEx(playerid, COLOR_GREY, "   Tat ca xe da duoc sua!");
     }
@@ -13603,7 +13505,7 @@ FoundTreasure(playerid)
 }
 
 
-CMD:search(playerid, params[])
+/* CMD:search(playerid, params[])
 {
 	if(PlayerInfo[playerid][pJob] != 22 && PlayerInfo[playerid][pJob2] != 22) {
 		return SendClientMessageEx(playerid, COLOR_GREY, "You are not a treasure hunter.");
@@ -13654,7 +13556,7 @@ CMD:search(playerid, params[])
  	else if(distance <= 3) // Finds Treasure
   	{
   	    FoundTreasure(playerid);
-  	    PlayerInfo[playerid][pMetalDetector]--;
+  	    PlayerInfo[playerid][pMetalDetector]--; */
 		/*if(PlayerInfo[playerid][pDoubleEXP] > 0)
 		{
 			format(szMessage, 128, "You have gained 2 treasure hunting skill points instead of 1. Ban con %d gio con lai nhan doi EXP token.", PlayerInfo[playerid][pDoubleEXP]);
@@ -13662,7 +13564,7 @@ CMD:search(playerid, params[])
 			PlayerInfo[playerid][pTreasureSkill] += 2;
 		}
 		else ++PlayerInfo[playerid][pTreasureSkill];*/
-		++PlayerInfo[playerid][pTreasureSkill];
+/* 		++PlayerInfo[playerid][pTreasureSkill];
   	    DeletePVar(playerid, "HiddenTreasure");
 
   	    if(PlayerInfo[playerid][pMetalDetector] == 1) {
@@ -13686,7 +13588,7 @@ CMD:search(playerid, params[])
     	SendClientMessageEx(playerid, COLOR_GREY, "You are not at a beach.");
     }
 	return 1;
-}
+} */
 
 CMD:pay(playerid, params[])
 {
@@ -15688,7 +15590,7 @@ CMD:dvrespawn(playerid, params[])
 		iGroupID = (PlayerInfo[playerid][pLeader] >= 0) ? PlayerInfo[playerid][pLeader] : PlayerInfo[playerid][pMember],
 	    iFamilyID = PlayerInfo[playerid][pFMember];
 
-    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 1 || PlayerInfo[playerid][pGangModerator] >= 1 || PlayerInfo[playerid][pLeader] >= 0)
+    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 1 || PlayerInfo[playerid][pGangModerator] >= 1 || PlayerInfo[playerid][pLeader] >= 0 || (1 <= iFamilyID <= MAX_FAMILY && !strcmp(GetPlayerNameEx(playerid), FamilyInfo[iFamilyID][FamilyLeader], true)))
     {
 		if((0 <= iGroupID <= MAX_GROUPS))
 		{
@@ -18957,7 +18859,7 @@ CMD:triage(playerid, params[])
 }
 
 CMD:dmvrelease(playerid, params[]) {
-	if(IsACop(playerid) || IsATowman(playerid))
+	if(IsACop(playerid) /*|| IsAMechanic(playerid)*/)
     {
 		if(IsPlayerInRangeOfPoint(playerid, 3.0, -2024.1606, -107.2681, 1041.6584)) {
 
@@ -19033,7 +18935,7 @@ CMD:dmvmenu(playerid, params[])
 
 CMD:vmdc(playerid, params[])
 {
-    if(IsACop(playerid) || IsATowman(playerid) || PlayerInfo[playerid][pAdmin] >= 2)
+    if(IsACop(playerid) /*|| IsAMechanic(playerid)*/ || PlayerInfo[playerid][pAdmin] >= 2)
     {
         new string[128], giveplayerid;
         if(sscanf(params, "u", giveplayerid)) return SendHelpMessage(playerid, "/vmdc [player]");
@@ -19064,7 +18966,7 @@ CMD:vmdc(playerid, params[])
 
 CMD:vticket(playerid, params[])
 {
-    if(IsACop(playerid) || IsATowman(playerid))
+    if(IsACop(playerid) /*|| IsAMechanic(playerid)*/)
     {
         if(isnull(params)) return SendHelpMessage(playerid, "/vticket [vehicle registration]");
 
@@ -19103,7 +19005,7 @@ CMD:vticket(playerid, params[])
 
 CMD:vcheck(playerid, params[])
 {
-    if(IsACop(playerid) || IsATowman(playerid) || PlayerInfo[playerid][pAdmin] >= 2)
+    if(IsACop(playerid) /*|| IsAMechanic(playerid)*/ || PlayerInfo[playerid][pAdmin] >= 2)
 	{
         new carid = GetPlayerVehicleID(playerid);
         new closestcar = GetClosestCar(playerid, carid);
@@ -26748,7 +26650,7 @@ CMD:pickup(playerid, params[])
 		if(Mobile[i] == playerid)
 		{
 			Mobile[playerid] = i; //caller connecting
-			SendClientMessageEx(i,  COLOR_GRAD2, "   Ho da bo dien thoai vao tui quan.");
+			SendClientMessageEx(i,  COLOR_GRAD2, "   Ho da nhac may va bat dau tra loi dien thoai.");
 			format(string, sizeof(string), "* %s tra loi dien thoai di dong cua ho.", GetPlayerNameEx(playerid));
 			ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 			RingTone[playerid] = 0;
@@ -26864,7 +26766,7 @@ CMD:calls(playerid, params[])
 				{
 					if(strcmp(arrGroupJurisdictions[PlayerInfo[playerid][pMember]][j][g_iAreaName], Calls[i][Area], true) == 0 || strcmp(arrGroupJurisdictions[PlayerInfo[playerid][pMember]][j][g_iAreaName], Calls[i][MainZone], true) == 0)
 					{
-						if(Calls[i][Type] == 3 && (IsACop(playerid) || IsATowman(playerid)))
+						if(Calls[i][Type] == 3 && (IsACop(playerid) || IsAMechanic(playerid)))
 						{
 							format(string, sizeof(string), "[KEO XE] %s | Goi #%i | Mieu ta: %s | 10-20: %s | Dang doi: %d phut", GetPlayerNameEx(Calls[i][CallFrom]), i, Calls[i][Description], Calls[i][Area], Calls[i][TimeToExpire]);
 							SendClientMessageEx(playerid, COLOR_WHITE, string);
@@ -26889,7 +26791,7 @@ CMD:acceptcall(playerid, params[])
 		if(callid < 0 || callid > 999) return SendClientMessageEx(playerid, COLOR_GREY, "   So luong cuoc goi khong duoc duoi 0 va tren 999!");
 		if(Calls[callid][BeingUsed] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "   So dien thoai khong co trong danh sach!");
 		if(playerid == Calls[callid][CallFrom]) return SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong the chap nhan cuoc goi cua ban!");
-		if((Calls[callid][Type] == 0 && !IsACop(playerid)) || (Calls[callid][Type] == 1 && !IsAMedic(playerid)) || (Calls[callid][Type] == 2 && !IsACop(playerid)) || (Calls[callid][Type] == 3 && !IsACop(playerid) && !IsATowman(playerid))) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot answer this call!");
+		if((Calls[callid][Type] == 0 && !IsACop(playerid)) || (Calls[callid][Type] == 1 && !IsAMedic(playerid)) || (Calls[callid][Type] == 2 && !IsACop(playerid)) || (Calls[callid][Type] == 3 && !IsACop(playerid) && !IsAMechanic(playerid))) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot answer this call!");
 		if(!IsPlayerConnected(Calls[callid][CallFrom]))
 		{
 			SendClientMessageEx(playerid, COLOR_GREY, "   Nguoi goi da mat ket noi!");
@@ -26950,7 +26852,7 @@ CMD:ignorecall(playerid, params[])
 		if(callid < 0 || callid > 999) return SendClientMessageEx(playerid, COLOR_GREY, "   So luong cuoc goi khong duoc duoi 0 va tren 999!");
 		if(Calls[callid][BeingUsed] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "   So dien thoai khong co trong danh sach!");
 		if(playerid == Calls[callid][CallFrom]) return SendClientMessageEx(playerid, COLOR_GREY, "   Ban khong the huy bo cuoc goi cua minh!");
-		if((Calls[callid][Type] == 0 && !IsACop(playerid)) || (Calls[callid][Type] == 1 && !IsAMedic(playerid)) || (Calls[callid][Type] == 2 && !IsACop(playerid)) || (Calls[callid][Type] == 3 && !IsACop(playerid) && !IsATowman(playerid))) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot answer this call!");
+		if((Calls[callid][Type] == 0 && !IsACop(playerid)) || (Calls[callid][Type] == 1 && !IsAMedic(playerid)) || (Calls[callid][Type] == 2 && !IsACop(playerid)) || (Calls[callid][Type] == 3 && !IsACop(playerid) && !IsAMechanic(playerid))) return SendClientMessageEx(playerid, COLOR_GREY, "   You cannot answer this call!");
 		if(!IsPlayerConnected(Calls[callid][CallFrom]))
 		{
 			SendClientMessageEx(playerid, COLOR_GREY, "   Nguoi goi da mat ket noi!");
@@ -42684,7 +42586,7 @@ CMD:drop(playerid, params[])
 	return 1;
 }
 
-CMD:show(playerid, params[])
+/* CMD:show(playerid, params[])
 {
 	new string[128], giveplayerid, choice[32];
 	if(sscanf(params, "us[32]", giveplayerid, choice))
@@ -42785,7 +42687,7 @@ CMD:show(playerid, params[])
 		}
 	}
 	return 1;
-}
+} */
 
 /*CMD:givestorage(playerid, params[])
 {
