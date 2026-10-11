@@ -111,6 +111,7 @@ stock hosp_PlacePatientInBed(patientid, bool:treatFailed)
 
     RemovePlayerFromVehicle(patientid);
     SetPlayerHealth(patientid, 5.0);
+    SetPlayerArmour(patientid, 0.0);
     DeletePVar(patientid, "HospitalTimer");
 
     SetPlayerInterior(patientid, HOSP_BED_INTERIOR);
