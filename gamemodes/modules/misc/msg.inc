@@ -7,6 +7,9 @@
 #define SendHintMessage(%0,%1) \
 			SendClientMessageEx(%0, 0xF08854FF, "[?]{FFFFFF} "%1)
 
+#define SendErrorMessage(%0,%1) \
+    SendClientMessage(%0, COLOR_LIGHTRED, "{FF6347}[!]{FFFFFF}"%1)
+
 stock ShopTechBroadCast(color, const string[])
 {
 	foreach(new i: Player)
