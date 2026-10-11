@@ -5693,6 +5693,13 @@ CMD:badge(playerid, params[]) {
 		#endif
 		if(PlayerInfo[playerid][pDuty]) {
 			PlayerInfo[playerid][pDuty] = 0;
+			ResetPlayerWeaponsEx(playerid);
+			if(PlayerInfo[playerid][pPreDutyModel] != 0)
+			{
+				PlayerInfo[playerid][pModel] = PlayerInfo[playerid][pPreDutyModel];
+				SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
+				PlayerInfo[playerid][pPreDutyModel] = 0;
+			}
 			SetPlayerToTeamColor(playerid);
 			SendClientMessageEx(playerid, COLOR_WHITE, "Ban da an huy hieu cua ban, va bay gio ban da off-duty.");
 			if(IsAMedic(playerid))

@@ -209,7 +209,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						PlayerInfo[playerid][pDuty] = 1;
 						SetPlayerToTeamColor(playerid);
-						SendClientMessageEx(playerid, COLOR_GRAD2, "You may now select your weapons from the equipment locker");
+						SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da co the lay vu khi va dong phuc tu` tu do.");
 					}
 					else if(PlayerInfo[playerid][pDuty]==1)
 					{
@@ -221,6 +221,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						SetPlayerHealth(playerid, 100.0);
 						RemoveArmor(playerid);
+						ResetPlayerWeaponsEx(playerid);
+						if(PlayerInfo[playerid][pPreDutyModel] != 0)
+						{
+							PlayerInfo[playerid][pModel] = PlayerInfo[playerid][pPreDutyModel];
+							SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
+							PlayerInfo[playerid][pPreDutyModel] = 0;
+						}
 						PlayerInfo[playerid][pDuty] = 0;
 						SetPlayerToTeamColor(playerid);
 					}
@@ -244,7 +251,36 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    }
 			    case 2:
 			    {
-			        ShowPlayerDialog(playerid, G_LOCKER_UNIFORM, DIALOG_STYLE_INPUT, "Uniform","Chon mot skin (by ID).", "Lua chon", "Huy bo");
+			        if(IsACop(playerid))
+			        {
+			            if(PlayerInfo[playerid][pSex] == 2)
+			            {
+			                new SAPDSkinFemale[] = {306, 307, 309, 148, 150};
+			                ShowModelSelectionMenuEx(playerid, SAPDSkinFemale, sizeof(SAPDSkinFemale), "Chon dong phuc Canh Sat.", DYNAMIC_SAPD_UNIFORM_FEMALE, 0.0, 0.0, -55.0);
+			            }
+			            else
+			            {
+			                new SAPDSkinMale[] = {280, 281, 282, 283, 284, 288, 300, 301, 302, 303, 304, 305, 310, 311, 165, 166, 265, 266, 267, 121, 285, 286, 287, 117, 118, 165, 166};
+			                ShowModelSelectionMenuEx(playerid, SAPDSkinMale, sizeof(SAPDSkinMale), "Chon dong phuc Canh Sat.", DYNAMIC_SAPD_UNIFORM_MALE, 0.0, 0.0, -55.0);
+			            }
+			        }
+			        else if(IsAMedic(playerid))
+			        {
+			            if(PlayerInfo[playerid][pSex] == 2)
+			            {
+			                new SAMDSkinFemale[] = {308, 76, 141, 148, 150, 169, 172, 194, 219};
+			                ShowModelSelectionMenuEx(playerid, SAMDSkinFemale, sizeof(SAMDSkinFemale), "Chon dong phuc Bac Si.", DYNAMIC_SAMD_UNIFORM_FEMALE, 0.0, 0.0, -55.0);
+			            }
+			            else
+			            {
+			                new SAMDSkinMale[] = {70, 187, 303, 304, 305, 274, 275, 276, 277, 278, 279, 165, 71, 177};
+			                ShowModelSelectionMenuEx(playerid, SAMDSkinMale, sizeof(SAMDSkinMale), "Chon dong phuc Bac Si.", DYNAMIC_SAMD_UNIFORM_MALE, 0.0, 0.0, -55.0);
+			            }
+			        }
+			        else
+			        {
+			            ShowPlayerDialog(playerid, G_LOCKER_UNIFORM, DIALOG_STYLE_INPUT, "Uniform","Chon mot skin (by ID).", "Lua chon", "Huy bo");
+			        }
 			    }
 			    case 3:
 			    {
@@ -374,6 +410,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case G_LOCKER_EQUIPMENT: if(response)
 		{
+			if(PlayerInfo[playerid][pDuty] == 0) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban phai onduty de lay vu khi.");
 			new	iGroupID = PlayerInfo[playerid][pMember];
 
 			if (listitem == 16)
@@ -1196,9 +1233,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GetPlayerPos(playerid, arrGroupLockers[iGroupID][iLocker][g_fLockerPos][0], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][1], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][2]);
 					arrGroupLockers[iGroupID][iLocker][g_iLockerVW] = GetPlayerVirtualWorld(playerid);
 					DestroyDynamic3DTextLabel(arrGroupLockers[iGroupID][iLocker][g_tLocker3DLabel]);
+					DestroyDynamicPickup(arrGroupLockers[iGroupID][iLocker][g_iLockerPickup]);
 					new szResult[128];
 					format(szResult, sizeof szResult, "%s Tu do\n{1FBDFF}/tudo{FFFF00} de su dung\n ID: %i", arrGroupData[iGroupID][g_szGroupName], arrGroupLockers[iGroupID][iLocker]);
 					arrGroupLockers[iGroupID][iLocker][g_tLocker3DLabel] = CreateDynamic3DTextLabel(szResult, arrGroupData[iGroupID][g_hDutyColour] * 256 + 0xFF, arrGroupLockers[iGroupID][iLocker][g_fLockerPos][0], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][1], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][2], 15.0, .testlos = 1, .worldid = arrGroupLockers[iGroupID][iLocker][g_iLockerVW]);
+					arrGroupLockers[iGroupID][iLocker][g_iLockerPickup] = CreateDynamicPickup(1239, 23, arrGroupLockers[iGroupID][iLocker][g_fLockerPos][0], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][1], arrGroupLockers[iGroupID][iLocker][g_fLockerPos][2], arrGroupLockers[iGroupID][iLocker][g_iLockerVW]);
 				}
 				else if (listitem == 1)
 				{
@@ -1207,6 +1246,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					arrGroupLockers[iGroupID][iLocker][g_fLockerPos][2] = 0;
 					arrGroupLockers[iGroupID][iLocker][g_iLockerVW] = 0;
 					DestroyDynamic3DTextLabel(arrGroupLockers[iGroupID][iLocker][g_tLocker3DLabel]);
+					DestroyDynamicPickup(arrGroupLockers[iGroupID][iLocker][g_iLockerPickup]);
+					arrGroupLockers[iGroupID][iLocker][g_iLockerPickup] = 0;
 					format(string, sizeof(string), "Ban da xoa %d cua %s", iLocker, arrGroupData[iGroupID][g_szGroupName]);
 					SendClientMessageEx(playerid, COLOR_WHITE, string);
 				}

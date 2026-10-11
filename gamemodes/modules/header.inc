@@ -127,6 +127,10 @@ native WP_Hash(buffer[], len, const str[]);
 #define 		MAX_GROUP_JURISDICTIONS     10
 
 #define			DYNAMIC_FAMILY_CLOTHES		1337
+#define			DYNAMIC_SAPD_UNIFORM_MALE	1338
+#define			DYNAMIC_SAPD_UNIFORM_FEMALE	1339
+#define			DYNAMIC_SAMD_UNIFORM_MALE	1340
+#define			DYNAMIC_SAMD_UNIFORM_FEMALE	1341
 
 // Third and fourth-dimension sizes.
 #define			GROUP_MAX_NAME_LEN			32
@@ -363,7 +367,7 @@ native WP_Hash(buffer[], len, const str[]);
 #define mS_TOTAL_ITEMS         	1000 // Max amount of items from all lists
 #define mS_TOTAL_LISTS			20 // Max amount of lists
 #define mS_TOTAL_ROT_ZOOM		100 // Max amount of items using extra information like zoom or rotations
-#define mS_CUSTOM_MAX_ITEMS		20
+#define mS_CUSTOM_MAX_ITEMS		30
 #define mS_INVALID_LISTID		mS_TOTAL_LISTS
 #define mS_CUSTOM_LISTID		(mS_TOTAL_LISTS+1)
 #define mS_NEXT_TEXT   "Next"

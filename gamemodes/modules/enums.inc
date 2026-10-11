@@ -36,7 +36,8 @@ enum eLockerData {
 	Float: g_fLockerPos[3],
 	g_iLockerVW,
 	g_iLockerShare,
-	Text3D: g_tLocker3DLabel
+	Text3D: g_tLocker3DLabel,
+	g_iLockerPickup
 }
 
 enum eJurisdictionData {
@@ -772,6 +773,7 @@ enum pInfo
 	pUndercover,
 	pTogReports,
 	pModel,
+	pPreDutyModel,
 	pPnumber,
 	pPhousekey,
 	pPhousekey2,
