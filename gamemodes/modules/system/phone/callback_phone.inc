@@ -324,17 +324,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 ShowOnlineMedics(playerid);
             }
             if(listitem == 3) { //mechanic
-				//cmd_goisdt(playerid, "");
-				ShowTDN(playerid, NOTIFICATION_WARNING, "Chuc nang dang duoc phat trien...");
-				//HienTextdraw(playerid, "Chuc nang dang phat trien...");
-			}
+                ShowOnlineMechanics(playerid);
+            }
             if(listitem == 4)
             {
 				ShowOnlineTaxiDrivers(playerid);
             }
         }
 	}
-	if(dialogid == DIALOG_LIST_COPS || dialogid == DIALOG_LIST_MEDICS || dialogid == DIALOG_LIST_TAXI)
+	if(dialogid == DIALOG_LIST_COPS || dialogid == DIALOG_LIST_MEDICS || dialogid == DIALOG_LIST_TAXI || dialogid == DIALOG_LIST_MECHANIC)
 	{
 		if(!response) return 1;
 		

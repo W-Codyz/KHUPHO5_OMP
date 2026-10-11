@@ -74,6 +74,7 @@ new Float:lZ[MAX_PLAYERS];
 #define                 DIALOG_LIST_COPS        (9450)
 #define                 DIALOG_LIST_MEDICS      (9451)
 #define                 DIALOG_LIST_TAXI        (9452)
+#define                 DIALOG_LIST_MECHANIC    (9455)
 #define                 DIALOG_SMS_PHONE        (9453)
 #define                 DIALOG_SMS_TEXT         (9454)
 
@@ -1304,6 +1305,53 @@ stock ShowOnlineTaxiDrivers(playerid)
         return 0;
     }
     ShowPlayerDialog(playerid, DIALOG_LIST_TAXI, DIALOG_STYLE_TABLIST_HEADERS, "Danh sach Tai xe Taxi/Bus dang lam nhiem vu", string, "Goi", "Huy");
+    return 1;
+}
+
+stock ShowOnlineMechanics(playerid)
+{
+    new string[2048], count = 0;
+    string[0] = 0;
+    strcat(string, "Ten\tCong ty\tSo dien thoai\n");
+
+    new oldTotal = GetPVarInt(playerid, "TotalPhones");
+    for(new i = 0; i < oldTotal; i++)
+    {
+        new oldVarname[32];
+        format(oldVarname, sizeof(oldVarname), "SelectedPhone_%d", i);
+        DeletePVar(playerid, oldVarname);
+    }
+    DeletePVar(playerid, "TotalPhones");
+
+    foreach(new i: Player)
+    {
+        if(IsAMechanic(i) && PlayerInfo[i][pDuty] == 1)
+        {
+            if(PlayerInfo[i][pPnumber] == 0) continue;
+            new varname[32];
+            format(varname, sizeof(varname), "SelectedPhone_%d", count);
+            SetPVarInt(playerid, varname, PlayerInfo[i][pPnumber]);
+
+            new tempstr[128];
+            new groupName[48];
+            new groupid = PlayerInfo[i][pMember];
+            if(groupid >= 0 && strlen(arrGroupData[groupid][g_szGroupName]) > 0)
+                strcopy(groupName, arrGroupData[groupid][g_szGroupName], 48);
+            else
+                groupName = "__";
+            format(tempstr, sizeof(tempstr), "%s\t%s\t%d\n", GetPlayerNameEx(i), groupName, PlayerInfo[i][pPnumber]);
+            strcat(string, tempstr);
+            count++;
+        }
+    }
+    SetPVarInt(playerid, "TotalPhones", count);
+
+    if(count == 0)
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "Khong co tho sua xe nao dang lam nhiem vu hoac ho chua so huu dien thoai.");
+        return 0;
+    }
+    ShowPlayerDialog(playerid, DIALOG_LIST_MECHANIC, DIALOG_STYLE_TABLIST_HEADERS, "Danh sach Tho sua xe dang lam nhiem vu", string, "Goi", "Huy");
     return 1;
 }
 
