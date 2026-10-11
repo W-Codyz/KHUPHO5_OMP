@@ -208,6 +208,7 @@ static DestroyStorageWorldObjects(i)
 stock SaveMechRepairSpots()
 {
     new line[192], File:f = fopen("MechRepairSpots.cfg", io_write);
+    if(f == File:0) return;
     for(new i = 0; i < gRepairCount; i++) {
         format(line, sizeof(line), "%s|%f|%f|%f|%d\r\n",
             gRepairName[i], gRepairX[i], gRepairY[i], gRepairZ[i], gRepairGroupID[i]);
@@ -222,6 +223,7 @@ stock LoadMechRepairSpots()
     gRepairCount = 0;
     if(!fexist("MechRepairSpots.cfg")) { SaveMechRepairSpots(); return 1; }
     new line[192], File:f = fopen("MechRepairSpots.cfg", io_read);
+    if(f == File:0) return 1;
     while(gRepairCount < MAX_REPAIR_SPOTS && fread(f, line)) {
         if(!sscanf(line, "p<|>s[48]fffd",
             gRepairName[gRepairCount], gRepairX[gRepairCount], gRepairY[gRepairCount],
@@ -238,6 +240,7 @@ stock LoadMechRepairSpots()
 stock SaveMechCraftSpots()
 {
     new line[192], File:f = fopen("MechCraftSpots.cfg", io_write);
+    if(f == File:0) return;
     for(new i = 0; i < gCraftCount; i++) {
         format(line, sizeof(line), "%s|%f|%f|%f|%d\r\n",
             gCraftName[i], gCraftX[i], gCraftY[i], gCraftZ[i], gCraftGroupID[i]);
@@ -252,6 +255,7 @@ stock LoadMechCraftSpots()
     gCraftCount = 0;
     if(!fexist("MechCraftSpots.cfg")) { SaveMechCraftSpots(); return 1; }
     new line[192], File:f = fopen("MechCraftSpots.cfg", io_read);
+    if(f == File:0) return 1;
     while(gCraftCount < MAX_CRAFT_SPOTS && fread(f, line)) {
         if(!sscanf(line, "p<|>s[48]fffd",
             gCraftName[gCraftCount], gCraftX[gCraftCount], gCraftY[gCraftCount],
@@ -268,6 +272,7 @@ stock LoadMechCraftSpots()
 stock SaveMechStorageSpots()
 {
     new line[192], File:f = fopen("MechStorageSpots.cfg", io_write);
+    if(f == File:0) return;
     for(new i = 0; i < gStorageCount; i++) {
         format(line, sizeof(line), "%s|%f|%f|%f|%d\r\n",
             gStorageName[i], gStorageX[i], gStorageY[i], gStorageZ[i], gStorageGroupID[i]);
@@ -282,6 +287,7 @@ stock LoadMechStorageSpots()
     gStorageCount = 0;
     if(!fexist("MechStorageSpots.cfg")) { SaveMechStorageSpots(); return 1; }
     new line[192], File:f = fopen("MechStorageSpots.cfg", io_read);
+    if(f == File:0) return 1;
     while(gStorageCount < MAX_STORAGE_SPOTS && fread(f, line)) {
         if(!sscanf(line, "p<|>s[48]fffd",
             gStorageName[gStorageCount], gStorageX[gStorageCount], gStorageY[gStorageCount],
@@ -311,13 +317,15 @@ stock LoadMechGroupData(groupid)
     if(!fexist(filename)) return 1;
 
     new File:f = fopen(filename, io_read);
-    if(fread(f, line)) {
-        sscanf(line, "p<|>ddd",
-            gMechGroupMoney[groupid],
-            gMechGroupToolOto[groupid],
-            gMechGroupToolXeMay[groupid]);
+    if(f != File:0) {
+        if(fread(f, line)) {
+            sscanf(line, "p<|>ddd",
+                gMechGroupMoney[groupid],
+                gMechGroupToolOto[groupid],
+                gMechGroupToolXeMay[groupid]);
+        }
+        fclose(f);
     }
-    fclose(f);
     return 1;
 }
 
@@ -327,6 +335,7 @@ stock SaveMechGroupData(groupid)
     new filename[64], line[128];
     format(filename, sizeof(filename), "MechGroup_%d.cfg", groupid);
     new File:f = fopen(filename, io_write);
+    if(f == File:0) return 0;
     format(line, sizeof(line), "%d|%d|%d\r\n",
         gMechGroupMoney[groupid],
         gMechGroupToolOto[groupid],
@@ -356,9 +365,12 @@ stock MechLogMoney(groupid, const playername[], const action[], amount, balance)
     getdate(year, month, day);
     gettime(hour, minute, second);
 
+    new nfAmt[32], nfBal[32];
+    format(nfAmt, sizeof(nfAmt), "%s", number_format(amount));
+    format(nfBal, sizeof(nfBal), "%s", number_format(balance));
     format(line, sizeof(line), "[%02d/%02d/%04d %02d:%02d:%02d] %s - %s $%s | So du: $%s\r\n",
         day, month, year, hour, minute, second,
-        playername, action, number_format(amount), number_format(balance));
+        playername, action, nfAmt, nfBal);
     fwrite(f, line);
     fclose(f);
 }
@@ -417,8 +429,9 @@ stock GetPlayerStorageSpot(playerid, groupid)
 stock Float:GetGroupVehicleMaxHealth(vehicleid)
 {
     for(new i = 0; i < MAX_DYNAMIC_VEHICLES; i++) {
-        if(DynVehicleInfo[i][gv_iSpawnedID] == vehicleid && DynVehicleInfo[i][gv_igID] > 0) {
-            return DynVehicleInfo[i][gv_fMaxHealth];
+        if(DynVehicleInfo[i][gv_iSpawnedID] == vehicleid && DynVehicleInfo[i][gv_igID] >= 0) {
+            new Float:hp = DynVehicleInfo[i][gv_fMaxHealth];
+            return (hp > 0.0) ? hp : 1000.0;
         }
     }
     return 0.0; // khong phai xe group
@@ -441,7 +454,9 @@ CMD:suaxe(playerid, params[])
 
     new Float:currentHealth;
     GetVehicleHealth(closestVeh, currentHealth);
-    if(currentHealth >= 1000.0)
+    new Float:maxHP = GetGroupVehicleMaxHealth(closestVeh);
+    if(maxHP <= 0.0) maxHP = 1000.0;
+    if(currentHealth >= maxHP)
         return SendClientMessageEx(playerid, COLOR_GREY, "Chiec xe nay khong can sua chua.");
 
     new groupid = PlayerInfo[playerid][pMember];
@@ -459,14 +474,13 @@ CMD:suaxe(playerid, params[])
         SetPVarInt(playerid, "MechRepairBike", 1);
 
         new repairTime = 20 + random(11); // 20-30s
-        new animCase = random(3);
+        new animCase = random(2);
         switch(animCase)
         {
             case 0: ApplyAnimation(playerid, "COP_AMBIENT", "Copbrowse_loop", 4.1, true, false, false, true, 0, SYNC_ALL);
             case 1: ApplyAnimation(playerid, "HEIST9", "Use_SwipeCard", 4.1, true, false, false, true, 0, SYNC_ALL);
-            case 2: ApplyAnimation(playerid, "FIGHT_B", "FightB_G", 4.1, true, false, false, true, 0, SYNC_ALL);
         }
-        SetLoading(playerid, repairTime * 1000, "Dang sua xe may...", "OnMechanicRepairDone", "i", playerid);
+        SetLoading(playerid, repairTime * 1000, "Dang sua xe may...", "OnMechanicRepairDone");
         SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban bat dau sua xe may... Vui long doi.");
 
         new proxstr[128];
@@ -500,7 +514,7 @@ CMD:suaxe(playerid, params[])
             case 2: ApplyAnimation(playerid, "FIGHT_B", "FightB_G", 4.1, true, false, false, true, 0, SYNC_ALL);
         }
         SetPlayerAttachedObject(playerid, 9, 18635, 6);
-        SetLoading(playerid, repairTime * 1000, "Dang sua oto...", "OnMechanicRepairDone", "i", playerid);
+        SetLoading(playerid, repairTime * 1000, "Dang sua oto...", "OnMechanicRepairDone");
         SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban bat dau sua oto... Vui long doi.");
 
         new proxstr[128];
@@ -530,12 +544,13 @@ public OnMechanicRepairDone(playerid)
         return 1;
     }
 
-    // Set health: group vehicle -> maxhealth, otherwise -> 1000.0
+    // Repair visual first (RepairVehicle resets health to 1000 internally)
+    RepairVehicle(vehicleid);
+
+    // Set health AFTER RepairVehicle so it doesn't get overwritten
     new Float:groupMaxHP = GetGroupVehicleMaxHealth(vehicleid);
     if(groupMaxHP > 0.0)
         SetVehicleHealth(vehicleid, groupMaxHP);
-    else
-        SetVehicleHealth(vehicleid, 1000.0);
 
     // Allow anti-cheat
     new driverid = GetVehicleDriver(vehicleid);
@@ -546,9 +561,6 @@ public OnMechanicRepairDone(playerid)
         PlayerInfo[playerid][pToolkitXeMay]--;
     else
         PlayerInfo[playerid][pToolkitOto]--;
-
-    // Repair visual
-    RepairVehicle(vehicleid);
 
     // Messages
     new str[128];
@@ -879,10 +891,17 @@ CMD:editstorage(playerid, params[])
 // ============================================================
 hook OnGameModeInit()
 {
+    for(new i = 0; i < MAX_MECH_GROUPS; i++) gMechGroupLoaded[i] = false;
+    return 1;
+}
+
+// Load spots sau khi MySQL load xong group (co du colour data)
+forward OnAllGroupsLoaded();
+public OnAllGroupsLoaded()
+{
     LoadMechRepairSpots();
     LoadMechCraftSpots();
     LoadMechStorageSpots();
-    for(new i = 0; i < MAX_MECH_GROUPS; i++) gMechGroupLoaded[i] = false;
     return 1;
 }
 
@@ -940,7 +959,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             TogglePlayerControllable(playerid, false);
             new craftTime = 15 + random(6); // 15-20s
             ApplyAnimation(playerid, "BD_FIRE", "wash_up", 4.1, true, false, false, true, 0, SYNC_ALL);
-            SetLoading(playerid, craftTime * 1000, "Dang che tao dung cu...", "OnMechanicCraftDone", "i", playerid);
+            SetLoading(playerid, craftTime * 1000, "Dang che tao dung cu...", "OnMechanicCraftDone");
             SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Bat dau che tao dung cu... Vui long doi.");
 
             new proxstr[128];
@@ -1003,6 +1022,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return PC_EmulateCommand(playerid, "/dungcu");
             new amount = strval(inputtext);
             new groupid = PlayerInfo[playerid][pMember];
+            if(groupid < 0 || groupid >= MAX_MECH_GROUPS)
+                return SendClientMessageEx(playerid, COLOR_GREY, "Group khong hop le!");
             EnsureMechGroupLoaded(groupid);
 
             if(amount <= 0)
@@ -1015,9 +1036,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SaveMechGroupData(groupid);
             MechLogMoney(groupid, GetPlayerNameEx(playerid), "GUI", amount, gMechGroupMoney[groupid]);
 
-            new str[128];
-            format(str, sizeof(str), "Ban da gui {FFD700}$%s{FFFFFF} vao kho. So du kho: {FFD700}$%s",
-                number_format(amount), number_format(gMechGroupMoney[groupid]));
+            new str[128], nfAmt[32], nfBal[32];
+            format(nfAmt, sizeof(nfAmt), "%s", number_format(amount));
+            format(nfBal, sizeof(nfBal), "%s", number_format(gMechGroupMoney[groupid]));
+            format(str, sizeof(str), "Ban da gui {FFD700}$%s{FFFFFF} vao kho. So du kho: {FFD700}$%s", nfAmt, nfBal);
             SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
         }
 
@@ -1026,6 +1048,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return PC_EmulateCommand(playerid, "/dungcu");
             new amount = strval(inputtext);
             new groupid = PlayerInfo[playerid][pMember];
+            if(groupid < 0 || groupid >= MAX_MECH_GROUPS)
+                return SendClientMessageEx(playerid, COLOR_GREY, "Group khong hop le!");
             EnsureMechGroupLoaded(groupid);
 
             if(amount <= 0)
@@ -1038,9 +1062,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SaveMechGroupData(groupid);
             MechLogMoney(groupid, GetPlayerNameEx(playerid), "RUT", amount, gMechGroupMoney[groupid]);
 
-            new str[128];
-            format(str, sizeof(str), "Ban da rut {FFD700}$%s{FFFFFF} tu kho. So du kho: {FFD700}$%s",
-                number_format(amount), number_format(gMechGroupMoney[groupid]));
+            new str[128], nfAmt[32], nfBal[32];
+            format(nfAmt, sizeof(nfAmt), "%s", number_format(amount));
+            format(nfBal, sizeof(nfBal), "%s", number_format(gMechGroupMoney[groupid]));
+            format(str, sizeof(str), "Ban da rut {FFD700}$%s{FFFFFF} tu kho. So du kho: {FFD700}$%s", nfAmt, nfBal);
             SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
         }
 
@@ -1068,6 +1093,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(amount <= 0) return SendClientMessageEx(playerid, COLOR_GREY, "So luong khong hop le!");
 
             new groupid = PlayerInfo[playerid][pMember];
+            if(groupid < 0 || groupid >= MAX_MECH_GROUPS)
+                return SendClientMessageEx(playerid, COLOR_GREY, "Group khong hop le!");
             new action = GetPVarInt(playerid, "MechKhoDCAction");
             EnsureMechGroupLoaded(groupid);
 
@@ -1132,7 +1159,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             new groupid = PlayerInfo[playerid][pMember];
             if(PlayerInfo[playerid][pRank] < 5 && !PlayerInfo[playerid][pLeader]) return 1;
 
-            new filename[64], line[256], string[4096];
+            new filename[64];
+            static line[256], string[4096];
+            string[0] = EOS;
             if(listitem == 0)
                 format(filename, sizeof(filename), "MechLog_%d_money.log", groupid);
             else
@@ -1143,7 +1172,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             } else {
                 // Doc 50 dong cuoi cung
                 new File:f = fopen(filename, io_read);
-                new lines[MAX_MECH_LOG_ENTRIES][256];
+                if(f == File:0) { strcat(string, "{AAAAAA}Khong the mo file log.", sizeof(string)); }
+                else {
+                static lines[MAX_MECH_LOG_ENTRIES][256];
                 new count = 0, total = 0;
                 while(fread(f, line)) {
                     strcopy(lines[total % MAX_MECH_LOG_ENTRIES], line, 256);
@@ -1157,6 +1188,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     new idx = (start + i) % MAX_MECH_LOG_ENTRIES;
                     strcat(string, lines[idx], sizeof(string));
                 }
+                } // end else fopen ok
             }
 
             new title[64];
