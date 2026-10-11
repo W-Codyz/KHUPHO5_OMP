@@ -87,7 +87,7 @@ public OnVehicleSpawn(vehicleid) {
 
 			Vehicle_ResetData(iVehicleID);
 			if(PlayerVehicleInfo[i][v][pvHealth] > 0.0)
-				SetVehicleHealth(iVehicleID, PlayerVehicleInfo[i][v][pvHealth]);
+				SetVehicleHealth(iVehicleID, (PlayerVehicleInfo[i][v][pvHealth] < 251.0) ? 251.0 : PlayerVehicleInfo[i][v][pvHealth]);
 			if(!isnull(PlayerVehicleInfo[i][v][pvPlate])) {
 				SetVehicleNumberPlate(iVehicleID, PlayerVehicleInfo[i][v][pvPlate]);
 			}
@@ -3362,7 +3362,9 @@ public OnPlayerDisconnect(playerid, reason)
 		//SavePlayerRentalCar(playerid);
 		for(new _v = 0; _v < MAX_PLAYERVEHICLES; _v++) {
 			if(PlayerVehicleInfo[playerid][_v][pvSpawned] == 1 && PlayerVehicleInfo[playerid][_v][pvId] != INVALID_PLAYER_VEHICLE_ID) {
-				GetVehicleHealth(PlayerVehicleInfo[playerid][_v][pvId], PlayerVehicleInfo[playerid][_v][pvHealth]);
+				new Float:_dcVehHP;
+				GetVehicleHealth(PlayerVehicleInfo[playerid][_v][pvId], _dcVehHP);
+				if(_dcVehHP >= 251.0) PlayerVehicleInfo[playerid][_v][pvHealth] = _dcVehHP;
 				g_mysql_SaveVehicle(playerid, _v);
 			}
 		}
@@ -5990,7 +5992,9 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	new _slot = GetPlayerVehicle(playerid, vehicleid);
 	if(_slot != -1)
 	{
-		GetVehicleHealth(vehicleid, PlayerVehicleInfo[playerid][_slot][pvHealth]);
+		new Float:_exitVehHP;
+		GetVehicleHealth(vehicleid, _exitVehHP);
+		if(_exitVehHP >= 251.0) PlayerVehicleInfo[playerid][_slot][pvHealth] = _exitVehHP;
 	}
 	return 1;
 }
@@ -6482,6 +6486,20 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
 		}
 		else
 			return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da thoat lua chon  skin.");
+	}
+	if(extraid == DYNAMIC_SAPD_UNIFORM_MALE || extraid == DYNAMIC_SAPD_UNIFORM_FEMALE ||
+	   extraid == DYNAMIC_SAMD_UNIFORM_MALE || extraid == DYNAMIC_SAMD_UNIFORM_FEMALE)
+	{
+		if(response)
+		{
+			if(PlayerInfo[playerid][pPreDutyModel] == 0)
+				PlayerInfo[playerid][pPreDutyModel] = PlayerInfo[playerid][pModel];
+			PlayerInfo[playerid][pModel] = modelid;
+			SetPlayerSkin(playerid, modelid);
+			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban da thay doi dong phuc.");
+		}
+		else
+			SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da thoat lua chon dong phuc.");
 	}
 	return 1;
 }
