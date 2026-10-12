@@ -104,7 +104,7 @@ stock ShowHelpCommand(playerid, listitem)
 				}
 				case 8:
 				{
-					SendClientMessageEx(playerid, COLOR_WHITE, "* [MECHANIC] /g (OOC Chat) /tudo /tow /untow /gdonate /suaxe /chetaodungcu /dungcu");
+					SendClientMessageEx(playerid, COLOR_WHITE, "* [MECHANIC] /badge /g (OOC Chat) /tudo /tow /untow /gdonate /suaxe /chetaodungcu /dungcu");
 				}
 				case 9:
 				{
