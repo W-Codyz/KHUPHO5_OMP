@@ -111,9 +111,12 @@
 #include "./modules/system/food"
 #include "./modules/system/sendlocation"
 #include "./modules/system/bug_support"
+#include "./modules/system/medkit/herb_harvest"
+#include "./modules/system/medkit/medkit_system"
 
 //==============REMOVE/DISABLE============//
 #include "./modules/system/remove/garage"
+#include "./modules/system/remove/vending"
 
 //==============JOB MAIN============//
 #include "./modules/job/painter/main"

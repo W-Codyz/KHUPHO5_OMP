@@ -1647,6 +1647,7 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 
 public OnPlayerTakeDamage(playerid, issuerid, Float: amount, weaponid, bodypart)
 {
+	UpdateNameTag(playerid);
 	if(GetPVarInt(playerid, "commitSuicide") == 1)
 	{
 		SetPVarInt(playerid, "commitSuicide", 0);
