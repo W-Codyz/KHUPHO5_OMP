@@ -819,6 +819,17 @@ stock HideCardTD(playerid)
 }
 
 // ===================================================================
+// Actor Can Bo Hanh Chinh — menu dich vu hanh chinh
+// ===================================================================
+stock ActorHanhChinhMenu(playerid)
+{
+    ShowPlayerDialog(playerid, DIALOG_ACTOR_HANHCHINH, DIALOG_STYLE_LIST, "{FFFFFF}Can Bo Hanh Chinh",
+        "Cap Can cuoc cong dan\nMua giay phep lai xe Taxi\nMua giay phep lai thuyen\nMua giay phep su dung sung",
+        "Chon", "Dong");
+    return 1;
+}
+
+// ===================================================================
 // Actor cap CCCD truc tiep (khong can canh sat)
 // ===================================================================
 stock ActorIssueIDCard(playerid)
@@ -945,6 +956,57 @@ hook OnPlayerDisconnect(playerid, reason)
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+    if(dialogid == DIALOG_ACTOR_HANHCHINH)
+    {
+        if(!response) return 1;
+
+        switch(listitem)
+        {
+            case 0: ActorIssueIDCard(playerid);
+            case 1: 
+            {
+                if(PlayerInfo[playerid][pTaxiLicense] == 1)
+                    return SendClientMessage(playerid, COLOR_GREY, "Ban da co giay phep Taxi roi.");
+
+                if(PlayerInfo[playerid][pCarLic] == 0)
+                    return SendClientMessage(playerid, COLOR_GREY, "Ban can phai co giay phep lai xe truoc khi co the lay giay phep Taxi.");
+            
+                if(GetPlayerCash(playerid) < 35000)
+                    return SendClientMessage(playerid, COLOR_GREY, "Ban khong du tien de lay giay phep Taxi.");
+
+                GivePlayerCash(playerid, -35000);
+                SendClientMessage(playerid, COLOR_WHITE, "Ban da tra {F04E4E}$35,000{FFFFFF} de lay giay phep Taxi.");
+                PlayerInfo[playerid][pTaxiLicense] = 1;
+                UpdatePlayerInteger(playerid, "TaxiLicense", 1);
+            }
+            case 2:
+            {
+                if(PlayerInfo[playerid][pBoatLic] != 0)
+                    return SendClientMessageEx(playerid, COLOR_GREY, "Ban da so huu giay phep lai thuyen."), 1;
+
+                if(GetPlayerCash(playerid) < 50000)
+                    return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien de mua giay phep lai thuyen."), 1;
+
+                GivePlayerCash(playerid, -50000);
+                PlayerInfo[playerid][pBoatLic] = 1;
+                SendClientMessageEx(playerid, COLOR_GREY, "Ban da mua thanh cong giay phep lai thuyen.");
+            }
+            case 3:
+            {
+                if(PlayerInfo[playerid][pGunLic] != 0)
+                    return SendClientMessageEx(playerid, COLOR_GREY, "Ban da so huu giay phep mang sung."), 1;
+
+                if(GetPlayerCash(playerid) < 50000)
+                    return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong du tien de mua giay phep mang sung."), 1;
+
+                GivePlayerCash(playerid, -50000);
+                PlayerInfo[playerid][pGunLic] = 1;
+                SendClientMessageEx(playerid, COLOR_GREY, "Ban da mua giay phep mang sung thanh cong.");
+            }
+        }
+        return 1;
+    }
+
     if(dialogid == DIALOG_ACTOR_IDCARD)
     {
         if(!response) return 1;
