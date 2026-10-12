@@ -33,6 +33,7 @@
 new g_VPNWhitelist[MAX_VPN_WHITELIST][16];
 new g_VPNWhitelistCount;
 new g_AdminSelectedWL[MAX_PLAYERS];
+new g_AntiVPNKickIP[MAX_PLAYERS][16];
 
 // ==================================================================
 // WHITELIST SAVE / LOAD
@@ -160,6 +161,7 @@ public AntiVPN(playerid, response_code, data[])
             );
             DiscordLog(channel, title, nofi);
 
+            GetPlayerIp(playerid, g_AntiVPNKickIP[playerid], 16);
             SetTimerEx("AntiVPNKick", 1500, false, "d", playerid);
         }
     }
@@ -168,8 +170,13 @@ public AntiVPN(playerid, response_code, data[])
 
 public AntiVPNKick(playerid)
 {
-    if(IsPlayerConnected(playerid))
-        Kick(playerid);
+    if(!IsPlayerConnected(playerid)) return 1;
+
+    new currentIP[16];
+    GetPlayerIp(playerid, currentIP, sizeof(currentIP));
+    if(strcmp(currentIP, g_AntiVPNKickIP[playerid]) != 0) return 1; // playerid bị tái sử dụng
+
+    Kick(playerid);
     return 1;
 }
 
