@@ -283,12 +283,12 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         }
         else if(IsPlayerInRangeOfPoint(playerid, 5.0, -382.8928,-1426.2904,26.2979))
         {
-            // if(HasCopOnDuty() == false)
-            // {
-            //     SendClientMessage(playerid, -1, "Khong co canh sat nao dang lam nhiem vu, vui long quay lai sau.");
-            //     ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co canh sat nao dang lam nhiem vu.");
-            //     return 1;
-            // }
+            if(HasCopOnDuty() == false)
+            {
+                 SendClientMessage(playerid, -1, "Khong co canh sat nao dang lam nhiem vu, vui long quay lai sau.");
+                 ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co canh sat nao dang lam nhiem vu.");
+                 return 1;
+            }
             if(gettime() > GetPVarInt(playerid, "CanSaAreaCD")) {
                 CanSa_AlertCops(playerid, "Khu vuc mua ban can sa");
                 SetPVarInt(playerid, "CanSaAreaCD", gettime() + 30);
@@ -337,7 +337,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if (NhanDiemCount[playerid] != 0)
                         return SendClientMessage(playerid, COLOR_GREY, "Ban dang co mot don hang giao can sa roi, hay hoan thanh no.");
                     GiaoCanSaTimer[playerid] = SetTimerEx("NhanDiemGiaoHangCanSa", 1000, 0, "d", playerid);
-                    NhanDiemCount[playerid] = amount*5;
+                    NhanDiemCount[playerid] = min(amount*5, 600);
                     inputcansa[playerid] = amount;
                     antitelecansa[playerid] = CANSA_ANTI_TELEPORT_TIME;
                     SetTimerEx("antiteleportcansa", 1000, false, "d", playerid);
@@ -471,12 +471,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		if(response)
 		{
-            // if(HasCopOnDuty() == false)
-            // {
-            //     SendClientMessage(playerid, -1, "Khong co canh sat nao dang lam nhiem vu, vui long quay lai sau.");
-            //     ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co canh sat nao dang lam nhiem vu.");
-            //     return 1;
-            // }
+            if(HasCopOnDuty() == false)
+            {
+                SendClientMessage(playerid, -1, "Khong co canh sat nao dang lam nhiem vu, vui long quay lai sau.");
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Khong co canh sat nao dang lam nhiem vu.");
+                return 1;
+            }
 			if(listitem == 0)
 			{
                 if(dangchebien[playerid] == 1)
