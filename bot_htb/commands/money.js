@@ -58,7 +58,7 @@ module.exports = {
                     `🏦 Ngân hàng: $${player.Bank.toLocaleString()}\n` + 
                     `💰 Tổng tài sản: $${player.total.toLocaleString()}\n`
                 ).join('\n'))
-                .setFooter({ text: 'GTA-HTB Roleplay • Cập nhật theo thời gian thực' })
+                .setFooter({ text: 'HTB Roleplay' })
                 .setTimestamp();
 
             await interaction.editReply({ embeds: [embed] });
@@ -67,7 +67,7 @@ module.exports = {
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
-                .setDescription('Đã xảy ra lỗi khi truy vấn dữ liệu. Vui lòng thử lại sau.')
+                .setDescription('Đã xảy ra lỗi. Vui lòng thử lại sau.')
                 .setFooter({ text: 'GTA-HTB Roleplay' });
             
             return interaction.editReply({ embeds: [errorEmbed] });

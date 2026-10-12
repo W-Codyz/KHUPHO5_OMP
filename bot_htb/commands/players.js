@@ -108,7 +108,7 @@ module.exports = {
                 .setColor('#00FF00')
                 .setTitle(`🟢 Người chơi đang online (${rows.length})`)
                 .setDescription(description)
-                .setFooter({ text: 'GTA-HTB Roleplay • Cập nhật theo thời gian thực' })
+                .setFooter({ text: 'HTB Roleplay' })
                 .setTimestamp();
 
             return interaction.editReply({ embeds: [embed] });

@@ -159,7 +159,7 @@ module.exports = {
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
-                .setDescription('Đã xảy ra lỗi khi truy vấn dữ liệu. Vui lòng thử lại sau.')
+                .setDescription('Đã xảy ra lỗi. Vui lòng thử lại sau.')
                 .setFooter({ text: 'GTA-HTB Roleplay' });
             
             return interaction.editReply({ embeds: [errorEmbed] });
