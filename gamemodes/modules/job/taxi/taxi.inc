@@ -1,3 +1,106 @@
+#include <YSI\YSI_Coding\y_hooks>
+
+#define COLOR_TAXI_JOB      0xFFFF00FF
+
+// Vi tri spawn xe taxi (gan NPC xin viec)
+#define TAXI_VEH_X          -1976.2864
+#define TAXI_VEH_Y          100.7167
+#define TAXI_VEH_Z          27.4658
+#define TAXI_VEH_A          89.1263
+
+// ============================================================
+// START / STOP
+// ============================================================
+Taxi_Start(playerid)
+{
+    if(PlayerWorking[playerid] == JOB_TAXIDRIVER)
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban dang lam viec roi.");
+
+    new vehicleid = CreateVehicle(420, TAXI_VEH_X, TAXI_VEH_Y, TAXI_VEH_Z, TAXI_VEH_A, 6, 6, -1);
+    if(vehicleid == INVALID_VEHICLE_ID) {
+        ShowTDN(playerid, NOTIFICATION_ERROR, "Loi: Khong the tao xe. Thu lai sau.");
+        return 1;
+    }
+
+    LockStatus{vehicleid} = 0;
+    VehicleFuel[vehicleid] = 100.0;
+    SetVehicleHealth(vehicleid, 1000.0);
+    PutPlayerInVehicle(playerid, vehicleid, 0);
+
+    TaxiJobVehicle[playerid] = vehicleid;
+    PlayerWorking[playerid] = JOB_TAXIDRIVER;
+    SetPlayerSkin(playerid, JobInfo[JOB_TAXIDRIVER][jobSkin]);
+    SetPlayerColor(playerid, COLOR_TAXI_JOB);
+
+    SendClientMessageEx(playerid, COLOR_TAXI_JOB, "{FFFF00}[Taxi]{FFFFFF} Xe da san sang! Dung {FFFF00}/fare [gia]{FFFFFF} de bat dau nhan hanh khach.");
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Xe Taxi da san sang!");
+    return 1;
+}
+
+Taxi_Stop(playerid)
+{
+    if(TransportDuty[playerid] > 0)
+        PC_EmulateCommand(playerid, "/fare");
+
+    new vehicleid = TaxiJobVehicle[playerid];
+    if(vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid))
+        DestroyVehicle(vehicleid);
+    TaxiJobVehicle[playerid] = INVALID_VEHICLE_ID;
+
+    PlayerWorking[playerid] = 0;
+    SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
+    SetPlayerToTeamColor(playerid);
+
+    SendClientMessageEx(playerid, COLOR_TAXI_JOB, "{FFFF00}[Taxi]{FFFFFF} Ban da tra xe va ket thuc ca lam viec.");
+    ShowTDN(playerid, NOTIFICATION_SUCCESS, "Da ket thuc ca lam viec Taxi.");
+    return 1;
+}
+
+// ============================================================
+// HOOKS
+// ============================================================
+hook OnPlayerConnect(playerid)
+{
+    TaxiJobVehicle[playerid] = INVALID_VEHICLE_ID;
+    return 1;
+}
+
+hook OnPlayerDisconnect(playerid, reason)
+{
+    if(PlayerWorking[playerid] == JOB_TAXIDRIVER)
+        Taxi_Stop(playerid);
+    return 1;
+}
+
+// DIALOG_TAXI_NPC response
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+    if(dialogid == DIALOG_TAXI_NPC)
+    {
+        if(!response) return 1;
+        switch(listitem)
+        {
+            case 0: Taxi_Start(playerid);
+            case 1:
+            {
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "[================================================================================]");
+                SendClientMessageEx(playerid, COLOR_TAXI_JOB,  "{FFFF00}[Taxi - Huong Dan]");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Buoc 1: {FFFFFF}Nhan {FFFF00}[Y]{FFFFFF} tai NPC chon 'Lay xe Taxi' de nhan xe.");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Buoc 2: {FFFFFF}Dung {FFFF00}/fare [gia]{FFFFFF} de bat dau nhan hanh khach (VD: /fare 50).");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Buoc 3: {FFFFFF}Khi hanh khach goi, dung {FFFF00}/ataxi [ID]{FFFFFF} de chap nhan.");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Buoc 4: {FFFFFF}Hanh khach se dat diem den tren ban do cua ban.");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Buoc 5: {FFFFFF}Dua hanh khach den noi, ho roi xe ban se nhan tien cuoc.");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ket thuc: {FFFFFF}Dung {FFFF00}/dunglamviec{FFFFFF} de tra xe va ket thuc.");
+                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "[================================================================================]");
+            }
+        }
+        return 1;
+    }
+    return 1;
+}
+
+// ============================================================
+
 stock SendTaxiMessage(color, const string[])
 {
 	foreach(new i: Player)

@@ -1284,7 +1284,7 @@ stock ShowOnlineTaxiDrivers(playerid)
 
     foreach(new i: Player)
     {
-        if(TransportDuty[i] > 0 && (IsATaxiDriver(i) || PlayerInfo[i][pJob] == JOB_TAXIDRIVER || PlayerInfo[i][pJob2] == JOB_TAXIDRIVER || PlayerInfo[i][pTaxiLicense] == 1))
+        if((TransportDuty[i] > 0 || PlayerWorking[i] == JOB_TAXIDRIVER) && (IsATaxiDriver(i) || PlayerInfo[i][pJob] == JOB_TAXIDRIVER || PlayerInfo[i][pJob2] == JOB_TAXIDRIVER || PlayerInfo[i][pTaxiLicense] == 1))
         {
             if(PlayerInfo[i][pPnumber] == 0) continue;
             new varname[32];
@@ -1292,7 +1292,7 @@ stock ShowOnlineTaxiDrivers(playerid)
             SetPVarInt(playerid, varname, PlayerInfo[i][pPnumber]);
 
             new tempstr[128];
-            format(tempstr, sizeof(tempstr), "%s\t%s\t%d\n", GetPlayerNameEx(i), TransportDuty[i] == 1 ? "Taxi" : "Bus", PlayerInfo[i][pPnumber]);
+            format(tempstr, sizeof(tempstr), "%s\t%s\t%d\n", GetPlayerNameEx(i), TransportDuty[i] == 2 ? "Bus" : "Taxi", PlayerInfo[i][pPnumber]);
             strcat(string, tempstr);
             count++;
         }

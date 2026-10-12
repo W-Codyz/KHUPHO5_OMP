@@ -100,4 +100,9 @@ new SideJobInfo[][E_SIDEJOB_INFO] = {
     {"Cau ca", -1628.3528, 1394.4696, 7.1813}
 };
 
+#define DIALOG_TAXI_NPC     9631
+
+forward Taxi_Start(playerid);
+forward Taxi_Stop(playerid);
+
 new PlayerWorking[MAX_PLAYERS];

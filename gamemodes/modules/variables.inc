@@ -612,6 +612,8 @@ new TransportMoney[MAX_PLAYERS];
 new TransportTime[MAX_PLAYERS];
 new TransportCost[MAX_PLAYERS];
 new TransportDriver[MAX_PLAYERS];
+new LastTaxiDriver[MAX_PLAYERS];
+new TaxiJobVehicle[MAX_PLAYERS];
 new Text3D:TransportLabel[MAX_PLAYERS];
 new JobDuty[MAX_PLAYERS];
 new RegistrationStep[MAX_PLAYERS];

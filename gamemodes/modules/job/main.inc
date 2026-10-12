@@ -31,8 +31,16 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
             {
                 if(IsPlayerInRangeOfPoint(playerid, 2.5, JobInfo[i][jobPosX], JobInfo[i][jobPosY], JobInfo[i][jobPosZ]) && !IsPlayerInAnyVehicle(playerid))
                 {
+                    // Neu da la taxi: hien thi menu NPC
+                    if(i == JOB_TAXIDRIVER && (PlayerInfo[playerid][pJob] == JOB_TAXIDRIVER || PlayerInfo[playerid][pJob2] == JOB_TAXIDRIVER))
+                    {
+                        ShowPlayerDialog(playerid, DIALOG_TAXI_NPC, DIALOG_STYLE_LIST,
+                            "{FFFF00}GTA-HTB Roleplay {FFFFFF}- Tai Xe Taxi",
+                            "Lay xe Taxi\nHuong dan cong viec",
+                            "Chon", "Dong");
+                    }
                     // Neu da la miner: hien thi menu NPC
-                    if(i == JOB_MINER && (PlayerInfo[playerid][pJob] == JOB_MINER || PlayerInfo[playerid][pJob2] == JOB_MINER))
+                    else if(i == JOB_MINER && (PlayerInfo[playerid][pJob] == JOB_MINER || PlayerInfo[playerid][pJob2] == JOB_MINER))
                     {
                         ShowPlayerDialog(playerid, DIALOG_MINER_NPC, DIALOG_STYLE_LIST,
                             "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tho Khai Thac",
@@ -321,9 +329,7 @@ CMD:lamviec(playerid, params[])
     }
     else if(PlayerInfo[playerid][pJob] == JOB_TAXIDRIVER || PlayerInfo[playerid][pJob2] == JOB_TAXIDRIVER)
     {
-        if(PlayerWorking[playerid] == 0) {
-            SendHintMessage(playerid, "Cong viec cua ban phai su dung lenh \"{46BE00}/fare{FFFFFF}\".");
-        }
+        SendHintMessage(playerid, "Tai xe Taxi: den NPC tai diem xuat phat va nhan {46BE00}[Y]{FFFFFF} de lay xe.");
     }
     else if(PlayerInfo[playerid][pJob] == JOB_CONSTRUCTION || PlayerInfo[playerid][pJob2] == JOB_CONSTRUCTION)
     {
@@ -406,7 +412,9 @@ CMD:dunglamviec(playerid, params[])
     else if(PlayerInfo[playerid][pJob] == JOB_TAXIDRIVER || PlayerInfo[playerid][pJob2] == JOB_TAXIDRIVER)
     {
         if(PlayerWorking[playerid] == JOB_TAXIDRIVER) {
-            PC_EmulateCommand(playerid, "/fare");
+            Taxi_Stop(playerid);
+        } else {
+            SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec Taxi.");
         }
     }
     else if(PlayerInfo[playerid][pJob] == JOB_ELECTRIC || PlayerInfo[playerid][pJob2] == JOB_ELECTRIC)

@@ -157,6 +157,7 @@
 
 #include "./modules/job/main"
 #include "./modules/job/taxi/taxi"
+#include "./modules/job/taxi/taxi_rating"
 #include "./modules/job/trucker/trucker"
 #include "./modules/job/porter/porter"
 #include "./modules/job/pizzaboy/pizzaboy"

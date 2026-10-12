@@ -1617,7 +1617,7 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 		new driverId = TransportDriver[playerid];
 		if(TransportDuty[driverId] == 1) {
 			gPlayerCheckpointStatus[driverId] = CHECKPOINT_TAXI;
-			SetPlayerCP(driverId, fX, fY, fZ, 7.0);
+			SetPlayerCP(driverId, fX, fY, fZ, 5.0);
 			SendClientMessageEx(driverId, -1, "Hanh khach {DEDA64}%s{FFFFFF} da dat diem den cua minh tren mini-map cua ban.", GetPlayerNameEx(playerid));
 			SendClientMessageEx(playerid, 0xDEDA64FF, "Ban da dat diem den cua minh tren mini-map cua tai xe.");
 			return 1;
@@ -2646,6 +2646,8 @@ public OnPlayerConnect(playerid) {
 	TransportTime[playerid] = 0;
 	TransportCost[playerid] = 0;
 	TransportDriver[playerid] = INVALID_PLAYER_ID;
+	LastTaxiDriver[playerid] = INVALID_PLAYER_ID;
+	TaxiJobVehicle[playerid] = INVALID_VEHICLE_ID;
 	Locator[playerid] = 0;
 	ReleasingMenu[playerid] = INVALID_PLAYER_ID;
 	ProposeOffer[playerid] = INVALID_PLAYER_ID;
@@ -2674,6 +2676,7 @@ public OnPlayerConnect(playerid) {
 	}
 
 	// These need to be reset to prevent some bugs (DO NOT REMOVE)
+	PlayerInfo[playerid][pPreDutyModel] = 0;
 	PlayerInfo[playerid][pModel] = 0;
 	PlayerInfo[playerid][pLeader] = INVALID_GROUP_ID;
 	PlayerInfo[playerid][pMember] = INVALID_GROUP_ID;
@@ -3454,6 +3457,8 @@ public OnPlayerDisconnect(playerid, reason)
 				TransportTime[TransportDriver[playerid]] = 0;
 				TransportCost[TransportDriver[playerid]] = 0;
 				SendMessageTD(TransportDriver[playerid], 5000, "~w~Hanh khach da roi xe~n~~g~Kiem duoc $%d",TransportCost[playerid]);
+				LastTaxiDriver[playerid] = TransportDriver[playerid];
+				SendClientMessageEx(playerid, COLOR_WHITE, "Cam on ban da su dung dich vu Taxi! Su dung {FFFF00}/danhgia %d{FFFFFF} de danh gia tai xe.", TransportDriver[playerid]);
 				TransportDriver[playerid] = INVALID_PLAYER_ID;
 			}
 		}
@@ -5586,6 +5591,8 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			format(string, sizeof(string), "~w~Hanh khach roi khoi xe taxi.~n~~g~Kiem duoc $%d",TransportCost[playerid]);
 			GameTextForPlayer(TransportDriver[playerid], string, 5000, 3);
 			GivePlayerCash(playerid, -TransportCost[playerid]);
+			LastTaxiDriver[playerid] = TransportDriver[playerid];
+			SendClientMessageEx(playerid, COLOR_WHITE, "Cam on ban da su dung dich vu Taxi! Su dung {FFFF00}/danhgia %d{FFFFFF} de danh gia tai xe.", TransportDriver[playerid]);
 
 			if(TransportCost[playerid] >= 10000)
 			{
@@ -5665,6 +5672,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 						format(string, sizeof(string), "* Ban dua $%d tien cho tai xe Taxi.", TransportValue[i]);
 						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 						SendHintMessage(playerid, "Mo ban do len va chon diem den cua minh, tai xe se biet nen di dau.");
+						SendHintMessage(playerid, "Co the su dung {FFDE4C}/xemdanhgia {ffffff}de xem danh gia cua tai xe.");
 						format(string, sizeof(string), "* Hanh khach %s da buoc vao Taxi cua ban.", GetPlayerNameEx(playerid));
 						SendClientMessageEx(i, COLOR_LIGHTBLUE, string);
 						TransportTime[i] = 1;
