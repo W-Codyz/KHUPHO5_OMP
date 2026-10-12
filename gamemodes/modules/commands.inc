@@ -15594,59 +15594,53 @@ CMD:dvrespawnall(playerid, params[])
 CMD:dvrespawn(playerid, params[])
 {
 	new szString[128],
-		iGroupID = (PlayerInfo[playerid][pLeader] >= 0) ? PlayerInfo[playerid][pLeader] : PlayerInfo[playerid][pMember],
-	    iFamilyID = PlayerInfo[playerid][pFMember];
+		iGroupID  = PlayerInfo[playerid][pMember],
+		iFamilyID = PlayerInfo[playerid][pFMember];
 
-    if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pFactionModerator] >= 1 || PlayerInfo[playerid][pGangModerator] >= 1 || PlayerInfo[playerid][pLeader] >= 0 || (1 <= iFamilyID <= MAX_FAMILY && !strcmp(GetPlayerNameEx(playerid), FamilyInfo[iFamilyID][FamilyLeader], true)))
-    {
-		if((0 <= iGroupID <= MAX_GROUPS))
+	new bool:bGroupLeader  = (iGroupID >= 0 && iGroupID <= MAX_GROUPS)
+	                      && (PlayerInfo[playerid][pLeader] == iGroupID || PlayerInfo[playerid][pRank] >= Group_GetMaxRank(iGroupID));
+	new bool:bFamilyLeader = (iFamilyID >= 1 && iFamilyID <= MAX_FAMILY)
+	                      && (PlayerInfo[playerid][pRank] >= 6 || !strcmp(GetPlayerNameEx(playerid), FamilyInfo[iFamilyID][FamilyLeader], true));
+
+	if(bGroupLeader)
+	{
+		for(new i; i < MAX_DYNAMIC_VEHICLES; i++)
 		{
-			for(new i; i < MAX_DYNAMIC_VEHICLES; i++)
-			{
-			    new iModelID = DynVehicleInfo[i][gv_iModel];
-			    if(400 <= iModelID < 612 && DynVehicleInfo[i][gv_igID] == iGroupID)
-			    {
-					if(!IsVehicleOccupiedEx(DynVehicleInfo[i][gv_iSpawnedID]))
-					{
-						DynVeh_Spawn(i);
-					}
-			    }
-			}
-			format(szString, sizeof(szString), "** Respawning all dynamic group vehicles...");
-			foreach(new i: Player)
-			{
-				if(PlayerInfo[i][pMember] == iGroupID)
-				{
-					SendClientMessageEx(i, arrGroupData[iGroupID][g_hRadioColour] * 256 + 255, szString);
-				}
-			}
-            format(szString, sizeof(szString), "%s has respawned group ID %d dynamic group vehicles.", GetPlayerNameEx(playerid), iGroupID+1);
-   			Log("logs/group.log", szString);
-		}
-		else if((1 <= iFamilyID <= MAX_FAMILY))
-		{
-		    for(new i; i < MAX_DYNAMIC_VEHICLES; i++)
+		    new iModelID = DynVehicleInfo[i][gv_iModel];
+		    if(iModelID >= 400 && iModelID < 612 && DynVehicleInfo[i][gv_igID] == iGroupID)
 		    {
-		        new iModelID = DynVehicleInfo[i][gv_iModel];
-		        if(400 <= iModelID < 612 && DynVehicleInfo[i][gv_ifID] == iFamilyID)
-		        {
-					if(!IsVehicleOccupiedEx(DynVehicleInfo[i][gv_iSpawnedID]))
-					{
-						DynVeh_Spawn(i);
-					}
-		        }
+				if(!IsVehicleOccupiedEx(DynVehicleInfo[i][gv_iSpawnedID]))
+					DynVeh_Spawn(i);
 		    }
-			format(szString, sizeof(szString), "** Respawning all dynamic family vehicles...");
-		    foreach(new i: Player)
-			{
-				if(PlayerInfo[i][pFMember] == iFamilyID)
-				{
-					SendClientMessageEx(i, COLOR_LIGHTBLUE, szString);
-				}
-			}
-		    format(szString, sizeof(szString), "%s has respawned family %d dynamic group vehicles.", GetPlayerNameEx(playerid), iFamilyID);
-      		Log("logs/family.log", szString);
 		}
+		format(szString, sizeof(szString), "** Respawning all dynamic group vehicles...");
+		foreach(new i: Player)
+		{
+			if(PlayerInfo[i][pMember] == iGroupID)
+				SendClientMessageEx(i, arrGroupData[iGroupID][g_hRadioColour] * 256 + 255, szString);
+		}
+		format(szString, sizeof(szString), "%s has respawned group ID %d dynamic group vehicles.", GetPlayerNameEx(playerid), iGroupID + 1);
+		Log("logs/group.log", szString);
+	}
+	else if(bFamilyLeader)
+	{
+	    for(new i; i < MAX_DYNAMIC_VEHICLES; i++)
+	    {
+	        new iModelID = DynVehicleInfo[i][gv_iModel];
+	        if(iModelID >= 400 && iModelID < 612 && DynVehicleInfo[i][gv_ifID] == iFamilyID)
+	        {
+				if(!IsVehicleOccupiedEx(DynVehicleInfo[i][gv_iSpawnedID]))
+					DynVeh_Spawn(i);
+	        }
+	    }
+		format(szString, sizeof(szString), "** Respawning all dynamic family vehicles...");
+	    foreach(new i: Player)
+		{
+			if(PlayerInfo[i][pFMember] == iFamilyID)
+				SendClientMessageEx(i, COLOR_LIGHTBLUE, szString);
+		}
+	    format(szString, sizeof(szString), "%s has respawned family %d dynamic vehicles.", GetPlayerNameEx(playerid), iFamilyID);
+  		Log("logs/family.log", szString);
 	}
 	return 1;
 }
@@ -33123,7 +33117,7 @@ CMD:placeboombox(playerid, params[])
 	    if(GetPVarInt(playerid, "IsInArena") >= 0) return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lam dieu nay khi dang trong arena!");
 		if(WatchingTV[playerid] != 0) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the lam dieu nay khi dang xem TV!");
 		if(GetPVarInt(playerid, "Injured") == 1 || PlayerInfo[playerid][pHospital] > 0 || IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_WHITE, "Ban khong the lam dieu do vao luc nay");
-		if(PlayerInfo[playerid][pVW] == 0 || PlayerInfo[playerid][pInt] == 0) return SendClientMessageEx(playerid, COLOR_WHITE, "You can only place boomboxes inside interiors.");
+		//if(PlayerInfo[playerid][pVW] == 0 || PlayerInfo[playerid][pInt] == 0) return SendClientMessageEx(playerid, COLOR_WHITE, "You can only place boomboxes inside interiors.");
 		if(GetPVarType(playerid, "pBoomBox")) return SendClientMessageEx(playerid, COLOR_WHITE, "You already have a boombox out, use /destroyboombox.");
 
 		foreach(new i: Player)
