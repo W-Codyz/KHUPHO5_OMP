@@ -506,12 +506,11 @@ CMD:suaxe(playerid, params[])
         SetPVarInt(playerid, "MechRepairBike", 0);
 
         new repairTime = 20 + random(11);
-        new animCase = random(3);
+        new animCase = random(2);
         switch(animCase)
         {
             case 0: ApplyAnimation(playerid, "COP_AMBIENT", "Copbrowse_loop", 4.1, true, false, false, true, 0, SYNC_ALL);
             case 1: ApplyAnimation(playerid, "HEIST9", "Use_SwipeCard", 4.1, true, false, false, true, 0, SYNC_ALL);
-            case 2: ApplyAnimation(playerid, "FIGHT_B", "FightB_G", 4.1, true, false, false, true, 0, SYNC_ALL);
         }
         SetPlayerAttachedObject(playerid, 9, 18635, 6);
         SetLoading(playerid, repairTime * 1000, "Dang sua oto...", "OnMechanicRepairDone");
