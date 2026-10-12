@@ -89,6 +89,7 @@ stock hosp_StopRecovery(playerid)
     g_HospBedZ[playerid]         = 0.0;
     g_HospBedA[playerid]         = 0.0;
     DeletePVar(playerid, "KhongHackWeaponInv");
+    DeletePVar(playerid, "HospFee");
 }
 
 // Dat benh nhan vao giuong — dung cho ca rescue va post-spawn
@@ -188,8 +189,7 @@ CMD:deliverpt(playerid, params[])
 
     if(!treatFailed)
     {
-        GivePlayerCash(giveplayerid, -HOSP_SUCCESS_FEE);
-        Tax += HOSP_SUCCESS_FEE;
+        SetPVarInt(giveplayerid, "HospFee", HOSP_SUCCESS_FEE);
 
         SendClientMessageEx(giveplayerid, TEAM_CYAN_COLOR,
             "Ca phau thuat thanh cong! Hoa don y te: $3,000. Chuc ban mot ngay tot lanh!");
@@ -198,8 +198,7 @@ CMD:deliverpt(playerid, params[])
     }
     else
     {
-        GivePlayerCash(giveplayerid, -HOSP_FAIL_FEE);
-        Tax += HOSP_FAIL_FEE;
+        SetPVarInt(giveplayerid, "HospFee", HOSP_FAIL_FEE);
 
         ResetPlayerWeapons(giveplayerid);
         PlayerInfo[giveplayerid][pThucAn] = 50;
@@ -304,6 +303,16 @@ public HospitalRecovery_Tick(playerid)
 public hosp_CompleteBedExit(playerid)
 {
     if(!IsPlayerConnected(playerid)) return;
+
+    new fee = GetPVarInt(playerid, "HospFee");
+    if(fee > 0)
+    {
+        GivePlayerCash(playerid, -fee);
+        SendClientMessageEx(playerid, TEAM_CYAN_COLOR, "* Tien vien phi cua ban la: $%d.", fee);
+        Tax += fee;
+        DeletePVar(playerid, "HospFee");
+    }
+
     TogglePlayerControllable(playerid, true);
     SetPlayerHealth(playerid, HOSP_HEAL_HP);
     SendClientMessageEx(playerid, TEAM_CYAN_COLOR, "* Ban da hoi phuc! Hay tu tim duong ra khoi benh vien.");
