@@ -108,7 +108,8 @@ public CheckPlayerRemoteJacking(playerid)
                 && !IsPlayerInRangeOfPoint(playerid,40.0, 576.9451, 867.7784, -43.4240) // job khai thac (Miner)
                 && !IsPlayerInRangeOfPoint(playerid,40.0, -751.7999, -143.3935, 66.2233) // job cat go (Lumber)
                 && !IsPlayerInRangeOfPoint(playerid,40.0, -2532.0229, -601.6449, 132.2643) // job sua dien (Electric)
-                && !IsPlayerInRangeOfPoint(playerid,40.0, -1707.9, 1373.0, 6.86)) // xe pizza boy
+                && !IsPlayerInRangeOfPoint(playerid,40.0, -1707.9, 1373.0, 6.86) // xe pizza boy
+                && !IsPlayerInRangeOfPoint(playerid,40.0, -1980.6090, 132.0104, 27.6875)) // npc job taxi
             {
                 new string[1280];
                 format(string, sizeof(string), "Thong Bao: %s (ID: %d) Phat hien nghi van hack troll car, /spec now.", GetPlayerNameEx(playerid), playerid);
