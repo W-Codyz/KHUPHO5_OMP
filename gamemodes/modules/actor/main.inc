@@ -41,7 +41,7 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
                     case ACTOR_NEWBIEMISSION: ShowNewbieMission(playerid);
                     case ACTOR_FISHERMAN: /* ShowFishermanDialog(playerid); */ return 1;
                     case ACTOR_RENTCAR: ShowDialogRentCar(playerid);
-                    case ACTOR_IDCARD: ActorIssueIDCard(playerid);
+                    case ACTOR_IDCARD: ActorHanhChinhMenu(playerid);
                 }
                 return 1;
             }

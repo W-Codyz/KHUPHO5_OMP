@@ -95,7 +95,7 @@ stock ShowLicenseDialog(playerid, type)
     {
         ShowPlayerDialog(playerid, DIALOG_LICENSE_TAXI, DIALOG_STYLE_MSGBOX, "{FFFFFF}James Carter", "{FFFFFF}Xin chao ban, toi ten {6D9BC0}James Carter{FFFFFF} la nhan vien cua Trung tam cap giay phep.\n\
                 Toi la nguoi co tham quyen quyet dinh cap giay phep Taxi, de co the lay duoc\nloai giay phep nay, truoc tien ban can co mot giay phep lai xe truoc va phi ban\n\
-                    can phai tra de lay giay phep Taxi la {F04040}$1,000{FFFFFF}.\n\n\n{7D78FF}Ban co muon lay giay phep nay khong?", "Co", "Khong");
+                    can phai tra de lay giay phep Taxi la {F04040}$35,000{FFFFFF}.\n\n\n{7D78FF}Ban co muon lay giay phep nay khong?", "Co", "Khong");
     }
     return 1;
 }
@@ -163,11 +163,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         if(PlayerInfo[playerid][pCarLic] == 0)
             return SendClientMessage(playerid, COLOR_GREY, "Ban can phai co giay phep lai xe truoc khi co the lay giay phep Taxi.");
     
-        if(GetPlayerCash(playerid) < 1000)
+        if(GetPlayerCash(playerid) < 35000)
             return SendClientMessage(playerid, COLOR_GREY, "Ban khong du tien de lay giay phep Taxi.");
 
-        GivePlayerCash(playerid, -1000);
-        SendClientMessage(playerid, COLOR_WHITE, "Ban da tra {F04E4E}$1,000{FFFFFF} de lay giay phep Taxi.");
+        GivePlayerCash(playerid, -35000);
+        SendClientMessage(playerid, COLOR_WHITE, "Ban da tra {F04E4E}$35,000{FFFFFF} de lay giay phep Taxi.");
         PlayerInfo[playerid][pTaxiLicense] = 1;
         UpdatePlayerInteger(playerid, "TaxiLicense", 1);
         return 1;
