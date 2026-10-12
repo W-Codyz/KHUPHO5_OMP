@@ -1075,15 +1075,30 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             // 0=gui oto, 1=gui xemay, 2=rut oto, 3=rut xemay
             SetPVarInt(playerid, "MechKhoDCAction", listitem);
 
-            new title[64];
+            new groupid = PlayerInfo[playerid][pMember];
+            EnsureMechGroupLoaded(groupid);
+
+            new title[64], body[128];
             switch(listitem) {
-                case 0: title = "Gui Dung Cu Sua Oto";
-                case 1: title = "Gui Dung Cu Sua Xe May";
-                case 2: title = "Rut Dung Cu Sua Oto";
-                case 3: title = "Rut Dung Cu Sua Xe May";
+                case 0: {
+                    title = "Gui Dung Cu Sua Oto";
+                    format(body, sizeof(body), "{FFFFFF}Dung cu trong nguoi: {FF6600}%d\n{FFFFFF}Nhap so luong muon gui:", PlayerInfo[playerid][pToolkitOto]);
+                }
+                case 1: {
+                    title = "Gui Dung Cu Sua Xe May";
+                    format(body, sizeof(body), "{FFFFFF}Dung cu trong nguoi: {00CCFF}%d\n{FFFFFF}Nhap so luong muon gui:", PlayerInfo[playerid][pToolkitXeMay]);
+                }
+                case 2: {
+                    title = "Rut Dung Cu Sua Oto";
+                    format(body, sizeof(body), "{FFFFFF}Dung cu trong kho: {FF6600}%d\n{FFFFFF}Nhap so luong muon rut:", gMechGroupToolOto[groupid]);
+                }
+                case 3: {
+                    title = "Rut Dung Cu Sua Xe May";
+                    format(body, sizeof(body), "{FFFFFF}Dung cu trong kho: {00CCFF}%d\n{FFFFFF}Nhap so luong muon rut:", gMechGroupToolXeMay[groupid]);
+                }
             }
             ShowPlayerDialog(playerid, DIALOG_MECH_KHO_DC_GUI_SL, DIALOG_STYLE_INPUT,
-                title, "{FFFFFF}Nhap so luong:", "Xac nhan", "Huy");
+                title, body, "Xac nhan", "Huy");
         }
 
         case DIALOG_MECH_KHO_DC_GUI_SL:
