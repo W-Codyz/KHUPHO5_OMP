@@ -52,6 +52,8 @@ static GetInvItemModel(itemVariable)
     if(itemVariable == pGoThuong)    return 19632;
     if(itemVariable == pIDCard)         return 1581;
     if(itemVariable == (_:pBinhXang))   return 1650;
+    if(itemVariable == pMedkit)         return 11738;
+    if(itemVariable == pHerb)           return 2811;
     return 2663;
 }
 

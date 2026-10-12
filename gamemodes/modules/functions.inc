@@ -2955,7 +2955,12 @@ public InitiateGamemode()
     LoadDynamicGroups();
     print("[Dynamic Groups] Loading Dynamic Groups Vehicles...");
     LoadDynamicGroupVehicles();
-	
+
+	print("[HerbSystem] Khoi dong he thong thao duoc...");
+	Herb_Init();
+	print("[MedkitSystem] Khoi dong he thong medkit...");
+	Medkit_Init();
+
 	print("==========================================================");
 	print("GTA-HTB Roleplay Vietnam\n");
 	print("Copyright (C) by Codyz 2025");
@@ -22379,4 +22384,33 @@ GetBodypartName(bodypart)
 // Backward-compat stubs cho code cu trong timers.inc / callbacks.inc.
 // Cac ham nay se khong bao gio chay vi TruckUsed[] luon = INVALID_VEHICLE_ID.
 stock CancelTruckDelivery(playerid)    { Trucker_Cleanup(playerid); }
+
+// URL-encode chuỗi để gửi qua HTTP query string (thay space=+, encode ký tự đặc biệt)
+stock UrlEncodeStr(const input[], output[], len)
+{
+    static const hex[] = "0123456789ABCDEF";
+    new i = 0, j = 0;
+    while(input[i] != '\0' && j < len - 4)
+    {
+        new c = input[i];
+        if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ||
+            c == '-' || c == '_' || c == '.' || c == '~')
+        {
+            output[j++] = c;
+        }
+        else if(c == ' ')
+        {
+            output[j++] = '+';
+        }
+        else
+        {
+            output[j++] = '%';
+            output[j++] = hex[(c >>> 4) & 0xF];
+            output[j++] = hex[c & 0xF];
+        }
+        i++;
+    }
+    output[j] = '\0';
+    return j;
+}
 stock IsAtTruckDeliveryPoint(playerid) { return playerid >= 0 ? 0 : 0; }

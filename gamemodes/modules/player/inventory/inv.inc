@@ -437,10 +437,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                             ShowActionForPlayer(playerid, DIALOG_USENUOCLOC, "Ban co muon su dung Nuoc Loc khong ?", .action_time = 10000);
                         }
                         
-                        /* case pMedkit: {
-                            cmd_usemedkit(playerid, "");
-                        } */
-                        
+                        case pMedkit: {
+                            PC_EmulateCommand(playerid, "/usemedkit");
+                        }
+
+                        case pHerb: {
+                            HienTextdraw(playerid, "Thao duoc dung de che tao Medkit, hay dem di ban cho Bac si.");
+                        }
+
                         case pTepCanSa: {
                             HienTextdraw(playerid, "Tep can sa co the dem di ban");
                         }
@@ -1037,18 +1041,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 CMD:additem(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] < 99999) return 1;
-    new string[2048];
-    string = "Ten Item\tID\n";
-    
-    // Hiển thị danh sách item dạng tablist
+    new string[4096];
+    string = "{FFFF00}STT\tTen Item\tID\n";
+
     for(new i = 0; i < sizeof(ItemInventory); i++) {
-        format(string, sizeof(string), "%s%s\t%s\n", 
-            string, 
+        format(string, sizeof(string), "%s{FFFF00}%d\t%s\t%s\n",
+            string,
+            i + 1,
             ItemInventory[i][NameItem],
-            ItemInventory[i][pVariable]
+            ItemInventory[i][IDName]
         );
     }
-    
+
     ShowPlayerDialog(playerid, DIALOG_ITEM_LIST, DIALOG_STYLE_TABLIST_HEADERS, "Danh sach Item", string, "Chon", "Huy");
     return 1;
 }

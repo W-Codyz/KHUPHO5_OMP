@@ -1034,7 +1034,11 @@ enum pInfo
 	pRouletteTarget,  // 1 = nam trong danh sach bi nha cai nham den
 	pRouletteProfit,  // loi nhuan tich luy dai han (co the am)
 	pRoulVanThang,    // so van thang lien tiep trong chu ky nha hien tai
-	pRoulNguong       // chu ky nay duoc thang toi da bao nhieu van (2-4)
+	pRoulNguong,      // chu ky nay duoc thang toi da bao nhieu van (2-4)
+
+	// Herb & Medkit system
+	pHerb,
+	pMedkit
 
 	//enum pinfo
 };
