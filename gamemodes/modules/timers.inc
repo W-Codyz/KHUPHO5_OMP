@@ -1703,112 +1703,123 @@ task ServerHeartbeatTwo[1000]() {
 	}
 }
 
+stock ApplyCrashDamage(playerid, Float:fSpdBefore, Float:fSpdAfter,
+                       Float:fHpBefore, Float:fHpAfter, bool:bIsDriver)
+{
+    if(PlayerInfo[playerid][pAdmin] > 1) return 0;
+
+    // ===== CO THAT DAY AN TOAN -> MIEN SAT THUONG =====
+    if(Seatbelt[playerid]) return 0;
+
+    new Float:fDrop   = fSpdBefore - fSpdAfter;   // muc giam toc
+    new Float:fVehDmg = fHpBefore  - fHpAfter;    // xe mat bao nhieu mau
+    if(fVehDmg <= 0.0) return 0;                  // xe khong mat mau -> khong va cham
+
+    // Nguong giam toc toi thieu
+    //  - Toc do sau va cham >= 60 : nhe   -> nguong 40
+    //  - Toc do sau va cham < 60  : manh   -> nguong 50
+    new Float:fMinDrop = (fSpdAfter >= 60.0) ? 40.0 : 50.0;
+    if(fDrop <= fMinDrop) return 0;
+
+    // ===== CHI CON TRUONG HOP KHONG THAT DAY =====
+    // He so chia da NHAN DOI so voi ban cu -> sat thuong GIAM 1 NUA
+    //  Cu:  Driver >=60: 2.6  -> Moi: 5.2
+    //  Cu:  Driver < 60: 2.0  -> Moi: 4.0
+    //  Cu:  Pass   >=60: 1.6  -> Moi: 3.2
+    //  Cu:  Pass   < 60: 0.8  -> Moi: 1.6
+    new Float:fDiv;
+    if(bIsDriver) {
+        if(fSpdAfter >= 60.0) fDiv = 5.2;
+        else                  fDiv = 4.0;
+    } else {
+        if(fSpdAfter >= 60.0) fDiv = 3.2;
+        else                  fDiv = 1.6;
+    }
+
+    new Float:fDamage = fDrop / fDiv;
+    new Float:fNewHp;
+    GetPlayerHealth(playerid, fNewHp);
+    fNewHp -= fDamage;
+    if(fNewHp < 1.0) fNewHp = 1.0;   // khong de chet cung vi va cham
+    SetPlayerHealth(playerid, fNewHp);
+
+    // Hieu ung khi va cham manh
+    if(fDrop > 70.0) {
+        PlayerPlaySound(playerid, 1130, 0.0, 0.0, 0.0);
+        SetPlayerDrunkLevel(playerid, 2500);
+    }
+    return 1;
+}
+
 // Timer Name: ServerMicrobeat()
 // TickRate: 500ms
-task ServerMicrobeat[500]() {
-
+task ServerMicrobeat[500]()
+{
     static
-		Float: fExpHealth,
-		fCurrentSpeed,
-		Float: fVehicleHealth,
-		iVehicle,
-		//szSpeed[42],
-		arrVehParams[7];
+        Float: fVehicleHealth,
+        Float: fPlayerHealth,      // <-- THEM: bien tam cho AC player
+        fCurrentSpeed,
+        iVehicle,
+        arrVehParams[7];
 
-	foreach(new i: Player)
-	{
-		/* if (_vhudVisible[i] == 1 && !IsPlayerInAnyVehicle(i))
-		{
-			HideVehicleHUDForPlayer(i);
-		} */
+    foreach(new i : Player)
+    {
+        switch(GetPlayerState(i))
+        {
+            case PLAYER_STATE_DRIVER:
+            {
+                iVehicle = GetPlayerVehicleID(i);
+                GetVehicleHealth(iVehicle, fVehicleHealth);
+                fCurrentSpeed = Vehicle_Speed(iVehicle);
 
-		switch(GetPlayerState(i)) {
-		    case PLAYER_STATE_DRIVER: {
-				iVehicle = GetPlayerVehicleID(i);
-				GetVehicleHealth(iVehicle, fVehicleHealth);
-				fCurrentSpeed = Vehicle_Speed(iVehicle);
-				fExpHealth = fVehicleHealth;
+                // --- ANTI-CHEAT CHECK 1: vehicle health ---
+                AC_CheckVehicleHealth(i, iVehicle, fVehicleHealth);
 
-				if(arr_Towing[i] != INVALID_VEHICLE_ID) {
-					if(GetVehicleModel(arr_Towing[i]) && IsVehicleStreamedIn(arr_Towing[i], i)) AttachTrailerToVehicle(arr_Towing[i], iVehicle);
-					else arr_Towing[i] = INVALID_VEHICLE_ID;
-				}
+                // --- Trailer ---
+                if(arr_Towing[i] != INVALID_VEHICLE_ID) {
+                    if(GetVehicleModel(arr_Towing[i]) && IsVehicleStreamedIn(arr_Towing[i], i))
+                        AttachTrailerToVehicle(arr_Towing[i], iVehicle);
+                    else
+                        arr_Towing[i] = INVALID_VEHICLE_ID;
+                }
 
-				if(fCurrentSpeed >= 40 && 60 <= fCurrentSpeed)
-				{
-					if(PlayerInfo[i][pAdmin] <= 1) switch(Seatbelt[i]) {
-						case 0: if((fVehSpeed[i] - fCurrentSpeed > 40.0) && (fVehHealth[i] - fExpHealth > 0)) GetPlayerHealth(i, fExpHealth), SetPlayerHealth(i, fExpHealth - (fVehSpeed[i] - fCurrentSpeed) / 2.6);
-						default: if((fVehSpeed[i] - fCurrentSpeed > 40.0) && (fVehHealth[i] - fExpHealth > 0)) GetPlayerHealth(i, fExpHealth), SetPlayerHealth(i, fExpHealth - ((fVehSpeed[i] - fCurrentSpeed) / 4.2));
-					}
-				}
-				else
-				{
-   					if(PlayerInfo[i][pAdmin] <= 1) switch(Seatbelt[i]) {
-						case 0: if((fVehSpeed[i] - fCurrentSpeed > 50.0) && (fVehHealth[i] - fExpHealth > 0)) GetPlayerHealth(i, fExpHealth), SetPlayerHealth(i, fExpHealth - (fVehSpeed[i] - fCurrentSpeed) / 2.0);
-						default: if((fVehSpeed[i] - fCurrentSpeed > 50.0) && (fVehHealth[i] - fExpHealth > 0)) GetPlayerHealth(i, fExpHealth), SetPlayerHealth(i, fExpHealth - ((fVehSpeed[i] - fCurrentSpeed) / 2.9));
-					}
-				}
+                // --- Tinh sat thuong va cham ---
+                ApplyCrashDamage(i, fVehSpeed[i], fCurrentSpeed,
+                                 fVehHealth[i], fVehicleHealth, true);
 
-				fVehSpeed[i] = fCurrentSpeed;
-				if(fVehHealth[i] > 0.0 && fVehicleHealth > fVehHealth[i] + 50.0)
-				{
-					if(GetPVarInt(i, "MechanicRepair"))
-						DeletePVar(i, "MechanicRepair");
-					else
-					{
-						new bool:_bNearPNS;
-						for(new _p = 0; _p < sizeof(g_PayNSprayPos) && !_bNearPNS; _p++)
-							if(IsPlayerInRangeOfPoint(i, 10.0, g_PayNSprayPos[_p][0], g_PayNSprayPos[_p][1], g_PayNSprayPos[_p][2]))
-								_bNearPNS = true;
-						if(_bNearPNS) {
-							SetVehicleHealth(iVehicle, fVehHealth[i]);
-							fVehicleHealth = fVehHealth[i];
-						}
-					}
-				}
-	            fVehHealth[i] = fVehicleHealth;
+                fVehSpeed[i]  = fCurrentSpeed;
+                fVehHealth[i] = fVehicleHealth;
 
-				if(fVehicleHealth < 350.0)
-				{
-	 				SetVehicleHealth(iVehicle, 251.0);
-	    			GetVehicleParamsEx(iVehicle, arrVehParams[0], arrVehParams[1], arrVehParams[2], arrVehParams[3], arrVehParams[4], arrVehParams[5], arrVehParams[6]);
-					if(arrVehParams[0] == VEHICLE_PARAMS_ON) SetVehicleParamsEx(iVehicle,VEHICLE_PARAMS_OFF, arrVehParams[1], arrVehParams[2], arrVehParams[3], arrVehParams[4], arrVehParams[5], arrVehParams[6]);
-					//GameTextForPlayer(i, "~r~XE HONG!", 2500, 3);
-					HienTextdraw(i, "~r~ XE HONG!");
-					arr_Engine{iVehicle} = 0;
-				}
-				/* else if(PlayerInfo[i][pSpeedo] != 0 && FindTimePoints[i] == 0 && arr_Engine{iVehicle} == 1 && !GetPVarType(i, "LoadTruckTime")) {
-					UpdateVehicleHUDForPlayer(i, floatround(VehicleFuel[iVehicle]), floatround(fCurrentSpeed));
-				} */
-			}
-			case PLAYER_STATE_PASSENGER: {
+                // --- Xe hong ---
+                if(fVehicleHealth < 350.0)
+                {
+                    SetVehicleHealth(iVehicle, 251.0);
+                    GetVehicleParamsEx(iVehicle,
+                        arrVehParams[0], arrVehParams[1], arrVehParams[2],
+                        arrVehParams[3], arrVehParams[4], arrVehParams[5], arrVehParams[6]);
+                    if(arrVehParams[0] == VEHICLE_PARAMS_ON)
+                        SetVehicleParamsEx(iVehicle, VEHICLE_PARAMS_OFF,
+                            arrVehParams[1], arrVehParams[2], arrVehParams[3],
+                            arrVehParams[4], arrVehParams[5], arrVehParams[6]);
+                    HienTextdraw(i, "~r~ XE HONG!");
+                    arr_Engine{iVehicle} = 0;
+                }
+            }
 
-			    iVehicle = GetPlayerVehicleID(i);
-	            GetVehicleHealth(iVehicle,fExpHealth);
-				fCurrentSpeed = Vehicle_Speed(iVehicle);
-				/* if(PlayerInfo[i][pSpeedo] != 0) {
-					UpdateVehicleHUDForPlayer(i, floatround(VehicleFuel[iVehicle]), floatround(fCurrentSpeed));
-				} */
-				if(fCurrentSpeed >= 40 && 60 <= fCurrentSpeed)
-				{
-					if(PlayerInfo[i][pAdmin] <= 1) switch(Seatbelt[i]) {
-						case 0: if((fVehSpeed[i] - fCurrentSpeed > 40.0) && (fVehHealth[i] - fExpHealth > 0)) GetPlayerHealth(i, fExpHealth), SetPlayerHealth(i, fExpHealth - (fVehSpeed[i] - fCurrentSpeed) / 1.6);
-						default: if((fVehSpeed[i] - fCurrentSpeed > 40.0) && (fVehHealth[i] - fExpHealth > 0)) GetPlayerHealth(i, fExpHealth), SetPlayerHealth(i, fExpHealth - ((fVehSpeed[i] - fCurrentSpeed) / 3.2));
-					}
-				}
-				else
-				{
-   					if(PlayerInfo[i][pAdmin] <= 1) switch(Seatbelt[i]) {
-						case 0: if((fVehSpeed[i] - fCurrentSpeed > 50.0) && (fVehHealth[i] - fExpHealth > 0)) GetPlayerHealth(i, fExpHealth), SetPlayerHealth(i, fExpHealth - (fVehSpeed[i] - fCurrentSpeed) / 0.8);
-						default: if((fVehSpeed[i] - fCurrentSpeed > 50.0) && (fVehHealth[i] - fExpHealth > 0)) GetPlayerHealth(i, fExpHealth), SetPlayerHealth(i, fExpHealth - ((fVehSpeed[i] - fCurrentSpeed) / 1.6));
-					}
-				}
+            case PLAYER_STATE_PASSENGER:
+            {
+                iVehicle = GetPlayerVehicleID(i);
+                GetVehicleHealth(iVehicle, fVehicleHealth);
+                fCurrentSpeed = Vehicle_Speed(iVehicle);
 
-				fVehSpeed[i] = fCurrentSpeed;
-				fVehHealth[i] = fExpHealth;
-			}
-		}
-	}
+                ApplyCrashDamage(i, fVehSpeed[i], fCurrentSpeed,
+                                 fVehHealth[i], fVehicleHealth, false);
+
+                fVehSpeed[i]  = fCurrentSpeed;
+                fVehHealth[i] = fVehicleHealth;
+            }
+        }
+    }
 }
 
 // Timer Name: VehicleUpdate()

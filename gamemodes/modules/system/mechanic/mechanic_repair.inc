@@ -551,6 +551,8 @@ public OnMechanicRepairDone(playerid)
     if(groupMaxHP > 0.0)
         SetVehicleHealth(vehicleid, groupMaxHP);
 
+    AC_WhitelistVehRepair(vehicleid);
+
     // Allow anti-cheat
     new driverid = GetVehicleDriver(vehicleid);
     if(driverid != INVALID_PLAYER_ID) SetPVarInt(driverid, "MechanicRepair", 1);
