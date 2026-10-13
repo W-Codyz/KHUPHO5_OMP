@@ -12629,10 +12629,12 @@ stock CreateDynamicDoor(doorid)
 		    }
 		}
 	}
+	HintArea_SetDoor(doorid);
 }
 
 stock DestroyDynamicDoorObjects(doorid)
 {
+	HintArea_ClearDoor(doorid);
 	DestroyDynamicPickup(DDoorsInfo[doorid][ddPickupID]);
 	DestroyDynamicPickup(DDoorsInfo[doorid][ddInteriorPickupID]);
 	if(IsValidDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID])) DestroyDynamic3DTextLabel(DDoorsInfo[doorid][ddTextID]);

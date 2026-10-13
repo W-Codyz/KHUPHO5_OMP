@@ -201,6 +201,8 @@ stock House_ReloadPickupLabel(houseid)
             HouseInfo[houseid][hInteriorX], HouseInfo[houseid][hInteriorY], HouseInfo[houseid][hInteriorZ] + 0.5,
             10.0, .testlos = 0, .worldid = HouseInfo[houseid][hIntVW], .interiorid = HouseInfo[houseid][hIntIW], .streamdistance = 10.0);
     }
+
+    HintArea_SetHouse(houseid);
 }
 
 // ===================== MYSQL =====================
@@ -354,6 +356,7 @@ stock House_TryALTLock(playerid)
     HouseInfo[h][hLock] = (HouseInfo[h][hLock] == 0) ? 1 : 0;
     House_ReloadPickupLabel(h);
     SaveHouse(h);
+    HintKey_RefreshHouse(h);
 
     new Float:lx = HouseInfo[h][hExteriorX], Float:ly = HouseInfo[h][hExteriorY], Float:lz = HouseInfo[h][hExteriorZ];
     foreach(new i : Player)
@@ -643,6 +646,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 HouseInfo[houseid][hLock] = (HouseInfo[houseid][hLock] == 0) ? 1 : 0;
                 House_ReloadPickupLabel(houseid);
                 SaveHouse(houseid);
+                HintKey_RefreshHouse(houseid);
                 new Float:lx = HouseInfo[houseid][hExteriorX], Float:ly = HouseInfo[houseid][hExteriorY], Float:lz = HouseInfo[houseid][hExteriorZ];
                 foreach(new i : Player)
                 {

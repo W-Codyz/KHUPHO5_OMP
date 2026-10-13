@@ -107,6 +107,7 @@
 #include "./modules/system/phone/phone"
 #include "./modules/system/phone/callback_phone"
 #include "./modules/system/panel/ui_panel"
+#include "./modules/system/help_button"
 #include "./modules/system/panel/panel"
 #include "./modules/system/food"
 #include "./modules/system/sendlocation"
