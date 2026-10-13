@@ -832,10 +832,28 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         "[Trucker] Ban dang lam cong viec khac, khong the lay xe trucker.");
                     return 1;
                 }
+                //radnom pos spawn veh
+                new spawnIdx = random(sizeof(TruckerSpawnPos));
+                new Float:sx = TruckerSpawnPos[spawnIdx][0];
+                new Float:sy = TruckerSpawnPos[spawnIdx][1];
+                new Float:sz = TruckerSpawnPos[spawnIdx][2];
+                new Float:sr = TruckerSpawnPos[spawnIdx][3];
 
-                new vid = CreateVehicle(414, -1565.0, 113.0, 3.5547, 38.4066, -1, -1, -1);
+                new vid = CreateVehicle(414, sx, sy, sz, sr, -1, -1, -1);
                 if(vid == INVALID_VEHICLE_ID) {
-                    SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Loi: khong the tao xe. Thu lai sau.");
+                    for(new attempt = 0; attempt < sizeof(TruckerSpawnPos); attempt++) {
+                        new idx = (spawnIdx + attempt) % sizeof(TruckerSpawnPos);
+                        sx = TruckerSpawnPos[idx][0];
+                        sy = TruckerSpawnPos[idx][1];
+                        sz = TruckerSpawnPos[idx][2];
+                        sr = TruckerSpawnPos[idx][3];
+                        vid = CreateVehicle(414, sx, sy, sz, sr, -1, -1, -1);
+                        if(vid != INVALID_VEHICLE_ID) break;
+                    }
+                }
+                if(vid == INVALID_VEHICLE_ID) {
+                    SendClientMessageEx(playerid, COLOR_GREY,
+                        "[Trucker] Loi: khong the lay xe cong viec. Thu lai sau.");
                     return 1;
                 }
                 LockStatus{vid} = 0;
