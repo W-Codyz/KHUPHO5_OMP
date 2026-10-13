@@ -4055,7 +4055,8 @@ public MoveEMSFollow(medicid, patientid)
     // Điều kiện dừng: hết bị thương, hết nằm cáng, hoặc medic đã thả
     if(GetPVarInt(medicid, "MovingStretcher") != patientid
     || GetPVarInt(patientid, "OnStretcher") != 1
-    || GetPVarInt(patientid, "Injured") != 1)
+    || GetPVarInt(patientid, "Injured") != 1
+    || IsPlayerInAnyVehicle(patientid))
     {
         StopMoveEMS(medicid, patientid);
         return 1;
@@ -4097,7 +4098,10 @@ stock StopMoveEMS(medicid, patientid)
         SetPVarInt(medicid, "EMSMoveFollow", -1);
     }
     if(IsPlayerConnected(patientid))
+    {
         SetPVarInt(patientid, "OnStretcher", 0);
+        DeletePVar(patientid, "MovedByMedic");
+    }
     return 1;
 }
 

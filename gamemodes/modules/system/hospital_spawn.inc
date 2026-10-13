@@ -54,7 +54,7 @@ new Float:g_HospBedX[MAX_PLAYERS],
 // Delay mo khoa sau animation ngoi day (ms)
 #define HOSP_STANDUP_DELAY    2000
 
-#define HOSP_SUCCESS_CHANCE     90
+#define HOSP_SUCCESS_CHANCE     70
 #define HOSP_SUCCESS_TIME       30
 #define HOSP_FAIL_TIME          60
 #define HOSP_SUCCESS_FEE      3000
@@ -210,6 +210,12 @@ CMD:deliverpt(playerid, params[])
             "Cap cuu benh nhan that bai! Ban duoc benh vien tra cong $3,000.");
     }
 
+    if(GetPVarInt(giveplayerid, "OnStretcher") == 1)
+    {
+        new mover = GetPVarInt(giveplayerid, "MovedByMedic");
+        if(IsPlayerConnected(mover)) StopMoveEMS(mover, giveplayerid);
+        else SetPVarInt(giveplayerid, "OnStretcher", 0);
+    }
     KillEMSQueue(giveplayerid);
     SetPVarInt(giveplayerid, "MedicBill", 0);
 
