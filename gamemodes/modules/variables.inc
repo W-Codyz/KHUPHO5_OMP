@@ -448,7 +448,7 @@ new CrateVehicleLoad[MAX_VEHICLES][cVehicleLoad];
 
 new CrateInfo[20][crateInfo];
 
-new Train[3];
+//new Train[3];
 
 new IslandThreatElimTimer;
 
