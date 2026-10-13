@@ -267,6 +267,6 @@ public checkArena(playerid) {
 																					#include "./modules/anti/Module/Weapon.pwn"
 																					#include "./modules/anti/Module/Spam.pwn"
 																					#include "./modules/anti/Module/KillAll.pwn"
-																					#include "./modules/anti/Module/antigod.pwn"
+																					//#include "./modules/anti/Module/antigod.pwn"
 
 																					#include "./modules/anti/Module/trollCar.pwn"
