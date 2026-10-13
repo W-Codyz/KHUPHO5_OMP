@@ -6,6 +6,64 @@
 #define 		DIALOG_GUITIEN				   (5896)
 #define 		DIALOG_CHUYENTIENBANK		       (5897)
 #define 		DIALOG_CHUYENTIENBANK2			   (5898)
+#define         DIALOG_BANK_HISTORY_MENU    (5899)
+#define         DIALOG_BANK_HISTORY_VIEW    (5900)
+#define         MAX_BANK_LOG_ENTRIES        50
+
+stock GetBankTimestamp(output[], size)
+{
+    new year, month, day, hour, minute, second;
+    getdate(year, month, day);
+    gettime(hour, minute, second);
+    format(output, size, "[%02d/%02d/%04d %02d:%02d:%02d]", day, month, year, hour, minute, second);
+}
+
+stock BankLogTransaction(sqlid, const line[])
+{
+    new filename[64];
+    format(filename, sizeof(filename), "log_bank/%d_bank.txt", sqlid);
+    new File:f = fopen(filename, io_append);
+    if(f == File:0) return;
+    new fullline[512];
+    format(fullline, sizeof(fullline), "%s\r\n", line);
+    fwrite(f, fullline);
+    fclose(f);
+}
+
+stock ShowBankHistory(playerid)
+{
+    new sqlid = GetPlayerSQLId(playerid);
+    new filename[64];
+    format(filename, sizeof(filename), "log_bank/%d_bank.txt", sqlid);
+    new string[4096];
+    string[0] = EOS;
+    if(!fexist(filename)) {
+        strcat(string, "{AAAAAA}Chua co giao dich nao.", sizeof(string));
+    } else {
+        static lines[MAX_BANK_LOG_ENTRIES][256];
+        static line[256];
+        new total = 0;
+        new File:f = fopen(filename, io_read);
+        if(f == File:0) {
+            strcat(string, "{AAAAAA}Khong the mo file lich su.", sizeof(string));
+        } else {
+            while(fread(f, line)) {
+                strcopy(lines[total % MAX_BANK_LOG_ENTRIES], line, 256);
+                total++;
+            }
+            fclose(f);
+            new count = (total > MAX_BANK_LOG_ENTRIES) ? MAX_BANK_LOG_ENTRIES : total;
+            new start = (total > MAX_BANK_LOG_ENTRIES) ? (total % MAX_BANK_LOG_ENTRIES) : 0;
+            for(new i = 0; i < count; i++) {
+                new idx = (start + i) % MAX_BANK_LOG_ENTRIES;
+                strcat(string, lines[idx], sizeof(string));
+            }
+        }
+    }
+    ShowPlayerDialog(playerid, DIALOG_BANK_HISTORY_VIEW, DIALOG_STYLE_MSGBOX,
+        "________________LICH SU NGAN HANG________________",
+        string, "Dong", "Quay lai");
+}
 
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 	if(PRESSED(KEY_YES))
@@ -21,11 +79,12 @@ CMD:bank(playerid, params[]) {
 stock ShowBank(playerid) {
     if(PlayerInfo[playerid][pSoTaiKhoan] > 0)
     {
-		new str[2460], str5[1280], str6[1280], str7[1280], name[1280];
+		new str[2460], str5[1280], str6[1280], str7[1280], str8[1280], name[1280];
 	    format(str5, sizeof(str), "{00FF7F}[+] {ffffff}Gui tien vao ngan hang");
 	    format(str6, sizeof(str), "{FF6B6B}[-] {ffffff}Rut tien tu ngan hang");
 	    format(str7, sizeof(str), "{00CFFF}[>] {ffffff}Chuyen khoan");
-	    format(str, sizeof(str), "%s\n%s\n%s", str5,str6,str7);
+	    format(str8, sizeof(str), "{87CEEB}[?] {ffffff}Lich su giao dich");
+	    format(str, sizeof(str), "%s\n%s\n%s\n%s", str5,str6,str7,str8);
 	    format(name, sizeof(name), "{FFD700}NGAN HANG");
 		ShowPlayerDialog(playerid, DIALOG_BANK, DIALOG_STYLE_LIST, name, str, "Chon", "");
 	}else SendClientMessageEx(playerid, COLOR_YELLOW, "{FF6B6B}[!]{FFFFFF} Ban chua co tai khoan ngan hang. Su dung {FFFF00}/dangkybank{FFFFFF} de dang ky.");
@@ -48,7 +107,7 @@ CMD:dangkybank(playerid, params[])
 			    format(string, sizeof(string), "{C2A2DA}%s da dang ky tao mot the ngan hang", GetPlayerNameEx(playerid));
 				ProxDetectorWrap(playerid, string, 92, 30.0, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
-				format(str, sizeof(str), "{00FF7F}[+]{FFFFFF} Dang ky thanh cong! So tai khoan: {00CFFF}%d", PlayerInfo[playerid][pSoTaiKhoan]);
+				format(str, sizeof(str), "{00FF7F}[+]{FFFFFF} Dang ky thanh cong! So tai khoan: {00CFFF}%d", GetPlayerSQLId(playerid));
 				SendClientMessageEx(playerid ,COLOR_WHITE, str);
 
 				SendClientMessage(playerid, -1, "{FFD700}[BANK]{FFFFFF} Phi mo tai khoan: {FF6B6B}$5,000{FFFFFF}.");
@@ -69,10 +128,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 	        if(listitem == 0)
 	        {
 	            new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], str5[1280], name[1280];
-				format(str1, sizeof(str), "{FFD700}===== NGAN HANG - GUI TIEN ====={FFFFFF}");
-			    format(str2, sizeof(str), "{AAAAAA}   So tai khoan : {00CFFF}%d", PlayerInfo[playerid][pSoTaiKhoan]);
+				format(str1, sizeof(str), "{FFD700}________NGAN HANG - GUI TIEN________{FFFFFF}");
+			    format(str2, sizeof(str), "{AAAAAA}   So tai khoan : {00CFFF}%d", GetPlayerSQLId(playerid));
 			    format(str3, sizeof(str), "{AAAAAA}   So du : {00FF7F}$%s  {AAAAAA}| Tien mat : {00FF7F}$%s", number_format(PlayerInfo[playerid][pAccount]), number_format(PlayerInfo[playerid][pCash]));
-			    format(str4, sizeof(str), "{FFD700}================================={ffffff}");
+			    format(str4, sizeof(str), "{FFD700}___________________________________{ffffff}");
 			    format(str5, sizeof(str), "{FFFFFF}Nhap so tien ban muon {00FF7F}gui vao ngan hang{FFFFFF}:");
 			    format(str, sizeof(str), "%s\n%s\n%s\n\n%s\n\n%s", str1,str2,str3,str4,str5);
 			    format(name, sizeof(name), "{FFD700}GUI TIEN");
@@ -81,10 +140,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			if(listitem == 1)
    			{
 	            new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], str5[1280], name[1280];
-				format(str1, sizeof(str), "{FFD700}===== NGAN HANG - RUT TIEN ====={FFFFFF}");
-			    format(str2, sizeof(str), "{AAAAAA}   So tai khoan : {00CFFF}%d", PlayerInfo[playerid][pSoTaiKhoan]);
+				format(str1, sizeof(str), "{FFD700}________NGAN HANG - RUT TIEN________{FFFFFF}");
+			    format(str2, sizeof(str), "{AAAAAA}   So tai khoan : {00CFFF}%d", GetPlayerSQLId(playerid));
 			    format(str3, sizeof(str), "{AAAAAA}   So du : {00FF7F}$%s  {AAAAAA}| Tien mat : {00FF7F}$%s", number_format(PlayerInfo[playerid][pAccount]), number_format(PlayerInfo[playerid][pCash]));
-			    format(str4, sizeof(str), "{FFD700}================================={ffffff}");
+			    format(str4, sizeof(str), "{FFD700}___________________________________{ffffff}");
 			    format(str5, sizeof(str), "{FFFFFF}Nhap so tien ban muon {FF6B6B}rut tu ngan hang{FFFFFF}:");
 			    format(str, sizeof(str), "%s\n%s\n%s\n\n%s\n\n%s", str1,str2,str3,str4,str5);
 			    format(name, sizeof(name), "{FFD700}RUT TIEN");
@@ -102,6 +161,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			    format(name, sizeof(name), "BANK");
 				ShowPlayerDialog(playerid, DIALOG_CHUYENTIENBANK, DIALOG_STYLE_INPUT, name, str, "Ok", "");*/
 				ShowChuyenTienHihi(playerid);
+			}
+			if(listitem == 3)
+			{
+				ShowBankHistory(playerid);
 			}
 		}
 	}
@@ -194,6 +257,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			SendClientMessageEx(playerid, COLOR_YELLOW, string);
 			OnPlayerStatsUpdate(playerid);
 
+			new ts[32], logline[256];
+			GetBankTimestamp(ts, sizeof(ts));
+			format(logline, sizeof(logline), "{ffffff}%s {FF6B6B}[-] RUT{FFFFFF} {FF6B6B}$%s{FFFFFF} | Du: {00FF7F}$%s",
+				ts, number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
+			BankLogTransaction(GetPlayerSQLId(playerid), logline);
+
 			new ip[32];
 			GetPlayerIp(playerid, ip, sizeof(ip));
 			format(string, sizeof(string), "[NGAN HANG - RUT TIEN] %s (IP:%s) da rut $%s. So du con: $%s", GetPlayerNameEx(playerid), ip, number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
@@ -237,6 +306,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 		    SendClientMessageEx(playerid, COLOR_GREEN,"_______________________________________");
 			OnPlayerStatsUpdate(playerid);
 
+			new ts[32], logline[256];
+			GetBankTimestamp(ts, sizeof(ts));
+			format(logline, sizeof(logline), "{ffffff}%s {00FF7F}[+] GUI{FFFFFF} {00FF7F}$%s{FFFFFF} | Du: {00FF7F}$%s",
+				ts, number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
+			BankLogTransaction(GetPlayerSQLId(playerid), logline);
+
 			new ip[32];
 			GetPlayerIp(playerid, ip, sizeof(ip));
 			format(string, sizeof(string), "[NGAN HANG - GUI TIEN] %s (IP:%s) da gui $%s. So du moi: $%s", GetPlayerNameEx(playerid), ip, number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
@@ -248,6 +323,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 			format(nofi, sizeof(nofi), ":arrow_up: **Số tiền gửi: $%s** | Số dư mới: $%s", number_format(amount), number_format(PlayerInfo[playerid][pAccount]));
 			DiscordLog(channel, title, nofi);
 		}
+	}
+	if(dialogid == DIALOG_BANK_HISTORY_VIEW)
+	{
+		if(!response)
+			ShowBank(playerid);
 	}
 	return 1;
 }
