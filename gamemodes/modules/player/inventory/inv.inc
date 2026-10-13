@@ -523,6 +523,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                         case pPot: {
                             pc_cmd_usepot(playerid, "");
                         }
+                        case pCrack: {
+                            pc_cmd_usecrack(playerid, "");
+                        }
 
                         case pMoiCau: {
                             if(PlayerInfo[playerid][pMoiCau] > 0) {
