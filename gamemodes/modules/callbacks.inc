@@ -1,5 +1,6 @@
- 
+
  //=======================[Official SA:MP/Streamer Callbacks]============================
+forward Float:GetDriverAvgRating(driverid);
 public Float:SetPlayerToFacePos(playerid, Float:X, Float:Y)
 {
 	new
@@ -3002,7 +3003,7 @@ public OnPlayerDisconnect(playerid, reason)
 		    if(GetPVarType(playerid, "pBoomBoxArea"))
 		    {
 		        new string[128];
-				format(string, sizeof(string), "The boombox owner (%s) has logged off", GetPlayerNameEx(playerid));
+				format(string, sizeof(string), "Chu so huu Boombox (%s) da thoat may chu", GetPlayerNameEx(playerid));
 		        foreach(new i: Player)
 		        {
 		            if(IsPlayerInDynamicArea(i, GetPVarInt(playerid, "pBoomBoxArea")))
@@ -5673,7 +5674,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 						format(string, sizeof(string), "* Ban dua $%d tien cho tai xe Taxi.", TransportValue[i]);
 						SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
 						SendHintMessage(playerid, "Mo ban do len va chon diem den cua minh, tai xe se biet nen di dau.");
-						SendHintMessage(playerid, "Co the su dung {FFDE4C}/xemdanhgia {ffffff}de xem danh gia cua tai xe.");
+						new Float:driverRating = GetDriverAvgRating(i);
+						new hintMsg[148];
+						format(hintMsg, sizeof(hintMsg), "Hien tai tai xe nay duoc danh gia {FFDE4C}%.1f/5 sao{ffffff}. Su dung {FFDE4C}[/xemdanhgia %d] {ffffff}de xem danh gia", driverRating, i);
+						SendClientMessageEx(playerid, 0xF08854FF, hintMsg);
 						format(string, sizeof(string), "* Hanh khach %s da buoc vao Taxi cua ban.", GetPlayerNameEx(playerid));
 						SendClientMessageEx(i, COLOR_LIGHTBLUE, string);
 						TransportTime[i] = 1;

@@ -16,6 +16,8 @@
 
 // Check ca tai xe faction (group type 7) lan tai xe tu do (pJob)
 #define IsTaxiWorker(%0) (IsATaxiDriver(%0) || PlayerInfo[%0][pJob] == JOB_TAXIDRIVER || PlayerInfo[%0][pJob2] == JOB_TAXIDRIVER)
+// Tai xe dang lam viec: faction on-duty, job taxi started, hoac dang co fare
+#define IsTaxiOnDuty(%0) ((IsATaxiDriver(%0) && PlayerInfo[%0][pDuty] > 0) || PlayerWorking[%0] == JOB_TAXIDRIVER || TransportDuty[%0] == 1)
 
 // ============================================================
 // ENUMS
@@ -36,6 +38,7 @@ enum E_TAXI_RATING {
 // ============================================================
 new TaxiRatings[MAX_TAXI_RATINGS][E_TAXI_RATING];
 new TotalRatings = 0;
+new RatingCooldown[MAX_PLAYERS]; // GetTickCount luc danh gia lan cuoi
 
 // ============================================================
 // SAVE / LOAD - File based (tuong tu mechanic_repair.inc)
@@ -135,6 +138,19 @@ stock CreateNewRating(playerid, driverid, stars, const comment[])
     return ratingid;
 }
 
+stock Float:GetDriverAvgRating(driverid)
+{
+    new totalStars = 0, totalValid = 0;
+    for(new j = 0; j < TotalRatings; j++) {
+        if(!TaxiRatings[j][r_Valid]) continue;
+        if(TaxiRatings[j][r_DriverID] == PlayerInfo[driverid][pId]) {
+            totalStars += TaxiRatings[j][r_Stars];
+            totalValid++;
+        }
+    }
+    return (totalValid > 0) ? (float(totalStars) / float(totalValid)) : 0.0;
+}
+
 stock ShowDriverRatings(playerid, targetid)
 {
     new totalStars = 0, totalValid = 0;
@@ -194,11 +210,11 @@ stock ShowRatingDetail(playerid, ratingid)
     new string[512];
     format(string, sizeof(string),
         "{FFFFFF}Thong tin danh gia:\n\n\
-Tai xe: %s\n\
-Danh gia boi: %s\n\
-So sao: %d/5\n\
-Nhan xet: %s\n\
-Ngay: %s",
+            Tai xe: %s\n\
+            Danh gia boi: %s\n\
+            So sao: %d/5\n\
+            Nhan xet: %s\n\
+            Ngay: %s",
         TaxiRatings[ratingid][r_DriverName],
         TaxiRatings[ratingid][r_RaterName],
         TaxiRatings[ratingid][r_Stars],
@@ -286,6 +302,18 @@ hook OnGameModeInit()
     return 1;
 }
 
+hook OnPlayerConnect(playerid)
+{
+    RatingCooldown[playerid] = 0;
+    return 1;
+}
+
+hook OnPlayerDisconnect(playerid, reason)
+{
+    RatingCooldown[playerid] = 0;
+    return 1;
+}
+
 // ============================================================
 // COMMANDS
 // ============================================================
@@ -300,6 +328,13 @@ CMD:danhgia(playerid, params[])
         new targetid = LastTaxiDriver[playerid];
         if(!IsPlayerConnected(targetid))
             return SendClientMessageEx(playerid, COLOR_GREY, "Tai xe cua ban da roi server, khong the danh gia!");
+        if(!IsTaxiOnDuty(targetid))
+            return SendClientMessageEx(playerid, COLOR_GREY, "Tai xe nay hien khong dang lam viec!");
+
+        new elapsed = GetTickCount() - RatingCooldown[playerid];
+        if(RatingCooldown[playerid] != 0 && elapsed < 120000) {
+            return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai cho them %d giay de co the danh gia tiep!", (120000 - elapsed) / 1000);
+        }
 
         ShowPlayerDialog(playerid, DIALOG_RATING_MENU, DIALOG_STYLE_LIST,
             sprintf("Danh gia tai xe %s", GetPlayerNameEx(targetid)),
@@ -315,6 +350,13 @@ CMD:danhgia(playerid, params[])
         return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the tu danh gia ban than!");
     if(!IsTaxiWorker(targetid))
         return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi nay khong phai la tai xe taxi!");
+    if(!IsTaxiOnDuty(targetid))
+        return SendClientMessageEx(playerid, COLOR_GREY, "Tai xe nay hien khong dang lam viec!");
+
+    new elapsed = GetTickCount() - RatingCooldown[playerid];
+    if(RatingCooldown[playerid] != 0 && elapsed < 120000) {
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban phai cho them %d giay de co the danh gia tiep!", (120000 - elapsed) / 1000);
+    }
 
     new Float:tx, Float:ty, Float:tz;
     GetPlayerPos(targetid, tx, ty, tz);
@@ -431,6 +473,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
 
             SaveTaxiRating(ratingid);
+            RatingCooldown[playerid] = GetTickCount();
 
             SendClientMessageEx(playerid, COLOR_YELLOW, "Cam on ban da danh gia! Danh gia cua ban da duoc luu.");
 
