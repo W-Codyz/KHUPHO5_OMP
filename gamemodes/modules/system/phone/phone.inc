@@ -1055,7 +1055,7 @@ CMD:selfie(playerid, params[])
 
 stock ShowChuyenTienHihi(playerid) {
     new str[512];
-    format(str, sizeof(str), "{FFD700}=== CHUYEN KHOAN ===\n{AAAAAA}So du hien tai: {00FF7F}$%s\n\n{FFFFFF}Nhap {00CFFF}so tai khoan{FFFFFF} nguoi nhan:", number_format(PlayerInfo[playerid][pAccount]));
+    format(str, sizeof(str), "{FFD700}_____CHUYEN KHOAN_____\n{AAAAAA}So du hien tai: {00FF7F}$%s\n\n{FFFFFF}Nhap {00CFFF}so tai khoan{FFFFFF} nguoi nhan:", number_format(PlayerInfo[playerid][pAccount]));
     return ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", str, "Tiep tuc", "Thoat");
 }
 
@@ -1079,7 +1079,7 @@ CMD:sacombank(playerid, params[])
     if(PlayerInfo[playerid][pSoTaiKhoan] == 0)
         format(thongtinthe, sizeof(thongtinthe), "Chua kich hoat");
     else
-        format(thongtinthe, sizeof(thongtinthe), "%d", PlayerInfo[playerid][pSoTaiKhoan]);
+        format(thongtinthe, sizeof(thongtinthe), "%d", GetPlayerSQLId(playerid));
 
     new str[2460], str1[1280], str2[1280], str3[1280], str4[1280], str5[1280], str6[1280], str7[1280], str8[1280], str9[1280], str10[1280], name[1280];
     format(str1, sizeof(str), "{f2f2f2}Chao mung ban da den voi he thong {0066ff}Vietcombank");
@@ -1110,8 +1110,14 @@ public UpdateTK(playerid) {
             bank = cache_get_field_content_int(i, "Bank", MainPipeline);
             bank += GetPVarInt(playerid, "TienGD");
             new string[129];
-            format(string, sizeof(string), "UPDATE accounts SET `Bank`=%d WHERE `SoTaiKhoan` = %d", bank, GetPVarInt(playerid, "STK"));
+            format(string, sizeof(string), "UPDATE accounts SET `Bank`=%d WHERE `id` = %d", bank, GetPVarInt(playerid, "STK"));
             mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "ii", SENDDATA_THREAD, playerid);
+
+            new ts[32], logline[256];
+            GetBankTimestamp(ts, sizeof(ts));
+            format(logline, sizeof(logline), "%s {00CFFF}[>] NHAN{FFFFFF} {00CFFF}$%s{FFFFFF} <- {FFD700}%s{FFFFFF} ({00CFFF}STK: %d{FFFFFF}) | Du: {00FF7F}$%s",
+                ts, number_format(GetPVarInt(playerid, "TienGD")), GetPlayerNameEx(playerid), GetPlayerSQLId(playerid), number_format(bank));
+            BankLogTransaction(GetPVarInt(playerid, "STK"), logline);
             return 1;
         }
     }
@@ -1132,12 +1138,12 @@ public STK_check(playerid) {
         for(new i=0; i<rows; i++)
         {
             cache_get_field_content(i, "UserName",  namez, MainPipeline, 24);
-            stk = cache_get_field_content_int(i, "SoTaiKhoan", MainPipeline);
+            stk = cache_get_field_content_int(i, "id", MainPipeline);
             SetPVarString(playerid, "_NguoiNhan", namez);
             SetPVarInt(playerid, "Offline", 1);
             SetPVarInt(playerid, "STK", stk);
             new string[1024];
-            format(string, sizeof string, "{FFD700}=== THONG TIN NGUOI NHAN ==={FFFFFF}\n{AAAAAA}Ten chu the  : {00CFFF}%s\n{AAAAAA}So tai khoan : {00CFFF}%d\n\n{FFD700}================={FFFFFF}\n{FFFFFF}Nhap so tien muon giao dich:", namez,stk);
+            format(string, sizeof string, "{FFD700}_____THONG TIN NGUOI NHAN_____{FFFFFF}\n{AAAAAA}Ten chu the  : {00CFFF}%s\n{AAAAAA}So tai khoan : {00CFFF}%d\n\n{FFD700}__________________{FFFFFF}\n{FFFFFF}Nhap so tien muon giao dich:", namez,stk);
             ShowPlayerDialog(playerid, DIALOG_CHUYENTIEN1, DIALOG_STYLE_INPUT, "{FFD700}CHUYEN TIEN", string, "Tiep tuc", "Thoat");
             return 1;
         }
