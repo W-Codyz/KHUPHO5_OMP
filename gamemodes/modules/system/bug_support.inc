@@ -43,9 +43,10 @@ hook OnPlayerUpdate(playerid)
 
             new pName[MAX_PLAYER_NAME];
             GetPlayerName(playerid, pName, sizeof(pName));
-            discord_messHack("⚠️ ANTI BUG - Phát hiện",
-                "**Tên nhân vật:** %s\n**Tài khoản:** %s\n**ID:** %d\n**Tọa độ bug:** X: %.2f | Y: %.2f | Z: %.2f",
+            new hackMsg[512];
+            format(hackMsg, sizeof(hackMsg), "⚠️ ANTI BUG - Phát hiện\n**Tên nhân vật:** %s\n**Tài khoản:** %s\n**ID:** %d\n**Tọa độ bug:** X: %.2f | Y: %.2f | Z: %.2f",
                 GetPlayerNameEx(playerid), pName, playerid, x, y, z);
+            discord_messHack(hackMsg);
         }
     }
     return 1;
@@ -91,18 +92,20 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SetPlayerPos(playerid, GetPVarFloat(playerid, "Posx"), GetPVarFloat(playerid, "Posy"), GetPVarFloat(playerid, "Posz"));
             TogglePlayerControllable(playerid, true);
             checkbugging[playerid] = 0;
-            discord_messHack("✅ ANTI BUG - Xử lý",
-                "**Tên nhân vật:** %s\n**Tài khoản:** %s\n**ID:** %d\n**Tọa độ bug:** X: %.2f | Y: %.2f | Z: %.2f\n**Kết quả:** Đã chọn xử lý, teleport về vị trí an toàn.",
+            new hackMsg2[512];
+            format(hackMsg2, sizeof(hackMsg2), "✅ ANTI BUG - Xử lý\n**Tên nhân vật:** %s\n**Tài khoản:** %s\n**ID:** %d\n**Tọa độ bug:** X: %.2f | Y: %.2f | Z: %.2f\n**Kết quả:** Đã chọn xử lý, teleport về vị trí an toàn.",
                 GetPlayerNameEx(playerid), pName, playerid, bx, by, bz);
+            discord_messHack(hackMsg2);
         }
         else // TU CHOI
         {
             bugCountdown[playerid] = 5;
             SendMessageTD(playerid, 1100, "~r~Giai phong sau: ~w~5 ~r~giay");
             SetTimerEx("BugCountdownTimer", 1000, false, "i", playerid);
-            discord_messHack("⛔ ANTI BUG - Từ chối",
-                "**Tên nhân vật:** %s\n**Tài khoản:** %s\n**ID:** %d\n**Tọa độ bug:** X: %.2f | Y: %.2f | Z: %.2f\n**Kết quả:** Từ chối xử lý, tự giải phóng sau 5 giây.",
+            new hackMsg3[512];
+            format(hackMsg3, sizeof(hackMsg3), "⛔ ANTI BUG - Từ chối\n**Tên nhân vật:** %s\n**Tài khoản:** %s\n**ID:** %d\n**Tọa độ bug:** X: %.2f | Y: %.2f | Z: %.2f\n**Kết quả:** Từ chối xử lý, tự giải phóng sau 5 giây.",
                 GetPlayerNameEx(playerid), pName, playerid, bx, by, bz);
+            discord_messHack(hackMsg3);
         }
     }
     return 1;
