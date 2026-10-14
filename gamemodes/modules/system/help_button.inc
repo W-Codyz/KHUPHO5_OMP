@@ -116,6 +116,9 @@ public HintKey_AutoHide(playerid)
 
 stock HintKey_Show(playerid, keyIdx, actionIdx)
 {
+    if(GetPVarInt(playerid, "Injured") != 0 || PlayerCuffed[playerid] != 0 || PlayerInfo[playerid][pHospital] != 0)
+        return;
+
     if(!g_HintCreated[playerid])
         HintTD_Create(playerid);
 
@@ -387,7 +390,7 @@ task HintVehicleCheck[500]()
             if(PlayerVehicleInfo[playerid][d][pvId] == INVALID_PLAYER_VEHICLE_ID) continue;
             if(!PlayerVehicleInfo[playerid][d][pvSpawned]) continue;
             GetVehiclePos(PlayerVehicleInfo[playerid][d][pvId], vx, vy, vz);
-            if(IsPlayerInRangeOfPoint(playerid, 1.0, vx, vy, vz))
+            if(IsPlayerInRangeOfPoint(playerid, 2.0, vx, vy, vz))
             {
                 nearSlot = d;
                 break;
