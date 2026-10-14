@@ -622,7 +622,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
         ApplyAnimation(playerid, "CARRY", "LIFTUP", 4.0, 0, 0, 0, 0, 0);
         SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
-        SetPlayerAttachedObject(playerid, 6, 1220, 1,
+        SetPlayerAttachedObject(playerid, 6, 1271, 1,
             0.299822, 0.663485, -0.036337, 184.311355, 90.004089, 0.0, 1.0, 1.0, 1.0);
 
         if(vipDiscount > 0) {
