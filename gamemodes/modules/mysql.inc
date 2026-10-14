@@ -724,6 +724,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row, "RoulNguong", szResult, MainPipeline); PlayerInfo[extraid][pRoulNguong] = strval(szResult);
 					cache_get_field_content(row, "Herb", szResult, MainPipeline); PlayerInfo[extraid][pHerb] = strval(szResult);
 					cache_get_field_content(row, "Medkit", szResult, MainPipeline); PlayerInfo[extraid][pMedkit] = strval(szResult);
+					cache_get_field_content(row, "HoiPhuc", szResult, MainPipeline); PlayerInfo[extraid][pHoiPhuc] = strval(szResult);
 
 					cache_get_field_content(row,  "NbMissionCur", szResult, MainPipeline); PlayerInfo[extraid][pNbCurrent] = strval(szResult);
 					cache_get_field_content(row,  "NbMission", szResult, MainPipeline);
@@ -3302,6 +3303,7 @@ stock g_mysql_SaveAccount(playerid)
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "RoulNguong", PlayerInfo[playerid][pRoulNguong]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "Herb", PlayerInfo[playerid][pHerb]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "Medkit", PlayerInfo[playerid][pMedkit]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "HoiPhuc", PlayerInfo[playerid][pHoiPhuc]);
 
 
 	new string[128];

@@ -823,21 +823,8 @@ task EMSUpdate[5000]()
 				if(GetPVarInt(i, "EMSAttempt") == -1)
 				{
 					if(GetPlayerAnimationIndex(i) != 1537) ClearAnimations(i), ApplyAnimation(i, "SWEET", "Sweet_injuredloop", 4.0, false, true, true, true, 0, 1);
-
-					if(!GetPVarInt(i, "StreamPrep") && !IsPlayerInRangeOfPoint(i, 3.0, GetPVarFloat(i,"MedicX"), GetPVarFloat(i,"MedicY"), GetPVarFloat(i,"MedicZ")) && !GetPVarInt(i, "OnStretcher"))
-	    			{
-      			        SendClientMessageEx(i, COLOR_WHITE, "Ban da bi bat tinh, ban se duoc dua ve benh vien de dieu tri. Hoa don y te: $15,000.");
-						GivePlayerCash(i, -HOSP_FAIL_FEE);
-						Tax += HOSP_FAIL_FEE;
-						ResetPlayerWeapons(i);
-						for(new w = 0; w < 12; w++) PlayerInfo[i][pGuns][w] = 0;
-						PlayerInfo[i][pThucAn] = 50;
-						PlayerInfo[i][pNuoc] = 50;
-	        			KillEMSQueue(i);
-						hosp_PlacePatientInBed(i, true);
-						continue;
-	    			}
-					SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~/chapnhan chet hoac /dichvu capcuu");
+					if(GetPVarInt(i, "InjuredTimer") <= 0)
+						SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~/chapnhan chet hoac /dichvu capcuu");
 					new string[256];
 					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong )) \n (( /dmgcheck de kiem tra ))");
                     SetPlayerChatBubble(i, string, TEAM_CYAN_COLOR, 50.0, 10000);
@@ -845,15 +832,6 @@ task EMSUpdate[5000]()
 				if(GetPVarInt(i, "EMSAttempt") == 1)
 				{
 					if(GetPlayerAnimationIndex(i) != 1537) ClearAnimations(i), ApplyAnimation(i, "SWEET", "Sweet_injuredloop", 4.0, false, true, true, true, 0, 1);
-	    			if(!GetPVarInt(i, "StreamPrep") && !IsPlayerInRangeOfPoint(i, 3.0, GetPVarFloat(i,"MedicX"), GetPVarFloat(i,"MedicY"), GetPVarFloat(i,"MedicZ")) && !GetPVarInt(i, "OnStretcher"))
-	    			{
-	        			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh, ban duoc dua den benh vien da dieu tri. Hoa don y te: $3,000.");
-						GivePlayerCash(i, -HOSP_SUCCESS_FEE);
-						Tax += HOSP_SUCCESS_FEE;
-	        			KillEMSQueue(i);
-						hosp_PlacePatientInBed(i, false);
-						continue;
-	    			}
 					SendMessageTD(i, 5200, "~r~BI THUONG~n~~w~Dang doi EMS den...");
 					new string[256];
 					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong )) \n (( /dmgcheck de kiem tra ))");
@@ -861,20 +839,7 @@ task EMSUpdate[5000]()
 				}
 				if(GetPVarInt(i, "EMSAttempt") == 2)
 				{
-	    			if(!GetPVarInt(i, "StreamPrep") && !IsPlayerInRangeOfPoint(i, 3.0, GetPVarFloat(i,"MedicX"), GetPVarFloat(i,"MedicY"), GetPVarFloat(i,"MedicZ")) && !GetPVarInt(i, "OnStretcher"))
-	    			{
-	    			    SetPVarInt(i, "EMSWarns", GetPVarInt(i, "EMSWarns")+1);
-	    			    if(GetPVarInt(i, "EMSWarns") == 2)
-	    			    {
-		        			SendClientMessageEx(i, COLOR_WHITE, "Ban lan ra bat tinh, ban ngay lap tuc duoc dua den benh vien de dieu tri. Hoa don y te: $3,000.");
-							GivePlayerCash(i, -HOSP_SUCCESS_FEE);
-							Tax += HOSP_SUCCESS_FEE;
-		        			KillEMSQueue(i);
-							DeletePVar(i, "EMSWarns");
-							hosp_PlacePatientInBed(i, false);
-							continue;
-						}
-	    			}
+					if(GetPlayerAnimationIndex(i) != 1537) ClearAnimations(i), ApplyAnimation(i, "SWEET", "Sweet_injuredloop", 4.0, false, true, true, true, 0, 1);
 					SendMessageTD(i, 5200, "~g~Dich vu~n~~w~Dang cho dieu tri...");
 					new string[256];
 					format(string, sizeof(string), "(( Nguoi choi nay dang bi thuong )) \n (( /dmgcheck de kiem tra ))");
@@ -937,6 +902,11 @@ task EMSUpdate[5000]()
 					hosp_PlacePatientInBed(i, true);
 				}
 	        }
+	    }
+	    if(PlayerInfo[i][pHoiPhuc] > 0)
+	    {
+	        PlayerInfo[i][pHoiPhuc] -= 5;
+	        if(PlayerInfo[i][pHoiPhuc] < 0) PlayerInfo[i][pHoiPhuc] = 0;
 	    }
 	}
 }
@@ -1017,6 +987,20 @@ task ServerHeartbeat[1000]() {
 
 		UpdateNameTag(i);
 
+		if(GetPVarInt(i, "Injured") && GetPVarInt(i, "EMSAttempt") == -1)
+		{
+		    new tmrVal = GetPVarInt(i, "InjuredTimer");
+		    if(tmrVal > 0)
+		    {
+		        tmrVal--;
+		        SetPVarInt(i, "InjuredTimer", tmrVal);
+		        new mins = tmrVal / 60, secs = tmrVal % 60;
+		        new tdmsg[64];
+		        format(tdmsg, sizeof(tdmsg), "~r~BI THUONG~w~~n~/dichvu capcuu~n~/chapnhan chet sau ~r~%d:%02d ~w~nua", mins, secs);
+		        SendMessageTD(i, 1200, tdmsg);
+		    }
+		}
+
 		if (GetPVarInt(i, "MailTime") > 0)
 			SetPVarInt(i, "MailTime", GetPVarInt(i, "MailTime") - 1);
 		else
@@ -1040,6 +1024,12 @@ task ServerHeartbeat[1000]() {
 				ClearCrimes(i);
 				strcpy(PlayerInfo[i][pPrisonReason], "None", 128);
 				SetPlayerToTeamColor(i);
+				PrisonLabor_HideZone(i);
+			}
+			else if(PlayerInfo[i][pJailTime] > 0 && (strfind(PlayerInfo[i][pPrisonReason], "[IC]", true) != -1 || strfind(PlayerInfo[i][pPrisonReason], "[OOC]", true) != -1)) {
+				new szJailTD[64];
+				format(szJailTD, sizeof(szJailTD), "~r~[TU NHAN] ~w~Thoi gian tu: ~y~%s", FormatTimeLeft(PlayerInfo[i][pJailTime]));
+				SendMessageTD(i, 1500, szJailTD);
 			}
 		}
 

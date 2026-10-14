@@ -1038,7 +1038,9 @@ enum pInfo
 
 	// Herb & Medkit system
 	pHerb,
-	pMedkit
+	pMedkit,
+
+	pHoiPhuc    // Seconds remaining for "MOI RA VIEN" nametag (1200 = 20 min)
 
 	//enum pinfo
 };

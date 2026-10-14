@@ -54,7 +54,7 @@ new Float:g_HospBedX[MAX_PLAYERS],
 // Delay mo khoa sau animation ngoi day (ms)
 #define HOSP_STANDUP_DELAY    2000
 
-#define HOSP_SUCCESS_CHANCE     70
+#define HOSP_SUCCESS_CHANCE     50
 #define HOSP_SUCCESS_TIME       30
 #define HOSP_FAIL_TIME          60
 #define HOSP_SUCCESS_FEE      3000
@@ -89,7 +89,6 @@ stock hosp_StopRecovery(playerid)
     g_HospBedZ[playerid]         = 0.0;
     g_HospBedA[playerid]         = 0.0;
     DeletePVar(playerid, "KhongHackWeaponInv");
-    DeletePVar(playerid, "HospFee");
 }
 
 // Dat benh nhan vao giuong — dung cho ca rescue va post-spawn
@@ -321,6 +320,7 @@ public hosp_CompleteBedExit(playerid)
 
     TogglePlayerControllable(playerid, true);
     SetPlayerHealth(playerid, HOSP_HEAL_HP);
+    PlayerInfo[playerid][pHoiPhuc] = 1200;
     SendClientMessageEx(playerid, TEAM_CYAN_COLOR, "* Ban da hoi phuc! Hay tu tim duong ra khoi benh vien.");
 }
 
@@ -340,6 +340,7 @@ public hosp_PostSpawnBed(playerid)
 
     // treatFailed=false: hinh phat da ap dung truoc do, chi can giu trong giuong 15 giay
     hosp_PlacePatientInBed(playerid, false);
+    SetPVarInt(playerid, "HospFee", HOSP_FAIL_FEE);
 }
 
 // ============================================================
@@ -367,6 +368,7 @@ stock HospitalSpawn_OnPlayerSpawn(playerid)
         DeletePVar(playerid, "EMSAttempt");
         DeletePVar(playerid, "MedicCall");
         DeletePVar(playerid, "EMSWarns");
+        DeletePVar(playerid, "InjuredTimer");
 
         // Dam bao SetPlayerSpawn chay duong binh thuong (khong phai hospital block cu)
         SetPVarInt(playerid, "MedicBill", 0);
