@@ -95,6 +95,7 @@ new g_twSupplyTurf[MAX_PLAYERS] = {-1, ...};       // Turf đích giao hàng
 new g_twSupplyPtIdx[MAX_PLAYERS] = {-1, ...};      // Supply point đang lấy hàng
 new g_twSupplyCheckTimer[MAX_PLAYERS] = {-1, ...}; // Timer kiểm tra bán kính 10m
 new g_twSupplyTimeLeft[MAX_PLAYERS];               // Giây còn lại
+new g_twCaptureCooldown[MAX_PLAYERS];              // Unix timestamp hết cooldown /chiemdong của từng player
 
 // Text3D labels cho mỗi turf (-1 = chưa tạo)
 static g_twLabel[MAX_TURFS] = {-1, ...};
@@ -946,14 +947,13 @@ CMD:chiemdong(playerid, params[])
     if(TurfData[turfid][twCurrentHolder] == fam)
         return SendClientMessageEx(playerid, COLOR_YELLOW, "Gang ban dang la ben giu diem nay. Hay bao ve den khi het gio!"), 1;
 
-    // Cooldown
+    // Cooldown per-player
     new now = gettime();
-    new elapsed = now - TurfData[turfid][twLastCaptureUnix];
-    if(TurfData[turfid][twLastCaptureUnix] > 0 && elapsed < TURF_CAPTURE_COOLDOWN)
+    if(g_twCaptureCooldown[playerid] > now)
     {
-        new remain = TURF_CAPTURE_COOLDOWN - elapsed;
+        new remain = g_twCaptureCooldown[playerid] - now;
         new cstr[128];
-        format(cstr, sizeof(cstr), "Diem vua duoc chiem. Hay cho them %d giay nua moi co the chiem lai.", remain);
+        format(cstr, sizeof(cstr), "Ban can cho them %d giay nua moi co the /chiemdong.", remain);
         return SendClientMessageEx(playerid, COLOR_YELLOW, cstr), 1;
     }
 
@@ -961,6 +961,7 @@ CMD:chiemdong(playerid, params[])
     new prevHolder = TurfData[turfid][twCurrentHolder];
     TurfData[turfid][twCurrentHolder]   = fam;
     TurfData[turfid][twLastCaptureUnix] = now;
+    g_twCaptureCooldown[playerid]       = now + TURF_CAPTURE_COOLDOWN;
 
     new pName[MAX_PLAYER_NAME], fName[32], str[224];
     GetPlayerName(playerid, pName, sizeof(pName));
@@ -1994,9 +1995,10 @@ hook OnPlayerDisconnect(playerid, reason)
     g_twSupplyPtIdx[playerid]      = -1;
     g_twSupplyTimeLeft[playerid]   = 0;
 
-    g_twAdminTurf[playerid]  = -1;
-    g_twAdminGang1[playerid] = -1;
-    g_twAdminGang2[playerid] = -1;
+    g_twAdminTurf[playerid]       = -1;
+    g_twAdminGang1[playerid]      = -1;
+    g_twAdminGang2[playerid]      = -1;
+    g_twCaptureCooldown[playerid] = 0;
 }
 
 // Tu dong hook qua y_hooks
