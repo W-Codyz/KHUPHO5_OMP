@@ -1757,7 +1757,6 @@ task ServerMicrobeat[500]()
 {
     static
         Float: fVehicleHealth,
-        Float: fPlayerHealth,      // <-- THEM: bien tam cho AC player
         fCurrentSpeed,
         iVehicle,
         arrVehParams[7];
@@ -1793,6 +1792,7 @@ task ServerMicrobeat[500]()
                 // --- Xe hong ---
                 if(fVehicleHealth < 350.0)
                 {
+                    AC_WhitelistVehRepair(iVehicle);
                     SetVehicleHealth(iVehicle, 251.0);
                     GetVehicleParamsEx(iVehicle,
                         arrVehParams[0], arrVehParams[1], arrVehParams[2],

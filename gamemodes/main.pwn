@@ -99,6 +99,9 @@
 #include "./modules/system/faction/leader_cmd"
 #include "./modules/system/mechanic/mechanic"
 #include "./modules/system/mechanic/mechanic_repair"
+
+#include "./modules/anti/anticheat_health"
+
 #include "./modules/system/logo"
 //#include "./modules/system/logo_anim"
 #include "./modules/system/support_notif"
