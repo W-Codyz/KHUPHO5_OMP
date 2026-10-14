@@ -2862,6 +2862,7 @@ public InitiateGamemode()
 
 	Load_Fishing();
 	InitFishingSystem();
+	LoadAllBills();
 	
 		/*---[Shop Automation]---*/
 	
@@ -2960,6 +2961,10 @@ public InitiateGamemode()
 	Herb_Init();
 	print("[MedkitSystem] Khoi dong he thong medkit...");
 	Medkit_Init();
+	print("[PrisonLabor] Khoi dong he thong don co tu nhan...");
+	PrisonLabor_Init();
+	print("[OOCLabor] Khoi dong he thong lao dong tu OOC...");
+	OOCLabor_Init();
 
 	print("==========================================================");
 	print("GTA-HTB Roleplay Vietnam\n");
@@ -4126,6 +4131,7 @@ public KillEMSQueue(playerid)
 	SetPVarInt(playerid, "MedicBill", 1);
 	DeletePVar(playerid, "MedicCall");
 	DeletePVar(playerid, "EMSWarns");
+	DeletePVar(playerid, "InjuredTimer");
 	return 1;
 }
 
@@ -4157,11 +4163,11 @@ public SendEMSQueue(playerid,type)
 	  		SetPlayerInterior(playerid, GetPVarInt(playerid,"MedicInt"));
 
 			SetPVarInt(playerid, "EMSAttempt", -1);
+			SetPVarInt(playerid, "InjuredTimer", 180);
 
 			if(GetPlayerInterior(playerid) > 0) Player_StreamPrep(playerid, GetPVarFloat(playerid,"MedicX"), GetPVarFloat(playerid,"MedicY"), GetPVarFloat(playerid,"MedicZ"), FREEZE_TIME);
-			SendMessageTD(playerid, 5200, "~r~BI THUONG~n~~w~/chapnhan chet hoac /dichvu capcuu");
 			ClearAnimations(playerid);
-			ApplyAnimation(playerid, "KNIFE", "KILL_Knife_Ped_Die", 4.0, false, true, true, true, 0, 1);
+			ApplyAnimation(playerid, "SWEET", "Sweet_injuredloop", 4.0, false, true, true, true, 0, 1);
 			SetPlayerHealth(playerid, 100);
 			RemoveArmor(playerid);
 			if(GetPVarInt(playerid, "usingfirstaid") == 1)
@@ -4174,7 +4180,7 @@ public SendEMSQueue(playerid,type)
 		{
 		    SetPVarInt(playerid,"EMSAttempt", 2);
 			ClearAnimations(playerid);
-		 	ApplyAnimation(playerid, "SWAT", "gnstwall_injurd", 4.0, false, true, true, true, 0, 1);
+			ApplyAnimation(playerid, "SWEET", "Sweet_injuredloop", 4.0, false, true, true, true, 0, 1);
 			SetPlayerHealth(playerid, 100);
 			RemoveArmor(playerid);
 		}
@@ -9700,15 +9706,17 @@ stock SetPlayerSpawn(playerid)
 		    if(strfind(PlayerInfo[playerid][pPrisonReason], "[IC]", true) != -1)
 		    {
                 PhoneOnline[playerid] = 1;
-				SetPlayerInterior(playerid, 10);
+				SetPlayerInterior(playerid, 0);
 				PlayerInfo[playerid][pInt] = 0;
-				rand = random(sizeof(DocPrison));
-    			SetPlayerPos(playerid, DocPrison[rand][0], DocPrison[rand][1], DocPrison[rand][2]);
+				SetPlayerVirtualWorld(playerid, 0);
+				PlayerInfo[playerid][pVW] = 0;
+				SetPlayerPos(playerid, -2029.685058, -120.624031, 35.170303);
+				SetPlayerFacingAngle(playerid, 175.987518);
 				SetPlayerSkin(playerid, 50);
 				SetPlayerColor(playerid, TEAM_ORANGE_COLOR);
 				SetPlayerHealth(playerid, 100);
 				DeletePVar(playerid, "Injured");
-				Player_StreamPrep(playerid, DocPrison[rand][0], DocPrison[rand][1], DocPrison[rand][2], FREEZE_TIME);
+				Player_StreamPrep(playerid, -2029.685058, -120.624031, 35.170303, FREEZE_TIME);
 				return 1;
 		    }
 		    else if(strfind(PlayerInfo[playerid][pPrisonReason], "[ISOLATE]", true) != -1)
@@ -9728,10 +9736,12 @@ stock SetPlayerSpawn(playerid)
 		    {
 		        SetPlayerHealth(playerid, 0x7FB00000);
 		       	PhoneOnline[playerid] = 1;
-				SetPlayerInterior(playerid, 1);
-				PlayerInfo[playerid][pInt] = 1;
-				rand = random(sizeof(OOCPrisonSpawns));
-				SetPlayerPos(playerid, OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2]);
+				SetPlayerInterior(playerid, 0);
+				PlayerInfo[playerid][pInt] = 0;
+				SetPlayerVirtualWorld(playerid, 0);
+				PlayerInfo[playerid][pVW] = 0;
+				SetPlayerPos(playerid, 1227.988037, -3907.316162, 11.074675);
+				SetPlayerFacingAngle(playerid, 83.133552);
 				SetPlayerSkin(playerid, 50);
 				SetPlayerColor(playerid, TEAM_APRISON_COLOR);
 				new string[128];
@@ -9739,7 +9749,7 @@ stock SetPlayerSpawn(playerid)
 				SendClientMessageEx(playerid, COLOR_LIGHTRED, string);
 				ResetPlayerWeaponsEx(playerid);
 				DeletePVar(playerid, "Injured");
-				Player_StreamPrep(playerid, OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2], FREEZE_TIME);
+				Player_StreamPrep(playerid, 1227.988037, -3907.316162, 11.074675, FREEZE_TIME);
 				return 1;
 		    }
 		}
@@ -22296,7 +22306,14 @@ public OnLastLoginLoaded(playerid)
 		SendClientMessage(playerid, 0xFF4444AA, "[VOICE] Khong tim thay microphone.");
 	}
 
-	printf("[DEBUG] Player %d - IsPCPlayer: %d, IsUsingOmp: %d", playerid, IsPCPlayer(playerid), IsPlayerUsingOmp(playerid));
+	//printf("[DEBUG] Player %d - IsPCPlayer: %d, IsUsingOmp: %d", playerid, IsPCPlayer(playerid), IsPlayerUsingOmp(playerid));
+
+    if(PlayerInfo[playerid][pAdmin] < 1)
+    {
+        new adminmsg[256];
+        format(adminmsg, sizeof(adminmsg), "{FF6347}[CONNECT] {FFFFFF}%s {AAAAAA}(ID: %d | IP: %s) {FFFFFF}da vao may chu.", GetPlayerNameEx(playerid), playerid, GetPlayerIpEx(playerid));
+        ABroadCast(COLOR_WHITE, adminmsg, 2);
+    }
 
     return 1;
 }
