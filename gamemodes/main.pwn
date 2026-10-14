@@ -117,6 +117,9 @@
 #include "./modules/system/bug_support"
 #include "./modules/system/medkit/herb_harvest"
 #include "./modules/system/medkit/medkit_system"
+#include "./modules/system/prison_labor/prison_labor"
+#include "./modules/system/prison_labor/prison_ooc"
+#include "./modules/system/bill"
 
 //==============REMOVE/DISABLE============//
 #include "./modules/system/remove/garage"
