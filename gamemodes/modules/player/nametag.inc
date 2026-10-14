@@ -106,6 +106,10 @@ public UpdateNameTag(playerid)
             if(g_gangBadge[playerid] && PlayerInfo[playerid][pFMember] != INVALID_FAMILY_ID) {
                 format(string, sizeof(string), "%s{ffd966}GANGSTER - %s\n", string, FamilyInfo[PlayerInfo[playerid][pFMember]][FamilyName]);
             }
+            if(PlayerInfo[playerid][pHoiPhuc] > 0)
+                format(string, sizeof(string), "%s{88CC00}(( MOI RA VIEN ))\n", string);
+            if(PlayerInfo[playerid][pJailTime] > 0 && (strfind(PlayerInfo[playerid][pPrisonReason], "[IC]", true) != -1 || strfind(PlayerInfo[playerid][pPrisonReason], "[OOC]", true) != -1))
+                format(string, sizeof(string), "%s{FF8000}[ TU NHAN ]\n", string);
             GetPlayerHealth(playerid, fHP);
             GetPlayerArmour(playerid, fARM);
             if(g_vipBadge[playerid] && PlayerInfo[playerid][pDonateRank] >= 1) {
