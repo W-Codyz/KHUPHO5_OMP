@@ -91,10 +91,10 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
         PC_EmulateCommand(playerid, "/timduong");
         return 1;
     }
-    else if(clickedid == PanelTD[13])      // Tui do (bottom row)
+    else if(clickedid == PanelTD[13])      // hoa don
     {
         HideMainMenuTextdraws(playerid);
-        PC_EmulateCommand(playerid, "/tuido");
+        PC_EmulateCommand(playerid, "/bill");
         SetPVarInt(playerid, "DelayInv", 1);
         return 1;
     }

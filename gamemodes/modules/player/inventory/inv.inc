@@ -453,8 +453,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                         }
 
                         case pPaper: {
-                            //cmd_hoadon(playerid, "");
-                            HienTextdraw(playerid, "Chuc nang Hoa don dang duoc phat trien...");
+                            pc_cmd_bill(playerid, "");
+                            //HienTextdraw(playerid, "Chuc nang Hoa don dang duoc phat trien...");
                         }
 
                         case pPizza: {
