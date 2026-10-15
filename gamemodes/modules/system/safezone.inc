@@ -36,7 +36,7 @@ new PlayerEditingSZ[MAX_PLAYERS]; // Luu ID safezone dang edit
 new AntiSafeZone[MAX_PLAYERS];
 new SoLanBK[MAX_PLAYERS];
 new EnterSafeZones[MAX_PLAYERS];
-new Text:fstd[19];
+new Text:fstd[3];
 
 // ==================================================================
 // STOCK FUNCTIONS - SAVE / LOAD
@@ -108,286 +108,46 @@ stock LoadSafeZones()
 // ==================================================================
 stock TextDrawSafeZone()
 {
-    fstd[18] = TextDrawCreate(10.999992, 219.051804, "LD_SPAC:white");
-    TextDrawLetterSize(fstd[18], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[18], 59.000000, 17.000000);
-    TextDrawAlignment(fstd[18], 1);
-    TextDrawColor(fstd[18], 0x2C193BFF);
-    TextDrawUseBox(fstd[18], 0);
-    TextDrawBoxColor(fstd[18], 0x80808080);
-    TextDrawSetShadow(fstd[18], 2);
-    TextDrawSetOutline(fstd[18], 0);
-    TextDrawBackgroundColor(fstd[18], 0x000000FF);
-    TextDrawFont(fstd[18], 4);
-    TextDrawSetProportional(fstd[18], 0);
-    TextDrawSetSelectable(fstd[18], 0);
-
-    fstd[17] = TextDrawCreate(4.000000, 216.451767, "LD_BEAT:chit");
-    TextDrawLetterSize(fstd[17], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[17], 14.000000, 17.000000);
-    TextDrawAlignment(fstd[17], 1);
-    TextDrawColor(fstd[17], 0x2C193BFF);
-    TextDrawUseBox(fstd[17], 0);
-    TextDrawBoxColor(fstd[17], 0x80808080);
-    TextDrawSetShadow(fstd[17], 2);
-    TextDrawSetOutline(fstd[17], 0);
-    TextDrawBackgroundColor(fstd[17], 0x000000FF);
-    TextDrawFont(fstd[17], 4);
-    TextDrawSetProportional(fstd[17], 0);
-    TextDrawSetSelectable(fstd[17], 0);
-
-    fstd[16] = TextDrawCreate(63.199997, 216.451767, "LD_BEAT:chit");
-    TextDrawLetterSize(fstd[16], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[16], 14.000000, 17.000000);
-    TextDrawAlignment(fstd[16], 1);
-    TextDrawColor(fstd[16], 0x2C193BFF);
-    TextDrawUseBox(fstd[16], 0);
-    TextDrawBoxColor(fstd[16], 0x80808080);
-    TextDrawSetShadow(fstd[16], 2);
-    TextDrawSetOutline(fstd[16], 0);
-    TextDrawBackgroundColor(fstd[16], 0x000000FF);
-    TextDrawFont(fstd[16], 4);
-    TextDrawSetProportional(fstd[16], 0);
-    TextDrawSetSelectable(fstd[16], 0);
-
-    fstd[15] = TextDrawCreate(63.199997, 222.051682, "LD_BEAT:chit");
-    TextDrawLetterSize(fstd[15], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[15], 14.000000, 17.000000);
-    TextDrawAlignment(fstd[15], 1);
-    TextDrawColor(fstd[15], 0x2C193BFF);
-    TextDrawUseBox(fstd[15], 0);
-    TextDrawBoxColor(fstd[15], 0x80808080);
-    TextDrawSetShadow(fstd[15], 2);
-    TextDrawSetOutline(fstd[15], 0);
-    TextDrawBackgroundColor(fstd[15], 0x000000FF);
-    TextDrawFont(fstd[15], 4);
-    TextDrawSetProportional(fstd[15], 0);
-    TextDrawSetSelectable(fstd[15], 0);
-
-    fstd[14] = TextDrawCreate(71.000000, 225.051804, "LD_SPAC:white");
-    TextDrawLetterSize(fstd[14], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[14], 4.000000, 6.399991);
-    TextDrawAlignment(fstd[14], 1);
-    TextDrawColor(fstd[14], 0x2C193BFF);
-    TextDrawUseBox(fstd[14], 0);
-    TextDrawBoxColor(fstd[14], 0x80808080);
-    TextDrawSetShadow(fstd[14], 2);
-    TextDrawSetOutline(fstd[14], 0);
-    TextDrawBackgroundColor(fstd[14], 0x000000FF);
-    TextDrawFont(fstd[14], 4);
-    TextDrawSetProportional(fstd[14], 0);
-    TextDrawSetSelectable(fstd[14], 0);
-
-    fstd[13] = TextDrawCreate(6.299992, 224.751846, "LD_SPAC:white");
-    TextDrawLetterSize(fstd[13], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[13], 5.000000, 11.499998);
-    TextDrawAlignment(fstd[13], 1);
-    TextDrawColor(fstd[13], 0x2C193BFF);
-    TextDrawUseBox(fstd[13], 0);
-    TextDrawBoxColor(fstd[13], 0x80808080);
-    TextDrawSetShadow(fstd[13], 2);
-    TextDrawSetOutline(fstd[13], 0);
-    TextDrawBackgroundColor(fstd[13], 0x000000FF);
-    TextDrawFont(fstd[13], 4);
-    TextDrawSetProportional(fstd[13], 0);
-    TextDrawSetSelectable(fstd[13], 0);
-
-    fstd[12] = TextDrawCreate(36.000004, 222.651840, "SAFE ZONE");
-    TextDrawLetterSize(fstd[12], 0.234660, 1.077329);
-    TextDrawTextSize(fstd[12], 1280.000000, 1280.000000);
-    TextDrawAlignment(fstd[12], 2);
-    TextDrawColor(fstd[12], 0xFFFFFFFF);
-    TextDrawUseBox(fstd[12], 0);
-    TextDrawBoxColor(fstd[12], 0x80808080);
-    TextDrawSetShadow(fstd[12], 0);
-    TextDrawSetOutline(fstd[12], 0);
-    TextDrawBackgroundColor(fstd[12], 0x000000FF);
-    TextDrawFont(fstd[12], 1);
-    TextDrawSetProportional(fstd[12], 1);
-    TextDrawSetSelectable(fstd[12], 0);
-
-    fstd[11] = TextDrawCreate(64.099998, 213.151810, "LD_BEAT:chit");
-    TextDrawLetterSize(fstd[11], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[11], 14.000000, 17.000000);
-    TextDrawAlignment(fstd[11], 1);
-    TextDrawColor(fstd[11], 0x862BC2FF);
-    TextDrawUseBox(fstd[11], 0);
-    TextDrawBoxColor(fstd[11], 0x80808080);
-    TextDrawSetShadow(fstd[11], 2);
-    TextDrawSetOutline(fstd[11], 0);
-    TextDrawBackgroundColor(fstd[11], 0x000000FF);
-    TextDrawFont(fstd[11], 4);
-    TextDrawSetProportional(fstd[11], 0);
-    TextDrawSetSelectable(fstd[11], 0);
-
-    fstd[10] = TextDrawCreate(74.800003, 213.151810, "LD_BEAT:chit");
-    TextDrawLetterSize(fstd[10], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[10], 14.000000, 17.000000);
-    TextDrawAlignment(fstd[10], 1);
-    TextDrawColor(fstd[10], 0x862BC2FF);
-    TextDrawUseBox(fstd[10], 0);
-    TextDrawBoxColor(fstd[10], 0x80808080);
-    TextDrawSetShadow(fstd[10], 2);
-    TextDrawSetOutline(fstd[10], 0);
-    TextDrawBackgroundColor(fstd[10], 0x000000FF);
-    TextDrawFont(fstd[10], 4);
-    TextDrawSetProportional(fstd[10], 0);
-    TextDrawSetSelectable(fstd[10], 0);
-
-    fstd[9] = TextDrawCreate(64.099998, 226.051804, "LD_BEAT:chit");
-    TextDrawLetterSize(fstd[9], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[9], 14.000000, 17.000000);
-    TextDrawAlignment(fstd[9], 1);
-    TextDrawColor(fstd[9], 0x862BC2FF);
-    TextDrawUseBox(fstd[9], 0);
-    TextDrawBoxColor(fstd[9], 0x80808080);
-    TextDrawSetShadow(fstd[9], 2);
-    TextDrawSetOutline(fstd[9], 0);
-    TextDrawBackgroundColor(fstd[9], 0x000000FF);
-    TextDrawFont(fstd[9], 4);
-    TextDrawSetProportional(fstd[9], 0);
-    TextDrawSetSelectable(fstd[9], 0);
-
-    fstd[8] = TextDrawCreate(74.700005, 226.051804, "LD_BEAT:chit");
-    TextDrawLetterSize(fstd[8], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[8], 14.000000, 17.000000);
-    TextDrawAlignment(fstd[8], 1);
-    TextDrawColor(fstd[8], 0x862BC2FF);
-    TextDrawUseBox(fstd[8], 0);
-    TextDrawBoxColor(fstd[8], 0x80808080);
-    TextDrawSetShadow(fstd[8], 2);
-    TextDrawSetOutline(fstd[8], 0);
-    TextDrawBackgroundColor(fstd[8], 0x000000FF);
-    TextDrawFont(fstd[8], 4);
-    TextDrawSetProportional(fstd[8], 0);
-    TextDrawSetSelectable(fstd[8], 0);
-
-    fstd[7] = TextDrawCreate(66.500008, 222.051804, "LD_SPAC:white");
-    TextDrawLetterSize(fstd[7], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[7], 20.000000, 11.900007);
-    TextDrawAlignment(fstd[7], 1);
-    TextDrawColor(fstd[7], 0x862BC2FF);
-    TextDrawUseBox(fstd[7], 0);
-    TextDrawBoxColor(fstd[7], 0x80808080);
-    TextDrawSetShadow(fstd[7], 2);
-    TextDrawSetOutline(fstd[7], 0);
-    TextDrawBackgroundColor(fstd[7], 0x000000FF);
-    TextDrawFont(fstd[7], 4);
-    TextDrawSetProportional(fstd[7], 0);
-    TextDrawSetSelectable(fstd[7], 0);
-
-    fstd[6] = TextDrawCreate(72.000000, 216.051804, "LD_SPAC:white");
-    TextDrawLetterSize(fstd[6], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[6], 10.000000, 24.399998);
-    TextDrawAlignment(fstd[6], 1);
-    TextDrawColor(fstd[6], 0x862BC2FF);
-    TextDrawUseBox(fstd[6], 0);
-    TextDrawBoxColor(fstd[6], 0x80808080);
-    TextDrawSetShadow(fstd[6], 2);
-    TextDrawSetOutline(fstd[6], 0);
-    TextDrawBackgroundColor(fstd[6], 0x000000FF);
-    TextDrawFont(fstd[6], 4);
-    TextDrawSetProportional(fstd[6], 0);
-    TextDrawSetSelectable(fstd[6], 0);
-
-    fstd[5] = TextDrawCreate(6.300007, 235.251816, "LD_SPAC:white");
-    TextDrawLetterSize(fstd[5], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[5], 62.000000, 1.000000);
-    TextDrawAlignment(fstd[5], 1);
-    TextDrawColor(fstd[5], 0x862BC2FF);
-    TextDrawUseBox(fstd[5], 0);
-    TextDrawBoxColor(fstd[5], 0x80808080);
-    TextDrawSetShadow(fstd[5], 2);
-    TextDrawSetOutline(fstd[5], 0);
-    TextDrawBackgroundColor(fstd[5], 0x000000FF);
-    TextDrawFont(fstd[5], 4);
-    TextDrawSetProportional(fstd[5], 0);
-    TextDrawSetSelectable(fstd[5], 0);
-
-    fstd[4] = TextDrawCreate(5.999998, 219.051804, "particle:lamp_shad_64");
-    TextDrawLetterSize(fstd[4], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[4], 61.799988, 17.000000);
-    TextDrawAlignment(fstd[4], 1);
-    TextDrawColor(fstd[4], 0x862BC296);
-    TextDrawUseBox(fstd[4], 0);
-    TextDrawBoxColor(fstd[4], 0x80808080);
-    TextDrawSetShadow(fstd[4], 2);
-    TextDrawSetOutline(fstd[4], 0);
-    TextDrawBackgroundColor(fstd[4], 0x000000FF);
-    TextDrawFont(fstd[4], 4);
-    TextDrawSetProportional(fstd[4], 0);
-    TextDrawSetSelectable(fstd[4], 0);
-
-    fstd[3] = TextDrawCreate(51.366673, 215.692871, "");
-    TextDrawLetterSize(fstd[3], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[3], 49.800003, 13.000000);
-    TextDrawAlignment(fstd[3], 1);
-    TextDrawColor(fstd[3], 0xFFFFFFFF);
-    TextDrawUseBox(fstd[3], 0);
-    TextDrawBoxColor(fstd[3], 0x80808080);
-    TextDrawSetShadow(fstd[3], 2);
-    TextDrawSetOutline(fstd[3], 0);
-    TextDrawBackgroundColor(fstd[3], 0x00000000);
-    TextDrawFont(fstd[3], 5);
-    TextDrawSetProportional(fstd[3], 0);
-    TextDrawSetSelectable(fstd[3], 0);
-    TextDrawSetPreviewModel(fstd[3], 19177);
-    TextDrawSetPreviewRot(fstd[3], 0.000000, 0.000000, 0.000000, 1.000000);
-
-    fstd[2] = TextDrawCreate(72.866661, 222.892700, "LD_SPAC:white");
-    TextDrawLetterSize(fstd[2], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[2], 6.899999, 6.799999);
-    TextDrawAlignment(fstd[2], 1);
-    TextDrawColor(fstd[2], 0xFFFFFFFF);
-    TextDrawUseBox(fstd[2], 0);
-    TextDrawBoxColor(fstd[2], 0x80808080);
-    TextDrawSetShadow(fstd[2], 2);
-    TextDrawSetOutline(fstd[2], 0);
-    TextDrawBackgroundColor(fstd[2], 0x000000FF);
-    TextDrawFont(fstd[2], 4);
-    TextDrawSetProportional(fstd[2], 0);
-    TextDrawSetSelectable(fstd[2], 0);
-
-    fstd[1] = TextDrawCreate(66.366653, 239.992462, "");
-    TextDrawLetterSize(fstd[1], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[1], 19.900000, -11.000000);
-    TextDrawAlignment(fstd[1], 1);
-    TextDrawColor(fstd[1], 0xFFFFFFFF);
-    TextDrawUseBox(fstd[1], 0);
-    TextDrawBoxColor(fstd[1], 0x80808080);
-    TextDrawSetShadow(fstd[1], 2);
-    TextDrawSetOutline(fstd[1], 0);
-    TextDrawBackgroundColor(fstd[1], 0x00000000);
-    TextDrawFont(fstd[1], 5);
-    TextDrawSetProportional(fstd[1], 0);
-    TextDrawSetSelectable(fstd[1], 0);
-    TextDrawSetPreviewModel(fstd[1], 19177);
-    TextDrawSetPreviewRot(fstd[1], 0.000000, 0.000000, 0.000000, 1.000000);
-
-    fstd[0] = TextDrawCreate(71.266655, 223.592560, "LD_BEAT:chit");
-    TextDrawLetterSize(fstd[0], 0.480000, 1.120000);
-    TextDrawTextSize(fstd[0], 10.100000, 12.799999);
+    fstd[0] = TextDrawCreate(10.000, 225.000, "LD_SPAC:white");
+    TextDrawTextSize(fstd[0], 71.000, 24.000);
     TextDrawAlignment(fstd[0], 1);
-    TextDrawColor(fstd[0], 0xFFFFFFFF);
-    TextDrawUseBox(fstd[0], 0);
-    TextDrawBoxColor(fstd[0], 0x80808080);
-    TextDrawSetShadow(fstd[0], 2);
+    TextDrawColor(fstd[0], 100);
+    TextDrawSetShadow(fstd[0], 0);
     TextDrawSetOutline(fstd[0], 0);
-    TextDrawBackgroundColor(fstd[0], 0x000000FF);
+    TextDrawBackgroundColor(fstd[0], 255);
     TextDrawFont(fstd[0], 4);
-    TextDrawSetProportional(fstd[0], 0);
-    TextDrawSetSelectable(fstd[0], 0);
+    TextDrawSetProportional(fstd[0], 1);
+
+    fstd[1] = TextDrawCreate(18.000, 230.000, "SAFE ZONE");
+    TextDrawLetterSize(fstd[1], 0.300, 1.500);
+    TextDrawAlignment(fstd[1], 1);
+    TextDrawColor(fstd[1], -1);
+    TextDrawSetShadow(fstd[1], 1);
+    TextDrawSetOutline(fstd[1], 1);
+    TextDrawBackgroundColor(fstd[1], 150);
+    TextDrawFont(fstd[1], 1);
+    TextDrawSetProportional(fstd[1], 1);
+
+    fstd[2] = TextDrawCreate(10.000, 225.000, "LD_SPAC:white");
+    TextDrawTextSize(fstd[2], 3.000, 24.000);
+    TextDrawAlignment(fstd[2], 1);
+    TextDrawColor(fstd[2], -2686721);
+    TextDrawSetShadow(fstd[2], 0);
+    TextDrawSetOutline(fstd[2], 0);
+    TextDrawBackgroundColor(fstd[2], 255);
+    TextDrawFont(fstd[2], 4);
+    TextDrawSetProportional(fstd[2], 1);
 }
 
 stock TDShow(playerid)
 {
-    for(new i = 0; i < 19; i++)
+    for(new i = 0; i < 3; i++)
         TextDrawShowForPlayer(playerid, fstd[i]);
 }
 
 stock TDHide(playerid)
 {
-    for(new i = 0; i < 19; i++)
+    for(new i = 0; i < 3; i++)
         TextDrawHideForPlayer(playerid, fstd[i]);
 }
 
