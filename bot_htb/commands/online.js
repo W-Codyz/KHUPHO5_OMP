@@ -37,8 +37,8 @@ module.exports = {
             }
 
             let description = '```\n' +
-                '#  Người chơi          Level  Giờ chơi\n' +
-                '══════════════════════════════════════════\n';
+                '#  Người chơi          Level  Giờ chơi        \n' +
+                '══════════════════════════════════════════════════\n';
 
             results.forEach((player, index) => {
                 let stt;
@@ -49,10 +49,12 @@ module.exports = {
 
                 const name = player.Username.padEnd(18);
                 const level = `${player.Level}`.padStart(3).padEnd(7);
-                // ConnectedTime = pConnectHours (số giờ), PayDay = pConnectSeconds (0-3599s)
-                const hours = (player.ConnectedTime || 0).toLocaleString().padStart(6);
+                // ConnectedTime = pConnectHours (số giờ), PayDay = pConnectSeconds (0-3599)
+                const h = player.ConnectedTime || 0;
+                const m = Math.floor((player.PayDay || 0) / 60);
+                const playTime = `${h} giờ ${String(m).padStart(2, '0')} phút`.padStart(16);
 
-                description += `${stt} ${name}${level}${hours}\n`;
+                description += `${stt} ${name}${level}${playTime}\n`;
             });
 
             description += '\n```';

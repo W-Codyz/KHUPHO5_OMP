@@ -19,11 +19,12 @@ module.exports = {
             const connection = await pool.getConnection();
 
             const query = `
-                SELECT 
+                SELECT
                     Username,
                     Level,
-                    ConnectedTime
-                FROM accounts 
+                    ConnectedTime,
+                    PayDay
+                FROM accounts
                 ORDER BY Level DESC
                 LIMIT 20
             `;
@@ -41,14 +42,11 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed] });
             }
 
-            // Tạo header cho bảng
             let description = '```\n' +
-                '#  Người chơi          Level     Giờ chơi\n' +
-                '══════════════════════════════════════════════\n';
+                '#  Người chơi          Level     Giờ chơi        \n' +
+                '═══════════════════════════════════════════════════\n';
 
-            // Thêm từng dòng dữ liệu
             results.forEach((player, index) => {
-                // Format số thứ tự với icon medal cho top 3
                 let stt;
                 if (index === 0) stt = '👑';
                 else if (index === 1) stt = '🥈';
@@ -57,13 +55,13 @@ module.exports = {
 
                 const name = player.Username.padEnd(18);
                 const level = `${player.Level}`.padStart(3).padEnd(9);
-                
-                // ConnectedTime = pConnectHours (số giờ đã chơi)
-                const hours = (player.ConnectedTime && player.ConnectedTime > 0)
-                    ? player.ConnectedTime.toLocaleString().padStart(6)
-                    : "0".padStart(6);
 
-                description += `${stt} ${name}${level}${hours}\n`;
+                // ConnectedTime = pConnectHours (số giờ), PayDay = pConnectSeconds (0-3599)
+                const h = player.ConnectedTime || 0;
+                const m = Math.floor((player.PayDay || 0) / 60);
+                const playTime = `${h} giờ ${String(m).padStart(2, '0')} phút`.padStart(16);
+
+                description += `${stt} ${name}${level}${playTime}\n`;
             });
 
             description += '\n``` ';
