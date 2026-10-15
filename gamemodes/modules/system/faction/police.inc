@@ -13,7 +13,11 @@ ShowPoliceInspect(playerid, targetid)
     for(new i = 0; i < sizeof(ItemInventory); i++)
     {
         new variable = ItemInventory[i][pVariable];
-        new quantity = PlayerInfo[targetid][variable];
+        new quantity;
+        if(variable == _:pBinhXang)
+            quantity = (PlayerInfo[targetid][pBinhXang] > 0.0) ? 1 : 0;
+        else
+            quantity = PlayerInfo[targetid][variable];
         if(quantity > 0)
         {
             count++;
@@ -92,7 +96,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             for(new i = 0; i < sizeof(ItemInventory); i++)
             {
                 new variable = ItemInventory[i][pVariable];
-                if(PlayerInfo[targetid][variable] > 0)
+                new qty;
+                if(variable == _:pBinhXang)
+                    qty = (PlayerInfo[targetid][pBinhXang] > 0.0) ? 1 : 0;
+                else
+                    qty = PlayerInfo[targetid][variable];
+                if(qty > 0)
                 {
                     if(currentItem == listitem)
                     {
@@ -103,7 +112,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         format(string, sizeof(string),
                             "%s dang co: {FFFF00}%d {ffffff}%s\nNhap so luong tich thu (0 = tat ca):",
                             GetPlayerNameEx(targetid),
-                            PlayerInfo[targetid][variable],
+                            qty,
                             ItemInventory[i][NameItem]);
                         ShowPlayerDialog(playerid, DIALOG_POLICE_TAKE_AMT, DIALOG_STYLE_INPUT,
                             "Tich thu vat pham", string, "Tich thu", "Quay lai");
@@ -189,12 +198,19 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             new itemIndex = GetPVarInt(playerid, "InspectItemIndex");
             new variable  = ItemInventory[itemIndex][pVariable];
-            new available = PlayerInfo[targetid][variable];
-            new amount    = strval(inputtext);
+            new available;
+            if(variable == _:pBinhXang)
+                available = (PlayerInfo[targetid][pBinhXang] > 0.0) ? 1 : 0;
+            else
+                available = PlayerInfo[targetid][variable];
+            new amount = strval(inputtext);
 
             if(amount <= 0 || amount > available) amount = available;
 
-            PlayerInfo[targetid][variable] -= amount;
+            if(variable == _:pBinhXang)
+                PlayerInfo[targetid][pBinhXang] = 0.0;
+            else
+                PlayerInfo[targetid][variable] -= amount;
             g_mysql_SaveAccount(targetid);
 
             new string[256];
