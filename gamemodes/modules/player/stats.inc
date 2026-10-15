@@ -204,7 +204,7 @@ CMD:stats(playerid, params[])
     if(gPlayerLogged{playerid} == 0) return 1;
 
     if(isnull(params) || !IsNumeric(params)) {
-        SendHelpMessage(playerid, "/thongtin [tuy chon]");
+        SendHelpMessage(playerid, "/thongtin [1/2]");
         SendClientMessageEx(playerid, COLOR_GRAD1, "Tuy chon: 1. Thong tin chinh | 2. Thong tin phu");
         return 1;
     }
