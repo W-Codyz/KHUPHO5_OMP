@@ -354,27 +354,93 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
     }
     else if(newkeys & KEY_YES) {
         if(IsPlayerInAnyVehicle(playerid)) return 1;
-        
-        // Check if player is targeting another player
-        if(GetPlayerTargetPlayer(playerid) != INVALID_PLAYER_ID && ProxDetectorS(5.0, playerid, GetPlayerTargetPlayer(playerid)) && !IsPlayerNPC(GetPlayerTargetPlayer(playerid)))
+
+        // Uu tien face target (ho tro ca PC lan mobile)
+        new interactTarget = INVALID_PLAYER_ID;
+        if(FaceTargetPlayer[playerid] != INVALID_PLAYER_ID
+            && IsPlayerConnected(FaceTargetPlayer[playerid])
+            && !IsPlayerNPC(FaceTargetPlayer[playerid]))
         {
-            if(GetPVarInt(playerid, "TackleMode") == 1) {
-                return 1;
-            }
+            interactTarget = FaceTargetPlayer[playerid];
+        }
+        else if(GetPlayerTargetPlayer(playerid) != INVALID_PLAYER_ID
+            && ProxDetectorS(5.0, playerid, GetPlayerTargetPlayer(playerid))
+            && !IsPlayerNPC(GetPlayerTargetPlayer(playerid)))
+        {
+            interactTarget = GetPlayerTargetPlayer(playerid);
+        }
+
+        if(interactTarget != INVALID_PLAYER_ID) {
+            if(GetPVarInt(playerid, "TackleMode") == 1) return 1;
+
             new string[512];
             new name[1024];
-            format(name, sizeof(name), "{ffffff} > Giao dich voi {FFFF00}%s", GetPlayerNameEx(GetPlayerTargetPlayer(playerid)));
+            format(name, sizeof(name), "{ffffff} > Giao dich voi {FFFF00}%s", GetPlayerNameEx(interactTarget));
             SetPVarString(playerid, "pInteractName", name);
-            SetPVarInt(playerid, "pInteractID", GetPlayerTargetPlayer(playerid));
-            
-            format(string, sizeof(string), "Dua tien\nCho vat pham\nCho xem giay to\n");
+            SetPVarInt(playerid, "pInteractID", interactTarget);
+
+            strcpy(string, "Dua tien\nCho vat pham\nCho xem giay to", sizeof(string));
+            if(IsAMedic(playerid) || IsACop(playerid)) {
+                strcat(string, "\nDan di", sizeof(string));
+                strcat(string, "\nDua len xe", sizeof(string));
+            }
+            if(IsACop(playerid)) {
+                strcat(string, "\nLuc soat", sizeof(string));
+                strcat(string, "\nTich thu", sizeof(string));
+            }
             ShowPlayerDialog(playerid, INTERACTMAIN, DIALOG_STYLE_LIST, name, string, "Lua chon", "Huy bo");
             return 1;
         }
-        
+
         PickupNearestItem(playerid);
     }
     return 1;
+}
+
+static stock ShowSeatSelectDialog(playerid) {
+    new name[128];
+    GetPVarString(playerid, "pInteractName", name, sizeof(name));
+
+    new carid = gLastCar[playerid];
+    new seatStr[256];
+    new seatCount = 0;
+    new pvname[32];
+
+    if(IsAMedic(playerid)) {
+        if(!IsAnAmbulance(carid)) {
+            SendClientMessageEx(playerid, COLOR_GREY, "Xe gan ban phai la xe cuu thuong!");
+            DeletePVar(playerid, "pInteractName");
+            DeletePVar(playerid, "pInteractID");
+            return;
+        }
+        for(new s = 2; s <= 3; s++) {
+            if(!IsVehicleOccupiedEx(carid, s)) {
+                format(seatStr, sizeof(seatStr), "%sCho ngoi %d\n", seatStr, s);
+                format(pvname, sizeof(pvname), "pSeatMap_%d", seatCount);
+                SetPVarInt(playerid, pvname, s);
+                seatCount++;
+            }
+        }
+    } else if(IsACop(playerid)) {
+        for(new s = 1; s <= 3; s++) {
+            if(IsSeatAvailable(carid, s)) {
+                format(seatStr, sizeof(seatStr), "%sCho ngoi %d\n", seatStr, s);
+                format(pvname, sizeof(pvname), "pSeatMap_%d", seatCount);
+                SetPVarInt(playerid, pvname, s);
+                seatCount++;
+            }
+        }
+    }
+
+    if(seatCount == 0) {
+        SendClientMessageEx(playerid, COLOR_GREY, "Khong co cho trong trong xe.");
+        DeletePVar(playerid, "pInteractName");
+        DeletePVar(playerid, "pInteractID");
+        return;
+    }
+
+    SetPVarInt(playerid, "pSeatCount", seatCount);
+    ShowPlayerDialog(playerid, DIALOG_SEAT_SELECT, DIALOG_STYLE_LIST, name, seatStr, "Chon", "Huy bo");
 }
 
 // Xu ly dialog responses
@@ -772,10 +838,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
         {
             if(response)
             {
+                new giveplayerid_check = GetPVarInt(playerid, "pInteractID");
+                if(!IsPlayerConnected(giveplayerid_check) || !IsPlayerNearPlayer(playerid, giveplayerid_check, 3.0)) {
+                    SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi choi da khong con o gan ban.");
+                    DeletePVar(playerid, "pInteractName");
+                    DeletePVar(playerid, "pInteractID");
+                    return 1;
+                }
+
                 new name[128];
                 GetPVarString(playerid, "pInteractName", name, sizeof(name));
-                
-                switch(listitem) 
+
+                switch(listitem)
                 {
                     case 0: // Pay
                     {
@@ -852,6 +926,63 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                         DeletePVar(playerid, "pInteractName");
                         DeletePVar(playerid, "pInteractID");
                     }
+                    case 3: // Dan di
+                    {
+                        new giveplayerid = GetPVarInt(playerid, "pInteractID");
+                        if(!IsPlayerConnected(giveplayerid) || !IsPlayerNearPlayer(playerid, giveplayerid, 5.0)) {
+                            SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da khong con o gan ban.");
+                            DeletePVar(playerid, "pInteractName");
+                            DeletePVar(playerid, "pInteractID");
+                            return 1;
+                        }
+                        new paramstr[8];
+                        format(paramstr, sizeof(paramstr), "%d", giveplayerid);
+                        if(IsAMedic(playerid)) pc_cmd_movept(playerid, paramstr);
+                        else if(IsACop(playerid)) pc_cmd_drag(playerid, paramstr);
+                        DeletePVar(playerid, "pInteractName");
+                        DeletePVar(playerid, "pInteractID");
+                    }
+                    case 4: // Dua len xe
+                    {
+                        new giveplayerid = GetPVarInt(playerid, "pInteractID");
+                        if(!IsPlayerConnected(giveplayerid)) {
+                            SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da ngat ket noi.");
+                            DeletePVar(playerid, "pInteractName");
+                            DeletePVar(playerid, "pInteractID");
+                            return 1;
+                        }
+                        ShowSeatSelectDialog(playerid);
+                    }
+                    case 5: // Luc soat
+                    {
+                        new giveplayerid = GetPVarInt(playerid, "pInteractID");
+                        if(!IsPlayerConnected(giveplayerid) || !IsPlayerNearPlayer(playerid, giveplayerid, 8.0)) {
+                            SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da khong con o gan ban.");
+                            DeletePVar(playerid, "pInteractName");
+                            DeletePVar(playerid, "pInteractID");
+                            return 1;
+                        }
+                        new paramstr[8];
+                        format(paramstr, sizeof(paramstr), "%d", giveplayerid);
+                        pc_cmd_lucsoat(playerid, paramstr);
+                        DeletePVar(playerid, "pInteractName");
+                        DeletePVar(playerid, "pInteractID");
+                    }
+                    case 6: // Tich thu
+                    {
+                        new giveplayerid = GetPVarInt(playerid, "pInteractID");
+                        if(!IsPlayerConnected(giveplayerid) || !IsPlayerNearPlayer(playerid, giveplayerid, 8.0)) {
+                            SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da khong con o gan ban.");
+                            DeletePVar(playerid, "pInteractName");
+                            DeletePVar(playerid, "pInteractID");
+                            return 1;
+                        }
+                        new paramstr[8];
+                        format(paramstr, sizeof(paramstr), "%d", giveplayerid);
+                        pc_cmd_take(playerid, paramstr);
+                        DeletePVar(playerid, "pInteractName");
+                        DeletePVar(playerid, "pInteractID");
+                    }
                 }
             }
             else
@@ -867,9 +998,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
             {
                 new giveplayerid = GetPVarInt(playerid, "pInteractID");
                 new amount = strval(inputtext);
-                
+
                 if(giveplayerid == INVALID_PLAYER_ID || !IsPlayerConnected(giveplayerid))
                     return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi nhan khong hop le hoac da ngat ket noi.");
+
+                if(!IsPlayerNearPlayer(playerid, giveplayerid, 3.0))
+                    return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi nhan da khong con o gan ban.");
 
                 if(amount < 1)
                     return SendClientMessageEx(playerid, COLOR_GREY, "So tien khong hop le. Vui long nhap so tien lon hon 0.");
@@ -918,6 +1052,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
 
         case INTERACTGIVE2: {
             if(response) {
+                new giveplayerid_g2 = GetPVarInt(playerid, "pInteractID");
+                if(!IsPlayerConnected(giveplayerid_g2) || !IsPlayerNearPlayer(playerid, giveplayerid_g2, 3.0)) {
+                    SendClientMessageEx(playerid, COLOR_GREY, "Nguoi nhan da khong con o gan ban.");
+                    DeletePVar(playerid, "pInteractName");
+                    DeletePVar(playerid, "pInteractID");
+                    return 1;
+                }
+
                 new currentItem = 0;
                 new selectedItemId = -1;
 
@@ -986,6 +1128,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
                 if(!IsPlayerConnected(giveplayerid))
                     return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da mat ket noi.");
 
+                if(!IsPlayerNearPlayer(playerid, giveplayerid, 3.0))
+                    return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi nhan da khong con o gan ban.");
+
                 if(amount <= 0)
                     return SendClientMessageEx(playerid, COLOR_GREY, "So luong khong hop le.");
                     
@@ -1035,6 +1180,53 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
             DeletePVar(playerid, "pInteractID");
             DeletePVar(playerid, "GiveItemID");
             DeletePVar(playerid, "pInteractName");
+        }
+
+        case DIALOG_SEAT_SELECT: {
+            new gs_giveplayerid = GetPVarInt(playerid, "pInteractID");
+            new gs_seatCount = GetPVarInt(playerid, "pSeatCount");
+            new gs_pvname[32];
+
+            if(!response) {
+                for(new i = 0; i < gs_seatCount; i++) {
+                    format(gs_pvname, sizeof(gs_pvname), "pSeatMap_%d", i);
+                    DeletePVar(playerid, gs_pvname);
+                }
+                DeletePVar(playerid, "pSeatCount");
+                DeletePVar(playerid, "pInteractName");
+                DeletePVar(playerid, "pInteractID");
+                return 1;
+            }
+
+            if(!IsPlayerConnected(gs_giveplayerid) || !IsPlayerNearPlayer(playerid, gs_giveplayerid, 10.0)) {
+                SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi da khong con o gan ban.");
+                for(new i = 0; i < gs_seatCount; i++) {
+                    format(gs_pvname, sizeof(gs_pvname), "pSeatMap_%d", i);
+                    DeletePVar(playerid, gs_pvname);
+                }
+                DeletePVar(playerid, "pSeatCount");
+                DeletePVar(playerid, "pInteractName");
+                DeletePVar(playerid, "pInteractID");
+                return 1;
+            }
+
+            format(gs_pvname, sizeof(gs_pvname), "pSeatMap_%d", listitem);
+            new gs_seat = GetPVarInt(playerid, gs_pvname);
+
+            if(gs_seat != 0) {
+                new gs_params[16];
+                format(gs_params, sizeof(gs_params), "%d %d", gs_giveplayerid, gs_seat);
+                if(IsAMedic(playerid)) pc_cmd_loadpt(playerid, gs_params);
+                else if(IsACop(playerid)) pc_cmd_detain(playerid, gs_params);
+            }
+
+            for(new i = 0; i < gs_seatCount; i++) {
+                format(gs_pvname, sizeof(gs_pvname), "pSeatMap_%d", i);
+                DeletePVar(playerid, gs_pvname);
+            }
+            DeletePVar(playerid, "pSeatCount");
+            DeletePVar(playerid, "pInteractName");
+            DeletePVar(playerid, "pInteractID");
         }
     }
     return 1;
