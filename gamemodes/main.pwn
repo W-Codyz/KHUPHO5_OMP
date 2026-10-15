@@ -183,6 +183,7 @@
 //#include "./modules/player/inventory/drop"
 #include "./modules/player/inventory/inv_td"
 #include "./modules/player/card/card"
+#include "./modules/player/inventory/face_interact"
 #include "./modules/player/inventory/inv"
 #include "./modules/player/mission/newbie"
 
