@@ -2605,7 +2605,8 @@
 		</member>
 		<member name="M:OnPlayerConnect" syntax="OnPlayerConnect(playerid)">
 			<attribute name="public"/>
-			<stacksize value="1"/>
+			<stacksize value="8"/>
+			<dependency name="RemoveBuildingForPlayer"/>
 			<param name="playerid">
 				The ID of the player that connected
 			</param>
@@ -3445,6 +3446,34 @@
 				The ID of the player who is no longer streaming the vehicle
 			</param>
 			<summary>This callback is called when a vehicle is streamed out for a player's client (it's so far  away that they can't see it).</summary>      <seealso name="OnVehicleStreamIn" />  <seealso name="OnPlayerStreamIn" />  <seealso name="OnPlayerStreamOut" />  <remarks>This callback can also be called by NPC.</remarks>  <returns>  This callback does not handle returns.<br />  It is always called first in filterscripts.  </returns> 
+		</member>
+		<member name="M:RemoveBuildingForPlayer" syntax="RemoveBuildingForPlayer(playerid, modelid, centerX, centerY, centerZ, radius)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="OnPlayerConnect"/>
+			<param name="playerid">
+				The ID of the player to remove the objects for
+			</param>
+			<param name="modelid">
+				The model to remove
+			</param>
+			<param name="centerX">
+				<paraminfo>Float </paraminfo>
+				The x coordinate around which the objects will be removed
+			</param>
+			<param name="centerY">
+				<paraminfo>Float </paraminfo>
+				The y coordinate around which the objects will be removed
+			</param>
+			<param name="centerZ">
+				<paraminfo>Float </paraminfo>
+				The z coordinate around which the objects will be removed
+			</param>
+			<param name="radius">
+				<paraminfo>Float </paraminfo>
+				The radius around the specified point to remove objects with the specified model
+			</param>
+			<library>omp_player</library>  <summary>Removes a standard San Andreas model for a single player within a specified range.</summary>              <seealso name="DestroyObject" />  <seealso name="DestroyPlayerObject" />  <remarks>There appears to be a limit of around <b><c>1000</c></b> lines/objects.  There is no workaround.  </remarks>  <remarks>When removing the same object for a player, they will crash.  Commonly, players crash when  reconnecting to the server because the server removes buildings on <a href="#OnPlayerConnect">OnPlayerConnect</a>.  </remarks>  <remarks>You can use <b><c>-1</c></b> for the modelid to remove all objects  within the specified radius.</remarks> 
 		</member>
 		<member name="M:SetDeathDropAmount" syntax="SetDeathDropAmount(amount)">
 			<stacksize value="1"/>
