@@ -995,8 +995,8 @@ task ServerHeartbeat[1000]() {
 		        tmrVal--;
 		        SetPVarInt(i, "InjuredTimer", tmrVal);
 		        new mins = tmrVal / 60, secs = tmrVal % 60;
-		        new tdmsg[64];
-		        format(tdmsg, sizeof(tdmsg), "~r~BI THUONG~w~~n~/dichvu capcuu~n~/chapnhan chet sau ~r~%d:%02d ~w~nua", mins, secs);
+		        new tdmsg[128];
+		        format(tdmsg, sizeof(tdmsg), "~r~BI THUONG~w~~n~/dichvu capcuu~n~/chapnhan chet sau %d:%02d nua", mins, secs);
 		        SendMessageTD(i, 1200, tdmsg);
 		    }
 		}
