@@ -28,11 +28,11 @@ stock PrepareLoginSpawn(playerid)
         }
         else
         {
-            rand = random(sizeof(OOCPrisonSpawns));
+            Streamer_UpdateEx(playerid, 1227.988037, -3907.316162, 11.074675);
             SetSpawnInfo(playerid, NO_TEAM, 50,
-                OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2], 0.0,
+                1227.988037, -3907.316162, 11.074675, 83.133552,
                 0, 0, 0, 0, 0, 0);
-            SetPlayerInterior(playerid, 1);
+            SetPlayerInterior(playerid, 0);
             SetPlayerVirtualWorld(playerid, 0);
         }
         return 1;
@@ -703,15 +703,15 @@ public OnPlayerLoad(playerid)
 	{
 	    // Người mới: để SetPlayerSpawn show dialog đăng ký
 	    TogglePlayerSpectating(playerid, false);
+	    SetCameraBehindPlayer(playerid);
 	}
 	else
 	{
 	    // Người cũ: chuẩn bị spawn info trước, rồi tắt spectate
 	    PrepareLoginSpawn(playerid);
 	    TogglePlayerSpectating(playerid, false);
+	    SetCameraBehindPlayer(playerid);
 	}
-
-	TogglePlayerSpectating(playerid, false);
 	/* format(string, sizeof(string), "~w~Xin chao,~n~~y~%s!", GetPlayerNameEx(playerid));
 	GameTextForPlayer(playerid, string, 5000, 1); */
 	SendClientMessageEx(playerid, COLOR_YELLOW, GlobalMOTD);
