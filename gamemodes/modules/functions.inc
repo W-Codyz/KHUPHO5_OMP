@@ -5383,6 +5383,7 @@ public Player_StreamPrep(iPlayer, Float: fPosX, Float: fPosY, Float: fPosZ, iTim
 		    	sobeitCheckIsDone[iPlayer] = 1;
    				SetTimerEx("sobeitCheck", 10000, false, "i", iPlayer);
 				TogglePlayerControllable(iPlayer, false);
+				Streamer_UpdateEx(iPlayer, fPosX, fPosY, fPosZ);
 				return 1;
 			}
 		}
@@ -9734,7 +9735,7 @@ stock SetPlayerSpawn(playerid)
 		    }
 		    else
 		    {
-		        SetPlayerHealth(playerid, 0x7FB00000);
+		        SetPlayerHealth(playerid, 100.0);
 		       	PhoneOnline[playerid] = 1;
 				SetPlayerInterior(playerid, 0);
 				PlayerInfo[playerid][pInt] = 0;

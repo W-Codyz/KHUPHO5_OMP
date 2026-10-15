@@ -1700,7 +1700,7 @@ public OnPlayerTakeDamage(playerid, issuerid, Float: amount, weaponid, bodypart)
 						}
 						PlayerInfo[playerid][pWantedLevel] = 0;
 						SetPlayerWantedLevel(playerid, 0);
-						SetPlayerHealth(playerid, 0x7FB00000);
+						SetPlayerHealth(playerid, 100.0);
 						PlayerInfo[playerid][pJailTime] = 180*60;
 						SetTimerEx("IdiotSound", 10000, false, "i", playerid);
 						strcpy(PlayerInfo[playerid][pPrisonReason], "[OOC][PRISON] BUSTED!", 128);
