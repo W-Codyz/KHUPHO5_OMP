@@ -320,7 +320,7 @@ public hosp_CompleteBedExit(playerid)
 
     TogglePlayerControllable(playerid, true);
     SetPlayerHealth(playerid, HOSP_HEAL_HP);
-    PlayerInfo[playerid][pHoiPhuc] = 1200;
+    PlayerInfo[playerid][pHoiPhuc] = (fee == HOSP_SUCCESS_FEE) ? 600 : 1200;
     SendClientMessageEx(playerid, TEAM_CYAN_COLOR, "* Ban da hoi phuc! Hay tu tim duong ra khoi benh vien.");
 }
 
