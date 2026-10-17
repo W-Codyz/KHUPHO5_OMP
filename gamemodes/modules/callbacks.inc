@@ -2197,7 +2197,8 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	    SetPlayerArmedWeapon(playerid, 0);
 		if(IsVIPcar(vehicleid))
 		{
-		    if(PlayerInfo[playerid][pDonateRank] == 0)
+			new minRank = GetVIPcarMinRank(vehicleid);
+		    if(PlayerInfo[playerid][pDonateRank] < minRank)
 			{
 			    new Float:slx, Float:sly, Float:slz;
 				GetPlayerPos(playerid, slx, sly, slz);
@@ -2205,7 +2206,10 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 				PlayerPlaySound(playerid, 1130, slx, sly, slz+1.3);
 			    RemovePlayerFromVehicle(playerid);
 			    defer NOPCheck(playerid);
-			    SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai VIP, day la chiec xe duoc lay tu gara VIP!");
+			    if(minRank == 2) SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can VIP Silver de su dung xe nay!");
+			    else if(minRank == 3) SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can VIP Gold de su dung xe nay!");
+			    else if(minRank == 4) SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can VIP Platinum de su dung xe nay!");
+			    else SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can VIP de su dung xe nay!");
 			}
 		}
 		else if(IsWeaponizedVehicle(GetVehicleModel(vehicleid)))
@@ -5802,7 +5806,8 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		new vehicleid = newcar;
 		if(IsVIPcar(vehicleid))
 		{
-		    if(PlayerInfo[playerid][pDonateRank] > 0)
+			new minRank2 = GetVIPcarMinRank(vehicleid);
+		    if(PlayerInfo[playerid][pDonateRank] >= minRank2)
 			{
 				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Day la chiec xe duoc lay tu gara VIP, vi the nhien lieu khong bi gioi han.");
 			}
@@ -5814,7 +5819,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				PlayerPlaySound(playerid, 1130, slx, sly, slz+1.3);
 			    RemovePlayerFromVehicle(playerid);
 			    defer NOPCheck(playerid);
-			    SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai la VIP, day la chiec xe chi danh cho  VIP!");
+			    if(minRank2 == 2) SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can VIP Silver de su dung xe nay!");
+			    else if(minRank2 == 3) SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can VIP Gold de su dung xe nay!");
+			    else if(minRank2 == 4) SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can VIP Platinum de su dung xe nay!");
+			    else SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can VIP de su dung xe nay!");
 			}
 		}
 		else if(IsFamedVeh(vehicleid))

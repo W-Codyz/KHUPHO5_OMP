@@ -132,7 +132,7 @@ stock ShowHelpCommand(playerid, listitem)
 
 			if(PlayerInfo[playerid][pDonateRank] >= 1)
 			{
-				SendClientMessageEx(playerid, COLOR_PURPLE, "* [VIP] /travel /viplocker /tokenhelp /buddyinvite /phoneprivacy /setautoreply");
+				SendClientMessageEx(playerid, COLOR_PURPLE, "* [VIP] /viplocker /khoevip /tokenhelp /buddyinvite /phoneprivacy /setautoreply");
 			}
 
 			if(PlayerInfo[playerid][pDonateRank] == 5)
@@ -161,7 +161,7 @@ stock ShowJobHelp(playerid, jobid)
 CMD:cmds(playerid, params[])
 {
 	ShowPlayerDialog(playerid, DIALOG_HELPCMD, DIALOG_STYLE_LIST, "Danh sach cac cau lenh", "\
-		Chung\nTai khoan\nTro chuyen\nNgan hang\nHTB Shop\nTo chuc/Family\n{C2A2DA}VIP{FFFFFF}\n\
+		Chung\nTai khoan\nTro chuyen\nNgan hang\nKP5 Shop\nTo chuc/Family\n{C2A2DA}VIP{FFFFFF}\n\
 		Cau ca", "Chon", "Dong");
 	return 1;
 }

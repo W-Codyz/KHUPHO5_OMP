@@ -6,7 +6,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(response) PlayerPlaySound(playerid, 1052);
 	else PlayerPlaySound(playerid, 1053);
 	// Crash Bug Fix
- 	if(strfind(inputtext, "%", true) != -1)
+ 	if(strfind(inputtext, "%", true) != -1 && dialogid != CUSTOM_URLCHOICE)
   	{
   	    SendClientMessageEx(playerid, COLOR_GREY, "Ky tu khong hop le, vui long thu lai.");
 		return 1;
@@ -6179,150 +6179,69 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(dialogid == VIPWEPSMENU)
 	{
 	    if(!response) return 1;
-	    if(PlayerInfo[playerid][pDonateRank] < 3 && PlayerInfo[playerid][pTokens] == 0)
+	    if(PlayerInfo[playerid][pConnectHours] < 2 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung dieu nay khi dang chiu mot lenh cam vu khi!");
+	    new vipRankW = PlayerInfo[playerid][pDonateRank];
+	    switch(listitem)
 	    {
-	        SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong co tokens! Ban nhan duoc tokens moi paycheck.");
-	        return 1;
-	    }
-	    if(PlayerInfo[playerid][pConnectHours] < 2 || PlayerInfo[playerid][pWRestricted] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung dieu nay khi dang chiu mot lenh cam vu  khi!");
-	    switch( listitem )
-	    {
-	        case 0:
+	        case 0: // Pool Cue - $40,000 (tat ca rank)
 	        {
-
-    			if(PlayerInfo[playerid][pDonateRank] < 3)
-			    {
-			        if(PlayerInfo[playerid][pTokens] < 3)
-			        {
-			            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong du tokens.");
-			            return 1;
-			        }
-					PlayerInfo[playerid][pTokens] -= 3;
-					format(string, sizeof(string), "VIP: Ban da doi 3 tokens cho mot khau Desert Eagle, bay gio ban con %d token(s).", PlayerInfo[playerid][pTokens]);
-			        SendClientMessageEx(playerid, COLOR_YELLOW, string);
-				}
-				GivePlayerValidWeapon(playerid, 24, 60000);
+	            if(GetPlayerCash(playerid) < 40000) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $40,000!");
+	            GivePlayerCash(playerid, -40000);
+	            GivePlayerValidWeapon(playerid, 7, 99999);
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da mua mot Pool Cue voi gia $40,000.");
 	        }
-	        case 1:
+	        case 1: // Katana - $40,000 (tat ca rank)
 	        {
-
- 				if(PlayerInfo[playerid][pDonateRank] < 3)
-			    {
-			        if(PlayerInfo[playerid][pTokens] < 2)
-			        {
-			            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong du tokens.");
-			            return 1;
-			        }
-					PlayerInfo[playerid][pTokens] -= 2;
-					format(string, sizeof(string), "VIP: Ban da doi 2 tokens cho mot khau shotgun, bay gio ban con %d token(s).", PlayerInfo[playerid][pTokens]);
-			        SendClientMessageEx(playerid, COLOR_YELLOW, string);
-				}
-				GivePlayerValidWeapon(playerid, 25, 60000);
+	            if(GetPlayerCash(playerid) < 40000) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $40,000!");
+	            GivePlayerCash(playerid, -40000);
+	            GivePlayerValidWeapon(playerid, 8, 99999);
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da mua mot Katana voi gia $40,000.");
 	        }
-	        case 2:
+	        case 2: // Golf Club - $40,000 (tat ca rank)
 	        {
- 				if(PlayerInfo[playerid][pDonateRank] < 3)
-			    {
-			        if(PlayerInfo[playerid][pTokens] < 3)
-			        {
-			            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong du tokens.");
-			            return 1;
-			        }
-					PlayerInfo[playerid][pTokens] -= 3;
-					format(string, sizeof(string), "VIP: Ban da doi 3 tokens cho mot khau MP5, bay gio ban con %d token(s).", PlayerInfo[playerid][pTokens]);
-    				SendClientMessageEx(playerid, COLOR_YELLOW, string);
-				}
-				GivePlayerValidWeapon(playerid, 29, 60000);
+	            if(GetPlayerCash(playerid) < 40000) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $40,000!");
+	            GivePlayerCash(playerid, -40000);
+	            GivePlayerValidWeapon(playerid, 2, 99999);
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da mua mot Golf Club voi gia $40,000.");
 	        }
-	        case 3:
+	        case 3: // Baseball Bat - $40,000 (tat ca rank)
 	        {
- 				if(PlayerInfo[playerid][pDonateRank] < 3)
-			    {
-   					if(PlayerInfo[playerid][pTokens] > 1)
-			        {
-						PlayerInfo[playerid][pTokens] -= 2;
-						format(string, sizeof(string), "VIP: Ban da doi 2 tokens cho mot khau silenced pistol, bay gio ban con %d token(s).", PlayerInfo[playerid][pTokens]);
-			        	SendClientMessageEx(playerid, COLOR_YELLOW, string);
-  					}
-			        else
-			        {
-			            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong du tokens.");
-			            return 1;
-			        }
-				}
-                GivePlayerValidWeapon(playerid, 23, 60000);
+	            if(GetPlayerCash(playerid) < 40000) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $40,000!");
+	            GivePlayerCash(playerid, -40000);
+	            GivePlayerValidWeapon(playerid, 5, 99999);
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da mua mot Baseball Bat voi gia $40,000.");
 	        }
-	        case 4:
+	        case 4: // MP5 - $250,000 (Silver+, rank >= 2)
 	        {
- 				if(PlayerInfo[playerid][pDonateRank] < 3)
-			    {
-   					if(PlayerInfo[playerid][pTokens] > 0)
-			        {
-						PlayerInfo[playerid][pTokens] -= 1;
-						format(string, sizeof(string), "VIP: Ban da doi token lay mot golf club, bay gio ban con %d token(s).", PlayerInfo[playerid][pTokens]);
-			        	SendClientMessageEx(playerid, COLOR_YELLOW, string);
-  					}
-			        else
-			        {
-			            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong du tokens.");
-			            return 1;
-			        }
-				}
-                GivePlayerValidWeapon(playerid, 2, 60000);
+	            if(vipRankW < 2) return 1;
+	            if(GetPlayerCash(playerid) < 250000) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $250,000!");
+	            GivePlayerCash(playerid, -250000);
+	            GivePlayerValidWeapon(playerid, 29, 99999);
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da mua mot MP5 voi gia $250,000.");
 	        }
-	        case 5:
+	        case 5: // Shotgun - $300,000 (Silver+, rank >= 2)
 	        {
- 				if(PlayerInfo[playerid][pDonateRank] < 3)
-			    {
-   					if(PlayerInfo[playerid][pTokens] > 0)
-			        {
-						PlayerInfo[playerid][pTokens] -= 1;
-						format(string, sizeof(string), "VIP: Ban da doi token lay mot baseball bat, bay gio ban con %d token(s).", PlayerInfo[playerid][pTokens]);
-			        	SendClientMessageEx(playerid, COLOR_YELLOW, string);
-  					}
-			        else
-			        {
-			            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong du tokens.");
-			            return 1;
-			        }
-				}
-                GivePlayerValidWeapon(playerid, 5, 60000);
+	            if(vipRankW < 2) return 1;
+	            if(GetPlayerCash(playerid) < 300000) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $300,000!");
+	            GivePlayerCash(playerid, -300000);
+	            GivePlayerValidWeapon(playerid, 25, 99999);
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da mua mot Shotgun voi gia $300,000.");
 	        }
-	        case 6:
+	        case 6: // Desert Eagle - $550,000 (Gold+, rank >= 3)
 	        {
- 				if(PlayerInfo[playerid][pDonateRank] < 3)
-			    {
-   					if(PlayerInfo[playerid][pTokens] > 0)
-			        {
-						PlayerInfo[playerid][pTokens] -= 1;
-						format(string, sizeof(string), "VIP: Ban da doi token lay mot dildo, bay gio ban con %d token(s).", PlayerInfo[playerid][pTokens]);
-			        	SendClientMessageEx(playerid, COLOR_YELLOW, string);
-  					}
-			        else
-			        {
-			            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong du tokens.");
-			            return 1;
-			        }
-				}
-                GivePlayerValidWeapon(playerid, 10, 60000);
+	            if(vipRankW < 3) return 1;
+	            if(GetPlayerCash(playerid) < 550000) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $550,000!");
+	            GivePlayerCash(playerid, -550000);
+	            GivePlayerValidWeapon(playerid, 24, 99999);
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da mua mot Desert Eagle voi gia $550,000.");
 	        }
-	        case 7:
+	        case 7: // AK-47 - $650,000 (Gold+, rank >= 3)
 	        {
- 				if(PlayerInfo[playerid][pDonateRank] < 3)
-			    {
-   					if(PlayerInfo[playerid][pTokens] > 0)
-			        {
-						PlayerInfo[playerid][pTokens] -= 1;
-						format(string, sizeof(string), "VIP: Ban da doi token lay mot sword, bay gio ban con %d token(s).", PlayerInfo[playerid][pTokens]);
-			        	SendClientMessageEx(playerid, COLOR_YELLOW, string);
-  					}
-			        else
-			        {
-			            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban khong du tokens.");
-			            return 1;
-			        }
-				}
-                GivePlayerValidWeapon(playerid, 8, 60000);
+	            if(vipRankW < 3) return 1;
+	            if(GetPlayerCash(playerid) < 650000) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $650,000!");
+	            GivePlayerCash(playerid, -650000);
+	            GivePlayerValidWeapon(playerid, 30, 99999);
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da mua mot AK-47 voi gia $650,000.");
 	        }
 	    }
 	}
@@ -7212,99 +7131,99 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		if(response)
 		{
+			new vipRank = PlayerInfo[playerid][pDonateRank];
+			new hasArmor = (vipRank >= 3); // Gold+ co giap trong menu
+
+			// listitem 0: First Aid Kit (tat ca rank VIP)
 			if(listitem == 0)
 			{
- 				new Float:health;
- 				GetPlayerHealth(playerid, health);
-				new hpint = floatround( health, floatround_round );
-		    	if( hpint >= 100 )
-				{
-  					SendClientMessageEx(playerid, COLOR_GREY, "Ban da co day du suc khoe.");
-	 				return 1;
-	   			}
+				new Float:health;
+				GetPlayerHealth(playerid, health);
+				new Float:maxHP;
+				if(vipRank == 1) maxHP = 50.0;
+				else if(vipRank == 2) maxHP = 80.0;
+				else maxHP = 100.0;
 
-			    SetPlayerHealth(playerid, 100);
-				SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da su dung mot tui cuu thuong, bay gio ban co 100.0 HP.");
+				if(health >= maxHP)
+				{
+					SendClientMessageEx(playerid, COLOR_GREY, "Ban da co day du suc khoe.");
+					return 1;
+				}
+				SetPlayerHealth(playerid, maxHP);
+				format(string, sizeof(string), "VIP: Ban da su dung mot tui cuu thuong, bay gio ban co %.0f HP.", maxHP);
+				SendClientMessageEx(playerid, COLOR_YELLOW, string);
 			}
-			if(listitem == 1)
+
+			// listitem 1: Kevlar Vest cho Gold+ | Weapons cho Bronze/Silver
+			if(listitem == 1 && hasArmor)
 			{
 				new Float:armour;
 				GetPlayerArmour(playerid, armour);
-				if(armour >= 100)
+				if(vipRank == 3) // Gold: $50,000 cho 50 giap
 				{
-					SendClientMessageEx(playerid, COLOR_GREY, "Ban da co day du giap.");
-					return 1;
-				}
-				if(PlayerInfo[playerid][pDonateRank] == 1)
-				{
-					if(GetPlayerCash(playerid) < 15000)
-			    	{
-			        	SendClientMessageEx(playerid, COLOR_GREY,"Ban khong co du $15000!");
-			        	return 1;
-			    	}
-					GivePlayerCash(playerid, -15000);
-					SetPlayerArmor(playerid, 100);
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban tra $15000 cho mot kevlar vest.");
-				}
-				else if(PlayerInfo[playerid][pDonateRank] == 2)
-				{
-					if(GetPlayerCash(playerid) < 10000)
-			    	{
-			        	SendClientMessageEx(playerid, COLOR_GREY,"Ban khong co du $10000!");
-			        	return 1;
-			    	}
-					GivePlayerCash(playerid, -10000);
-					SetPlayerArmor(playerid, 100);
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban tra $10000 cho mot kevlar vest.");
-				}
-				if(PlayerInfo[playerid][pDonateRank] >= 3)
-				{
-					SetPlayerArmor(playerid, 100);
-					SetPVarInt(playerid, "Armor", 1);
-				}
-			}
-			if(listitem == 2)
-			{
-				if(PlayerInfo[playerid][pDonateRank] >= 1)
-				{
-					switch(PlayerInfo[playerid][pDonateRank])
+					if(armour >= 50.0)
 					{
-						case 1, 2: ShowPlayerDialog(playerid, VIPWEPSMENU, DIALOG_STYLE_LIST, "Vu khi VIP", "Desert Eagle (3)\nShotgun (2)\nMP5 (3)\nSilenced Pistol (2)\nGolf Club (1)\nBat (1)\nDildo (1)\nSword (1)", "Lua chon", "Huy bo");
-						default: ShowPlayerDialog(playerid, VIPWEPSMENU, DIALOG_STYLE_LIST, "Vu khi VIP", "Desert Eagle\nShotgun\nMP5\nSilenced Pistol\nGolf Club\nBat\nDildo\nSword", "Lua chon", "Huy bo");
+						SendClientMessageEx(playerid, COLOR_GREY, "Ban da co day du giap.");
+						return 1;
 					}
+					if(GetPlayerCash(playerid) < 50000)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co du $50,000!");
+						return 1;
+					}
+					GivePlayerCash(playerid, -50000);
+					SetPlayerArmor(playerid, 50.0);
+					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban tra $50,000 cho mot kevlar vest (50 giap).");
 				}
-				else
+				else // Platinum+: mien phi, 100 giap
 				{
-					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban phai la thanh vien VIP moi co the truy cap vao tu do sung VIP.");
+					if(armour >= 100.0)
+					{
+						SendClientMessageEx(playerid, COLOR_GREY, "Ban da co day du giap.");
+						return 1;
+					}
+					SetPlayerArmor(playerid, 100.0);
+					SetPVarInt(playerid, "Armor", 1);
+					SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban duoc nhan mien phi mot kevlar vest (100 giap).");
 				}
 			}
-			if(listitem == 3)
+
+			// Weapons: listitem 1 cho Bronze/Silver, listitem 2 cho Gold+
+			if((listitem == 1 && !hasArmor) || (listitem == 2 && hasArmor))
 			{
-            	if(PlayerInfo[playerid][pDonateRank] >= 2)
-            	{
-			    	ShowModelSelectionMenu(playerid, SkinList, "Thay quan ao cua ban.");
-			    }
-			    else
-			    {
-			    	SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban phai co Silver VIP tro len moi co the truy cap vao tu do quan ao . Ban co the su dung bat ki skin nao");
-			    }
+				switch(vipRank)
+				{
+					case 1: ShowPlayerDialog(playerid, VIPWEPSMENU, DIALOG_STYLE_LIST, "Vu khi VIP", "Pool Cue ($40,000)\nKatana ($40,000)\nGolf Club ($40,000)\nBaseball Bat ($40,000)", "Lua chon", "Huy bo");
+					case 2: ShowPlayerDialog(playerid, VIPWEPSMENU, DIALOG_STYLE_LIST, "Vu khi VIP", "Pool Cue ($40,000)\nKatana ($40,000)\nGolf Club ($40,000)\nBaseball Bat ($40,000)\nMP5 ($250,000)\nShotgun ($300,000)", "Lua chon", "Huy bo");
+					default: ShowPlayerDialog(playerid, VIPWEPSMENU, DIALOG_STYLE_LIST, "Vu khi VIP", "Pool Cue ($40,000)\nKatana ($40,000)\nGolf Club ($40,000)\nBaseball Bat ($40,000)\nMP5 ($250,000)\nShotgun ($300,000)\nDesert Eagle ($550,000)\nAK-47 ($650,000)", "Lua chon", "Huy bo");
+				}
 			}
-			if(listitem == 4)
+
+			// Khoe VIP: listitem 2 cho Bronze/Silver, listitem 3 cho Gold+
+			if((listitem == 2 && !hasArmor) || (listitem == 3 && hasArmor))
 			{
-  				if(PlayerInfo[playerid][pDonateRank] >= 2)
-            	{
-			    	
-		    	}
-			    else
-			    {
-			    	SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban phai co Silver VIP tro len moi co the truy cap vao danh sach nhan viec lam.");
-			    }
+				pc_cmd_khoevip(playerid, "");
 			}
-			if(listitem == 5)
-			{
-			    // Goi lenh /khoevip thay cho dialog VIP Color cu
-			    pc_cmd_khoevip(playerid, "");
-			}
+
+			// [Clothes Corner - da bo]
+			// if(listitem == 3)
+			// {
+			//     if(PlayerInfo[playerid][pDonateRank] >= 2)
+			//     {
+			//         ShowModelSelectionMenu(playerid, SkinList, "Thay quan ao cua ban.");
+			//     }
+			//     else
+			//     {
+			//         SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban phai co Silver VIP tro len moi co the truy cap vao tu do quan ao.");
+			//     }
+			// }
+
+			// [Job Center - da bo]
+			// if(listitem == 4)
+			// {
+			//     if(PlayerInfo[playerid][pDonateRank] >= 2) { }
+			//     else SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban phai co Silver VIP tro len moi co the truy cap vao danh sach nhan viec lam.");
+			// }
 		}
 	}
 
@@ -8009,11 +7928,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
             else if(listitem == 6) //Website
             {
-           		ShowPlayerDialog(playerid, WEBSITEFAQ, DIALOG_STYLE_MSGBOX, "Thong tin khac", "Thong tin:\n\nDiscord: dsc.gg/gtahtb", "Cam on", "Huy bo");
+           		ShowPlayerDialog(playerid, WEBSITEFAQ, DIALOG_STYLE_MSGBOX, "Thong tin khac", "Thong tin:\n\nDiscord: dsc.gg/KP5", "Cam on", "Huy bo");
             }
             else if(listitem == 7) //Further Help
            	{
-           		ShowPlayerDialog(playerid, FURTHERHELPFAQ, DIALOG_STYLE_MSGBOX, "Tro giup them", "Thong tin:\n\nNeu ban can them su tro giup, ban co the su dung /newb de hoi tren kenh hoi dap\nNeu ban can su tro giup nhanh, su dung /yeucautrogiup de co them su tro giup tu doi ngu co van  vien.\nSu dung /baocao neu phat hien ra dieu gi do khac thuong tai may chu HTB.", "Cam on", "Huy bo");
+           		ShowPlayerDialog(playerid, FURTHERHELPFAQ, DIALOG_STYLE_MSGBOX, "Tro giup them", "Thong tin:\n\nNeu ban can them su tro giup, ban co the su dung /newb de hoi tren kenh hoi dap\nNeu ban can su tro giup nhanh, su dung /yeucautrogiup de co them su tro giup tu doi ngu co van  vien.\nSu dung /baocao neu phat hien ra dieu gi do khac thuong tai may chu KP5.", "Cam on", "Huy bo");
 			}
 		}
  	}
@@ -8635,10 +8554,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					for(new x; x < MAX_PLAYERVEHICLES; x++) if(PlayerVehicleInfo[suspect][x][pvTicket] >= 1) {
 						PlayerVehicleInfo[suspect][x][pvTicket] = 0;
 					}
-					SetPlayerInterior(suspect, 10);
-					new rand = random(sizeof(LSPDJailSpawns));
-					SetPlayerFacingAngle(suspect, LSPDJailSpawns[rand][3]);
-					SetPlayerPos(suspect, LSPDJailSpawns[rand][0], LSPDJailSpawns[rand][1], LSPDJailSpawns[rand][2]);
+					SetPlayerInterior(suspect, 0);
+					PlayerInfo[suspect][pInt] = 0;
+					SetPlayerVirtualWorld(suspect, 0);
+					PlayerInfo[suspect][pVW] = 0;
+					SetPlayerPos(suspect, -2029.685058, -120.624031, 35.170303);
+					SetPlayerFacingAngle(suspect, 175.987518);
 					if(PlayerInfo[suspect][pDonateRank] >= 2)
 					{
 						PlayerInfo[suspect][pJailTime] = ((time*60)*75)/100;
@@ -8652,7 +8573,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerInfo[suspect][pArrested] += 1;
 					SetPlayerFree(suspect,playerid, "was arrested");
 					PlayerInfo[suspect][pWantedLevel] = 0;
-					SetPlayerToTeamColor(suspect);
 					SetPlayerWantedLevel(suspect, 0);
 					TogglePlayerControllable(suspect, true);
 					ClearAnimations(suspect);
@@ -8660,12 +8580,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerCuffed[suspect] = 0;
 					DeletePVar(suspect, "PlayerCuffed");
 					PlayerCuffedTime[suspect] = 0;
-					PlayerInfo[suspect][pVW] = 0;
-					SetPlayerVirtualWorld(suspect, 0);
 					strcpy(PlayerInfo[suspect][pPrisonedBy], GetPlayerNameEx(playerid), MAX_PLAYER_NAME);
 					strcpy(PlayerInfo[suspect][pPrisonReason], "[IC] Local Arrest", 128);
-					SetPlayerToTeamColor(suspect);
-					Player_StreamPrep(suspect, LSPDJailSpawns[rand][0], LSPDJailSpawns[rand][1], LSPDJailSpawns[rand][2], FREEZE_TIME);
+					SetPlayerSkin(suspect, 50);
+					SetPlayerColor(suspect, TEAM_ORANGE_COLOR);
+					PrisonLabor_ShowZone(suspect);
+					Player_StreamPrep(suspect, -2029.685058, -120.624031, 35.170303, FREEZE_TIME);
 				}
 				case 2: { // /docarrest
 					format(string, sizeof(string), "* You have sent %s to DoC.", GetPlayerNameEx(suspect));
@@ -10007,113 +9927,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	        }
 	        else if(listitem == 2)
 	        {
-	            ShowPlayerDialog(playerid,STATIONSEARCH,DIALOG_STYLE_INPUT,"Tim kiem","Hay nhap noi dung tim kiem:","Tim kiem","Quay lai");
+	            ShowPlayerDialog(playerid,STATIONSEARCH,DIALOG_STYLE_INPUT,"Tim kiem nhac YouTube","Nhap ten bai hat hoac nghe si:\n{00FF00}Vi du: Chay ngay di, Son Tung, Despacito","Tim kiem","Quay lai");
 			}
 			else if(listitem == 3)
 			{
-			    if(IsPlayerInAnyVehicle(playerid))
-				{
-			 	    foreach(new i: Player)
-					{
-						if(GetPlayerVehicleID(i) != 0 && GetPlayerVehicleID(i) == GetPlayerVehicleID(playerid)) {
-							//PlayAudioStreamForPlayerEx(i, "http://shoutcast.ng-gaming.net:8000/listen.pls?sid=1");
-						}
-				  	}
-				  	//format(stationidv[GetPlayerVehicleID(playerid)], 64, "%s", "http://shoutcast.ng-gaming.net:8000/listen.pls?sid=1");
-				  	format(string, sizeof(string), "* %s thay doi dai phat thanh.", GetPlayerNameEx(playerid), string);
-					ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-				}
-				else if(GetPVarType(playerid, "pBoomBox"))
-				{
-				    foreach(new i: Player)
-					{
-						if(IsPlayerInDynamicArea(i, GetPVarInt(playerid, "pBoomBoxArea")))
-						{
-							//PlayAudioStreamForPlayerEx(i, "http://shoutcast.ng-gaming.net:8000/listen.pls?sid=1", GetPVarFloat(playerid, "pBoomBoxX"), GetPVarFloat(playerid, "pBoomBoxY"), GetPVarFloat(playerid, "pBoomBoxZ"), 30.0, 1);
-				  		}
-				  	}
-			  		//SetPVarString(playerid, "pBoomBoxStation", "http://shoutcast.ng-gaming.net:8000/listen.pls?sid=1");
-				}
-				else
-				{
-				   // PlayAudioStreamForPlayerEx(playerid, "http://shoutcast.ng-gaming.net:8000/listen.pls?sid=1");
-				   // SetPVarInt(playerid, "MusicIRadio", 1);
-				}
-			}
-			else if(listitem == 4)
-			{
-			    if(IsPlayerInAnyVehicle(playerid))
-				{
-			 	    foreach(new i: Player)
-			 		{
-					 	if(GetPlayerVehicleID(i) != 0 && GetPlayerVehicleID(i) == GetPlayerVehicleID(playerid)) {
-							//PlayAudioStreamForPlayerEx(i, "http://nick.ng-gaming.net:8000/listen.pls");
-						}
-					}
-				  //	format(stationidv[GetPlayerVehicleID(playerid)], 64, "%s", "http://nick.ng-gaming.net:8000/listen.pls");
-				  	format(string, sizeof(string), "* %s thay doi dai phat thanh.", GetPlayerNameEx(playerid), string);
-					ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-				}
-				else if(GetPVarType(playerid, "pBoomBox"))
-				{
-				    foreach(new i: Player)
-					{
-						if(IsPlayerInDynamicArea(i, GetPVarInt(playerid, "pBoomBoxArea")))
-						{
-						//	PlayAudioStreamForPlayerEx(i, "http://nick.ng-gaming.net:8000/listen.pls", GetPVarFloat(playerid, "pBoomBoxX"), GetPVarFloat(playerid, "pBoomBoxY"), GetPVarFloat(playerid, "pBoomBoxZ"), 30.0, 1);
-				  		}
-				  	}
-			  	//	SetPVarString(playerid, "pBoomBoxStation", "http://nick.ng-gaming.net:8000/listen.pls");
-				}
-				else
-				{
-				//    PlayAudioStreamForPlayerEx(playerid, "http://nick.ng-gaming.net:8000/listen.pls");
-				 //   SetPVarInt(playerid, "MusicIRadio", 1);
-				}
-			}
-			else if(listitem == 5)
-			{
-				if(GetPVarType(playerid, "pBoomBox"))
-				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "Xin loi, tinh nang nay chi danh cho MP3 hoac tren xe.");
-				}
-				if(IsPlayerInAnyVehicle(playerid))
-				{
-					SendClientMessageEx(playerid, COLOR_GRAD1, "Ban phai co MP3 moi su dung duoc tinh nang nay.");
-				}
-				else 
-				{
-					ShowPlayerDialog(playerid, CUSTOM_URLCHOICE, DIALOG_STYLE_INPUT, "Tuy chinh URL", "Xin vui long chen mot doan URL am thanh hop le.", "Dong y", "Quay lai");
-				}
-			}
-			else if(listitem == 6)
-			{
-			    if(!IsPlayerInAnyVehicle(playerid))
-			    {
-			        if(GetPVarType(playerid, "pBoomBox"))
-			        {
-				        SendClientMessage(playerid, COLOR_WHITE, "Ban da tat boom box.");
-						foreach(new i: Player)
-						{ if(IsPlayerInDynamicArea(i, GetPVarInt(playerid, "pBoomBoxArea"))) StopAudioStreamForPlayerEx(i); }
-				  		DeletePVar(playerid, "pBoomBoxStation");
-					}
-					else
-					{
-					    StopAudioStreamForPlayerEx(playerid);
-					}
-			    }
-			  	else
-	  			{
-		  			format(string, sizeof(string), "* %s turns off the radio.", GetPlayerNameEx(playerid), string);
-					ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-				    foreach(new i: Player)
-					{
-						if(GetPlayerVehicleID(i) == GetPlayerVehicleID(playerid)) {
-							StopAudioStreamForPlayerEx(i);
-				  		}
-					}
-       				stationidv[GetPlayerVehicleID(playerid)][0] = 0;
-				}
+				ShowPlayerDialog(playerid, CUSTOM_URLCHOICE, DIALOG_STYLE_INPUT, "Tuy chinh URL", "Xin vui long chen mot doan URL am thanh hop le.", "Dong y", "Quay lai");
 			}
 	    }
 	}
@@ -10122,15 +9940,26 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		if(response)
 		{
 			if(isnull(inputtext) || IsNumeric(inputtext)) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban chua nhap mot URL hop le.");
-			
-			PlayAudioStreamForPlayerEx(playerid, inputtext);
-			SetPVarInt(playerid, "MusicIRadio", 1);
-			format(string, sizeof(string), "You are now playing %s.", inputtext);
-			SendClientMessageEx(playerid, COLOR_GREEN, string);
+
+			if(GetPVarType(playerid, "pBoomBox"))
+			{
+				foreach(new i: Player)
+				{
+					if(IsPlayerInDynamicArea(i, GetPVarInt(playerid, "pBoomBoxArea")))
+						PlayAudioStreamForPlayerEx(i, inputtext, GetPVarFloat(playerid, "pBoomBoxX"), GetPVarFloat(playerid, "pBoomBoxY"), GetPVarFloat(playerid, "pBoomBoxZ"), 30.0, true);
+				}
+				SetPVarString(playerid, "pBoomBoxStation", inputtext);
+			}
+			else
+			{
+				PlayAudioStreamForPlayerEx(playerid, inputtext);
+				SetPVarInt(playerid, "MusicIRadio", 1);
+			}
+			SendClientMessageEx(playerid, COLOR_GREEN, "Da phat URL am thanh thanh cong.");
 		}
 		else
 		{
-			ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Radio Menu","The loai\nTop 50 Stations\nTim kiem\nK-LSR\nNick's Radio\nTat radio","Lua chon", "Dong lai");
+			ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong lai");
 		}
 	}		
 	else if(dialogid == GENRES)
@@ -10151,7 +9980,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		else
 		{
-		    ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Radio Menu","The loai\nTop 50 Stations\nTim kiem\nK-LSR\nNick's Radio\nTat radio","Lua chon", "Dong lai");
+		    ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong lai");
         	DeletePVar(playerid, "pSelectGenre");
 		}
 	}
@@ -10189,7 +10018,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 	    if(!response)
 		{
-			ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Radio Menu","Genres\nTop 50 Stations\nTim kiem\nK-LSR\nNick's Radio\nTat radio","Lua chon", "Dong lai");
+			ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong lai");
 		}
 	    else
 		{
@@ -10272,14 +10101,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    {
 	        if(strlen(inputtext) < 0 || strlen(inputtext) > 64)
 	        {
-	            ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Radio Menu","The loai\nTop 50 Stations\nTim kiem\nK-LSR\nNick's Radio\nTat radio","Lua chon", "Dong");
+	            ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
 			}
 			else
 			{
 		        if(!GetPVarType(playerid, "pHTTPWait"))
 			    {
-				    format(string, sizeof(string), "%s/radio/radio.php?search=%s", SAMP_WEB, inputtext);
-				    SetPVarString(playerid, "pSearchStation", inputtext);
+			        new encoded[256];
+			        UrlEncodeStr(inputtext, encoded, sizeof(encoded));
+				    format(string, sizeof(string), "%s/radio/radio.php?search=%s", SAMP_WEB, encoded);
+				    SetPVarString(playerid, "pSearchStation", encoded); // lưu encoded để dùng lại
 					SetPVarInt(playerid, "pHTTPWait", 1);
 					ShowNoticeGUIFrame(playerid, 6);
 					HTTP(playerid, HTTP_GET, string, "", "StationSearchHTTP");
@@ -10292,7 +10123,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    }
 	    else
 	    {
-	        ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Radio Menu","The loai\nTop 50 Stations\nTim kiem\nK-LSR\nNick's Radio\nTat radio","Lua chon", "Dong");
+	        ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
 	    }
 	}
 	else if(dialogid == STATIONSEARCHLIST)
@@ -10315,7 +10146,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    }
 	    else
 	    {
-	        ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Radio Menu","The loai\nTop 50 Stations\nTim kiem\nK-LSR\nNick's Radio\nTat radio","Lua chon", "Dong");
+	        ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
 		}
 	}
 	else if(dialogid == STATIONSEARCHLISTEN)
@@ -14186,7 +14017,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    	    }
 	    	    case 2:
 	    	    {
-	    	        ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Shop cua hang", "Ban muon mua cua hang hoac gia han them cua hang cua ban? Du dung lenh /businessshop se cho phep ban mua hoac gia han them cua hang cua ban.\n Dieu quan trong khi kinh doanh tai GTAHTB ban phai doc nhung quy dinh tren dsc.gg/gtahtb. Chu y: Khi mua cua hang se tu dong liet ke cac cua hang dang bay ban.", "Thoat", "");
+	    	        ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Shop cua hang", "Ban muon mua cua hang hoac gia han them cua hang cua ban? Du dung lenh /businessshop se cho phep ban mua hoac gia han them cua hang cua ban.\n Dieu quan trong khi kinh doanh tai KP5 ban phai doc nhung quy dinh tren dsc.gg/KP5. Chu y: Khi mua cua hang se tu dong liet ke cac cua hang dang bay ban.", "Thoat", "");
 	    	    }
 	    	    case 3:
 	    	    {
@@ -17491,7 +17322,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			SendClientMessageEx(playerid, COLOR_GREY, "* Ban chua lien ket tai khoan in-game voi Discord nen bi kick khoi may chu!");
 			ShowPlayerDialog(playerid, DIALOG_DISCORD_VERIFY, DIALOG_STYLE_MSGBOX, "{FFFFFF}Lien ket tai khoan Discord",
-            "{FFFFFF}Tai khoan in-game cua ban chua duoc lien ket voi Discord\nvui long truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} tai Discord\ncua {FF6666}GTA-HTB Roleplay{FFFFFF} de tien hanh lien ket.\n\nSau khi truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} go lenh [/xacminh {E7D727}%i{FFFFFF}] de bat dau viec lien ket.\nDiscord: dsc.gg/gtahtb", "Xac nhan", "", PlayerInfo[playerid][pDiscordCode]);
+            "{FFFFFF}Tai khoan in-game cua ban chua duoc lien ket voi Discord\nvui long truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} tai Discord\ncua {FF6666}KP5 Roleplay{FFFFFF} de tien hanh lien ket.\n\nSau khi truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} go lenh [/xacminh {E7D727}%i{FFFFFF}] de bat dau viec lien ket.\nDiscord: dsc.gg/KP5", "Xac nhan", "", PlayerInfo[playerid][pDiscordCode]);
 			SetTimerEx("KickEx", 1000, 0, "i", playerid);
 		}
 	} */
