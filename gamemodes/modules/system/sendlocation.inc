@@ -203,13 +203,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             
             new idx = GetPVarInt(playerid, "SelectedLocation");
             
-            SetPlayerCheckpoint(playerid, 
-                PlayerLocations[playerid][idx][lPosX], 
-                PlayerLocations[playerid][idx][lPosY], 
-                PlayerLocations[playerid][idx][lPosZ], 
-                3.0
-            );
-            CP[playerid] = 252000;
+            SetPlayerCP(playerid, PlayerLocations[playerid][idx][lPosX], PlayerLocations[playerid][idx][lPosY], PlayerLocations[playerid][idx][lPosZ], 3.0);
+            gPlayerCheckpointStatus[playerid] = CHECKPOINT_GPS;
             
             SendClientMessageEx(playerid, COLOR_WHITE, "{ff4400}>{ffffff} Ban da xem vi tri cua %s. Vi tri da duoc danh dau tren ban do.", 
                 PlayerLocations[playerid][idx][lSenderName]);
