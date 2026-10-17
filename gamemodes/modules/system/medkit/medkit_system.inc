@@ -1,5 +1,5 @@
 // ============================================================
-//  Medkit Crafting & Usage System - GTA-HTB Roleplay Created by Codyz
+//  Medkit Crafting & Usage System - KP5 Roleplay Created by Codyz
 //  Che tao medkit (Medic only) + Su dung medkit (all players)
 // ============================================================
 

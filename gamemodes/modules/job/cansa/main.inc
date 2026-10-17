@@ -127,7 +127,7 @@ public TienTrinhHaiCanSa(playerid)
         ClearAnimations(playerid);
         DeletePVar(playerid, "ThoiGianHaiCanSa");
         DeletePVar(playerid, "IDCanSaDangHai");
-        SendClientMessage(playerid, -1, "{FFFF00}GTAHTB{FFFFFF} Ban da di qua xa, viec hai can sa da bi huy.");
+        SendClientMessage(playerid, -1, "{FFFF00}KP5{FFFFFF} Ban da di qua xa, viec hai can sa da bi huy.");
         return 1;
     }
 
@@ -173,7 +173,7 @@ public OnPlayerMocRac(playerid, iMar)
     DeletePVar(playerid, "IDCanSaDangHai");
 
     PlayerInfo[playerid][pCanSa]++;
-    format(string, sizeof(string), "{FFFF00}GTAHTB{FFFFFF} Ban da hai duoc 1 cay can sa {00FF00} (/cansa de xem vi tri che bien)");
+    format(string, sizeof(string), "{FFFF00}KP5{FFFFFF} Ban da hai duoc 1 cay can sa {00FF00} (/cansa de xem vi tri che bien)");
     SendClientMessage(playerid, -1, string);
     ShowTDN(playerid, NOTIFICATION_SUCCESS, "+1 cay can sa (/tuido).");
 
@@ -236,8 +236,8 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         new iThungRac = IsPlayerNearThungRac(playerid);
         if(iThungRac != floatround(INVALID_FLOAT))
         {
-            if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, -1, "{FFFF00}GTAHTB{FFFFFF} Ban khong the lam dieu nay o tren xe!");
-            if(PlayerCuffed[playerid] >= 1 || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "Injured")) return SendClientMessage(playerid, -1, "{FFFF00}GTAHTB{FFFFFF} Ban khong the lam dieu do luc nay....");
+            if(IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, -1, "{FFFF00}KP5{FFFFFF} Ban khong the lam dieu nay o tren xe!");
+            if(PlayerCuffed[playerid] >= 1 || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "Injured")) return SendClientMessage(playerid, -1, "{FFFF00}KP5{FFFFFF} Ban khong the lam dieu do luc nay....");
             if(PlayerInfo[playerid][pMember]!=INVALID_GROUP_ID) return  SendClientMessageEx(playerid,COLOR_GRAD1,"Ban dang trong 1 to chuc, khong the lam dieu nay!");
             if(!ThungRac[iThungRac][thungrac_status])
             {
@@ -256,17 +256,17 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                     }
                     else
                     {
-                        SendClientMessage(playerid, -1, "{FFFF00}GTAHTB{FFFFFF} Ban da hai du 20 cay can sa, hay di che bien no.");
+                        SendClientMessage(playerid, -1, "{FFFF00}KP5{FFFFFF} Ban da hai du 20 cay can sa, hay di che bien no.");
                     }
                 }
                 else
                 {
-                    SendClientMessage(playerid, -1, "{FFFF00}GTAHTB{FFFFFF} Ban khong the thuc hien vao luc nay!");
+                    SendClientMessage(playerid, -1, "{FFFF00}KP5{FFFFFF} Ban khong the thuc hien vao luc nay!");
                 }
             }
             else
             {
-                SendClientMessage(playerid, -1, "{FFFF00}GTAHTB{FFFFFF} Cay can sa nay dang co nguoi hai.");
+                SendClientMessage(playerid, -1, "{FFFF00}KP5{FFFFFF} Cay can sa nay dang co nguoi hai.");
             }
         }
     }
@@ -279,7 +279,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 CanSa_AlertCops(playerid, "Khu vuc che bien");
                 SetPVarInt(playerid, "CanSaAreaCD", gettime() + 30);
             }
-            ShowPlayerDialog(playerid, BANCANLIST, DIALOG_STYLE_LIST, "{ffff00}GTAHTB{ffffff} - Vui long chon...?","Che bien can sa\t1 Can sa/3 Tep can sa\nQuy doi Pot\t1 Can sa/1 Pot\nQuy doi Crack\t1 Can sa/1 Crack", "Chon", "Huy Bo");
+            ShowPlayerDialog(playerid, BANCANLIST, DIALOG_STYLE_LIST, "{ffff00}KP5{ffffff} - Vui long chon...?","Che bien can sa\t1 Can sa/3 Tep can sa\nQuy doi Pot\t1 Can sa/1 Pot\nQuy doi Crack\t1 Can sa/1 Crack", "Chon", "Huy Bo");
         }
         else if(IsPlayerInRangeOfPoint(playerid, 5.0, -382.8928,-1426.2904,26.2979))
         {
@@ -293,7 +293,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 CanSa_AlertCops(playerid, "Khu vuc mua ban can sa");
                 SetPVarInt(playerid, "CanSaAreaCD", gettime() + 30);
             }
-            ShowPlayerDialog(playerid, DIALOG_UPGRADECANSA, DIALOG_STYLE_LIST, "fff00}GTAHTB{ffffff} - Vui long chon...?","{ffffff}Ban can sa (IT TIEN)\n{ff0000}Giao can sa theo yeu cau [NHIEU TIEN / HOT]{ffffff}", "Chon", "Huy Bo");
+            ShowPlayerDialog(playerid, DIALOG_UPGRADECANSA, DIALOG_STYLE_LIST, "fff00}KP5{ffffff} - Vui long chon...?","{ffffff}Ban can sa (IT TIEN)\n{ff0000}Giao can sa theo yeu cau [NHIEU TIEN / HOT]{ffffff}", "Chon", "Huy Bo");
         }
     }
     return 1;
@@ -301,7 +301,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 CMD:cansa(playerid, params[])
 {
-	ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
+	ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,"{ffff00}KP5{ffffff} - Can Sa", "Tim duong can sa\nXem can sa", "Chon", "Thoat");
 	return 1;
 }
 
@@ -315,13 +315,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 new stringb[1024];
                 format(stringb, sizeof stringb, "{ffffff}Hien tai bang dang co %d tep can sa \n1 tep can sa/650$", PlayerInfo[playerid][pTepCanSa]);
-                ShowPlayerDialog(playerid, DIALOG_BANCANSA, DIALOG_STYLE_INPUT,"{ffff00}GTAHTB{ffffff} - Ban Can Sa", stringb, "Ban", "Thoat");
+                ShowPlayerDialog(playerid, DIALOG_BANCANSA, DIALOG_STYLE_INPUT,"{ffff00}KP5{ffffff} - Ban Can Sa", stringb, "Ban", "Thoat");
             }
             if (listitem == 1)
             {
                 new stringb[128];
                 format(stringb, sizeof stringb, "{ffffff}Hien tai bang dang co %d tep can sa \n1 tep can sa tu 1.500$ tro len, ban se duoc nhan them tuy vao chuyen giao xa hoac gan.", PlayerInfo[playerid][pTepCanSa]);
-                ShowPlayerDialog(playerid, DIALOG_NHANDIEMGIAOHANG, DIALOG_STYLE_INPUT,"{ffff00}GTAHTB{ffffff} - Ban Can Sa", stringb, "Xac nhan", "Thoat");
+                ShowPlayerDialog(playerid, DIALOG_NHANDIEMGIAOHANG, DIALOG_STYLE_INPUT,"{ffff00}KP5{ffffff} - Ban Can Sa", stringb, "Xac nhan", "Thoat");
             }
         }
     }
@@ -361,14 +361,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(listitem == 0)
 			{
-				ShowPlayerDialog(playerid, TIMDUONGCANSA, DIALOG_STYLE_LIST,"{ffff00}GTAHTB{ffffff} - Can Sa", "Vi tri can sa moc\nChe bien can sa\nBan can sa", "Chon", "Thoat");
+				ShowPlayerDialog(playerid, TIMDUONGCANSA, DIALOG_STYLE_LIST,"{ffff00}KP5{ffffff} - Can Sa", "Vi tri can sa moc\nChe bien can sa\nBan can sa", "Chon", "Thoat");
 				return 1;
 			}
 			if(listitem == 1)
 			{
 				new stringbx[128];
 				format(stringbx, sizeof stringbx, "Cay can sa:\t %d\nTep can sa:\t %d\nPot:\t\t %d\nCrack:\t\t %d", PlayerInfo[playerid][pCanSa], PlayerInfo[playerid][pTepCanSa], PlayerInfo[playerid][pPot], PlayerInfo[playerid][pCrack]);
-				ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "{ffff00}GTAHTB{ffffff} - Xem can sa", stringbx, "Dong y", "");
+				ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "{ffff00}KP5{ffffff} - Xem can sa", stringbx, "Dong y", "");
 			}
 		}
 	}
@@ -409,7 +409,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new stringcs[128];
 					PlayerInfo[playerid][pTepCanSa] -= amount;
 					GivePlayerCash(playerid, amount*MONEY_SELL_CANSA);
-					format(stringcs, sizeof(stringcs), "{ffff00}GTAHTB{ffffff} Ban da ban %d tui can sa va nhan duoc $%d", amount, amount*MONEY_SELL_CANSA);
+					format(stringcs, sizeof(stringcs), "{ffff00}KP5{ffffff} Ban da ban %d tui can sa va nhan duoc $%d", amount, amount*MONEY_SELL_CANSA);
 					SendClientMessage(playerid, -1, stringcs);
                     new title[64];
                     format(title, sizeof(title), "%s (ID: %d) - Bán cần sa", GetPlayerNameEx(playerid), playerid);
@@ -417,10 +417,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					CanSa_AlertCops(playerid, "Ban can sa cho mafia");
 				}
 				else
-					SendClientMessage(playerid, -1,"{ffff00}GTAHTB{ffffff} - So luong khong hop le! Hay kiem tra lai so luong cua ban.");
+					SendClientMessage(playerid, -1,"{ffff00}KP5{ffffff} - So luong khong hop le! Hay kiem tra lai so luong cua ban.");
 			}
 			else
-				SendClientMessage(playerid, -1,"{ffff00}GTAHTB{ffffff} - So luong can ban phai lon hon 0!");
+				SendClientMessage(playerid, -1,"{ffff00}KP5{ffffff} - So luong can ban phai lon hon 0!");
 		}
 		return 1;
 	}
@@ -433,15 +433,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new stringss[128];
 					PlayerInfo[playerid][pCanSa] -= amount;
 					PlayerInfo[playerid][pPot] += amount*1;
-					format(stringss, sizeof(stringss), "{FFFF00}GTAHTB{FFFFFF} Ban da doi %d cay can sa va nhan duoc %d pot.", amount, amount*1);
+					format(stringss, sizeof(stringss), "{FFFF00}KP5{FFFFFF} Ban da doi %d cay can sa va nhan duoc %d pot.", amount, amount*1);
 					SendClientMessage(playerid, -1, stringss);
 					CanSa_AlertCops(playerid, "Trao doi can sa");
 				}
 				else
-					SendClientMessage(playerid, -1,"{FFFF00}GTAHTB{FFFFFF} So luong khong hop le! Hay kiem tra lai so luong cua ban.");
+					SendClientMessage(playerid, -1,"{FFFF00}KP5{FFFFFF} So luong khong hop le! Hay kiem tra lai so luong cua ban.");
 			}
 			else
-				SendClientMessage(playerid, -1,"{FFFF00}GTAHTB{FFFFFF} So luong can doi phai lon hon 0!");
+				SendClientMessage(playerid, -1,"{FFFF00}KP5{FFFFFF} So luong can doi phai lon hon 0!");
 		}
 		return 1;
 	}
@@ -454,15 +454,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new strings[128];
 					PlayerInfo[playerid][pCanSa] -= amount;
 					PlayerInfo[playerid][pCrack] += amount*1;
-					format(strings, sizeof(strings), "{FFFF00}GTAHTB{FFFFFF} Ban da doi %d cay can sa va nhan duoc %d crack.", amount, amount*1);
+					format(strings, sizeof(strings), "{FFFF00}KP5{FFFFFF} Ban da doi %d cay can sa va nhan duoc %d crack.", amount, amount*1);
 					SendClientMessage(playerid, -1, strings);
 					CanSa_AlertCops(playerid, "Trao doi can sa");
 				}
 				else
-					SendClientMessage(playerid, -1,"{FFFF00}GTAHTB{FFFFFF} So luong khong hop le! Hay kiem tra lai so luong cua ban.");
+					SendClientMessage(playerid, -1,"{FFFF00}KP5{FFFFFF} So luong khong hop le! Hay kiem tra lai so luong cua ban.");
 			}
 			else
-				SendClientMessage(playerid, -1,"{FFFF00}GTAHTB{FFFFFF} So luong can doi phai lon hon 0!");
+				SendClientMessage(playerid, -1,"{FFFF00}KP5{FFFFFF} So luong can doi phai lon hon 0!");
 		}
 		return 1;
 	}
@@ -502,13 +502,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new stringz[128];
 				format(stringz, sizeof stringz, "Hien tai ban dang co %d cay can sa.\n1 cay can sa / 1 pot.\nNhap so luong cay can sa ban muon doi:", PlayerInfo[playerid][pCanSa]);
-				ShowPlayerDialog(playerid, DIALOG_POT, DIALOG_STYLE_INPUT,"{FFFF00}GTAHTB{FFFFFF} - Quy Doi Pot", stringz, "Doi", "Thoat");
+				ShowPlayerDialog(playerid, DIALOG_POT, DIALOG_STYLE_INPUT,"{FFFF00}KP5{FFFFFF} - Quy Doi Pot", stringz, "Doi", "Thoat");
 			}
 			if(listitem == 2)
 			{
 				new stringzz[128];
 				format(stringzz, sizeof stringzz, "Hien tai ban dang co %d cay can sa.\n1 cay can sa / 1 crack.\nNhap so luong cay can sa ban muon doi:", PlayerInfo[playerid][pCanSa]);
-				ShowPlayerDialog(playerid, DIALOG_CRACK, DIALOG_STYLE_INPUT,"{FFFF00}GTAHTB{FFFFFF} - Quy Doi Crack", stringzz, "Doi", "Thoat");
+				ShowPlayerDialog(playerid, DIALOG_CRACK, DIALOG_STYLE_INPUT,"{FFFF00}KP5{FFFFFF} - Quy Doi Crack", stringzz, "Doi", "Thoat");
 			}
 		}
 	}
@@ -607,7 +607,7 @@ public CheBien(playerid)
 
 		PlayerInfo[playerid][pCanSa] -= 1;
 		PlayerInfo[playerid][pTepCanSa] += 3;
-		SendClientMessage(playerid, 0x33FF33FF, "{FFFF00}GTAHTB{FFFFFF} Ban da che bien thanh cong 1 cay can sa va nhan duoc 3 tep can sa.");
+		SendClientMessage(playerid, 0x33FF33FF, "{FFFF00}KP5{FFFFFF} Ban da che bien thanh cong 1 cay can sa va nhan duoc 3 tep can sa.");
 	}
 	return 1;
 }
@@ -628,7 +628,7 @@ public OnLoadingCheBienFinish(playerid)
     ClearAnimations(playerid);
     PlayerInfo[playerid][pCanSa] -= 1;
     PlayerInfo[playerid][pTepCanSa] += 3;
-    SendClientMessage(playerid, 0x33FF33FF, "{FFFF00}GTAHTB{FFFFFF} Ban da che bien thanh cong 1 cay can sa va nhan duoc 3 tep can sa.");
+    SendClientMessage(playerid, 0x33FF33FF, "{FFFF00}KP5{FFFFFF} Ban da che bien thanh cong 1 cay can sa va nhan duoc 3 tep can sa.");
     ShowTDN(playerid, NOTIFICATION_SUCCESS, "Che bien thanh cong.");
     CanSa_AlertCops(playerid, "Khu che bien can sa");
     return 1;

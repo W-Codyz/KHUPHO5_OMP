@@ -232,7 +232,7 @@ task ProductionUpdate[300000]()
 			SendClientMessageEx(i, COLOR_LIGHTBLUE, "Can ho tro? Doi ngu Community Advisors co the giup do ban. (/yeucautrogiup de duoc giup do)");
 		}
 		if(PlayerInfo[i][pConnectHours] < 2) {
-			SendClientMessageEx(i, COLOR_LIGHTRED, "Ban la nguoi moi tham gia GTA-HTB Roleplay, vi the bi gioi han vu khi trong 2 gio.");
+			SendClientMessageEx(i, COLOR_LIGHTRED, "Ban la nguoi moi tham gia KP5 Roleplay, vi the bi gioi han vu khi trong 2 gio.");
 		}
 
 		if(PlayerDrunk[i] > 0) { PlayerDrunk[i] = 0; PlayerDrunkTime[i] = 0; GameTextForPlayer(i, "~p~Hien Dang~n~~w~Say Ruou", 3500, 1); }

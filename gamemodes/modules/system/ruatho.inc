@@ -8,7 +8,7 @@
 #define KHOANG_THOI_GIAN_QUAY       70000
 #define THOI_GIAN_HIEU_UNG_QUAY     5000
 #define TEP_TIN_ROULETTE            "Roulette_Tables.cfg"
-#define TIEN_TO_TIN_NHAN            "{FFFF00}GTAHTB{FFFFFF} "
+#define TIEN_TO_TIN_NHAN            "{FFFF00}KP5{FFFFFF} "
 #define KHOANG_THOI_GIAN_DEM_NGUOC  1000
 #define GIOI_HAN_THANG_MOI_LAN      5000000
 #define VAT_PHAN_TRAM               2
@@ -287,7 +287,7 @@ stock CapNhatNhanRoulette(idban)
             "{FFFF00}Ban Quay So (Rua,Tho) #%d\n{FF0000}DANG QUAY...", idban);
     else
         format(nhanvanban, sizeof(nhanvanban),
-            "{FFFF00}Ban Quay So (Rua,Tho) #%d\n{FFFFFF}/choihtb de tham gia\n{00FF00}Quay sau: %d giay",
+            "{FFFF00}Ban Quay So (Rua,Tho) #%d\n{FFFFFF}/ruatho de tham gia\n{00FF00}Quay sau: %d giay",
             idban, BanRoulette[idban][bGiayDemNguoc]);
 
     if(BanRoulette[idban][bNhan] != Text3D:INVALID_3DTEXT_ID)
@@ -389,7 +389,7 @@ stock HienThiDialogChinh(playerid)
 
     strcat(dialog, "{FFFF00}----------- HUONG DAN -----------\n\n", sizeof(dialog));
     strcat(dialog, "{FFFFFF}Nhan nut '{00FF00}Dat Cuoc{FFFFFF}' de mo bang cuoc.\n", sizeof(dialog));
-    strcat(dialog, "{FFFFFF}Dung lenh {FFFF00}/lichsuhtb{FFFFFF} de xem 20 lan quay truoc.\n\n", sizeof(dialog));
+    strcat(dialog, "{FFFFFF}Dung lenh {FFFF00}/lichsuruatho{FFFFFF} de xem 20 lan quay truoc.\n\n", sizeof(dialog));
     strcat(dialog, "{CCCCCC}Cac loai cuoc pho bien:\n\n", sizeof(dialog));
     strcat(dialog, "\t{FF6347}> Cuoc 1 So (0-36):\t{FFFF00}Ty le 1 an 35\n", sizeof(dialog));
     strcat(dialog, "\t{FF6347}> Cuoc Tho (Do):\t{FFFF00}Ty le 1 an 1\n", sizeof(dialog));
@@ -1290,7 +1290,7 @@ CMD:quayngay(playerid, params[])
     return 1;
 }
 
-CMD:choihtb(playerid, params[])
+CMD:ruatho(playerid, params[])
 {
     if(NguoiChoiTrongRoulette[playerid])
     {
@@ -1335,7 +1335,7 @@ CMD:choihtb(playerid, params[])
     return 1;
 }
 
-CMD:thoathtb(playerid, params[])
+CMD:thoatruatho(playerid, params[])
 {
     if(!NguoiChoiTrongRoulette[playerid])
     {
@@ -1351,7 +1351,7 @@ CMD:thoathtb(playerid, params[])
     return 1;
 }
 
-CMD:lichsuhtb(playerid, params[])
+CMD:lichsuruatho(playerid, params[])
 {
     new idban = -1;
 
@@ -2172,7 +2172,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     {
         case DIALOG_ROULETTE_CHINH:
         {
-            if(!response) return PC_EmulateCommand(playerid, "/thoathtb");
+            if(!response) return PC_EmulateCommand(playerid, "/thoatruatho");
             if(!NguoiChoiTrongRoulette[playerid] || BanCuaNguoiChoi[playerid] == -1) return 1;
             if(BanRoulette[BanCuaNguoiChoi[playerid]][bDangQuay])
             {

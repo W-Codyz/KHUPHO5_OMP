@@ -59,7 +59,7 @@ DCMD:xacminh(interaction, user)
                 }
             }
 
-            SendInteractionEmbed(interaction, user, 0x83F752, "✅ **Liên kết thành công...**", "Tài khoản Discord của bạn đã được liên kết thành công đến tài khoản trò chơi là ***%s***, bây giờ bạn có thể thực hiện các thao tác riêng tư/bảo mật với tài khoản của mình.\n\n***Chúc bạn có một trải nghiệm thật tuyệt tại GTA HTB Roleplay***", accountName);
+            SendInteractionEmbed(interaction, user, 0x83F752, "✅ **Liên kết thành công...**", "Tài khoản Discord của bạn đã được liên kết thành công đến tài khoản trò chơi là ***%s***, bây giờ bạn có thể thực hiện các thao tác riêng tư/bảo mật với tài khoản của mình.\n\n***Chúc bạn có một trải nghiệm thật tuyệt tại KP5 Roleplay***", accountName);
         }
         else {
             SendInteractionEmbed(interaction, user, 0x83F752, "❌ **Liên kết không thành công...**", "Mã liên kết không hợp lệ.");

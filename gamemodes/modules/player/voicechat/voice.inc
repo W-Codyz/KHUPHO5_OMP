@@ -25,7 +25,7 @@ hook OnPlayerConnect(playerid)
 
     if (SvGetVersion(playerid) == SV_NULL)
     {
-        SendClientMessage(playerid, 0xFF4444AA, "[VOICE] Ban chua cai sampvoice, truy cap discord: dsc.gg/gtahtb de cai dat.");
+        SendClientMessage(playerid, 0xFF4444AA, "[VOICE] Ban chua cai sampvoice, truy cap discord: dsc.gg/khupho5 de cai dat.");
         return 1;
     }
 

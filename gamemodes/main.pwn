@@ -1,9 +1,9 @@
 #define SERVER_VERSION "v2.0" 
 #define MIXED_SPELLINGS
 
-#define MAIL_URL 		"http://localhost/htb/m_mail.php"
+#define MAIL_URL 		"http://localhost/kp5/m_mail.php"
 #define MAIL_ADDRESS 	""
-#define M_MAIL_NAME		"HTB No-Reply"
+#define M_MAIL_NAME		"KP5 No-Reply"
 
 #pragma warning disable 238
 #pragma warning disable 208, 213, 201, 217, 219, 209, 235, 202, 204, 214, 239, 234, 211, 200

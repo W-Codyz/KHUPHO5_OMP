@@ -1,5 +1,5 @@
 // ============================================================
-//  Electric Job Header - GTA-HTB Roleplay
+//  Electric Job Header - KP5 Roleplay
 // ============================================================
 
 #define IsElectricanWorking(%0)         PlayerElectricJob[%0][E_EJ_Working]

@@ -35,7 +35,7 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
                     if(i == JOB_TAXIDRIVER && (PlayerInfo[playerid][pJob] == JOB_TAXIDRIVER || PlayerInfo[playerid][pJob2] == JOB_TAXIDRIVER))
                     {
                         ShowPlayerDialog(playerid, DIALOG_TAXI_NPC, DIALOG_STYLE_LIST,
-                            "{FFFF00}GTA-HTB Roleplay {FFFFFF}- Tai Xe Taxi",
+                            "{FFFF00}KP5 Roleplay {FFFFFF}- Tai Xe Taxi",
                             "Lay xe Taxi\nHuong dan cong viec",
                             "Chon", "Dong");
                     }
@@ -43,7 +43,7 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
                     else if(i == JOB_MINER && (PlayerInfo[playerid][pJob] == JOB_MINER || PlayerInfo[playerid][pJob2] == JOB_MINER))
                     {
                         ShowPlayerDialog(playerid, DIALOG_MINER_NPC, DIALOG_STYLE_LIST,
-                            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tho Khai Thac",
+                            "{F5D000}KP5 Roleplay {FFFFFF}- Tho Khai Thac",
                             "Bat dau lam viec\nNgung lam viec\nHuong dan",
                             "Chon", "Huy");
                     }
@@ -51,7 +51,7 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
                     else if(i == JOB_LUMBER && (PlayerInfo[playerid][pJob] == JOB_LUMBER || PlayerInfo[playerid][pJob2] == JOB_LUMBER))
                     {
                         ShowPlayerDialog(playerid, DIALOG_LUMBER_NPC, DIALOG_STYLE_LIST,
-                            "{0f8d47}GTA-HTB Roleplay {FFFFFF}- Lumberjack",
+                            "{0f8d47}KP5 Roleplay {FFFFFF}- Lumberjack",
                             "Bat dau lam viec\nNgung lam viec\nHuong dan",
                             "Chon", "Huy");
                     }
@@ -59,7 +59,7 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
                     else if(i == JOB_ELECTRIC && (PlayerInfo[playerid][pJob] == JOB_ELECTRIC || PlayerInfo[playerid][pJob2] == JOB_ELECTRIC))
                     {
                         ShowPlayerDialog(playerid, DIALOG_ELECTRIC_MENU, DIALOG_STYLE_LIST,
-                            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Cong Viec Sua Dien",
+                            "{F5D000}KP5 Roleplay {FFFFFF}- Cong Viec Sua Dien",
                             "Tao nhom moi\nMoi nguoi vao nhom\nDuoi nguoi khoi nhom\nTham gia nhom\nBat dau lam viec\nNgung lam viec\nXem mau day dien",
                             "Chon", "Huy");
                     }

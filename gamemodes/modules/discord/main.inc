@@ -115,7 +115,7 @@ public SendDiscordDisconnect(playerid, reason)
 
 Discord_Init()
 {
-    DCC_SetBotActivity("GTA-HTB Roleplay");
+    DCC_SetBotActivity("Khu Pho 5 Roleplay");
     //Discord_SlashCommand();
 
     mainGuild = DCC_FindGuildById("1544209806024515614");

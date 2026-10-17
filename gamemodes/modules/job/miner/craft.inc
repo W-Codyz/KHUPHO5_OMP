@@ -1,5 +1,5 @@
 // ============================================================
-//  Miner Craft - GTA-HTB Roleplay Created by Codyz
+//  Miner Craft - KP5 Roleplay Created by Codyz
 //  Che tao vu khi tu khoang san
 // ============================================================
 

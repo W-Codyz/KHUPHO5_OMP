@@ -84,7 +84,7 @@ public TDWEBACCOUNT(playerid)
 {
 	PlayerTextDrawHide(playerid, NamaServer[playerid][0]);
 	PlayerTextDrawShow(playerid, NamaServer[playerid][0]);
-	CreateTextdrawAnimation(playerid, NamaServer[playerid][0], 150, "", "IP: GTAHTB.ONLINE");
+	CreateTextdrawAnimation(playerid, NamaServer[playerid][0], 150, "", "IP: KHUPHO5.ONLINE");
 	ServerName[playerid] = 0;
 	return 1;
 }
@@ -94,7 +94,7 @@ public TDNAMASERVER(playerid)
 {
 	PlayerTextDrawHide(playerid, NamaServer[playerid][0]);
 	PlayerTextDrawShow(playerid, NamaServer[playerid][0]);
-	CreateTextdrawAnimation(playerid, NamaServer[playerid][0], 150, "", "HTB ROLEPLAY VIETNAM");
+	CreateTextdrawAnimation(playerid, NamaServer[playerid][0], 150, "", "KP5 ROLEPLAY VIETNAM");
 	ServerName[playerid] = 1;
 	return 1;
 }
@@ -115,7 +115,7 @@ public OnTextdrawAnimationFinish(playerid, PlayerText:textdraw)
 
 stock CreateTextDrawNamaServer(playerid)
 {
-    NamaServer[playerid][0] = CreatePlayerTextDraw(playerid, 491.000, 8.000, "GTAHTB.ONLINE");
+    NamaServer[playerid][0] = CreatePlayerTextDraw(playerid, 491.000, 8.000, "KP5.ONLINE");
 	PlayerTextDrawLetterSize(playerid, NamaServer[playerid][0], 0.180, 1.098);
 	PlayerTextDrawAlignment(playerid, NamaServer[playerid][0], 1);
 	PlayerTextDrawColour(playerid, NamaServer[playerid][0], -1);
@@ -126,7 +126,7 @@ stock CreateTextDrawNamaServer(playerid)
 	PlayerTextDrawSetProportional(playerid, NamaServer[playerid][0], 1);
 
 	PlayerTextDrawShow(playerid, NamaServer[playerid][0]);
-	CreateTextdrawAnimation(playerid, NamaServer[playerid][0], 150, "", "GTAHTB.ONLINE");
+	CreateTextdrawAnimation(playerid, NamaServer[playerid][0], 150, "", "KP5.ONLINE");
 	ServerName[playerid] = 0;
 }
 

@@ -62,8 +62,8 @@ SetPlayerFirstSpawn(playerid)
 	SetPlayerFacingAngle(playerid, 180.1681);
 	Player_StreamPrep(playerid, -1972.2615,138.1341,27.6875, FREEZE_TIME);
 
-	SendClientMessage(playerid, 0x767676FF, "|_________ {FFFFFF}GTA-HTB {FF6666}Roleplay{767676} _________|");
-	SendClientMessage(playerid, 0xFFFFFFFF, "{FFDB58}> {FFFFFF}Chao mung ban den voi may chu {00D9FF}GTA-HTB Roleplay{FFFFFF}!");
+	SendClientMessage(playerid, 0x767676FF, "|_________ {FFFFFF}KP5 {FF6666}Roleplay{767676} _________|");
+	SendClientMessage(playerid, 0xFFFFFFFF, "{FFDB58}> {FFFFFF}Chao mung ban den voi may chu {00D9FF}KP5 Roleplay{FFFFFF}!");
 	SendClientMessage(playerid, 0xFFFFFFFF, "{FFDB58}> {FFFFFF}De bat dau, hay tim hieu cac lenh bang {00FF00}/help)");
 	SendClientMessage(playerid, 0xFFFFFFFF, "{FFDB58}> {FFFFFF}Can ho tro? Su dung lenh {00FF00}/newb {FFFFFF}de duoc giup do");
 	SendClientMessage(playerid, 0xF0FF1BFF, "Chuc ban co trai nghiem tuyet voi tai may chu!");
@@ -2839,7 +2839,7 @@ public InitiateGamemode()
 {
 	AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, 0, 0, 0, 0, 0, 0);
 	
-	SetGameModeText("HTB "SERVER_VERSION"");
+	SetGameModeText("KhuPho5 "SERVER_VERSION"");
     
 	// MySQL
     g_mysql_LoadMOTD();
@@ -2967,7 +2967,7 @@ public InitiateGamemode()
 	OOCLabor_Init();
 
 	print("==========================================================");
-	print("GTA-HTB Roleplay Vietnam\n");
+	print("KP5 Roleplay Vietnam\n");
 	print("Copyright (C) by Codyz 2025");
 	print("==========================================================");
 	print("Khoi dong thanh cong gamemode...");
@@ -9679,7 +9679,7 @@ stock SetPlayerSpawn(playerid)
 
 			SendClientMessageEx(playerid, COLOR_GREY, "* Ban chua lien ket tai khoan in-game voi Discord nen bi kick khoi may chu!");
 			ShowPlayerDialog(playerid, DIALOG_DISCORD_VERIFY, DIALOG_STYLE_MSGBOX, "{FFFFFF}Lien ket tai khoan Discord", 
-            "{FFFFFF}Tai khoan in-game cua ban chua duoc lien ket voi Discord vui long\ntruy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} tai Discord cua {FF6666}GTA-HTB Roleplay{FFFFFF} de tien hanh lien ket.\nSau khi truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} go lenh [/xacminh {E7D727}%i{FFFFFF}] de bat dau viec lien ket.\nDiscord: dsc.gg/gtahtb", "Xac nhan", "", PlayerInfo[playerid][pDiscordCode]);
+            "{FFFFFF}Tai khoan in-game cua ban chua duoc lien ket voi Discord vui long\ntruy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} tai Discord cua {FF6666}KP5 Roleplay{FFFFFF} de tien hanh lien ket.\nSau khi truy cap kenh {5DFA48}#xac-minh-tai-khoan{FFFFFF} go lenh [/xacminh {E7D727}%i{FFFFFF}] de bat dau viec lien ket.\nDiscord: dsc.gg/kp5", "Xac nhan", "", PlayerInfo[playerid][pDiscordCode]);
 			SetTimerEx("KickEx", 1000, 0, "i", playerid);
 		}
 
@@ -10208,6 +10208,21 @@ stock IsVIPcar(carid)
 		if(carid == VIPVehicles[i]) return 1;
 	}
 	return 0;
+}
+
+// Tra ve rank VIP toi thieu can de lai xe VIP (0 = khong phai xe VIP)
+// Bronze(1): Sultan,Jester,Phoenix | Silver(2): Comet,SuperGT,Euros,Bullet,NRG | Gold(3): Banshee,Turismo | Platinum(4): Infernus
+stock GetVIPcarMinRank(carid)
+{
+	if(!IsVIPcar(carid)) return 0;
+	switch(GetVehicleModel(carid))
+	{
+		case 411: return 4; // Infernus - Platinum
+		case 429, 451: return 3; // Banshee, Turismo - Gold
+		case 480, 506, 587, 541, 522: return 2; // Comet, Super GT, Euros, Bullet, NRG-500 - Silver
+		default: return 1; // Sultan, Jester, Phoenix - Bronze
+	}
+	return 1;
 }
 
 stock IsVIPModel(carid)
@@ -22300,7 +22315,7 @@ public OnLastLoginLoaded(playerid)
     }
     if (SvGetVersion(playerid) == SV_NULL)
 	{
-		SendClientMessage(playerid, 0xFF4444AA, "[VOICE] Ban chua cai sampvoice, truy cap discord: dsc.gg/gtahtb de cai dat.");
+		SendClientMessage(playerid, 0xFF4444AA, "[VOICE] Ban chua cai sampvoice, truy cap discord: dsc.gg/kp5 de cai dat.");
 	}
 	else if (SvHasMicro(playerid) == SV_FALSE)
 	{

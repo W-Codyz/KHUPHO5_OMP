@@ -175,7 +175,7 @@ static CreateCardTDGlobal()
     TextDrawFont(g_IDCard_TD[11], 1);
     TextDrawSetProportional(g_IDCard_TD[11], 1);
 
-    g_IDCard_TD[12] = TextDrawCreate(320.000, 185.000, "HTB ROLEPLAY - CITIZEN CARD");
+    g_IDCard_TD[12] = TextDrawCreate(320.000, 185.000, "KP5 ROLEPLAY - CITIZEN CARD");
     TextDrawLetterSize(g_IDCard_TD[12], 0.200, 0.799);
     TextDrawAlignment(g_IDCard_TD[12], 2);
     TextDrawColor(g_IDCard_TD[12], 421097727);
@@ -387,7 +387,7 @@ static CreateCardTDGlobal()
     TextDrawFont(g_CarLic_TD[11], 1);
     TextDrawSetProportional(g_CarLic_TD[11], 1);
 
-    g_CarLic_TD[12] = TextDrawCreate(320.000, 186.000, "HTB ROLEPLAY - DRIVING LICENSE");
+    g_CarLic_TD[12] = TextDrawCreate(320.000, 186.000, "KP5 ROLEPLAY - DRIVING LICENSE");
     TextDrawLetterSize(g_CarLic_TD[12], 0.200, 0.799);
     TextDrawAlignment(g_CarLic_TD[12], 2);
     TextDrawColor(g_CarLic_TD[12], 421097727);
@@ -587,7 +587,7 @@ static CreateCardTDPlayer(playerid)
     PlayerTextDrawSetPreviewRot(playerid, g_CarLic_Preview[playerid], 0.000, 0.000, 0.000, 1.000);
     PlayerTextDrawSetPreviewVehCol(playerid, g_CarLic_Preview[playerid], 0, 0);
 
-    g_CarLic_Number[playerid] = CreatePlayerTextDraw(playerid, 345.000, 223.000, "HTB00000000");
+    g_CarLic_Number[playerid] = CreatePlayerTextDraw(playerid, 345.000, 223.000, "KP500000000");
     PlayerTextDrawLetterSize(playerid, g_CarLic_Number[playerid], 0.159, 0.999);
     PlayerTextDrawAlignment(playerid, g_CarLic_Number[playerid], 1);
     PlayerTextDrawColor(playerid, g_CarLic_Number[playerid], 255);
@@ -700,7 +700,7 @@ static PopulateCardTab(viewerid, tab)
         PlayerTextDrawSetPreviewModel(viewerid, g_CarLic_Preview[viewerid], GetPlayerSkin(ownerid));
         PlayerTextDrawShow(viewerid, g_CarLic_Preview[viewerid]);
 
-        format(str, sizeof(str), "HTB%d", PlayerInfo[ownerid][pIDCard]);
+        format(str, sizeof(str), "KP5%d", PlayerInfo[ownerid][pIDCard]);
         PlayerTextDrawSetString(viewerid, g_CarLic_Number[viewerid], str);
         PlayerTextDrawShow(viewerid, g_CarLic_Number[viewerid]);
 

@@ -1,6 +1,6 @@
 /*
     Anti-Cheat: Repair / SetHP / Godmode / Vehicle MaxHP
-    GTA-HTB Roleplay
+    KP5 Roleplay
     Tich hop ABroadCast + DCC Discord log (giong ANTI-VPN)
 */
 
@@ -134,7 +134,7 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
             ABroadCast(COLOR_YELLOW, szMess, 2);
             AC_SendDiscordLog(szTitle, szDiscord);
             SendClientMessageEx(playerid, COLOR_WHITE,
-                "[{DD0000}HTB-AC{FFFFFF}] Phat hien su dung hack/cheat. Neu day la nham lan hay bao cao voi Quan Tri Vien!");
+                "[{DD0000}KP5-AC{FFFFFF}] Phat hien su dung hack/cheat. Neu day la nham lan hay bao cao voi Quan Tri Vien!");
             SetTimerEx("KickEx", 2000, 0, "i", playerid);
         }
         else
@@ -142,13 +142,13 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
             // ============ WARNING -> GUI LOG DISCORD ============
             /* new szWarn[160];
             format(szWarn, sizeof(szWarn),
-                "[{DD0000}HTB-AC{FFFFFF}] Canh bao: Phat hien HP xe bat thuong (%d/%d).",
+                "[{DD0000}KP5-AC{FFFFFF}] Canh bao: Phat hien HP xe bat thuong (%d/%d).",
                 acVehWarn[playerid], AC_WARN_LIMIT);
             SendClientMessageEx(playerid, COLOR_WHITE, szWarn); // gửi cho player */
 
             new msgad[256];
             format(msgad, sizeof(msgad),
-                "[{DD0000}HTB-AC{FFFFFF}] Nghi van %s su dung hack SetVehicleHealth vuot gioi han (Veh:%d HP:%.1f > %.1f) [Canh bao: %d/%d].",
+                "[{DD0000}KP5-AC{FFFFFF}] Nghi van %s su dung hack SetVehicleHealth vuot gioi han (Veh:%d HP:%.1f > %.1f) [Canh bao: %d/%d].",
                 GetPlayerNameEx(playerid), vehicleid, fCurrentVehHealth, fMaxAllowed,
                 acVehWarn[playerid], AC_WARN_LIMIT);
             ABroadCast(COLOR_YELLOW, msgad, 2);
@@ -217,7 +217,7 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
             ABroadCast(COLOR_YELLOW, szMess, 2);
             AC_SendDiscordLog(szTitle, szDiscord);
             SendClientMessageEx(playerid, COLOR_WHITE,
-                "[{DD0000}HTB-AC{FFFFFF}] Anti cheating Repair xe, neu co hack that hay tat giup tuiiii...!");
+                "[{DD0000}KP5-AC{FFFFFF}] Anti cheating Repair xe, neu co hack that hay tat giup tuiiii...!");
             SetTimerEx("KickEx", 2000, 0, "i", playerid);
         }
         else
@@ -225,7 +225,7 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
             // ============ WARNING -> GUI LOG DISCORD ============
             new szWarn[160];
             format(szWarn, sizeof(szWarn),
-                "[{DD0000}HTB-AC{FFFFFF}] Canh bao: Phat hien repair xe bat thuong (%d/%d).",
+                "[{DD0000}KP5-AC{FFFFFF}] Canh bao: Phat hien repair xe bat thuong (%d/%d).",
                 acVehWarn[playerid], AC_WARN_LIMIT);
             SendClientMessageEx(playerid, COLOR_WHITE, szWarn);
 
@@ -299,14 +299,14 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
             ABroadCast(COLOR_YELLOW, szMess, 2);
             AC_SendDiscordLog(szTitle, szDiscord);
             SendClientMessageEx(playerid, COLOR_WHITE,
-                "[{DD0000}HTB-AC{FFFFFF}] Anti cheating SetHP, neu co hack that hay tat giup tuiiii...!");
+                "[{DD0000}KP5-AC{FFFFFF}] Anti cheating SetHP, neu co hack that hay tat giup tuiiii...!");
             SetTimerEx("KickEx", 2000, 0, "i", playerid);
         }
         else
         {
             new szWarn[160];
             format(szWarn, sizeof(szWarn),
-                "[{DD0000}HTB-AC{FFFFFF}] Canh bao: Phat hien SetHP bat thuong (%d/%d).",
+                "[{DD0000}KP5-AC{FFFFFF}] Canh bao: Phat hien SetHP bat thuong (%d/%d).",
                 acHpWarn[playerid], AC_WARN_LIMIT);
             SendClientMessageEx(playerid, COLOR_WHITE, szWarn);
         }
@@ -377,7 +377,7 @@ CMD:antirepair(playerid, params[])
     {
         new str[256];
         format(str, sizeof(str),
-            "{FFFF00}[HTB-AC] Vehicle Repair Anti-Cheat: %s",
+            "{FFFF00}[KP5-AC] Vehicle Repair Anti-Cheat: %s",
             gAC_VehRepairEnabled ? "{00FF00}BAT" : "{FF0000}TAT");
 
         if(!gAC_VehRepairEnabled)
@@ -403,7 +403,7 @@ CMD:antirepair(playerid, params[])
     {
         new str[256];
         format(str, sizeof(str),
-            "{FFFF00}[HTB-AC] Vehicle Repair Anti-Cheat: %s",
+            "{FFFF00}[KP5-AC] Vehicle Repair Anti-Cheat: %s",
             gAC_VehRepairEnabled ? "{00FF00}BAT" : "{FF0000}TAT");
         SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
         return 1;
@@ -419,7 +419,7 @@ CMD:antirepair(playerid, params[])
     {
         new str[128];
         format(str, sizeof(str),
-            "[{DD0000}HTB-AC{FFFFFF}] Vehicle Repair AC da %s tu truoc.",
+            "[{DD0000}KP5-AC{FFFFFF}] Vehicle Repair AC da %s tu truoc.",
             turnOn ? "{00FF00}BAT" : "{FF0000}TAT");
         SendClientMessageEx(playerid, COLOR_WHITE, str);
         return 1;
@@ -430,7 +430,7 @@ CMD:antirepair(playerid, params[])
 
     new szMsg[196], szLog[196];
     format(szMsg, sizeof(szMsg),
-        "[{DD0000}HTB-AC{FFFFFF}] Vehicle Repair Anti-Cheat: %s{FFFFFF} boi admin %s.",
+        "[{DD0000}KP5-AC{FFFFFF}] Vehicle Repair Anti-Cheat: %s{FFFFFF} boi admin %s.",
         gAC_VehRepairEnabled ? "{00FF00}DA BAT LAI" : "{FF0000}DA TAT",
         GetPlayerNameEx(playerid));
     format(szLog, sizeof(szLog),

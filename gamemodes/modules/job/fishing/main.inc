@@ -583,10 +583,10 @@ stock Load_Fishing()
 {
     for(new i = 0; i < MAX_FISH_SPOTS; i++) {
         CreateDynamicPickup(1239, 23, FishingSpots[i][spotX], FishingSpots[i][spotY], FishingSpots[i][spotZ]);
-	    CreateDynamic3DTextLabel("An {ffff00}[Y]{FFFFFF}\nDe cau ca\nGTAHTB", -1, FishingSpots[i][spotX], FishingSpots[i][spotY], FishingSpots[i][spotZ], 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
+	    CreateDynamic3DTextLabel("An {ffff00}[Y]{FFFFFF}\nDe cau ca\nKP5", -1, FishingSpots[i][spotX], FishingSpots[i][spotY], FishingSpots[i][spotZ], 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
     }
     CreateDynamicPickup(1239, 23, FISH_SELLER_X, FISH_SELLER_Y, FISH_SELLER_Z);
-	CreateDynamic3DTextLabel("{FFFFFF}--Noi ban ca GTAHTB--\nAn{ffff00}[Y]{FFFFFF}\nDe ban ca", -1, FISH_SELLER_X, FISH_SELLER_Y, FISH_SELLER_Z, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
+	CreateDynamic3DTextLabel("{FFFFFF}--Noi ban ca KP5--\nAn{ffff00}[Y]{FFFFFF}\nDe ban ca", -1, FISH_SELLER_X, FISH_SELLER_Y, FISH_SELLER_Z, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
 }
 
 // Start fishing
@@ -747,7 +747,7 @@ public CatchFish(playerid) {
     format(string, sizeof(string), "Ban da cau duoc mot con %s%s{FFFFFF} nang %.2f kg! (So lan cau hom nay: {b1ff00}%d/%d{FFFFFF})",
         fishColor, FishNames[fishType], displaySize, PlayerInfo[playerid][pSoLanCauCa], limit);
     SendClientMessageEx(playerid, COLOR_WHITE, string);
-    format(string, sizeof(string), "~w~Xin chuc mung~n~~p~Ban da cau duoc mot con~n~~g~ %s~n~~y~GTAHTB.TOP", FishNames[fishType]);
+    format(string, sizeof(string), "~w~Xin chuc mung~n~~p~Ban da cau duoc mot con~n~~g~ %s", FishNames[fishType]);
     GameTextForPlayer(playerid, string, 10000, 4);
 
     // Hi?u ?ng d?c bi?t cho c� hi?m

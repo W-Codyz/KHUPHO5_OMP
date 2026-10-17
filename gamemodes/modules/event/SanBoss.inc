@@ -65,7 +65,7 @@ CMD:taoboss(playerid, params[]) {
 		conboss[BossTrangThai] = 1;
 		conboss[BossMau] = 500000;
 		conboss[BossID] = CreateObject(8493, -1397.6338,812.9567,17.8403,0,0,0, 1000);
-	    SendClientMessageToAll(-1, "{00FF00}[GTAHTB.TOP] {FFFFFF}BOSS con tau hai tac da duoc spawn.");
+	    SendClientMessageToAll(-1, "{00FF00}[KP5.TOP] {FFFFFF}BOSS con tau hai tac da duoc spawn.");
         
         foreach(new i: Player)
         {
@@ -77,7 +77,7 @@ CMD:taoboss(playerid, params[]) {
 	    
 	    BossRangeTimer = SetTimer("CheckBossRange", 1000, true);
 
-		DiscordLog(ccChannel, "⚔️ THÔNG BÁO: SĂN BOSS HẢI TẶC! 🏴‍☠️", "**⏰ Ngay bây giờ! Sự kiện săn Boss hải tặc chính thức bắt đầu!\nHạ gục Boss để nhận ngay phần thưởng ngẫu nhiên cực khủng!! (/bosshtb) 💰\nTham gia ngay, chiến đấu và rinh quà về thôi nào! 🔥**");
+		DiscordLog(ccChannel, "⚔️ THÔNG BÁO: SĂN BOSS HẢI TẶC! 🏴‍☠️", "**⏰ Ngay bây giờ! Sự kiện săn Boss hải tặc chính thức bắt đầu!\nHạ gục Boss để nhận ngay phần thưởng ngẫu nhiên cực khủng!! (/bosskp5) 💰\nTham gia ngay, chiến đấu và rinh quà về thôi nào! 🔥**");
         DCC_SendChannelMessage(ccChannel, "@everyone");
     } else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban Khong Duoc Su Dung Lenh Nay");
 
@@ -90,15 +90,15 @@ CMD:setmauboss(playerid, params[]) {
 	return 1;
 }
 
-CMD:bosshtb(playerid, params[]) {
-    SendClientMessage(playerid, -1, "Da dinh vi cho ban vi tri cua Boss HTB o tren ban do.");
+CMD:bosskp5(playerid, params[]) {
+    SendClientMessage(playerid, -1, "Da dinh vi cho ban vi tri cua Boss KP5 o tren ban do.");
     PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
     SetPlayerCheckpoint(playerid, -1435.2001,850.1367,7.1875, 3.0);
     CP[playerid] = 252000;
 	return 1;
 }
 
-CMD:xoabosshtb(playerid, params[])
+CMD:xoabosskp5(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessage(playerid, COLOR_RED, "Ban khong the dung lenh nay");
 	if(conboss[BossTrangThai] == 0) return SendClientMessage(playerid, COLOR_RED, "Boss Chua Duoc Tao");
@@ -199,9 +199,9 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
                         HideBossHPBarFromPlayer(i);
                         PlayerShowingBossHP[i] = false;
 					}
-                    format(str, sizeof(str), "~p~Su kien dac biet cua GTAHTB.TOP~n~~w~Nguoi choi ~r~%s ~w~da kill duoc BOSS", GetPlayerNameEx(playerid));
+                    format(str, sizeof(str), "~p~Su kien dac biet cua KP5.TOP~n~~w~Nguoi choi ~r~%s ~w~da kill duoc BOSS", GetPlayerNameEx(playerid));
                     GameTextForAll(str, 25000, 4);
-                    format(str, sizeof(str), "Xin chuc mung, nguoi choi {ffff00}%s {ffffff}da kill duoc {FF00FF}BOSS TAU HAI TAC GTAHTB.TOP{ffffff}.", GetPlayerNameEx(playerid));
+                    format(str, sizeof(str), "Xin chuc mung, nguoi choi {ffff00}%s {ffffff}da kill duoc {FF00FF}BOSS TAU HAI TAC KP5.TOP{ffffff}.", GetPlayerNameEx(playerid));
                     SendClientMessageToAll(-1, str);
                     DestroyObject(conboss[BossID]);
                     conboss[BossTrangThai] = 0;
@@ -313,7 +313,7 @@ stock CreateBossHPTextdraws(playerid)
     PlayerTextDrawColour(playerid, BossHP[playerid][0], 0xFFFF00FF);
     PlayerTextDrawSetProportional(playerid, BossHP[playerid][0], 1);
 
-    BossHP[playerid][1] = CreatePlayerTextDraw(playerid, 250.000000, 354.000000, "Boss Tau Hai Tac (GTAHTB)");
+    BossHP[playerid][1] = CreatePlayerTextDraw(playerid, 250.000000, 354.000000, "Boss Tau Hai Tac (KP5)");
     PlayerTextDrawFont(playerid, BossHP[playerid][1], 2);
     PlayerTextDrawLetterSize(playerid, BossHP[playerid][1], 0.250000, 2.000000);
     PlayerTextDrawTextSize(playerid, BossHP[playerid][1], 15000.000000, 7.000000);

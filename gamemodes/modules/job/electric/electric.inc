@@ -1,5 +1,5 @@
 // ============================================================
-//  Electric Job - GTA-HTB Roleplay
+//  Electric Job - KP5 Roleplay
 //  Cong viec sua dien, mini-game Stroop Effect
 // ============================================================
 
@@ -191,7 +191,7 @@ stock Electric_ShowFixDialog(playerid, index)
     format(body, sizeof(body), "Nhin MAU THAT SU cua tung chu roi nhap, cach nhau dau cach.\n\n%s\n\n{AAAAAA}Su dung {5CFF77}\"/xemday\" {AAAAAA}de biet chi tiet mau\n{FF4444}(Nhin mau chu - khong phai nghia tu trong ngoac [])", sElectricDisplay[index]);
     SetPVarInt(playerid, "EJ_FixIndex", index);
     ShowPlayerDialog(playerid, DIALOG_ELECTRIC_FIX,
-        DIALOG_STYLE_INPUT, "{F5D000}GTA-HTB Roleplay {FFFFFF}- Sua Dien",
+        DIALOG_STYLE_INPUT, "{F5D000}KP5 Roleplay {FFFFFF}- Sua Dien",
         body, "Nhap", "Huy");
     return 1;
 }
@@ -635,7 +635,7 @@ stock Electric_OnMenuResponse(playerid, response, listitem)
         case 0: // Tao nhom
         {
             ShowPlayerDialog(playerid, DIALOG_ELECTRIC_GNAME, DIALOG_STYLE_INPUT,
-                "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tao Nhom",
+                "{F5D000}KP5 Roleplay {FFFFFF}- Tao Nhom",
                 "Nhap ten nhom cua ban (toi thieu 7 ky tu, khong phai toan so):", "Tao", "Huy");
         }
         case 1: // Moi nguoi
@@ -643,7 +643,7 @@ stock Electric_OnMenuResponse(playerid, response, listitem)
             if(PlayerElectricJob[playerid][E_EJ_GroupName][0] == EOS)
                 return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban phai tao nhom truoc!");
             ShowPlayerDialog(playerid, DIALOG_ELECTRIC_INVITE, DIALOG_STYLE_INPUT,
-                "{F5D000}GTA-HTB Roleplay {FFFFFF}- Moi Vao Nhom",
+                "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom",
                 "Nhap player ID muon moi (phai dung canh ban):", "Moi", "Huy");
         }
         case 2: // Duoi nguoi
@@ -651,13 +651,13 @@ stock Electric_OnMenuResponse(playerid, response, listitem)
             if(PlayerElectricJob[playerid][E_EJ_GroupName][0] == EOS)
                 return ShowTDN(playerid, NOTIFICATION_ERROR, "Ban khong co nhom!");
             ShowPlayerDialog(playerid, DIALOG_ELECTRIC_KICK, DIALOG_STYLE_INPUT,
-                "{F5D000}GTA-HTB Roleplay {FFFFFF}- Duoi Khoi Nhom",
+                "{F5D000}KP5 Roleplay {FFFFFF}- Duoi Khoi Nhom",
                 "Nhap player ID muon duoi khoi nhom:", "Duoi", "Huy");
         }
         case 3: // Tham gia nhom
         {
             ShowPlayerDialog(playerid, DIALOG_ELECTRIC_JOIN, DIALOG_STYLE_INPUT,
-                "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tham Gia Nhom",
+                "{F5D000}KP5 Roleplay {FFFFFF}- Tham Gia Nhom",
                 "Nhap Group ID muon tham gia:", "Tham gia", "Huy");
         }
         case 4: // Bat dau lam viec
@@ -762,17 +762,17 @@ stock Electric_OnGroupNameResponse(playerid, response, inputtext[])
 
     if(isnull(inputtext))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_GNAME, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tao Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Tao Nhom",
             "{FF4444}Khong duoc de trong!\n\nNhap ten nhom (toi thieu 64 ky tu, khong phai toan so):", "Tao", "Huy");
 
     if(Electric_IsNumeric(inputtext))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_GNAME, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tao Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Tao Nhom",
             "{FF4444}Khong duoc nhap toan so!\n\nNhap ten nhom (toi thieu 64 ky tu):", "Tao", "Huy");
 
     if(strlen(inputtext) < 7)
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_GNAME, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tao Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Tao Nhom",
             "{FF4444}Ten nhom phai tren 7 ky tu!\n\nNhap ten nhom:", "Tao", "Huy");
 
     PlayerElectricJob[playerid][E_EJ_LeaderID] = playerid;
@@ -796,25 +796,25 @@ stock Electric_OnInviteResponse(playerid, response, inputtext[])
 
     if(isnull(inputtext) || !Electric_IsNumeric(inputtext))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_INVITE, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Moi Vao Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom",
             "{FF4444}Chi nhap so ID!\n\nNhap player ID muon moi:", "Moi", "Huy");
 
     new otherid = strval(inputtext);
     if(otherid == playerid)
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_INVITE, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Moi Vao Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom",
             "{FF4444}Khong the moi chinh minh!\n\nNhap player ID muon moi:", "Moi", "Huy");
 
     if(otherid == INVALID_PLAYER_ID || !IsPlayerConnected(otherid))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_INVITE, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Moi Vao Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom",
             "{FF4444}Nguoi choi khong co mat!\n\nNhap player ID muon moi:", "Moi", "Huy");
 
     new Float:ox, Float:oy, Float:oz;
     GetPlayerPos(otherid, ox, oy, oz);
     if(!IsPlayerInRangeOfPoint(playerid, 5.0, ox, oy, oz))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_INVITE, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Moi Vao Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom",
             "{FF4444}Nguoi choi phai dung canh ban!\n\nNhap player ID muon moi:", "Moi", "Huy");
 
     SendClientMessageEx(playerid, COLOR_WHITE,
@@ -837,13 +837,13 @@ stock Electric_OnKickResponse(playerid, response, inputtext[])
 
     if(isnull(inputtext) || !Electric_IsNumeric(inputtext))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_KICK, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Duoi Khoi Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Duoi Khoi Nhom",
             "{FF4444}Chi nhap so ID!\n\nNhap player ID muon duoi:", "Duoi", "Huy");
 
     new otherid = strval(inputtext);
     if(PlayerElectricJob[otherid][E_EJ_PartnerID] != playerid)
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_KICK, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Duoi Khoi Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Duoi Khoi Nhom",
             "{FF4444}Nguoi nay khong trong nhom ban!\n\nNhap player ID muon duoi:", "Duoi", "Huy");
 
     PlayerElectricJob[playerid][E_EJ_PartnerID] = INVALID_PLAYER_ID;
@@ -868,7 +868,7 @@ stock Electric_OnJoinResponse(playerid, response, inputtext[])
 
     if(isnull(inputtext) || !Electric_IsNumeric(inputtext))
         return ShowPlayerDialog(playerid, DIALOG_ELECTRIC_JOIN, DIALOG_STYLE_INPUT,
-            "{F5D000}GTA-HTB Roleplay {FFFFFF}- Tham Gia Nhom",
+            "{F5D000}KP5 Roleplay {FFFFFF}- Tham Gia Nhom",
             "{FF4444}Chi nhap so Group ID!\n\nNhap Group ID:", "Tham gia", "Huy");
 
     new bool:found = false;
@@ -904,7 +904,7 @@ stock Electric_OnJoinResponse(playerid, response, inputtext[])
 stock Electric_ShowColorsDialog(playerid)
 {
     ShowPlayerDialog(playerid, DIALOG_ELECTRIC_COLORS, DIALOG_STYLE_MSGBOX,
-        "{F5D000}GTA-HTB Roleplay {FFFFFF}- Bang Mau Day Dien",
+        "{F5D000}KP5 Roleplay {FFFFFF}- Bang Mau Day Dien",
         "{FFFFFF}Cac mau co the xuat hien trong mini-game:\n\n{FF0000}DO          {00FF00}XANH        {0055FF}LAM\n\n{FFFFFF}TRANG       {FFFF00}VANG        {AA00FF}TIM\n\n{555555}DEN         {C0C0C0}XAM         {FF8000}CAM\n\n{AAAAAA}Luu y: Nhin MAU CHU, khong phai nghia tu trong []",
         "Dong", "");
     return 1;

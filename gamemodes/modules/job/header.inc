@@ -38,7 +38,7 @@ new JobHelp[MAX_JOB_TYPE][1028] =
 {
     {""},
     {"{F5F52F}Taxi Driver{FFFFFF} la mot cong viec thu vi va day thu thach tai \
-      {FF6666}GTA-HTB Roleplay{FFFFFF}.\nKhi tro thanh mot tai xe taxi, ban se \
+      {FF6666}KP5 Roleplay{FFFFFF}.\nKhi tro thanh mot tai xe taxi, ban se \
       dam nhan nhiem vu don va dua hanh khach\nden noi ho can mot cach an toan va nhanh \
       chong. Day khong chi la mot cong \nviec kiem song ma con la co hoi de ban kham pha moi \
       ngoc ngach cua thanh pho,\ngap go nhung nhan vat thu vi, va khang dinh ky nang lai xe \
@@ -56,25 +56,25 @@ new JobHelp[MAX_JOB_TYPE][1028] =
         nhanh chong khong yeu cau ve trinh do. Cong viec cua ban chi can\nkhuan vac cac thung \
         hang cua Ben cang vao kho hang mot cach nhanh\nchong, cong viec doi hoi su nhanh nhen, \
         can than va kien nhan.\n\n\n{3F7EAB}Cau lenh co san: /lamviec /dunglamviec"},
-    {"{F5F52F}Pizza Boy{FFFFFF} la mot cong viec don gian va day thu vi tai {FF6666}GTA-HTB Roleplay{FFFFFF}\n\
+    {"{F5F52F}Pizza Boy{FFFFFF} la mot cong viec don gian va day thu vi tai {FF6666}KP5 Roleplay{FFFFFF}\n\
         ban se dam nhan vai tro giao nhung chiec banh pizza nong hoi den tay khach\nhang. Chi can mot chiec xe may va kha nang \
         lai xe linh hoat, ban co the de\ndang kiem tien bang cach hoan thanh cac don hang dung thoi gian.\n\n\n\
         {3F7EAB}Cau lenh co san: /lamviec /dunglamviec /laybanh"},
-    {"{F5F52F}Tho xay dung{FFFFFF} la mot cong viec don gian va day thu vi tai {FF6666}GTA-HTB Roleplay{FFFFFF}\n\
+    {"{F5F52F}Tho xay dung{FFFFFF} la mot cong viec don gian va day thu vi tai {FF6666}KP5 Roleplay{FFFFFF}\n\
         ban se dam nhan thanh mot tho xay dung chan chinh voi doi tay manh me, dieu\nnghe xay dung nhung cong trinh that chac chan \
         mang lai nhung thanh tuu lon tai\nthanh pho.\n\n\n{3F7EAB}Cau lenh co san: /lamviec /dunglamviec"},
-    {"{F5F52F}Tho thu cong{FFFFFF} la mot cong viec tai {FF6666}GTA-HTB Roleplay{FFFFFF} cho phep ban che tao\n\
+    {"{F5F52F}Tho thu cong{FFFFFF} la mot cong viec tai {FF6666}KP5 Roleplay{FFFFFF} cho phep ban che tao\n\
         bat ki vat pham hay trang bi nao de phuc vu cho hoat dong cua ban than, ban\nmuon co vu khi? muon co trang bi tot? vay thi dung ngung ngai gi ma khong\n\
         nhan cong viec nay co the lam nhung gi ban muon.\n\n\n{3F7EAB}Cau lenh co san: /lamviec /dunglamviec"},
-    {"{F5F52F}Tho sua dien{FFFFFF} la mot cong viec doc dao tai {FF6666}GTA-HTB Roleplay{FFFFFF}\n\
+    {"{F5F52F}Tho sua dien{FFFFFF} la mot cong viec doc dao tai {FF6666}KP5 Roleplay{FFFFFF}\n\
         ban se dam nhan vai tro bao tri va sua chua he thong dien trong\nthanh pho. Cong viec yeu cau \
         su tap trung va kha nang quan sat\nde xu ly cac su co dien .\n\n\n\
         {3F7EAB}Cau lenh co san: /takekit /egroup /xemday /dunglamviec"},
-    {"{F5F52F}Tho Khai Thac{FFFFFF} la mot cong viec doc dao tai {FF6666}GTA-HTB Roleplay{FFFFFF}\n\
+    {"{F5F52F}Tho Khai Thac{FFFFFF} la mot cong viec doc dao tai {FF6666}KP5 Roleplay{FFFFFF}\n\
         ban se khai thac da quy trong khu mo, rua sach de thu hoach khoang san va ban lai.\n\
         Cong viec yeu cau su kien nhan va kha nang quan ly van chuyen hang hoa.\n\n\n\
         {3F7EAB}Cau lenh co san: /layda /dunglamviec"},
-    {"{0f8d47}Chat Go{FFFFFF} la mot cong viec tai {FF6666}GTA-HTB Roleplay{FFFFFF} cho phep ban\n\
+    {"{0f8d47}Chat Go{FFFFFF} la mot cong viec tai {FF6666}KP5 Roleplay{FFFFFF} cho phep ban\n\
         khai thac go tu khu rung, dat go len xe va ban cho thuong lai.\n\
         Mo tat ca cac loai cay trong 2 khu vuc rung, moi khuc go ban hoac giu lai de lam viec khac.\n\
         Co the doi go tho de luu vao tui va ban sau.\n\n\n\

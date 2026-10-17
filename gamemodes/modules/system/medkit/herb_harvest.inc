@@ -1,5 +1,5 @@
 // ============================================================
-//  Herb Harvest System - GTA-HTB Roleplay Created by Codyz
+//  Herb Harvest System - KP5 Roleplay Created by Codyz
 //  He thong hai thao duoc trong gangzone
 // ============================================================
 

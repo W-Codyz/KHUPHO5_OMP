@@ -1,7 +1,7 @@
 #include <YSI\YSI_Coding\y_hooks>
 
 // ============================================================
-// GPS System - GTA-HTB Roleplay Created by Codyz
+// GPS System - KP5 Roleplay Created by Codyz
 // ============================================================
 
 #define MAX_GPS_POINTS       5
@@ -308,7 +308,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 case 0: ShowGPSTimDuong(playerid);
                 case 1: PC_EmulateCommand(playerid, "/timvieclam");
                 case 2: ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,
-                            "{ffff00}GTAHTB{ffffff} - Can Sa",
+                            "{ffff00}KP5{ffffff} - Can Sa",
                             "Tim duong can sa\nXem can sa",
                             "Chon", "Thoat");
                 case 3: PC_EmulateCommand(playerid, "/vitriminer");
@@ -333,7 +333,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(listitem == GPS_JOB_COUNT - 1) // Can Sa
             {
                 ShowPlayerDialog(playerid, CANSA_LIST, DIALOG_STYLE_LIST,
-                    "{ffff00}GTAHTB{ffffff} - Can Sa",
+                    "{ffff00}KP5{ffffff} - Can Sa",
                     "Tim duong can sa\nXem can sa",
                     "Chon", "Thoat");
                 return 1;
@@ -348,7 +348,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(listitem == 0)
             {
                 ShowPlayerDialog(playerid, TIMDUONGCANSA, DIALOG_STYLE_LIST,
-                    "{ffff00}GTAHTB{ffffff} - Can Sa",
+                    "{ffff00}KP5{ffffff} - Can Sa",
                     "Vi tri can sa moc\nChe bien can sa\nBan can sa",
                     "Chon", "Thoat");
             }
@@ -359,7 +359,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     PlayerInfo[playerid][pCanSa], PlayerInfo[playerid][pTepCanSa],
                     PlayerInfo[playerid][pPot], PlayerInfo[playerid][pCrack]);
                 ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX,
-                    "{ffff00}GTAHTB{ffffff} - Xem can sa", str, "Dong y", "");
+                    "{ffff00}KP5{ffffff} - Xem can sa", str, "Dong y", "");
             }
         }
 

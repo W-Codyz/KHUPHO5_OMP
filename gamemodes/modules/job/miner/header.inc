@@ -1,5 +1,5 @@
 // ============================================================
-//  Miner Job Header - GTA-HTB Roleplay Cre by: Codyz
+//  Miner Job Header - KP5 Roleplay Cre by: Codyz
 // ============================================================
 
 #define MINER_MAX_STONES        150

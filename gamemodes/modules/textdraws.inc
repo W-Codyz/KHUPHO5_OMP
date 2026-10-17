@@ -691,7 +691,7 @@ public LoadTextDraws()
 	TextDrawTextSize(NoticeTxtdraw[0], 454.000000, 18.000000);
 	textdrawscount++;
 
-	NoticeTxtdraw[1] = TextDrawCreate(317.000000, 174.000000, "HTB:RP - Notice");
+	NoticeTxtdraw[1] = TextDrawCreate(317.000000, 174.000000, "KP5 Roleplay - Thong bao");
 	TextDrawAlignment(NoticeTxtdraw[1], 2);
 	TextDrawBackgroundColour(NoticeTxtdraw[1], 255);
 	TextDrawFont(NoticeTxtdraw[1], 2);

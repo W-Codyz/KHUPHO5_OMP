@@ -1,51 +1,40 @@
 #include <YSI\YSI_Coding\y_hooks>
 
-new Text:LogoTD[4];
+new Text:LogoTD[3];
 new PlayerText: UiPlayerInfoTD[MAX_PLAYERS][46];
 new bool:UiPlayerInfoCreated[MAX_PLAYERS];
 
 stock LoadTDLogo()
 {
-    LogoTD[0] = TextDrawCreate(565.000, 390.000, "GTA");
-    TextDrawLetterSize(LogoTD[0], 0.439, 3.199);
+    LogoTD[0] = TextDrawCreate(526.000, 411.000, "KhuPho5");
+    TextDrawLetterSize(LogoTD[0], 0.369, 2.299);
     TextDrawAlignment(LogoTD[0], 1);
-    TextDrawColour(LogoTD[0], -251662081);
+    TextDrawColour(LogoTD[0], -12254977);
     TextDrawSetShadow(LogoTD[0], 1);
     TextDrawSetOutline(LogoTD[0], 1);
-    TextDrawBackgroundColour(LogoTD[0], -2139094785);
-    TextDrawFont(LogoTD[0], 2);
+    TextDrawBackgroundColour(LogoTD[0], 150);
+    TextDrawFont(LogoTD[0], 1);
     TextDrawSetProportional(LogoTD[0], 1);
 
-    LogoTD[1] = TextDrawCreate(553.000, 414.000, "HTB");
-    TextDrawLetterSize(LogoTD[1], 0.409, 2.000);
+    LogoTD[1] = TextDrawCreate(583.000, 410.000, "Roleplay");
+    TextDrawLetterSize(LogoTD[1], 0.369, 2.299);
     TextDrawAlignment(LogoTD[1], 1);
-    TextDrawColour(LogoTD[1], -65281);
+    TextDrawColour(LogoTD[1], -2686721);
     TextDrawSetShadow(LogoTD[1], 1);
     TextDrawSetOutline(LogoTD[1], 1);
-    TextDrawBackgroundColour(LogoTD[1], -2139094785);
+    TextDrawBackgroundColour(LogoTD[1], 8388863);
     TextDrawFont(LogoTD[1], 1);
     TextDrawSetProportional(LogoTD[1], 1);
 
-    LogoTD[2] = TextDrawCreate(581.000, 414.000, "Roleplay");
-    TextDrawLetterSize(LogoTD[2], 0.409, 2.000);
+    LogoTD[2] = TextDrawCreate(546.000, 430.000, "KHUPHO5.ONLINE");
+    TextDrawLetterSize(LogoTD[2], 0.250, 1.399);
     TextDrawAlignment(LogoTD[2], 1);
-    TextDrawColour(LogoTD[2], 852308735);
+    TextDrawColour(LogoTD[2], -1);
     TextDrawSetShadow(LogoTD[2], 1);
     TextDrawSetOutline(LogoTD[2], 1);
-    TextDrawBackgroundColour(LogoTD[2], 8388863);
+    TextDrawBackgroundColour(LogoTD[2], 255);
     TextDrawFont(LogoTD[2], 1);
     TextDrawSetProportional(LogoTD[2], 1);
-
-    LogoTD[3] = TextDrawCreate(576.000, 434.000, "GTAHTB.ONLINE");
-    TextDrawLetterSize(LogoTD[3], 0.220, 0.999);
-    TextDrawTextSize(LogoTD[3], -1.000, 0.000);
-    TextDrawAlignment(LogoTD[3], 1);
-    TextDrawColour(LogoTD[3], -1);
-    TextDrawSetShadow(LogoTD[3], 0);
-    TextDrawSetOutline(LogoTD[3], 0);
-    TextDrawBackgroundColour(LogoTD[3], 150);
-    TextDrawFont(LogoTD[3], 1);
-    TextDrawSetProportional(LogoTD[3], 1);
 
 	return 1;
 }
@@ -646,7 +635,6 @@ hook OnPlayerSpawn(playerid)
         TextDrawShowForPlayer(playerid, LogoTD[0]);
         TextDrawShowForPlayer(playerid, LogoTD[1]);
         TextDrawShowForPlayer(playerid, LogoTD[2]);
-        TextDrawShowForPlayer(playerid, LogoTD[3]);
 
         if(PlayerInfo[playerid][pHUDInfo])
             ShowUiPlayerInfo(playerid);
