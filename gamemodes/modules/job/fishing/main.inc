@@ -12,22 +12,22 @@
 #define DIALOG_BUY_BAIT (9012)
 #define DIALOG_CONFIRM_BUY_ROD (9013)
 #define DIALOG_CONFIRM_BUY_BAIT (9014)
-#define MAX_FISH_SPOTS 10
+#define MAX_FISH_SPOTS 5
 #define FISH_CATCH_TIME 10000 // 10 seconds
 #define RESET_HOUR 6 // Gi? reset (6h s�ng)
 #define ONE_HOUR 3600000 // 1 gi? = 3600000 ms
 
-#define FISH_SELLER_X -2927.2327
-#define FISH_SELLER_Y 507.2165
-#define FISH_SELLER_Z 4.9141
+#define FISH_SELLER_X -833.587585
+#define FISH_SELLER_Y 2091.364501
+#define FISH_SELLER_Z 48.058601
 
-#define FISHING_SHOP_X -28.2058
-#define FISHING_SHOP_Y -89.9549
-#define FISHING_SHOP_Z 1003.5469
+#define FISHING_SHOP_X -824.504943
+#define FISHING_SHOP_Y 2073.905517
+#define FISHING_SHOP_Z 48.140876
 
-#define FISHING_SHOP_NPC_X -2918.7791
-#define FISHING_SHOP_NPC_Y 507.6426
-#define FISHING_SHOP_NPC_Z 4.9141
+#define FISHING_SHOP_NPC_X -824.504943
+#define FISHING_SHOP_NPC_Y 2073.905517
+#define FISHING_SHOP_NPC_Z 48.140876
 // C?n c�u constants
 #define MAX_FISHING_RODS 3
 #define ROD_DURABILITY_DECREASE_CHANCE 30 // 30% co h?i gi?m d? b?n m?i l?n c�u
@@ -79,16 +79,16 @@ new const FishNames[MAX_FISH_TYPES][] = {
 };
 
 new const FishPrices[MAX_FISH_TYPES] = {
-    120,
-    180,
-    270,
-    330,
-    450,
-    600,
-    1050,
-    1800,
-    3750,
-    7500
+    320,
+    380,
+    470,
+    530,
+    650,
+    800,
+    1250,
+    2000,
+    3950,
+    7700
 };
 
 new const FishRarity[MAX_FISH_TYPES] = {
@@ -151,16 +151,11 @@ enum eFishingSpots {
 }
 
 new Float:FishingSpots[MAX_FISH_SPOTS][eFishingSpots] = {
-    {-2975.9360, 506.9248, 2.4297},
-    {-2978.0256, 502.1886, 2.4297},
-    {-2974.0942, 502.0125, 2.4297},
-    {-2973.9995, 493.5672, 2.4274},
-    {-2977.9551, 492.8257, 2.4274},
-    {-2949.8293, 492.5789, 2.4273},
-    {-2945.3757, 492.3759, 2.4273},
-    {-2949.6328, 502.4039, 2.4297},
-    {-2945.6389, 502.3923, 2.4297},
-    {-2947.5901, 506.8775, 2.4297}
+    {-788.268981, 2129.115234, 47.677726},
+    {-791.664794, 2129.493164, 47.677726},
+    {-787.173767, 2131.230468, 47.677726},
+    {-785.866333, 2139.330566, 47.677726},
+    {-793.546142, 2139.651367, 47.677726}
 };
 
 // Variables
