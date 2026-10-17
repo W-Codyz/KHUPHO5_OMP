@@ -35,7 +35,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi quyền hạn')
                 .setDescription('Bạn không có quyền sử dụng lệnh này.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
@@ -50,7 +50,7 @@ module.exports = {
                     .setColor('#FF0000')
                     .setTitle('❌ Sai cú pháp')
                     .setDescription('Vui lòng nhập tên tài khoản cần tra cứu.')
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
                 
                 return interaction.editReply({ embeds: [embed] });
             }
@@ -76,7 +76,7 @@ module.exports = {
                     .setColor('#FF0000')
                     .setTitle('❌ Không tìm thấy')
                     .setDescription(`Không tìm thấy tài khoản với tên: ***${username}***`)
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
                 
                 return interaction.editReply({ embeds: [embed] });
             }
@@ -141,7 +141,7 @@ module.exports = {
                     `**✅ Xác minh:** ${verifyStatus}`
                 ].join('\n'))
                 .setThumbnail(`https://assets.open.mp/assets/images/skins/${player.Model}.png`)
-                .setFooter({ text: 'GTA HTB - Player Information' })
+                .setFooter({ text: 'GTA KP5 - Player Information' })
                 .setTimestamp();
 
             return interaction.editReply({ embeds: [embed] });
@@ -152,7 +152,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             
             return interaction.editReply({ embeds: [errorEmbed] });
         }

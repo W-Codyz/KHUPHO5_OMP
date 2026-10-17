@@ -31,7 +31,7 @@ module.exports = {
                     .setColor('#FF0000')
                     .setTitle('❌ Không có dữ liệu')
                     .setDescription('Chưa có người chơi nào trong hệ thống.')
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
 
                 return interaction.editReply({ embeds: [embed] });
             }
@@ -63,7 +63,7 @@ module.exports = {
                 .setColor('#00BFFF')
                 .setTitle('⏱️ Bảng xếp hạng Giờ chơi')
                 .setDescription(description)
-                .setFooter({ text: 'HTB Roleplay' })
+                .setFooter({ text: 'KP5 Roleplay' })
                 .setTimestamp();
 
             await interaction.editReply({ embeds: [embed] });
@@ -73,7 +73,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
 
             return interaction.editReply({ embeds: [errorEmbed] });
         }

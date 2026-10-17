@@ -26,7 +26,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi quyền hạn')
                 .setDescription('Bạn không có quyền sử dụng lệnh này.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
@@ -50,7 +50,7 @@ module.exports = {
                     .setColor('#FF0000')
                     .setTitle('❌ Chưa liên kết Discord')
                     .setDescription(`Discord <@${targetUser.id}> chưa được liên kết với bất kỳ tài khoản game nào.\nVui lòng yêu cầu người chơi liên kết trước.`)
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
                 await interaction.editReply({ embeds: [embed], components: [] });
                 connection.release();
                 return;
@@ -71,7 +71,7 @@ module.exports = {
                         'Vui lòng yêu cầu người chơi **thoát game** trước khi tạo CCCD.',
                         'Sau khi thoát, hãy thử lại lệnh này.'
                     ].join('\n'))
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
                 await interaction.editReply({ embeds: [embed], components: [] });
                 connection.release();
                 return;
@@ -101,7 +101,7 @@ module.exports = {
                         '',
                         '⚠️ Lưu ý: CCCD cũ sẽ bị thay thế và không thể khôi phục.'
                     ].join('\n'))
-                    .setFooter({ text: 'GTA-HTB Roleplay • Vui lòng xác nhận trong 30 giây' })
+                    .setFooter({ text: 'KP5 Roleplay • Vui lòng xác nhận trong 30 giây' })
                     .setTimestamp();
 
                 const response = await interaction.editReply({
@@ -126,7 +126,7 @@ module.exports = {
                             .setColor('#FF0000')
                             .setTitle('❌ Đã hủy')
                             .setDescription('Thao tác tạo CCCD đã bị hủy.')
-                            .setFooter({ text: 'GTA-HTB Roleplay' });
+                            .setFooter({ text: 'KP5 Roleplay' });
                         await interaction.editReply({ embeds: [cancelEmbed], components: [] });
                         connection.release();
                         return;
@@ -137,7 +137,7 @@ module.exports = {
                         .setColor('#FF0000')
                         .setTitle('⏰ Hết thời gian hoặc lỗi')
                         .setDescription('Thao tác tạo CCCD đã hết thời gian chờ hoặc bị lỗi.')
-                        .setFooter({ text: 'GTA-HTB Roleplay' });
+                        .setFooter({ text: 'KP5 Roleplay' });
                     await interaction.editReply({ embeds: [timeoutEmbed], components: [] });
                     connection.release();
                     return;
@@ -166,7 +166,7 @@ module.exports = {
                     .setColor('#FF0000')
                     .setTitle('❌ Lỗi tạo CCCD')
                     .setDescription('Không thể tìm được số CCCD duy nhất sau nhiều lần thử. Vui lòng thử lại sau.')
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
                 await interaction.editReply({ embeds: [embed], components: [] });
                 connection.release();
                 return;
@@ -192,7 +192,7 @@ module.exports = {
                     '',
                     'Người chơi có thể sử dụng CCCD này trong game.'
                 ].join('\n'))
-                .setFooter({ text: 'GTA-HTB Roleplay' })
+                .setFooter({ text: 'KP5 Roleplay' })
                 .setTimestamp();
 
             await interaction.editReply({ embeds: [successEmbed], components: [] });
@@ -203,7 +203,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi khi tạo CCCD. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             if (connection) connection.release();
             if (interaction.deferred) {
                 return interaction.editReply({ embeds: [errorEmbed], components: [] });

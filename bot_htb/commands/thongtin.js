@@ -151,7 +151,7 @@ module.exports = {
                     }
                 )
                 .setTimestamp()
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
 
             await interaction.editReply({ embeds: [embed] });
         } catch (error) {
@@ -160,7 +160,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             
             return interaction.editReply({ embeds: [errorEmbed] });
         }

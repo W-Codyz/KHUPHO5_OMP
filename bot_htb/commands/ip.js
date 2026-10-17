@@ -24,11 +24,11 @@ module.exports = {
             embed.setColor('#33ff00')
                 .setTitle('Máy chủ đang hoạt động !')
                 .setDescription([
-                    `**IP:** \`gtahtb.online\``,
+                    `**IP:** \`khupho5.online\``,
                     `**Số người chơi:** ${info.players}/${info.maxplayers}`,
                     `**Gamemode:** ${info.gamemode}`,
                     `**Language:** ${info.language}`,
-                    `**Website:** [Click để truy cập](https://web.gtahtb.online/)`,
+                    `**Website:** [Click để truy cập](https://web.khupho5.online/)`,
                     '\n*Copy IP và dán vào phần "Favorite" trong SA-MP để vào server*'
                 ].join('\n'));
 
@@ -36,7 +36,7 @@ module.exports = {
             console.error('Server query error:', error);
             embed.setColor('#ff0000')
                 .setTitle('Máy chủ đang bảo trì !')
-                .setDescription(`**IP:** \`gtahtb.online\``);
+                .setDescription(`**IP:** \`khupho5.online\``);
         }
 
         return interaction.editReply({ embeds: [embed] });

@@ -26,7 +26,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi quyền hạn')
                 .setDescription('Bạn không có quyền sử dụng lệnh này.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
@@ -68,7 +68,7 @@ module.exports = {
                     .setTitle('🔍 Không tìm thấy liên kết')
                     .setDescription(`Discord <@${targetUser.id}> (**${targetUser.tag}**) chưa được liên kết với bất kỳ tài khoản game nào.`)
                     .setThumbnail(targetUser.displayAvatarURL({ dynamic: true }))
-                    .setFooter({ text: 'GTA-HTB Roleplay' })
+                    .setFooter({ text: 'KP5 Roleplay' })
                     .setTimestamp();
                 return interaction.editReply({ embeds: [embed] });
             }
@@ -217,7 +217,7 @@ module.exports = {
                             inline: false
                         }
                     )
-                    .setFooter({ text: `GTA-HTB Roleplay • Admin: ${interaction.user.tag} • ID: ${acc.id}` })
+                    .setFooter({ text: `KP5 Roleplay • Admin: ${interaction.user.tag} • ID: ${acc.id}` })
                     .setTimestamp();
             });
 
@@ -229,7 +229,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi khi tra cứu Discord. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             if (connection) connection.release();
             return interaction.editReply({ embeds: [errorEmbed] });
         }

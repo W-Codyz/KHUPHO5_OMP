@@ -47,7 +47,7 @@ module.exports = {
                         `🎮 **Tài khoản game:** ${playerName}`,
                         '❌ Không tìm thấy tài khoản này trong database!'
                     ].join('\n'))
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
             } else {
                 const account = rows[0];
 
@@ -66,7 +66,7 @@ module.exports = {
                             `👤 **Discord:** ${discordTag}`,
                             '✅ Tài khoản đã được xác thực thành công!'
                         ].join('\n'))
-                        .setFooter({ text: 'GTA-HTB Roleplay' });
+                        .setFooter({ text: 'KP5 Roleplay' });
                 } else if (account.DiscordCode && account.DiscordCode !== 0) {
                     // Chưa xác thực nhưng đã có mã
                     embed.setColor('#FFFF00')
@@ -80,7 +80,7 @@ module.exports = {
                             `1. Sử dụng lệnh \`/xacminh\` tại kênh <#${process.env.VERIFICATION_CHANNEL_ID}>`,
                             `2. Nhập mã: \`${account.DiscordCode}\``
                         ].join('\n'))
-                        .setFooter({ text: 'GTA-HTB Roleplay' });
+                        .setFooter({ text: 'KP5 Roleplay' });
                 } else {
                     // Chưa có mã xác minh
                     embed.setColor('#FF0000')
@@ -90,11 +90,11 @@ module.exports = {
                             '❌ Tài khoản chưa tạo mã xác minh!',
                             '',
                             '**Hướng dẫn lấy mã xác minh:**',
-                            '1. Vào máy chủ GTA-HTB và đăng nhập',
+                            '1. Vào máy chủ KP5 và đăng nhập',
                             '2. Mã xác minh và hướng dẫn sẽ hiển thị trên màn hình khi vừa vào',
                             `3. Dùng \`/xacminh\` tại <#${process.env.VERIFICATION_CHANNEL_ID}> với mã đó`
                         ].join('\n'))
-                        .setFooter({ text: 'GTA-HTB Roleplay' });
+                        .setFooter({ text: 'KP5 Roleplay' });
                 }
             }
 
@@ -105,7 +105,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi khi kiểm tra thông tin xác thực. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
 
             await interaction.editReply({ embeds: [errorEmbed] });
         }

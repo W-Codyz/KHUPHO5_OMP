@@ -40,7 +40,7 @@ module.exports = {
                     .setColor('#ff3d3d')
                     .setTitle('❌ Không có dữ liệu')
                     .setDescription('Chưa có băng đảng nào trong hệ thống.')
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
 
                 return interaction.editReply({ embeds: [embed] });
             }
@@ -62,7 +62,7 @@ module.exports = {
                     `👥 Thành viên: ${gang.TotalMembers}\n` +
                     `🏦 Level Gang: ${gang.level ?? 1}\n`
                 ).join('\n'))
-                .setFooter({ text: 'HTB Roleplay' })
+                .setFooter({ text: 'KP5 Roleplay' })
                 .setTimestamp();
 
             await interaction.editReply({ embeds: [embed] });
@@ -72,7 +72,7 @@ module.exports = {
                 .setColor('#ff3d3d')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
 
             return interaction.editReply({ embeds: [errorEmbed] });
         }

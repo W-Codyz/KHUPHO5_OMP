@@ -35,7 +35,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi quyền hạn')
                 .setDescription('Bạn không có quyền sử dụng lệnh này.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
@@ -83,7 +83,7 @@ module.exports = {
                         `• Liên kết Discord với tài khoản **${playerName}**`,
                         '• Giữ nguyên nickname và role verified'
                     ].join('\n'))
-                    .setFooter({ text: 'GTA-HTB Roleplay • Vui lòng xác nhận trong 30 giây' })
+                    .setFooter({ text: 'KP5 Roleplay • Vui lòng xác nhận trong 30 giây' })
                     .setTimestamp();
 
                 const response = await interaction.editReply({ 
@@ -108,7 +108,7 @@ module.exports = {
                             .setColor('#FF0000')
                             .setTitle('❌ Đã hủy')
                             .setDescription('Thao tác xác minh đã bị hủy bỏ.')
-                            .setFooter({ text: 'GTA-HTB Roleplay' });
+                            .setFooter({ text: 'KP5 Roleplay' });
                         await interaction.editReply({ embeds: [cancelEmbed], components: [] });
                         connection.release();
                         return;
@@ -126,7 +126,7 @@ module.exports = {
                         .setColor('#FF0000')
                         .setTitle('⏰ Hết thời gian hoặc lỗi')
                         .setDescription('Thao tác xác minh đã hết thời gian chờ hoặc bị lỗi.')
-                        .setFooter({ text: 'GTA-HTB Roleplay' });
+                        .setFooter({ text: 'KP5 Roleplay' });
                     await interaction.editReply({ embeds: [timeoutEmbed], components: [] });
                     connection.release();
                     return;
@@ -144,7 +144,7 @@ module.exports = {
                     .setColor('#FF0000')
                     .setTitle('❌ Không tìm thấy tài khoản')
                     .setDescription(`Không tìm thấy tài khoản game với tên: **${playerName}**`)
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
                 await interaction.editReply({ embeds: [embed], components: [] });
                 connection.release();
                 return;
@@ -163,7 +163,7 @@ module.exports = {
                         'Vui lòng yêu cầu người chơi **thoát game** trước khi thực hiện xác minh.',
                         'Sau khi thoát, hãy thử lại lệnh này.'
                     ].join('\n'))
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
                 await interaction.editReply({ embeds: [embed], components: [] });
                 connection.release();
                 return;
@@ -195,7 +195,7 @@ module.exports = {
                     '',
                     '✅ Đã liên kết tài khoản và cấp quyền xác minh thành công!'
                 ].join('\n'))
-                .setFooter({ text: 'GTA-HTB Roleplay' })
+                .setFooter({ text: 'KP5 Roleplay' })
                 .setTimestamp();
             
             await interaction.editReply({ embeds: [successEmbed], components: [] });
@@ -210,9 +210,9 @@ module.exports = {
                         '',
                         'Bây giờ bạn có thể sử dụng đầy đủ các tính năng của máy chủ!',
                         '',
-                        '**Chúc bạn có trải nghiệm tuyệt vời tại GTA-HTB Roleplay! 🎮**'
+                        '**Chúc bạn có trải nghiệm tuyệt vời tại KP5 Roleplay! 🎮**'
                     ].join('\n'))
-                    .setFooter({ text: 'GTA-HTB Roleplay' })
+                    .setFooter({ text: 'KP5 Roleplay' })
                     .setTimestamp();
                 await targetUser.send({ embeds: [dmEmbed] });
             } catch (dmError) {
@@ -225,7 +225,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi trong quá trình xác minh. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             if (connection) connection.release();
             return interaction.editReply({ embeds: [errorEmbed], components: [] });
         }

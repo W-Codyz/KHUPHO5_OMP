@@ -26,7 +26,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi quyền hạn')
                 .setDescription('Bạn không có quyền sử dụng lệnh này.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
@@ -42,7 +42,7 @@ module.exports = {
                     .setColor('#FF9900')
                     .setTitle('⚠️ Địa chỉ IP không hợp lệ')
                     .setDescription(`\`${ipInput}\` không phải định dạng IP hợp lệ.\nVui lòng nhập đúng định dạng: \`123.456.789.0\``)
-                    .setFooter({ text: 'GTA-HTB Roleplay' });
+                    .setFooter({ text: 'KP5 Roleplay' });
                 return interaction.editReply({ embeds: [embed] });
             }
 
@@ -71,7 +71,7 @@ module.exports = {
                     .setColor('#FF9900')
                     .setTitle('🔍 Không tìm thấy tài khoản')
                     .setDescription(`Không có tài khoản nào sử dụng IP: \`${ipInput}\``)
-                    .setFooter({ text: 'GTA-HTB Roleplay' })
+                    .setFooter({ text: 'KP5 Roleplay' })
                     .setTimestamp();
                 return interaction.editReply({ embeds: [embed] });
             }
@@ -142,7 +142,7 @@ module.exports = {
                     ? `🔍 Tra cứu IP: \`${ipInput}\``
                     : `🔍 Tra cứu IP: \`${ipInput}\` (tiếp)`)
                 .setDescription(chunk)
-                .setFooter({ text: `GTA-HTB Roleplay • Admin: ${interaction.user.tag}` })
+                .setFooter({ text: `KP5 Roleplay • Admin: ${interaction.user.tag}` })
                 .setTimestamp()
             );
 
@@ -154,7 +154,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription('Đã xảy ra lỗi khi tra cứu IP. Vui lòng thử lại sau.')
-                .setFooter({ text: 'GTA-HTB Roleplay' });
+                .setFooter({ text: 'KP5 Roleplay' });
             if (connection) connection.release();
             return interaction.editReply({ embeds: [errorEmbed] });
         }

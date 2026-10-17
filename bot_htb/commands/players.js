@@ -79,7 +79,7 @@ module.exports = {
                     .setColor('#FFA500')
                     .setTitle('📡 Danh sách người chơi online')
                     .setDescription('Hiện không có người chơi nào đang online.')
-                    .setFooter({ text: 'GTA-HTB Roleplay' })
+                    .setFooter({ text: 'KP5 Roleplay' })
                     .setTimestamp();
                 return interaction.editReply({ embeds: [embed] });
             }
@@ -108,7 +108,7 @@ module.exports = {
                 .setColor('#00FF00')
                 .setTitle(`🟢 Người chơi đang online (${rows.length})`)
                 .setDescription(description)
-                .setFooter({ text: 'HTB Roleplay' })
+                .setFooter({ text: 'KP5 Roleplay' })
                 .setTimestamp();
 
             return interaction.editReply({ embeds: [embed] });
@@ -130,7 +130,7 @@ module.exports = {
                 .setColor('#FF0000')
                 .setTitle('❌ Lỗi hệ thống')
                 .setDescription(errorMessage)
-                .setFooter({ text: 'GTA-HTB Roleplay' })
+                .setFooter({ text: 'KP5 Roleplay' })
                 .setTimestamp();
 
             // Kiểm tra nếu interaction vẫn còn hợp lệ để editReply
