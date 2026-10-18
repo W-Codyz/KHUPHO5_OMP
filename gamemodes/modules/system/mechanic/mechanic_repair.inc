@@ -57,13 +57,13 @@
 #define DIALOG_MECH_KHO_DC_RUT_SL   5435
 
 // Craft costs
-#define CRAFT_OTO_SAT           15
-#define CRAFT_OTO_DONG          5
-#define CRAFT_OTO_MATS          3000
+#define CRAFT_OTO_SAT           8
+#define CRAFT_OTO_DONG          3
+#define CRAFT_OTO_MATS          1500
 
-#define CRAFT_XEMAY_SAT         20
-#define CRAFT_XEMAY_DONG        4
-#define CRAFT_XEMAY_MATS        2000
+#define CRAFT_XEMAY_SAT         10
+#define CRAFT_XEMAY_DONG        2
+#define CRAFT_XEMAY_MATS        1000
 
 // ============================================================
 // VARIABLES - Repair Spots
