@@ -424,6 +424,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PlayerInfo[targetid][pDivision] = -1;
 				PlayerInfo[targetid][pLeader] = INVALID_GROUP_ID;
 				PlayerInfo[targetid][pDuty] = 0;
+				PlayerInfo[targetid][pPreDutyModel] = 0;
 				PlayerInfo[targetid][pRank] = INVALID_RANK;
 				PlayerInfo[targetid][pModel] = NOOB_SKIN;
 				SetPlayerSkin(targetid, NOOB_SKIN);

@@ -478,6 +478,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				return ShowPlayerDialog(playerid, G_LOCKER_UNIFORM, DIALOG_STYLE_INPUT, arrGroupData[iGroupID][g_szGroupName],"Skin da chon khong hop le. Vui long chon skin khac.", "Lua chon", "Huy bo");
 			}
 			PlayerInfo[playerid][pModel] = skin;
+			if(PlayerInfo[playerid][pPreDutyModel] != 0) PlayerInfo[playerid][pPreDutyModel] = skin;
 			SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
 		}
 		case G_LOCKER_CLEARSUSPECT: if(response)

@@ -368,6 +368,8 @@ public OnPlayerLoad(playerid)
 	if(PlayerInfo[playerid][pGangModerator] >= 1 && PlayerInfo[playerid][pAdmin] < 2) PlayerInfo[playerid][pGangModerator] = 0;
 	if(PlayerInfo[playerid][pHelper] == 1 && PlayerInfo[playerid][pAdmin] >= 1) PlayerInfo[playerid][pHelper] = 0;
 
+	PlayerInfo[playerid][pDuty] = 0;
+	PlayerInfo[playerid][pPreDutyModel] = 0;
 	HideNoticeGUIFrame(playerid);
 	
 	if(PlayerInfo[playerid][pVIPExpire] > 0 && (1 <= PlayerInfo[playerid][pDonateRank] <= 3) && (PlayerInfo[playerid][pVIPExpire] < gettime()) && PlayerInfo[playerid][pAdmin] < 2)

@@ -1558,8 +1558,9 @@ public OnPlayerModelSelection(playerid, response, listid, modelid)
 			{
 				if (PlayerInfo[playerid][pModel] == modelid)
 					return SendClientMessageEx(playerid, COLOR_GREY, "Ban dang su dung skin nay.");
-					
+
 				PlayerInfo[playerid][pModel] = modelid;
+				if(PlayerInfo[playerid][pPreDutyModel] != 0) PlayerInfo[playerid][pPreDutyModel] = modelid;
 				SetPlayerSkin(playerid, modelid);
 				return SendClientMessageEx(playerid, COLOR_YELLOW, "VIP: Ban da thay doi skin mien phi.");
 			}	
@@ -1583,18 +1584,20 @@ public OnPlayerModelSelection(playerid, response, listid, modelid)
 			    if(GetPVarInt(playerid, "freeSkin") == 1)
 			    {
 					PlayerInfo[playerid][pModel] = modelid;
+					if(PlayerInfo[playerid][pPreDutyModel] != 0) PlayerInfo[playerid][pPreDutyModel] = modelid;
 					SetPlayerSkin(playerid, modelid);
 					SetPVarInt(playerid, "freeSkin", 0);
 			    }
 			    else
 			    {
-			        new 
+			        new
 						string[128],
 						iBusiness = InBusiness(playerid);
 
 			        if(GetPlayerCash(playerid) < GetPVarInt(playerid, "SkinChangeCost")) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the su dung skin nay!");
 					GameTextForPlayer(playerid, "~g~Clothes purchased!", 2000, 1);
 					PlayerInfo[playerid][pModel] = modelid;
+					if(PlayerInfo[playerid][pPreDutyModel] != 0) PlayerInfo[playerid][pPreDutyModel] = modelid;
 					SetPlayerSkin(playerid, modelid);
 
 					Businesses[iBusiness][bInventory]--;
@@ -6502,6 +6505,7 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
 		if(response)
 		{
 			PlayerInfo[playerid][pModel] = modelid;
+			if(PlayerInfo[playerid][pPreDutyModel] != 0) PlayerInfo[playerid][pPreDutyModel] = modelid;
 			SetPlayerSkin(playerid, modelid);
 			SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban da thay doi skin cua ban.");
 		}

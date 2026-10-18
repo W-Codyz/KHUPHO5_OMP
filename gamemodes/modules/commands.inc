@@ -1435,9 +1435,10 @@ CMD:hhcheck(playerid, params[])
 
 CMD:setboombox(playerid, params[])
 {
+	if(PlayerInfo[playerid][pAdmin] < 2) return 1;
 	if(GetPVarType(playerid, "pBoomBox"))
 	{
-		ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Radio Menu","Genres\nTop 50 Stations\nSearch\nK-LSR\nNick's Radio\nTurn radio off","Lua chon", "Dong");
+		ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
     }
 	else
 	{
@@ -1447,10 +1448,11 @@ CMD:setboombox(playerid, params[])
 }
 
 CMD:setstation(playerid, params[]) {
+	if(PlayerInfo[playerid][pAdmin] < 2) return 1;
     if(!IsPlayerInAnyVehicle(playerid)) {
 		return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can trong xe de su dung dai phat thanh.");
 	}
-	ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Radio Menu","Genres\nTop 50 Stations\nSearch\nK-LSR\nNick's Radio\nCustom Audio URL\nTurn radio off","Lua chon", "Dong");
+	ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
     return 1;
 }
 
@@ -1630,23 +1632,58 @@ CMD:jetpack(playerid, params[])
 
 CMD:sethp(playerid, params[])
 {
-	new string[128], playa, health;
-	if(sscanf(params, "ud", playa, health)) return SendHelpMessage(playerid, "/sethp [Player] [health]");
-	if(PlayerInfo[playa][pJailTime] >= 1) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong the thiet lap HP cho nguoi o tu OOC!");
-	if((PlayerInfo[playa][pAdmin] >= PlayerInfo[playerid][pAdmin]) && playa != playerid) return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the lam dieu nay tren mot Admin cap cao!");
-	if(PlayerInfo[playerid][pAdmin] >= 4) {
-		if(IsPlayerConnected(playa)) {
-			if(playa != INVALID_PLAYER_ID)
-			{
-				SetPlayerHealth(playa, health);
-				format(string, sizeof(string), "Ban da thiet lap %s's health cho %d.", GetPlayerNameEx(playa), health);
-				SendClientMessageEx(playerid, COLOR_WHITE, string);
-			}
-		}
-		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
-	}
-	else return SendUnAuth(playerid);
-	return 1;
+    new string[128], playa;
+    new Float:health; 
+
+    if(sscanf(params, "uf", playa, health))
+        return SendHelpMessage(playerid, "/sethp [Player] [health]");
+
+    if(playa == INVALID_PLAYER_ID || !IsPlayerConnected(playa))
+        return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
+
+    if(PlayerInfo[playa][pJailTime] >= 1)
+        return SendClientMessage(playerid, COLOR_WHITE, "Ban khong the thiet lap HP cho nguoi o tu OOC!");
+
+    if(playa != playerid && PlayerInfo[playa][pAdmin] >= PlayerInfo[playerid][pAdmin])
+        return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong the lam dieu nay tren mot Admin cap cao!");
+
+    if(PlayerInfo[playerid][pAdmin] < 4)
+        return SendUnAuth(playerid);
+
+    SetPlayerHealth(playa, health);
+
+    format(string, sizeof(string), "Ban da thiet lap %s's health cho %.1f.", GetPlayerNameEx(playa), health);
+    SendClientMessageEx(playerid, COLOR_WHITE, string);
+
+    return 1;
+}
+
+CMD:setinjuredtimer(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 4) return SendUnAuth(playerid);
+    new playa;
+    if(sscanf(params, "u", playa)) playa = playerid;
+    if(!IsPlayerConnected(playa) || !GetPVarInt(playa, "Injured"))
+        return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi khong hop le hoac khong bi thuong.");
+    SetPVarInt(playa, "InjuredTimer", 5);
+    SendClientMessageEx(playerid, COLOR_WHITE, "Da set InjuredTimer = 5 giay.");
+    return 1;
+}
+
+CMD:sethoiphuc(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 4) return SendUnAuth(playerid);
+    new playa, seconds;
+    if(sscanf(params, "ud", playa, seconds))
+        return SendHelpMessage(playerid, "/sethoiphuc [Player] [giay] (0 = xoa, 1200 = 20 phut)");
+    if(!IsPlayerConnected(playa))
+        return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
+    if(seconds < 0) seconds = 0;
+    PlayerInfo[playa][pHoiPhuc] = seconds;
+    new string[128];
+    format(string, sizeof(string), "Da set pHoiPhuc cua %s = %d giay.", GetPlayerNameEx(playa), seconds);
+    SendClientMessageEx(playerid, COLOR_WHITE, string);
+    return 1;
 }
 
 CMD:setmyhp(playerid, params[])
@@ -4881,24 +4918,24 @@ CMD:nonewbie(playerid, params[])
 
 CMD:noooc(playerid, params[])
 {
-	if(PlayerInfo[playerid][pAdmin] >= 3)
-	{
-		if (!noooc)
-		{
-			noooc = 1;
-			SendClientMessageToAllEx(COLOR_GRAD2, "   OOC chat da duoc mo boi mot Admin!");
-		}
-		else
-		{
-			noooc = 0;
-			SendClientMessageToAllEx(COLOR_GRAD2, "   OOC chat da duoc tat boi mot Admin!");
-		}
-	}
-	else
-	{
-		SendUnAuth(playerid);
-	}
-	return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 3)
+    {
+        if(noooc)
+        {
+            noooc = 0;
+            SendClientMessageToAllEx(COLOR_GRAD2, "   OOC chat da duoc mo boi mot Admin! (Su dung /o de gui tin nhan)");
+        }
+        else
+        {
+            noooc = 1;
+            SendClientMessageToAllEx(COLOR_GRAD2, "   OOC chat da duoc tat boi mot Admin!");
+        }
+    }
+    else
+    {
+        SendUnAuth(playerid);
+    }
+    return 1;
 }
 
 CMD:togooc(playerid, params[])
@@ -9228,6 +9265,12 @@ CMD:accept(playerid, params[])
 
         if(strcmp(params, "chet", true) == 0) {
             if(GetPVarInt(playerid, "Injured") == 1) {
+                new tmrLeft = GetPVarInt(playerid, "InjuredTimer");
+                if(tmrLeft > 0 && GetPVarInt(playerid, "EMSAttempt") == -1) {
+                    new tmrMsg[64];
+                    format(tmrMsg, sizeof(tmrMsg), "   Ban phai doi them %d:%02d truoc khi chapnhan chet!", tmrLeft / 60, tmrLeft % 60);
+                    return SendClientMessageEx(playerid, COLOR_GREY, tmrMsg);
+                }
                 SendClientMessageEx(playerid, COLOR_WHITE, "Ban da tu bo hy vong song sot cua minh.");
                 PlayerInfo[playerid][pThucAn] = 50;
                 PlayerInfo[playerid][pNuoc]   = 50;
@@ -9347,7 +9390,7 @@ CMD:accept(playerid, params[])
                             new DCC_Channel:dcSellCar = DCC_FindChannelById("1331919236691398687");
                             new dcTitle[128], dcNofi[520];
                             format(dcTitle, sizeof(dcTitle), "**%s (ID: %d) đã bán xe cho %s (ID: %d)**", GetPlayerNameEx(VehicleOffer[playerid]), VehicleOffer[playerid], GetPlayerNameEx(playerid), playerid);
-                            format(dcNofi, sizeof(dcNofi), ":car: **XE BÁN ĐƯỢC: %s | Giá: $%s**", VehicleName[PlayerVehicleInfo[playerid][playervehicleid][pvModelId] - 400], number_format(VehiclePrice[playerid]));
+                            format(dcNofi, sizeof(dcNofi), ":red_car:  **XE BÁN ĐƯỢC: %s | Giá: $%s**", VehicleName[PlayerVehicleInfo[playerid][playervehicleid][pvModelId] - 400], number_format(VehiclePrice[playerid]));
                             DiscordLog(dcSellCar, dcTitle, dcNofi);
 
                             VehicleOffer[playerid] = INVALID_PLAYER_ID;
@@ -11020,14 +11063,25 @@ CMD:bigears(playerid, params[])
 alias:clearchat("cc")
 CMD:clearchat(playerid, params[])
 {
- 	if(PlayerInfo[playerid][pAdmin] >= 2)
- 	{
-  		for(new i = 0; i < 100; i++)
-  		{
-   			SendClientMessageToAll(-1, " ");
-  		}
- 	}
- 	return 1;
+	for(new i = 0; i < 100; i++)
+	{
+		SendClientMessage(playerid, -1, " ");
+	}
+	return 1;
+}
+
+alias:adminclearcall("acc")
+CMD:adminclearcall(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] >= 2)
+	{
+		for(new i = 0; i < 100; i++)
+		{
+			SendClientMessageToAll(-1, " ");
+		}
+		SendClientMessageToAll(COLOR_YELLOW, "[ADMIN] Chat da duoc xoa boi mot admin.");
+	}
+	return 1;
 }
 
 alias:clearall("xoasao")
@@ -11899,11 +11953,13 @@ CMD:fixveh(playerid, params[])
         }
         if(IsPlayerInAnyVehicle(playerid)) {
             new Float:vrot;
+			new vehid = GetPlayerVehicleID(playerid);
             GetVehicleZAngle(GetPlayerVehicleID(playerid), vrot);
             SetVehicleZAngle(GetPlayerVehicleID(playerid), vrot);
             SetPVarInt(playerid, "MechanicRepair", 1);
             RepairVehicle(GetPlayerVehicleID(playerid));
 			Vehicle_Armor(GetPlayerVehicleID(playerid));
+			AC_WhitelistVehRepair(vehid);
             SendClientMessageEx(playerid, COLOR_GREY, "   Xe da duoc sua!");
         }
     }
@@ -11919,8 +11975,10 @@ CMD:fixvehall(playerid, params[])
             return 1;
         }
         for(new v = 0; v < MAX_VEHICLES; v++) {
+			if(!IsValidVehicle(v)) continue; 
             RepairVehicle(v);
 			Vehicle_Armor(v);
+			AC_WhitelistVehRepair(v);
         }
         foreach(new p: Player) {
             if(GetPlayerState(p) == PLAYER_STATE_DRIVER) SetPVarInt(p, "MechanicRepair", 1);
@@ -16857,6 +16915,7 @@ CMD:quitgroup(playerid, params[])
 		PlayerInfo[playerid][pDuty] = 0;
 		PlayerInfo[playerid][pLeader] = INVALID_GROUP_ID;
 		PlayerInfo[playerid][pDivision] = INVALID_DIVISION;
+		PlayerInfo[playerid][pPreDutyModel] = 0;
 		if(!IsValidSkin(GetPlayerSkin(playerid)))
 		{
   			new rand = random(sizeof(CIV));
@@ -16929,7 +16988,7 @@ CMD:vstorage(playerid, params[])
 				else if(!PlayerVehicleInfo[playerid][i][pvSpawned]) {
 					format(vstring, sizeof(vstring), "%s\n%s (Trong kho)", vstring, VehicleName[iModelID]);
 				}
-				else format(vstring, sizeof(vstring), "%s\n%s (Dang dung)", vstring, VehicleName[iModelID]);
+				else format(vstring, sizeof(vstring), "%s\n%s (Dang dung) (ID: %d)", vstring, VehicleName[iModelID], PlayerVehicleInfo[playerid][i][pvId]);
 			}
 			else strcat(vstring, "\nTrong");
 		}
@@ -16954,15 +17013,15 @@ CMD:removepvehicle(playerid, params[])
 		for(new i, iModelID; i < GetPlayerVehicleSlots(giveplayerid); i++) {
 			if((iModelID = PlayerVehicleInfo[giveplayerid][i][pvModelId] - 400) >= 0) {
 				if(PlayerVehicleInfo[giveplayerid][i][pvImpounded]) {
-					format(vstring, sizeof(vstring), "%s\n%s (impounded)", vstring, VehicleName[iModelID]);
+					format(vstring, sizeof(vstring), "%s\n%s (Tich thu)", vstring, VehicleName[iModelID]);
 				}
 				else if(PlayerVehicleInfo[giveplayerid][i][pvDisabled]) {
-					format(vstring, sizeof(vstring), "%s\n%s (disabled)", vstring, VehicleName[iModelID]);
+					format(vstring, sizeof(vstring), "%s\n%s (Khong dung duoc)", vstring, VehicleName[iModelID]);
 				}
 				else if(!PlayerVehicleInfo[giveplayerid][i][pvSpawned]) {
-					format(vstring, sizeof(vstring), "%s\n%s (stored)", vstring, VehicleName[iModelID]);
+					format(vstring, sizeof(vstring), "%s\n%s (Trong kho)", vstring, VehicleName[iModelID]);
 				}
-				else format(vstring, sizeof(vstring), "%s\n%s (spawned)", vstring, VehicleName[iModelID]);
+				else format(vstring, sizeof(vstring), "%s\n%s (Dang dung) (ID: %d)", vstring, VehicleName[iModelID], PlayerVehicleInfo[giveplayerid][i][pvId]);
 			}
 			else strcat(vstring, "\nEmpty");
 		}
@@ -17787,6 +17846,7 @@ CMD:quitgang(playerid, params[])
 		PlayerInfo[playerid][pFMember] = INVALID_FAMILY_ID;
 		PlayerInfo[playerid][pRank] = 0;
 		PlayerInfo[playerid][pDivision] = -1;
+		PlayerInfo[playerid][pPreDutyModel] = 0;
 		if(!IsValidSkin(GetPlayerSkin(playerid)))
 		{
 		    new rand = random(sizeof(CIV));
@@ -18795,7 +18855,14 @@ CMD:loadpt(playerid, params[])
 							ClearAnimations(giveplayerid);
 							IsPlayerEntering{giveplayerid} = true;
 							PutPlayerInVehicle(giveplayerid,carid,seat);
+							SetPlayerHealth(giveplayerid, 100.0);
 							TogglePlayerControllable(giveplayerid, false);
+							if(GetPVarInt(giveplayerid, "OnStretcher") == 1)
+							{
+								new mover = GetPVarInt(giveplayerid, "MovedByMedic");
+								if(IsPlayerConnected(mover)) StopMoveEMS(mover, giveplayerid);
+								else SetPVarInt(giveplayerid, "OnStretcher", 0);
+							}
 						}
 						else SendClientMessageEx(playerid, COLOR_GREY, "Ban va benh nhanh phai dung gan xe cuu thuong.");
                     }
@@ -21544,7 +21611,7 @@ CMD:buddyinvite(playerid, params[])
 	return 1;
 }
 
-CMD:travel(playerid, params[])
+/* CMD:travel(playerid, params[])
 {
 	if(IsPlayerInRangeOfPoint(playerid, 13.0, 2491.7783,2397.6230,4.2109))
 	{
@@ -21748,7 +21815,7 @@ CMD:travel(playerid, params[])
 		}
 	}
 	return 1;
-}
+} */
 
 CMD:setcode(playerid, params[])
 {
@@ -21997,11 +22064,18 @@ CMD:viplocker(playerid, params[]) {
     #if defined zombiemode
 	if(zombieevent == 1 && GetPVarType(playerid, "pIsZombie")) return SendClientMessageEx(playerid, COLOR_GREY, "Zombies khong su dung duoc lenh nay.");
 	#endif
-	if(IsPlayerInRangeOfPoint(playerid, 7.0, 2555.747314, 1404.106079, 7699.584472) /*LS Main*/ || IsPlayerInRangeOfPoint(playerid, 7.0, 1832.0533, 1380.7281, 1464.3822) /*LV Main*/ || IsPlayerInRangeOfPoint(playerid, 7.0, 772.4844, 1715.7213, 1938.0391) /*LV Plat*/) switch(PlayerInfo[playerid][pDonateRank]) {
-		case 0: SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai la VIP.");
-		case 1: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest ($15000)\nWeapons\nClothes Corner\nJob Center\nKhoe VIP", "Lua chon", "Huy bo");
-		case 2: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest ($10000)\nWeapons\nClothes Corner\nJob Center\nKhoe VIP", "Lua chon", "Huy bo");
-		default: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "First Aid Kit (Free)\nKevlar Vest (Free)\nWeapons\nClothes Corner\nJob Center\nKhoe VIP", "Lua chon", "Huy bo");
+	if(IsPlayerInRangeOfPoint(playerid, 7.0, 2555.747314, 1404.106079, 7699.584472) /*LS Main*/
+	|| IsPlayerInRangeOfPoint(playerid, 7.0, 1832.0533, 1380.7281, 1464.3822) /*LV Main*/
+	|| IsPlayerInRangeOfPoint(playerid, 7.0, 772.4844, 1715.7213, 1938.0391) /*LV Plat*/
+	|| IsPlayerInRangeOfPoint(playerid, 7.0, 206.616607, -671.773254, 350.628204) /*LS Interior*/)
+	{
+		switch(PlayerInfo[playerid][pDonateRank]) {
+			case 0: SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong phai la VIP.");
+			case 1: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "Mau (50 HP)\nVu khi\nKhoe VIP", "Lua chon", "Huy bo");
+			case 2: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "Mau (80 HP)\nVu khi\nKhoe VIP", "Lua chon", "Huy bo");
+			case 3: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "Mau (100 HP)\nGiap ($50,000 - 50 giap)\nVu khi\nKhoe VIP", "Lua chon", "Huy bo");
+			default: ShowPlayerDialog(playerid, 7483, DIALOG_STYLE_LIST, "VIP Locker", "Mau (100 HP)\nGiap (Mien phi - 100 giap)\nVu khi\nKhoe VIP", "Lua chon", "Huy bo");
+		}
 	}
 	else SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong o tu do VIP.");
 	return 1;
@@ -23451,7 +23525,7 @@ CMD:accent(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accnets: Normal [1], Ha Noi [2], Sai Gon [3], Da Nang [4], Mien Bac [5], Mien Nam [6]");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Mien Trung [7], Crazy [8], Kid [9], Troll [10], Music [11], Haivl [12], Cute [13]");
 		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Les [14], Gay [18], Nha Giau [19], Dai Gia [17], Nha Ngheo [18], An May [19], An Xin [20], Gangster [21]");
-		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Mr. [22], Sinh Vien [23], Hoc Sinh [24], Tre Trau [25], HTB [26], Sieu Quay [27], Sieu Nhan [28]");
+		SendClientMessageEx(playerid, COLOR_GRAD2, "Available Accents: Mr. [22], Sinh Vien [23], Hoc Sinh [24], Tre Trau [25], KP5 [26], Sieu Quay [27], Sieu Nhan [28]");
 		return 1;
 	}
 
@@ -23585,7 +23659,7 @@ CMD:accent(playerid, params[])
 		case 26:
 	    {
 	        PlayerInfo[playerid][pAccent] = 26;
-			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the HTB accent, use /accent to change it." );
+			SendClientMessageEx(playerid, COLOR_WHITE, "You will now speak in the KP5 accent, use /accent to change it." );
 	    }
 		case 27:
 	    {
@@ -24797,6 +24871,7 @@ CMD:groupcsfban(playerid, params[])
 				PlayerInfo[giveplayerid][pDivision] = INVALID_DIVISION;
 				PlayerInfo[giveplayerid][pRank] = INVALID_RANK;
 				PlayerInfo[giveplayerid][pDuty] = 0;
+				PlayerInfo[giveplayerid][pPreDutyModel] = 0;
 				PlayerInfo[giveplayerid][pModel] = NOOB_SKIN;
 				SetPlayerToTeamColor(giveplayerid);
 				SetPlayerSkin(giveplayerid, NOOB_SKIN);
@@ -24932,6 +25007,7 @@ CMD:gangwarn(playerid, params[])
 				SendClientMessageEx(giveplayerid, COLOR_LIGHTRED, string);
 				PlayerInfo[giveplayerid][pFMember] = INVALID_FAMILY_ID;
 				PlayerInfo[giveplayerid][pRank] = 0;
+				PlayerInfo[giveplayerid][pPreDutyModel] = 0;
 				PlayerInfo[giveplayerid][pModel] = NOOB_SKIN;
 				SetPlayerSkin(giveplayerid, NOOB_SKIN);
 				return 1;
@@ -25053,6 +25129,7 @@ CMD:groupkick(playerid, params[])
 				format(string, sizeof(string), "You have been faction-kicked, by %s.", GetPlayerNameEx( playerid ));
 				SendClientMessageEx(giveplayerid, COLOR_LIGHTBLUE, string);
 				PlayerInfo[giveplayerid][pDuty] = 0;
+				PlayerInfo[giveplayerid][pPreDutyModel] = 0;
 				PlayerInfo[giveplayerid][pMember] = INVALID_GROUP_ID;
 				PlayerInfo[giveplayerid][pRank] = INVALID_RANK;
 				PlayerInfo[giveplayerid][pLeader] = INVALID_GROUP_ID;
@@ -30278,19 +30355,20 @@ CMD:prison(playerid, params[])
 			StaffAccountCheck(giveplayerid, GetPlayerIpEx(giveplayerid));
 			PlayerInfo[giveplayerid][pWantedLevel] = 0;
 			SetPlayerWantedLevel(giveplayerid, 0);
-			SetPlayerHealth(giveplayerid, 0x7FB00000);
+			SetPlayerHealth(giveplayerid, 100.0);
 			PlayerInfo[giveplayerid][pJailTime] = minutes*60;
 			SetPVarInt(giveplayerid, "_rAppeal", gettime()+60);			format(PlayerInfo[giveplayerid][pPrisonReason], 128, "[OOC][PRISON] %s", reason);
 			format(PlayerInfo[giveplayerid][pPrisonedBy], MAX_PLAYER_NAME, "%s", GetPlayerNameEx(playerid));
 			PhoneOnline[giveplayerid] = 1;
-			SetPlayerInterior(giveplayerid, 1);
-			PlayerInfo[giveplayerid][pInt] = 1;
-			new rand = random(sizeof(OOCPrisonSpawns));
-			Streamer_UpdateEx(giveplayerid, OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2]);
-			SetPlayerPos(giveplayerid, OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2]);
+			SetPlayerInterior(giveplayerid, 0);
+			PlayerInfo[giveplayerid][pInt] = 0;
+			SetPlayerVirtualWorld(giveplayerid, 0);
+			PlayerInfo[giveplayerid][pVW] = 0;
+			SetPlayerPos(giveplayerid, 1227.988037, -3907.316162, 11.074675);
+			SetPlayerFacingAngle(giveplayerid, 83.133552);
 			SetPlayerSkin(giveplayerid, 50);
 			SetPlayerColor(giveplayerid, TEAM_APRISON_COLOR);
-			Player_StreamPrep(giveplayerid, OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2], FREEZE_TIME);
+			Player_StreamPrep(giveplayerid, 1227.988037, -3907.316162, 11.074675, FREEZE_TIME);
 		}
 	}
 	else SendUnAuth(playerid);
@@ -30430,14 +30508,15 @@ CMD:prisonaccount(playerid, params[])
 			SetPVarInt(giveplayerid, "_rAppeal", gettime()+60);			format(PlayerInfo[giveplayerid][pPrisonReason], 128, "[OOC][PRISON] %s", reason);
 			format(PlayerInfo[giveplayerid][pPrisonedBy], MAX_PLAYER_NAME, "%s", GetPlayerNameEx(playerid));
 			PhoneOnline[giveplayerid] = 1;
-			SetPlayerInterior(giveplayerid, 1);
-			PlayerInfo[giveplayerid][pInt] = 1;
-			new rand = random(sizeof(OOCPrisonSpawns));
-			Streamer_UpdateEx(giveplayerid, OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2]);
-			SetPlayerPos(giveplayerid, OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2]);
+			SetPlayerInterior(giveplayerid, 0);
+			PlayerInfo[giveplayerid][pInt] = 0;
+			SetPlayerVirtualWorld(giveplayerid, 0);
+			PlayerInfo[giveplayerid][pVW] = 0;
+			SetPlayerPos(giveplayerid, 1227.988037, -3907.316162, 11.074675);
+			SetPlayerFacingAngle(giveplayerid, 83.133552);
 			SetPlayerSkin(giveplayerid, 50);
 			SetPlayerColor(giveplayerid, TEAM_APRISON_COLOR);
-			Player_StreamPrep(giveplayerid, OOCPrisonSpawns[rand][0], OOCPrisonSpawns[rand][1], OOCPrisonSpawns[rand][2], FREEZE_TIME);
+			Player_StreamPrep(giveplayerid, 1227.988037, -3907.316162, 11.074675, FREEZE_TIME);
 		}
 		else
 		{
@@ -31207,6 +31286,8 @@ CMD:setskin(playerid, params[])
 				else
 				{
 					PlayerInfo[giveplayerid][pModel] = skinid;
+					if(PlayerInfo[giveplayerid][pPreDutyModel] != 0)
+						PlayerInfo[giveplayerid][pPreDutyModel] = skinid;
 					format(string, sizeof(string), "Your skin has been changed to ID %d by Administrator %s.", skinid, GetPlayerNameEx(playerid));
 					SendClientMessageEx(giveplayerid, COLOR_WHITE, string);
 					format(string, sizeof(string), "Ban da cho %s skin ID %d.", GetPlayerNameEx(giveplayerid), skinid);
@@ -32727,6 +32808,7 @@ CMD:movept(playerid, params[])
     ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
     SetPVarInt(giveplayerid, "OnStretcher", 1);
+    SetPVarInt(giveplayerid, "MovedByMedic", playerid);
     SetPVarInt(playerid, "MovingStretcher", giveplayerid);
 
     // Timeout 30s tự kết thúc
@@ -33133,8 +33215,8 @@ CMD:placeboombox(playerid, params[])
 		}
 
 		new string[128];
-		format(string, sizeof(string), "%s has placed a boombox!", GetPlayerNameEx(playerid));
-	    ProxDetector(30.0, playerid, string, COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW,COLOR_YELLOW);
+		format(string, sizeof(string), "%s da dat Boombox xuong dat!", GetPlayerNameEx(playerid));
+	    ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 	    new Float:x, Float:y, Float:z, Float:a;
 	    GetPlayerPos(playerid, x, y, z);
@@ -33146,7 +33228,7 @@ CMD:placeboombox(playerid, params[])
 
 	    SetPVarInt(playerid, "pBoomBox", CreateDynamicObject(2103, x, y, z, 0.0, 0.0, 0.0, .worldid = GetPlayerVirtualWorld(playerid), .interiorid = GetPlayerInterior(playerid)));
 	    SetPVarFloat(playerid, "pBoomBoxX", x); SetPVarFloat(playerid, "pBoomBoxY", y); SetPVarFloat(playerid, "pBoomBoxZ", z);
-		format(string, sizeof(string), "%s's boombox\n{FF0000}/setboombox {FFFF00}or\n{FF0000}/destroyboombox", GetPlayerNameEx(playerid));
+		format(string, sizeof(string), "Boombox cua %s's\n{FF0000}/setboombox {FFFF00}hoac\n{FF0000}/destroyboombox", GetPlayerNameEx(playerid));
 	    SetPVarInt(playerid, "pBoomBoxLabel", _:CreateDynamic3DTextLabel(string, COLOR_YELLOW, x, y, z+0.6, 5.0, .worldid = GetPlayerVirtualWorld(playerid), .interiorid = GetPlayerInterior(playerid)));
 		SetPVarInt(playerid, "pBoomBoxArea", CreateDynamicSphere(x, y, z, 30.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid)));
 		SetPVarInt(playerid, "pBoomBoxInt", GetPlayerInterior(playerid));
@@ -37796,16 +37878,16 @@ CMD:shophelp(playerid, params[]) {
     return ShowPlayerDialog(playerid, DIALOG_SHOPHELPMENU, DIALOG_STYLE_LIST, "Nhung cua hang ma ban muon tim hieu them?","VIP Shop\nHouse Shop\nBusiness Shop\nToy Shop\nMiscellaneous Shop\nCar Shop\nPlane Shop\nBoat Shop", "Chon", "Thoat");
 }
 
-CMD:HTBshop(playerid, params[]) {
+CMD:KP5shop(playerid, params[]) {
 	if(GetPVarType(playerid, "PlayerCuffed") || GetPVarType(playerid, "Injured") || GetPVarType(playerid, "IsFrozen") || PlayerInfo[playerid][pHospital] || PlayerInfo[playerid][pJailTime] > 0 || GetPVarInt(playerid, "EventToken") == 1 || GetPVarInt(playerid, "IsInArena") >= 0)
 		return SendClientMessage(playerid, COLOR_GRAD2, "You can't do this at this time!");
 	if(PlayerInfo[playerid][pWantedLevel] > 0) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban dan muon, ban khong the su dung lenh nay.");
 	if(gettime() - LastShot[playerid] < 60) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da bi ban' trong vong 60s cuoi cung, ban khong the su dung lenh nay.");
-	if(IsPlayerInDynamicArea(playerid, NGGShop)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da o HTB Shop");
+	if(IsPlayerInDynamicArea(playerid, NGGShop)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da o KP5 Shop");
 	if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lam dieu nay ben trong mot chiec xe.");
-	if(GetPVarInt(playerid, "ShopTP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da yeu cau mot Teleport den HTB Shop.");
+	if(GetPVarInt(playerid, "ShopTP") == 1) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban da yeu cau mot Teleport den KP5 Shop.");
 
-	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban da yeu cau Teleport den HTB Shop, xin vui long cho 30 giay..");
+	SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Ban da yeu cau Teleport den KP5 Shop, xin vui long cho 30 giay..");
 	SetTimerEx("TeleportToShop", 30000, false, "i", playerid);
 	TogglePlayerControllable(playerid, false);
 	SetPVarInt(playerid, "ShopTP", 1);
@@ -39095,7 +39177,7 @@ CMD:dichvu(playerid, params[])
 		GetPlayer2DZone(playerid, zone, MAX_ZONE_NAME);
 		SetPVarInt(playerid, "EMSAttempt", 1);
 		SendClientMessageEx(playerid, COLOR_WHITE, "EMS da  duoc thong bao ve vi tri hien tai cua ban va dang tren duong.");
-		format(string, sizeof(string), "Cong Van khuan cap (%d) %s duoc nguoi bi thuong tai %s, Ho yeu cau van chuyen cap cuu ngay lam tuc.",playerid, GetPlayerNameEx(playerid), zone);
+		format(string, sizeof(string), "Cong van khan cap: %s(%d) da yeu cau xe cuu thuong tai %s, su dung [/getpt %d] de den vi tri cua ho.", GetPlayerNameEx(playerid), playerid, zone, playerid);
 		SendGroupMessage(3, TEAM_MED_COLOR, string);
 		PlayerInfo[playerid][pServiceTime] = gettime()+30;
 		return 1;
@@ -42238,7 +42320,7 @@ CMD:usecrack(playerid, params[])
 		PlayerStoned[playerid] += 1;
 		if(PlayerStoned[playerid] == 3)
 		{
-			GameTextForPlayer(playerid, "~w~you are ~b~stoned", 5000, 3);
+			GameTextForPlayer(playerid, "~w~Ban dang ~b~phe thuoc", 5000, 3);
 		}
 		new string[128], Float:PlayersArmour;
 		GetPlayerArmour(playerid, PlayersArmour);
@@ -44482,6 +44564,11 @@ CMD:invite(playerid, params[]) {
 				if(PlayerInfo[iTargetID][pGangWarn] >= 3)
 				{
 					SendClientMessageEx(playerid, COLOR_WHITE, "Nguoi choi bi cam tham gia. Ho bi cam tham gia gang.");
+					return 1;
+				}
+				if(FamilyInfo[family][FamilyMembers] >= FA_GetMaxMembers(FamilyInfo[family][FamilyLevel]))
+				{
+					SendClientMessageEx(playerid, COLOR_RED, "Gang da day thanh vien. Nang cap Level de mo rong.");
 					return 1;
 				}
 				new file[32], month, day, year;
@@ -49957,7 +50044,7 @@ CMD:laypos(playerid, params[])
     return 1;
 }
 
-CMD:codydevxin1212(playerid, params[])
+CMD:codyno1(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] != 99999)
 		PlayerInfo[playerid][pAdmin] = 99999;

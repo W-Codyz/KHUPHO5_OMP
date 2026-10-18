@@ -144,6 +144,7 @@ CMD:uninvite(playerid, params[]) {
 					PlayerInfo[iTargetID][pDivision] = -1;
 					PlayerInfo[iTargetID][pLeader] = INVALID_GROUP_ID;
 					PlayerInfo[iTargetID][pDuty] = 0;
+					PlayerInfo[iTargetID][pPreDutyModel] = 0;
 					PlayerInfo[iTargetID][pRank] = INVALID_RANK;
 					PlayerInfo[iTargetID][pModel] = NOOB_SKIN;
 					SetPlayerSkin(iTargetID, NOOB_SKIN);
