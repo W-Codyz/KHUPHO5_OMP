@@ -10,7 +10,7 @@
     "logo": "https://cdn.discordapp.com/attachments/1550838170210533517/1551096973803655259/logo_htb.png?ex=6ab0bb20&is=6aaf69a0&hm=10ebf1e2fc90b20de58cd26d101ab14755449ea1bde18d44ec72a3434345f287&",
     "discord": {
         "invite": "https://discord.gg/FwW655Cj93",
-        "bot_token": "MTU0NDI0MzU1NzA5ODA2MTgzNQ.GQdJMl.tzwRwom4UPi9s7k9Sv4yCJJ8JeXzQ6T-iU9zSs",
+        "bot_token": "MTU0NDI0MzU1NzA5ODA2MTgzNQ.GGujN4.Iefycn5UqV_idc0iXQqp0VZH5Lo2hm5ecBvOMA",
         "intents": 131071
     },
     "chat_input_filter": true,
@@ -64,7 +64,7 @@
     },
     "max_bots": 0,
     "max_players": 100,
-    "name": "BAO TRI MAY CHU | GTAHTB",
+    "name": "BAO TRI MAY CHU | KP5",
     "network": {
         "acks_limit": 9000,
         "aiming_sync_rate": 30,
@@ -109,5 +109,5 @@
     },
     "sleep": 5.0,
     "use_dyn_ticks": true,
-    "website": "web.gtahtb.online"
+    "website": "web.khupho5.online"
 }
