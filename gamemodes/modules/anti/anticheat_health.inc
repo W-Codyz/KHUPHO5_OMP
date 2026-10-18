@@ -107,7 +107,7 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
 
         acVehWarn[playerid]++;
 
-        new szMess[256], szTitle[128], szDiscord[768];
+        new szMess[256], szTitle[128], szDiscord[1024];
         format(szMess, sizeof(szMess),
             "%s da bi kick vi su dung hack SetVehicleHealth vuot gioi han (Veh:%d HP:%.1f > %.1f).",
             GetPlayerNameEx(playerid), vehicleid, fCurrentVehHealth, fMaxAllowed);
@@ -119,13 +119,13 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
                 ":no_entry: ANTI-CHEAT | %s (ID: %d) bi kick",
                 GetPlayerNameEx(playerid), playerid);
             format(szDiscord, sizeof(szDiscord),
-                ":shield: **ANTI-CHEAT SYSTEM**\n\n\
-                :bust_in_silhouette: **Nguoi choi:** %s (ID: %d)\n\
-                :red_car:  **Xe:** %d | **Model:** %d\n\
-                :heart: **HP phat hien:** `%.1f` (gioi han `%.1f`)\n\
-                :hammer: **Hanh dong:** Kick khoi may chu\n\
-                :memo: **Ly do:** SetVehicleHealth vuot gioi han\n\
-                :warning: **So lan canh bao:** `%d/%d`",
+            ":shield: **ANTI-CHEAT SYSTEM**\n\n\
+            :bust_in_silhouette: **Nguoi choi:** %s (ID: %d)\n\
+            :red_car: **Xe:** %d | **Model:** %d\n\
+            :heart: **HP phat hien:** `%.1f` (gioi han `%.1f`)\n\
+            :hammer: **Hanh dong:** Kick khoi may chu\n\
+            :memo: **Ly do:** SetVehicleHealth vuot gioi han\n\
+            :warning: **So lan canh bao:** `%d/%d`",
                 GetPlayerNameEx(playerid), playerid,
                 vehicleid, GetVehicleModel(vehicleid),
                 fCurrentVehHealth, fMaxAllowed,
@@ -157,12 +157,12 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
                 ":warning: ANTI-CHEAT WARNING | %s (ID: %d)",
                 GetPlayerNameEx(playerid), playerid);
             format(szDiscord, sizeof(szDiscord),
-                ":shield: **ANTI-CHEAT SYSTEM - CANH BAO**\n\n\
-                :bust_in_silhouette: **Nguoi choi:** %s (ID: %d)\n\
-                :red_car:  **Xe:** %d | **Model:** %d\n\
-                :heart: **HP phat hien:** `%.1f` (gioi han `%.1f`)\n\
-                :warning: **So lan canh bao:** `%d/%d`\n\
-                :memo: **Ly do:** SetVehicleHealth vuot gioi han (nghi van CLEO)",
+            ":shield: **ANTI-CHEAT SYSTEM - CANH BAO**\n\n\
+            :bust_in_silhouette: **Nguoi choi:** %s (ID: %d)\n\
+            :red_car: **Xe:** %d | **Model:** %d\n\
+            :heart: **HP phat hien:** `%.1f` (gioi han `%.1f`)\n\
+            :warning: **So lan canh bao:** `%d/%d`\n\
+            :memo: **Ly do:** SetVehicleHealth vuot gioi han (nghi van CLEO)",
                 GetPlayerNameEx(playerid), playerid,
                 vehicleid, GetVehicleModel(vehicleid),
                 fCurrentVehHealth, fMaxAllowed,
@@ -190,7 +190,7 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
         SetVehicleHealth(vehicleid, fLast);
         acVehWarn[playerid]++;
 
-        new szMess[256], szTitle[128], szDiscord[768];
+        new szMess[256], szTitle[128], szDiscord[1024];
         format(szMess, sizeof(szMess),
             "%s da bi kick vi su dung hack Repair xe (Veh:%d +%.1f HP).",
             GetPlayerNameEx(playerid), vehicleid, fDiff);
@@ -202,13 +202,13 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
                 ":no_entry: ANTI-CHEAT | %s (ID: %d) bi kick",
                 GetPlayerNameEx(playerid), playerid);
             format(szDiscord, sizeof(szDiscord),
-                ":shield: **ANTI-CHEAT SYSTEM**\n\n\
-                :bust_in_silhouette: **Nguoi choi:** %s (ID: %d)\n\
-                :red_car:  **Xe:** %d | **Model:** %d\n\
-                :heart: **HP tang dot ngot:** `+%.1f` (nguong `%.1f`)\n\
-                :hammer: **Hanh dong:** Kick khoi may chu\n\
-                :memo: **Ly do:** Nghi van CLEO repair xe\n\
-                :warning: **So lan canh bao:** `%d/%d`",
+            ":shield: **ANTI-CHEAT SYSTEM**\n\n\
+            :bust_in_silhouette: **Nguoi choi:** %s (ID: %d)\n\
+            :red_car: **Xe:** %d | **Model:** %d\n\
+            :heart: **HP tang dot ngot:** `+%.1f` (nguong `%.1f`)\n\
+            :hammer: **Hanh dong:** Kick khoi may chu\n\
+            :memo: **Ly do:** Nghi van CLEO repair xe\n\
+            :warning: **So lan canh bao:** `%d/%d`",
                 GetPlayerNameEx(playerid), playerid,
                 vehicleid, GetVehicleModel(vehicleid),
                 fDiff, AC_VEH_HEALTH_THRESHOLD,
@@ -233,12 +233,12 @@ stock AC_CheckVehicleHealth(playerid, vehicleid, Float:fCurrentVehHealth)
                 ":warning: ANTI-CHEAT WARNING | %s (ID: %d)",
                 GetPlayerNameEx(playerid), playerid);
             format(szDiscord, sizeof(szDiscord),
-                ":shield: **ANTI-CHEAT SYSTEM - CANH BAO**\n\n\
-                :bust_in_silhouette: **Nguoi choi:** %s (ID: %d)\n\
-                :red_car:  **Xe:** %d | **Model:** %d\n\
-                :heart: **HP tang dot ngot:** `+%.1f` (nguong `%.1f`)\n\
-                :warning: **So lan canh bao:** `%d/%d`\n\
-                :memo: **Ly do:** Nghi van CLEO repair xe",
+            ":shield: **ANTI-CHEAT SYSTEM - CANH BAO**\n\n\
+            :bust_in_silhouette: **Nguoi choi:** %s (ID: %d)\n\
+            :red_car: **Xe:** %d | **Model:** %d\n\
+            :heart: **HP tang dot ngot:** `+%.1f` (nguong `%.1f`)\n\
+            :warning: **So lan canh bao:** `%d/%d`\n\
+            :memo: **Ly do:** Nghi van CLEO repair xe",
                 GetPlayerNameEx(playerid), playerid,
                 vehicleid, GetVehicleModel(vehicleid),
                 fDiff, AC_VEH_HEALTH_THRESHOLD,
@@ -355,10 +355,10 @@ static AC_LogToFile(const filename[], const text[])
 hook OnPlayerConnect(playerid) { AC_ResetTracking(playerid); return 1; }
 hook OnPlayerDisconnect(playerid, reason) { AC_ResetTracking(playerid); return 1; }
 
-// Reset khi doi xe: tranh so sanh HP xe cu vs HP xe moi gay false positive
+// Reset khi roi xe: tranh so sanh HP xe cu vs HP xe moi gay false positive
 hook OnPlayerStateChange(playerid, newstate, oldstate)
 {
-    if(newstate == PLAYER_STATE_DRIVER)
+    if(oldstate == PLAYER_STATE_DRIVER || oldstate == PLAYER_STATE_PASSENGER)
         acLastVehHealth[playerid] = 0.0;
     return 1;
 }
