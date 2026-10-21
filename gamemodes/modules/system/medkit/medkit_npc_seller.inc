@@ -28,6 +28,13 @@
 #define DIALOG_NPCMK_ADMIN          5235
 #define DIALOG_NPCMK_ADMIN_PRICE    5236
 #define DIALOG_NPCMK_ADMIN_STOCK    5237
+#define DIALOG_NPCMK_MAIN           5238
+#define DIALOG_NPCMK_SELL_HERB      5239
+#define DIALOG_NPCMK_ADMIN_HPRICE   5240
+#define DIALOG_NPCMK_ADMIN_HSTOCK   5241
+
+#define NPC_HERB_DEFAULT_PRICE      800
+#define NPC_HERB_MAX_STOCK          9999
 
 // ============================================================
 // VARIABLES
@@ -39,6 +46,9 @@ new gNPCMedkitActor                         = INVALID_ACTOR_ID;
 new Text3D:gNPCMedkitLabel                  = Text3D:INVALID_3DTEXT_ID;
 new Text3D:gNPCMedkitSpeech                 = Text3D:INVALID_3DTEXT_ID;
 
+new gNPCHerbPrice                           = NPC_HERB_DEFAULT_PRICE;
+new gNPCHerbStock                           = 0;
+
 new gNPCMedkitLog[NPC_MEDKIT_MAX_LOG][128];
 new gNPCMedkitLogCount                      = 0;
 
@@ -49,7 +59,7 @@ stock SaveNPCMedkitConfig()
 {
     new line[64], File:f = fopen("NPCMedkitSeller.cfg", io_write);
     if(f == File:0) return;
-    format(line, sizeof(line), "%d|%d|%d\r\n", gNPCMedkitPrice, gNPCMedkitStock, _:gNPCMedkitVisible);
+    format(line, sizeof(line), "%d|%d|%d|%d|%d\r\n", gNPCMedkitPrice, gNPCMedkitStock, _:gNPCMedkitVisible, gNPCHerbPrice, gNPCHerbStock);
     fwrite(f, line);
     fclose(f);
 }
@@ -61,7 +71,7 @@ stock LoadNPCMedkitConfig()
     if(f == File:0) return 1;
     if(fread(f, line)) {
         new vis;
-        sscanf(line, "p<|>ddd", gNPCMedkitPrice, gNPCMedkitStock, vis);
+        sscanf(line, "p<|>ddddd", gNPCMedkitPrice, gNPCMedkitStock, vis, gNPCHerbPrice, gNPCHerbStock);
         gNPCMedkitVisible = bool:vis;
     }
     fclose(f);
@@ -102,9 +112,10 @@ static AppendNPCMedkitLog(playerid, const action[], qty)
     getdate(year, month, day);
 
     new color[8];
-    if(!strcmp(action, "NAP", true))      strcopy(color, "FF6600", 8);
-    else if(!strcmp(action, "LAY", true)) strcopy(color, "3399FF", 8);
-    else                                  strcopy(color, "00FF88", 8); // MUA
+    if(!strcmp(action, "NAP", true))        strcopy(color, "FF6600", 8);
+    else if(!strcmp(action, "LAY", true))  strcopy(color, "3399FF", 8);
+    else if(!strcmp(action, "THUOC", true)) strcopy(color, "CC44FF", 8);
+    else                                   strcopy(color, "00FF88", 8); // MUA
 
     format(entry, sizeof(entry), "{AAAAAA}[%02d/%02d/%04d %02d:%02d] {%s}[%s] {FFFFFF}%s {FFFF00}x%d\n",
         day, month, year, hh, mm, color, action, GetPlayerNameEx(playerid), qty);
@@ -128,10 +139,10 @@ static UpdateNPCMedkitLabel()
         gNPCMedkitLabel = Text3D:INVALID_3DTEXT_ID;
     }
     if(!gNPCMedkitVisible) return;
-    new labelstr[192];
+    new labelstr[256];
     format(labelstr, sizeof(labelstr),
-        "{FF3300}[NPC Ban Medkit]\n{FFFFFF}Gia: {FFFF00}$%d{FFFFFF}/cai\n{FFFFFF}Con lai: {00FF88}%d cai\n{AAAAAA}Nhan {FFFF00}Y{AAAAAA} de tuong tac",
-        gNPCMedkitPrice, gNPCMedkitStock);
+        "{FF3300}[NPC Ban Medkit]\n{FFFFFF}Medkit: {FFFF00}$%d{FFFFFF}/cai - Con: {00FF88}%d\n{FFFFFF}Thu mua thao duoc: {CC44FF}$%d{FFFFFF}/cai - Co: {00FF88}%d\n{AAAAAA}Nhan {FFFF00}Y{AAAAAA} de tuong tac",
+        gNPCMedkitPrice, gNPCMedkitStock, gNPCHerbPrice, gNPCHerbStock);
     gNPCMedkitLabel = CreateDynamic3DTextLabel(labelstr, 0xFFFFFFFF,
         NPC_MEDKIT_X, NPC_MEDKIT_Y, NPC_MEDKIT_Z + 0.2, 10.0,
         INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, NPC_MEDKIT_VW, NPC_MEDKIT_INT);
@@ -170,6 +181,14 @@ stock IsPlayerNearNPCMedkit(playerid)
     return IsPlayerInRangeOfPoint(playerid, NPC_MEDKIT_RANGE, NPC_MEDKIT_X, NPC_MEDKIT_Y, NPC_MEDKIT_Z);
 }
 
+static ShowNPCMedkitMainDialog(playerid)
+{
+    new str[256];
+    format(str, sizeof(str), "{FFFFFF}Mua Medkit {AAAAAA}(NPC con: {FFFF00}%d{AAAAAA}, gia {FFFF00}$%d{AAAAAA}/cai)\n{FFFFFF}Ban Thao duoc {AAAAAA}(NPC mua gia {CC44FF}$%d{AAAAAA}/cai)", gNPCMedkitStock, gNPCMedkitPrice, gNPCHerbPrice);
+    ShowPlayerDialog(playerid, DIALOG_NPCMK_MAIN, DIALOG_STYLE_LIST,
+        "{FF3300}[NPC Ban Medkit]{FFFFFF} - Giao dich", str, "Chon", "Dong");
+}
+
 static ShowNPCMedkitBuyDialog(playerid)
 {
     new str[256];
@@ -206,7 +225,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     if(IsAMedic(playerid) || PlayerInfo[playerid][pAdmin] >= 1337)
         ShowNPCMedkitDoctorDialog(playerid);
     else
-        ShowNPCMedkitBuyDialog(playerid);
+        ShowNPCMedkitMainDialog(playerid);
     return 1;
 }
 
@@ -214,6 +233,22 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     switch(dialogid)
     {
+        // ==================== MENU CHINH (nguoi choi) ====================
+        case DIALOG_NPCMK_MAIN:
+        {
+            if(!response) return 1;
+            switch(listitem)
+            {
+                case 0: ShowNPCMedkitBuyDialog(playerid);
+                case 1: {
+                    new str[256];
+                    format(str, sizeof(str), "{ffffff}Thao duoc tren nguoi: {FFFF00}%d\n{ffffff}NPC mua gia: {CC44FF}$%d{ffffff}/cai\n\n{AAAAAA}Nhap so luong muon ban:", PlayerInfo[playerid][pHerb], gNPCHerbPrice);
+                    ShowPlayerDialog(playerid, DIALOG_NPCMK_SELL_HERB, DIALOG_STYLE_INPUT,
+                        "{FF3300}[NPC Ban Medkit]{FFFFFF} - Ban Thao Duoc", str, "Ban", "Quay lai");
+                }
+            }
+        }
+
         // ==================== MUA (nguoi choi) ====================
         case DIALOG_NPCMK_BUY:
         {
@@ -241,7 +276,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             AppendNPCMedkitLog(playerid, "MUA", qty);
             new str[128];
             format(str, sizeof(str), "{ff3300}[NPC Medkit]{ffffff} Mua thanh cong {FFFF00}%d Medkit{ffffff} (-{FFFF00}$%d{ffffff}).", qty, totalCost);
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
+            SendClientMessageEx(playerid, COLOR_WHITE, str);
         }
 
         // ==================== DOCTOR MENU ====================
@@ -302,7 +337,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             AppendNPCMedkitLog(playerid, "NAP", qty);
             new str[128];
             format(str, sizeof(str), "{ff3300}[NPC Medkit]{ffffff} Da nap {FFFF00}%d Medkit{ffffff}. NPC con: {FFFF00}%d{ffffff}.", qty, gNPCMedkitStock);
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
+            SendClientMessageEx(playerid, COLOR_WHITE, str);
         }
 
         // ==================== LAY (bac si) ====================
@@ -325,7 +360,43 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             AppendNPCMedkitLog(playerid, "LAY", qty);
             new str[128];
             format(str, sizeof(str), "{ff3300}[NPC Medkit]{ffffff} Da lay {FFFF00}%d Medkit{ffffff}. NPC con: {FFFF00}%d{ffffff}.", qty, gNPCMedkitStock);
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
+            SendClientMessageEx(playerid, COLOR_WHITE, str);
+        }
+
+        // ==================== BAN THAO DUOC (nguoi choi) ====================
+        case DIALOG_NPCMK_SELL_HERB:
+        {
+            if(!response) { ShowNPCMedkitMainDialog(playerid); return 1; }
+            if(strfind(inputtext, "%", true) != -1) return 1;
+            new qty = strval(inputtext);
+            if(qty < 1)
+                return SendClientMessageEx(playerid, COLOR_GREY, "So luong khong hop le!");
+            if(qty > PlayerInfo[playerid][pHerb]) {
+                new str[128];
+                format(str, sizeof(str), "Ban chi co {FFFF00}%d thao duoc{FFFFFF}!", PlayerInfo[playerid][pHerb]);
+                return SendClientMessageEx(playerid, COLOR_GREY, str);
+            }
+            if(gNPCHerbStock + qty > NPC_HERB_MAX_STOCK) {
+                new str[128];
+                format(str, sizeof(str), "NPC chi cho duoc them {FFFF00}%d thao duoc{FFFFFF}!", NPC_HERB_MAX_STOCK - gNPCHerbStock);
+                return SendClientMessageEx(playerid, COLOR_GREY, str);
+            }
+            new totalEarn = qty * gNPCHerbPrice;
+            PlayerInfo[playerid][pHerb] -= qty;
+            gNPCHerbStock += qty;
+            GivePlayerCash(playerid, totalEarn);
+            SaveNPCMedkitConfig();
+            UpdateNPCMedkitLabel();
+            AppendNPCMedkitLog(playerid, "THUOC", qty);
+
+            new str[128];
+            format(str, sizeof(str), "{ff3300}[NPC Medkit]{ffffff} Ban thanh cong {FFFF00}%d thao duoc{ffffff} (+{FFFF00}$%d{ffffff}).", qty, totalEarn);
+            SendClientMessageEx(playerid, COLOR_WHITE, str);
+
+            new dtitle[128], dlog[256];
+            format(dtitle, sizeof(dtitle), "%s (ID: %d) - Ban thao duoc cho NPC", GetPlayerNameEx(playerid), playerid);
+            format(dlog, sizeof(dlog), ":herb: **BAN THAO DUOC**\n:moneybag: **Nhan: $%d**\n:package: **So luong: x%d**\n:dollar: **Gia/cai: $%d**", totalEarn, qty, gNPCHerbPrice);
+            DiscordLog(dclog_Trucker, dtitle, dlog);
         }
 
         // ==================== ADMIN MENU ====================
@@ -348,12 +419,24 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         "{FFFF00}Dat So Luong Kho NPC", str, "Luu", "Quay lai");
                 }
                 case 2: {
+                    new str[128];
+                    format(str, sizeof(str), "{ffffff}Gia thu mua hien tai: {CC44FF}$%d{ffffff}/cai\n\n{AAAAAA}Nhap gia thu mua thao duoc moi:", gNPCHerbPrice);
+                    ShowPlayerDialog(playerid, DIALOG_NPCMK_ADMIN_HPRICE, DIALOG_STYLE_INPUT,
+                        "{FFFF00}Doi Gia Thu Mua Thao Duoc", str, "Luu", "Quay lai");
+                }
+                case 3: {
+                    new str[128];
+                    format(str, sizeof(str), "{ffffff}Kho thao duoc hien tai: {FFFF00}%d\n\n{AAAAAA}Nhap so luong kho thao duoc moi (0 - %d):", gNPCHerbStock, NPC_HERB_MAX_STOCK);
+                    ShowPlayerDialog(playerid, DIALOG_NPCMK_ADMIN_HSTOCK, DIALOG_STYLE_INPUT,
+                        "{FFFF00}Dat Kho Thao Duoc NPC", str, "Luu", "Quay lai");
+                }
+                case 4: {
                     gNPCMedkitVisible = !gNPCMedkitVisible;
                     SaveNPCMedkitConfig();
                     RefreshNPCMedkit();
                     new str[64];
                     format(str, sizeof(str), "NPC Medkit: {FFFF00}%s{FFFFFF}.", gNPCMedkitVisible ? "Dang hien" : "Dang an");
-                    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
+                    SendClientMessageEx(playerid, COLOR_WHITE, str);
                     PC_EmulateCommand(playerid, "/anpcmedkit");
                 }
             }
@@ -372,7 +455,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             UpdateNPCMedkitLabel();
             new str[128];
             format(str, sizeof(str), "Da doi gia medkit thanh {FFFF00}$%d{FFFFFF}/cai.", gNPCMedkitPrice);
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
+            SendClientMessageEx(playerid, COLOR_WHITE, str);
             PC_EmulateCommand(playerid, "/anpcmedkit");
         }
 
@@ -392,7 +475,44 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             UpdateNPCMedkitLabel();
             new str[128];
             format(str, sizeof(str), "Da dat kho NPC Medkit thanh {FFFF00}%d{FFFFFF}.", gNPCMedkitStock);
-            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, str);
+            SendClientMessageEx(playerid, COLOR_WHITE, str);
+            PC_EmulateCommand(playerid, "/anpcmedkit");
+        }
+
+        case DIALOG_NPCMK_ADMIN_HPRICE:
+        {
+            if(!response) { PC_EmulateCommand(playerid, "/anpcmedkit"); return 1; }
+            if(PlayerInfo[playerid][pAdmin] < 1337) return 1;
+            if(strfind(inputtext, "%", true) != -1) return 1;
+            new price = strval(inputtext);
+            if(price < 1)
+                return SendClientMessageEx(playerid, COLOR_GREY, "Gia khong hop le! (toi thieu $1)");
+            gNPCHerbPrice = price;
+            SaveNPCMedkitConfig();
+            UpdateNPCMedkitLabel();
+            new str[128];
+            format(str, sizeof(str), "Da doi gia thu mua thao duoc thanh {CC44FF}$%d{FFFFFF}/cai.", gNPCHerbPrice);
+            SendClientMessageEx(playerid, COLOR_WHITE, str);
+            PC_EmulateCommand(playerid, "/anpcmedkit");
+        }
+
+        case DIALOG_NPCMK_ADMIN_HSTOCK:
+        {
+            if(!response) { PC_EmulateCommand(playerid, "/anpcmedkit"); return 1; }
+            if(PlayerInfo[playerid][pAdmin] < 1337) return 1;
+            if(strfind(inputtext, "%", true) != -1) return 1;
+            new hstock = strval(inputtext);
+            if(hstock < 0 || hstock > NPC_HERB_MAX_STOCK) {
+                new str[96];
+                format(str, sizeof(str), "So luong khong hop le! (0 - %d)", NPC_HERB_MAX_STOCK);
+                return SendClientMessageEx(playerid, COLOR_GREY, str);
+            }
+            gNPCHerbStock = hstock;
+            SaveNPCMedkitConfig();
+            UpdateNPCMedkitLabel();
+            new str[128];
+            format(str, sizeof(str), "Da dat kho thao duoc NPC thanh {FFFF00}%d{FFFFFF}.", gNPCHerbStock);
+            SendClientMessageEx(playerid, COLOR_WHITE, str);
             PC_EmulateCommand(playerid, "/anpcmedkit");
         }
     }
@@ -408,7 +528,7 @@ CMD:anpcmedkit(playerid, params[])
         return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong co quyen su dung lenh nay!");
 
     new str[384];
-    format(str, sizeof(str), "{FFFF00}Doi gia ban{FFFFFF} (hien: {FFFF00}$%d{FFFFFF})\n{FFFF00}Dat so luong kho{FFFFFF} (hien: {FFFF00}%d{FFFFFF})\n{FFFF00}%s NPC", gNPCMedkitPrice, gNPCMedkitStock, gNPCMedkitVisible ? "An" : "Hien");
+    format(str, sizeof(str), "{FFFF00}Doi gia ban medkit{FFFFFF} (hien: {FFFF00}$%d{FFFFFF})\n{FFFF00}Dat kho medkit{FFFFFF} (hien: {FFFF00}%d{FFFFFF})\n{FFFF00}Doi gia thu mua thao duoc{FFFFFF} (hien: {CC44FF}$%d{FFFFFF})\n{FFFF00}Dat kho thao duoc{FFFFFF} (hien: {FFFF00}%d{FFFFFF})\n{FFFF00}%s NPC", gNPCMedkitPrice, gNPCMedkitStock, gNPCHerbPrice, gNPCHerbStock, gNPCMedkitVisible ? "An" : "Hien");
     ShowPlayerDialog(playerid, DIALOG_NPCMK_ADMIN, DIALOG_STYLE_LIST,
         "{FFFF00}Admin - NPC Ban Medkit", str, "Chon", "Dong");
     return 1;
