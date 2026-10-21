@@ -9903,46 +9903,159 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	        if(listitem == 0)
 	        {
 	            if(!GetPVarType(playerid, "pHTTPWait"))
-	        	{
-	        		SetPVarInt(playerid, "pHTTPWait", 1);
-					format(string, sizeof(string), "%s/radio/radio.php?listgenres=1", SAMP_WEB);
-					HTTP(playerid, HTTP_GET, string, "", "GenreHTTP");
-				}
-				else
-				{
-				    SendClientMessage(playerid, 0xFFFFFFAA, "Chu de ban chon hien dang ban");
-				}
+	            {
+	                new szMusicURL[128];
+	                format(szMusicURL, sizeof(szMusicURL), "%s/api/music/list", MUSIC_API_URL);
+	                SetPVarInt(playerid, "pHTTPWait", 1);
+	                ShowNoticeGUIFrame(playerid, 6);
+	                HTTP(playerid, HTTP_GET, szMusicURL, "", "MusicListHTTP");
+	            }
+	            else SendClientMessage(playerid, 0xFFFFFFAA, "Dang xu ly, vui long cho...");
 	        }
 	        else if(listitem == 1)
 	        {
-	            if(!GetPVarType(playerid, "pHTTPWait"))
-	        	{
-	        		SetPVarInt(playerid, "pHTTPWait", 1);
-					format(string, sizeof(string), "%s/radio/radio.php?top50=1", SAMP_WEB);
-					HTTP(playerid, HTTP_GET, string, "", "Top50HTTP");
-				}
-				else
-				{
-				    SendClientMessage(playerid, 0xFFFFFFAA, "Chu de ban chon hien dang ban");
-				}
+	            ShowPlayerDialog(playerid, SERVER_MUSICSEARCH, DIALOG_STYLE_INPUT, "Tim kiem nhac VPS", "Nhap ten bai hat hoac ca si:", "Tim kiem", "Quay lai");
 	        }
 	        else if(listitem == 2)
 	        {
-	            ShowPlayerDialog(playerid,STATIONSEARCH,DIALOG_STYLE_INPUT,"Tim kiem nhac YouTube","Nhap ten bai hat hoac nghe si:\n{00FF00}Vi du: Chay ngay di, Son Tung, Despacito","Tim kiem","Quay lai");
-			}
-			else if(listitem == 3)
-			{
-				ShowPlayerDialog(playerid, CUSTOM_URLCHOICE, DIALOG_STYLE_INPUT, "Tuy chinh URL", "Xin vui long chen mot doan URL am thanh hop le.", "Dong y", "Quay lai");
-			}
+	            ShowPlayerDialog(playerid, CUSTOM_URLCHOICE, DIALOG_STYLE_INPUT, "Tuy chinh URL", "Nhap URL am thanh (bat dau bang http:// hoac https://)", "Dong y", "Quay lai");
+	        }
+	        else if(listitem == 3)
+	        {
+	            new __stopVeh = GetPlayerVehicleID(playerid);
+	            if(__stopVeh > 0 && __stopVeh < sizeof(g_VehicleRadioURL))
+	            {
+	                g_VehicleRadioURL[__stopVeh][0] = '\0';
+	                foreach(new __si: Player)
+	                {
+	                    if(GetPlayerVehicleID(__si) == __stopVeh)
+	                    {
+	                        StopAudioStreamForPlayerEx(__si);
+	                        SetPVarInt(__si, "MusicIRadio", 0);
+	                    }
+	                }
+	            }
+	            else
+	            {
+	                StopAudioStreamForPlayerEx(playerid);
+	                SetPVarInt(playerid, "MusicIRadio", 0);
+	            }
+	            SendClientMessageEx(playerid, COLOR_GREEN, "Da dung phat nhac.");
+	            new szProxStop[128];
+	            format(szProxStop, sizeof(szProxStop), "{FF8000}* {C2A2DA}%s da tat may nghe nhac tren xe", GetPlayerNameEx(playerid));
+	            ProxDetector(30.0, playerid, szProxStop, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+	        }
 	    }
+	}
+	else if(dialogid == SERVER_MUSICLIST)
+	{
+		if(response)
+		{
+			if(listitem < 0 || listitem >= g_MusicCount[playerid]) return 1;
+			new szURL[256];
+			format(szURL, sizeof(szURL), MUSIC_STREAM_URL"/music/idx/%s", g_MusicFiles[playerid][listitem]);
+			if(GetPVarType(playerid, "pBoomBox") && !IsPlayerInAnyVehicle(playerid))
+			{
+				foreach(new i: Player)
+				{
+					if(IsPlayerInDynamicArea(i, GetPVarInt(playerid, "pBoomBoxArea")))
+						PlayAudioStreamForPlayerEx(i, szURL, GetPVarFloat(playerid, "pBoomBoxX"), GetPVarFloat(playerid, "pBoomBoxY"), GetPVarFloat(playerid, "pBoomBoxZ"), 30.0, true);
+				}
+				SetPVarString(playerid, "pBoomBoxStation", szURL);
+			}
+			else
+			{
+				PlayAudioStreamForPlayerEx(playerid, szURL);
+				SetPVarInt(playerid, "MusicIRadio", 1);
+				new __veh = GetPlayerVehicleID(playerid);
+				if(__veh > 0 && __veh < sizeof(g_VehicleRadioURL))
+					format(g_VehicleRadioURL[__veh], 128, "%s", szURL);
+			}
+			new szMsg[128];
+			format(szMsg, sizeof(szMsg), "Dang phat: {FFFF00}%s", g_MusicNames[playerid][listitem]);
+			SendClientMessageEx(playerid, COLOR_GREEN, szMsg);
+			new szProx[128];
+			if(GetPVarType(playerid, "pBoomBox") && !IsPlayerInAnyVehicle(playerid))
+				format(szProx, sizeof(szProx), "{FF8000}* {C2A2DA}%s da dieu chinh am thanh tren may nghe nhac cua ho", GetPlayerNameEx(playerid));
+			else
+				format(szProx, sizeof(szProx), "{FF8000}* {C2A2DA}%s da dieu chinh am nhac tren xe", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, szProx, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+		}
+		else
+		{
+			if(GetPVarType(playerid, "pBoomBox"))
+				ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Boombox | Lua chon", "Danh sach bai hat\nTim kiem\nURL Tuy chinh", "Lua chon", "Dong");
+			else
+				ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Boombox | Lua chon", "Danh sach bai hat\nTim kiem\nURL Tuy chinh\nDung nghe nhac", "Lua chon", "Dong");
+		}
+	}
+	else if(dialogid == SERVER_MUSICMENU)
+	{
+		if(response)
+		{
+			if(listitem == 0)
+			{
+				if(!GetPVarType(playerid, "pHTTPWait"))
+				{
+					new szURL[128];
+					format(szURL, sizeof(szURL), "%s/api/music/list", MUSIC_API_URL);
+					SetPVarInt(playerid, "pHTTPWait", 1);
+					ShowNoticeGUIFrame(playerid, 6);
+					HTTP(playerid, HTTP_GET, szURL, "", "MusicListHTTP");
+				}
+				else SendClientMessage(playerid, 0xFFFFFFAA, "Dang xu ly, vui long cho...");
+			}
+			else if(listitem == 1)
+			{
+				ShowPlayerDialog(playerid, SERVER_MUSICSEARCH, DIALOG_STYLE_INPUT, "Tim kiem nhac VPS", "Nhap ten bai hat hoac ca si:", "Tim kiem", "Quay lai");
+			}
+		}
+		else
+		{
+			if(GetPVarType(playerid, "pBoomBox"))
+				ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Boombox | Lua chon", "Danh sach bai hat\nTim kiem\nURL Tuy chinh", "Lua chon", "Dong");
+			else
+				ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Boombox | Lua chon", "Danh sach bai hat\nTim kiem\nURL Tuy chinh\nDung nghe nhac", "Lua chon", "Dong");
+		}
+	}
+	else if(dialogid == SERVER_MUSICSEARCH)
+	{
+		if(response)
+		{
+			if(isnull(inputtext))
+			{
+				ShowPlayerDialog(playerid, SERVER_MUSICMENU, DIALOG_STYLE_LIST, "Nhac Server VPS", "Danh sach nhac\nTim kiem", "Chon", "Quay lai");
+				return 1;
+			}
+			if(!GetPVarType(playerid, "pHTTPWait"))
+			{
+				new encoded[256], szURL[384];
+				UrlEncodeStr(inputtext, encoded, sizeof(encoded));
+				format(szURL, sizeof(szURL), "%s/api/music/search?q=%s", MUSIC_API_URL, encoded);
+				SetPVarInt(playerid, "pHTTPWait", 1);
+				ShowNoticeGUIFrame(playerid, 6);
+				HTTP(playerid, HTTP_GET, szURL, "", "MusicSearchHTTP");
+			}
+			else SendClientMessage(playerid, 0xFFFFFFAA, "Dang xu ly, vui long cho...");
+		}
+		else
+		{
+			if(GetPVarType(playerid, "pBoomBox"))
+				ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Boombox | Lua chon", "Danh sach bai hat\nTim kiem\nURL Tuy chinh", "Lua chon", "Dong");
+			else
+				ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Boombox | Lua chon", "Danh sach bai hat\nTim kiem\nURL Tuy chinh\nDung nghe nhac", "Lua chon", "Dong");
+		}
 	}
 	else if(dialogid == CUSTOM_URLCHOICE)
 	{
 		if(response)
 		{
-			if(isnull(inputtext) || IsNumeric(inputtext)) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban chua nhap mot URL hop le.");
+			if(isnull(inputtext)) return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban chua nhap URL.");
+			if(strfind(inputtext, "http://", true) != 0 && strfind(inputtext, "https://", true) != 0)
+				return SendClientMessageEx(playerid, COLOR_GRAD1, "URL phai bat dau bang http:// hoac https://");
+			//if(strlen(inputtext) < 12) return SendClientMessageEx(playerid, COLOR_GRAD1, "URL qua ngan, vui long nhap day du.");
 
-			if(GetPVarType(playerid, "pBoomBox"))
+			if(GetPVarType(playerid, "pBoomBox") && !IsPlayerInAnyVehicle(playerid))
 			{
 				foreach(new i: Player)
 				{
@@ -9955,14 +10068,26 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				PlayAudioStreamForPlayerEx(playerid, inputtext);
 				SetPVarInt(playerid, "MusicIRadio", 1);
+				new __veh2 = GetPlayerVehicleID(playerid);
+				if(__veh2 > 0 && __veh2 < sizeof(g_VehicleRadioURL))
+					format(g_VehicleRadioURL[__veh2], 128, "%s", inputtext);
 			}
 			SendClientMessageEx(playerid, COLOR_GREEN, "Da phat URL am thanh thanh cong.");
+			new szProxURL[128];
+			if(GetPVarType(playerid, "pBoomBox") && !IsPlayerInAnyVehicle(playerid))
+				format(szProxURL, sizeof(szProxURL), "{FF8000}* {C2A2DA}%s da dieu chinh am thanh tren may nghe nhac cua ho", GetPlayerNameEx(playerid));
+			else
+				format(szProxURL, sizeof(szProxURL), "{FF8000}* {C2A2DA}%s da dieu chinh am nhac tren xe", GetPlayerNameEx(playerid));
+			ProxDetector(30.0, playerid, szProxURL, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 		}
 		else
 		{
-			ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong lai");
+			if(GetPVarType(playerid, "pBoomBox"))
+				ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Boombox | Lua chon", "Danh sach bai hat\nTim kiem\nURL Tuy chinh", "Lua chon", "Dong");
+			else
+				ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Boombox | Lua chon", "Danh sach bai hat\nTim kiem\nURL Tuy chinh\nDung nghe nhac", "Lua chon", "Dong");
 		}
-	}		
+	}
 	else if(dialogid == GENRES)
 	{
 		if(response)
@@ -9981,7 +10106,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		else
 		{
-		    ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong lai");
+		    ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh\nNhac Server VPS","Lua chon", "Dong lai");
         	DeletePVar(playerid, "pSelectGenre");
 		}
 	}
@@ -10019,7 +10144,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 	    if(!response)
 		{
-			ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong lai");
+			ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh\nNhac Server VPS","Lua chon", "Dong lai");
 		}
 	    else
 		{
@@ -10102,7 +10227,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    {
 	        if(strlen(inputtext) < 0 || strlen(inputtext) > 64)
 	        {
-	            ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
+	            ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh\nNhac Server VPS","Lua chon", "Dong");
 			}
 			else
 			{
@@ -10124,7 +10249,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    }
 	    else
 	    {
-	        ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
+	        ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh\nNhac Server VPS","Lua chon", "Dong");
 	    }
 	}
 	else if(dialogid == STATIONSEARCHLIST)
@@ -10147,7 +10272,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    }
 	    else
 	    {
-	        ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
+	        ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh\nNhac Server VPS","Lua chon", "Dong");
 		}
 	}
 	else if(dialogid == STATIONSEARCHLISTEN)

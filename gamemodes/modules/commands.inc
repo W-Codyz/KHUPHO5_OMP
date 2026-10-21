@@ -1438,7 +1438,7 @@ CMD:setboombox(playerid, params[])
 	if(PlayerInfo[playerid][pAdmin] < 2) return 1;
 	if(GetPVarType(playerid, "pBoomBox"))
 	{
-		ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
+		ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","Danh sach bai hat\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
     }
 	else
 	{
@@ -1448,11 +1448,11 @@ CMD:setboombox(playerid, params[])
 }
 
 CMD:setstation(playerid, params[]) {
-	if(PlayerInfo[playerid][pAdmin] < 2) return 1;
+	//if(PlayerInfo[playerid][pAdmin] < 2) return 1;
     if(!IsPlayerInAnyVehicle(playerid)) {
 		return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban can trong xe de su dung dai phat thanh.");
 	}
-	ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Boombox | Lua chon","The loai\nTop 50 Stations\nTim kiem\nURL Tuy chinh","Lua chon", "Dong");
+	ShowPlayerDialog(playerid,SETSTATION,DIALOG_STYLE_LIST,"Nghe nhac | Lua chon","Danh sach bai hat\nTim kiem\nURL Tuy chinh\nDung nghe nhac","Lua chon", "Dong");
     return 1;
 }
 
@@ -7202,14 +7202,14 @@ CMD:goto(playerid, params[])
 			if (GetPlayerState(playerid) == 2)
 			{
 				new tmpcar = GetPlayerVehicleID(playerid);
-				SetVehiclePos(tmpcar,1523.093505, -1474.203125, 9.500000);
+				SetVehiclePos(tmpcar,-328.951660, 1314.766479, 3.754937);
 				LinkVehicleToInterior(tmpcar, 0);
 				SetVehicleVirtualWorld(tmpcar, 0);
 				fVehSpeed[playerid] = 0.0;
 			}
 			else
 			{
-				SetPlayerPos(playerid, 1523.093505, -1474.203125, 9.500000);
+				SetPlayerPos(playerid, -328.951660, 1314.766479, 3.754937);
 			}
 			SendClientMessageEx(playerid, COLOR_GRAD1, " Ban da duoc dich chuyen!");
 			ShowTDN(playerid, NOTIFICATION_SUCCESS, "Dich chuyen thanh cong!");
@@ -13808,12 +13808,14 @@ CMD:skill(playerid, params[])
 		Boc vac\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
 		Pizza Boy\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
 		Tho xay dung\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
-		Cau ca\t{D9EB4C}%d\t{FFFFFF}hay cau nhieu hon de len cap", "Dong", "",
+		Cau ca\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} lan cau nua de len cap{FFFFFF}\n\
+		Che tao\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap", "Dong", "",
 		GetJobLevel(playerid, JOB_TRUCKER), GetSkillNextLevel(playerid, JOB_TRUCKER),
 		GetJobLevel(playerid, JOB_PORTER), GetSkillNextLevel(playerid, JOB_PORTER),
 		GetJobLevel(playerid, JOB_PIZZABOY), GetSkillNextLevel(playerid, JOB_PIZZABOY),
 		GetJobLevel(playerid, JOB_CONSTRUCTION), GetSkillNextLevel(playerid, JOB_CONSTRUCTION),
-		GetFishingLevel(playerid));
+		GetFishingLevel(playerid), GetFishingExpToNextLevel(playerid),
+		GetPlayerCraftingLevel(playerid), GetCraftingExpToNextLevel(playerid));
 	return 1;
 }
 
@@ -19970,6 +19972,7 @@ CMD:destroycar(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] >= 4) {
 		if(IsPlayerInAnyVehicle(playerid)) {
 			for(new i = 0; i < sizeof(CreatedCars); ++i) if(CreatedCars[i] == GetPlayerVehicleID(playerid)) {
+				g_VehicleRadioURL[CreatedCars[i]][0] = '\0';
 				DestroyVehicle(CreatedCars[i]);
 				CreatedCars[i] = INVALID_VEHICLE_ID;
 				return SendClientMessageEx(playerid, COLOR_GREY, "You have successfully despawned this vehicle.");
@@ -32530,6 +32533,27 @@ CMD:takeadminweapons(playerid, params[])
 	return 1;
 }
 
+CMD:takeallweapons(playerid, params[])
+{
+	if(PlayerInfo[playerid][pAdmin] >= 3)
+	{
+		new string[128], giveplayerid;
+		if(sscanf(params, "u", giveplayerid)) return SendHelpMessage(playerid, "/takeallweapons [player]");
+
+		if(IsPlayerConnected(giveplayerid))
+		{
+			ResetPlayerWeaponsEx(giveplayerid);
+			format(string, sizeof(string), "Admin %s da tich thu toan bo vu khi cua ban.", GetPlayerNameEx(playerid));
+			SendClientMessageEx(giveplayerid, COLOR_RED, string);
+			format(string, sizeof(string), "Ban da tich thu toan bo vu khi cua %s (ID: %d).", GetPlayerNameEx(giveplayerid), giveplayerid);
+			SendClientMessageEx(playerid, COLOR_WHITE, string);
+		}
+		else SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
+	}
+	else SendUnAuth(playerid);
+	return 1;
+}
+
 CMD:gotoco(playerid, params[])
 {
 	if(PlayerInfo[playerid][pAdmin] >= 3)
@@ -33252,7 +33276,7 @@ CMD:destroyboombox(playerid, params[])
 	    if(GetPVarType(playerid, "pBoomBoxArea"))
 	    {
 	        new string[128];
-			format(string, sizeof(string), "* %s has destroyed the boombox.", GetPlayerNameEx(playerid));
+			format(string, sizeof(string), "* %s da cat Boombox cua ho.", GetPlayerNameEx(playerid));
 	        foreach(new i: Player)
 	        {
 	            if(IsPlayerInDynamicArea(i, GetPVarInt(playerid, "pBoomBoxArea")))
@@ -33263,10 +33287,11 @@ CMD:destroyboombox(playerid, params[])
 			}
 	        DeletePVar(playerid, "pBoomBoxArea");
 		}
-		SendClientMessage(playerid, COLOR_WHITE, "You've destroyed your boombox!");
+		SendClientMessage(playerid, COLOR_WHITE, "Ban da cat Boombox cua ban!");
 	}
 	else
 	{
+	    if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessage(playerid, COLOR_WHITE, "Ban khong co boombox duoc dat ra hoac khong gan boombox.");
 	    foreach(new i: Player)
 	    {
 	        if(GetPVarType(i, "pBoomBox"))
@@ -33288,7 +33313,7 @@ CMD:destroyboombox(playerid, params[])
 				    new string[128];
 				    if(GetPVarType(i, "pBoomBoxArea"))
 				    {
-				        format(string, sizeof(string), "* %s has destroyed the boombox.", GetPlayerNameEx(playerid));
+				        format(string, sizeof(string), "* %s da cat Boombox cua ho.", GetPlayerNameEx(playerid));
 				        foreach(new pi:Player)
 				        {
 				            if(IsPlayerInDynamicArea(pi, GetPVarInt(i, "pBoomBoxArea")))
@@ -33299,7 +33324,7 @@ CMD:destroyboombox(playerid, params[])
 						}
 				        DeletePVar(i, "pBoomBoxArea");
 					}
-				    format(string, sizeof(string), "%s has destroyed your boombox!", GetPlayerNameEx(playerid));
+				    format(string, sizeof(string), "%s da cat Boombox cua ban!", GetPlayerNameEx(playerid));
 				    SendClientMessage(i, COLOR_WHITE, string);
 					return 1;
 				}
@@ -39082,7 +39107,7 @@ CMD:shakehand(playerid, params[])
 	return 1;
 }
 
-CMD:music(playerid, params[])
+/*CMD:music(playerid, params[])
 {
 	if(PlayerInfo[playerid][pCDPlayer])
 	{
@@ -39134,7 +39159,7 @@ CMD:music(playerid, params[])
 		return 1;
 	}
 	return 1;
-}
+}*/
 
 CMD:mp3(playerid, params[])
 {
@@ -39142,7 +39167,7 @@ CMD:mp3(playerid, params[])
 	{
 		if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "You must be on foot to use your MP3 Player.");
 
-		ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "MP3 Player - Choose a station","The loai\nTop 50 Stations\nTim kiem\nK-LSR\nNick's Radio\nTuye chon URL\nTat radio", "Lua chon", "Dong");
+		ShowPlayerDialog(playerid, SETSTATION, DIALOG_STYLE_LIST, "Nghe nhac | Lua chon","Danh sach bai hat\nTim kiem\nURL Tuy chinh\nDung nghe nhac", "Lua chon", "Dong");
 	}
 	else return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co CD/MP3 Player.");
 	return 1;

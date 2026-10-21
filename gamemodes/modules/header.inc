@@ -12,11 +12,22 @@ native WP_Hash(buffer[], len, const str[]);
 #define 		MAX_PING 					1200
 #define			INVALID_SAMP_ID				65535
 #define			WEB_SERVER					"127.0.0.1"
-#define			SAMP_WEB					"127.0.0.1"
+#define			SAMP_WEB					"kp5.optikl.ink"
 #define			XP_RATE						10 // XP Rates for jobs
 #define			XP_RATE_HOURLY				7 // XP Bounes per paycheck (LEVEL * XP_RATE * XP_RATE_HOURLY)
 
 #define			SIREN_SOUND					"http://sampweb.ng-gaming.net/brendan/siren.mp3"
+
+#define			MUSIC_API_URL				"http://51.79.165.177:7779"
+#define			MUSIC_STREAM_URL			"http://51.79.165.177:7779"
+#define			MAX_VPS_SONGS				30
+
+new g_MusicFiles[MAX_PLAYERS][MAX_VPS_SONGS][8];   // chi luu index so ("0"-"29")
+new g_MusicNames[MAX_PLAYERS][MAX_VPS_SONGS][80];  // ten hien thi (khong dau)
+new g_MusicCount[MAX_PLAYERS];
+new g_VehicleRadioURL[2000][128]; // URL nhac hien tai cua tung xe
+
+// -----------------------------------------------------------------------------
 			/*  ---------------- TIMERS ----------------- */
 #define			TYPE_TPMATRUNTIMER 			1
 #define			TYPE_TPDRUGRUNTIMER 		2

@@ -1651,6 +1651,7 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 
 public OnPlayerTakeDamage(playerid, issuerid, Float: amount, weaponid, bodypart)
 {
+	SetPVarInt(playerid, "LastHurtTime", GetTickCount());
 	UpdateNameTag(playerid);
 	if(GetPVarInt(playerid, "commitSuicide") == 1)
 	{
@@ -4022,6 +4023,7 @@ public OnVehicleDeath(vehicleid) {
 		}
     }
 	arr_Engine{vehicleid} = 0;
+	g_VehicleRadioURL[vehicleid][0] = '\0';
 }
 
 public OnPlayerSpawn(playerid)
@@ -5438,6 +5440,13 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			PlayerTextDrawShow(playerid, _crTextSpeed[playerid]);
 			PlayerTextDrawShow(playerid, _crTickets[playerid]);
 			DeletePVar(playerid, "_lastTicketWarning");
+		}
+		// Resume radio neu xe dang co nhac
+		new __rVeh = GetPlayerVehicleID(playerid);
+		if(__rVeh > 0 && __rVeh < sizeof(g_VehicleRadioURL) && strlen(g_VehicleRadioURL[__rVeh]) > 0)
+		{
+			PlayAudioStreamForPlayerEx(playerid, g_VehicleRadioURL[__rVeh]);
+			SetPVarInt(playerid, "MusicIRadio", 1);
 		}
 	}
 	IsPlayerEntering{playerid} = false;

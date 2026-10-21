@@ -2906,7 +2906,7 @@ public InitiateGamemode()
 	FixServerTime();
 	SetTimer("RotateWheel", 3*1000, false);
 	SetTimer("MailDeliveryTimer", 60000, true);
-	SetTimerEx("DeleteAllDroppedItems", 60000 * 50, false, "i", 0);
+	//SetTimerEx("DeleteAllDroppedItems", 60000 * 50, false, "i", 0);
 	//SetTimer("SyncTurfWarsMiniMap", 2500, 1);
 	
 	//Island for crate system
@@ -3638,6 +3638,67 @@ public StationInfoHTTP(index, response_code, data[])
 	}
 	return 1;
 }
+
+// ---- Boombox Music Server callbacks ----------------------------------------
+static stock ParseMusicResponse(playerid, response_code, data[], const szTitle[])
+{
+    if(response_code != 200 || isnull(data))
+    {
+        SendClientMessageEx(playerid, COLOR_RED, "Loi ket noi Music Server. Kiem tra node music-server/index.js");
+        return 1;
+    }
+    if(!strcmp(data, "Chua co bai hat|.", true) || !strcmp(data, "Khong tim thay|.", true))
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, !strcmp(data, "Khong tim thay|.", true) ? "Khong tim thay ket qua nao." : "Chua co bai hat nao tren server.");
+        return 1;
+    }
+    new szDialog[2048];
+    new count = 0, pos = 0, dataLen = strlen(data);
+    while(pos < dataLen && count < MAX_VPS_SONGS)
+    {
+        new lineEnd = strfind(data, "\n", false, pos);
+        if(lineEnd == -1) lineEnd = dataLen;
+        new szEntry[90], pipePos;
+        strmid(szEntry, data, pos, lineEnd, sizeof(szEntry));
+        pipePos = strfind(szEntry, "|", false, 0);
+        if(pipePos > 0)
+        {
+            strmid(g_MusicNames[playerid][count], szEntry, 0, pipePos, 80);
+            strmid(g_MusicFiles[playerid][count], szEntry, pipePos + 1, strlen(szEntry), 8);
+            if(count > 0) strcat(szDialog, "\n");
+            strcat(szDialog, g_MusicNames[playerid][count]);
+            count++;
+        }
+        pos = lineEnd + 1;
+    }
+    g_MusicCount[playerid] = count;
+    if(count == 0)
+    {
+        SendClientMessageEx(playerid, COLOR_GREY, "Khong co bai hat nao.");
+        return 1;
+    }
+    ShowPlayerDialog(playerid, SERVER_MUSICLIST, DIALOG_STYLE_LIST, szTitle, szDialog, "Phat", "Quay lai");
+    return 1;
+}
+
+forward MusicListHTTP(index, response_code, data[]);
+public MusicListHTTP(index, response_code, data[])
+{
+    DeletePVar(index, "pHTTPWait");
+    HideNoticeGUIFrame(index);
+    if(!IsPlayerConnected(index)) return 1;
+    return ParseMusicResponse(index, response_code, data, "Nhac Server VPS");
+}
+
+forward MusicSearchHTTP(index, response_code, data[]);
+public MusicSearchHTTP(index, response_code, data[])
+{
+    DeletePVar(index, "pHTTPWait");
+    HideNoticeGUIFrame(index);
+    if(!IsPlayerConnected(index)) return 1;
+    return ParseMusicResponse(index, response_code, data, "Ket qua tim kiem");
+}
+// ---------------------------------------------------------------------------
 
 forward SetCamBack(playerid);
 public SetCamBack(playerid)
@@ -7409,7 +7470,7 @@ stock SendClientMessageWrap(playerid, color, width, const string[])
 forward SetPlayerJoinCamera(playerid);
 public SetPlayerJoinCamera(playerid)
 {
-	new randcamera = Random(1, 4);
+	new randcamera = Random(1, 3);
 	switch(randcamera)
 	{
 		case 1:
@@ -7431,15 +7492,6 @@ public SetPlayerJoinCamera(playerid)
 			InterpolateCameraLookAt(playerid, -1516.3961, 702.8392, 82.541, -1579.5403, 784.7538, 63.2763, 180000, CAMERA_MOVE);
 		}
 		case 3:
-		{
-			SetPlayerVirtualWorld(playerid, playerid+2);
-			SetPlayerInterior(playerid, 0);
-			Streamer_UpdateEx(playerid, -1798.4796, -153.2332, 38.7521);
-			SetPlayerPos(playerid, -1811.2914, 225.8577, 5.9541);
-			InterpolateCameraPos(playerid, -1806.6606, 270.6954, 29.5368, -1798.4796, -153.2332, 38.7521, 180000, CAMERA_MOVE);
-			InterpolateCameraLookAt(playerid, -1798.4796, -153.2332, 38.7521, -1892.7111, -113.6764, 38.2361, 180000, CAMERA_MOVE);
-		}
-		case 4:
 		{
 			SetPlayerVirtualWorld(playerid, playerid+2);
 			SetPlayerInterior(playerid, 0);
@@ -14476,6 +14528,7 @@ stock DestroyPlayerVehicle(playerid, playervehicleid)
 	{
 	    VehicleSpawned[playerid]--;
 	    PlayerCars--;
+		g_VehicleRadioURL[PlayerVehicleInfo[playerid][playervehicleid][pvId]][0] = '\0';
 		DestroyVehicle(PlayerVehicleInfo[playerid][playervehicleid][pvId]);
 		PlayerVehicleInfo[playerid][playervehicleid][pvModelId] = 0;
 		PlayerVehicleInfo[playerid][playervehicleid][pvPosX] = 0.0;
@@ -14572,6 +14625,7 @@ stock UnloadPlayerVehicles(playerid) {
 	for(new v = 0; v < MAX_PLAYERVEHICLES; v++) if(PlayerVehicleInfo[playerid][v][pvId] != INVALID_PLAYER_VEHICLE_ID && !PlayerVehicleInfo[playerid][v][pvImpounded] && PlayerVehicleInfo[playerid][v][pvSpawned]) {
 		PlayerCars--;
 		if(LockStatus{PlayerVehicleInfo[playerid][v][pvId]} != 0) LockStatus{PlayerVehicleInfo[playerid][v][pvId]} = 0;
+		g_VehicleRadioURL[PlayerVehicleInfo[playerid][v][pvId]][0] = '\0';
 		DestroyVehicle(PlayerVehicleInfo[playerid][v][pvId]);
 		PlayerVehicleInfo[playerid][v][pvId] = INVALID_PLAYER_VEHICLE_ID;
 		if(PlayerVehicleInfo[playerid][v][pvAllowedPlayerId] != INVALID_PLAYER_ID)
@@ -14603,6 +14657,7 @@ stock UpdatePlayerVehicleParkPosition(playerid, playervehicleid, Float:newx, Flo
 		oldfuel = VehicleFuel[PlayerVehicleInfo[playerid][playervehicleid][pvId]];
 		UpdatePlayerVehicleMods(playerid, playervehicleid);
 		GetVehicleDamageStatus(PlayerVehicleInfo[playerid][playervehicleid][pvId], arrDamage[0], arrDamage[1], arrDamage[2], arrDamage[3]);
+		g_VehicleRadioURL[PlayerVehicleInfo[playerid][playervehicleid][pvId]][0] = '\0';
 		DestroyVehicle(PlayerVehicleInfo[playerid][playervehicleid][pvId]);
 		new carcreated = CreateVehicle(PlayerVehicleInfo[playerid][playervehicleid][pvModelId], PlayerVehicleInfo[playerid][playervehicleid][pvPosX], PlayerVehicleInfo[playerid][playervehicleid][pvPosY], PlayerVehicleInfo[playerid][playervehicleid][pvPosZ],
 		PlayerVehicleInfo[playerid][playervehicleid][pvPosAngle],PlayerVehicleInfo[playerid][playervehicleid][pvColor1], PlayerVehicleInfo[playerid][playervehicleid][pvColor2], -1);
