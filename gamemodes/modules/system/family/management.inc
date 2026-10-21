@@ -332,7 +332,7 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 case 0: // Nâng rank
                 {
                     new newRank = tRank + 1;
-                    if(newRank >= rank)
+                    if(newRank >= rank && PlayerInfo[playerid][pAdmin] <= 2)
                         return SendClientMessageEx(playerid, COLOR_RED, "Khong the nang rank cao bang hoac hon ban."), 1;
 
                     if(isOnline) PlayerInfo[targetid][pRank] = newRank;
@@ -356,7 +356,7 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     new newRank = tRank - 1;
                     if(newRank < 1)
                         return SendClientMessageEx(playerid, COLOR_RED, "Rank thap nhat la 1."), 1;
-                    if(tRank >= rank)
+                    if(tRank >= rank && PlayerInfo[playerid][pAdmin] <= 2)
                         return SendClientMessageEx(playerid, COLOR_RED, "Khong the ha rank nguoi co rank cao hon ban."), 1;
 
                     if(isOnline) PlayerInfo[targetid][pRank] = newRank;
@@ -377,9 +377,9 @@ stock FM_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
                 case 2: // Kick (hỗ trợ cả offline)
                 {
-                    if(tRank >= 6)
+                    if(tRank >= 6 && PlayerInfo[playerid][pAdmin] <= 2)
                         return SendClientMessageEx(playerid, COLOR_RED, "Khong the kick thanh vien rank 6."), 1;
-                    if(tRank >= rank)
+                    if(tRank >= rank && PlayerInfo[playerid][pAdmin] <= 2)
                         return SendClientMessageEx(playerid, COLOR_RED, "Chi kick duoc nguoi co rank thap hon ban."), 1;
 
                     if(isOnline)
