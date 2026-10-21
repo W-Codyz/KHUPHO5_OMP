@@ -466,82 +466,82 @@ stock PlayerCompassUpdate(playerid, vehid)
 }
 
 
-hook OnPlayerUpdate(playerid)
+static _SpeedoUpdatePlayer(playerid)
 {
-    if(gPlayerLogged{playerid} != 1)
-        return 0;
-
+    if(PlayerInfo[playerid][pSpeedo] != 1) return;
     new vehid = GetPlayerVehicleID(playerid);
-    if(IsValidVehicle(vehid))
-    {
-        if(IsPlayerInAnyVehicle(playerid) && (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER))
-        {
-            new Float:fFuel, Float:fDamage;
-            GetVehicleHealth(vehid, fDamage);
+    if(!IsValidVehicle(vehid)) return;
+    new pState = GetPlayerState(playerid);
+    if(pState != PLAYER_STATE_DRIVER && pState != PLAYER_STATE_PASSENGER) return;
 
-            fFuel = VehicleFuel[vehid];
+    new Float:fFuel, Float:fDamage;
+    GetVehicleHealth(vehid, fDamage);
 
-            if(fFuel < 0) fFuel = 0;
-            else if(fFuel > 100) fFuel = 100;
+    fFuel = VehicleFuel[vehid];
+    if(fFuel < 0.0) fFuel = 0.0;
+    else if(fFuel > 100.0) fFuel = 100.0;
 
-            new vspeed = GetVehicleSpeed(GetPlayerVehicleID(playerid));
-            new color[4];
-            switch (vspeed) {
-                case 0..50:  color = "~w~";
-                case 51..70: color = "~g~";
-                case 71..90: color = "~y~";
-                case 91..100: color = "~p~";
-                default: color = "~r~";
-            }
-            new speed[16];
-            format(speed, sizeof(speed), "%s%d", color, vspeed);
-            PlayerTextDrawSetString(playerid, SpeedoDrpTD[playerid][2], speed);
-
-            new Float:FuelBar;
-            FuelBar = fFuel * -35.0/100;
-            PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][0], 1.5, FuelBar);
-            PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][0]);
-
-            new Float:HealthBar;
-            new Float:fMaxHealth = 1000.0;
-            if(DynVeh[vehid] != -1 && vehid == DynVehicleInfo[DynVeh[vehid]][gv_iSpawnedID])
-                fMaxHealth = DynVehicleInfo[DynVeh[vehid]][gv_fMaxHealth];
-            if(fDamage > fMaxHealth) fDamage = fMaxHealth;
-            HealthBar = fDamage * 35.5 / fMaxHealth;
-            PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][3], HealthBar, -2.0);
-            PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][3]);
-
-            // Speed bar segments [9]-[33] in SpeedoStaticTD
-            if(vspeed > 1)  TextDrawShowForPlayer(playerid, SpeedoStaticTD[9]);  else TextDrawHideForPlayer(playerid, SpeedoStaticTD[9]);
-            if(vspeed > 6)  TextDrawShowForPlayer(playerid, SpeedoStaticTD[10]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[10]);
-            if(vspeed > 10) TextDrawShowForPlayer(playerid, SpeedoStaticTD[11]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[11]);
-            if(vspeed > 14) TextDrawShowForPlayer(playerid, SpeedoStaticTD[12]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[12]);
-            if(vspeed > 17) TextDrawShowForPlayer(playerid, SpeedoStaticTD[13]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[13]);
-            if(vspeed > 20) TextDrawShowForPlayer(playerid, SpeedoStaticTD[14]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[14]);
-            if(vspeed > 24) TextDrawShowForPlayer(playerid, SpeedoStaticTD[15]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[15]);
-            if(vspeed > 28) TextDrawShowForPlayer(playerid, SpeedoStaticTD[16]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[16]);
-            if(vspeed > 32) TextDrawShowForPlayer(playerid, SpeedoStaticTD[17]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[17]);
-            if(vspeed > 36) TextDrawShowForPlayer(playerid, SpeedoStaticTD[18]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[18]);
-            if(vspeed > 40) TextDrawShowForPlayer(playerid, SpeedoStaticTD[19]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[19]);
-            if(vspeed > 44) TextDrawShowForPlayer(playerid, SpeedoStaticTD[20]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[20]);
-            if(vspeed > 48) TextDrawShowForPlayer(playerid, SpeedoStaticTD[21]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[21]);
-            if(vspeed > 52) TextDrawShowForPlayer(playerid, SpeedoStaticTD[22]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[22]);
-            if(vspeed > 56) TextDrawShowForPlayer(playerid, SpeedoStaticTD[23]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[23]);
-            if(vspeed > 60) TextDrawShowForPlayer(playerid, SpeedoStaticTD[24]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[24]);
-            if(vspeed > 64) TextDrawShowForPlayer(playerid, SpeedoStaticTD[25]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[25]);
-            if(vspeed > 68) TextDrawShowForPlayer(playerid, SpeedoStaticTD[26]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[26]);
-            if(vspeed > 72) TextDrawShowForPlayer(playerid, SpeedoStaticTD[27]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[27]);
-            if(vspeed > 76) TextDrawShowForPlayer(playerid, SpeedoStaticTD[28]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[28]);
-            if(vspeed > 80) TextDrawShowForPlayer(playerid, SpeedoStaticTD[29]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[29]);
-            if(vspeed > 84) TextDrawShowForPlayer(playerid, SpeedoStaticTD[30]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[30]);
-            if(vspeed > 87) TextDrawShowForPlayer(playerid, SpeedoStaticTD[31]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[31]);
-            if(vspeed > 89) TextDrawShowForPlayer(playerid, SpeedoStaticTD[32]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[32]);
-            if(vspeed > 90) TextDrawShowForPlayer(playerid, SpeedoStaticTD[33]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[33]);
-
-            PlayerCompassUpdate(playerid, vehid);
-        }
+    new vspeed = GetVehicleSpeed(vehid);
+    new color[4];
+    switch(vspeed) {
+        case 0..50:  color = "~w~";
+        case 51..70: color = "~g~";
+        case 71..90: color = "~y~";
+        case 91..100: color = "~p~";
+        default: color = "~r~";
     }
-    return 1;
+    new speed[16];
+    format(speed, sizeof(speed), "%s%d", color, vspeed);
+    PlayerTextDrawSetString(playerid, SpeedoDrpTD[playerid][2], speed);
+
+    new Float:FuelBar = fFuel * -35.0 / 100.0;
+    PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][0], 1.5, FuelBar);
+    PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][0]);
+
+    new Float:fMaxHealth = 1000.0;
+    if(DynVeh[vehid] != -1 && vehid == DynVehicleInfo[DynVeh[vehid]][gv_iSpawnedID])
+        fMaxHealth = DynVehicleInfo[DynVeh[vehid]][gv_fMaxHealth];
+    if(fDamage > fMaxHealth) fDamage = fMaxHealth;
+    new Float:HealthBar = fDamage * 35.5 / fMaxHealth;
+    PlayerTextDrawTextSize(playerid, SpeedoDrpTD[playerid][3], HealthBar, -2.0);
+    PlayerTextDrawShow(playerid, SpeedoDrpTD[playerid][3]);
+
+    // Speed bar segments [9]-[33]
+    if(vspeed > 1)  TextDrawShowForPlayer(playerid, SpeedoStaticTD[9]);  else TextDrawHideForPlayer(playerid, SpeedoStaticTD[9]);
+    if(vspeed > 6)  TextDrawShowForPlayer(playerid, SpeedoStaticTD[10]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[10]);
+    if(vspeed > 10) TextDrawShowForPlayer(playerid, SpeedoStaticTD[11]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[11]);
+    if(vspeed > 14) TextDrawShowForPlayer(playerid, SpeedoStaticTD[12]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[12]);
+    if(vspeed > 17) TextDrawShowForPlayer(playerid, SpeedoStaticTD[13]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[13]);
+    if(vspeed > 20) TextDrawShowForPlayer(playerid, SpeedoStaticTD[14]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[14]);
+    if(vspeed > 24) TextDrawShowForPlayer(playerid, SpeedoStaticTD[15]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[15]);
+    if(vspeed > 28) TextDrawShowForPlayer(playerid, SpeedoStaticTD[16]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[16]);
+    if(vspeed > 32) TextDrawShowForPlayer(playerid, SpeedoStaticTD[17]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[17]);
+    if(vspeed > 36) TextDrawShowForPlayer(playerid, SpeedoStaticTD[18]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[18]);
+    if(vspeed > 40) TextDrawShowForPlayer(playerid, SpeedoStaticTD[19]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[19]);
+    if(vspeed > 44) TextDrawShowForPlayer(playerid, SpeedoStaticTD[20]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[20]);
+    if(vspeed > 48) TextDrawShowForPlayer(playerid, SpeedoStaticTD[21]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[21]);
+    if(vspeed > 52) TextDrawShowForPlayer(playerid, SpeedoStaticTD[22]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[22]);
+    if(vspeed > 56) TextDrawShowForPlayer(playerid, SpeedoStaticTD[23]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[23]);
+    if(vspeed > 60) TextDrawShowForPlayer(playerid, SpeedoStaticTD[24]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[24]);
+    if(vspeed > 64) TextDrawShowForPlayer(playerid, SpeedoStaticTD[25]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[25]);
+    if(vspeed > 68) TextDrawShowForPlayer(playerid, SpeedoStaticTD[26]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[26]);
+    if(vspeed > 72) TextDrawShowForPlayer(playerid, SpeedoStaticTD[27]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[27]);
+    if(vspeed > 76) TextDrawShowForPlayer(playerid, SpeedoStaticTD[28]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[28]);
+    if(vspeed > 80) TextDrawShowForPlayer(playerid, SpeedoStaticTD[29]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[29]);
+    if(vspeed > 84) TextDrawShowForPlayer(playerid, SpeedoStaticTD[30]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[30]);
+    if(vspeed > 87) TextDrawShowForPlayer(playerid, SpeedoStaticTD[31]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[31]);
+    if(vspeed > 89) TextDrawShowForPlayer(playerid, SpeedoStaticTD[32]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[32]);
+    if(vspeed > 90) TextDrawShowForPlayer(playerid, SpeedoStaticTD[33]); else TextDrawHideForPlayer(playerid, SpeedoStaticTD[33]);
+
+    PlayerCompassUpdate(playerid, vehid);
+}
+
+task SpeedoUpdate[150]()
+{
+    foreach(new i : Player) {
+        if(gPlayerLogged{i} != 1) continue;
+        _SpeedoUpdatePlayer(i);
+    }
 }
 
 CMD:speedo(playerid, params[])
