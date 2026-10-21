@@ -17,17 +17,13 @@
 #define RESET_HOUR 6 // Gi? reset (6h s�ng)
 #define ONE_HOUR 3600000 // 1 gi? = 3600000 ms
 
-#define FISH_SELLER_X -833.587585
-#define FISH_SELLER_Y 2091.364501
-#define FISH_SELLER_Z 48.058601
+#define FISH_SELLER_X -832.286071
+#define FISH_SELLER_Y 2098.040283
+#define FISH_SELLER_Z 47.550109
 
-#define FISHING_SHOP_X -824.504943
-#define FISHING_SHOP_Y 2073.905517
-#define FISHING_SHOP_Z 48.140876
-
-#define FISHING_SHOP_NPC_X -824.504943
-#define FISHING_SHOP_NPC_Y 2073.905517
-#define FISHING_SHOP_NPC_Z 48.140876
+#define FISHING_SHOP_X -831.001281
+#define FISHING_SHOP_Y 2081.063720
+#define FISHING_SHOP_Z 48.769889
 // C?n c�u constants
 #define MAX_FISHING_RODS 3
 #define ROD_DURABILITY_DECREASE_CHANCE 30 // 30% co h?i gi?m d? b?n m?i l?n c�u
@@ -79,16 +75,16 @@ new const FishNames[MAX_FISH_TYPES][] = {
 };
 
 new const FishPrices[MAX_FISH_TYPES] = {
-    320,
-    380,
-    470,
-    530,
-    650,
-    800,
-    1250,
-    2000,
-    3950,
-    7700
+    520,
+    580,
+    670,
+    730,
+    850,
+    1000,
+    1450,
+    2200,
+    4150,
+    7900
 };
 
 new const FishRarity[MAX_FISH_TYPES] = {
@@ -167,22 +163,24 @@ new PlayerSelectedRod[MAX_PLAYERS]; // C?n c�u du?c ch?n d? x�a
 
 GetFishingLimit(playerid) {
     new limit;
-
-    // X�c d?nh c?p d? v� gi?i h?n d?a tr�n k? nang
-    if(PlayerInfo[playerid][pFishSkill] >= 0 && PlayerInfo[playerid][pFishSkill] < 300) {
-        limit = 150; // Level 1: 60 l?n
+    switch(GetFishingLevel(playerid)) {
+        case 1: limit = 150;
+        case 2: limit = 200;
+        case 3: limit = 300;
+        case 4: limit = 500;
     }
-    else if(PlayerInfo[playerid][pFishSkill] >= 300 && PlayerInfo[playerid][pFishSkill] < 600) {
-        limit = 200; // Level 2: 80 l?n
-    }
-    else if(PlayerInfo[playerid][pFishSkill] >= 600 && PlayerInfo[playerid][pFishSkill] < 1200) {
-        limit = 300; // Level 3: 90 l?n
-    }
-    else if(PlayerInfo[playerid][pFishSkill] >= 1200) {
-        limit = 500; // Level 4: 100 l?n
-    }
-
     return limit;
+}
+
+GetFishingExpToNextLevel(playerid) {
+    new exp = PlayerInfo[playerid][pFishSkill];
+    switch(GetFishingLevel(playerid)) {
+        case 1: return 120 - exp;
+        case 2: return 300 - exp;
+        case 3: return 500 - exp;
+        case 4: return 0; // Max level
+    }
+    return 0;
 }
 
 // H�m ki?m tra xem ngu?i choi c� c?n c�u kh? d?ng kh�ng
@@ -638,9 +636,9 @@ StartFishing(playerid) {
     SetPlayerAttachedObject(playerid, 9, 18632, 6, 0.09, 0.01, 0.00, 183.0, -6.0, 0.0, 1.00, 1.00, 1.00);
 
     new string[128];
-    format(string, sizeof(string), "Ban da bat dau cau ca voi can cau so %d... Cho doi trong giay lat.", rodIndex + 1);
+    format(string, sizeof(string), "Ban da bat dau cau ca voi can cau so {b1ff00}%d{ffffff}... Cho doi trong giay lat.", rodIndex + 1);
     SendClientMessage(playerid, COLOR_WHITE, string);
-    SendClientMessage(playerid, COLOR_WHITE, "An [Y] lan nua de ngung cau ca.");
+    SendClientMessage(playerid, COLOR_WHITE, "An {b1ff00}[Y] {ffffff}lan nua de ngung cau ca.");
     ShowTDN(playerid, NOTIFICATION_INFO, "An [Y] lan nua de ngung cau ca.");
 
     new ThoiGianCau = FISH_CATCH_TIME + Random(1000, 5000);
@@ -710,10 +708,8 @@ public CatchFish(playerid) {
 
     PlayerInfo[playerid][pSoLanCauCa]++;
 
-    PlayerInfo[playerid][pFishSkill] ++;
-
-    // Ki?m tra n?u v?a l�n c?p
-    new oldLevel = GetFishingLevel(playerid) - 1;
+    new oldLevel = GetFishingLevel(playerid);
+    PlayerInfo[playerid][pFishSkill]++;
     new newLevel = GetFishingLevel(playerid);
 
     if(oldLevel < newLevel && oldLevel > 0) {
@@ -1000,11 +996,6 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
             ShowFishingShop(playerid);
             return 1;
         }
-        if(IsPlayerInRangeOfPoint(playerid, 3.0, FISHING_SHOP_NPC_X, FISHING_SHOP_NPC_Y, FISHING_SHOP_NPC_Z))
-        {
-            ShowFishingShop(playerid);
-            return 1;
-        }
     }
     return 0;
 }
@@ -1218,11 +1209,12 @@ ProcessBuyBait(playerid, amount) {
 
 // Load fishing shop
 stock Load_FishingShop() {
-    CreateDynamicPickup(1239, 23, FISHING_SHOP_X, FISHING_SHOP_Y, FISHING_SHOP_Z);
-    fishingactor = CreateActor(178, FISHING_SHOP_NPC_X, FISHING_SHOP_NPC_Y, FISHING_SHOP_Z, 179.9); // Actor as salesperson in Ammunation
-    ApplyActorAnimation(fishingactor, "PED", "IDLE_CHAT", 0, 1, 0, 0, 0, 1);
-    CreateDynamic3DTextLabel("{FFFFFF}--Cua hang cau ca--\n{00ff00}Can cau & Moi cau\n{FFFFFF}An {ffff00}[Y] {FFFFFF}hoac {ffff00}[/muacancau] {FFFFFF}de mua hang",
-        -1, FISHING_SHOP_NPC_X, FISHING_SHOP_NPC_Y, FISHING_SHOP_NPC_Z, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
+    fishingactor = CreateActor(178, FISHING_SHOP_X, FISHING_SHOP_Y, FISHING_SHOP_Z + 1.0, 111.592590);
+    if(fishingactor == INVALID_ACTOR_ID) printf("[FISHING] ERROR: CreateActor failed (INVALID_ACTOR_ID)");
+    else {
+        printf("[FISHING] Actor created ID: %d", fishingactor);
+        ApplyActorAnimation(fishingactor, "PED", "IDLE_CHAT", 0, 1, 0, 0, 0, 1);
+    }
     CreateDynamic3DTextLabel("{FFFFFF}--Cua hang cau ca--\n{00ff00}Can cau & Moi cau\n{FFFFFF}An {ffff00}[Y] {FFFFFF}hoac {ffff00}[/muacancau] {FFFFFF}de mua hang",
         -1, FISHING_SHOP_X, FISHING_SHOP_Y, FISHING_SHOP_Z, 30.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, -1, -1, -1);
 }
