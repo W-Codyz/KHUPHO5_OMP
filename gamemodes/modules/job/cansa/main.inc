@@ -233,6 +233,19 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     if(newkeys & KEY_YES)
     {
+        if(MocRac[playerid])
+        {
+            StopLoading(playerid);
+            MocRac[playerid] = false;
+            new iCancel = GetPVarInt(playerid, "IDCanSaDangHai");
+            if(iCancel >= 0 && iCancel < THUNGRAC) ThungRac[iCancel][thungrac_status] = false;
+            ClearAnimations(playerid);
+            DeletePVar(playerid, "ThoiGianHaiCanSa");
+            DeletePVar(playerid, "IDCanSaDangHai");
+            SendClientMessage(playerid, -1, "{FFFF00}KP5{FFFFFF} Ban da huy viec hai can sa.");
+            return 1;
+        }
+
         new iThungRac = IsPlayerNearThungRac(playerid);
         if(iThungRac != floatround(INVALID_FLOAT))
         {
@@ -245,14 +258,16 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 {
                     if(PlayerInfo[playerid][pCanSa] < 20)
                     {
+                        new haiTime = 12 + random(7);
                         MocRac[playerid] = true;
                         ThungRac[iThungRac][thungrac_status] = true;
                         ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, 0, 0, 0, 0, 0);
-                        SetPVarInt(playerid, "ThoiGianHaiCanSa", LUCLOI_TIME);
+                        SetPVarInt(playerid, "ThoiGianHaiCanSa", haiTime);
                         SetPVarInt(playerid, "IDCanSaDangHai", iThungRac);
                         SetTimerEx("TienTrinhHaiCanSa", 1000, false, "d", playerid);
-                        SetLoading(playerid, LUCLOI_TIME * 1000, "Dang hai can sa...", "OnLoadingHaiCanSa");
+                        SetLoading(playerid, haiTime * 1000, "Dang hai can sa...", "OnLoadingHaiCanSa");
                         SendClientMessage(playerid, -1, "{00FF00}Bat dau hai can sa...");
+                        SendHintMessage(playerid, "Nhan [Y] lan nua de huy viec hai can sa.");
                     }
                     else
                     {
