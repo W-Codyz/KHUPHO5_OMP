@@ -43,6 +43,9 @@ public hackWeapon(playerid)
 	if(GetPVarInt(playerid, "Injured") == 1) return 1;
 	if(GetPVarInt(playerid, "KhongHackWeaponInv") == 1) return 1;
 
+	// Grace period 3500ms sau khi bi thuong de tranh false positive do server latency
+	if(GetTickCount() - GetPVarInt(playerid, "LastHurtTime") < 3500) return 1;
+
 	new string[1280], weapons[12][2], weaponname[50];
 	for (new i = 0; i < 12; i++)
 	{
@@ -54,6 +57,7 @@ public hackWeapon(playerid)
 				// Kiem tra lai truoc khi kick de tranh false positive
 				if(GetPVarInt(playerid, "Injured") == 1) return 1;
 				if(GetPVarInt(playerid, "KhongHackWeaponInv") == 1) return 1;
+				if(GetTickCount() - GetPVarInt(playerid, "LastHurtTime") < 3500) return 1;
 
 				if(PlayerInfo[playerid][pAGuns][i] >= 1) return 1;
 				if (GetPlayerWeapon(playerid) == 3) return 1;
