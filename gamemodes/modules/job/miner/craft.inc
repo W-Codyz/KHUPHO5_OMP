@@ -17,8 +17,8 @@
 #define DIALOG_CRAFT_CONFIRM      (9605)
 
 // Pos craft
-new Float:gMeleeWeaponCraftPos[3] = { 1538.288208, -1475.621948, 9.500000}; //Can chien
-new Float:gRangedWeaponCraftPos[3] = { 1512.567382, -1458.324951, 9.500000}; // Sung
+new Float:gMeleeWeaponCraftPos[3] = { -348.307128, 1305.031127, 6.690937}; //Can chien
+new Float:gRangedWeaponCraftPos[3] = { -347.508514, 1299.973510, 6.690937}; // Sung
 
 // TEXT3D và Pickup
 new Text3D:gMeleeWeaponCraftLabel;
@@ -69,25 +69,25 @@ new PlayerCraftingGoldCost[MAX_PLAYERS];
 
 new MeleeWeapons[MAX_MELEE_WEAPONS][MeleeWeaponInfo] = {
     // Tên,             ID,     Vật liệu,   Sắt,    Gỗ,     Thời gian, Level yêu cầu, XP
-    {"Brass Knuckles",  1,      5000,        20, 20,       30, 1, 10},
-    {"Golf Club",       2,      8000,        30,   30,      40, 2, 15},
+    {"Brass Knuckles",  1,      3000,        20, 20,       30, 1, 10},
+    {"Golf Club",       2,      5000,        30,   30,      40, 2, 15},
     {"Nightstick",      3,      7000,        20,   30,      35, 1, 12},
     {"Baseball Bat",    5,      6000,        10,   40,      30, 2, 10},
-    {"Shovel",          6,      8000,        30, 20,      35, 1, 15},
+    {"Shovel",          6,      6000,        30, 20,      35, 1, 15},
     {"Pool Cue",        7,      5000,        15,   35,      30, 1, 10},
-    {"Katana",          8,      10000,       50, 20,      60, 3, 25},
+    {"Katana",          8,      8000,       50, 20,      60, 3, 25},
     {"Purple Dildo",    10,     1000,       0,      8000,   45, 1, 15}
 };
 
 new RangedWeapons[MAX_RANGED_WEAPONS][RangedWeaponInfo] = {
     // Tên,                 ID, Vật liệu, Sắt, Đồng, Vàng, Thời gian, Level yêu cầu, XP
-    {"9mm Pistol",          22, 15000, 50, 30, 1, 90, 2, 30},
-    {"Desert Eagle",        24, 50000, 80, 50, 2, 150, 3, 50},
-    {"Shotgun",             25, 60000, 100, 40, 3, 180, 3, 60},
-    {"MP5",                 29, 85000, 110, 60, 4, 420, 4, 80},
-    {"AK-47",               30, 100000, 150, 80, 5, 240, 4, 90},
-    {"Tec-9",               32, 70000, 90, 50, 2, 180, 3, 60},
-    {"Country Rifle",       33, 90000, 120, 70, 4, 240, 4, 85}
+    {"9mm Pistol",          22, 10000, 50, 30, 1, 90, 2, 30},
+    {"Desert Eagle",        24, 40000, 80, 50, 2, 150, 3, 50},
+    {"Shotgun",             25, 50000, 100, 40, 3, 180, 3, 60},
+    {"MP5",                 29, 50000, 110, 60, 4, 420, 4, 80},
+    {"AK-47",               30, 85000, 150, 80, 5, 240, 4, 90},
+    {"Tec-9",               32, 30000, 90, 50, 2, 180, 3, 60},
+    {"Country Rifle",       33, 80000, 120, 70, 4, 240, 4, 85}
 };
 
 forward OnPlayerCraftingComplete(playerid);
@@ -106,6 +106,7 @@ stock GetPlayerCraftingLevel(playerid)
     return level;
 }
 
+/*
 stock GetSuccessRateByLevel(level)
 {
     new successRate;
@@ -121,6 +122,21 @@ stock GetSuccessRateByLevel(level)
     }
 
     return successRate;
+}
+*/
+
+stock GetCraftingExpToNextLevel(playerid)
+{
+    new level = GetPlayerCraftingLevel(playerid);
+    switch(level)
+    {
+        case 1: return 50 - PlayerInfo[playerid][pCraftSkill];
+        case 2: return 100 - PlayerInfo[playerid][pCraftSkill];
+        case 3: return 200 - PlayerInfo[playerid][pCraftSkill];
+        case 4: return 400 - PlayerInfo[playerid][pCraftSkill];
+        case 5: return 0;
+    }
+    return 0;
 }
 
 stock IsPlayerAtCraftingLocation(playerid, type)
@@ -151,44 +167,41 @@ public OnPlayerCraftingComplete(playerid)
     new itemid = PlayerCraftingItemID[playerid];
     new craftType = PlayerCraftingType[playerid];
     new string[128];
-    new playerLevel = GetPlayerCraftingLevel(playerid);
-    new successRate = GetSuccessRateByLevel(playerLevel);
-    new randomChance = random(100) + 1;
 
-    if(randomChance <= successRate)
+    switch(craftType)
     {
-        switch(craftType)
+        case CRAFT_TYPE_MELEE:
         {
-            case CRAFT_TYPE_MELEE:
+            GivePlayerValidWeapon(playerid, MeleeWeapons[itemid][mwWeaponID], 1);
+            format(string, sizeof(string), "* Ban da che tao thanh cong %s!", MeleeWeapons[itemid][mwName]);
+            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+            if(PlayerInfo[playerid][pCraftSkill] < 400)
             {
-                GivePlayerValidWeapon(playerid, MeleeWeapons[itemid][mwWeaponID], 1);
-                format(string, sizeof(string), "* Ban da che tao thanh cong %s!", MeleeWeapons[itemid][mwName]);
-                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
-                if(PlayerInfo[playerid][pCraftSkill] < 400)
-                {
-                    PlayerInfo[playerid][pCraftSkill] += MeleeWeapons[itemid][mwXPGain];
-                    if(PlayerInfo[playerid][pCraftSkill] > 400) PlayerInfo[playerid][pCraftSkill] = 400;
-                    SendClientMessageEx(playerid, COLOR_YELLOW, "* Diem kinh nghiem che tao cua ban tang len!");
-                }
+                PlayerInfo[playerid][pCraftSkill] += MeleeWeapons[itemid][mwXPGain];
+                if(PlayerInfo[playerid][pCraftSkill] > 400) PlayerInfo[playerid][pCraftSkill] = 400;
+                SendClientMessageEx(playerid, COLOR_YELLOW, "* Diem kinh nghiem che tao cua ban tang len!");
+            }
+            else
+            {
                 SendClientMessageEx(playerid, COLOR_YELLOW, "* Ban da dat cap do cao nhat cua che tao nen khong cong them kinh nghiem nua.");
             }
-            case CRAFT_TYPE_RANGED:
+        }
+        case CRAFT_TYPE_RANGED:
+        {
+            GivePlayerValidWeapon(playerid, RangedWeapons[itemid][rwWeaponID], 100);
+            format(string, sizeof(string), "* Ban da che tao thanh cong %s voi 100 vien dan!", RangedWeapons[itemid][rwName]);
+            SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
+            if(PlayerInfo[playerid][pCraftSkill] < 400)
             {
-                GivePlayerValidWeapon(playerid, RangedWeapons[itemid][rwWeaponID], 100);
-                format(string, sizeof(string), "* Ban da che tao thanh cong %s voi 100 vien dan!", RangedWeapons[itemid][rwName]);
-                SendClientMessageEx(playerid, COLOR_LIGHTBLUE, string);
-                if(PlayerInfo[playerid][pCraftSkill] < 400)
-                {
-                    PlayerInfo[playerid][pCraftSkill] += RangedWeapons[itemid][rwXPGain];
-                    if(PlayerInfo[playerid][pCraftSkill] > 400) PlayerInfo[playerid][pCraftSkill] = 400;
-                    SendClientMessageEx(playerid, COLOR_YELLOW, "* Diem kinh nghiem che tao cua ban tang len!");
-                }
+                PlayerInfo[playerid][pCraftSkill] += RangedWeapons[itemid][rwXPGain];
+                if(PlayerInfo[playerid][pCraftSkill] > 400) PlayerInfo[playerid][pCraftSkill] = 400;
+                SendClientMessageEx(playerid, COLOR_YELLOW, "* Diem kinh nghiem che tao cua ban tang len!");
+            }
+            else
+            {
+                SendClientMessageEx(playerid, COLOR_YELLOW, "* Ban da dat cap do cao nhat cua che tao nen khong cong them kinh nghiem nua.");
             }
         }
-    }
-    else
-    {
-        SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "* Rat tiec, ban da that bai trong qua trinh che tao!");
     }
 
     PlayerCrafting[playerid] = false;
@@ -459,7 +472,6 @@ stock ShowItemDetailInfo(playerid, craftType, itemid)
             else { format(string, sizeof(string), "%s- Go: {FF0000}%d/%d{FFFFFF}\n\n", string, woodHave, woodNeed); canCraft = 0; }
 
             format(string, sizeof(string), "%s{FFFF00}Thoi gian che tao: {FFFFFF}%d giay\n", string, MeleeWeapons[itemid][mwCraftTime]);
-            format(string, sizeof(string), "%s{FFFF00}Ti le thanh cong: {FFFFFF}%d%%\n", string, GetSuccessRateByLevel(playerLevel));
         }
         case CRAFT_TYPE_RANGED:
         {
@@ -506,7 +518,6 @@ stock ShowItemDetailInfo(playerid, craftType, itemid)
             else { format(string, sizeof(string), "%s- Vang: {FF0000}%d/%d{FFFFFF}\n\n", string, goldHave, goldNeed); canCraft = 0; }
 
             format(string, sizeof(string), "%s{FFFF00}Thoi gian che tao: {FFFFFF}%d giay\n", string, RangedWeapons[itemid][rwCraftTime]);
-            format(string, sizeof(string), "%s{FFFF00}Ti le thanh cong: {FFFFFF}%d%%\n", string, GetSuccessRateByLevel(playerLevel));
         }
     }
 
@@ -722,9 +733,6 @@ CMD:checkcraft(playerid, params[])
     format(string, sizeof(string), "%s{FFFF00}Cap do che tao: {FFFFFF}%d\n", string, level);
     format(string, sizeof(string), "%s{FFFF00}Diem kinh nghiem: {FFFFFF}%d\n", string, PlayerInfo[targetid][pCraftSkill]);
 
-    new successRate = GetSuccessRateByLevel(level);
-    format(string, sizeof(string), "%s{FFFF00}Ti le thanh cong: {FFFFFF}%d%%\n", string, successRate);
-
     ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Thong Tin Vat Lieu Che Tao", string, "Dong", "");
 
     return 1;
@@ -858,13 +866,11 @@ CMD:vitrichetao(playerid, params[])
 CMD:thongkechetao(playerid, params[])
 {
     new level = GetPlayerCraftingLevel(playerid);
-    new successRate = GetSuccessRateByLevel(level);
     new string[512];
 
     format(string, sizeof(string), "{FFFFFF}Thong tin tho che tao:\n\n");
     format(string, sizeof(string), "%s{FFFF00}Cap do hien tai: {FFFFFF}%d\n", string, level);
-    format(string, sizeof(string), "%s{FFFF00}Diem kinh nghiem: {FFFFFF}%d\n", string, PlayerInfo[playerid][pCraftSkill]);
-    format(string, sizeof(string), "%s{FFFF00}Ti le thanh cong: {FFFFFF}%d%%\n\n", string, successRate);
+    format(string, sizeof(string), "%s{FFFF00}Diem kinh nghiem: {FFFFFF}%d\n\n", string, PlayerInfo[playerid][pCraftSkill]);
 
     new pointsNextLevel;
     switch(level)
@@ -1009,16 +1015,16 @@ hook OnPlayerDisconnect(playerid, reason)
 hook OnGameModeInit()
 {   
     //NPC nghien cuu che tao sung
-    CreateActor(70, 1520.324584, -1458.531616, 9.500000, 2.282761, 0);
-    CreateDynamic3DTextLabel("<Tien si~ Gojo>\nTao dang nghien cuu che tao sung, nhin deo' gi`?", -1, 1520.324584, -1458.531616, 9.500000+1.3,5.0);
+    CreateActor(70, -339.844299, 1293.607788, 6.690937, 184.041091, 0);
+    CreateDynamic3DTextLabel("<Tien si~ Gojo>\nTao dang nghien cuu che tao sung, nhin deo' gi`?", -1, -339.844299, 1293.607788, 6.690937+1.3,5.0);
 
     //NPC che tao vu khi
-    CreateActor(179, 1510.571166, -1457.613037, 9.500000, 270.010864, 0);
-    CreateDynamic3DTextLabel("<Chu' Tu>\nNhin` cai' gi? Can hang` thi` chon nhanh roi bien'!!", -1, 1510.571166, -1457.613037, 9.500000+1.3,5.0);
+    CreateActor(179, -346.294616, 1298.409790, 6.690937, 346.121856, 0);
+    CreateDynamic3DTextLabel("<Chu' Tu>\nNhin` cai' gi? Can hang` thi` chon nhanh roi bien'!!", -1, -346.294616, 1298.409790, 6.690937+1.3,5.0);
 
     //NPC che tao can chien
-    CreateActor(169, 1536.539428, -1478.990234, 9.500000, 9.153258, 0);
-    CreateDynamic3DTextLabel("<Dinh Nguyen>\nSung dan on ao lam... Can thu gi do em ai hon dung khong?", -1, 1536.539428, -1478.990234, 9.500000+1.3,5.0);
+    CreateActor(169, -349.106781, 1306.693969, 6.690937, 265.554870, 0);
+    CreateDynamic3DTextLabel("<Dinh Nguyen>\nSung dan on ao lam... Can thu gi do em ai hon dung khong?", -1, -349.106781, 1306.693969, 6.690937+1.3,5.0);
 
     gMeleeWeaponCraftLabel = CreateDynamic3DTextLabel("{FF8C00}>> {FFFF00}KHU CHE TAO VU KHI CAN CHIEN {FF8C00}<<\n{FFFFFF}Lenh: {00FF00}/chetaocanchien\n{AAAAAA}Yeu cau: Vat lieu | Sat | Go", -1, gMeleeWeaponCraftPos[0], gMeleeWeaponCraftPos[1], gMeleeWeaponCraftPos[2] + 0.8, 12.0, .testlos = 1, .worldid = 0);
     gRangedWeaponCraftLabel = CreateDynamic3DTextLabel("{FF4444}>> {FFFF00}KHU CHE TAO SUNG {FF4444}<<\n{FFFFFF}Lenh: {00FF00}/chetaovukhi\n{AAAAAA}Yeu cau: Vat lieu | Sat | Dong | Vang", -1, gRangedWeaponCraftPos[0], gRangedWeaponCraftPos[1], gRangedWeaponCraftPos[2] + 0.8, 12.0, .testlos = 1, .worldid = 0);
