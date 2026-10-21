@@ -26,7 +26,7 @@
 #define TURF_SUPPLY_DEADLINE        172800  // Deadline 48 giờ (giây)
 #define TURF_WIN_FAME               1       // Fame thưởng khi chiếm được turf
 #define TURF_SUPPLY_DONE_FAME       5       // Fame khi hoàn thành 50 supply
-#define TURF_SUPPLY_DONE_BANK       200000  // Tiền bank thưởng khi xong supply
+#define TURF_SUPPLY_DONE_BANK       500000  // Tiền bank thưởng khi xong supply
 #define TURF_SUPPLY_FAIL_FAME       2       // Fame bị trừ khi trễ deadline
 #define TURF_SUPPLY_POINT_MAX       50      // Stock tối đa của mỗi điểm lấy hàng cấm
 #define TURF_SUPPLY_REFILL_SEC      900     // Refill +1 kiện mỗi 15 phút (900 giây)
@@ -60,6 +60,8 @@
 #define DIALOG_TURFADMIN_POINT_MGMT 5314    // Submenu quản lý điểm chiếm đóng
 #define DIALOG_SUPPLY_DESTSEL       5315    // Chọn điểm chiếm đóng để giao hàng
 #define DIALOG_TURFADMIN_RESET      5316    // Chọn turf để reset chủ sở hữu + supply
+#define DIALOG_TURFADMIN_FULLRESET_SEL  5317    // Chọn turf để full reset
+#define DIALOG_TURFADMIN_FULLRESET_CFM  5318    // Xác nhận full reset
 
 // ---------------------------------------------------------------------------
 // CẤU TRÚC DỮ LIỆU
@@ -480,14 +482,18 @@ static stock TW_RemoveSupplyPt(idx)
         g_SupplyPts[i] = g_SupplyPts[i+1];
 
     new last = g_SupplyPtCount - 1;
-    g_SupplyPts[last][spDbId]    = 0;
+    g_SupplyPts[last][spDbId]     = 0;
     g_SupplyPts[last][spPickupId] = -1;
     g_SupplyPts[last][spLabelId]  = -1;
-    g_SupplyPts[last][spPosX]    = 0.0;
-    g_SupplyPts[last][spPosY]    = 0.0;
-    g_SupplyPts[last][spPosZ]    = 0.0;
-    g_SupplyPts[last][spStock]   = 0;
+    g_SupplyPts[last][spPosX]     = 0.0;
+    g_SupplyPts[last][spPosY]     = 0.0;
+    g_SupplyPts[last][spPosZ]     = 0.0;
+    g_SupplyPts[last][spStock]    = 0;
     g_SupplyPtCount--;
+
+    // Refresh label cho các điểm bị dịch (số thứ tự thay đổi)
+    for(new i = idx; i < g_SupplyPtCount; i++)
+        TW_UpdateSupplyLabel(i);
 }
 
 // ---------------------------------------------------------------------------
@@ -1124,7 +1130,7 @@ CMD:nhanthuongturf(playerid, params[])
     FA_AddFame(fam, TURF_SUPPLY_DONE_FAME);
     PlayerInfo[playerid][pPot]   += 50;
     PlayerInfo[playerid][pCrack] += 30;
-    PlayerInfo[playerid][pMats]  += 5000;
+    PlayerInfo[playerid][pMats]  += 20000;
 
     g_twSupplyDone[turfid]             = 0;
     TurfData[turfid][twSupplyCount]    = 0;
@@ -1134,7 +1140,7 @@ CMD:nhanthuongturf(playerid, params[])
 
     new str[192];
     format(str, sizeof(str),
-        "[PHAN THUONG] %s da nhan thuong giao hang cam diem chiem dong #%d: +$%d tien mat, +%d fame, +50 Pot/+30 Crack/+5000 Vat lieu (/tuido).",
+        "[PHAN THUONG] %s da nhan thuong giao hang cam diem chiem dong #%d: +$%d tien mat, +%d fame, +50 Pot/+30 Crack/+20000 Vat lieu (/tuido).",
         GetPlayerNameEx(playerid), turfid + 1, TURF_SUPPLY_DONE_BANK, TURF_SUPPLY_DONE_FAME);
     TW_FamilyMsg(fam, COLOR_LIGHTGREEN, str);
 
@@ -1441,7 +1447,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         "1. Tao moi diem chiem dong (vi tri hien tai)\n\
 2. Thay doi trang thai (khoa / mo khoa)\n\
 3. Xoa diem chiem dong\n\
-4. Reset chu so huu + supply",
+4. Reset chu so huu + supply\n\
+5. Full reset (xoa toan bo: chien, supply, khoa, chu)",
                         "Chon", "Quay lai");
                 }
                 case 1: // War thủ công (chọn 2 gang)
@@ -1561,6 +1568,28 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     ShowPlayerDialog(playerid, DIALOG_TURFADMIN_RESET, DIALOG_STYLE_LIST,
                         "Reset Diem Chiem Dong", list, "Reset", "Huy");
                 }
+                case 4: // Full reset – xóa toàn bộ trạng thái
+                {
+                    if(TotalTurfs == 0)
+                        return SendClientMessageEx(playerid, COLOR_RED, "Khong co diem chiem dong nao."), 1;
+                    new list[1536]; list[0] = 0;
+                    for(new i = 0; i < TotalTurfs; i++)
+                    {
+                        new line[112], ownerName[32], statusStr[24];
+                        new ownerIdx = TurfData[i][twOwnerGang];
+                        if(ownerIdx >= 0 && ownerIdx < MAX_FAMILY) strmid(ownerName, FamilyInfo[ownerIdx][FamilyName], 0, 32, 32);
+                        else format(ownerName, 32, "Chua ai");
+                        if(TurfData[i][twActive])       format(statusStr, sizeof(statusStr), "DANG CHIEN");
+                        else if(TurfData[i][twLocked])  format(statusStr, sizeof(statusStr), "KHOA");
+                        else if(TurfData[i][twSupplyDeadline] > 0 || g_twSupplyDone[i]) format(statusStr, sizeof(statusStr), "CO SUPPLY");
+                        else                            format(statusStr, sizeof(statusStr), "Binh thuong");
+                        format(line, sizeof(line), "Diem #%d (%.0f, %.0f) Chu: %s | %s\n",
+                            i+1, TurfData[i][twPosX], TurfData[i][twPosY], ownerName, statusStr);
+                        strcat(list, line, sizeof(list));
+                    }
+                    ShowPlayerDialog(playerid, DIALOG_TURFADMIN_FULLRESET_SEL, DIALOG_STYLE_LIST,
+                        "Full Reset Diem Chiem Dong", list, "Chon", "Huy");
+                }
             }
             return 1;
         }
@@ -1570,28 +1599,53 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response) return 1;
             if(listitem < 0 || listitem >= TotalTurfs) return 1;
 
+            // Lưu lại index, hỏi xác nhận trước khi xóa
+            g_twAdminTurf[playerid] = listitem;
+
+            new ownerName[32], confirm[224];
+            new ownerIdx = TurfData[listitem][twOwnerGang];
+            if(ownerIdx >= 0 && ownerIdx < MAX_FAMILY) strmid(ownerName, FamilyInfo[ownerIdx][FamilyName], 0, 32, 32);
+            else format(ownerName, 32, "Chua ai");
+            format(confirm, sizeof(confirm),
+                "Xac nhan xoa Diem #%d tai (%.0f, %.0f)?\nChu so huu: %s\n\n{FF4444}Hanh dong nay khong the hoan tac!",
+                listitem + 1, TurfData[listitem][twPosX], TurfData[listitem][twPosY], ownerName);
+            ShowPlayerDialog(playerid, DIALOG_TURFADMIN_WARCONFIRM, DIALOG_STYLE_MSGBOX,
+                "Xac Nhan Xoa Diem", confirm, "Xoa", "Huy");
+            return 1;
+        }
+
+        case DIALOG_TURFADMIN_WARCONFIRM:
+        {
+            if(!response) { g_twAdminTurf[playerid] = -1; return 1; }
+            new idx = g_twAdminTurf[playerid];
+            g_twAdminTurf[playerid] = -1;
+            if(idx < 0 || idx >= TotalTurfs) return 1;
+
             new q[64];
-            mysql_format(MainPipeline, q, sizeof(q), "DELETE FROM `turfs` WHERE `id`=%d", TurfData[listitem][twId]);
+            mysql_format(MainPipeline, q, sizeof(q), "DELETE FROM `turfs` WHERE `id`=%d", TurfData[idx][twId]);
             mysql_tquery(MainPipeline, q, "", "");
 
-            if(TurfData[listitem][twPickupId] != -1)
-                DestroyDynamicPickup(TurfData[listitem][twPickupId]);
+            if(TurfData[idx][twPickupId] != -1)
+                DestroyDynamicPickup(TurfData[idx][twPickupId]);
 
-            // Xóa label
-            if(g_twLabel[listitem] != -1)
+            if(g_twLabel[idx] != -1)
             {
-                DestroyDynamic3DTextLabel(Text3D:g_twLabel[listitem]);
-                g_twLabel[listitem] = -1;
+                DestroyDynamic3DTextLabel(Text3D:g_twLabel[idx]);
+                g_twLabel[idx] = -1;
             }
 
             // Dịch mảng lên
-            for(new i = listitem; i < TotalTurfs - 1; i++)
+            for(new i = idx; i < TotalTurfs - 1; i++)
             {
-                TurfData[i]    = TurfData[i+1];
-                g_twLabel[i]   = g_twLabel[i+1];
+                TurfData[i]  = TurfData[i+1];
+                g_twLabel[i] = g_twLabel[i+1];
             }
             g_twLabel[TotalTurfs - 1] = -1;
             TotalTurfs--;
+
+            // Refresh label cho các điểm bị dịch (số thứ tự thay đổi)
+            for(new i = idx; i < TotalTurfs; i++)
+                TW_UpdateLabel(i);
 
             SendClientMessageEx(playerid, COLOR_GREEN, "Da xoa diem chiem dong thanh cong.");
             return 1;
@@ -1622,6 +1676,122 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             new str[80];
             format(str, sizeof(str), "[Admin] Da reset diem chiem dong #%d (xoa chu so huu + supply).", listitem + 1);
+            SendClientMessageEx(playerid, COLOR_GREEN, str);
+            return 1;
+        }
+
+        // --- Full reset: chọn điểm ---
+        case DIALOG_TURFADMIN_FULLRESET_SEL:
+        {
+            if(!response) return 1;
+            if(listitem < 0 || listitem >= TotalTurfs) return 1;
+
+            g_twAdminTurf[playerid] = listitem;
+
+            // Tổng hợp trạng thái để hiện trong hộp xác nhận
+            new ownerName[32], stateInfo[128], confirm[384];
+            new ownerIdx = TurfData[listitem][twOwnerGang];
+            if(ownerIdx >= 0 && ownerIdx < MAX_FAMILY) strmid(ownerName, FamilyInfo[ownerIdx][FamilyName], 0, 32, 32);
+            else format(ownerName, 32, "Chua ai");
+
+            if(TurfData[listitem][twActive])
+            {
+                new aName[32], dName[32];
+                new aG = TurfData[listitem][twAttackGang], dG = TurfData[listitem][twDefendGang];
+                if(aG >= 0 && aG < MAX_FAMILY) strmid(aName, FamilyInfo[aG][FamilyName], 0, 32, 32);
+                else format(aName, 32, "???");
+                if(dG >= 0 && dG < MAX_FAMILY) strmid(dName, FamilyInfo[dG][FamilyName], 0, 32, 32);
+                else format(dName, 32, "_");
+                format(stateInfo, sizeof(stateInfo), "{FF4444}DANG CHIEN: %s vs %s", aName, dName);
+            }
+            else if(TurfData[listitem][twSupplyDeadline] > 0 || g_twSupplyDone[listitem])
+            {
+                format(stateInfo, sizeof(stateInfo), "{FFFF00}Supply: %d/%d chuyen", TurfData[listitem][twSupplyCount], TURF_SUPPLY_MAX);
+            }
+            else if(TurfData[listitem][twLocked])
+            {
+                format(stateInfo, sizeof(stateInfo), "{888888}Diem dang bi KHOA");
+            }
+            else
+            {
+                format(stateInfo, sizeof(stateInfo), "{44FF44}Binh thuong");
+            }
+
+            format(confirm, sizeof(confirm),
+                "Full reset Diem #%d tai (%.0f, %.0f)?\n\n\
+{AAAAAA}Chu so huu: {FFFFFF}%s\n\
+{AAAAAA}Trang thai: %s\n\n\
+{FF4444}Toan bo trang thai se bi xoa sach:\nchinh, supply, khoa, phan thuong\n\
+Cac player dang lay/mang hang se bi huy.",
+                listitem + 1, TurfData[listitem][twPosX], TurfData[listitem][twPosY],
+                ownerName, stateInfo);
+            ShowPlayerDialog(playerid, DIALOG_TURFADMIN_FULLRESET_CFM, DIALOG_STYLE_MSGBOX,
+                "Xac Nhan Full Reset", confirm, "Full Reset", "Huy");
+            return 1;
+        }
+
+        // --- Full reset: xác nhận và thực hiện ---
+        case DIALOG_TURFADMIN_FULLRESET_CFM:
+        {
+            if(!response) { g_twAdminTurf[playerid] = -1; return 1; }
+            new turfid = g_twAdminTurf[playerid];
+            g_twAdminTurf[playerid] = -1;
+            if(turfid < 0 || turfid >= TotalTurfs) return 1;
+
+            // Huỷ supply run của TẤT CẢ player liên quan đến turf này
+            foreach(new i : Player)
+            {
+                if(g_twSupplyTurf[i] == turfid)
+                {
+                    if(g_twSupplyCollecting[i])
+                    {
+                        if(g_twSupplyCheckTimer[i] != -1)
+                        {
+                            KillTimer(g_twSupplyCheckTimer[i]);
+                            g_twSupplyCheckTimer[i] = -1;
+                        }
+                        StopLoading(i);
+                        g_twSupplyCollecting[i] = false;
+                        // Hoàn tiền + hoàn 1 kiện vào supply point
+                        GivePlayerCash(i, TURF_SUPPLY_COST);
+                        new ptIdx = g_twSupplyPtIdx[i];
+                        if(ptIdx >= 0 && ptIdx < g_SupplyPtCount && g_SupplyPts[ptIdx][spStock] < TURF_SUPPLY_POINT_MAX)
+                        {
+                            g_SupplyPts[ptIdx][spStock]++;
+                            TW_UpdateSupplyLabel(ptIdx);
+                        }
+                        g_twSupplyPtIdx[i] = -1;
+                        SendClientMessageEx(i, COLOR_RED, "[Admin] Diem chiem dong vua bi full reset. Qua trinh lay hang bi huy, tien duoc hoan lai.");
+                    }
+                    if(g_twSupplyCarrying[i])
+                    {
+                        g_twSupplyCarrying[i] = false;
+                        DisablePlayerCheckpoint(i);
+                        SendClientMessageEx(i, COLOR_RED, "[Admin] Diem chiem dong vua bi full reset. Hang cam bi tich thu.");
+                    }
+                    g_twSupplyTurf[i] = -1;
+                }
+                if(g_twInZone[i] == turfid) g_twInZone[i] = -1;
+            }
+
+            // Reset toàn bộ trạng thái điểm
+            TurfData[turfid][twActive]           = 0;
+            TurfData[turfid][twWarEndUnix]       = 0;
+            TurfData[turfid][twAttackGang]       = -1;
+            TurfData[turfid][twDefendGang]       = -1;
+            TurfData[turfid][twCurrentHolder]    = -1;
+            TurfData[turfid][twLastCaptureUnix]  = 0;
+            TurfData[turfid][twOwnerGang]        = -1;
+            TurfData[turfid][twSupplyCount]      = 0;
+            TurfData[turfid][twSupplyDeadline]   = 0;
+            TurfData[turfid][twLocked]           = 0;
+            g_twSupplyDone[turfid]               = 0;
+
+            TW_SaveTurf(turfid);
+            TW_UpdateLabel(turfid);
+
+            new str[96];
+            format(str, sizeof(str), "[Admin] Full reset diem chiem dong #%d hoan tat.", turfid + 1);
             SendClientMessageEx(playerid, COLOR_GREEN, str);
             return 1;
         }
@@ -1884,10 +2054,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if(idx < 0 || idx >= g_SupplyPtCount) return 1;
                 g_twAdminSupplyPt[playerid] = idx;
                 new str[128];
-                format(str, sizeof(str), "Diem #%d tai (%.0f, %.0f, %.0f)\nChon hanh dong:",
+                format(str, sizeof(str), "Diem #%d  (%.0f, %.0f, %.0f)",
                     idx+1, g_SupplyPts[idx][spPosX], g_SupplyPts[idx][spPosY], g_SupplyPts[idx][spPosZ]);
                 ShowPlayerDialog(playerid, DIALOG_SUPPLY_ADMIN_OPT, DIALOG_STYLE_LIST,
-                    "Quan Ly Diem Hang Cam", "Dich chuyen den\nXoa diem", "Chon", "Huy");
+                    str, "Dich chuyen den\nXoa diem", "Chon", "Huy");
             }
             return 1;
         }
