@@ -19,45 +19,40 @@ static stock ClearFaceTarget(playerid) {
 }
 
 static stock UpdateFaceTarget(playerid) {
-    new Float:px, Float:py, Float:pz;
-    GetPlayerPos(playerid, px, py, pz);
+    // Dung PlayerPos[] da duoc cache san trong playerTabbedLoop (1s/lan)
+    new Float:px = PlayerPos[playerid][0];
+    new Float:py = PlayerPos[playerid][1];
+    new Float:pz = PlayerPos[playerid][2];
 
     new Float:facingAngle;
     GetPlayerFacingAngle(playerid, facingAngle);
 
+    // Tinh truoc forward vector 1 lan cho tat ca ung vien
+    new Float:fX = -floatsin(facingAngle, degrees);
+    new Float:fY =  floatcos(facingAngle, degrees);
+
     new bestTarget = INVALID_PLAYER_ID;
-    new Float:bestDist = FACE_INTERACT_MAX_DIST + 1.0;
+    new Float:bestDistSq = (FACE_INTERACT_MAX_DIST + 1.0) * (FACE_INTERACT_MAX_DIST + 1.0);
+    new Float:maxDistSq  = FACE_INTERACT_MAX_DIST * FACE_INTERACT_MAX_DIST;
 
-    for(new i = 0; i < MAX_PLAYERS; i++) {
-        if(i == playerid || !IsPlayerConnected(i) || IsPlayerNPC(i)) continue;
+    foreach(new i : Player) {
+        if(i == playerid || IsPlayerNPC(i)) continue;
 
-        new Float:tx, Float:ty, Float:tz;
-        GetPlayerPos(i, tx, ty, tz);
+        new Float:dx = PlayerPos[i][0] - px;
+        new Float:dy = PlayerPos[i][1] - py;
+        new Float:dz = PlayerPos[i][2] - pz;
 
-        new Float:dist = GetDistanceBetweenPoints(px, py, pz, tx, ty, tz);
-        if(dist > FACE_INTERACT_MAX_DIST || dist < 0.1) continue;
+        // Check squared distance truoc: khong can sqrt
+        new Float:distSq = dx * dx + dy * dy + dz * dz;
+        if(distSq > maxDistSq || distSq < 0.01) continue;
 
-        // Normalize huong den target (chi mat phang XY)
-        new Float:dx = tx - px;
-        new Float:dy = ty - py;
+        // Chi normalize XY khi da loc qua distance
         new Float:dlen = floatsqroot(dx * dx + dy * dy);
         if(dlen < 0.001) continue;
-        dx /= dlen;
-        dy /= dlen;
 
-        // Screenshot xac nhan: (sin,-cos) bi nguoc 180 do
-        // Forward vector dung: (-sin, cos)
-        //   angle=0  -> (0, 1)  = North (+Y) ← huong nhan vat dang nhin
-        //   angle=90 -> (-1,0)  = West
-        //   angle=180-> (0,-1)  = South
-        //   angle=270-> (1, 0)  = East
-        new Float:fX = -floatsin(facingAngle, degrees);
-        new Float:fY =  floatcos(facingAngle, degrees);
-
-        // Dot product >= cos(45°) ~ 0.7071 nghia la target nam trong cone
-        new Float:dot = fX * dx + fY * dy;
-        if(dot >= 0.7071 && dist < bestDist) {
-            bestDist = dist;
+        new Float:dot = fX * (dx / dlen) + fY * (dy / dlen);
+        if(dot >= 0.7071 && distSq < bestDistSq) {
+            bestDistSq = distSq;
             bestTarget = i;
         }
     }
@@ -86,12 +81,14 @@ static stock UpdateFaceTarget(playerid) {
 }
 
 public FaceInteract_Tick() {
-    for(new i = 0; i < MAX_PLAYERS; i++) {
-        if(!IsPlayerConnected(i) || IsPlayerNPC(i)) continue;
+    foreach(new i : Player) {
+        if(IsPlayerNPC(i)) continue;
         if(IsPlayerInAnyVehicle(i)
             || PlayerCuffed[i] != 0
             || GetPVarInt(i, "Injured") != 0
-            || PlayerInfo[i][pHospital] != 0)
+            || PlayerInfo[i][pHospital] != 0
+            || GettingSpectated[i] != INVALID_PLAYER_ID
+            || GetPlayerState(i) == PLAYER_STATE_SPECTATING)
         {
             ClearFaceTarget(i);
             continue;
