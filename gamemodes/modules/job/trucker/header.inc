@@ -91,7 +91,7 @@ new Float:TruckerSpawnPos[][4] = {
 };
 
 // Diem ban hang cam duy nhat
-new Float:SellIllegalPosition[3] = {-1805.887207, -1613.531250, 23.015625};
+new Float:SellIllegalPosition[3] = {-329.567810, 1305.925292, 3.754937};
 
 // ---- Pricing ----
 // index: 0=ThucAn, 1=VatLieu, 2=QuanAo, 3=HangCam
