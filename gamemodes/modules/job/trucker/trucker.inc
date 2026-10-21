@@ -284,14 +284,6 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         new salary = lanhluong[playerid];
         GivePlayerCash(playerid, salary);
 
-        new xp_give = tongXPTruck[playerid];
-        if(DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) xp_give *= 2;
-        if(xp_give > 0) {
-            GivePlayerXP(playerid, xp_give);
-            SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem: +%d XP%s",
-                xp_give, (DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) ? " [2X]" : "");
-        }
-
         SendClientMessageEx(playerid, COLOR_TRUCKER,
             "{D5A30A}[Trucker] Ban da lanh {5BFF89}$%s{D5A30A} luong. Cam on da lam viec!",
             number_format(salary));
@@ -301,10 +293,9 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         new title[64];
         format(title, sizeof(title), "%s (ID: %d) - Lãnh lương Trucker", GetPlayerNameEx(playerid), playerid);
         DiscordLog(dclog_Trucker, title,
-            ":moneybag: **Tiền lãnh: $%s**\n:package: **Kiện đã giao: %d**\n:star: **XP nhận: +%d%s**\n:briefcase: **Trucker Skill: %d**",
+            ":moneybag: **Tiền lãnh: $%s**\n:package: **Kiện đã giao: %d**\n:star: **Tổng XP đã nhận: +%d**\n:briefcase: **Trucker Skill: %d**",
             number_format(salary), TruckerDeliveries[playerid],
-            xp_give, (DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) ? " [2X]" : "",
-            PlayerInfo[playerid][pTruckSkill]);
+            tongXPTruck[playerid], PlayerInfo[playerid][pTruckSkill]);
 
         Trucker_Cleanup(playerid);
         return 1;
@@ -552,7 +543,12 @@ hook OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
         lanhluong[playerid]         += price;
         TruckerDeliveries[playerid] += 1;
         PlayerSellingCargo[playerid] = false;
-        tongXPTruck[playerid]       += 40 + random(21);
+        new xp_illegal = 40 + random(21);
+        if(DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) xp_illegal *= 2;
+        GivePlayerXP(playerid, xp_illegal);
+        tongXPTruck[playerid]       += xp_illegal;
+        SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem: +%d XP%s",
+            xp_illegal, (DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) ? " [2X]" : "");
         PlayerInfo[playerid][pTruckSkill] += 1;
 
         // Discord log
@@ -656,7 +652,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
         lanhluong[playerid]         += earn;
         TruckerDeliveries[playerid] += 1;
-        tongXPTruck[playerid]       += 40 + random(21);
+        new xp_sell = 40 + random(21);
+        if(DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) xp_sell *= 2;
+        GivePlayerXP(playerid, xp_sell);
+        tongXPTruck[playerid]       += xp_sell;
+        SendClientMessageEx(playerid, COLOR_YELLOW, "Kinh nghiem: +%d XP%s",
+            xp_sell, (DoubleXP || PlayerInfo[playerid][pDoubleEXP] > 0) ? " [2X]" : "");
         PlayerInfo[playerid][pTruckSkill] += 1;
 
         if(loai >= 1 && loai <= 3) hangtrentay[playerid][loai - 1] = 0;
