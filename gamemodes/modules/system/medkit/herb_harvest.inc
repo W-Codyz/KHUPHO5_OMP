@@ -153,9 +153,10 @@ public Herb_HarvestFinish(playerid)
 
     // Cho player thao duoc
     ClearAnimations(playerid);
-    PlayerInfo[playerid][pHerb]++;
+    new herbAmount = 1 + random(2); // random 1-2
+    PlayerInfo[playerid][pHerb] += herbAmount;
 
-    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{00CC00}[Thao Duoc] {ffffff}Ban da hai duoc 1 thao duoc! (Tong: %d)", PlayerInfo[playerid][pHerb]);
+    SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "{00CC00}[Thao Duoc] {ffffff}Ban da hai duoc %d thao duoc! (Tong: %d)", herbAmount, PlayerInfo[playerid][pHerb]);
     ShowTDN(playerid, NOTIFICATION_SUCCESS, "Hai thao duoc thanh cong.");
 
     // XP
