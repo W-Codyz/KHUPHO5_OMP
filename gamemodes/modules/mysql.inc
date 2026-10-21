@@ -2820,7 +2820,7 @@ stock SaveImpoundPoint(id)
 		ImpoundPoints[id][impoundPosZ],
 		ImpoundPoints[id][impoundVW],
 		ImpoundPoints[id][impoundInt],
-		id
+		ImpoundPoints[id][impoundSQLId]
 	);
 
 	mysql_function_query(MainPipeline, string, false, "OnQueryFinish", "i", SENDDATA_THREAD);
