@@ -67,12 +67,12 @@ stock ShowBankHistory(playerid)
 
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
 	if(PRESSED(KEY_YES))
-		if(IsPlayerInRangeOfPoint(playerid, 3.0,  2941.1841,-1773.3141,1191.5032) || IsPlayerInRangeOfPoint(playerid,3.0, 1460.7382, 1403.4080, 14.2062) || IsPlayerInRangeOfPoint(playerid,3.0, 1460.7364, 1405.5347, 14.2062) || IsPlayerInRangeOfPoint(playerid,3.0, 1460.7369, 1400.8198, 14.2062)) return ShowBank(playerid);
+		if(IsPlayerInRangeOfPoint(playerid, 3.0, 1376.550537, -28.821121, 1000.872924)) return ShowBank(playerid);
 	return 1;
 }
 
 CMD:bank(playerid, params[]) {
-    if(IsPlayerInRangeOfPoint(playerid, 3.0,  2941.1841,-1773.3141,1191.5032) || IsPlayerInRangeOfPoint(playerid,3.0, 1460.7382, 1403.4080, 14.2062) || IsPlayerInRangeOfPoint(playerid,3.0, 1460.7364, 1405.5347, 14.2062) || IsPlayerInRangeOfPoint(playerid,3.0, 1460.7369, 1400.8198, 14.2062)) return ShowBank(playerid);
+    if(IsPlayerInRangeOfPoint(playerid, 3.0, 1376.550537, -28.821121, 1000.872924)) return ShowBank(playerid);
 	return 1;
 }
 
@@ -95,7 +95,7 @@ CMD:dangkybank(playerid, params[])
 {
 	if(PlayerInfo[playerid][pSoTaiKhoan] == 0)
 	{
-	    if(IsPlayerInRangeOfPoint(playerid, 3.0, 2941.5071,-1774.9292,1191.0657) || IsPlayerInRangeOfPoint(playerid, 3.0,  1460.7401, 1407.7728, 14.2062))
+	    if(IsPlayerInRangeOfPoint(playerid, 3.0, 1375.455322, -21.559141, 1000.872924))
 	    {
 	        if(PlayerInfo[playerid][pCash] >= 5000)
 	        {
