@@ -1,6 +1,6 @@
 const { EmbedBuilder, ApplicationCommandOptionType } = require('discord.js');
 const mysql = require('mysql2/promise');
-const crypto = require('crypto');
+const { whirlpool } = require('hash-wasm');
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -48,20 +48,7 @@ module.exports = {
         const newPassword = interaction.options.getString('mat_khau_moi');
 
         // Whirlpool hash - cùng thuật toán với WP_Hash trong game
-        let hashedPassword;
-        try {
-            hashedPassword = crypto.createHash('whirlpool').update(newPassword).digest('hex');
-        } catch (e) {
-            return interaction.editReply({
-                embeds: [
-                    new EmbedBuilder()
-                        .setColor('#FF0000')
-                        .setTitle('❌ Lỗi hệ thống')
-                        .setDescription('Không thể hash mật khẩu. Hệ thống không hỗ trợ Whirlpool.')
-                        .setFooter({ text: 'KP5 Roleplay' })
-                ]
-            });
-        }
+        const hashedPassword = await whirlpool(newPassword);
 
         let connection;
         try {
