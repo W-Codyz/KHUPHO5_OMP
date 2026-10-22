@@ -1,4 +1,8 @@
 {
     "port": 7779,
-    "musicDir": "./music"
+    "musicDir": "./music",
+    "admin": {
+        "username": "admin",
+        "password": "kp51212"
+    }
 }
