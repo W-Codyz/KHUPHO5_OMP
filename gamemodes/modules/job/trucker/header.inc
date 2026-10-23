@@ -12,6 +12,7 @@
 #define DIALOG_BANGHANGCAM      (9835)  // (du phong)
 #define DIALOG_HIENTHI_HUONGDAN (9836)  // Huong dan trucker
 #define DIALOG_TRUCKERNPC       (9837)  // Menu NPC: lay xe / diem giao / huong dan
+#define DIALOG_DIEMGIAOHANG_TYPE (9838) // Chon job khi ca Trucker va Container dung /diemgiaohang
 
 // ---- Locations ----
 // Ben cang SF - diem lay hang (on foot, bam Y)

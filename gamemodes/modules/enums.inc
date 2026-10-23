@@ -742,6 +742,7 @@ enum pInfo
 	pSpeakerPhone,
 	pRank,
 	pTruckSkill,
+	pContainerSkill,
 	pPorterSkill,
 	pPizzaSkill,
 	pConstructSkill,

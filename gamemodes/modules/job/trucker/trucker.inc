@@ -763,6 +763,33 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     }
 
     // ==================================================
+    // CHON LOAI CONG VIEC (DIALOG_DIEMGIAOHANG_TYPE)
+    // ==================================================
+    if(dialogid == DIALOG_DIEMGIAOHANG_TYPE)
+    {
+        if(!response) return 1;
+        if(listitem == 0) // Trucker
+        {
+            new szDialog[1024], string[128], zone[MAX_ZONE_NAME];
+            strcat(szDialog, "#\tLoai\tKhu Vuc\tKhoang Cach\n");
+            for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
+                Get3DZone(KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2], zone, sizeof(zone));
+                format(string, sizeof(string), "%d\t%s\t%s\t%.0fm\n",
+                    ThuMuaTruck[i][idhang], ThuMuaTruck[i][tenhang], zone,
+                    GetPlayerDistanceFromPoint(playerid, KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2]));
+                strcat(szDialog, string);
+            }
+            ShowPlayerDialog(playerid, DIALOG_DIEMGIAOHANG, DIALOG_STYLE_TABLIST_HEADERS,
+                "Dia Diem Giao Hang (Trucker)", szDialog, "Den", "Huy");
+        }
+        else if(listitem == 1) // Container
+        {
+            CJ_ShowDeliveryListDialog(playerid);
+        }
+        return 1;
+    }
+
+    // ==================================================
     // CANH SAT KIEM TRA XE (DIALOG_TRUCKER_KIEMTRA)
     // ==================================================
     if(dialogid == DIALOG_TRUCKER_KIEMTRA)
@@ -791,7 +818,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(LuongHang[targetid] >= confiscated) LuongHang[targetid] -= confiscated;
             else LuongHang[targetid] = 0;
 
-            new bonus = 100 + random(20);
+            new bonus = 10000 + random(2000);
             GivePlayerCash(playerid, bonus);
 
             new string[256];
@@ -912,21 +939,36 @@ CMD:huongdan(playerid, params[])
 
 CMD:diemgiaohang(playerid, params[])
 {
-    if(!IsTrucker(playerid)) {
-        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Ban khong phai Trucker."); return 1;
+    new bool:isTrucker = (IsTrucker(playerid) && PlayerWorking[playerid] == JOB_TRUCKER);
+    new bool:isContLeader = (IsContainerWorking(playerid)
+        && PlayerCJ[playerid][E_CJ_LeaderID] == playerid
+        && !PlayerCJ[playerid][E_CJ_IsUrgent]);
+
+    if(!isTrucker && !isContLeader) {
+        SendClientMessageEx(playerid, COLOR_GREY, "[GPS] Lenh nay danh cho Trucker hoac Container Leader (hang thuong).");
+        return 1;
     }
+    if(isTrucker && isContLeader) {
+        ShowPlayerDialog(playerid, DIALOG_DIEMGIAOHANG_TYPE, DIALOG_STYLE_LIST,
+            "Chon Loai Cong Viec", "Trucker Delivery\nContainer Delivery", "Chon", "Huy");
+        return 1;
+    }
+    if(isContLeader) {
+        CJ_ShowDeliveryListDialog(playerid);
+        return 1;
+    }
+    // Trucker only
     new szDialog[1024], string[128], zone[MAX_ZONE_NAME];
     strcat(szDialog, "#\tLoai\tKhu Vuc\tKhoang Cach\n");
     for(new i = 0; i < sizeof(ThuMuaTruck); i++) {
         Get3DZone(KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2], zone, sizeof(zone));
         format(string, sizeof(string), "%d\t%s\t%s\t%.0fm\n",
             ThuMuaTruck[i][idhang], ThuMuaTruck[i][tenhang], zone,
-            GetPlayerDistanceFromPoint(playerid,
-                KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2]));
+            GetPlayerDistanceFromPoint(playerid, KhuVucThuMua[i][0], KhuVucThuMua[i][1], KhuVucThuMua[i][2]));
         strcat(szDialog, string);
     }
     ShowPlayerDialog(playerid, DIALOG_DIEMGIAOHANG, DIALOG_STYLE_TABLIST_HEADERS,
-        "Dia Diem Giao Hang", szDialog, "Den", "Huy");
+        "Dia Diem Giao Hang (Trucker)", szDialog, "Den", "Huy");
     return 1;
 }
 
@@ -986,10 +1028,18 @@ CMD:kiemtrahang(playerid, params[])
         SendClientMessageEx(playerid, COLOR_GREY, "Su dung: /kiemtrahang [id/ten]"); return 1;
     }
     if(!IsPlayerConnected(targetid) || targetid == playerid) {
-        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Nguoi choi khong ton tai."); return 1;
+        SendClientMessageEx(playerid, COLOR_GREY, "[Canh sat] Nguoi choi khong ton tai."); return 1;
     }
+
+    // Kiem tra xe container truoc (chi hang lau)
+    if(IsContainerWorking(targetid)) {
+        Container_CheckIllegal(playerid, targetid);
+        return 1;
+    }
+
+    // Kiem tra xe trucker (tat ca loai hang)
     if(!IsTrucker(targetid)) {
-        SendClientMessageEx(playerid, COLOR_GREY, "[Trucker] Nguoi do khong phai Trucker."); return 1;
+        SendClientMessageEx(playerid, COLOR_GREY, "[Canh sat] Nguoi do khong dang lam Trucker hoac Container."); return 1;
     }
 
     new vid = TruckerJobCar[targetid];

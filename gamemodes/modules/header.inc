@@ -265,6 +265,9 @@ new g_VehicleRadioURL[2000][128]; // URL nhac hien tai cua tung xe
 #define			CHECKPOINT_TAXI						14	
 #define			CHECKPOINT_CONSTRUCTION				15
 #define			CHECKPOINT_ELECTRIC					16
+#define			CHECKPOINT_CONTAINER_WH				17
+#define			CHECKPOINT_CONTAINER_DEL			18
+#define			CHECKPOINT_CONTAINER_RET			19
 			/*  ---------------- COLORS ----------------- */
     				/* ===[Ignore the tab space]=== */
 

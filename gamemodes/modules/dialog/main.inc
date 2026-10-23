@@ -17492,6 +17492,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	if(dialogid == DIALOG_ELECTRIC_COLORS) return 1;
 	// ──────────────────────────────────────────────────────────
 
+	// ── Container Delivery Job ─────────────────────────────────
+	if(dialogid == DIALOG_CONTAINER_MENU)    { Container_OnMenuResponse(playerid, response, listitem);      return 1; }
+	if(dialogid == DIALOG_CONTAINER_GNAME)   { Container_OnGroupNameResponse(playerid, response, inputtext); return 1; }
+	if(dialogid == DIALOG_CONTAINER_INVITE)  { Container_OnInviteResponse(playerid, response, inputtext);   return 1; }
+	if(dialogid == DIALOG_CONTAINER_KICK)    { Container_OnKickResponse(playerid, response, inputtext);     return 1; }
+	if(dialogid == DIALOG_CONTAINER_JOIN)    { Container_OnJoinResponse(playerid, response, inputtext);     return 1; }
+	if(dialogid == DIALOG_CONTAINER_URGTYPE) { Container_OnUrgentResponse(playerid, response, listitem);    return 1; }
+	if(dialogid == DIALOG_CONTAINER_CARGO)   { Container_OnCargoResponse(playerid, response, listitem);     return 1; }
+	// ──────────────────────────────────────────────────────────
+
 	// ========================= TRUNK DIALOGS =========================
 	if(dialogid == DIALOG_TRUNK_MAIN)
 	{

@@ -8,8 +8,9 @@ enum _:MAX_JOB_TYPE
     JOB_CONSTRUCTION, // 5
     JOB_CRAFTER, // 6
     JOB_ELECTRIC, // 7
-    JOB_MINER,   // 8
-    JOB_LUMBER   // 9
+    JOB_MINER,      // 8
+    JOB_LUMBER,     // 9
+    JOB_CONTAINER   // 10
 };
 
 enum E_JOB_INFO
@@ -78,7 +79,13 @@ new JobHelp[MAX_JOB_TYPE][1028] =
         khai thac go tu khu rung, dat go len xe va ban cho thuong lai.\n\
         Mo tat ca cac loai cay trong 2 khu vuc rung, moi khuc go ban hoac giu lai de lam viec khac.\n\
         Co the doi go tho de luu vao tui va ban sau.\n\n\n\
-        {3F7EAB}Cau lenh co san: /laygo /chatgo /dunglamviec"}
+        {3F7EAB}Cau lenh co san: /laygo /chatgo /dunglamviec"},
+    {"{F5D000}Container Delivery{FFFFFF} la cong viec van chuyen hang hoa bang xe tai container.\n\
+        Boc hang tai kho, giao den diem chi dinh va nhan thuong tuong xung.\n\
+        Doi 2 nguoi boc hang nhanh hon va nhan them 15%% tien thuong!\n\n\
+        {FFFF00}Hang:{FFFFFF} Vat Lieu | Xang Dau | Quan Ao | Hang Lau\n\
+        {FFFF00}Xe:{FFFFFF} Linerunner(Lv1) -> Tanker(Lv5) -> Roadtrain(Lv10)\n\n\n\
+        {3F7EAB}Lenh: /giaohang /vuthang /xuonghang /diemgiaohang /cgroup /dunglamviec"}
 };
 
 new JobInfo[MAX_JOB_TYPE][E_JOB_INFO] =
@@ -92,7 +99,8 @@ new JobInfo[MAX_JOB_TYPE][E_JOB_INFO] =
     {"Tho thu cong", 1, 6, 0, 0, -2120.1162, -14.2599, 35.3203, 88.2260},
     {"Tho sua dien", 1, 16, 0, 0, -2520.9807, -624.4470, 132.7828, 358.126220},
     {"Tho Khai Thac", 1, 27, 0, 0, 584.901367, 867.991882, -42.497318, 267.125885},
-    {"Lumberjack", 1, 291, 0, 0, -758.966003, -130.437088, 65.813842, 9.329421}
+    {"Lumberjack", 1, 291, 0, 0, -758.966003, -130.437088, 65.813842, 9.329421},
+    {"Container Delivery", 1, 72, 0, 0, -1655.575195, 57.622314, 3.554687, 314.752685}
 };
 
 new SideJobInfo[][E_SIDEJOB_INFO] = {

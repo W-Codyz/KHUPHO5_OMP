@@ -252,6 +252,7 @@ public OnPlayerLoad(playerid)
 		PlayerInfo[playerid][pTruckSkill] = 0;
 		PlayerInfo[playerid][pPorterSkill] = 0;
 		PlayerInfo[playerid][pPizzaSkill] = 0;
+		PlayerInfo[playerid][pContainerSkill] = 0;
 		PlayerInfo[playerid][pConstructSkill] = 0;
 		PlayerInfo[playerid][pFishSkill] = 0;
 		PlayerInfo[playerid][pSHealth] = 0.0;

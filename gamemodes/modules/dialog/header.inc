@@ -733,3 +733,12 @@
 #define     DIALOG_ELECTRIC_JOIN        (5518)
 #define     DIALOG_ELECTRIC_FIX         (5519)
 #define     DIALOG_ELECTRIC_COLORS      (5520)
+
+// Container Delivery Job
+#define     DIALOG_CONTAINER_MENU       (5521)
+#define     DIALOG_CONTAINER_GNAME      (5522)
+#define     DIALOG_CONTAINER_INVITE     (5523)
+#define     DIALOG_CONTAINER_KICK       (5524)
+#define     DIALOG_CONTAINER_JOIN       (5525)
+#define     DIALOG_CONTAINER_URGTYPE    (5526)
+#define     DIALOG_CONTAINER_CARGO      (5527)

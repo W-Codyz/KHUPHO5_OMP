@@ -408,6 +408,7 @@ public OnQueryFinish(resultid, extraid, handleid)
 					cache_get_field_content(row,  "TruckSkill", szResult, MainPipeline); PlayerInfo[extraid][pTruckSkill] = strval(szResult);
 					cache_get_field_content(row,  "PorterSkill", szResult, MainPipeline); PlayerInfo[extraid][pPorterSkill] = strval(szResult);
 					cache_get_field_content(row,  "PizzaSkill", szResult, MainPipeline); PlayerInfo[extraid][pPizzaSkill] = strval(szResult);
+					cache_get_field_content(row,  "ContainerSkill", szResult, MainPipeline); PlayerInfo[extraid][pContainerSkill] = strval(szResult);
 					cache_get_field_content(row,  "ConstructSkill", szResult, MainPipeline); PlayerInfo[extraid][pConstructSkill] = strval(szResult);
 					cache_get_field_content(row,  "CraftSkill", szResult, MainPipeline); PlayerInfo[extraid][pCraftSkill] = strval(szResult);
 					cache_get_field_content(row,  "FishSkill", szResult, MainPipeline); PlayerInfo[extraid][pFishSkill] = strval(szResult);
@@ -3032,6 +3033,7 @@ stock g_mysql_SaveAccount(playerid)
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "TruckSkill", PlayerInfo[playerid][pTruckSkill]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "PorterSkill", PlayerInfo[playerid][pPorterSkill]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "PizzaSkill", PlayerInfo[playerid][pPizzaSkill]);
+	SavePlayerInteger(query, GetPlayerSQLId(playerid), "ContainerSkill", PlayerInfo[playerid][pContainerSkill]);
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "ConstructSkill", PlayerInfo[playerid][pConstructSkill]); 
 	SavePlayerInteger(query, GetPlayerSQLId(playerid), "CraftSkill", PlayerInfo[playerid][pCraftSkill]); 
     SavePlayerInteger(query, GetPlayerSQLId(playerid), "FishSkill", PlayerInfo[playerid][pFishSkill]);

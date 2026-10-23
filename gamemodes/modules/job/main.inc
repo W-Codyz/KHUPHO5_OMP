@@ -71,6 +71,14 @@ Job_KeyState(playerid, KEY:newkeys, KEY:oldkeys)
                             "Lay xe (Mule)\nDanh sach diem giao hang\nHuong dan lam viec",
                             "Chon", "Dong");
                     }
+                    // Neu da la container: hien thi menu NPC
+                    else if(i == JOB_CONTAINER && (PlayerInfo[playerid][pJob] == JOB_CONTAINER || PlayerInfo[playerid][pJob2] == JOB_CONTAINER))
+                    {
+                        ShowPlayerDialog(playerid, DIALOG_CONTAINER_MENU, DIALOG_STYLE_LIST,
+                            "{F5D000}KP5 Roleplay {FFFFFF}- Container Delivery",
+                            "Tao nhom moi\nMoi nguoi vao nhom\nDuoi nguoi khoi nhom\nTham gia nhom\nBat dau lam viec\nNgung lam viec",
+                            "Chon", "Huy");
+                    }
                     else if(JobInfo[i][jobLevel] > PlayerInfo[playerid][pLevel])
                     {
                         ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Thong tin cong viec", "{FFFFFF}Cong viec {E23636}yeu cau cap do %d{FFFFFF} tuy nhien cap do hien tai cua ban\nkhong dat yeu cau, vi the ban khong du dieu kien lam cong viec\nnay. Vui long quay lai sau neu ban da du dieu kien.", "Dong", "", JobInfo[i][jobLevel]);
@@ -149,6 +157,20 @@ stock GetSkillNextLevel(playerid, job)
 			else if(skilllevel <= 250) jlevel = 251 - skilllevel;
 			else if(skilllevel >= 251) jlevel = 0;
         }
+        case JOB_CONTAINER:
+        {
+            new skilllevel = PlayerInfo[playerid][pContainerSkill];
+            if(skilllevel < 15)  jlevel = 15 - skilllevel;
+            else if(skilllevel < 40)  jlevel = 40 - skilllevel;
+            else if(skilllevel < 75)  jlevel = 75 - skilllevel;
+            else if(skilllevel < 125) jlevel = 125 - skilllevel;
+            else if(skilllevel < 190) jlevel = 190 - skilllevel;
+            else if(skilllevel < 270) jlevel = 270 - skilllevel;
+            else if(skilllevel < 365) jlevel = 365 - skilllevel;
+            else if(skilllevel < 475) jlevel = 475 - skilllevel;
+            else if(skilllevel < 600) jlevel = 600 - skilllevel;
+            else jlevel = 0;
+        }
 	}
     return jlevel;
 }
@@ -202,6 +224,20 @@ stock GetJobLevel(playerid, job)
 			else if(skilllevel >= 111 && skilllevel <= 180) jlevel = 3;
 			else if(skilllevel >= 181 && skilllevel <= 250) jlevel = 4;
 			else if(skilllevel >= 251) jlevel = 5;
+        }
+        case JOB_CONTAINER:
+        {
+            new skilllevel = PlayerInfo[playerid][pContainerSkill];
+            if(skilllevel < 15)  jlevel = 1;
+            else if(skilllevel < 40)  jlevel = 2;
+            else if(skilllevel < 75)  jlevel = 3;
+            else if(skilllevel < 125) jlevel = 4;
+            else if(skilllevel < 190) jlevel = 5;
+            else if(skilllevel < 270) jlevel = 6;
+            else if(skilllevel < 365) jlevel = 7;
+            else if(skilllevel < 475) jlevel = 8;
+            else if(skilllevel < 600) jlevel = 9;
+            else jlevel = 10;
         }
 	}
 	return jlevel;
@@ -369,6 +405,10 @@ CMD:lamviec(playerid, params[])
     {
         SendHintMessage(playerid, "Lumberjack: den NPC tai bai go va nhan {46BE00}[Y]{FFFFFF} de mo menu.");
     }
+    else if(PlayerInfo[playerid][pJob] == JOB_CONTAINER || PlayerInfo[playerid][pJob2] == JOB_CONTAINER)
+    {
+        SendHintMessage(playerid, "Container Delivery: den NPC tai diem xuat phat va nhan {46BE00}[Y]{FFFFFF} de mo menu.");
+    }
     else {
         SendClientMessage(playerid, COLOR_GREY, "Cong viec cua ban khong the su dung lenh nay, go \"/jobhelp\" de biet them chi tiet.");
     }
@@ -445,6 +485,16 @@ CMD:dunglamviec(playerid, params[])
         }
         else {
             SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec Lumberjack.");
+        }
+    }
+    else if(PlayerInfo[playerid][pJob] == JOB_CONTAINER || PlayerInfo[playerid][pJob2] == JOB_CONTAINER)
+    {
+        if(PlayerWorking[playerid] == JOB_CONTAINER)
+        {
+            Container_Stop(playerid);
+        }
+        else {
+            SendClientMessageEx(playerid, COLOR_GREY, "Ban chua bat dau lam viec Container Delivery.");
         }
     }
     else if(PlayerInfo[playerid][pJob] == JOB_CONSTRUCTION || PlayerInfo[playerid][pJob2] == JOB_CONSTRUCTION)
