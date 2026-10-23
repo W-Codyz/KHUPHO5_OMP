@@ -352,7 +352,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
         }
         ShowPlayerInventory(playerid);
     }
-    else if(newkeys & KEY_YES) {
+    else if(newkeys & KEY_NO) {
         if(IsPlayerInAnyVehicle(playerid)) return 1;
 
         // Uu tien face target (ho tro ca PC lan mobile)

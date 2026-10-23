@@ -73,7 +73,7 @@ static stock UpdateFaceTarget(playerid) {
     // Attach vao nguoi duoc nhin vao, z=0 la diem ban dau attachment (~ vai/co)
     // Dung gia tri am de ha xuong than nguoi
     FaceTargetLabel[playerid] = CreatePlayer3DTextLabel(playerid,
-        "[Y] {ffffff}Tuong tac",
+        "[N] {ffffff}Tuong tac",
         FACE_INTERACT_LABEL_COLOR,
         0.0, 0.0, -0.5,
         6.0,
