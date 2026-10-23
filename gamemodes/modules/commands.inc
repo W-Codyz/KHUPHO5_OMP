@@ -13809,13 +13809,15 @@ CMD:skill(playerid, params[])
 		Pizza Boy\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
 		Tho xay dung\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
 		Cau ca\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} lan cau nua de len cap{FFFFFF}\n\
-		Che tao\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap", "Dong", "",
+		Che tao\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap{FFFFFF}\n\
+		Container Delivery\t{D9EB4C}%d\t{FFFFFF}con {D9EB4C}%d{FFFFFF} diem de len cap", "Dong", "",
 		GetJobLevel(playerid, JOB_TRUCKER), GetSkillNextLevel(playerid, JOB_TRUCKER),
 		GetJobLevel(playerid, JOB_PORTER), GetSkillNextLevel(playerid, JOB_PORTER),
 		GetJobLevel(playerid, JOB_PIZZABOY), GetSkillNextLevel(playerid, JOB_PIZZABOY),
 		GetJobLevel(playerid, JOB_CONSTRUCTION), GetSkillNextLevel(playerid, JOB_CONSTRUCTION),
 		GetFishingLevel(playerid), GetFishingExpToNextLevel(playerid),
-		GetPlayerCraftingLevel(playerid), GetCraftingExpToNextLevel(playerid));
+		GetPlayerCraftingLevel(playerid), GetCraftingExpToNextLevel(playerid),
+		GetJobLevel(playerid, JOB_CONTAINER), GetSkillNextLevel(playerid, JOB_CONTAINER));
 	return 1;
 }
 
