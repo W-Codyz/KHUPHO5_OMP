@@ -69,6 +69,7 @@
 #include "./modules/job/construction/header"
 #include "./modules/job/lumber/header"
 #include "./modules/job/electric/header"
+#include "./modules/job/container/header"
 
 //==============ANTI CHECK============//
 #include "./modules/anti/Teleport"
@@ -114,9 +115,10 @@
 #include "./modules/system/panel/panel"
 #include "./modules/system/food"
 #include "./modules/system/sendlocation"
-#include "./modules/system/bug_support"
+//#include "./modules/system/bug_support"
 #include "./modules/system/medkit/herb_harvest"
 #include "./modules/system/medkit/medkit_system"
+#include "./modules/system/medkit/medkit_npc_seller"
 #include "./modules/system/prison_labor/prison_labor"
 #include "./modules/system/prison_labor/prison_ooc"
 #include "./modules/system/bill"
@@ -173,6 +175,7 @@
 #include "./modules/job/pizzaboy/pizzaboy"
 #include "./modules/job/construction/construction"
 #include "./modules/job/electric/electric"
+#include "./modules/job/container/container"
 #include "./modules/job/miner/miner"
 #include "./modules/job/miner/craft"
 //#include "./modules/job/side_job/fisher/fisher"
@@ -201,7 +204,6 @@
 #include "./modules/house/house"
 //#include "./modules/player/mail"
 #include "./modules/player/speedo"
-//#include "./modules/player/send_location"
 
 #include "./modules/dialog/main"
 
