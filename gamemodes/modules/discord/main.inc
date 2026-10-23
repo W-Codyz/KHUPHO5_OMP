@@ -145,7 +145,8 @@ Discord_Init()
     dclog_Painter = DCC_FindChannelById("1548215799087366194");
     dclog_Taxi = DCC_FindChannelById("1548215799087366194");
     dclog_Electric = DCC_FindChannelById("1548215799087366194");
-    dclog_Miner    = DCC_FindChannelById("1548215799087366194");
+    dclog_Miner      = DCC_FindChannelById("1548215799087366194");
+    dclog_Container  = DCC_FindChannelById("1548215799087366194"); // TODO: doi sang ID kenh Container rieng
 
     //old server
     renameChannel = DCC_FindChannelById("");
