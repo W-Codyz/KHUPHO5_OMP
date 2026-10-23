@@ -63,7 +63,7 @@ stock ShowHelpCommand(playerid, listitem)
 						SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /cratelimit /viewcrateorders", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
 					}
 					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /loadkit /usekit /backup (code2) /backupall /calls /a(ccept)c(all) /i(gnore)c(all)", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
-					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /capcccd /lucsoatcopxe /truyduoi /lucsoat /tichthu", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
+					SendClientMessageEx(playerid, COLOR_WHITE, "* [%s] /capcccd /lucsoatcopxe /truyduoi /lucsoat /tichthu /kiemtrahang", arrGroupData[PlayerInfo[playerid][pMember]][g_szGroupName]);
 				}	
 				case 2:
 				{
