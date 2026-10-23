@@ -4,8 +4,8 @@ new dangchebien[MAX_PLAYERS];
 new inputcansa[MAX_PLAYERS];
 new LastCanSaAlert;
 #define MONEY_SELL_CANSA 650 // money sell 1 tep can sa
-#define THUNGRAC 21
-#define GIAOCANSA 10
+#define THUNGRAC 29
+#define GIAOCANSA 7
 #define INVALID_FLOAT -1.0
 
 #define LUCLOI_TIME 15
@@ -23,39 +23,44 @@ enum thungrac_enum {
     Float:thungrac_Z,
 }
 new Float:giaocansa_pos[GIAOCANSA][] = {
-    {-2161.4504,-2361.0203,30.7851},
-    {-1986.3915,-2424.1895,30.6250},
-    {-1570.1198,-2719.2937,48.7435},
-    {-1059.8779,-1653.5802,76.9463},
-    {-480.7922,-563.5710,25.2056},
-    {-1031.5946,-587.6744,32.0078},
-    {33.7156,-2655.7175,40.5119},
-    {-122.3480,-232.8315,1.4219},
-    {-2006.5918,-490.1169,35.5313},
-    {-1924.7406,-200.4326,25.7704}
+    {-2057.257324,-2508.715332,30.777992},
+    {33.454772,-2652.849121,40.495742},
+    {-1423.644653,-966.331359,200.798980},
+    {-1032.349609,-587.748291,32.007812},
+    {-478.559631,-563.545349,25.117458},
+    {-347.718536,-1045.655517,59.812500},
+    {-439.053924,-63.058433,58.934646}
 };
 new Float:thungrac_pos[THUNGRAC][] = {
-    {-1672.8477,-906.9116,63.9474},
-    {-1672.1248,-909.6394,63.8610},
-    {-1674.3303,-922.0483,64.7770},
-    {-1680.5518,-923.2217,65.8264},
-    {-1687.5667,-926.2748,67.0700},
-    {-1689.0289,-934.1330,67.6509},
-    {-1682.8035,-938.0014,66.8403},
-    {-1676.5183,-941.1469,65.9881},
-    {-1676.8756,-948.8638,66.9618},
-    {-1682.8094,-950.8898,67.7234},
-    {-1690.8478,-952.0093,68.5269},
-    {-1695.1565,-945.6532,69.0609},
-    {-1698.6744,-937.9604,69.3442},
-    {-1698.0914,-929.1716,68.8607},
-    {-1671.6605,-910.0318,63.8015},
-    {-1689.6769,-959.6280,69.5031},
-    {-1680.5039,-961.9857,69.0970},
-    {-1675.1395,-973.6382,70.2621},
-    {-1684.3187,-979.5501,71.2242},
-    {-1694.6453,-985.7333,72.2816},
-    {-1709.9215,-980.9931,73.5295}
+    {-1013.942443,-1635.635131,76.367187},
+    {-1010.599365,-1635.756103,76.367187},
+    {-1009.950134,-1640.207031,76.367187},
+    {-1012.749938,-1640.231323,76.367187},
+    {-1013.858337,-1647.123901,76.367187},
+    {-1008.373046,-1646.943481,76.367187},
+    {-1001.890686,-1646.895019,76.367187},
+    {-1002.384521,-1656.829833,76.367187},
+    {-1011.037109,-1656.719604,76.373939},
+    {-1012.429565,-1664.697509,76.367187},
+    {-1006.000549,-1664.652709,76.367187},
+    {-997.507080,-1664.699707,76.367187},
+    {-988.740112,-1664.628173,76.367187},
+    {-980.358459,-1664.631347,76.367187},
+    {-975.485900,-1668.309814,76.367187},
+    {-979.613342,-1669.516967,76.367187},
+    {-986.913452,-1669.646118,76.367187},
+    {-991.600646,-1671.229858,76.367187},
+    {-999.734008,-1671.135131,76.367187},
+    {-1005.169067,-1674.613037,76.367187},
+    {-997.855102,-1674.661010,76.367187},
+    {-989.313049,-1674.665283,76.367187},
+    {-977.981140,-1674.566162,76.328369},
+    {-976.256286,-1681.245971,76.196701},
+    {-988.337402,-1682.628051,76.342582},
+    {-996.619995,-1682.556518,76.367187},
+    {-991.142700,-1689.334350,76.273544},
+    {-984.491516,-1692.538085,76.129333},
+    {-979.269836,-1696.863281,76.067863}
 };
 
 new bool:MocRac[MAX_PLAYERS] = false;
@@ -198,12 +203,12 @@ hook OnGameModeInit()
         ThungRacCreate(i);
         i++;
     }
-    new bancannsa = CreateActor(29, -382.8928,-1426.2904,26.2979, 0);
-    CreateDynamic3DTextLabel("{009933}Thu mua can sa\n Bam [Y] de tuong tac", -1, -382.8928,-1426.2904,26.2979+0.6,18.0);
-    new matuy = CreateActor(200, -1431.5900,-1460.4982,101.6989, 0);
-    SetActorFacingAngle(matuy, 271.1635);
+    new bancannsa = CreateActor(29, -772.280334,-1962.709472,7.574229, 0);
+    CreateDynamic3DTextLabel("{009933}Thu mua can sa\n Bam [Y] de tuong tac", -1, -772.280334,-1962.709472,7.574229+0.6,18.0);
+    new matuy = CreateActor(200, -778.561096, -1988.301757, 26.171636, 0);
+    SetActorFacingAngle(matuy, 183.813156);
     SetActorFacingAngle(bancannsa, 268.3628);
-    CreateDynamic3DTextLabel("{009933}Che bien ma tuy\n Bam [Y] de tuong tac", -1, -1431.5900,-1460.4982,101.6989+0.6,18.0);
+    CreateDynamic3DTextLabel("{009933}Che bien ma tuy\n Bam [Y] de tuong tac", -1, -778.561096, -1988.301757, 26.171636+0.6,18.0);
     return 1;
 }
 hook OnPlayerConnect(playerid)
@@ -288,7 +293,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
     if(newkeys & KEY_YES)
     {
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, -1431.5900,-1460.4982,101.6989))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, -778.561096,-1988.301757,26.171636))
         {
             if(gettime() > GetPVarInt(playerid, "CanSaAreaCD")) {
                 CanSa_AlertCops(playerid, "Khu vuc che bien");
@@ -296,7 +301,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             }
             ShowPlayerDialog(playerid, BANCANLIST, DIALOG_STYLE_LIST, "{ffff00}KP5{ffffff} - Vui long chon...?","Che bien can sa\t1 Can sa/3 Tep can sa\nQuy doi Pot\t1 Can sa/1 Pot\nQuy doi Crack\t1 Can sa/1 Crack", "Chon", "Huy Bo");
         }
-        else if(IsPlayerInRangeOfPoint(playerid, 5.0, -382.8928,-1426.2904,26.2979))
+        else if(IsPlayerInRangeOfPoint(playerid, 5.0, -772.280334,-1962.709472,7.574229))
         {
             if(HasCopOnDuty() == false)
             {
@@ -395,21 +400,21 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(listitem == 0)
 			{
 				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCheckpoint(playerid, -1682.8035,-938.0014,66.8403, 3.0);
+				SetPlayerCheckpoint(playerid, -1013.942443,-1635.635131,76.367187, 3.0);
 				CP[playerid] = 252000;
 				return 1;
 			}
 			if(listitem == 1)
 			{
 				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCheckpoint(playerid, -1431.5900,-1460.4982,101.6989, 3.0);
+				SetPlayerCheckpoint(playerid, -778.561096,-1988.301757,26.171636, 3.0);
 				CP[playerid] = 252000;
 				return 1;
 			}
 			if(listitem == 2)
 			{
 				PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
-				SetPlayerCheckpoint(playerid, -382.8928,-1426.2904,26.2979, 3.0);
+				SetPlayerCheckpoint(playerid, -772.280334,-1962.709472,7.574229, 3.0);
 				CP[playerid] = 252000;
 				return 1;
 			}
@@ -561,7 +566,7 @@ public NhanDiemGiaoHangCanSa(playerid)
 {
     if (NhanDiemCount[playerid] > 0)
     {
-        if (IsPlayerInRangeOfPoint(playerid, 30.0, -382.8928,-1426.2904,26.2979))
+        if (IsPlayerInRangeOfPoint(playerid, 30.0, -772.280334,-1962.709472,7.574229))
         {
             new str[256];
             NhanDiemCount[playerid]--;
