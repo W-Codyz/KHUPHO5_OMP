@@ -3249,7 +3249,8 @@ public sobeitCheck(playerid)
 	#pragma unused aX
 	#pragma unused aY
 
-	if(aZ < -0.7)
+	// s0beit check disabled - false positive: camera aZ < -0.7 also triggers for legit players
+	/*if(aZ < -0.7)
 	{
 		new IP[32];
 		GetPlayerIp(playerid, IP, sizeof(IP));
@@ -3271,7 +3272,7 @@ public sobeitCheck(playerid)
     		SetTimerEx("KickEx", 1000, false, "i", playerid);
      	}
 
-	}
+	}*/
 	
 	if(playerTabbed[playerid] > 2) { SendClientMessageEx(playerid, COLOR_RED, "Ban da that bai trong viec kiem tra tai khoan, vui long relog va thu lai."), SetTimerEx("KickEx", 1000, false, "i", playerid); }
 
