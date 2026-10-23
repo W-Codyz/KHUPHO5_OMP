@@ -6,7 +6,7 @@
 
 #define MAX_GPS_POINTS       5
 #define MAX_GPS_TIMDUONG     30
-#define GPS_JOB_COUNT        10
+#define GPS_JOB_COUNT        11
 
 #define TIMVIECLAM           (5210)
 #define TIMDUONG             (5211)
@@ -41,11 +41,12 @@ new gJobName[GPS_JOB_COUNT][48] = {
     "Lumberjack",
     "Tho Sua Dien",
     "Tho Khai Thac",
+    "Lai Xe Container",
     "Can Sa"
-};									//PIZZA 	 TRUCKER		 BOC VAC	 XAY DUNG	   THO SON TUONG CAU CA       LUMBERJACK  THO SUA DIEN  THO KHAI THAC CAN SA
-new Float:gJobX[GPS_JOB_COUNT] = {-1720.962646, -1560.963867, -1710.878540,  -2071.5452,  -2456.8425,  -2975.5642,  -758.966003, -2520.9807,  584.901367, 0.0};
-new Float:gJobY[GPS_JOB_COUNT] = { 1364.456176,   127.491157,    22.986656,    227.5330,    786.6091,    480.8670,   -130.437088,  -624.4470,  867.991882, 0.0};
-new Float:gJobZ[GPS_JOB_COUNT] = {    7.187500,     3.554687,    3.749292,     36.1192,     35.1719,      4.8925,    65.813842,   132.7828,   -42.497318, 0.0};
+};									//PIZZA 	 TRUCKER		 BOC VAC	 XAY DUNG	   THO SON TUONG CAU CA       LUMBERJACK  THO SUA DIEN  THO KHAI THAC CONTAINER      CAN SA
+new Float:gJobX[GPS_JOB_COUNT] = {-1720.962646, -1560.963867, -1710.878540,  -2071.5452,  -2456.8425,  -2975.5642,  -758.966003, -2520.9807,  584.901367, -1655.575195, -1001.113586};
+new Float:gJobY[GPS_JOB_COUNT] = { 1364.456176,   127.491157,    22.986656,    227.5330,    786.6091,    480.8670,   -130.437088,  -624.4470,  867.991882,   57.622314, -1664.279541};
+new Float:gJobZ[GPS_JOB_COUNT] = {    7.187500,     3.554687,    3.749292,     36.1192,     35.1719,      4.8925,    65.813842,   132.7828,   -42.497318,    3.554687, 76.367187};
 
 // ============================================================
 // STOCK FUNCTIONS
@@ -369,9 +370,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             PlayerPlaySound(playerid, 1056, 0.0, 0.0, 0.0);
             switch(listitem)
             {
-                case 0: { SetPlayerCheckpoint(playerid, -1682.8035, -938.0014, 66.8403, 3.0);    CP[playerid] = 252000; }
-                case 1: { SetPlayerCheckpoint(playerid, -1431.5900, -1460.4982, 101.6989, 3.0);  CP[playerid] = 252000; }
-                case 2: { SetPlayerCheckpoint(playerid, -382.8928, -1426.2904, 26.2979, 3.0);    CP[playerid] = 252000; }
+                case 0: { SetPlayerCheckpoint(playerid, -1001.113586, -1664.279541, 76.367187, 3.0);    CP[playerid] = 252000; }
+                case 1: { SetPlayerCheckpoint(playerid, -837.228576, -1992.566406, 17.786930, 3.0);  CP[playerid] = 252000; }
+                case 2: { SetPlayerCheckpoint(playerid, -772.280334, -1962.709472, 7.574229, 3.0);    CP[playerid] = 252000; }
             }
         }
 
