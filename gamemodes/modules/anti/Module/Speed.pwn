@@ -8,7 +8,7 @@
 
 //____________________________________________________________________________//
 
-new TB_AntiSpeed = 1;
+new gAntiSpeedEnabled = 1;
 new countHackSpeedAmount[MAX_PLAYERS];
 new VehicleSpeed[212 + 1] =
 {
@@ -30,18 +30,18 @@ new VehicleSpeed[212 + 1] =
 };
 Float:GetVehicleMaxSpeed(modelid)
 {
-    if (modelid < 400 || modelid > 611) return 0.0;
+    if (modelid < 400 || modelid > 611) return 9999.0;
     return float(VehicleSpeed[modelid - 400]);
 }
 
 CMD:antispeed(playerid, params[]) {
 	if(PlayerInfo[playerid][pAdmin] < 9999) return 1;
-	if(TB_AntiSpeed == 0) {
-		TB_AntiSpeed = 1;
+	if(gAntiSpeedEnabled == 0) {
+		gAntiSpeedEnabled = 1;
 		SendClientMessageEx(playerid, -1, "{ff0000}[!]{FFFFFF} Ban da bat he thong kiem tra gian lan Hack (Speed)");
 	}
 	else {
-		TB_AntiSpeed = 0;
+		gAntiSpeedEnabled = 0;
 		SendClientMessageEx(playerid, -1, "{ff0000}[!]{FFFFFF} Ban da tat he thong kiem tra gian lan Hack (Speed)");
 	}
 	return 1;
@@ -49,7 +49,7 @@ CMD:antispeed(playerid, params[]) {
 
 public OnPlayerSpeedCheat(playerid, speedtype) 
 {
-	if(TB_AntiSpeed == 0) return 1;
+	if(gAntiSpeedEnabled == 0) return 1;
 	if(PlayerInfo[playerid][pAdmin] >= 2) return 1; 
 
 	new string[1280];
@@ -58,6 +58,7 @@ public OnPlayerSpeedCheat(playerid, speedtype)
 		if(vehicleid == INVALID_VEHICLE_ID) {
 			format(string, sizeof(string), "[ANTI-CHEAT] %s vua su dung %s (Speed : %d | Type : %d), vui long (/spec %d).", GetPlayerNameEx(playerid), "Hack Speed", GetSpeedPlayer(playerid), speedtype, playerid);
 		}
+		else return 1;
 	}
 	else {
 		format(string, sizeof(string), "[ANTI-CHEAT] %s vua su dung %s (Speed : %d | Type : %d), vui long (/spec %d).", GetPlayerNameEx(playerid), "Hack Speed", GetSpeedKM(playerid), speedtype, playerid);
@@ -88,8 +89,8 @@ public checkSpeedTPhat(playerid)
 
 		GetVehicleVelocity(GetPlayerVehicleID(playerid), velocity_x, velocity_y, velocity_z);
 
-		if(floatround(VectorSize(velocity_x, velocity_y, velocity_z) * 100.0) >= GetVehicleMaxSpeed(GetVehicleModel(GetPlayerVehicleID(playerid))))
-			SetVehicleVelocity(GetPlayerVehicleID(playerid), velocity_x*0.97, velocity_y*0.97, velocity_z);
+		if(floatround(VectorSize(velocity_x, velocity_y, 0.0) * 100.0) >= GetVehicleMaxSpeed(GetVehicleModel(GetPlayerVehicleID(playerid))))
+			SetVehicleVelocity(GetPlayerVehicleID(playerid), velocity_x*0.97, velocity_y*0.97, velocity_z*0.97);
 	}
 	return 1;
 }
@@ -103,7 +104,7 @@ public checkSpeed_2(playerid) {
 
 	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER) 
 	{
-		if(GetSpeedKM(playerid) == 23 && GetPVarInt(playerid, "NotAndroid") != 0 && PlayerInfo[playerid][pHospital] == 0 && GetPlayerVirtualWorld(playerid) == 0 && GetPlayerInterior(playerid) == 0)
+		if(GetSpeedKM(playerid) >= 21 && GetSpeedKM(playerid) <= 25 && GetPVarInt(playerid, "NotAndroid") != 0 && PlayerInfo[playerid][pHospital] == 0 && GetPlayerVirtualWorld(playerid) == 0 && GetPlayerInterior(playerid) == 0)
 		{
 			countHackSpeedAmount[playerid] += 1;
 			if(countHackSpeedAmount[playerid] == 3) {
@@ -122,11 +123,21 @@ public checkSpeed_2(playerid) {
 		}
 	}
 
+	if(GetSpeedPlayer(playerid) > 8000 && PlayerInfo[playerid][pHospital] == 0 && GetPlayerVirtualWorld(playerid) == 0 && GetPlayerInterior(playerid) == 0)
+    {
+    	new string[1280];
+		format(string, sizeof(string), "[ANTI-CHEAT] %s da bi kick ra khoi may chu do su dung %s (Speed : %d), vui long (/spec %d).", GetPlayerNameEx(playerid), "Hack Speed", GetSpeedPlayer(playerid), playerid);
+		ABroadCast(COLOR_YELLOW, string, 2);
+		Log("logs/AntiHackBynDP.log", string);
+		Kick(playerid);
+		return 1;
+    }
+
 	if(GetSpeedPlayer(playerid) > 3000 && PlayerInfo[playerid][pHospital] == 0 && GetPlayerVirtualWorld(playerid) == 0 && GetPlayerInterior(playerid) == 0)
     {
     	new closestcar = GetClosestCar(playerid);
 		if(!IsPlayerInRangeOfVehicle(playerid, closestcar, 40.0)) {
-	    	if(GetPVarInt(playerid, "TB_AntiSlap2") == 0) 
+	    	if(GetPVarInt(playerid, "TB_AntiSlap2") == 0)
 	    	{
 				new string[1280];
 				format(string, sizeof(string), "[ANTI-CHEAT] %s vua su dung %s (Speed : %d), vui long (/spec %d).", GetPlayerNameEx(playerid), "Hack Slap", GetSpeedPlayer(playerid), playerid);
@@ -136,18 +147,9 @@ public checkSpeed_2(playerid) {
 				SetPVarInt(playerid, "TB_AntiSlap2", 1);
 				SetTimerEx("deleteTB_AntiSlap2", 3000, false, "i", playerid);
 			}
+
+			if(AdminOnl() == 0) Kick(playerid);
 		}
-
-		if(AdminOnl() == 0) Kick(playerid);
-    }
-
-    if(GetSpeedPlayer(playerid) > 8000 && PlayerInfo[playerid][pHospital] == 0 && GetPlayerVirtualWorld(playerid) == 0 && GetPlayerInterior(playerid) == 0)
-    {
-    	new string[1280];
-		format(string, sizeof(string), "[ANTI-CHEAT] %s da bi kick ra khoi may chu do su dung %s (Speed : %d), vui long (/spec %d).", GetPlayerNameEx(playerid), "Hack Speed", GetSpeedPlayer(playerid), playerid);
-		ABroadCast(COLOR_YELLOW, string, 2);
-		Log("logs/AntiHackBynDP.log", string);
-		Kick(playerid);
     }
 }
 
@@ -175,50 +177,38 @@ public checkPrison(playerid) {
 forward deleteTB_AntiSlap(playerid);
 public deleteTB_AntiSlap(playerid) {
 	DeletePVar(playerid, "TB_AntiSlap");
-
-	TogglePlayerControllable(playerid, true);
-	DeletePVar(playerid, "IsFrozen");
 	return 1;
 }
 
 forward deleteTB_AntiSlap2(playerid);
 public deleteTB_AntiSlap2(playerid) {
 	DeletePVar(playerid, "TB_AntiSlap2");
-
-	TogglePlayerControllable(playerid, true);
-	DeletePVar(playerid, "IsFrozen");
 	return 1;
 }
 
 forward deleteTB_AntiSpeed(playerid);
 public deleteTB_AntiSpeed(playerid) {
 	DeletePVar(playerid, "TB_AntiSpeed");
-
-	TogglePlayerControllable(playerid, true);
-	DeletePVar(playerid, "IsFrozen");
 	return 1;
 }
 
 // ------------------------------------------------------------------------
-
-new TocDoGioiHan = 215;
 
 forward checkSpeedVehicle(playerid);
 public checkSpeedVehicle(playerid) {
 	new newcar = GetPlayerVehicleID(playerid);
     if(IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER && !IsAPlane(newcar) && !IsABoat(newcar) && PlayerInfo[playerid][pAdmin] == 0)
 	{
-        if(GetSpeedKM(playerid) > TocDoGioiHan)
+        if(float(GetSpeedKM(playerid)) > GetVehicleMaxSpeed(GetVehicleModel(newcar)) + 5.0)
         {
+        	new string[1280];
+        	format(string, sizeof(string), "[ANTI-CHEAT] %s vua su dung %s, vui long (/spec %d).", GetPlayerNameEx(playerid), "Speed Car", playerid);
         	if(GetPVarInt(playerid, "TB_AntiSpeedCar") == 0) {
-            	new string[1280];
-				format(string, sizeof(string), "[ANTI-CHEAT] %s vua su dung %s, vui long (/spec %d).", GetPlayerNameEx(playerid), "Speed Car", playerid);
 				ABroadCast(COLOR_YELLOW, string, 2);
-				Log("logs/AntiHackBynDP.log", string);
 				SetPVarInt(playerid, "TB_AntiSpeedCar", 1);
 				SetTimerEx("deleteTB_AntiSpeedCar", 3000, false, "i", playerid);
 			}
-
+			Log("logs/AntiHackBynDP.log", string);
 			if(AdminOnl() == 0) Kick(playerid);
         }
     }
