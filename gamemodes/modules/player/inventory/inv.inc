@@ -391,7 +391,9 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys) {
             ShowPlayerDialog(playerid, INTERACTMAIN, DIALOG_STYLE_LIST, name, string, "Lua chon", "Huy bo");
             return 1;
         }
-
+    }
+    else if(newkeys & KEY_YES) {
+        if(IsPlayerInAnyVehicle(playerid)) return 1;
         PickupNearestItem(playerid);
     }
     return 1;
