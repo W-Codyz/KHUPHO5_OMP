@@ -621,10 +621,6 @@ public OnPlayerLoad(playerid)
 	printf("%s has logged in.", GetPlayerNameEx(playerid));
 	//SendClientMessageEx(playerid, 0xFFFFFFFF, "SERVER: Xin chao %s.", GetPlayerNameEx(playerid));
 	
-	SetCameraBehindPlayer(playerid);
-	TogglePlayerSpectating(playerid, false);
-	defer SkinDelay(playerid);
-
 	gPlayerLogged{playerid} = 1;
 	g_mysql_AccountOnline(playerid, servernumber);
 	GetHomeCount(playerid);
