@@ -177,6 +177,7 @@ stock Container_ResetVars(playerid)
     PlayerCJ[playerid][E_CJ_Returning]     = false;
     PlayerCJ[playerid][E_CJ_CountdownTimer]= -1;
     PlayerCJ[playerid][E_CJ_DeliveryDist]  = 0.0;
+    PlayerCJ[playerid][E_CJ_PendingSalary] = 0;
     PlayerWorking[playerid]                = 0;
     DeletePVar(playerid, "CJ_Unloading");
 }
@@ -355,7 +356,7 @@ static CJ_StartDelivery(playerid, cargoType, bool:isUrgent)
 // ============================================================
 //  Internal: tinh toan tra tien
 // ============================================================
-static CJ_PayPlayer(playerid)
+static CJ_CalcAndStoreSalary(playerid)
 {
     new leaderID    = playerid;
     new cargoType   = PlayerCJ[leaderID][E_CJ_CargoType];
@@ -363,14 +364,18 @@ static CJ_PayPlayer(playerid)
     new bool:isUrgent = PlayerCJ[leaderID][E_CJ_IsUrgent];
     new partner     = PlayerCJ[leaderID][E_CJ_PartnerID];
     new timeLeft    = PlayerCJ[leaderID][E_CJ_TimeLeft];
-    new bool:hasPartner = (partner != INVALID_PLAYER_ID && IsPlayerConnected(partner));
+    new bool:hasPartner = (partner != INVALID_PLAYER_ID);
 
-    new fullThreshold = (PlayerCJ[leaderID][E_CJ_OriginalMax] > 0) ? PlayerCJ[leaderID][E_CJ_OriginalMax] : CONTAINER_SOLO_MAX;
+    new fullThreshold;
+    if(PlayerCJ[leaderID][E_CJ_OriginalMax] > 0)
+        fullThreshold = PlayerCJ[leaderID][E_CJ_OriginalMax];
+    else
+        fullThreshold = hasPartner ? CONTAINER_TEAM_MAX : CONTAINER_SOLO_MAX;
     new Float:pay = gCJPrice[cargoType] * float(cargoCount);
     if(cargoCount >= fullThreshold) pay *= 1.10;
     new bool:urgentBonus = (isUrgent && timeLeft > 0);
     if(urgentBonus) pay *= 1.10;
-    if(hasPartner)  pay *= 1.15;
+    if(hasPartner)  pay *= 1.20;
     new totalPay = floatround(pay);
     new eachPay  = hasPartner ? (totalPay / 2) : totalPay;
 
@@ -378,8 +383,9 @@ static CJ_PayPlayer(playerid)
     new Float:delDist  = PlayerCJ[leaderID][E_CJ_DeliveryDist];
     new distBonus      = floatround((delDist / 1000.0) * 5000.0);
 
-    GivePlayerCash(leaderID, eachPay + distBonus);
-    if(hasPartner) GivePlayerCash(partner, eachPay + distBonus);
+    new finalSalary = eachPay + distBonus;
+    PlayerCJ[leaderID][E_CJ_PendingSalary] = finalSalary;
+    if(hasPartner) PlayerCJ[partner][E_CJ_PendingSalary] = finalSalary;
 
     // Ten hang
     new cargoName[16];
@@ -398,40 +404,38 @@ static CJ_PayPlayer(playerid)
         GivePlayerXP(partner, xp);
         PlayerInfo[partner][pContainerSkill]++;
         if(DoubleXP || PlayerInfo[partner][pDoubleEXP] > 0) PlayerInfo[partner][pContainerSkill]++;
-        new pmsg[256], nfPartnerTotal[20];
-        format(nfPartnerTotal, sizeof(nfPartnerTotal), "%s", number_format(eachPay + distBonus));
+        new pmsg[256];
         format(pmsg, sizeof(pmsg),
-            "{F5D000}[Container]{ffffff} Giao hang thanh cong! {3BFF6F}$%s{FFFFFF} | %s | %d kien%s%s%s",
-            nfPartnerTotal, cargoName, cargoCount,
+            "{F5D000}[Container]{ffffff} Giao hang thanh cong! Tich luy chua lanh: {3BFF6F}+$%s{FFFFFF} | %s | %d kien%s%s%s",
+            number_format(finalSalary), cargoName, cargoCount,
             (cargoCount >= fullThreshold) ? " | {F5D000}+Full 10%" : "",
             urgentBonus ? "{FFFFFF} | {FF6B6B}+Gap 10%" : "",
-            "{FFFFFF} | {3BFF6F}+Team 15%");
+            "{FFFFFF} | {3BFF6F}+Team 20%");
         SendClientMessageEx(partner, COLOR_WHITE, pmsg);
         if(distBonus > 0)
             SendClientMessageEx(partner, COLOR_WHITE,
-                "{F5D000}[Container]{ffffff} Chu hang bonus them {3BFF6F}$%s{FFFFFF} vi khoang cach {FFFF00}%dm{FFFFFF} (~%.1fkm)!",
-                number_format(distBonus), floatround(delDist), delDist / 1000.0);
+                "{F5D000}[Container]{ffffff} Bao gom bonus khoang cach {3BFF6F}+$%s{FFFFFF} (~%.1fkm).",
+                number_format(distBonus), delDist / 1000.0);
         SendClientMessageEx(partner, COLOR_YELLOW,
             "Ky nang: +1 | Level: %d | Con %d diem len cap",
             Container_GetJobLevel(partner), Container_GetSkillNextLevel(partner));
+        SendHintMessage(partner, "Ngoi tren xe, leader se lai ve diem xuat phat de lanh luong.");
     }
     GivePlayerXP(leaderID, xp);
     PlayerInfo[leaderID][pContainerSkill]++;
     if(DoubleXP || PlayerInfo[leaderID][pDoubleEXP] > 0) PlayerInfo[leaderID][pContainerSkill]++;
     new msg[256];
-    new nfLeaderTotal[20];
-    format(nfLeaderTotal, sizeof(nfLeaderTotal), "%s", number_format(eachPay + distBonus));
     format(msg, sizeof(msg),
-        "{F5D000}[Container]{ffffff} Giao hang thanh cong! {3BFF6F}$%s{FFFFFF} | %s | %d kien%s%s%s",
-        nfLeaderTotal, cargoName, cargoCount,
+        "{F5D000}[Container]{ffffff} Giao hang thanh cong! Tich luy chua lanh: {3BFF6F}+$%s{FFFFFF} | %s | %d kien%s%s%s",
+        number_format(finalSalary), cargoName, cargoCount,
         (cargoCount >= fullThreshold) ? " | {F5D000}+Full 10%" : "",
         urgentBonus ? "{FFFFFF} | {FF6B6B}+Gap 10%" : "",
-        hasPartner ? "{FFFFFF} | {3BFF6F}+Team 15%" : "");
+        hasPartner ? "{FFFFFF} | {3BFF6F}+Team 20%" : "");
     SendClientMessageEx(leaderID, COLOR_WHITE, msg);
     if(distBonus > 0)
         SendClientMessageEx(leaderID, COLOR_WHITE,
-            "{F5D000}[Container]{ffffff} Chu hang bonus them {3BFF6F}$%s{FFFFFF} vi khoang cach {FFFF00}%dm{FFFFFF} (~%.1fkm)!",
-            number_format(distBonus), floatround(delDist), delDist / 1000.0);
+            "{F5D000}[Container]{ffffff} Bao gom bonus khoang cach {3BFF6F}+$%s{FFFFFF} (~%.1fkm).",
+            number_format(distBonus), delDist / 1000.0);
     SendClientMessageEx(leaderID, COLOR_YELLOW,
         "Ky nang: +1 | Level: %d | Con %d diem len cap",
         Container_GetJobLevel(leaderID), Container_GetSkillNextLevel(leaderID));
@@ -487,12 +491,12 @@ static CJ_PayPlayer(playerid)
         // Pre-store to avoid static buffer reuse when two number_format calls appear in one format()
         new nfBase2[20], nfTotal2[20];
         format(nfBase2, sizeof(nfBase2), "%s", number_format(floatround(logBase)));
-        format(nfTotal2, sizeof(nfTotal2), "%s", number_format(eachPay + distBonus));
+        format(nfTotal2, sizeof(nfTotal2), "%s", number_format(finalSalary));
 
         new etitle[128], estr[512];
-        format(etitle, sizeof(etitle), "Container | %s - %s", PlayerCJ[leaderID][E_CJ_GroupName], GetPlayerNameEx(leaderID));
+        format(etitle, sizeof(etitle), "Container | Giao hang xong - Chua lanh | %s", PlayerCJ[leaderID][E_CJ_GroupName]);
         format(estr, sizeof(estr),
-            ":truck: **GIAO HÀNG THÀNH CÔNG**\n**Nhóm:** %s\n**Lái xe:** %s (ID:%d)%s\n**Hàng:** %s | %d kiện\n**Điểm giao:** %s\n**Giá cơ bản:** $%s\n**Bonus:**%s\n**TỔNG/người:** $%s",
+            ":truck: **GIAO HANG XONG - DANG TRA XE**\n**Nhom:** %s\n**Lai xe:** %s (ID:%d)%s\n**Hang:** %s | %d kien\n**Diem giao:** %s\n**Gia co ban:** $%s\n**Bonus:**%s\n**CHO LANH/nguoi:** $%s",
             PlayerCJ[leaderID][E_CJ_GroupName],
             GetPlayerNameEx(leaderID), leaderID, partnerStr,
             dCargoName, cargoCount,
@@ -506,7 +510,7 @@ static CJ_PayPlayer(playerid)
         new DCC_Embed:cjEmbed = DCC_CreateEmbed();
         DCC_SetEmbedTitle(cjEmbed, etitle);
         DCC_SetEmbedDescription(cjEmbed, estr);
-        DCC_SetEmbedColor(cjEmbed, 0x85FF85);
+        DCC_SetEmbedColor(cjEmbed, 0xFFD700);
         DCC_SetEmbedFooter(cjEmbed, cjDtStr);
         DCC_SendChannelEmbedMessage(dclog_Container, cjEmbed);
     }
@@ -518,7 +522,7 @@ static CJ_PayPlayer(playerid)
 forward CJ_Countdown(playerid);
 public CJ_Countdown(playerid)
 {
-    if(!IsPlayerConnected(playerid) || !IsContainerWorking(playerid)) return 1;
+    if(!IsPlayerConnected(playerid) || !IsContainerWorking(playerid)) return 0;
     if(PlayerCJ[playerid][E_CJ_TimeLeft] <= 0) {
         PlayerCJ[playerid][E_CJ_TimeLeft] = 0;
         KillTimer(PlayerCJ[playerid][E_CJ_CountdownTimer]);
@@ -557,7 +561,14 @@ forward CJ_DeliveryFinish(playerid);
 public CJ_DeliveryFinish(playerid)
 {
     if(!IsPlayerConnected(playerid) || !IsContainerWorking(playerid)) return 1;
-    if(PlayerCJ[playerid][E_CJ_CargoCount] <= 0) return 1; // double-call guard
+    if(PlayerCJ[playerid][E_CJ_CargoCount] <= 0) {
+        DeletePVar(playerid, "CJ_Unloading");
+        new cj_early_p = PlayerCJ[playerid][E_CJ_PartnerID];
+        if(cj_early_p != INVALID_PLAYER_ID && IsPlayerConnected(cj_early_p))
+            DeletePVar(cj_early_p, "CJ_Unloading");
+        ClearAnimations(playerid);
+        return 1;
+    }
 
     new cj_partner = PlayerCJ[playerid][E_CJ_PartnerID];
     DeletePVar(playerid, "CJ_Unloading");
@@ -573,8 +584,8 @@ public CJ_DeliveryFinish(playerid)
         PlayerCJ[playerid][E_CJ_CountdownTimer] = -1;
     }
 
-    // Tra tien (chi tu leader)
-    CJ_PayPlayer(playerid);
+    // Tinh luong va luu pending (chi tu leader)
+    CJ_CalcAndStoreSalary(playerid);
 
     // Destroy trailer label + trailer
     if(CJTrailerLabel[playerid] != Text3D:INVALID_3DTEXT_ID) {
@@ -592,23 +603,23 @@ public CJ_DeliveryFinish(playerid)
     PlayerCJ[playerid][E_CJ_Returning]  = true;
     PlayerCJ[playerid][E_CJ_CargoCount] = 0;
 
-    // Thong bao partner (partner theo leader lai xe ve, khong co return CP rieng)
+    // Set return CP cho ca partner (co the doi xe nhau lai)
     new partner = PlayerCJ[playerid][E_CJ_PartnerID];
     if(partner != INVALID_PLAYER_ID && IsPlayerConnected(partner)) {
         PlayerCJ[partner][E_CJ_TrailerID]  = INVALID_VEHICLE_ID;
         PlayerCJ[partner][E_CJ_Returning]  = true;
         PlayerCJ[partner][E_CJ_CargoCount] = 0;
         DisablePlayerCP(partner);
-        if(gPlayerCheckpointStatus[partner] >= CHECKPOINT_CONTAINER_WH
-        && gPlayerCheckpointStatus[partner] <= CHECKPOINT_CONTAINER_RET)
-            gPlayerCheckpointStatus[partner] = CHECKPOINT_NONE;
+        SetPlayerCP(partner, CJ_RETURN_X, CJ_RETURN_Y, CJ_RETURN_Z, 6.0);
+        gPlayerCheckpointStatus[partner] = CHECKPOINT_CONTAINER_RET;
         SendClientMessageEx(partner, COLOR_YELLOW,
-            "{F5D000}[Container]{ffffff} Hang giao xong! Ngoi tren xe, leader se lai ve diem xuat phat.");
+            "{F5D000}[Container]{ffffff} Hang giao xong! Neu ban dang lai xe, hay lai ve checkpoint xuat phat de lanh luong.");
     }
 
     SendClientMessageEx(playerid, COLOR_YELLOW,
-        "{F5D000}[Container]{ffffff} Hang giao xong! Lai xe ve diem xuat phat (checkpoint tren ban do).");
-    SendHintMessage(playerid, "Lai xe ve checkpoint xuat phat de ket thuc chuyen hang.");
+        "{F5D000}[Container]{ffffff} Hang giao xong! Lai xe ve diem xuat phat de lanh {3BFF6F}$%s{FFFFFF} (checkpoint tren ban do).",
+        number_format(PlayerCJ[playerid][E_CJ_PendingSalary]));
+    SendHintMessage(playerid, "Lai xe ve {46BE00}checkpoint xuat phat{ffffff} de lanh luong va ket thuc chuyen hang.");
     return 1;
 }
 
@@ -667,6 +678,19 @@ hook OnPlayerConnect(playerid)
 }
 
 // ============================================================
+//  Hook: player chet - clear cargo state tranh phantom cargo
+// ============================================================
+hook OnPlayerDeath(playerid, killerid, reason)
+{
+    if(PlayerCJ[playerid][E_CJ_HasCargo]) {
+        PlayerCJ[playerid][E_CJ_HasCargo] = false;
+        RemovePlayerAttachedObject(playerid, CONTAINER_CARGO_SLOT);
+        SetPlayerSpecialAction(playerid, 0);
+    }
+    return 1;
+}
+
+// ============================================================
 //  Hook: disconnect
 // ============================================================
 hook OnPlayerDisconnect(playerid, reason)
@@ -691,6 +715,7 @@ hook OnPlayerDisconnect(playerid, reason)
             PlayerCJ[partner][E_CJ_TruckID]  = vid;
             PlayerCJ[partner][E_CJ_LeaderID] = partner;
             PlayerCJ[partner][E_CJ_PartnerID]= INVALID_PLAYER_ID;
+            PlayerCJ[partner][E_CJ_GroupID]  = random(99) + 1;
             PlayerCJ[playerid][E_CJ_TruckID] = INVALID_VEHICLE_ID;
             if(PlayerCJ[playerid][E_CJ_IsUrgent]) {
                 if(IsValidTimer(PlayerCJ[playerid][E_CJ_CountdownTimer]))
@@ -737,6 +762,25 @@ hook OnPlayerDisconnect(playerid, reason)
         new tid = PlayerCJ[playerid][E_CJ_TrailerID];
         if(IsValidVehicle(tid)) DestroyVehicle(tid);
     }
+    if(PlayerCJ[playerid][E_CJ_Returning] && PlayerCJ[playerid][E_CJ_PendingSalary] > 0) {
+        new dlLost = PlayerCJ[playerid][E_CJ_PendingSalary];
+        new dlTitle[128], dlStr[256];
+        format(dlTitle, sizeof(dlTitle), "Container | MAT LUONG - %s (ID:%d)", GetPlayerNameEx(playerid), playerid);
+        format(dlStr, sizeof(dlStr),
+            ":warning: **MAT LUONG CONTAINER** (disconnect khi dang tra xe)\n**Nguoi choi:** %s (ID:%d)\n**So tien mat:** $%s\n**Nhom:** %s\n*(Admin co the hoan tien neu can)*",
+            GetPlayerNameEx(playerid), playerid,
+            number_format(dlLost),
+            PlayerCJ[playerid][E_CJ_GroupName]);
+        new dlY, dlMo, dlD, dlH, dlMi, dlS, dlDtStr[64];
+        getdate(dlY, dlMo, dlD); gettime(dlH, dlMi, dlS);
+        format(dlDtStr, sizeof(dlDtStr), "%02d/%02d/%d - %02d:%02d:%02d", dlD, dlMo, dlY, dlH, dlMi, dlS);
+        new DCC_Embed:dlEmbed = DCC_CreateEmbed();
+        DCC_SetEmbedTitle(dlEmbed, dlTitle);
+        DCC_SetEmbedDescription(dlEmbed, dlStr);
+        DCC_SetEmbedColor(dlEmbed, 0xFF4444);
+        DCC_SetEmbedFooter(dlEmbed, dlDtStr);
+        DCC_SendChannelEmbedMessage(dclog_Container, dlEmbed);
+    }
     Container_ResetVars(playerid);
     return 1;
 }
@@ -747,11 +791,91 @@ hook OnPlayerDisconnect(playerid, reason)
 hook OnVehicleSpawn(vehicleid)
 {
     foreach(new i : Player) if(IsPlayerConnected(i)) {
-        if(PlayerCJ[i][E_CJ_TruckID] == vehicleid && PlayerCJ[i][E_CJ_LeaderID] == i) {
-            if(CJVehLabel[i] != Text3D:INVALID_3DTEXT_ID) { Delete3DTextLabel(CJVehLabel[i]); CJVehLabel[i] = Text3D:INVALID_3DTEXT_ID; }
-            DestroyVehicle(vehicleid);
-            PlayerCJ[i][E_CJ_TruckID] = INVALID_VEHICLE_ID;
+        if(PlayerCJ[i][E_CJ_TruckID] != vehicleid || PlayerCJ[i][E_CJ_LeaderID] != i) continue;
+
+        if(CJVehLabel[i] != Text3D:INVALID_3DTEXT_ID) { Delete3DTextLabel(CJVehLabel[i]); CJVehLabel[i] = Text3D:INVALID_3DTEXT_ID; }
+        DestroyVehicle(vehicleid);
+        PlayerCJ[i][E_CJ_TruckID] = INVALID_VEHICLE_ID;
+
+        // Destroy trailer (neu co) trong moi truong hop xe nổ
+        new cj_tid_spawn = PlayerCJ[i][E_CJ_TrailerID];
+        if(IsValidVehicle(cj_tid_spawn)) {
+            if(CJTrailerLabel[i] != Text3D:INVALID_3DTEXT_ID) { Delete3DTextLabel(CJTrailerLabel[i]); CJTrailerLabel[i] = Text3D:INVALID_3DTEXT_ID; }
+            DestroyVehicle(cj_tid_spawn);
+            PlayerCJ[i][E_CJ_TrailerID] = INVALID_VEHICLE_ID;
+        }
+
+        if(!PlayerCJ[i][E_CJ_Returning]) {
+            // Chua giao xong - chi thong bao
             SendClientMessageEx(i, COLOR_RED, "{F5D000}[Container]{ffffff} Xe cong viec bi thu hoi! Dung /dunglamviec roi bat dau lai.");
+        } else {
+            // Dang tro ve - mat luong ngay
+            DisablePlayerCP(i);
+            gPlayerCheckpointStatus[i] = CHECKPOINT_NONE;
+
+            new wvLostSal  = PlayerCJ[i][E_CJ_PendingSalary];
+            new wvPID      = PlayerCJ[i][E_CJ_PartnerID];
+            new wvPLostSal = (wvPID != INVALID_PLAYER_ID && IsPlayerConnected(wvPID)) ? PlayerCJ[wvPID][E_CJ_PendingSalary] : 0;
+
+            if(wvLostSal > 0) {
+                SendClientMessageEx(i, COLOR_RED,
+                    "{F5D000}[Container]{ffffff} Xe lao xuong nuoc! Mat {FF4444}$%s{FFFFFF} luong chua lanh.",
+                    number_format(wvLostSal));
+                ShowTDN(i, NOTIFICATION_ERROR, "Mat luong vi xe lao xuong nuoc!");
+            }
+            if(wvPID != INVALID_PLAYER_ID && IsPlayerConnected(wvPID) && wvPLostSal > 0) {
+                SendClientMessageEx(wvPID, COLOR_RED,
+                    "{F5D000}[Container]{ffffff} Xe lao xuong nuoc! Mat {FF4444}$%s{FFFFFF} luong chua lanh.",
+                    number_format(wvPLostSal));
+                ShowTDN(wvPID, NOTIFICATION_ERROR, "Mat luong vi xe lao xuong nuoc!");
+            }
+
+            if(wvLostSal > 0 || wvPLostSal > 0) {
+                new wvTitle[128], wvStr[256], wvPartStr[64];
+                if(wvPID != INVALID_PLAYER_ID && IsPlayerConnected(wvPID)) {
+                    new wvPLostBuf[20];
+                    format(wvPLostBuf, sizeof(wvPLostBuf), "%s", number_format(wvPLostSal));
+                    format(wvPartStr, sizeof(wvPartStr), "%s (ID:%d) - Mat $%s", GetPlayerNameEx(wvPID), wvPID, wvPLostBuf);
+                } else {
+                    wvPartStr = "Khong co / Da DC";
+                }
+                new wvLostBuf[20];
+                format(wvLostBuf, sizeof(wvLostBuf), "%s", number_format(wvLostSal));
+                format(wvTitle, sizeof(wvTitle), "Container | MAT LUONG (xe xuong nuoc) | %s", PlayerCJ[i][E_CJ_GroupName]);
+                format(wvStr, sizeof(wvStr),
+                    ":ocean: **MAT LUONG CONTAINER** (xe lao xuong nuoc khi tra xe)\n**Nhom:** %s\n**Leader:** %s (ID:%d) - Mat $%s\n**Partner:** %s\n*(Admin co the hoan tien neu can)*",
+                    PlayerCJ[i][E_CJ_GroupName], GetPlayerNameEx(i), i, wvLostBuf, wvPartStr);
+                new wvY, wvMo, wvD, wvH, wvMi, wvS, wvDtStr[64];
+                getdate(wvY, wvMo, wvD); gettime(wvH, wvMi, wvS);
+                format(wvDtStr, sizeof(wvDtStr), "%02d/%02d/%d - %02d:%02d:%02d", wvD, wvMo, wvY, wvH, wvMi, wvS);
+                new DCC_Embed:wvEmbed = DCC_CreateEmbed();
+                DCC_SetEmbedTitle(wvEmbed, wvTitle);
+                DCC_SetEmbedDescription(wvEmbed, wvStr);
+                DCC_SetEmbedColor(wvEmbed, 0xFF4444);
+                DCC_SetEmbedFooter(wvEmbed, wvDtStr);
+                DCC_SendChannelEmbedMessage(dclog_Container, wvEmbed);
+            }
+
+            // Reset, giu group
+            new wvGname[64], wvGid = PlayerCJ[i][E_CJ_GroupID];
+            format(wvGname, sizeof(wvGname), "%s", PlayerCJ[i][E_CJ_GroupName]);
+            if(wvPID != INVALID_PLAYER_ID && IsPlayerConnected(wvPID)) {
+                new wv_p_gname[64], wv_p_gid = PlayerCJ[wvPID][E_CJ_GroupID];
+                format(wv_p_gname, sizeof(wv_p_gname), "%s", PlayerCJ[wvPID][E_CJ_GroupName]);
+                Container_ResetVars(wvPID);
+                format(PlayerCJ[wvPID][E_CJ_GroupName], 64, "%s", wv_p_gname);
+                PlayerCJ[wvPID][E_CJ_GroupID]   = wv_p_gid;
+                PlayerCJ[wvPID][E_CJ_LeaderID]  = i;
+                PlayerCJ[wvPID][E_CJ_PartnerID] = i;
+                SetPlayerSkin(wvPID, PlayerInfo[wvPID][pModel]);
+            }
+            Container_ResetVars(i);
+            format(PlayerCJ[i][E_CJ_GroupName], 64, "%s", wvGname);
+            PlayerCJ[i][E_CJ_GroupID]  = wvGid;
+            PlayerCJ[i][E_CJ_LeaderID] = i;
+            if(wvPID != INVALID_PLAYER_ID && IsPlayerConnected(wvPID))
+                PlayerCJ[i][E_CJ_PartnerID] = wvPID;
+            SetPlayerSkin(i, PlayerInfo[i][pModel]);
         }
     }
     return 1;
@@ -1022,21 +1146,175 @@ hook OnPlayerEnterCheckpoint(playerid)
         }
         case CHECKPOINT_CONTAINER_RET:
         {
-            if(!PlayerCJ[playerid][E_CJ_Returning] || PlayerCJ[playerid][E_CJ_LeaderID] != playerid) return 1;
+            if(!PlayerCJ[playerid][E_CJ_Returning]) return 1;
 
-            DisablePlayerCP(playerid);
-            gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
+            new bool:isLeader = (PlayerCJ[playerid][E_CJ_LeaderID] == playerid);
+            new leaderID = isLeader ? playerid : PlayerCJ[playerid][E_CJ_LeaderID];
 
-            new vid = PlayerCJ[playerid][E_CJ_TruckID];
-            if(IsValidVehicle(vid)) {
-                if(GetPlayerVehicleID(playerid) == vid) RemovePlayerFromVehicle(playerid);
-                DestroyVehicle(vid);
+            // Partner: chi xu ly khi leader chua tra xe (tranh xu ly 2 lan)
+            if(!isLeader && (!IsPlayerConnected(leaderID) || !PlayerCJ[leaderID][E_CJ_Returning])) return 1;
+
+            new vid = PlayerCJ[leaderID][E_CJ_TruckID];
+
+            // Xe bi pha - mat luong toan bo
+            if(!IsValidVehicle(vid)) {
+                DisablePlayerCP(playerid);
+                gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
+                if(!isLeader && IsPlayerConnected(leaderID)) {
+                    DisablePlayerCP(leaderID);
+                    gPlayerCheckpointStatus[leaderID] = CHECKPOINT_NONE;
+                }
+
+                new dvLostSal  = PlayerCJ[leaderID][E_CJ_PendingSalary];
+                new dvPID      = PlayerCJ[leaderID][E_CJ_PartnerID];
+                new dvPLostSal = (dvPID != INVALID_PLAYER_ID && IsPlayerConnected(dvPID)) ? PlayerCJ[dvPID][E_CJ_PendingSalary] : 0;
+
+                // Disable CP cua partner neu leader xu ly
+                if(isLeader && dvPID != INVALID_PLAYER_ID && IsPlayerConnected(dvPID)) {
+                    DisablePlayerCP(dvPID);
+                    gPlayerCheckpointStatus[dvPID] = CHECKPOINT_NONE;
+                }
+
+                if(dvLostSal > 0) {
+                    SendClientMessageEx(leaderID, COLOR_RED,
+                        "{F5D000}[Container]{ffffff} Xe bi pha huy! Mat {FF4444}$%s{FFFFFF} luong chua lanh.",
+                        number_format(dvLostSal));
+                    ShowTDN(leaderID, NOTIFICATION_ERROR, "Mat luong vi xe bi pha!");
+                }
+                if(dvPID != INVALID_PLAYER_ID && IsPlayerConnected(dvPID) && dvPLostSal > 0) {
+                    SendClientMessageEx(dvPID, COLOR_RED,
+                        "{F5D000}[Container]{ffffff} Xe bi pha huy! Mat {FF4444}$%s{FFFFFF} luong chua lanh.",
+                        number_format(dvPLostSal));
+                    ShowTDN(dvPID, NOTIFICATION_ERROR, "Mat luong vi xe bi pha!");
+                }
+
+                if(dvLostSal > 0 || dvPLostSal > 0) {
+                    new dvTitle[128], dvStr[256], dvPartStr[64];
+                    if(dvPID != INVALID_PLAYER_ID && IsPlayerConnected(dvPID))
+                        format(dvPartStr, sizeof(dvPartStr), "%s (ID:%d) - Mat $%s", GetPlayerNameEx(dvPID), dvPID, number_format(dvPLostSal));
+                    else
+                        dvPartStr = "Khong co / Da DC";
+                    new dvLostBuf[20];
+                    format(dvLostBuf, sizeof(dvLostBuf), "%s", number_format(dvLostSal));
+                    format(dvTitle, sizeof(dvTitle), "Container | MAT LUONG (xe bi pha) | %s", PlayerCJ[leaderID][E_CJ_GroupName]);
+                    format(dvStr, sizeof(dvStr),
+                        ":boom: **MAT LUONG CONTAINER** (xe bi pha khi tra xe)\n**Nhom:** %s\n**Leader:** %s (ID:%d) - Mat $%s\n**Partner:** %s\n*(Admin co the hoan tien neu can)*",
+                        PlayerCJ[leaderID][E_CJ_GroupName], GetPlayerNameEx(leaderID), leaderID, dvLostBuf, dvPartStr);
+                    new dvY, dvMo, dvD, dvH, dvMi, dvS, dvDtStr[64];
+                    getdate(dvY, dvMo, dvD); gettime(dvH, dvMi, dvS);
+                    format(dvDtStr, sizeof(dvDtStr), "%02d/%02d/%d - %02d:%02d:%02d", dvD, dvMo, dvY, dvH, dvMi, dvS);
+                    new DCC_Embed:dvEmbed = DCC_CreateEmbed();
+                    DCC_SetEmbedTitle(dvEmbed, dvTitle);
+                    DCC_SetEmbedDescription(dvEmbed, dvStr);
+                    DCC_SetEmbedColor(dvEmbed, 0xFF4444);
+                    DCC_SetEmbedFooter(dvEmbed, dvDtStr);
+                    DCC_SendChannelEmbedMessage(dclog_Container, dvEmbed);
+                }
+
+                // Reset, giu group
+                new dvGname[64], dvGid = PlayerCJ[leaderID][E_CJ_GroupID];
+                format(dvGname, sizeof(dvGname), "%s", PlayerCJ[leaderID][E_CJ_GroupName]);
+                if(dvPID != INVALID_PLAYER_ID && IsPlayerConnected(dvPID)) {
+                    new dv_p_gname[64], dv_p_gid = PlayerCJ[dvPID][E_CJ_GroupID];
+                    format(dv_p_gname, sizeof(dv_p_gname), "%s", PlayerCJ[dvPID][E_CJ_GroupName]);
+                    Container_ResetVars(dvPID);
+                    format(PlayerCJ[dvPID][E_CJ_GroupName], 64, "%s", dv_p_gname);
+                    PlayerCJ[dvPID][E_CJ_GroupID]   = dv_p_gid;
+                    PlayerCJ[dvPID][E_CJ_LeaderID]  = leaderID;
+                    PlayerCJ[dvPID][E_CJ_PartnerID] = leaderID;
+                    SetPlayerSkin(dvPID, PlayerInfo[dvPID][pModel]);
+                }
+                Container_ResetVars(leaderID);
+                format(PlayerCJ[leaderID][E_CJ_GroupName], 64, "%s", dvGname);
+                PlayerCJ[leaderID][E_CJ_GroupID]  = dvGid;
+                PlayerCJ[leaderID][E_CJ_LeaderID] = leaderID;
+                if(dvPID != INVALID_PLAYER_ID && IsPlayerConnected(dvPID))
+                    PlayerCJ[leaderID][E_CJ_PartnerID] = dvPID;
+                SetPlayerSkin(leaderID, PlayerInfo[leaderID][pModel]);
+                return 1;
             }
 
+            // Kiem tra xe trong pham vi 10m
+            new Float:tvx, Float:tvy, Float:tvz;
+            GetVehiclePos(vid, tvx, tvy, tvz);
+            if(!IsPlayerInRangeOfPoint(playerid, 10.0, tvx, tvy, tvz)) {
+                ShowTDN(playerid, NOTIFICATION_WARNING, "Xe cong viec phai o trong pham vi 10m de tra va lanh luong!");
+                return 1;
+            }
+
+            // Disable CP nguoi xu ly
+            DisablePlayerCP(playerid);
+            gPlayerCheckpointStatus[playerid] = CHECKPOINT_NONE;
+            // Disable CP nguoi con lai
+            if(!isLeader && IsPlayerConnected(leaderID)) {
+                DisablePlayerCP(leaderID);
+                gPlayerCheckpointStatus[leaderID] = CHECKPOINT_NONE;
+            }
+
+            if(GetPlayerVehicleID(playerid) == vid) RemovePlayerFromVehicle(playerid);
+            DestroyVehicle(vid);
+
             // Luu group truoc khi reset
-            new gname[64], gid = PlayerCJ[playerid][E_CJ_GroupID];
-            format(gname, sizeof(gname), "%s", PlayerCJ[playerid][E_CJ_GroupName]);
-            new savedPartner = PlayerCJ[playerid][E_CJ_PartnerID];
+            new gname[64], gid = PlayerCJ[leaderID][E_CJ_GroupID];
+            format(gname, sizeof(gname), "%s", PlayerCJ[leaderID][E_CJ_GroupName]);
+            new savedPartner = PlayerCJ[leaderID][E_CJ_PartnerID];
+
+            // Disable CP partner neu leader xu ly
+            if(isLeader && savedPartner != INVALID_PLAYER_ID && IsPlayerConnected(savedPartner)) {
+                DisablePlayerCP(savedPartner);
+                gPlayerCheckpointStatus[savedPartner] = CHECKPOINT_NONE;
+            }
+
+            // === LANH LUONG ===
+            new pendingLeader = PlayerCJ[leaderID][E_CJ_PendingSalary];
+            if(pendingLeader > 0) {
+                GivePlayerCash(leaderID, pendingLeader);
+                SendClientMessageEx(leaderID, COLOR_CONTAINER,
+                    "{D4A017}[Container] Ban da lanh {5BFF89}$%s{D4A017} luong. Cam on da lam viec!",
+                    number_format(pendingLeader));
+                ShowTDN(leaderID, NOTIFICATION_SUCCESS, "Lanh luong Container thanh cong!");
+            }
+            if(savedPartner != INVALID_PLAYER_ID && IsPlayerConnected(savedPartner)) {
+                new pendingPartner = PlayerCJ[savedPartner][E_CJ_PendingSalary];
+                if(pendingPartner > 0) {
+                    GivePlayerCash(savedPartner, pendingPartner);
+                    SendClientMessageEx(savedPartner, COLOR_CONTAINER,
+                        "{D4A017}[Container] Ban da lanh {5BFF89}$%s{D4A017} luong. Cam on da lam viec!",
+                        number_format(pendingPartner));
+                    ShowTDN(savedPartner, NOTIFICATION_SUCCESS, "Lanh luong Container thanh cong!");
+                }
+            }
+            // Discord log lanh luong
+            if(pendingLeader > 0) {
+                new rlTitle[128], rlStr[384];
+                format(rlTitle, sizeof(rlTitle), "Container | Lanh luong | %s", gname);
+                format(rlStr, sizeof(rlStr),
+                    ":white_check_mark: **LANH LUONG CONTAINER THANH CONG**\n**Nguoi lanh:** %s (ID:%d)\n**So tien:** $%s\n**Nhom:** %s",
+                    GetPlayerNameEx(leaderID), leaderID, number_format(pendingLeader), gname);
+                if(savedPartner != INVALID_PLAYER_ID) {
+                    new rlTmp[128];
+                    if(IsPlayerConnected(savedPartner)) {
+                        format(rlTmp, sizeof(rlTmp), "\n**Partner:** %s (ID:%d) - Nhan $%s",
+                            GetPlayerNameEx(savedPartner), savedPartner,
+                            number_format(PlayerCJ[savedPartner][E_CJ_PendingSalary]));
+                    } else {
+                        format(rlTmp, sizeof(rlTmp), "\n**Partner:** Da disconnect truoc - Mat luong");
+                    }
+                    strcat(rlStr, rlTmp);
+                }
+                if(!isLeader)
+                    strcat(rlStr, "\n*(Partner lai xe tra)");
+                new rlY, rlMo, rlD, rlH, rlMi, rlS, rlDtStr[64];
+                getdate(rlY, rlMo, rlD); gettime(rlH, rlMi, rlS);
+                format(rlDtStr, sizeof(rlDtStr), "%02d/%02d/%d - %02d:%02d:%02d", rlD, rlMo, rlY, rlH, rlMi, rlS);
+                new DCC_Embed:rlEmbed = DCC_CreateEmbed();
+                DCC_SetEmbedTitle(rlEmbed, rlTitle);
+                DCC_SetEmbedDescription(rlEmbed, rlStr);
+                DCC_SetEmbedColor(rlEmbed, 0x85FF85);
+                DCC_SetEmbedFooter(rlEmbed, rlDtStr);
+                DCC_SendChannelEmbedMessage(dclog_Container, rlEmbed);
+            }
+            // === END LANH LUONG ===
 
             // Reset partner truoc
             if(savedPartner != INVALID_PLAYER_ID && IsPlayerConnected(savedPartner)) {
@@ -1045,24 +1323,32 @@ hook OnPlayerEnterCheckpoint(playerid)
                 Container_ResetVars(savedPartner);
                 format(PlayerCJ[savedPartner][E_CJ_GroupName], 64, "%s", p_gname);
                 PlayerCJ[savedPartner][E_CJ_GroupID]   = p_gid;
-                PlayerCJ[savedPartner][E_CJ_LeaderID]  = playerid;
-                PlayerCJ[savedPartner][E_CJ_PartnerID] = playerid;
+                PlayerCJ[savedPartner][E_CJ_LeaderID]  = leaderID;
+                PlayerCJ[savedPartner][E_CJ_PartnerID] = leaderID;
                 SetPlayerSkin(savedPartner, PlayerInfo[savedPartner][pModel]);
-                ShowTDN(savedPartner, NOTIFICATION_SUCCESS, "Chuyen hang hoan thanh! San sang chuyen tiep.");
-                SendClientMessageEx(savedPartner, COLOR_YELLOW, "{F5D000}[Container]{ffffff} Chuyen hang ket thuc. Vao NPC de bat dau chuyen tiep!");
+                // Chi thong bao neu savedPartner khac nguoi dang xu ly (tranh 2 thong bao)
+                if(savedPartner != playerid) {
+                    ShowTDN(savedPartner, NOTIFICATION_SUCCESS, "Chuyen hang hoan thanh! San sang chuyen tiep.");
+                    SendClientMessageEx(savedPartner, COLOR_YELLOW, "{F5D000}[Container]{ffffff} Chuyen hang ket thuc. Vao NPC de bat dau chuyen tiep!");
+                }
             }
 
             // Reset leader
-            Container_ResetVars(playerid);
-            format(PlayerCJ[playerid][E_CJ_GroupName], 64, "%s", gname);
-            PlayerCJ[playerid][E_CJ_GroupID]   = gid;
-            PlayerCJ[playerid][E_CJ_LeaderID]  = playerid;
+            Container_ResetVars(leaderID);
+            format(PlayerCJ[leaderID][E_CJ_GroupName], 64, "%s", gname);
+            PlayerCJ[leaderID][E_CJ_GroupID]   = gid;
+            PlayerCJ[leaderID][E_CJ_LeaderID]  = leaderID;
             if(savedPartner != INVALID_PLAYER_ID && IsPlayerConnected(savedPartner))
-                PlayerCJ[playerid][E_CJ_PartnerID] = savedPartner;
+                PlayerCJ[leaderID][E_CJ_PartnerID] = savedPartner;
 
-            SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
+            SetPlayerSkin(leaderID, PlayerInfo[leaderID][pModel]);
             ShowTDN(playerid, NOTIFICATION_SUCCESS, "Chuyen hang hoan thanh! Da tra xe.");
             SendClientMessageEx(playerid, COLOR_YELLOW, "{F5D000}[Container]{ffffff} Chuyen hang ket thuc. Vao NPC de bat dau chuyen tiep!");
+            // Neu partner lai xe tra, thong bao them cho leader
+            if(!isLeader) {
+                ShowTDN(leaderID, NOTIFICATION_SUCCESS, "Partner da tra xe! San sang chuyen tiep.");
+                SendClientMessageEx(leaderID, COLOR_YELLOW, "{F5D000}[Container]{ffffff} %s (partner) da tra xe. Chuyen hang ket thuc!", GetPlayerNameEx(playerid));
+            }
         }
     }
     return 1;
@@ -1086,6 +1372,24 @@ CMD:giaohang(playerid, params[])
         "{F5D000}KP5 Roleplay {FFFFFF}- Loai Giao Hang",
         "Giao Thuong (khong gioi han thoi gian)\nGiao Gap (+10 phan tram gia - can day 20 kien)",
         "Chon", "Huy");
+    return 1;
+}
+
+// ============================================================
+//  Lenh: /traxe - hien lai checkpoint tra xe neu bi mat
+// ============================================================
+CMD:traxe(playerid, params[])
+{
+    if(!IsContainerWorking(playerid))
+        return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban khong dang lam viec Container!");
+    if(!PlayerCJ[playerid][E_CJ_Returning])
+        return ShowTDN(playerid, NOTIFICATION_WARNING, "Ban chua o giai doan tra xe!");
+    if(gPlayerCheckpointStatus[playerid] == CHECKPOINT_CONTAINER_RET)
+        return ShowTDN(playerid, NOTIFICATION_WARNING, "Checkpoint tra xe dang hien thi!");
+
+    SetPlayerCP(playerid, CJ_RETURN_X, CJ_RETURN_Y, CJ_RETURN_Z, 6.0);
+    gPlayerCheckpointStatus[playerid] = CHECKPOINT_CONTAINER_RET;
+    ShowTDN(playerid, NOTIFICATION_INFO, "Checkpoint tra xe da duoc hien lai.");
     return 1;
 }
 
@@ -1273,40 +1577,38 @@ CMD:admincontainer(playerid, params[])
 {
     if(PlayerInfo[playerid][pAdmin] < 2) return SendUnAuth(playerid);
     new action[16];
-    if(sscanf(params, "s[16]", action)) {
-        SendClientMessageEx(playerid, COLOR_WHITE, "[Admin Container] /admcontainer gia/kho/maxkho/xem");
+    new p1 = -1, p2 = -1;
+    if(sscanf(params, "s[16]D(-1)D(-1)", action, p1, p2)) {
+        SendClientMessageEx(playerid, COLOR_WHITE, "[Admin Container] /admincontainer gia/kho/maxkho/xem");
         return 1;
     }
     if(!strcmp(action, "gia", true)) {
-        new loai; new Float:gia;
-        if(sscanf(params, "s[16]if", action, loai, gia) || loai < 0 || loai > 3)
-            return SendClientMessageEx(playerid, COLOR_WHITE, "Su dung: /admcontainer gia [0=VL|1=Xang|2=QA|3=Lau] [gia]");
-        gCJPrice[loai] = gia;
+        if(p1 < 0 || p1 > 3 || p2 < 1)
+            return SendClientMessageEx(playerid, COLOR_WHITE, "Su dung: /admincontainer gia [0=VL|1=Xang|2=QA|3=Lau] [gia]");
+        gCJPrice[p1] = float(p2);
         CJ_SaveConfig();
-        SendClientMessageEx(playerid, COLOR_GREEN, "[Admin] Gia hang %d = $%.2f/kien", loai, gia);
+        SendClientMessageEx(playerid, COLOR_GREEN, "[Admin] Gia hang %d = $%d/kien", p1, p2);
     }
     else if(!strcmp(action, "kho", true)) {
-        new idx, amount;
-        if(sscanf(params, "s[16]ii", action, idx, amount) || idx < 0 || idx >= CONTAINER_WAREHOUSE_COUNT)
-            return SendClientMessageEx(playerid, COLOR_WHITE, "Su dung: /admcontainer kho [0-2] [so luong]");
-        CJWarehouse[idx][CJW_Stock] = amount;
-        CJ_UpdateWarehouseLabel(idx);
-        SendClientMessageEx(playerid, COLOR_GREEN, "[Admin] Kho %d: ton kho = %d", idx + 1, amount);
+        if(p1 < 0 || p1 >= CONTAINER_WAREHOUSE_COUNT || p2 < 0)
+            return SendClientMessageEx(playerid, COLOR_WHITE, "Su dung: /admincontainer kho [0-2] [so luong]");
+        CJWarehouse[p1][CJW_Stock] = p2;
+        CJ_UpdateWarehouseLabel(p1);
+        SendClientMessageEx(playerid, COLOR_GREEN, "[Admin] Kho %d: ton kho = %d", p1 + 1, p2);
     }
     else if(!strcmp(action, "maxkho", true)) {
-        new idx, amount;
-        if(sscanf(params, "s[16]ii", action, idx, amount) || idx < 0 || idx >= CONTAINER_WAREHOUSE_COUNT)
-            return SendClientMessageEx(playerid, COLOR_WHITE, "Su dung: /admcontainer maxkho [0-2] [so luong]");
-        CJWarehouse[idx][CJW_MaxStock] = amount;
-        CJWarehouse[idx][CJW_Stock]    = amount;
-        CJ_UpdateWarehouseLabel(idx);
-        SendClientMessageEx(playerid, COLOR_GREEN, "[Admin] Kho %d: max = %d, da reset ton kho", idx + 1, amount);
+        if(p1 < 0 || p1 >= CONTAINER_WAREHOUSE_COUNT || p2 < 0)
+            return SendClientMessageEx(playerid, COLOR_WHITE, "Su dung: /admincontainer maxkho [0-2] [so luong]");
+        CJWarehouse[p1][CJW_MaxStock] = p2;
+        CJWarehouse[p1][CJW_Stock]    = p2;
+        CJ_UpdateWarehouseLabel(p1);
+        SendClientMessageEx(playerid, COLOR_GREEN, "[Admin] Kho %d: max = %d, da reset ton kho", p1 + 1, p2);
     }
     else if(!strcmp(action, "xem", true)) {
         SendClientMessageEx(playerid, COLOR_YELLOW, "=== Container Config ===");
         SendClientMessageEx(playerid, COLOR_WHITE,
-            "Gia: VL=$%.0f | Xang=$%.0f | QA=$%.0f | Lau=$%.0f",
-            gCJPrice[0], gCJPrice[1], gCJPrice[2], gCJPrice[3]);
+            "Gia: VL=$%d | Xang=$%d | QA=$%d | Lau=$%d",
+            floatround(gCJPrice[0]), floatround(gCJPrice[1]), floatround(gCJPrice[2]), floatround(gCJPrice[3]));
         for(new i = 0; i < CONTAINER_WAREHOUSE_COUNT; i++)
             SendClientMessageEx(playerid, COLOR_WHITE, "Kho %d: %d/%d kien", i+1, CJWarehouse[i][CJW_Stock], CJWarehouse[i][CJW_MaxStock]);
     }
@@ -1364,7 +1666,7 @@ stock Container_OnMenuResponse(playerid, response, listitem)
                 sCJTruckSpawn[spawnIdx][0], sCJTruckSpawn[spawnIdx][1],
                 sCJTruckSpawn[spawnIdx][2], sCJTruckSpawn[spawnIdx][3], 1, 1, -1);
             VehicleFuel[vehid] = 100.0;
-            SetVehicleHealth(vehid, 2000.0);
+            SetVehicleHealth(vehid, 1000.0);
 
             PlayerCJ[playerid][E_CJ_TruckID]  = vehid;
             PlayerCJ[playerid][E_CJ_LeaderID] = playerid;
@@ -1374,6 +1676,8 @@ stock Container_OnMenuResponse(playerid, response, listitem)
             PutPlayerInVehicle(playerid, vehid, 0);
 
             new partner = PlayerCJ[playerid][E_CJ_PartnerID];
+            if(partner != INVALID_PLAYER_ID && IsPlayerConnected(partner) && PlayerWorking[partner] != 0)
+                return ShowTDN(playerid, NOTIFICATION_ERROR, "Thanh vien nhom dang lam viec khac, ho can /dunglamviec truoc!");
             if(partner != INVALID_PLAYER_ID && IsPlayerConnected(partner)) {
                 PlayerCJ[partner][E_CJ_TruckID]  = vehid;
                 PlayerCJ[partner][E_CJ_LeaderID] = playerid;
@@ -1398,6 +1702,8 @@ stock Container_OnMenuResponse(playerid, response, listitem)
 stock Container_OnGroupNameResponse(playerid, response, inputtext[])
 {
     if(!response) return 1;
+    if(PlayerCJ[playerid][E_CJ_PartnerID] != INVALID_PLAYER_ID)
+        return ShowTDN(playerid, NOTIFICATION_ERROR, "Roi nhom hien tai truoc khi tao nhom moi!");
     if(isnull(inputtext) || strlen(inputtext) < 7 || CJ_IsNumeric(inputtext)) {
         new errmsg[128];
         format(errmsg, sizeof(errmsg), "{FF4444}%s\nNhap ten nhom (>= 7 ky tu, khong toan so):",
@@ -1440,6 +1746,15 @@ stock Container_OnInviteResponse(playerid, response, inputtext[])
     if(!IsPlayerInRangeOfPoint(playerid, 5.0, ox, oy, oz))
         return ShowPlayerDialog(playerid, DIALOG_CONTAINER_INVITE, DIALOG_STYLE_INPUT,
             "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom", "{FF4444}Phai dung canh nhau!\nNhap player ID:", "Moi", "Huy");
+    if(PlayerCJ[otherid][E_CJ_PartnerID] != INVALID_PLAYER_ID)
+        return ShowPlayerDialog(playerid, DIALOG_CONTAINER_INVITE, DIALOG_STYLE_INPUT,
+            "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom", "{FF4444}Nguoi nay da co nhom!\nNhap player ID:", "Moi", "Huy");
+    if(IsContainerWorking(otherid))
+        return ShowPlayerDialog(playerid, DIALOG_CONTAINER_INVITE, DIALOG_STYLE_INPUT,
+            "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom", "{FF4444}Nguoi nay dang lam viec!\nNhap player ID:", "Moi", "Huy");
+    if(PlayerInfo[otherid][pJob] != JOB_CONTAINER && PlayerInfo[otherid][pJob2] != JOB_CONTAINER)
+        return ShowPlayerDialog(playerid, DIALOG_CONTAINER_INVITE, DIALOG_STYLE_INPUT,
+            "{F5D000}KP5 Roleplay {FFFFFF}- Moi Vao Nhom", "{FF4444}Nguoi nay chua nhan job Container!\nNhap player ID:", "Moi", "Huy");
     // Neu dang co loi moi cu, huy truoc
     new oldPending = GetPVarInt(playerid, "CJ_PendingInvite");
     if(oldPending != 0) {
@@ -1516,7 +1831,7 @@ stock Container_OnUrgentResponse(playerid, response, listitem)
     new cargoList[256];
     new bool:isCop = IsACop(playerid);
     if(listitem == 0 && !isCop)
-        cargoList = "Vat Lieu (Trailer 450)\nXang Dau (Trailer 584)\nQuan Ao (Trailer 591)\nHang Lau (x2 gia)";
+        cargoList = "Vat Lieu (Trailer 450)\nXang Dau (Trailer 584)\nQuan Ao (Trailer 591)\nHang Lau";
     else
         cargoList = "Vat Lieu (Trailer 450)\nXang Dau (Trailer 584)\nQuan Ao (Trailer 591)";
     ShowPlayerDialog(playerid, DIALOG_CONTAINER_CARGO, DIALOG_STYLE_LIST,
@@ -1532,6 +1847,13 @@ stock Container_OnCargoResponse(playerid, response, listitem)
     if(isUrgent && listitem > CARGO_QUANAO) return 1;
     if(listitem == CARGO_LAU && IsACop(playerid)) {
         ShowTDN(playerid, NOTIFICATION_ERROR, "Nguoi thuc thi phap luat khong duoc phep van chuyen hang cam!");
+        SendClientMessageEx(playerid, COLOR_RED, "{F5D000}[Container]{ffffff}Nguoi thuc thi phap luat khong duoc phep van chuyen hang cam!");
+        return 1;
+    }
+    new cj_partnerID = PlayerCJ[playerid][E_CJ_PartnerID];
+    if(listitem == CARGO_LAU && cj_partnerID != INVALID_PLAYER_ID && IsPlayerConnected(cj_partnerID) && IsACop(cj_partnerID)) {
+        SendClientMessageEx(cj_partnerID, COLOR_RED, "{F5D000}[Container]{ffffff}Thanh vien nhom la canh sat - khong the van chuyen hang cam!");
+        //SendClientMessageEx(cj_partnerID, COLOR_RED, "{F5D000}[Container]{ffffff} Leader khong the chon hang lau vi ban la canh sat.");
         return 1;
     }
     if(!IsPlayerInAnyVehicle(playerid) || GetPlayerVehicleID(playerid) != PlayerCJ[playerid][E_CJ_TruckID]) {
@@ -1566,7 +1888,7 @@ stock Container_CheckIllegal(copid, targetid)
         return SendClientMessageEx(copid, COLOR_GREY, "{F5D000}[Container]{ffffff} Phai dung gan xe container!"), 1;
 
     new cargoCount = PlayerCJ[leaderID][E_CJ_CargoCount];
-    new bonus = 100 + random(21);
+    new bonus = 12000 + random(2000);
     GivePlayerCash(copid, bonus);
     PlayerCJ[leaderID][E_CJ_CargoCount] = 0;
 
@@ -1688,6 +2010,22 @@ stock Container_Stop(playerid)
         if(IsValidVehicle(vid)) {
             if(GetPlayerVehicleID(playerid) == vid) RemovePlayerFromVehicle(playerid);
             DestroyVehicle(vid);
+        }
+    } else {
+        // Non-leader dung viec: xoa trang thai cua leader
+        new leaderID = PlayerCJ[playerid][E_CJ_LeaderID];
+        if(leaderID != INVALID_PLAYER_ID && IsPlayerConnected(leaderID)) {
+            PlayerCJ[leaderID][E_CJ_PartnerID] = INVALID_PLAYER_ID;
+            if(PlayerCJ[leaderID][E_CJ_IsUrgent]) {
+                PlayerCJ[leaderID][E_CJ_IsUrgent] = false;
+                if(IsValidTimer(PlayerCJ[leaderID][E_CJ_CountdownTimer])) {
+                    KillTimer(PlayerCJ[leaderID][E_CJ_CountdownTimer]);
+                    PlayerCJ[leaderID][E_CJ_CountdownTimer] = -1;
+                }
+            }
+            SendClientMessageEx(leaderID, COLOR_RED,
+                "{F5D000}[Container]{ffffff} %s da ngung lam viec. Bonus hang gap (neu co) bi huy.",
+                GetPlayerNameEx(playerid));
         }
     }
     SetPlayerSkin(playerid, PlayerInfo[playerid][pModel]);
