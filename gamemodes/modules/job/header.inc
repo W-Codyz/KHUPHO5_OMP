@@ -85,7 +85,7 @@ new JobHelp[MAX_JOB_TYPE][1028] =
         Doi 2 nguoi boc hang nhanh hon va nhan them 15%% tien thuong!\n\n\
         {FFFF00}Hang:{FFFFFF} Vat Lieu | Xang Dau | Quan Ao | Hang Lau\n\
         {FFFF00}Xe:{FFFFFF} Linerunner(Lv1) -> Tanker(Lv5) -> Roadtrain(Lv10)\n\n\n\
-        {3F7EAB}Lenh: /giaohang /vuthang /xuonghang /diemgiaohang /cgroup /dunglamviec"}
+        {3F7EAB}Lenh: /giaohang /vuthang /xuonghang /diemgiaohang /cgroup /dunglamviec /traxe"}
 };
 
 new JobInfo[MAX_JOB_TYPE][E_JOB_INFO] =
