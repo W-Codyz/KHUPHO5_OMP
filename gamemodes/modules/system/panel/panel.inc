@@ -115,7 +115,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         if (IsPlayerInAction(playerid))
             return 1;
 
-        if (!IsPlayerInAnyVehicle(playerid))
+        if (!IsPlayerInAnyVehicle(playerid) && GetFaceTargetPlayer(playerid) == INVALID_PLAYER_ID)
         {
             PC_EmulateCommand(playerid, "/menu");
         }
