@@ -528,7 +528,9 @@ ResetAllPlayersFishingCount() {
         if(IsPlayerConnected(i)) {
             PlayerInfo[i][pSoLanCauCa] = 0;
             PlayerInfo[i][pLastFishingReset] = today;
-            SendClientMessage(i, COLOR_YELLOW, "Gioi han cau ca da duoc lam moi! Ban co the cau toi da 60 lan hom nay.");
+            new limitMsg[128];
+            format(limitMsg, sizeof(limitMsg), "Gioi han cau ca da duoc lam moi! Ban co the cau toi da %d lan hom nay.", GetFishingLimit(i));
+            SendClientMessage(i, COLOR_YELLOW, limitMsg);
             count++;
         }
     }
