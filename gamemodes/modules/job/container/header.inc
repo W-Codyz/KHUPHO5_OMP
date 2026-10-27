@@ -77,7 +77,8 @@ enum E_CJ
     bool:E_CJ_HasCargo,
     bool:E_CJ_Returning,
     E_CJ_CountdownTimer,
-    Float:E_CJ_DeliveryDist
+    Float:E_CJ_DeliveryDist,
+    E_CJ_PendingSalary
 };
 new PlayerCJ[MAX_PLAYERS][E_CJ];
 
