@@ -10,6 +10,8 @@ new g_FaceInteractTimer = -1;
 
 forward FaceInteract_Tick();
 
+stock GetFaceTargetPlayer(playerid) return FaceTargetPlayer[playerid];
+
 static stock ClearFaceTarget(playerid) {
     if(FaceTargetLabel[playerid] != PlayerText3D:INVALID_3DTEXT_ID) {
         DeletePlayer3DTextLabel(playerid, FaceTargetLabel[playerid]);
