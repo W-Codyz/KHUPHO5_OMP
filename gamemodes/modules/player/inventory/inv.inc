@@ -10,6 +10,8 @@
 #define DIALOG_ITEM_AMOUNT (11004)
 #define DIALOG_DELETE_AMOUNT (11005)
 #define DIALOG_WEAPON_OPTIONS (11006)
+#define DIALOG_TAKEINV_LIST   (11007)
+#define DIALOG_TAKEINV_AMOUNT (11008)
 
 // Struct cho dropped items
 enum DroppedItemInfo {
@@ -1230,7 +1232,211 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]) {
             DeletePVar(playerid, "pInteractName");
             DeletePVar(playerid, "pInteractID");
         }
+
+        case DIALOG_TAKEINV_LIST: {
+            new targetid = GetPVarInt(playerid, "pTakeInvTarget");
+            new rows     = GetPVarInt(playerid, "pTakeInvRows");
+
+            if(!response || !IsPlayerConnected(targetid)) {
+                for(new i = 0; i < rows; i++) {
+                    new pvname[32];
+                    format(pvname, sizeof(pvname), "pTIMap_%d", i);
+                    DeletePVar(playerid, pvname);
+                }
+                DeletePVar(playerid, "pTakeInvTarget");
+                DeletePVar(playerid, "pTakeInvRows");
+                return 1;
+            }
+
+            new pvname[32];
+            format(pvname, sizeof(pvname), "pTIMap_%d", listitem);
+            new encoded = GetPVarInt(playerid, pvname);
+
+            SetPVarInt(playerid, "pTakeInvSel", encoded);
+
+            // Build prompt label
+            new label[64];
+            if(encoded >= 1000) {
+                new slot = encoded - 1000;
+                new weaponid, weaponammo;
+                GetPlayerWeaponData(targetid, slot, weaponid, weaponammo);
+                new weaponname[32];
+                GetWeaponName(weaponid, weaponname, sizeof(weaponname));
+                format(label, sizeof(label), "%s (hien co: %d dan)", weaponname, weaponammo);
+            } else {
+                new variable = ItemInventory[encoded][pVariable];
+                new qty = PlayerInfo[targetid][variable];
+                format(label, sizeof(label), "%s (hien co: %d)", ItemInventory[encoded][NameItem], qty);
+            }
+
+            new prompt[128];
+            format(prompt, sizeof(prompt), "Item: %s\nNhap so luong muon lay:", label);
+            ShowPlayerDialog(playerid, DIALOG_TAKEINV_AMOUNT, DIALOG_STYLE_INPUT, "Lay vat pham", prompt, "Lay", "Quay lai");
+        }
+
+        case DIALOG_TAKEINV_AMOUNT: {
+            new targetid = GetPVarInt(playerid, "pTakeInvTarget");
+            new rows     = GetPVarInt(playerid, "pTakeInvRows");
+
+            if(!response) {
+                if(IsPlayerConnected(targetid)) ShowTakeInvDialog(playerid, targetid);
+                // clean up old map pvars
+                for(new i = 0; i < rows; i++) {
+                    new pvname[32];
+                    format(pvname, sizeof(pvname), "pTIMap_%d", i);
+                    DeletePVar(playerid, pvname);
+                }
+                DeletePVar(playerid, "pTakeInvTarget");
+                DeletePVar(playerid, "pTakeInvRows");
+                DeletePVar(playerid, "pTakeInvSel");
+                return 1;
+            }
+
+            new amount = strval(inputtext);
+            if(amount <= 0) {
+                SendClientMessageEx(playerid, COLOR_RED, "So luong phai lon hon 0!");
+                // re-show amount dialog
+                new encoded = GetPVarInt(playerid, "pTakeInvSel");
+                new label[64];
+                if(encoded >= 1000) {
+                    new slot = encoded - 1000;
+                    new weaponid, weaponammo;
+                    GetPlayerWeaponData(targetid, slot, weaponid, weaponammo);
+                    new weaponname[32];
+                    GetWeaponName(weaponid, weaponname, sizeof(weaponname));
+                    format(label, sizeof(label), "%s (hien co: %d dan)", weaponname, weaponammo);
+                } else {
+                    new variable = ItemInventory[encoded][pVariable];
+                    new qty = PlayerInfo[targetid][variable];
+                    format(label, sizeof(label), "%s (hien co: %d)", ItemInventory[encoded][NameItem], qty);
+                }
+                new prompt[128];
+                format(prompt, sizeof(prompt), "Item: %s\nNhap so luong muon lay:", label);
+                ShowPlayerDialog(playerid, DIALOG_TAKEINV_AMOUNT, DIALOG_STYLE_INPUT, "Lay vat pham", prompt, "Lay", "Quay lai");
+                return 1;
+            }
+
+            if(!IsPlayerConnected(targetid)) {
+                SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi choi da thoat.");
+            } else {
+                new encoded = GetPVarInt(playerid, "pTakeInvSel");
+                new string[160], logstr[220];
+
+                if(encoded >= 1000) {
+                    // Weapon
+                    new slot = encoded - 1000;
+                    new weaponid, weaponammo;
+                    GetPlayerWeaponData(targetid, slot, weaponid, weaponammo);
+
+                    if(weaponid <= 0 || PlayerInfo[targetid][pGuns][slot] != weaponid) {
+                        SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi choi khong con vu khi nay.");
+                    } else {
+                        new takeAmmo = (amount >= weaponammo) ? weaponammo : amount;
+                        if(takeAmmo >= weaponammo) {
+                            RemovePlayerWeapon(targetid, weaponid);
+                            PlayerInfo[targetid][pGuns][slot] = 0;
+                        } else {
+                            GivePlayerWeapon(targetid, weaponid, -takeAmmo);
+                        }
+                        new weaponname[32];
+                        GetWeaponName(weaponid, weaponname, sizeof(weaponname));
+
+                        format(string, sizeof(string), "[ADMIN] %s (ID:%d) da lay %d dan %s cua ban.", GetPlayerNameEx(playerid), playerid, takeAmmo, weaponname);
+                        SendClientMessageEx(targetid, COLOR_RED, string);
+                        format(string, sizeof(string), "[ADMIN] Da lay %d dan %s cua %s (ID:%d).", takeAmmo, weaponname, GetPlayerNameEx(targetid), targetid);
+                        SendClientMessageEx(playerid, COLOR_GREEN, string);
+                        format(logstr, sizeof(logstr), "%s (ID:%d) lay %d dan %s cua %s (ID:%d)", GetPlayerNameEx(playerid), playerid, takeAmmo, weaponname, GetPlayerNameEx(targetid), targetid);
+                        Log("logs/admin.log", logstr);
+                    }
+                } else {
+                    // Regular item
+                    new variable = ItemInventory[encoded][pVariable];
+                    new quantity = PlayerInfo[targetid][variable];
+
+                    if(quantity <= 0) {
+                        SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi choi khong con item nay.");
+                    } else {
+                        new takeAmt = (amount >= quantity) ? quantity : amount;
+                        PlayerInfo[targetid][variable] -= takeAmt;
+
+                        format(string, sizeof(string), "[ADMIN] %s (ID:%d) da lay %d %s cua ban.", GetPlayerNameEx(playerid), playerid, takeAmt, ItemInventory[encoded][NameItem]);
+                        SendClientMessageEx(targetid, COLOR_RED, string);
+                        format(string, sizeof(string), "[ADMIN] Da lay %d %s cua %s (ID:%d).", takeAmt, ItemInventory[encoded][NameItem], GetPlayerNameEx(targetid), targetid);
+                        SendClientMessageEx(playerid, COLOR_GREEN, string);
+                        format(logstr, sizeof(logstr), "%s (ID:%d) lay %d %s cua %s (ID:%d)", GetPlayerNameEx(playerid), playerid, takeAmt, ItemInventory[encoded][NameItem], GetPlayerNameEx(targetid), targetid);
+                        Log("logs/admin.log", logstr);
+                    }
+                }
+            }
+
+            // cleanup
+            for(new i = 0; i < rows; i++) {
+                new pvname[32];
+                format(pvname, sizeof(pvname), "pTIMap_%d", i);
+                DeletePVar(playerid, pvname);
+            }
+            DeletePVar(playerid, "pTakeInvTarget");
+            DeletePVar(playerid, "pTakeInvRows");
+            DeletePVar(playerid, "pTakeInvSel");
+        }
     }
+    return 1;
+}
+
+ShowTakeInvDialog(adminid, targetid)
+{
+    new string[2048], title[96];
+    format(title, sizeof(title), "Lay do cua %s (ID:%d)", GetPlayerNameEx(targetid), targetid);
+
+    new rowCount = 0;
+
+    for(new i = 0; i < sizeof(ItemInventory); i++)
+    {
+        new variable = ItemInventory[i][pVariable];
+        new quantity = PlayerInfo[targetid][variable];
+        if(quantity <= 0) continue;
+
+        if(variable == (_:pBinhXang)) {
+            new Float:fuel = Float:quantity - FUELCAN_EMPTY_MARKER;
+            if(fuel < 0.0) fuel = 0.0;
+            new label[32];
+            if(fuel <= 0.0) format(label, sizeof(label), "Rong");
+            else format(label, sizeof(label), "%.1f L", fuel);
+            format(string, sizeof(string), "%sBinh xang\t%s\n", string, label);
+        } else {
+            format(string, sizeof(string), "%s%s\t%d\n", string, ItemInventory[i][NameItem], quantity);
+        }
+
+        new pvname[32];
+        format(pvname, sizeof(pvname), "pTIMap_%d", rowCount);
+        SetPVarInt(adminid, pvname, i); // encode: regular item index
+        rowCount++;
+    }
+
+    new myweapons[13][2];
+    for(new i = 0; i < 13; i++)
+    {
+        GetPlayerWeaponData(targetid, i, myweapons[i][0], myweapons[i][1]);
+        if(myweapons[i][0] > 0 && PlayerInfo[targetid][pGuns][i] == myweapons[i][0])
+        {
+            new weaponname[32];
+            GetWeaponName(myweapons[i][0], weaponname, sizeof(weaponname));
+            format(string, sizeof(string), "%s%s\t%d dan\n", string, weaponname, myweapons[i][1]);
+
+            new pvname[32];
+            format(pvname, sizeof(pvname), "pTIMap_%d", rowCount);
+            SetPVarInt(adminid, pvname, 1000 + i); // encode: 1000 + weapon slot
+            rowCount++;
+        }
+    }
+
+    SetPVarInt(adminid, "pTakeInvTarget", targetid);
+    SetPVarInt(adminid, "pTakeInvRows", rowCount);
+
+    if(rowCount == 0)
+        return SendClientMessageEx(adminid, COLOR_GRAD2, "Nguoi choi nay khong co gi trong tui do.");
+
+    ShowPlayerDialog(adminid, DIALOG_TAKEINV_LIST, DIALOG_STYLE_TABLIST, title, string, "Lay", "Huy");
     return 1;
 }
 
@@ -1318,6 +1524,19 @@ CMD:checkinv(playerid, params[])
     new logstr[128];
     format(logstr, sizeof(logstr), "%s (ID:%d) da xem inventory cua %s (ID:%d)", GetPlayerNameEx(playerid), playerid, GetPlayerNameEx(targetid), targetid);
     Log("logs/admin.log", logstr);
+    return 1;
+}
+
+CMD:takeinv(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin] < 4) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong co quyen su dung lenh nay.");
+
+    new targetid;
+    if(sscanf(params, "u", targetid)) return SendClientMessageEx(playerid, COLOR_WHITE, "SYNTAX: /takeinv [playerid/name]");
+    if(!IsPlayerConnected(targetid)) return SendClientMessageEx(playerid, COLOR_GRAD2, "Nguoi choi khong ton tai.");
+    if(targetid == playerid) return SendClientMessageEx(playerid, COLOR_GRAD2, "Ban khong the lay item cua chinh minh.");
+
+    ShowTakeInvDialog(playerid, targetid);
     return 1;
 }
 

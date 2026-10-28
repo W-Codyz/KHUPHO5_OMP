@@ -93,7 +93,7 @@ new const ItemInventory[][Inv_Data] = {
     {pPizza,       "Pizza",         "pPizza"},
     {pBunRieu,     "Bun rieu",      "pBunRieu"},
     {pPhoBo,       "Bun bo",        "pPhoBo"},
-    //{pBoombox,   "BoomBox",       "pBoombox"},
+    {pBoombox,     "BoomBox",       "pBoombox"},
     {pRadio,       "Radio",         "pRadio"},
     {pDice,        "Xuc xac",       "pDice"},
     {pCredits,     "Credits",       "pCredits"},
