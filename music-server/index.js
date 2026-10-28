@@ -42,8 +42,11 @@ function reloadFileCache() {
 reloadFileCache();
 
 try {
-    fs.watch(MUSIC_DIR, { persistent: false }, () => {
+    const watcher = fs.watch(MUSIC_DIR, { persistent: false }, () => {
         reloadFileCache();
+    });
+    watcher.on('error', (err) => {
+        console.log('[Music] fs.watch error (cache se khong tu dong reload):', err.message);
     });
 } catch(e) {
     console.log('[Music] fs.watch khong kha dung, cache chi reload khi khoi dong');
@@ -205,8 +208,8 @@ const ADMIN_HTML = `<!DOCTYPE html>
 <title>KHU PHO 5 Music Admin</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Arial, sans-serif; background: #0f0f1a; color: #ddd; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-  .card { background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 8px; padding: 32px; width: 100%; max-width: 440px; }
+  body { font-family: Arial, sans-serif; background: #0f0f1a; color: #ddd; display: flex; justify-content: center; padding: 32px 16px; min-height: 100vh; }
+  .card { background: #1a1a2e; border: 1px solid #2a2a4e; border-radius: 8px; padding: 32px; width: 100%; max-width: 500px; height: fit-content; }
   h1 { text-align: center; color: #c084fc; margin-bottom: 24px; font-size: 20px; letter-spacing: 1px; }
   label { display: block; font-size: 13px; color: #aaa; margin-bottom: 4px; }
   input[type=text], input[type=password] {
@@ -223,18 +226,34 @@ const ADMIN_HTML = `<!DOCTYPE html>
   .file-area:hover, .file-area.drag { border-color: #c084fc; }
   .file-area input { display: none; }
   .file-name { font-size: 13px; color: #aaa; margin-top: 6px; }
-  button {
+  .btn-upload {
     width: 100%; padding: 10px; background: #7c3aed; color: #fff;
     border: none; border-radius: 4px; font-size: 15px; cursor: pointer;
     transition: background .2s;
   }
-  button:hover { background: #6d28d9; }
-  button:disabled { background: #444; cursor: not-allowed; }
+  .btn-upload:hover { background: #6d28d9; }
+  .btn-upload:disabled { background: #444; cursor: not-allowed; }
   #status { margin-top: 14px; padding: 10px 14px; border-radius: 4px; font-size: 14px; display: none; }
   .ok  { background: #14532d; color: #86efac; border: 1px solid #166534; }
   .err { background: #450a0a; color: #fca5a5; border: 1px solid #7f1d1d; }
   .progress { background: #1e3a5f; color: #93c5fd; border: 1px solid #1d4ed8; }
   .sep { border: none; border-top: 1px solid #2a2a4e; margin: 20px 0; }
+  .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .list-header span { font-size: 13px; color: #aaa; }
+  .list-count { font-size: 12px; color: #666; }
+  .song-list { max-height: 340px; overflow-y: auto; border: 1px solid #2a2a4e; border-radius: 6px; }
+  .song-list::-webkit-scrollbar { width: 6px; }
+  .song-list::-webkit-scrollbar-track { background: #0f0f1a; }
+  .song-list::-webkit-scrollbar-thumb { background: #3a3a5e; border-radius: 3px; }
+  .song-item { display: flex; align-items: center; padding: 7px 12px; border-bottom: 1px solid #1e1e38; gap: 8px; }
+  .song-item:last-child { border-bottom: none; }
+  .song-item:hover { background: #1e1e38; }
+  .song-num { font-size: 11px; color: #555; min-width: 22px; text-align: right; }
+  .song-name { flex: 1; font-size: 13px; color: #ccc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .btn-del { padding: 3px 10px; background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; border-radius: 3px; font-size: 12px; cursor: pointer; transition: background .15s; flex-shrink: 0; }
+  .btn-del:hover { background: #991b1b; }
+  .btn-del:disabled { opacity: 0.4; cursor: not-allowed; }
+  .list-empty { padding: 20px; text-align: center; color: #555; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -243,7 +262,7 @@ const ADMIN_HTML = `<!DOCTYPE html>
   <label>Username</label>
   <input type="text" id="user" placeholder="admin" autocomplete="username" />
   <label>Password</label>
-  <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password" />
+  <input type="password" id="pass" placeholder="&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;" autocomplete="current-password" />
   <hr class="sep">
   <label>File nhac (.mp3 / .ogg / .wav, toi da 100MB)</label>
   <div class="file-area" id="dropZone">
@@ -251,25 +270,39 @@ const ADMIN_HTML = `<!DOCTYPE html>
     <div class="file-name" id="fileName">Chua chon file</div>
     <input type="file" id="file" accept=".mp3,.ogg,.wav" />
   </div>
-  <button id="btn">Upload</button>
+  <button class="btn-upload" id="btn">Upload</button>
   <div id="status"></div>
+  <hr class="sep">
+  <div class="list-header">
+    <span>Danh sach bai hat</span>
+    <span class="list-count" id="listCount"></span>
+  </div>
+  <div class="song-list" id="songList">
+    <div class="list-empty">Dang tai...</div>
+  </div>
 </div>
 <script>
-  const dropZone = document.getElementById('dropZone');
-  const fileInput = document.getElementById('file');
-  const fileNameEl = document.getElementById('fileName');
-  const btn = document.getElementById('btn');
-  const status = document.getElementById('status');
+  var dropZone  = document.getElementById('dropZone');
+  var fileInput = document.getElementById('file');
+  var fileNameEl= document.getElementById('fileName');
+  var btn       = document.getElementById('btn');
+  var status    = document.getElementById('status');
+  var songList  = document.getElementById('songList');
+  var listCount = document.getElementById('listCount');
 
-  dropZone.addEventListener('click', () => fileInput.click());
-  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag'); });
-  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag'));
-  dropZone.addEventListener('drop', e => {
+  dropZone.addEventListener('click', function() { fileInput.click(); });
+  dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('drag'); });
+  dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('drag'); });
+  dropZone.addEventListener('drop', function(e) {
     e.preventDefault();
     dropZone.classList.remove('drag');
     if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
   });
-  fileInput.addEventListener('change', () => { if (fileInput.files[0]) setFile(fileInput.files[0]); });
+  fileInput.addEventListener('change', function() { if (fileInput.files[0]) setFile(fileInput.files[0]); });
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
 
   function setFile(f) {
     fileInput._selected = f;
@@ -282,35 +315,88 @@ const ADMIN_HTML = `<!DOCTYPE html>
     status.textContent = msg;
   }
 
-  btn.addEventListener('click', async () => {
-    const user = document.getElementById('user').value.trim();
-    const pass = document.getElementById('pass').value;
-    const file = fileInput._selected || fileInput.files[0];
+  function loadSongList() {
+    fetch('/api/music/files').then(function(r) { return r.text(); }).then(function(text) {
+      text = text.trim();
+      if (!text) {
+        songList.innerHTML = '<div class="list-empty">Chua co bai hat nao</div>';
+        listCount.textContent = '(0 bai)';
+        return;
+      }
+      var lines = text.split('\\n').filter(Boolean);
+      listCount.textContent = '(' + lines.length + ' bai)';
+      var html = '';
+      for (var i = 0; i < lines.length; i++) {
+        var sep = lines[i].indexOf('|');
+        var display  = sep >= 0 ? lines[i].slice(0, sep) : lines[i];
+        var filename = sep >= 0 ? lines[i].slice(sep + 1) : lines[i];
+        var safe = encodeURIComponent(filename);
+        html += '<div class="song-item">' +
+          '<span class="song-num">' + (i + 1) + '</span>' +
+          '<span class="song-name" title="' + escHtml(filename) + '">' + escHtml(display) + '</span>' +
+          '<button class="btn-del" onclick="deleteSong(this,\\'' + safe + '\\')">Xoa</button>' +
+          '</div>';
+      }
+      songList.innerHTML = html;
+    }).catch(function() {
+      songList.innerHTML = '<div class="list-empty">Loi tai danh sach</div>';
+    });
+  }
+
+  function deleteSong(btnEl, encodedFile) {
+    var user = document.getElementById('user').value.trim();
+    var pass = document.getElementById('pass').value;
+    if (!user || !pass) { showStatus('Nhap username va password de xoa!', 'err'); return; }
+    var filename = decodeURIComponent(encodedFile);
+    if (!confirm('Xoa bai: ' + filename + '?')) return;
+    btnEl.disabled = true;
+    fetch('/admin/delete?name=' + encodedFile, {
+      method: 'POST',
+      headers: { 'Authorization': 'Basic ' + btoa(user + ':' + pass) }
+    }).then(function(r) {
+      return r.text().then(function(text) { return { ok: r.ok, text: text }; });
+    }).then(function(r) {
+      showStatus(r.text, r.ok ? 'ok' : 'err');
+      if (r.ok) loadSongList();
+      else btnEl.disabled = false;
+    }).catch(function(e) {
+      showStatus('Loi ket noi: ' + e.message, 'err');
+      btnEl.disabled = false;
+    });
+  }
+
+  btn.addEventListener('click', function() {
+    var user = document.getElementById('user').value.trim();
+    var pass = document.getElementById('pass').value;
+    var file = fileInput._selected || fileInput.files[0];
 
     if (!user || !pass) { showStatus('Nhap username va password!', 'err'); return; }
     if (!file) { showStatus('Chon file nhac truoc!', 'err'); return; }
     if (file.size > 100 * 1024 * 1024) { showStatus('File qua lon (toi da 100MB)!', 'err'); return; }
 
-    const formData = new FormData();
+    var formData = new FormData();
     formData.append('music', file);
 
     btn.disabled = true;
     showStatus('Dang upload, vui long cho...', 'progress');
 
-    try {
-      const res = await fetch('/admin/upload', {
-        method: 'POST',
-        headers: { 'Authorization': 'Basic ' + btoa(user + ':' + pass) },
-        body: formData
-      });
-      const text = await res.text();
-      showStatus(text, res.ok ? 'ok' : 'err');
-    } catch(err) {
-      showStatus('Loi ket noi: ' + err.message, 'err');
-    } finally {
+    fetch('/admin/upload', {
+      method: 'POST',
+      headers: { 'Authorization': 'Basic ' + btoa(user + ':' + pass) },
+      body: formData
+    }).then(function(r) {
+      return r.text().then(function(text) { return { ok: r.ok, text: text }; });
+    }).then(function(r) {
+      showStatus(r.text, r.ok ? 'ok' : 'err');
+      if (r.ok) loadSongList();
+    }).catch(function(e) {
+      showStatus('Loi ket noi: ' + e.message, 'err');
+    }).finally(function() {
       btn.disabled = false;
-    }
+    });
   });
+
+  loadSongList();
 </script>
 </body>
 </html>`;
@@ -340,6 +426,12 @@ function handleUpload(req, res) {
     }
 
     let fileReceived = false;
+    let wsFinished   = false;
+    let bbFinished   = false;
+
+    function tryReplyOk() {
+        if (wsFinished && bbFinished) reply(200, 'Upload thanh cong!');
+    }
 
     const bb = Busboy({ headers: req.headers, limits: { fileSize: MAX_UPLOAD, files: 1 } });
 
@@ -369,17 +461,24 @@ function handleUpload(req, res) {
         fileStream.on('limit', () => {
             ws.destroy();
             fs.unlink(dest, () => {});
+            fileStream.resume();
             reply(413, 'File qua lon (toi da 100MB)');
         });
 
         ws.on('error', err => {
             reply(500, 'Loi luu file: ' + err.message);
         });
+
+        ws.on('finish', () => {
+            wsFinished = true;
+            tryReplyOk();
+        });
     });
 
     bb.on('finish', () => {
         if (!fileReceived) return reply(400, 'Khong co file nao duoc gui len');
-        reply(200, 'Upload thanh cong!');
+        bbFinished = true;
+        tryReplyOk();
     });
 
     bb.on('error', err => {
@@ -387,6 +486,40 @@ function handleUpload(req, res) {
     });
 
     req.pipe(bb);
+}
+
+// ── Delete handler ───────────────────────────────────────────────────────────
+function handleDelete(req, res, query) {
+    if (!checkAuth(req)) {
+        res.writeHead(401, { 'Content-Type': 'text/plain; charset=utf-8' });
+        return res.end('Sai username hoac password');
+    }
+
+    let rawName = query.name || '';
+    try { rawName = decodeURIComponent(rawName); } catch(e) {}
+    const filename = path.basename(rawName);
+
+    if (!filename || !AUDIO_EXT.test(filename)) {
+        res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
+        return res.end('Ten file khong hop le');
+    }
+
+    const abs = path.join(MUSIC_DIR, filename);
+    if (!abs.startsWith(MUSIC_DIR + path.sep)) {
+        res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+        return res.end('Forbidden');
+    }
+
+    fs.unlink(abs, (err) => {
+        if (err) {
+            const code = err.code === 'ENOENT' ? 404 : 500;
+            const msg  = err.code === 'ENOENT' ? 'Khong tim thay file' : 'Loi xoa file: ' + err.message;
+            res.writeHead(code, { 'Content-Type': 'text/plain; charset=utf-8' });
+            return res.end(msg);
+        }
+        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Da xoa: ' + filename);
+    });
 }
 
 // ── HTTP Server ─────────────────────────────────────────────────────────────
@@ -405,6 +538,20 @@ http.createServer((req, res) => {
     // POST /admin/upload - upload nhac (can auth)
     } else if (pathname === '/admin/upload' && req.method === 'POST') {
         return handleUpload(req, res);
+
+    // POST /admin/delete?name=<filename> - xoa nhac (can auth)
+    } else if (pathname === '/admin/delete' && req.method === 'POST') {
+        return handleDelete(req, res, query);
+
+    // GET /api/music/files - danh sach file thuc (display|filename)
+    } else if (pathname === '/api/music/files') {
+        const files = getSortedFiles();
+        const list = files.map(f => {
+            const display = f.replace(AUDIO_EXT, '').replace(/_/g, ' ');
+            return display + '|' + f;
+        }).join('\n');
+        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+        return res.end(list);
 
     // GET /api/music/list
     } else if (pathname === '/api/music/list') {
