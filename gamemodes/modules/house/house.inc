@@ -1,16 +1,5 @@
 // gamemodes/modules/house/house.inc
 // He thong nha cap nhat [HOUSE REWORK]
-//
-// === SQL CAN CHAY TRUOC KHI KHOI DONG SERVER ===
-//   ALTER TABLE houses ADD COLUMN IF NOT EXISTS Name VARCHAR(32) DEFAULT '' AFTER Description;
-//   CREATE TABLE IF NOT EXISTS house_items (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     house_id INT NOT NULL,
-//     item_cat TINYINT NOT NULL,
-//     item_type INT NOT NULL,
-//     item_amt INT NOT NULL DEFAULT 0,
-//     INDEX idx_house_id (house_id)
-//   );
 
 #include <YSI\YSI_Coding\y_hooks>
 
@@ -207,29 +196,52 @@ stock House_ReloadPickupLabel(houseid)
 
 // ===================== MYSQL =====================
 
+// Tim ItemInventory index tu IDName (de load an toan du ItemInventory bi doi thu tu)
+stock House_FindItemByIDName(const idname[])
+{
+    for(new i = 0; i < sizeof(ItemInventory); i++)
+    {
+        if(strcmp(ItemInventory[i][IDName], idname, true) == 0) return i;
+    }
+    return -1;
+}
+
 stock House_LoadAllItems()
 {
     printf("[House] Loading house_items from database...");
-    mysql_function_query(MainPipeline, "SELECT house_id, item_cat, item_type, item_amt FROM house_items", true, "House_OnLoadAllItems", "i", 0);
+    mysql_function_query(MainPipeline, "SELECT house_id, item_cat, item_type, item_amt, IFNULL(item_idname,'') AS item_idname FROM house_items", true, "House_OnLoadAllItems", "i", 0);
 }
 
 forward House_OnLoadAllItems(dummy);
 public House_OnLoadAllItems(dummy)
 {
-    new rows, fields, tmp[32];
+    new rows, fields, tmp[32], idname[32];
     cache_get_data(rows, fields, MainPipeline);
     for(new row = 0; row < rows; row++)
     {
         cache_get_field_content(row, "house_id", tmp, MainPipeline);
-        new hid = strval(tmp) - 1; // DB dung 1-based, array dung 0-based
+        new hid = strval(tmp) - 1;
         if(hid < 0 || hid >= MAX_HOUSES) continue;
 
         cache_get_field_content(row, "item_cat", tmp, MainPipeline);
         new cat = strval(tmp);
         cache_get_field_content(row, "item_type", tmp, MainPipeline);
-        new itype = strval(tmp);
+        new rawtype = strval(tmp);
         cache_get_field_content(row, "item_amt", tmp, MainPipeline);
         new amt = strval(tmp);
+        cache_get_field_content(row, "item_idname", idname, MainPipeline);
+
+        new itype = rawtype;
+        if(cat == HOUSE_STORE_ITEM || cat == HOUSE_STORE_FUELCAN)
+        {
+            if(idname[0] != '\0')
+            {
+                // Format moi: dung IDName de tim chinh xac, khong bi lech index
+                itype = House_FindItemByIDName(idname);
+                if(itype == -1) continue;
+            }
+            // Format cu (khong co idname): dung rawtype lam index truc tiep
+        }
 
         new slot = House_FindSlot(hid, cat, itype);
         if(slot == -1) continue;
@@ -242,19 +254,29 @@ public House_OnLoadAllItems(dummy)
 
 stock House_SaveStorage(houseid)
 {
-    new query[256];
+    new query[300];
     format(query, sizeof(query), "DELETE FROM house_items WHERE house_id = %d", houseid + 1);
     mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
 
     for(new s = 0; s < MAX_HOUSE_SLOTS; s++)
     {
         if(HouseStoreCat[houseid][s] == HOUSE_STORE_EMPTY) continue;
-        format(query, sizeof(query),
-            "INSERT INTO house_items (house_id, item_cat, item_type, item_amt) VALUES (%d,%d,%d,%d)",
-            houseid + 1,
-            HouseStoreCat[houseid][s],
-            HouseStoreType[houseid][s],
-            HouseStoreAmt[houseid][s]);
+        new cat = HouseStoreCat[houseid][s];
+        new itype = HouseStoreType[houseid][s];
+        if(cat == HOUSE_STORE_ITEM || cat == HOUSE_STORE_FUELCAN)
+        {
+            // Luu kem IDName de load lai dung khi ItemInventory thay doi thu tu
+            format(query, sizeof(query),
+                "INSERT INTO house_items (house_id, item_cat, item_type, item_amt, item_idname) VALUES (%d,%d,%d,%d,'%s')",
+                houseid + 1, cat, itype, HouseStoreAmt[houseid][s],
+                ItemInventory[itype][IDName]);
+        }
+        else
+        {
+            format(query, sizeof(query),
+                "INSERT INTO house_items (house_id, item_cat, item_type, item_amt) VALUES (%d,%d,%d,%d)",
+                houseid + 1, cat, itype, HouseStoreAmt[houseid][s]);
+        }
         mysql_function_query(MainPipeline, query, false, "OnQueryFinish", "i", SENDDATA_THREAD);
     }
 }
