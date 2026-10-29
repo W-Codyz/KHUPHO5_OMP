@@ -221,11 +221,13 @@ const ADMIN_HTML = `<!DOCTYPE html>
   .file-area {
     border: 2px dashed #333; border-radius: 6px; padding: 20px;
     text-align: center; cursor: pointer; margin-bottom: 16px;
-    transition: border-color .2s;
+    transition: border-color .2s, background .2s;
   }
   .file-area:hover, .file-area.drag { border-color: #c084fc; }
+  .file-area.has-file { border-color: #7c3aed; border-style: solid; background: rgba(124,58,237,0.08); }
   .file-area input { display: none; }
-  .file-name { font-size: 13px; color: #aaa; margin-top: 6px; }
+  .file-name { font-size: 13px; color: #555; margin-top: 6px; }
+  .file-area.has-file .file-name { color: #c084fc; font-weight: 600; word-break: break-all; }
   .btn-upload {
     width: 100%; padding: 10px; background: #7c3aed; color: #fff;
     border: none; border-radius: 4px; font-size: 15px; cursor: pointer;
@@ -254,6 +256,14 @@ const ADMIN_HTML = `<!DOCTYPE html>
   .btn-del:hover { background: #991b1b; }
   .btn-del:disabled { opacity: 0.4; cursor: not-allowed; }
   .list-empty { padding: 20px; text-align: center; color: #555; font-size: 13px; }
+  .progress-bar-wrap { background: rgba(0,0,0,0.25); border-radius: 3px; height: 8px; margin-top: 9px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: #60a5fa; border-radius: 3px; transition: width 0.25s ease; width: 0; }
+  .progress-pct { float: right; font-size: 12px; opacity: 0.85; }
+  @keyframes song-flash { 0%,25%{ background:#14532d; } 100%{ background:transparent; } }
+  .song-item.song-new { animation: song-flash 3s ease-out forwards; }
+  .song-item.song-new .song-name { color: #86efac; }
+  .file-list { list-style: none; margin: 5px 0 0; padding: 0; text-align: left; }
+  .file-list li { font-size: 11px; color: #c084fc; padding: 1px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -268,7 +278,7 @@ const ADMIN_HTML = `<!DOCTYPE html>
   <div class="file-area" id="dropZone">
     <div>Keo tha file vao day hoac <u>bam de chon</u></div>
     <div class="file-name" id="fileName">Chua chon file</div>
-    <input type="file" id="file" accept=".mp3,.ogg,.wav" />
+    <input type="file" id="file" accept=".mp3,.ogg,.wav" multiple />
   </div>
   <button class="btn-upload" id="btn">Upload</button>
   <div id="status"></div>
@@ -286,9 +296,10 @@ const ADMIN_HTML = `<!DOCTYPE html>
   var fileInput = document.getElementById('file');
   var fileNameEl= document.getElementById('fileName');
   var btn       = document.getElementById('btn');
-  var status    = document.getElementById('status');
+  var statusEl  = document.getElementById('status');
   var songList  = document.getElementById('songList');
   var listCount = document.getElementById('listCount');
+  var selectedFiles = [];
 
   dropZone.addEventListener('click', function() { fileInput.click(); });
   dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('drag'); });
@@ -296,26 +307,71 @@ const ADMIN_HTML = `<!DOCTYPE html>
   dropZone.addEventListener('drop', function(e) {
     e.preventDefault();
     dropZone.classList.remove('drag');
-    if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
+    if (e.dataTransfer.files.length) setFiles(e.dataTransfer.files);
   });
-  fileInput.addEventListener('change', function() { if (fileInput.files[0]) setFile(fileInput.files[0]); });
+  fileInput.addEventListener('change', function() { if (fileInput.files.length) setFiles(fileInput.files); });
 
   function escHtml(s) {
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
-  function setFile(f) {
-    fileInput._selected = f;
-    fileNameEl.textContent = f.name + ' (' + (f.size / 1024 / 1024).toFixed(1) + ' MB)';
+  function setFiles(fileList) {
+    selectedFiles = Array.from(fileList).filter(function(f) { return /\.(mp3|ogg|wav)$/i.test(f.name); });
+    if (selectedFiles.length === 0) {
+      fileNameEl.innerHTML = 'Chua chon file';
+      dropZone.classList.remove('has-file');
+      return;
+    }
+    dropZone.classList.add('has-file');
+    if (selectedFiles.length === 1) {
+      fileNameEl.innerHTML = escHtml(selectedFiles[0].name) +
+        ' <span style="opacity:0.7">(' + (selectedFiles[0].size / 1024 / 1024).toFixed(1) + ' MB)</span>';
+    } else {
+      var totalMB = selectedFiles.reduce(function(s, f) { return s + f.size; }, 0) / 1024 / 1024;
+      var listHtml = '<ul class="file-list">';
+      var show = Math.min(selectedFiles.length, 5);
+      for (var i = 0; i < show; i++) {
+        listHtml += '<li>' + escHtml(selectedFiles[i].name) + '</li>';
+      }
+      if (selectedFiles.length > 5) {
+        listHtml += '<li style="opacity:0.6">...va ' + (selectedFiles.length - 5) + ' file nua</li>';
+      }
+      listHtml += '</ul>';
+      fileNameEl.innerHTML = '<b>' + selectedFiles.length + ' files</b> (' + totalMB.toFixed(1) + ' MB tong)' + listHtml;
+    }
+  }
+
+  function clearFiles() {
+    selectedFiles = [];
+    try { fileInput.value = ''; } catch(e) {}
+    fileNameEl.innerHTML = 'Chua chon file';
+    dropZone.classList.remove('has-file');
   }
 
   function showStatus(msg, type) {
-    status.style.display = 'block';
-    status.className = type;
-    status.textContent = msg;
+    statusEl.style.display = 'block';
+    statusEl.className = type;
+    statusEl.textContent = msg;
   }
 
-  function loadSongList() {
+  function showProgress(pct, cur, total, name) {
+    statusEl.style.display = 'block';
+    statusEl.className = 'progress';
+    var label = total > 1 ? '[' + cur + '/' + total + '] Dang upload...' : 'Dang upload...';
+    var sub = total > 1 ? '<div style="font-size:11px;opacity:0.75;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escHtml(name) + '</div>' : '';
+    statusEl.innerHTML =
+      label + ' <span class="progress-pct">' + pct + '%</span>' + sub +
+      '<div class="progress-bar-wrap"><div class="progress-bar-fill" id="pbar" style="width:' + pct + '%"></div></div>';
+  }
+
+  function updateProgress(pct) {
+    var pbar = document.getElementById('pbar');
+    var pcts = statusEl.querySelector('.progress-pct');
+    if (pcts) pcts.textContent = pct + '%';
+    if (pbar) pbar.style.width = pct + '%';
+  }
+
+  function loadSongList(highlightFile) {
     fetch('/api/music/files').then(function(r) { return r.text(); }).then(function(text) {
       text = text.trim();
       if (!text) {
@@ -338,6 +394,21 @@ const ADMIN_HTML = `<!DOCTYPE html>
           '</div>';
       }
       songList.innerHTML = html;
+      if (highlightFile) {
+        var hlSet = {};
+        var hlArr = Array.isArray(highlightFile) ? highlightFile : [highlightFile];
+        for (var k = 0; k < hlArr.length; k++) hlSet[hlArr[k]] = true;
+        var items = songList.querySelectorAll('.song-item');
+        var firstNew = null;
+        for (var j = 0; j < items.length; j++) {
+          var nameEl = items[j].querySelector('.song-name');
+          if (nameEl && hlSet[nameEl.getAttribute('title')]) {
+            items[j].classList.add('song-new');
+            if (!firstNew) firstNew = items[j];
+          }
+        }
+        if (firstNew) firstNew.scrollIntoView({ block: 'nearest' });
+      }
     }).catch(function() {
       songList.innerHTML = '<div class="list-empty">Loi tai danh sach</div>';
     });
@@ -365,35 +436,66 @@ const ADMIN_HTML = `<!DOCTYPE html>
     });
   }
 
+  function doUpload(files, idx, user, pass, results) {
+    if (idx >= files.length) {
+      var ok = results.filter(function(r) { return r.ok; }).length;
+      var total = results.length;
+      if (ok === total) {
+        showStatus('Upload xong ' + ok + '/' + total + ' file thanh cong!', 'ok');
+      } else {
+        showStatus('Xong: ' + ok + '/' + total + ' thanh cong, ' + (total - ok) + ' that bai.', 'err');
+      }
+      var uploaded = results.filter(function(r) { return r.ok; }).map(function(r) { return r.name; });
+      loadSongList(uploaded.length ? uploaded : null);
+      clearFiles();
+      btn.disabled = false;
+      return;
+    }
+
+    var file = files[idx];
+    showProgress(0, idx + 1, files.length, file.name);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.upload.addEventListener('progress', function(e) {
+      if (e.lengthComputable) {
+        updateProgress(Math.round(e.loaded / e.total * 100));
+      }
+    });
+
+    xhr.addEventListener('load', function() {
+      results.push({ ok: xhr.status >= 200 && xhr.status < 300, name: file.name });
+      doUpload(files, idx + 1, user, pass, results);
+    });
+
+    xhr.addEventListener('error', function() {
+      results.push({ ok: false, name: file.name });
+      doUpload(files, idx + 1, user, pass, results);
+    });
+
+    xhr.addEventListener('abort', function() {
+      results.push({ ok: false, name: file.name });
+      doUpload(files, idx + 1, user, pass, results);
+    });
+
+    var fd = new FormData();
+    fd.append('music', file);
+    xhr.open('POST', '/admin/upload');
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(user + ':' + pass));
+    xhr.send(fd);
+  }
+
   btn.addEventListener('click', function() {
     var user = document.getElementById('user').value.trim();
     var pass = document.getElementById('pass').value;
-    var file = fileInput._selected || fileInput.files[0];
 
     if (!user || !pass) { showStatus('Nhap username va password!', 'err'); return; }
-    if (!file) { showStatus('Chon file nhac truoc!', 'err'); return; }
-    if (file.size > 100 * 1024 * 1024) { showStatus('File qua lon (toi da 100MB)!', 'err'); return; }
-
-    var formData = new FormData();
-    formData.append('music', file);
+    if (selectedFiles.length === 0) { showStatus('Chon file nhac truoc!', 'err'); return; }
+    var oversized = selectedFiles.filter(function(f) { return f.size > 100 * 1024 * 1024; });
+    if (oversized.length) { showStatus('"' + oversized[0].name + '" qua lon (toi da 100MB)!', 'err'); return; }
 
     btn.disabled = true;
-    showStatus('Dang upload, vui long cho...', 'progress');
-
-    fetch('/admin/upload', {
-      method: 'POST',
-      headers: { 'Authorization': 'Basic ' + btoa(user + ':' + pass) },
-      body: formData
-    }).then(function(r) {
-      return r.text().then(function(text) { return { ok: r.ok, text: text }; });
-    }).then(function(r) {
-      showStatus(r.text, r.ok ? 'ok' : 'err');
-      if (r.ok) loadSongList();
-    }).catch(function(e) {
-      showStatus('Loi ket noi: ' + e.message, 'err');
-    }).finally(function() {
-      btn.disabled = false;
-    });
+    doUpload(selectedFiles.slice(), 0, user, pass, []);
   });
 
   loadSongList();
