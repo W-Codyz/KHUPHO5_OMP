@@ -579,9 +579,9 @@ native bool:SetVehiclePos(vehicleid, Float:x, Float:y, Float:z);
  * <param name="vehicleid">The ID of the vehicle to get the z angle of</param>
  * <param name="angle">A float variable in which to store the z rotation, passed by reference</param>
  * <seealso name="GetVehicleRotationQuat" />
- * <seealso name="GetVehicleRotation" />
  * <seealso name="SetVehicleZAngle" />
  * <seealso name="GetVehiclePos" />
+ * <seealso name="GetVehicleMatrix" />
  * <seealso name="GetPlayerFacingAngle" />
  * <returns>
  *   <b><c>1</c></b>: The function executed successfully.<br />
@@ -599,20 +599,8 @@ native bool:GetVehicleZAngle(vehicleid, &Float:angle);
  * <param name="y">A float variable in which to store the third quaternion angle, passed by reference</param>
  * <param name="z">A float variable in which to store the fourth quaternion angle, passed by reference</param>
  * <seealso name="GetVehicleZAngle" />
- * <remarks>
- *   <b>To euler:</b><br />
- *   <code>
- *     // GetVehicleRotation Created by IllidanS4<br />
- *     stock GetVehicleRotation(vehicleid, &amp;Float:rx, &amp;Float:ry, &amp;Float:rz)<br />
- *     {<br />
- *         new Float:qw, Float:qx, Float:qy, Float:qz;<br />
- *         GetVehicleRotationQuat(vehicleid, qw, qx, qy, qz);<br />
- *         rx = asin((2 * qy * qz) - (2 * qx * qw));<br />
- *         ry = -atan2((qx * qz) + (qy * qw), 0.5 - (qx * qx) - (qy * qy));<br />
- *         rz = -atan2((qx * qy) + (qz * qw), 0.5 - (qx * qx) - (qz * qz));<br />
- *     }
- *   </code>
- * </remarks>
+ * <seealso name="GetVehicleRotation" />
+ * <seealso name="GetVehicleMatrix" />
  * <remarks>There is no 'set' variation of this function; you can not SET a vehicle's rotation (apart
  * from the <a href="#SetVehicleZAngle">z angle</a>) </remarks>
  * <remarks>This function may return incorrect values for unoccupied vehicles.  The reason is that the
@@ -890,8 +878,8 @@ native bool:RemoveVehicleComponent(vehicleid, component);
 
 /**
  * <library>omp_vehicle</library>
- * <summary>Is this component legal on this vehicle?</summary>
- * <param name="vehicleid">ID of the vehicle.</param>
+ * <summary>Is this component legal on this vehicle model?</summary>
+ * <param name="modelid">ID of the vehicle model.</param>
  * <param name="component">ID of the <a href="https://www.open.mp/docs/scripting/resources/carcomponentid">component</a>
  * to check.</param>
  * <seealso name="AddVehicleComponent" />
@@ -900,7 +888,7 @@ native bool:RemoveVehicleComponent(vehicleid, component);
  * <seealso name="OnVehicleMod" />
  * <seealso name="OnEnterExitModShop" />
  */
-native bool:VehicleCanHaveComponent(vehicleid, componentid);
+native bool:VehicleCanHaveComponent(modelid, componentid);
 
 /**
  * <library>omp_vehicle</library>
@@ -1606,8 +1594,46 @@ native bool:IsVehicleSirenEnabled(vehicleid);
 
 /**
  * <library>omp_vehicle</library>
+ * <summary>Gets the actual rotation matrix of the vehicle.</summary>
+ * <param name="vehicleid">The ID of the vehicle</param>
+ * <param name="rightX">A float variable in which to store the rightX coordinate, passed by reference</param>
+ * <param name="rightY">A float variable in which to store the rightY coordinate, passed by reference</param>
+ * <param name="rightZ">A float variable in which to store the rightZ coordinate, passed by reference</param>
+ * <param name="upX">A float variable in which to store the upX coordinate, passed by reference</param>
+ * <param name="upY">A float variable in which to store the upY coordinate, passed by reference</param>
+ * <param name="upZ">A float variable in which to store the upZ coordinate, passed by reference</param>
+ * <param name="atX">A float variable in which to store the atX coordinate, passed by reference</param>
+ * <param name="atY">A float variable in which to store the atY coordinate, passed by reference</param>
+ * <param name="atZ">A float variable in which to store the atZ coordinate, passed by reference</param>
+ * <seealso name="GetVehicleRotationQuat" />
+ * <returns>
+ *   <b><c>1</c></b>: The function executed successfully.<br />
+ *   <b><c>0</c></b>: The function failed to execute.  This means the vehicle specified does not exist.
+ * </returns>
  */
 native bool:GetVehicleMatrix(vehicleid, &Float:rightX, &Float:rightY, &Float:rightZ, &Float:upX, &Float:upY, &Float:upZ, &Float:atX, &Float:atY, &Float:atZ);
+
+/**
+ * <library>omp_vehicle</library>
+ * <summary>Returns a vehicle's rotation as euler.</summary>
+ * <param name="vehicleid">The ID of the vehicle to get the rotation of</param>
+ * <param name="x">A float variable in which to store the X axis angle, passed by reference</param>
+ * <param name="y">A float variable in which to store the Y axis angle, passed by reference</param>
+ * <param name="z">A float variable in which to store the Z axis angle, passed by reference</param>
+ * <seealso name="GetVehicleZAngle" />
+ * <seealso name="GetVehicleRotationQuat" />
+ * <seealso name="GetVehicleMatrix" />
+ * <remarks>There is no 'set' variation of this function; you can not SET a vehicle's rotation (apart
+ * from the <a href="#SetVehicleZAngle">z angle</a>) </remarks>
+ * <remarks>This function may return incorrect values for unoccupied vehicles.  The reason is that the
+ * third row of the vehicle's internal rotation matrix gets corrupted if it gets updated while unoccupied.
+ * </remarks>
+ * <returns>
+ *   <b><c>1</c></b>: The function executed successfully.<br />
+ *   <b><c>0</c></b>: The function failed to execute.  This means the vehicle specified does not exist.
+ * </returns>
+ */
+native bool:GetVehicleRotation(vehicleid, &Float:x, &Float:y, &Float:z);
 
 /**
  * <library>omp_vehicle</library>
